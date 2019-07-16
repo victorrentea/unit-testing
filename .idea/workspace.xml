@@ -4,7 +4,19 @@
     <bookmark url="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/BankApplication.java" description=").forEach(em::persist);" line="47" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/SimpleSimpleSimple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/parameterized/SumaTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/DeLaZero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/unit-testing.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ro/victor/unittest/bank/repo/ClientMybatisRepository.xml" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,15 +39,32 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/TestingExceptions.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="63" column="33" lean-forward="true" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
+            <state relative-caret-position="75">
+              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#396#397#0" expanded="true" />
-                <element signature="e#452#453#0" expanded="true" />
+                <element signature="e#238#239#0" expanded="true" />
+                <element signature="e#295#296#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -60,6 +89,8 @@
       <find>rowmapp</find>
       <find>hsql</find>
       <find>&quot;realdb&quot;</find>
+      <find>setScore(0, 0);</find>
+      <find>String score = tennisGame.score();</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -68,14 +99,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/search/Client.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/search/Student.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/search/Account.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/client/Account.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/client/Client.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/client/Teacher.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/client/Address.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/client/entity/Account.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/client/repo/TeacherRepo.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/client/repo/TeacherSearchCriteria.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/client/repo/ClientSearchCriteria.java" />
@@ -83,7 +106,6 @@
         <option value="$PROJECT_DIR$/src/test/resources/lombok.config" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/entity/Account.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/entity/Address.java" />
-        <option value="$PROJECT_DIR$/src/test/java/lombok.config" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/MockitoShowcaseTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/TeacherSearchBehaviorSteps.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/repo/ClientSearchResult.java" />
@@ -98,7 +120,6 @@
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientSearchResult.java" />
         <option value="$PROJECT_DIR$/src/test/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TimeProvider.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRule.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientSearchCriteria.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/vo/ClientSearchCriteria.java" />
         <option value="$PROJECT_DIR$/src/test/resources/client-search.feature" />
@@ -119,6 +140,16 @@
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/infra/SmsSender.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/service/BusinessLogicService.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/TestingExceptions.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/parameterized/Suma.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/parameterized/SumaTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRule.java" />
+        <option value="$PROJECT_DIR$/src/test/java/lombok.config" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/DeLaZero.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/SimpleSimpleSimple.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" />
       </list>
     </option>
   </component>
@@ -133,7 +164,7 @@
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="x" value="260" />
     <option name="y" value="21" />
     <option name="width" value="1400" />
@@ -181,6 +212,15 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="unittest" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unit-testing" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="unittest" type="462c0819:PsiDirectoryNode" />
+              <item name="tdd" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -204,22 +244,26 @@
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.cucumber.search" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.cucumber.search" />
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -234,90 +278,90 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TestingExceptions">
-    <configuration name="MvcTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.TennisGameParameterizedTest">
+    <configuration name="TennisGameParameterizedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mvc.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mvc" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mvc.MvcTest" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameParameterizedTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PowerToTheMasses" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TennisGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.PowerToTheMasses" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestingExceptions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TennisGameTest.loveLove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.TestingExceptions" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestingExceptions.throwsForNegativeParam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.TestingExceptions" />
-      <option name="METHOD_NAME" value="throwsForNegativeParam" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
+      <option name="METHOD_NAME" value="loveLove" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransactionalTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TennisGameTest.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.db.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.db" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.TransactionalTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ro.victor.unittest.tdd in unit-testing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestingExceptions" />
-        <item itemvalue="JUnit.TestingExceptions.throwsForNegativeParam" />
-        <item itemvalue="JUnit.MvcTest" />
-        <item itemvalue="JUnit.TransactionalTest" />
-        <item itemvalue="JUnit.PowerToTheMasses" />
+        <item itemvalue="JUnit.TennisGameParameterizedTest" />
+        <item itemvalue="JUnit.TennisGameTest" />
+        <item itemvalue="JUnit.TennisGameTest.loveLove" />
+        <item itemvalue="JUnit.TennisGameTest.test1" />
+        <item itemvalue="JUnit.ro.victor.unittest.tdd in unit-testing" />
       </list>
     </recent_temporary>
   </component>
@@ -338,7 +382,7 @@
       <workItem from="1562829680173" duration="7976000" />
       <workItem from="1562876099325" duration="7389000" />
       <workItem from="1563129384122" duration="6171000" />
-      <workItem from="1563265060098" duration="614000" />
+      <workItem from="1563265060098" duration="12281000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -428,45 +472,45 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestingExceptions - 2019.07.16 at 10h 58m 23s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameTest - 2019.07.16 at 15h 45m 04s.xml">
+      <configuration name="TennisGameTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestingExceptions - 2019.07.16 at 10h 58m 39s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameTest_loveLove - 2019.07.16 at 15h 45m 58s.xml">
+      <configuration name="TennisGameTest.loveLove" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestingExceptions - 2019.07.16 at 10h 58m 59s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameTest_loveLove - 2019.07.16 at 15h 48m 15s.xml">
+      <configuration name="TennisGameTest.loveLove" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestingExceptions - 2019.07.16 at 10h 59m 34s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameTest - 2019.07.16 at 15h 48m 23s.xml">
+      <configuration name="TennisGameTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestingExceptions - 2019.07.16 at 10h 59m 48s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameTest - 2019.07.16 at 15h 50m 36s.xml">
+      <configuration name="TennisGameTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestingExceptions - 2019.07.16 at 11h 07m 22s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameTest - 2019.07.16 at 15h 51m 25s.xml">
+      <configuration name="TennisGameTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestingExceptions - 2019.07.16 at 11h 07m 38s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameTest - 2019.07.16 at 15h 54m 03s.xml">
+      <configuration name="TennisGameTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestingExceptions - 2019.07.16 at 11h 08m 48s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameTest - 2019.07.16 at 15h 55m 20s.xml">
+      <configuration name="TennisGameTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestingExceptions - 2019.07.16 at 11h 10m 54s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameTest - 2019.07.16 at 15h 55m 51s.xml">
+      <configuration name="TennisGameTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestingExceptions - 2019.07.16 at 11h 11m 19s.xml">
-      <configuration name="TestingExceptions" configurationId="JUnit" />
+    <history-entry file="TennisGameParameterizedTest - 2019.07.16 at 16h 04m 48s.xml">
+      <configuration name="TennisGameParameterizedTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35869000" />
+    <option name="totallyTimeSpent" value="47536000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="0" y="0" width="1366" height="768" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" weight="0.33207262" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" weight="0.13615733" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -487,7 +531,7 @@
       <window_info anchor="bottom" id="Java Enterprise" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32739726" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.3254086" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -499,8 +543,44 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info anchor="right" id="Bean Validation" order="10" weight="0.32969153" />
-      <window_info anchor="right" id="Run" order="11" weight="0.3237519" />
+      <window_info anchor="right" id="Run" order="11" weight="0.12632374" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" weight="0.20045386" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" sideWeight="0.50167227" side_tool="true" weight="0.48033282" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32876712" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="5" />
+      <window_info anchor="bottom" id="Spring" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Java Enterprise" order="10" />
+      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="bottom" id="Version Control" order="12" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.3254086" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Key Promoter X" order="6" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info anchor="right" id="Bean Validation" order="10" weight="0.32969153" />
+      <window_info active="true" anchor="right" id="Run" order="11" visible="true" weight="0.13388805" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -508,6 +588,9 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
     <MESSAGE value="rename bdd to filtering.&#10;added time @Rule" />
     <MESSAGE value="unittesting: Add Cucumber + DB testing" />
     <MESSAGE value="unittesting: fix typo in .feature" />
@@ -523,96 +606,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Exceptii cu mesaj text." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/vo/ClientSearchResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.2.0.Final/mapstruct-1.2.0.Final-sources.jar!/org/mapstruct/Mapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis-spring/2.0.1/mybatis-spring-2.0.1.jar!/org/mybatis/spring/annotation/MapperScan.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis-spring/2.0.1/mybatis-spring-2.0.1-sources.jar!/org/mybatis/spring/annotation/MapperScan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="64" column="2" lean-forward="true" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1-sources.jar!/org/hsqldb/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientMybatisRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientJdbcRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#378#379#0" expanded="true" />
-            <element signature="e#406#407#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientJpaRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="81" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="81" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientMybatisRepository.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/entity/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/entity/Account.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
@@ -658,16 +651,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/MutationProofTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/UnitTestingApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -840,12 +823,128 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/TestingExceptions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="63" column="33" lean-forward="true" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
+        <state relative-caret-position="207">
+          <caret line="64" column="9" selection-start-line="64" selection-start-column="9" selection-end-line="65" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#396#397#0" expanded="true" />
             <element signature="e#452#453#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/parameterized/SumaTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+          <folding>
+            <element signature="e#122#123#0" expanded="true" />
+            <element signature="e#147#148#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TimeProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/util/Date.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="165" column="11" selection-start-line="165" selection-start-column="11" selection-end-line="165" selection-end-column="11" />
+          <folding>
+            <element signature="e#6471#6472#0" expanded="true" />
+            <element signature="e#6519#6520#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/lombok.config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/SimpleSimpleSimple.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#216#217#0" expanded="true" />
+            <element signature="e#254#255#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/DeLaZero.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="94" column="26" lean-forward="true" selection-start-line="94" selection-start-column="26" selection-end-line="94" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1334#1335#0" expanded="true" />
+            <element signature="e#1377#1378#0" expanded="true" />
+            <element signature="e#878#879#0" expanded="true" />
+            <element signature="e#935#936#0" expanded="true" />
+            <element signature="e#1936#1937#0" expanded="true" />
+            <element signature="e#1972#1973#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="68" column="17" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding>
+            <element signature="e#238#239#0" expanded="true" />
+            <element signature="e#295#296#0" expanded="true" />
           </folding>
         </state>
       </provider>
