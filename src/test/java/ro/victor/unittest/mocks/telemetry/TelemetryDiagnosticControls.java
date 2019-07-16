@@ -36,17 +36,15 @@ public class TelemetryDiagnosticControls {
 		if (! telemetryClient.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
-		configureClient();
 
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
-		diagnosticInfo = telemetryClient.receive();
-	}
-
-	private void configureClient() {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(UUID.randomUUID().toString());
 		config.setSessionStart(System.currentTimeMillis());
 		config.setAckMode(AckMode.NORMAL);
 		telemetryClient.configure(config);
+
+		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		diagnosticInfo = telemetryClient.receive();
 	}
+
 }
