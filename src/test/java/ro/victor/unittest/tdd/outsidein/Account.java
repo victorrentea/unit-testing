@@ -1,5 +1,7 @@
 package ro.victor.unittest.tdd.outsidein;
 
+import java.util.List;
+
 public class Account {
     private final TransactionRepository transactionRepository;
     private final StatementPrinter statementPrinter;
@@ -18,6 +20,7 @@ public class Account {
     }
 
     public void printStatement() {
-        statementPrinter.print(transactionRepository.allTransactions());
+        List<Transaction> transactions = transactionRepository.getAllTransactions();
+        statementPrinter.print(transactions);
     }
 }
