@@ -1,6 +1,11 @@
 package ro.victor.unittest.tdd;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
+
+import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 

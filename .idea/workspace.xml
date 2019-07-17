@@ -5,17 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_powermock_powermock_api_mockito2_2_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_powermock_powermock_api_support_2_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_powermock_powermock_core_2_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_powermock_powermock_module_junit4_2_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_powermock_powermock_module_junit4_common_2_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_powermock_powermock_reflect_2_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/assertions/AssertionsPlayTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountShould.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/PrintStatementFeature.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepositoryShould.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/OldSingleton.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerToTheMasses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerToTheMasses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -37,108 +39,27 @@
     <favorites_list name="unit-testing" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6616114">
+    <splitter split-orientation="horizontal" split-proportion="0.28808865">
       <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+        <leaf>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java">
+            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
-                  <folding>
-                    <element signature="e#1309#1310#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/resources/tennis-game.feature">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="199">
-                  <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+                <state relative-caret-position="240">
+                  <caret line="51" column="30" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="30" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/pom.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1017">
-                  <caret line="124" column="21" lean-forward="true" selection-start-line="112" selection-start-column="8" selection-end-line="124" selection-end-column="21" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="220">
-                  <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
-                  <folding>
-                    <element signature="e#665#666#0" expanded="true" />
-                    <element signature="e#710#711#0" expanded="true" />
-                    <element signature="e#679#680#0" expanded="true" />
-                    <element signature="e#722#723#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryClient.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="215">
-                  <caret line="24" column="56" selection-start-line="24" selection-start-column="56" selection-end-line="24" selection-end-column="56" />
-                  <folding>
-                    <element signature="e#707#708#0" expanded="true" />
-                    <element signature="e#1426#1427#0" expanded="true" />
-                    <element signature="e#1453#1454#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="168">
-                  <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="320">
-                  <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#591#592#0" expanded="true" />
-                    <element signature="e#628#629#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="96">
-                  <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="209">
-                  <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+                <state relative-caret-position="200">
+                  <caret line="40" column="34" lean-forward="true" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+                  <folding>
+                    <element signature="e#796#797#0" expanded="true" />
+                    <element signature="e#861#862#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -148,14 +69,12 @@
       <split-second>
         <leaf>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerToTheMasses.java">
+            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="336">
-                  <caret line="44" column="1" lean-forward="true" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
+                <state relative-caret-position="776">
+                  <caret line="59" column="16" selection-start-line="59" selection-start-column="10" selection-end-line="59" selection-end-column="16" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#588#589#0" expanded="true" />
-                    <element signature="e#653#654#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -170,6 +89,7 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -186,6 +106,7 @@
       <find>setScore(0, 0);</find>
       <find>String score = tennisGame.score();</find>
       <find>power</find>
+      <find>junit</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -194,18 +115,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/MockitoShowcaseTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/TeacherSearchBehaviorSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/repo/ClientSearchResult.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/entity/Client.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/BankApplication.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/repo/ClientJpaRepository.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/repo/ClientSearchCriteria.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/client-search.feature" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/ClientSearchBehaviorSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/cucumber/bank/ClientSearchBehaviorTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/ClientSearchBehaviorTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientSearchResult.java" />
         <option value="$PROJECT_DIR$/src/test/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TimeProvider.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientSearchCriteria.java" />
@@ -232,7 +141,6 @@
         <option value="$PROJECT_DIR$/src/test/java/lombok.config" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/DeLaZero.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/SimpleSimpleSimple.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" />
@@ -241,10 +149,23 @@
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" />
         <option value="$PROJECT_DIR$/src/test/resources/tennis-game.feature" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/OldSingleton.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/assertions/AssertionsPlayTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/BankFeature.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementFeature.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/readme.md" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountShould.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/PrintStatementFeature.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepository.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Account.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerToTheMasses.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepositoryShould.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" />
       </list>
     </option>
   </component>
@@ -276,10 +197,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
-    <option name="x" value="260" />
-    <option name="y" value="21" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="-19" />
+    <option name="y" value="168" />
+    <option name="width" value="1616" />
+    <option name="height" value="886" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -330,7 +251,7 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="unittest" type="462c0819:PsiDirectoryNode" />
-              <item name="mocks" type="462c0819:PsiDirectoryNode" />
+              <item name="assertions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
@@ -340,7 +261,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="unittest" type="462c0819:PsiDirectoryNode" />
               <item name="mocks" type="462c0819:PsiDirectoryNode" />
-              <item name="telemetry" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
@@ -349,17 +269,7 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="unittest" type="462c0819:PsiDirectoryNode" />
-              <item name="mocks" type="462c0819:PsiDirectoryNode" />
-              <item name="PowerToTheMasses.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
-            <path>
-              <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="unit-testing" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="unittest" type="462c0819:PsiDirectoryNode" />
-              <item name="tdd" type="462c0819:PsiDirectoryNode" />
+              <item name="tricks" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
@@ -367,6 +277,36 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.assertj:assertj-core:3.11.1" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.assertj:assertj-core:3.11.1" type="70bed36:NamedLibraryElementNode" />
+              <item name="assertj-core-3.11.1.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.assertj:assertj-core:3.11.1" type="70bed36:NamedLibraryElementNode" />
+              <item name="assertj-core-3.11.1.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unit-testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.assertj:assertj-core:3.11.1" type="70bed36:NamedLibraryElementNode" />
+              <item name="assertj-core-3.11.1.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -383,20 +323,30 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../training/kata/kata-tripservice-java" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.cucumber.search" />
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
@@ -406,11 +356,10 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.tdd" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.cucumber.search" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -425,27 +374,55 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.PowerToTheMasses">
-    <configuration name="Scenario: New Game" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/tennis-game.feature" />
-      <option name="GLUE" value="cucumber.api.spring" />
-      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
+  <component name="RunManager" selected="JUnit.PowerToTheMasses.productionCodeReturnsSingletonStateToUpper">
+    <configuration name="AccountShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
-      <option name="NAME_FILTER" value="^New Game$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome --name &quot;^New Game$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: New Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cucumber.api.cli.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.AccountShould" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PowerToTheMasses" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AccountShould.print_a_statement" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.AccountShould" />
+      <option name="METHOD_NAME" value="print_a_statement" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountShould.store_a_deposit_transaction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.AccountShould" />
+      <option name="METHOD_NAME" value="store_a_deposit_transaction" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PowerToTheMasses.productionCodeReturnsSingletonStateToUpper" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -455,51 +432,22 @@
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.PowerToTheMasses" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="productionCodeReturnsSingletonStateToUpper" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TelemetryDiagnosticControlsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PrintStatementFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TennisGameFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameFeature" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TennisGameParameterizedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameParameterizedTest" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.PrintStatementFeature" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -507,11 +455,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PowerToTheMasses" />
-        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
-        <item itemvalue="JUnit.TennisGameFeature" />
-        <item itemvalue="Cucumber java.Scenario: New Game" />
-        <item itemvalue="JUnit.TennisGameParameterizedTest" />
+        <item itemvalue="JUnit.PowerToTheMasses.productionCodeReturnsSingletonStateToUpper" />
+        <item itemvalue="JUnit.PrintStatementFeature" />
+        <item itemvalue="JUnit.AccountShould" />
+        <item itemvalue="JUnit.AccountShould.print_a_statement" />
+        <item itemvalue="JUnit.AccountShould.store_a_deposit_transaction" />
       </list>
     </recent_temporary>
   </component>
@@ -532,7 +480,7 @@
       <workItem from="1562829680173" duration="7976000" />
       <workItem from="1562876099325" duration="7389000" />
       <workItem from="1563129384122" duration="6171000" />
-      <workItem from="1563265060098" duration="18192000" />
+      <workItem from="1563265060098" duration="28569000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -650,44 +598,44 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TelemetryDiagnosticControlsTest - 2019.07.16 at 17h 45m 27s.xml">
-      <configuration name="TelemetryDiagnosticControlsTest" configurationId="JUnit" />
+    <history-entry file="TennisGameTest_mar2 - 2019.07.16 at 23h 51m 26s.xml">
+      <configuration name="TennisGameTest.mar2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TelemetryDiagnosticControlsTest - 2019.07.16 at 17h 47m 23s.xml">
-      <configuration name="TelemetryDiagnosticControlsTest" configurationId="JUnit" />
+    <history-entry file="PrintStatementFeature - 2019.07.17 at 01h 05m 34s.xml">
+      <configuration name="PrintStatementFeature" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TelemetryDiagnosticControlsTest - 2019.07.16 at 17h 47m 43s.xml">
-      <configuration name="TelemetryDiagnosticControlsTest" configurationId="JUnit" />
+    <history-entry file="PrintStatementFeature - 2019.07.17 at 01h 09m 19s.xml">
+      <configuration name="PrintStatementFeature" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TelemetryDiagnosticControlsTest - 2019.07.16 at 17h 49m 52s.xml">
-      <configuration name="TelemetryDiagnosticControlsTest" configurationId="JUnit" />
+    <history-entry file="AccountShould_store_a_deposit_transaction - 2019.07.17 at 01h 19m 47s.xml">
+      <configuration name="AccountShould.store_a_deposit_transaction" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TelemetryDiagnosticControlsTest - 2019.07.16 at 17h 50m 16s.xml">
-      <configuration name="TelemetryDiagnosticControlsTest" configurationId="JUnit" />
+    <history-entry file="AccountShould - 2019.07.17 at 01h 20m 42s.xml">
+      <configuration name="AccountShould" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TelemetryDiagnosticControlsTest - 2019.07.16 at 17h 50m 37s.xml">
-      <configuration name="TelemetryDiagnosticControlsTest" configurationId="JUnit" />
+    <history-entry file="AccountShould - 2019.07.17 at 01h 22m 06s.xml">
+      <configuration name="AccountShould" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TelemetryDiagnosticControlsTest - 2019.07.16 at 17h 57m 04s.xml">
-      <configuration name="TelemetryDiagnosticControlsTest" configurationId="JUnit" />
+    <history-entry file="AccountShould - 2019.07.17 at 01h 33m 02s.xml">
+      <configuration name="AccountShould" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PowerToTheMasses - 2019.07.16 at 23h 40m 17s.xml">
-      <configuration name="PowerToTheMasses" configurationId="JUnit" />
+    <history-entry file="AccountShould - 2019.07.17 at 01h 33m 40s.xml">
+      <configuration name="AccountShould" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PowerToTheMasses - 2019.07.16 at 23h 41m 20s.xml">
-      <configuration name="PowerToTheMasses" configurationId="JUnit" />
+    <history-entry file="PrintStatementFeature - 2019.07.17 at 01h 34m 22s.xml">
+      <configuration name="PrintStatementFeature" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PowerToTheMasses - 2019.07.16 at 23h 41m 51s.xml">
-      <configuration name="PowerToTheMasses" configurationId="JUnit" />
+    <history-entry file="PowerToTheMasses_productionCodeReturnsSingletonStateToUpper - 2019.07.17 at 09h 57m 06s.xml">
+      <configuration name="PowerToTheMasses.productionCodeReturnsSingletonStateToUpper" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53447000" />
+    <option name="totallyTimeSpent" value="63824000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1600" height="900" extended-state="6" />
+    <frame x="0" y="0" width="1366" height="768" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.23586118" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.36838123" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -708,11 +656,11 @@
       <window_info anchor="bottom" id="Java Enterprise" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.3254086" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32392272" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24962178" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.17673522" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.37897125" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Key Promoter X" order="6" />
@@ -720,44 +668,8 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info anchor="right" id="Bean Validation" order="10" weight="0.32969153" />
-      <window_info active="true" anchor="right" id="Run" order="11" visible="true" weight="0.21401028" />
+      <window_info anchor="right" id="Run" order="11" weight="0.19591528" />
     </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" weight="0.20045386" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" sideWeight="0.50167227" side_tool="true" weight="0.48033282" />
-      <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32876712" />
-      <window_info anchor="bottom" id="Debug" order="2" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="5" />
-      <window_info anchor="bottom" id="Spring" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Java Enterprise" order="10" />
-      <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info anchor="bottom" id="Version Control" order="12" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.3254086" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Key Promoter X" order="6" />
-      <window_info anchor="right" id="Database" order="7" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="right" id="Theme Preview" order="9" />
-      <window_info anchor="right" id="Bean Validation" order="10" weight="0.32969153" />
-      <window_info active="true" anchor="right" id="Run" order="11" visible="true" weight="0.13388805" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -791,59 +703,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/resources/application-realdb.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/StartDatabase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/NonTransactionalTest.orderIsFoundByReference.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/ro/victor/unittest/db/NonTransactionalTest.countUsers.sql" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-test/2.1.4.RELEASE/spring-boot-test-2.1.4.RELEASE-sources.jar!/org/springframework/boot/test/context/SpringBootTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="78" column="18" selection-start-line="78" selection-start-column="18" selection-end-line="78" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-test/5.1.6.RELEASE/spring-test-5.1.6.RELEASE-sources.jar!/org/springframework/test/context/jdbc/SqlScriptsTestExecutionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1728">
-          <folding>
-            <element signature="e#0#12925#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/expected.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/NonTransactionalTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-72">
-          <caret line="26" column="26" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/TransactionalTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="768">
-          <caret line="57" column="1" lean-forward="true" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/common-reference-data.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/TransactionalTest.orderIsFoundByReference.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/infra/SmsSender.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/service/BusinessLogicService.java" />
     <entry file="file://C:/kotlin-kindergarden/kotlin-kindergarden.iml" />
@@ -960,17 +819,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/util/Date.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="165" column="11" selection-start-line="165" selection-start-column="11" selection-end-line="165" selection-end-column="11" />
-          <folding>
-            <element signature="e#6471#6472#0" expanded="true" />
-            <element signature="e#6519#6520#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1023,30 +871,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="68" column="17" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/tennis-score.feature">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1064,28 +888,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#591#592#0" expanded="true" />
-            <element signature="e#628#629#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1108,31 +910,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="67" column="24" selection-start-line="67" selection-start-column="24" selection-end-line="67" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#598#599#0" expanded="true" />
-            <element signature="e#661#662#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
-          <folding>
-            <element signature="e#665#666#0" expanded="true" />
-            <element signature="e#710#711#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#722#723#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/OldSingleton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
@@ -1140,22 +917,212 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerToTheMasses.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/assertj/assertj-core/3.11.1/assertj-core-3.11.1-sources.jar!/org/assertj/core/api/Assertions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="44" column="1" lean-forward="true" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
+        <state relative-caret-position="259">
+          <caret line="2612" column="40" selection-start-line="2612" selection-start-column="40" selection-end-line="2612" selection-end-column="40" />
+          <folding>
+            <element signature="e#103515#103516#0" expanded="true" />
+            <element signature="e#103574#103575#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="109">
+            <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#588#589#0" expanded="true" />
-            <element signature="e#653#654#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="12" column="9" lean-forward="true" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" column="34" lean-forward="true" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
+          <folding>
+            <element signature="e#106#107#0" expanded="true" />
+            <element signature="e#163#164#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountShould.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="26" column="51" lean-forward="true" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#412#413#0" expanded="true" />
+            <element signature="e#473#474#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#591#592#0" expanded="true" />
+            <element signature="e#628#629#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/PrintStatementFeature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" selection-start-line="10" selection-end-line="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#293#294#0" expanded="true" />
+            <element signature="e#343#344#0" expanded="true" />
+            <element signature="e#390#391#0" expanded="true" />
+            <element signature="e#447#448#0" expanded="true" />
+            <element signature="e#540#541#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepositoryShould.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#343#344#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#756#757#0" expanded="true" />
+            <element signature="e#783#784#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/util/Date.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="166" column="37" selection-start-line="166" selection-start-column="20" selection-end-line="166" selection-end-column="37" />
+          <folding>
+            <element signature="e#6471#6472#0" expanded="true" />
+            <element signature="e#6519#6520#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerToTheMasses.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1017">
-          <caret line="124" column="21" lean-forward="true" selection-start-line="112" selection-start-column="8" selection-end-line="124" selection-end-column="21" />
+        <state relative-caret-position="86">
+          <caret line="100" column="20" lean-forward="true" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/assertions/AssertionsPlayTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" column="18" lean-forward="true" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+          <folding>
+            <element signature="e#352#353#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="51" column="30" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="40" column="34" lean-forward="true" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+          <folding>
+            <element signature="e#796#797#0" expanded="true" />
+            <element signature="e#861#862#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="776">
+          <caret line="59" column="16" selection-start-line="59" selection-start-column="10" selection-end-line="59" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

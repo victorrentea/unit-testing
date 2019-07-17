@@ -19,7 +19,8 @@ public class PowerToTheMasses {
 	public static final String CONST = "a";
 
 	private String productionCode() {
-		return OldSingleton.getInstance().getState().toUpperCase();
+		OldSingleton mock = OldSingleton.getInstance();
+		return mock.getState().toUpperCase();
 	}
 
 	@Test
@@ -29,7 +30,7 @@ public class PowerToTheMasses {
 		when(OldSingleton.getInstance()).thenReturn(tzeapa);
 		when(tzeapa.getState()).thenReturn("a");
 
-		String rez =productionCode();
+		String rez = productionCode();
 
 		assertEquals("A", rez);
 
