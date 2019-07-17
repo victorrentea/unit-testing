@@ -5,18 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountFeature.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Clock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/ClockShould.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinterShould.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountShould.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountFeature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/ClockShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/ClockShould.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/PrintStatementFeature.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepositoryShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepositoryShould.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,7 +33,7 @@
     <favorites_list name="unit-testing" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5650529">
+    <splitter split-orientation="horizontal" split-proportion="0.45385778">
       <split-first>
         <leaf>
           <file pinned="false" current-in-tab="false">
@@ -53,11 +48,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountFeature.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="149">
-                  <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+                <state relative-caret-position="336">
+                  <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -68,12 +63,26 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepositoryShould.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="110">
-                  <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+                <state>
+                  <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#550#551#0" expanded="true" />
                     <element signature="e#620#621#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinterShould.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="418">
+                  <caret line="35" column="51" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#269#270#0" expanded="true" />
+                    <element signature="e#326#327#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -93,15 +102,13 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/ClockShould.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="19" selection-start-line="19" selection-end-line="19" />
+                <state relative-caret-position="74">
+                  <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#283#422#0" expanded="true" />
-                    <element signature="e#421#422#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -111,13 +118,14 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="84">
-                  <caret line="4" selection-start-line="4" selection-end-line="4" />
+                  <caret line="4" column="50" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="50" />
                   <folding>
-                    <element signature="e#159#160#0" expanded="true" />
+                    <element signature="e#105#106#0" expanded="true" />
+                    <element signature="e#162#163#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -172,9 +180,13 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="600">
-                  <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+                <state relative-caret-position="16">
+                  <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="22" />
                   <folding>
+                    <element signature="e#315#316#0" expanded="true" />
+                    <element signature="e#345#346#0" expanded="true" />
+                    <element signature="e#375#376#0" expanded="true" />
+                    <element signature="e#404#405#0" expanded="true" />
                     <element signature="e#625#626#0" expanded="true" />
                     <element signature="e#677#678#0" expanded="true" />
                   </folding>
@@ -185,17 +197,20 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret column="22" selection-start-column="22" selection-end-column="22" />
+                <state relative-caret-position="243">
+                  <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
                   <folding>
-                    <element signature="e#156#157#0" expanded="true" />
-                    <element signature="e#213#214#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#283#284#0" expanded="true" />
+                    <element signature="e#321#322#0" expanded="true" />
+                    <element signature="e#1162#1163#0" expanded="true" />
+                    <element signature="e#1229#1230#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Clock.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="209">
@@ -244,7 +259,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/vo/ClientSearchCriteria.java" />
         <option value="$PROJECT_DIR$/src/test/resources/client-search.feature" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/bank.sql" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientJpaRepository.java" />
@@ -285,16 +299,17 @@
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerToTheMasses.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Account.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountShould.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountFeature.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepositoryShould.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepository.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Clock.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/ClockShould.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinterShould.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountFeature.java" />
       </list>
     </option>
   </component>
@@ -589,7 +604,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ClockShould.return_formatted_date_as_dd_MM_yyyy">
+  <component name="RunManager" selected="JUnit.AccountFeature">
     <configuration name="AccountFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -600,21 +615,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.AccountFeature" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AccountShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.AccountShould" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -636,6 +636,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StatementPrinterShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.StatementPrinterShould" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StatementPrinterShould.print_transactions_in_reverse_order" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.StatementPrinterShould" />
+      <option name="METHOD_NAME" value="print_transactions_in_reverse_order" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TransactionRepositoryShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -651,29 +682,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransactionRepositoryShould.returns_created_deposit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.TransactionRepositoryShould" />
-      <option name="METHOD_NAME" value="returns_created_deposit" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ClockShould.return_formatted_date_as_dd_MM_yyyy" />
         <item itemvalue="JUnit.AccountFeature" />
         <item itemvalue="JUnit.TransactionRepositoryShould" />
-        <item itemvalue="JUnit.TransactionRepositoryShould.returns_created_deposit" />
-        <item itemvalue="JUnit.AccountShould" />
+        <item itemvalue="JUnit.StatementPrinterShould" />
+        <item itemvalue="JUnit.StatementPrinterShould.print_transactions_in_reverse_order" />
+        <item itemvalue="JUnit.ClockShould.return_formatted_date_as_dd_MM_yyyy" />
       </list>
     </recent_temporary>
   </component>
@@ -694,7 +709,7 @@
       <workItem from="1562829680173" duration="7976000" />
       <workItem from="1562876099325" duration="7389000" />
       <workItem from="1563129384122" duration="6171000" />
-      <workItem from="1563265060098" duration="32089000" />
+      <workItem from="1563265060098" duration="33934000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -815,43 +830,50 @@
       <option name="project" value="LOCAL" />
       <updated>1563361478116</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Aproape gata (80%)">
+      <created>1563365001923</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1563365001923</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TransactionRepositoryShould_returns_created_deposit - 2019.07.17 at 14h 52m 27s.xml">
-      <configuration name="TransactionRepositoryShould.returns_created_deposit" configurationId="JUnit" />
+    <history-entry file="StatementPrinterShould_print_transactions_in_reverse_order - 2019.07.17 at 15h 10m 47s.xml">
+      <configuration name="StatementPrinterShould.print_transactions_in_reverse_order" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionRepositoryShould_returns_created_deposit - 2019.07.17 at 14h 52m 45s.xml">
-      <configuration name="TransactionRepositoryShould.returns_created_deposit" configurationId="JUnit" />
+    <history-entry file="StatementPrinterShould - 2019.07.17 at 15h 11m 00s.xml">
+      <configuration name="StatementPrinterShould" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionRepositoryShould_returns_created_deposit - 2019.07.17 at 14h 54m 11s.xml">
-      <configuration name="TransactionRepositoryShould.returns_created_deposit" configurationId="JUnit" />
+    <history-entry file="StatementPrinterShould - 2019.07.17 at 15h 20m 09s.xml">
+      <configuration name="StatementPrinterShould" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionRepositoryShould_returns_created_deposit - 2019.07.17 at 14h 54m 56s.xml">
-      <configuration name="TransactionRepositoryShould.returns_created_deposit" configurationId="JUnit" />
+    <history-entry file="StatementPrinterShould - 2019.07.17 at 15h 20m 34s.xml">
+      <configuration name="StatementPrinterShould" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionRepositoryShould_returns_created_deposit - 2019.07.17 at 14h 55m 12s.xml">
-      <configuration name="TransactionRepositoryShould.returns_created_deposit" configurationId="JUnit" />
+    <history-entry file="StatementPrinterShould - 2019.07.17 at 15h 24m 26s.xml">
+      <configuration name="StatementPrinterShould" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionRepositoryShould - 2019.07.17 at 14h 55m 47s.xml">
+    <history-entry file="StatementPrinterShould - 2019.07.17 at 15h 27m 41s.xml">
+      <configuration name="StatementPrinterShould" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TransactionRepositoryShould - 2019.07.17 at 15h 28m 50s.xml">
       <configuration name="TransactionRepositoryShould" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionRepositoryShould - 2019.07.17 at 14h 56m 35s.xml">
-      <configuration name="TransactionRepositoryShould" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AccountFeature - 2019.07.17 at 14h 57m 05s.xml">
+    <history-entry file="AccountFeature - 2019.07.17 at 15h 29m 41s.xml">
       <configuration name="AccountFeature" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ClockShould_return_formatted_date_as_dd_MM_yyyy - 2019.07.17 at 14h 59m 25s.xml">
-      <configuration name="ClockShould.return_formatted_date_as_dd_MM_yyyy" configurationId="JUnit" />
+    <history-entry file="AccountFeature - 2019.07.17 at 15h 30m 04s.xml">
+      <configuration name="AccountFeature" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ClockShould_return_formatted_date_as_dd_MM_yyyy - 2019.07.17 at 15h 00m 31s.xml">
-      <configuration name="ClockShould.return_formatted_date_as_dd_MM_yyyy" configurationId="JUnit" />
+    <history-entry file="AccountFeature - 2019.07.17 at 15h 31m 33s.xml">
+      <configuration name="AccountFeature" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67344000" />
+    <option name="totallyTimeSpent" value="69189000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="6" />
@@ -879,7 +901,7 @@
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32392272" />
-      <window_info anchor="bottom" auto_hide="true" id="Run" order="14" weight="0.31500742" />
+      <window_info active="true" anchor="bottom" auto_hide="true" id="Run" order="14" visible="true" weight="0.31500742" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24962178" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -919,16 +941,14 @@
     <MESSAGE value="prep mockito exercise" />
     <MESSAGE value="Mockito play" />
     <MESSAGE value="outside-in" />
-    <option name="LAST_COMMIT_MESSAGE" value="outside-in" />
+    <MESSAGE value="Aproape gata (80%)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aproape gata (80%)" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/resources/schema.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/NonTransactionalTest.countUsers.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1253,16 +1273,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="61">
-            <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Account.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-16">
@@ -1306,56 +1316,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/ClockShould.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#159#160#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="22" selection-start-column="22" selection-end-column="22" />
-          <folding>
-            <element signature="e#156#157#0" expanded="true" />
-            <element signature="e#213#214#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-          <folding>
-            <element signature="e#625#626#0" expanded="true" />
-            <element signature="e#677#678#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepositoryShould.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="74">
+          <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#550#551#0" expanded="true" />
-            <element signature="e#620#621#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountFeature.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Clock.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+        <state relative-caret-position="209">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#313#314#0" expanded="true" />
+            <element signature="e#351#352#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1376,26 +1354,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Clock.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="61">
+            <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Transaction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="16">
+          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#313#314#0" expanded="true" />
-            <element signature="e#351#352#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
+            <element signature="e#345#346#0" expanded="true" />
+            <element signature="e#375#376#0" expanded="true" />
+            <element signature="e#404#405#0" expanded="true" />
+            <element signature="e#625#626#0" expanded="true" />
+            <element signature="e#677#678#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/ClockShould.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinterShould.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="418">
+          <caret line="35" column="51" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#283#422#0" expanded="true" />
-            <element signature="e#421#422#0" expanded="true" />
+            <element signature="e#269#270#0" expanded="true" />
+            <element signature="e#326#327#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/StatementPrinter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#283#284#0" expanded="true" />
+            <element signature="e#321#322#0" expanded="true" />
+            <element signature="e#1162#1163#0" expanded="true" />
+            <element signature="e#1229#1230#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/TransactionRepositoryShould.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#550#551#0" expanded="true" />
+            <element signature="e#620#621#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/Console.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="50" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="50" />
+          <folding>
+            <element signature="e#105#106#0" expanded="true" />
+            <element signature="e#162#163#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/outsidein/AccountFeature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
