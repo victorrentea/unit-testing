@@ -23,7 +23,8 @@ public class TestTimeRuleTest {
         public TestTimeRule timeRule = new TestTimeRule(LocalDateTime.of(2019, 01, 01, 0, 0));
 
         @Test
-        public void testWithHackedTime() {
+        public void testWithHackedTime()
+        {
             assertEquals(timeRule.getTestTime(), getTimeFromProd());
         }
     }

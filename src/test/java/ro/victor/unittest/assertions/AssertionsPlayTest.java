@@ -7,16 +7,19 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class AssertionsPlayTest {
 
     @Test
     public void m() {
         String score = "Game won Player1";
-        Assertions.assertThat(score).isEqualTo("Game won Player1");
-        List<String> list = Arrays.asList("a", "b");
-        Assertions.assertThat(list).contains("b", "a");
-        List<Point> list2 = Arrays.asList(new Point(1, 2));
-        Assertions.assertThat(list2).anyMatch(e -> e.getX() == 1);
+        assertThat(score).isEqualTo("Game won Player1");
+        List<String> list = asList("a", "b");
+        assertThat(list).contains("b", "a");
+        List<Point> list2 = asList(new Point(1, 2));
+        assertThat(list2).anyMatch(e -> e.getX() == 1);
 
     }
 }

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="Outside IN TDD : DOne">
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/ExceptionalBiz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/ExceptionalBizTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/ClientSearchBehaviorSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/ClientSearchBehaviorSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/client-search.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/client-search.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/client-search.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/client-search.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/assertions/AssertionsPlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/assertions/AssertionsPlayTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/unit-testing.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/META-INF/unit-testing.kotlin_module" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +24,7 @@
     </execution>
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="214" />
+    <option name="myElementSize" value="128" />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -75,12 +74,6 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="491" />
-    <option name="y" value="13" />
-    <option name="width" value="800" />
-    <option name="height" value="812" />
-  </component>
   <component name="ProjectId" id="1Pj8iaXl9rojmyhuUbS7otvRHLv" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -91,6 +84,7 @@
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
@@ -118,13 +112,16 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ro.victor.unittest.tdd" />
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
@@ -144,18 +141,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.AccountFeature">
-    <configuration name="Feature: client-search" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/client-search.feature" />
-      <option name="GLUE" value="cucumber.api.spring" />
-      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
+  <component name="RunManager" selected="JUnit.TestTimeRuleTest$WithoutHackedTime.testWithoutTimeHack">
+    <configuration name="MyExceptionMatcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.MyExceptionMatcher" />
       <module name="unit-testing" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome" />
-      <option name="SUGGESTED_NAME" value="Feature: client-search" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cucumber.api.cli.*" />
+          <option name="PATTERN" value="ro.victor.unittest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -193,41 +185,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransactionRepositoryShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExceptionalBizTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
+          <option name="PATTERN" value="ro.victor.unittest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.TransactionRepositoryShould" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.ExceptionalBizTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BankApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="TestTimeRuleTest$WithoutHackedTime.testWithoutTimeHack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.bank.*" />
+          <option name="PATTERN" value="ro.victor.unittest.time.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ro.victor.unittest.bank.BankApplication" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.time" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.time.TestTimeRuleTest$WithoutHackedTime" />
+      <option name="METHOD_NAME" value="testWithoutTimeHack" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestTimeRuleTest$WithoutHackedTime.testWithoutTimeHack" />
+        <item itemvalue="Application.MyExceptionMatcher" />
+        <item itemvalue="JUnit.ExceptionalBizTest" />
         <item itemvalue="JUnit.AccountFeature" />
         <item itemvalue="JUnit.ClientSearchBehaviorTest" />
-        <item itemvalue="Cucumber java.Feature: client-search" />
-        <item itemvalue="Spring Boot.BankApplication" />
-        <item itemvalue="JUnit.TransactionRepositoryShould" />
       </list>
     </recent_temporary>
   </component>
@@ -254,6 +249,7 @@
       <workItem from="1563700798252" duration="2264000" />
       <workItem from="1563894326379" duration="2000" />
       <workItem from="1566376278889" duration="598000" />
+      <workItem from="1566378394544" duration="3886000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -388,40 +384,15 @@
       <option name="project" value="LOCAL" />
       <updated>1563366852496</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="START MHR session">
+      <created>1566378462457</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1566378462457</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="Feature__client-search - 2019.07.17 at 16h 12m 01s.xml">
-      <configuration name="Feature: client-search" configurationId="CucumberJavaRunConfigurationType" />
-    </history-entry>
-    <history-entry file="Feature__client-search - 2019.07.17 at 16h 12m 27s.xml">
-      <configuration name="Feature: client-search" configurationId="CucumberJavaRunConfigurationType" />
-    </history-entry>
-    <history-entry file="Feature__client-search - 2019.07.17 at 16h 15m 08s.xml">
-      <configuration name="Feature: client-search" configurationId="CucumberJavaRunConfigurationType" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 16m 01s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 18m 20s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 19m 39s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 22m 52s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 24m 53s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 38m 49s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AccountFeature - 2019.07.17 at 16h 40m 46s.xml">
-      <configuration name="AccountFeature" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -431,7 +402,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -462,7 +435,8 @@
     <MESSAGE value="outside-in" />
     <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
-    <option name="LAST_COMMIT_MESSAGE" value="Outside IN TDD : DOne" />
+    <MESSAGE value="START MHR session" />
+    <option name="LAST_COMMIT_MESSAGE" value="START MHR session" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -472,7 +446,7 @@
     <SUITE FILE_PATH="coverage/unit_testing$ClientSearchBehaviorTest.ic" NAME="ClientSearchBehaviorTest Coverage Results" MODIFIED="1563370638245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.bank.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/unit_testing$AccountFeature.ic" NAME="AccountFeature Coverage Results" MODIFIED="1563370806316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/unit_testing$AccountFeature.ic" NAME="AccountFeature Coverage Results" MODIFIED="1566378856597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.tdd.outsidein.*</FILTER>
     </SUITE>
   </component>
