@@ -5,27 +5,30 @@ import ro.victor.unittest.legacy.exception.UserNotLoggedInException;
 import ro.victor.unittest.legacy.model.Trip;
 import ro.victor.unittest.legacy.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.emptyList;
+
 public class TripService {
-	public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
-		List<Trip> tripList = new ArrayList<>();
-		User loggedUser = UserSession.getInstance().getLoggedUser();
-		boolean isFriend = false;
-		if (loggedUser !=null) {
-			for (User friend : user.getFriends()) {
-				if (friend.equals(loggedUser)) {
-					isFriend = true;
-					break;
-				}
-			}
-			if (isFriend) {
-				tripList = TripDAO.findTripsByUser(user);
-			}
-			return tripList;
-		} else {
-			throw new UserNotLoggedInException();
+    private final TripDAO tripDao;
+    private final UserSession userSession;
+
+    public TripService(TripDAO tripDao, UserSession userSession) {
+        this.tripDao = tripDao;
+        this.userSession = userSession;
+    }
+
+    public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
+        User loggedUser = userSession.getLoggedUser();
+        if (loggedUser == null) {
+            throw new UserNotLoggedInException();
+        }
+		if (user.isFriend(loggedUser)) {
+            return tripDao.findTripsByUser(user);
+        } else {
+			return emptyList();
 		}
-	}
+
+    }
+
 }

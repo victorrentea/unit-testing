@@ -16,4 +16,7 @@ public class User {
 		friend.friends.add(this);
 	}
 
+    public boolean isFriend(User otherUser) {
+		return friends.contains(otherUser);
+    }
 }

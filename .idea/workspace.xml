@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/TripServiceShould.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerToTheMasses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerToTheMasses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/TripDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/TripDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/TripService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/TripService.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +24,7 @@
     </execution>
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="128" />
+    <option name="myElementSize" value="66" />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -96,17 +100,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.cucumber.search" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.tdd" />
@@ -116,13 +122,11 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="ro.victor.unittest" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd.outsidein" />
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.cucumber.search" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -137,7 +141,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TestTimeRuleTest$WithoutHackedTime.testWithoutTimeHack">
+  <component name="RunManager" selected="JUnit.TripServiceShould">
     <configuration name="MyExceptionMatcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.MyExceptionMatcher" />
       <module name="unit-testing" />
@@ -147,36 +151,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AccountFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.AccountFeature" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ClientSearchBehaviorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.bank.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.bank" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.bank.ClientSearchBehaviorTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -212,13 +186,53 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TripServiceShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage" track_test_folders="true" runner="emma">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.legacy.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.legacy.service" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.legacy.service.TripServiceShould" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TripServiceShould.dummy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.legacy.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.legacy.service" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.legacy.service.TripServiceShould" />
+      <option name="METHOD_NAME" value="dummy" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.MyExceptionMatcher" />
+      <item itemvalue="JUnit.ExceptionalBizTest" />
+      <item itemvalue="JUnit.TestTimeRuleTest$WithoutHackedTime.testWithoutTimeHack" />
+      <item itemvalue="JUnit.TripServiceShould" />
+      <item itemvalue="JUnit.TripServiceShould.dummy" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TripServiceShould" />
+        <item itemvalue="JUnit.TripServiceShould.dummy" />
         <item itemvalue="JUnit.TestTimeRuleTest$WithoutHackedTime.testWithoutTimeHack" />
         <item itemvalue="Application.MyExceptionMatcher" />
         <item itemvalue="JUnit.ExceptionalBizTest" />
-        <item itemvalue="JUnit.AccountFeature" />
-        <item itemvalue="JUnit.ClientSearchBehaviorTest" />
       </list>
     </recent_temporary>
   </component>
@@ -246,7 +260,7 @@
       <workItem from="1563894326379" duration="2000" />
       <workItem from="1566376278889" duration="598000" />
       <workItem from="1566378394544" duration="3886000" />
-      <workItem from="1566383464099" duration="2791000" />
+      <workItem from="1566383464099" duration="8205000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -388,7 +402,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566378462457</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="initial for legacy code kata">
+      <created>1566398182123</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1566398182123</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -433,7 +454,8 @@
     <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
     <MESSAGE value="START MHR session" />
-    <option name="LAST_COMMIT_MESSAGE" value="START MHR session" />
+    <MESSAGE value="initial for legacy code kata" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial for legacy code kata" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -445,6 +467,9 @@
     </SUITE>
     <SUITE FILE_PATH="coverage/unit_testing$AccountFeature.ic" NAME="AccountFeature Coverage Results" MODIFIED="1566378856597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.tdd.outsidein.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/unit_testing$TripServiceShould.ic" NAME="TripServiceShould Coverage Results" MODIFIED="1566399581237" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>ro.victor.unittest.legacy.service.*</FILTER>
     </SUITE>
   </component>
   <component name="masterDetails">
