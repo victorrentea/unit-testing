@@ -19,14 +19,20 @@ public class TestTimeRuleTest {
     }
 
     public static class WithHackedTime {
-        @Rule
-        public TestTimeRule timeRule = new TestTimeRule(LocalDateTime.of(2019, 01, 01, 0, 0));
+        // TODO solution: uncomment this
+//        @Rule
+//        public TestTimeRule timeRule = new TestTimeRule(LocalDateTime.of(2019, 01, 01, 0, 0));
 
         @Test
         public void testWithHackedTime() {
-            assertEquals(timeRule.getTestTime(), getTimeFromProd());
+
+            LocalDateTime testTime = LocalDateTime.of(2019, 01, 01, 0, 0);
+            TimeProvider.setTestTime(testTime);
+            assertEquals(testTime, getTimeFromProd());
+            TimeProvider.clearTestTime(); // TODO forget this
         }
     }
+
     public static class WithoutHackedTime {
         @Test
         public void testWithoutTimeHack() {
