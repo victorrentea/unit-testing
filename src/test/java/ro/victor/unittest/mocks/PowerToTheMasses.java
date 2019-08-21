@@ -26,9 +26,9 @@ public class PowerToTheMasses {
 	@Test
 	public void productionCodeReturnsSingletonStateToUpper() {
 		PowerMockito.mockStatic(OldSingleton.class);
-		OldSingleton tzeapa = mock(OldSingleton.class);
-		when(OldSingleton.getInstance()).thenReturn(tzeapa);
-		when(tzeapa.getState()).thenReturn("a");
+		OldSingleton mock = mock(OldSingleton.class);
+		when(OldSingleton.getInstance()).thenReturn(mock);
+		when(mock.getState()).thenReturn("a");
 
 		String rez = productionCode();
 
