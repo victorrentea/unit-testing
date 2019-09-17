@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="Outside IN TDD : DOne">
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="TDD revert">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/java8/Java8.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/words/WordWrapTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/ClientSearchBehaviorSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/ClientSearchBehaviorSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/bank/repo/ClientJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/client-search.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/client-search.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/client-search.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/client-search.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,27 +42,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="JUnit4 Test Class" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>cucum</find>
-      <find>create</find>
-      <find>users</find>
-      <find>A Record with regliss reference</find>
-      <find>create table</find>
-      <find>rowmapp</find>
-      <find>hsql</find>
-      <find>&quot;realdb&quot;</find>
-      <find>setScore(0, 0);</find>
-      <find>String score = tennisGame.score();</find>
-      <find>power</find>
-      <find>junit</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -75,12 +65,6 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="491" />
-    <option name="y" value="13" />
-    <option name="width" value="800" />
-    <option name="height" value="812" />
-  </component>
   <component name="ProjectId" id="1Pj8iaXl9rojmyhuUbS7otvRHLv" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -91,6 +75,7 @@
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
@@ -103,7 +88,7 @@
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -118,17 +103,21 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.tdd" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd.outsidein" />
       <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+      <recent name="ro.victor.unittest.tdd.outsidein" />
       <recent name="ro.victor.unittest.cucumber.search" />
     </key>
   </component>
@@ -144,90 +133,92 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.AccountFeature">
-    <configuration name="Feature: client-search" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/client-search.feature" />
-      <option name="GLUE" value="cucumber.api.spring" />
-      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
-      <module name="unit-testing" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome" />
-      <option name="SUGGESTED_NAME" value="Feature: client-search" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cucumber.api.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AccountFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.TennisGameTest">
+    <configuration name="TennisGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.AccountFeature" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientSearchBehaviorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TennisGameTest.doamneMaIartaCaNamHabarInca" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.bank.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.bank" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.bank.ClientSearchBehaviorTest" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
+      <option name="METHOD_NAME" value="doamneMaIartaCaNamHabarInca" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TennisGameTest.loveFifteen" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
+      <option name="METHOD_NAME" value="loveFifteen" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WrapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.wordwrap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.wordwrap" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.wordwrap.WrapperTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransactionRepositoryShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WrapperTest.dummy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.outsidein.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.wordwrap.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.outsidein" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.outsidein.TransactionRepositoryShould" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BankApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.bank.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ro.victor.unittest.bank.BankApplication" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.wordwrap" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.wordwrap.WrapperTest" />
+      <option name="METHOD_NAME" value="dummy" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AccountFeature" />
-        <item itemvalue="JUnit.ClientSearchBehaviorTest" />
-        <item itemvalue="Cucumber java.Feature: client-search" />
-        <item itemvalue="Spring Boot.BankApplication" />
-        <item itemvalue="JUnit.TransactionRepositoryShould" />
+        <item itemvalue="JUnit.TennisGameTest" />
+        <item itemvalue="JUnit.TennisGameTest.loveFifteen" />
+        <item itemvalue="JUnit.TennisGameTest.doamneMaIartaCaNamHabarInca" />
+        <item itemvalue="JUnit.WrapperTest" />
+        <item itemvalue="JUnit.WrapperTest.dummy" />
       </list>
     </recent_temporary>
   </component>
@@ -254,6 +245,12 @@
       <workItem from="1563700798252" duration="2264000" />
       <workItem from="1563894326379" duration="2000" />
       <workItem from="1566376278889" duration="598000" />
+      <workItem from="1566513906931" duration="670000" />
+      <workItem from="1566887480539" duration="142000" />
+      <workItem from="1567112602918" duration="5013000" />
+      <workItem from="1567146899125" duration="3375000" />
+      <workItem from="1567510122050" duration="4724000" />
+      <workItem from="1568703537592" duration="7766000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -391,38 +388,6 @@
     <option name="localTasksCounter" value="20" />
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="Feature__client-search - 2019.07.17 at 16h 12m 01s.xml">
-      <configuration name="Feature: client-search" configurationId="CucumberJavaRunConfigurationType" />
-    </history-entry>
-    <history-entry file="Feature__client-search - 2019.07.17 at 16h 12m 27s.xml">
-      <configuration name="Feature: client-search" configurationId="CucumberJavaRunConfigurationType" />
-    </history-entry>
-    <history-entry file="Feature__client-search - 2019.07.17 at 16h 15m 08s.xml">
-      <configuration name="Feature: client-search" configurationId="CucumberJavaRunConfigurationType" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 16m 01s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 18m 20s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 19m 39s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 22m 52s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 24m 53s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientSearchBehaviorTest - 2019.07.17 at 16h 38m 49s.xml">
-      <configuration name="ClientSearchBehaviorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AccountFeature - 2019.07.17 at 16h 40m 46s.xml">
-      <configuration name="AccountFeature" configurationId="JUnit" />
-    </history-entry>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -431,7 +396,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

@@ -1,104 +1,76 @@
 package ro.victor.unittest.tdd;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
-
-import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class TennisGameTest {
     private TennisGame tennisGame = new TennisGame();
 
+    private String getScoreString(int player1Score, int player2Score) {
+        awardPoints(Player.ONE, player1Score);
+        awardPoints(Player.TWO, player2Score);
+        return tennisGame.score();
+    }
+
+    private void awardPoints(Player player, int noPoints) {
+        for (int i = 0; i < noPoints; i++) {
+            tennisGame.point(player);
+        }
+    }
+
     @Test
     public void loveLove() {
-        setScore(0, 0);
-        String score = tennisGame.score();
-        assertEquals("Love-Love", score);
+        assertEquals("Love-Love", getScoreString(0,0));
     }
-
-    @Test
-    public void loveFifteen() {
-        setScore(0, 1);
-        String score = tennisGame.score();
-        assertEquals("Love-Fifteen", score);
-    }
-
     @Test
     public void fifteenLove() {
-        setScore(1, 0);
-        String score = tennisGame.score();
-        assertEquals("Fifteen-Love", score);
+        assertEquals("Fifteen-Love", getScoreString(1,0));
+    }
+    @Test
+    public void loveFifteen() {
+        assertEquals("Love-Fifteen", getScoreString(0,1));
+    }
+    @Test
+    public void fifteenFifteen() {
+        assertEquals("Fifteen-Fifteen", getScoreString(1,1));
     }
 
     @Test
-    public void thirtyLove() {
-        setScore(2, 0);
-        String score = tennisGame.score();
-        assertEquals("Thirty-Love", score);
+    public void loveThirty() {
+        assertEquals("Love-Thirty", getScoreString(0,2));
     }
 
     @Test
-    public void fortyLove() {
-        setScore(3, 0);
-        String score = tennisGame.score();
-        assertEquals("Forty-Love", score);
+    public void loveForty() {
+        assertEquals("Love-Forty", getScoreString(0,3));
     }
 
     @Test
     public void deuce() {
-        setScore(3, 3);
-        String score = tennisGame.score();
-        assertEquals("Deuce", score);
+        assertEquals("Deuce",  getScoreString(3,3));
     }
 
     @Test
-    public void advantagePlayer1() {
-        setScore(7, 6);
-        String score = tennisGame.score();
-        assertEquals("Advantage Player1", score);
+    public void deuce4() {
+        assertEquals("Deuce",  getScoreString(4,4));
     }
-
     @Test
-    public void advantagePlayer2() {
-        setScore(3, 4);
-        String score = tennisGame.score();
-        assertEquals("Advantage Player2", score);
+    public void advantage1() {
+        assertEquals("Advantage Player 1",  getScoreString(5,4));
     }
-
     @Test
-    public void mar() {
-        setScore(4, 0);
-        String score = tennisGame.score();
-        assertEquals("Game won Player1", score);
+    public void advantage2() {
+        assertEquals("Advantage Player 2",  getScoreString(4,5));
     }
-
     @Test
-    public void mar2() {
-        setScore(7, 5);
-        String score = tennisGame.score();
-        assertEquals("Game won Player1", score);
+    public void game1() {
+        assertEquals("Game Won Player 1",
+                getScoreString(4,2));
     }
-
     @Test
-    public void player2Won() {
-        setScore(0, 4);
-        String score = tennisGame.score();
-        assertEquals("Game won Player2", score);
-    }
-
-
-
-    private void setScore(int player1Score, int player2Score) {
-        setPlayerScore(1, player1Score);
-        setPlayerScore(2, player2Score);
-    }
-
-    private void setPlayerScore(int playerNumber, int playerScore) {
-        for (int i = 0; i < playerScore; i++) {
-            tennisGame.addPoint(playerNumber);
-        }
+    public void game2() {
+        assertEquals("Game Won Player 2",
+                getScoreString(2,4));
     }
 }
