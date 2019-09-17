@@ -1,40 +1,39 @@
 package ro.victor.unittest.tdd;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 public class TennisGame {
-    private static final String[] SCORE_NAMES = {"Love", "Fifteen", "Thirty", "Forty"};
-
-    private int score1;
-    private int score2;
-
+    public static final String[] SCORES = {"Love", "Fifteen", "Thirty", "Forty"};
+    private int player1Score;
+    private int player2Score;
 
     public String score() {
-        if (score1 >= 3 && score2 >= 3) {
-            if (score1 == score2) {
+        if (player1Score >= 4 && player1Score - player2Score >= 2) {
+            return "Game won Player1";
+        }
+        else if (player2Score >= 4 && player2Score - player1Score >= 2) {
+            return "Game won Player2";
+        }
+        if (player1Score >= 3 && player2Score >= 3) {
+            if (player1Score == player2Score) {
                 return "Deuce";
+            } else if (player1Score == player2Score + 1) {
+                return "Advantage Player1";
+            } else if (player2Score == player1Score + 1) {
+                return "Advantage Player2";
+            } else {
+                throw new NotImplementedException("...");
             }
-            if (score1 == score2 + 1) {
-                return "Advantage Player 1";
-            }
-            if (score2 == score1 + 1) {
-                return "Advantage Player 2";
-            }
+        } else {
+            return SCORES[player1Score] + "-" + SCORES[player2Score];
         }
-        if (score1 - score2 >= 2 && score1 >= 4) {
-            return "Game Won Player 1";
-        }
-        if (score2 - score1 >= 2 && score2 >= 4) {
-            return "Game Won Player 2";
-        }
-        return SCORE_NAMES[score1]
-                + "-" +
-                SCORE_NAMES[score2];
     }
 
-    public void point(Player player) {
-        if (player == Player.ONE) {
-            score1++;
+    public void addPoint(int playerNumber) {
+        if (playerNumber == 1) {
+            player1Score++;
         } else {
-            score2++;
+            player2Score++;
         }
     }
 }

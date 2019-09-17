@@ -2,18 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="TDD revert">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/java8/Java8.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/words/WordWrapTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGamePureTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/java8/Java8.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/exception/ShouldBeMockedAwayException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/exception/UserNotLoggedInException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/model/Trip.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/TripDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/TripService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/UserSession.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/Player.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameSimplificatLaMetodePureTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/words/WordWrapTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,6 +55,8 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -67,6 +74,7 @@
   </component>
   <component name="ProjectId" id="1Pj8iaXl9rojmyhuUbS7otvRHLv" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="PropertiesComponent">
@@ -394,6 +402,11 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="1">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
