@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="TDD revert">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGamePureTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/java8/Java8.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/exception/ShouldBeMockedAwayException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/exception/UserNotLoggedInException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/model/Trip.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/TripDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/TripService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/legacy/service/UserSession.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/Player.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/words/WordWrapTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
-    </list>
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,17 +80,20 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+      <recent name="ro.victor.unittest.cucumber.search" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.tdd" />
@@ -119,14 +103,11 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="ro.victor.unittest.tdd" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
-      <recent name="ro.victor.unittest.tdd.outsidein" />
-      <recent name="ro.victor.unittest.cucumber.search" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -455,80 +436,5 @@
     <SUITE FILE_PATH="coverage/unit_testing$AccountFeature.ic" NAME="AccountFeature Coverage Results" MODIFIED="1563370806316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.tdd.outsidein.*</FILTER>
     </SUITE>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Detection</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>unit-testing</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
