@@ -74,7 +74,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
@@ -122,7 +122,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TennisGameTest">
+  <component name="RunManager" selected="JUnit.TestTimeRuleTest">
     <configuration name="TennisGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -170,6 +170,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestTimeRuleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.time.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.time" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.time.TestTimeRuleTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WrapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -185,29 +200,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WrapperTest.dummy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.wordwrap.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.wordwrap" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.wordwrap.WrapperTest" />
-      <option name="METHOD_NAME" value="dummy" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestTimeRuleTest" />
         <item itemvalue="JUnit.TennisGameTest" />
         <item itemvalue="JUnit.TennisGameTest.loveFifteen" />
         <item itemvalue="JUnit.TennisGameTest.doamneMaIartaCaNamHabarInca" />
         <item itemvalue="JUnit.WrapperTest" />
-        <item itemvalue="JUnit.WrapperTest.dummy" />
       </list>
     </recent_temporary>
   </component>
@@ -374,7 +373,14 @@
       <option name="project" value="LOCAL" />
       <updated>1563366852496</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="JDK">
+      <created>1574268727127</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1574268727127</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -423,7 +429,8 @@
     <MESSAGE value="outside-in" />
     <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
-    <option name="LAST_COMMIT_MESSAGE" value="Outside IN TDD : DOne" />
+    <MESSAGE value="JDK" />
+    <option name="LAST_COMMIT_MESSAGE" value="JDK" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
