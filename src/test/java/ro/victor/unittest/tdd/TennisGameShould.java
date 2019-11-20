@@ -51,5 +51,30 @@ public class TennisGameShould {
     public void returnDeuceWhenBothPlayersScore4() {
         assertThat(scoreForPoints(4, 4)).isEqualTo("Deuce");
     }
+    @Test
+    public void returnGameWon1WhenPlayer1Scores() {
+        assertThat(scoreForPoints(4, 0)).isEqualTo("Game Won Player1");
+    }
+    @Test
+    public void returnGameWon2WhenPlayer2Scores() {
+        assertThat(scoreForPoints(4, 6)).isEqualTo("Game Won Player2");
+    }
+    @Test
+    public void returnGameWon1WhenPlayer1Scores6_4() {
+        assertThat(scoreForPoints(0, 4)).isEqualTo("Game Won Player2");
+    }
+//    @Test
+//    public void returnGameWon1WhenPlayer1Scores() {
+//        assertThat(scoreForPoints(4, 0)).isEqualTo("Game Won Player1");
+//    }
+
+    @Test
+    public void returnAdvantagePlayer1WhenPlayer1Scores4AndPlayer2Scores3() {
+        assertThat(scoreForPoints(4, 3)).isEqualTo("Advantage Player1");
+    }
+    @Test
+    public void returnAdvantagePlayer2WhenPlayer2Scores4AndPlayer1Scores3() {
+        assertThat(scoreForPoints(3, 4)).isEqualTo("Advantage Player2");
+    }
 
 }
