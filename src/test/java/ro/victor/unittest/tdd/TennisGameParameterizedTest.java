@@ -27,9 +27,9 @@ public class TennisGameParameterizedTest {
 
         @Override
         public String toString() {
-            return "player1Points=" + player1Points +
-                    ", player2Points=" + player2Points +
-                    ", expectedScoredString='" + expectedScoredString + '\'';
+            return "player1:" + player1Points +
+                    ", player2:" + player2Points +
+                    ", score:" + expectedScoredString;
         };
     }
 
