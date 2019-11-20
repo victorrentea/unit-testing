@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="TDD revert">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/BasicsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameShould.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGamePureTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/unit-testing.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,6 +74,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="false" />
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
@@ -98,17 +90,20 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+      <recent name="ro.victor.unittest.cucumber.search" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.tdd" />
@@ -118,14 +113,11 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="ro.victor.unittest.tdd" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
-      <recent name="ro.victor.unittest.tdd.outsidein" />
-      <recent name="ro.victor.unittest.cucumber.search" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -140,7 +132,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.BasicsTest">
+  <component name="RunManager">
     <configuration name="BasicsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -172,7 +164,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TennisGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TennisGameShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -181,13 +173,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameShould" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TennisGameTest.doamneMaIartaCaNamHabarInca" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TennisGameShould.loveFifteen" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -196,14 +188,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
-      <option name="METHOD_NAME" value="doamneMaIartaCaNamHabarInca" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameShould" />
+      <option name="METHOD_NAME" value="loveFifteen" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TennisGameTest.loveFifteen" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TennisGameShould.loveLove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -212,8 +204,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
-      <option name="METHOD_NAME" value="loveFifteen" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameShould" />
+      <option name="METHOD_NAME" value="loveLove" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -221,11 +213,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TennisGameShould" />
+        <item itemvalue="JUnit.TennisGameShould.loveLove" />
         <item itemvalue="JUnit.BasicsTest" />
         <item itemvalue="JUnit.BasicsTest.t1" />
-        <item itemvalue="JUnit.TennisGameTest" />
-        <item itemvalue="JUnit.TennisGameTest.loveFifteen" />
-        <item itemvalue="JUnit.TennisGameTest.doamneMaIartaCaNamHabarInca" />
+        <item itemvalue="JUnit.TennisGameShould.loveFifteen" />
       </list>
     </recent_temporary>
   </component>
@@ -259,7 +251,7 @@
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
       <workItem from="1572984890656" duration="821000" />
-      <workItem from="1574239036128" duration="1533000" />
+      <workItem from="1574239036128" duration="4952000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -394,7 +386,14 @@
       <option name="project" value="LOCAL" />
       <updated>1563366852496</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="start TDD">
+      <created>1574242023227</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1574242023227</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -443,7 +442,8 @@
     <MESSAGE value="outside-in" />
     <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
-    <option name="LAST_COMMIT_MESSAGE" value="Outside IN TDD : DOne" />
+    <MESSAGE value="start TDD" />
+    <option name="LAST_COMMIT_MESSAGE" value="start TDD" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
