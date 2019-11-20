@@ -31,10 +31,8 @@ public class TennisGame {
     public void point(int playerNo) {
         if (playerNo == 1) {
             player1Points ++;
-//            score = "Fifteen Love";
         } else {
             player2Points ++;
-//            score = "Love Fifteen";
         }
     }
 }
