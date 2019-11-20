@@ -20,8 +20,8 @@ public class TestTimeRuleTest {
 
     public static class WithHackedTime {
         // TODO solution: uncomment this
-//        @Rule
-//        public TestTimeRule timeRule = new TestTimeRule(LocalDateTime.of(2019, 01, 01, 0, 0));
+        @Rule
+        public TestTimeRule timeRule = new TestTimeRule(LocalDateTime.of(2019, 01, 01, 0, 0));
 
         @Test
         public void testWithHackedTime() {
