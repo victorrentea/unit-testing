@@ -5,23 +5,36 @@
       <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_h2database_h2_1_4_199.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/resources/NonTransactionalTest.countUsers.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hsqldb_hsqldb_2_4_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/StartDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/StartDatabase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/DemoDBUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/AssertDatabaseContentsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/NonTransactionalTest.countUsers.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/NonTransactionalTest.countTotalUsers.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/NonTransactionalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/NonTransactionalTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/NonTransactionalTest.orderIsFoundByReference.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/NonTransactionalTest.orderExistsByReference.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/TransactionalTest.countUsers.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/TransactionalTest.countTotalUsers.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/TransactionalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/TransactionalTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/TransactionalTest.orderIsFoundByReference.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/TransactionalTest.orderExistsByReference.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/WithCommonReferenceData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/WithCommonReferenceData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/expected.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/AssertDatabaseContents-expected.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/application-realdb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application-realdb.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/application-realdb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/application-realdb.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/unit-testing.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/application-realdb.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/cleanup.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/client-search.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/common-reference-data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/export-filters.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/record-search.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/spy.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/tennis-game.feature" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -158,11 +171,11 @@
       <recent name="ro.victor.unittest.tdd" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
       <recent name="C:\workspace\unit-testing\src\test\resources" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
       <recent name="C:\workspace\training\unit-testing\src\test\resources" />
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\unit-testing\src\test\java" />
@@ -326,7 +339,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="3851000" />
+      <workItem from="1574794872658" duration="4145000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -475,7 +488,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574268853383</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Fix DBUnit">
+      <created>1574811459373</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1574811459373</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -526,7 +546,8 @@
     <MESSAGE value="Outside IN TDD : DOne" />
     <MESSAGE value="JDK" />
     <MESSAGE value="fix Java version" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix Java version" />
+    <MESSAGE value="Fix DBUnit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix DBUnit" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
