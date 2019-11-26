@@ -63,7 +63,7 @@ public class NonTransactionalTest {
 	// !! NOTE: Placing .sql files next to JUnit tests is possible only if in pom.xml you have <testResources> src/test/java
 	@Sql("/common-reference-data.sql")// SOLUTION
 	@Sql// SOLUTION
-//	@CleanupSql// SOLUTION
+	// @CleanupSql // TODO
 	@Test
 	public void orderExistsByReference() {
 		Integer count = jdbc.queryForObject("SELECT count(1) FROM orders WHERE reference='ref'", Integer.class);

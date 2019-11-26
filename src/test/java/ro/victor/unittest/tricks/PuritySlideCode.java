@@ -1,4 +1,4 @@
-package ro.victor.unittest;
+package ro.victor.unittest.tricks;
 
 
 
@@ -45,8 +45,4 @@ class Order {
 }
 interface OrderRepository {
 	void save(Order order);
-}
-
-public class PurityTest {
-	
 }

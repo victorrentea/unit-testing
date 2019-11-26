@@ -1,4 +1,4 @@
-package ro.victor.unittest.assertions;
+package ro.victor.unittest.tricks;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;

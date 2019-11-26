@@ -50,8 +50,7 @@ public class TransactionalTest {
 		assertThat(reportingRepo.getAllNotifications()).containsExactlyInAnyOrder("a");
 	}
 	
-//	@Sql("/common-reference-data.sql")// SOLUTION
-	@WithCommonReferenceData
+	@Sql("/common-reference-data.sql")// SOLUTION
 	@Sql// SOLUTION
 	@Test
 	public void orderExistsByReference() {

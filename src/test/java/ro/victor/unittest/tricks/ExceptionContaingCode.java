@@ -12,12 +12,12 @@ public class ExceptionContaingCode {
 	@Test
 	public void test1() {
 		expectedException.expectMessage("a");
-		aruncama();
+		throwMe();
 		
 	}
 	
 	
-	public void aruncama() {
+	public void throwMe() {
 		if (true) throw new IllegalArgumentException("a");
 		if (true) throw new IllegalArgumentException("b");
 		if (true) throw new IllegalArgumentException("c");

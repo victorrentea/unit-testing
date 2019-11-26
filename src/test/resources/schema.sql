@@ -1,3 +1,4 @@
+-- spring boot runs this automatically at start up
 drop table orders if exists;
 drop table notifications if exists;
 drop table users if exists;

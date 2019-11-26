@@ -1,4 +1,4 @@
-package ro.victor.unittest;
+package ro.victor.unittest.tricks;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class TestingExceptions {
+public class MatchingExceptions {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
