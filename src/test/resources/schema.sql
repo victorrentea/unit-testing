@@ -14,5 +14,5 @@ create table notifications (
 create table orders (
 	id int identity primary key,
 	reference varchar(20),
-	created_by int foreign key references users(id)
+	created_by int references users(id)
 );

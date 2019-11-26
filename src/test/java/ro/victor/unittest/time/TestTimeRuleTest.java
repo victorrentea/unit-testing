@@ -30,6 +30,8 @@ public class TestTimeRuleTest {
             TimeProvider.setTestTime(testTime);
             assertEquals(testTime, getTimeFromProd());
             TimeProvider.clearTestTime(); // TODO forget this
+
+            // TODO Try LocalDateTime.now(Clock)
         }
     }
 

@@ -1,6 +1,7 @@
 package ro.victor.unittest.db;
 
 import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -16,19 +17,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ro.victor.unittest.db.prod.NotificationRepo;
 import ro.victor.unittest.db.prod.ReportingRepo;
 
+import java.io.InputStream;
+
 @SpringBootTest
-@ActiveProfiles("realdb")
+@ActiveProfiles("realdb") // result is preserved in a read DB (stored on disk)
 @RunWith(SpringRunner.class)
 // SOLUTION (
 @WithCommonReferenceData
-@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, 
+@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD,
 	statements = {
 		"DELETE FROM ORDERS",
 		"DELETE FROM USERS"
 })
 // SOLUTION )
 public class NonTransactionalTest {
-	
+
 	@Autowired
 	private NotificationRepo notificationRepo;
 
@@ -37,31 +40,34 @@ public class NonTransactionalTest {
 	
 	@Autowired
 	private JdbcTemplate jdbc;
-	
-	@Sql// SOLUTION
+
+
 	@Test
-	public void countUsers() {
-		int userCount = jdbc.queryForObject("SELECT count(1) FROM users", Integer.class);
-		assertEquals(1, userCount);
+	public void countTotalUsers() {
+		Integer count = jdbc.queryForObject("SELECT count(1) FROM users", Integer.class);
+		assertThat(count).isEqualTo(1);
 	}
-	
+
 	@Test
-	public void testUserIsInDB() {
-		assertEquals(1, (int)jdbc.queryForObject("SELECT count(1) FROM users WHERE username='test'", Integer.class));
+	public void testUserExistsInDB() {
+		Integer count = jdbc.queryForObject("SELECT count(1) FROM users WHERE username='test'", Integer.class);
+		assertThat(count).isEqualTo(1);
 	}
-	
+
 	@Test
-	public void notificationTextIsExtractedAfterPersit() {
+	public void notificationTextIsCorrectlyPersisted() {
 		notificationRepo.insertNotification("a");
 		assertEquals(singletonList("a"), reportingRepo.getAllNotifications());
 	}
-	
+
+	// !! NOTE: Placing .sql files next to JUnit tests is possible only if in pom.xml you have <testResources> src/test/java
 	@Sql("/common-reference-data.sql")// SOLUTION
 	@Sql// SOLUTION
 //	@CleanupSql// SOLUTION
 	@Test
-	public void orderIsFoundByReference() {
-		assertEquals(1, (int)jdbc.queryForObject("SELECT count(1) FROM orders WHERE reference='ref'", Integer.class));
+	public void orderExistsByReference() {
+		Integer count = jdbc.queryForObject("SELECT count(1) FROM orders WHERE reference='ref'", Integer.class);
+		assertThat(count).isEqualTo(1);
 	}
 
 }

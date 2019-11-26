@@ -1,6 +1,7 @@
 package ro.victor.unittest.db;
 
 import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -32,27 +33,30 @@ public class TransactionalTest {
 	
 	@Sql// SOLUTION
 	@Test
-	public void countUsers() {
-		int userCount = jdbc.queryForObject("SELECT count(1) FROM users", Integer.class);
-		assertEquals(1, userCount);
+	public void countTotalUsers() {
+		Integer count = jdbc.queryForObject("SELECT count(1) FROM users", Integer.class);
+		assertThat(count).isEqualTo(1);
 	}
-	
+
 	@Test
 	public void testUserIsInDB() {
-		assertEquals(1, (int)jdbc.queryForObject("SELECT count(1) FROM users WHERE username='test'", Integer.class));
+		Integer count = jdbc.queryForObject("SELECT count(1) FROM users WHERE username='test'", Integer.class);
+		assertThat(count).isEqualTo(1);
 	}
 	
 	@Test
-	public void notificationTextIsExtractedAfterPersit() {
+	public void notificationTextIsCorrectlyPersisted() {
 		notificationRepo.insertNotification("a");
-		assertEquals(singletonList("a"), reportingRepo.getAllNotifications());
+		assertThat(reportingRepo.getAllNotifications()).containsExactlyInAnyOrder("a");
 	}
 	
-	@Sql("/common-reference-data.sql")// SOLUTION
+//	@Sql("/common-reference-data.sql")// SOLUTION
+	@WithCommonReferenceData
 	@Sql// SOLUTION
 	@Test
-	public void orderIsFoundByReference() {
-		assertEquals(1, (int)jdbc.queryForObject("SELECT count(1) FROM orders WHERE reference='ref'", Integer.class));
+	public void orderExistsByReference() {
+		Integer count = jdbc.queryForObject("SELECT count(1) FROM orders WHERE reference='ref'", Integer.class);
+		assertThat(count).isEqualTo(1);
 	}
 
 }
