@@ -14,9 +14,13 @@ public class CustomerValidatorShould {
 
 	@Before
 	public void setup() {
-		customer.setName("John");
-		customer.setAddress(new Address());
-		customer.getAddress().setCity("Bucale");
+		customer = new CustomerBuilder()
+				.withName("Nume")
+				.withAddress(new AddressBuilder()
+						.withCity("Bucale")
+						.withStreetNumber(12)
+						.build())
+				.build();
 	}
 
 	@Test
