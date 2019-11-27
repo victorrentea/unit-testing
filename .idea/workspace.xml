@@ -317,7 +317,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="8779000" />
+      <workItem from="1574794872658" duration="9149000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -550,7 +550,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574845976984</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="asserting exception message (FRAGIL)">
+      <created>1574846117740</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1574846117740</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -580,7 +587,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="unittesting: bank search working with SQL.&#10;adding mybatis to the mix" />
     <MESSAGE value="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage" />
     <MESSAGE value="cleanup" />
     <MESSAGE value="Exceptii cu mesaj text." />
@@ -605,7 +611,8 @@
     <MESSAGE value="ObjectMother (TM)" />
     <MESSAGE value="fluent setters" />
     <MESSAGE value="Prindere de exceptii selectiv (duce la prea multe custom exceptions)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prindere de exceptii selectiv (duce la prea multe custom exceptions)" />
+    <MESSAGE value="asserting exception message (FRAGIL)" />
+    <option name="LAST_COMMIT_MESSAGE" value="asserting exception message (FRAGIL)" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

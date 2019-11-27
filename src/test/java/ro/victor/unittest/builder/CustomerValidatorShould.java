@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.util.concurrent.ExecutionException;
+import static ro.victor.unittest.builder.ExceptiaMea.ErrorCode.*;
 
 public class CustomerValidatorShould {
 
@@ -19,21 +19,24 @@ public class CustomerValidatorShould {
 	}
 	@Test
 	public void throwsForNullName() {
-		expectedException.expectMessage("Missing customer name");
+		expectedException.expect(new ExceptiaMeaCuCodul(CUSTOMER_WITHOUT_NAME));
 		validator.validate(ObjectMother.aValidCustomer()
 				.addLabel("label")
 				.setName(null));
 	}
-//	@Test(expected = IllegalArgumentException.class)
-//	public void throwsForNullAddress() {
-//		validator.validate(ObjectMother.aValidCustomer()
-//				.setAddress(null)				);
-//	}
-//	@Test(expected = IllegalArgumentException.class)
-//	public void throwsForNullAddressCity() {
-//		validator.validate(ObjectMother.aValidCustomer()
-//				.setAddress(ObjectMother.aValidAddress().setCity(null))				);
-//	}
+
+	@Test
+	public void throwsForNullAddress() {
+		expectedException.expect(new ExceptiaMeaCuCodul(CUSTOMER_WITHOUT_ADDRESS));
+		validator.validate(ObjectMother.aValidCustomer()
+				.setAddress(null)				);
+	}
+	@Test
+	public void throwsForNullAddressCity() {
+		expectedException.expect(new ExceptiaMeaCuCodul(CUSTOMER_WITHOUT_ADDRESS_CITY));
+		validator.validate(ObjectMother.aValidCustomer()
+				.setAddress(ObjectMother.aValidAddress().setCity(null))				);
+	}
 
 
 }
