@@ -17,4 +17,9 @@ public class CustomerBuilder {
 		customer.setAddress(address);
 		return this;
 	}
+
+	public CustomerBuilder withAddressBuilder(AddressBuilder addressBuilder) {
+		customer.setAddress(addressBuilder.build());
+		return this;
+	}
 }

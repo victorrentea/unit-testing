@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -313,7 +314,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="7096000" />
+      <workItem from="1574794872658" duration="7510000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -511,7 +512,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574844056878</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Folosind Builder">
+      <created>1574844290324</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1574844290324</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -541,7 +549,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="minor logging fixes" />
     <MESSAGE value="gitignore" />
     <MESSAGE value="unit test php: solved pretty good" />
     <MESSAGE value="unittesting: Time Rule fix" />
@@ -566,7 +573,8 @@
     <MESSAGE value="UN TEST BUN de micsorare" />
     <MESSAGE value="Gata testele. Dar greu de mentenat" />
     <MESSAGE value="Surpriza!! Pentru fiecare @Test se instantiaza clasa de test din nou. Deci tot ce pui pe camp(uri) se pierde pentru urmatorul test." />
-    <option name="LAST_COMMIT_MESSAGE" value="Surpriza!! Pentru fiecare @Test se instantiaza clasa de test din nou. Deci tot ce pui pe camp(uri) se pierde pentru urmatorul test." />
+    <MESSAGE value="Folosind Builder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Folosind Builder" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

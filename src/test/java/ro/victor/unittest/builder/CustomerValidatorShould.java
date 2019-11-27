@@ -7,40 +7,44 @@ public class CustomerValidatorShould {
 
 	private CustomerValidator validator = new CustomerValidator();
 
-	private Customer customer = new Customer();
 	public CustomerValidatorShould() {
 		System.out.println("Aoleu. O instanta de clasa de test noua");
 	}
 
-	@Before
-	public void setup() {
-		customer = new CustomerBuilder()
+	private CustomerBuilder aValidCustomer() {
+		return new CustomerBuilder()
 				.withName("Nume")
-				.withAddress(new AddressBuilder()
-						.withCity("Bucale")
-						.withStreetNumber(12)
-						.build())
-				.build();
+				.withAddressBuilder(aValidAddress());
+	}
+
+	private AddressBuilder aValidAddress() {
+		return new AddressBuilder()
+				.withCity("Bucale")
+				.withStreetName("Preciziei")
+				.withStreetNumber(12);
 	}
 
 	@Test
 	public void yesSir() {
-		validator.validate(customer);
+		validator.validate(aValidCustomer().build());
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullName() {
-		customer.setName(null);
-		validator.validate(customer);
+		validator.validate(aValidCustomer()
+				.withName(null)
+				.build());
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullAddress() {
-		customer.setAddress(null);
-		validator.validate(customer);
+		validator.validate(aValidCustomer()
+				.withAddress(null)
+				.build());
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullAddressCity() {
-		customer.getAddress().setCity(null);
-		validator.validate(customer);
+		validator.validate(aValidCustomer()
+				.withAddressBuilder(aValidAddress().withCity(null))
+				.build());
 	}
 
 
