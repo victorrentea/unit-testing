@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameParameterizedTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameParameterizedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameParameterizedTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -328,7 +327,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="21348000" />
+      <workItem from="1574794872658" duration="21589000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -589,7 +588,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574862258188</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Paramterized Test">
+      <created>1574863522813</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1574863522813</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -600,7 +606,34 @@
       <map>
         <entry key="1">
           <value>
-            <State />
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="text">
+                    <value>
+                      <list>
+                        <option value="param" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
         <entry key="MAIN">
@@ -612,6 +645,11 @@
         </entry>
       </map>
     </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
@@ -619,7 +657,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="TDD + Paramterized" />
     <MESSAGE value="Feature files, unleashed" />
     <MESSAGE value="prep mockito exercise" />
     <MESSAGE value="Mockito play" />
@@ -644,7 +681,8 @@
     <MESSAGE value="ExceptionMatcher (Hamcrest tata)" />
     <MESSAGE value="deleted Tennis Tests" />
     <MESSAGE value="TDD facut de voi" />
-    <option name="LAST_COMMIT_MESSAGE" value="TDD facut de voi" />
+    <MESSAGE value="Paramterized Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Paramterized Test" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

@@ -21,7 +21,7 @@ public class TennisGameParameterizedTest {
         this.expectedScoreString = expectedScoreString;
     }
     @Parameterized.Parameters(name = "Score {0} - {1} = {2}")
-    public static List<Object[]> parameters() {
+    public static List<Object[]> x() {
         return Arrays.asList(
                 new Object[]{0,0,"Love - Love"},
                 new Object[]{1,0,"Fifteen - Love"},
@@ -46,6 +46,10 @@ public class TennisGameParameterizedTest {
 
     @Test
     public void uniculSiInegalabilulSiAdevaratulTest() {
+        assertEquals(expectedScoreString, formatScore(player1Score, player2Score));
+    }
+    @Test
+    public void dinNouCaCineStie() {
         assertEquals(expectedScoreString, formatScore(player1Score, player2Score));
     }
 
