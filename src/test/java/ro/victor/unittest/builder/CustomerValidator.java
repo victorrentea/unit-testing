@@ -11,7 +11,7 @@ public class CustomerValidator {
 		validateAddress(customer.getAddress());
 		//etc
 	}
-	
+
 	private void validateAddress(Address address) {
 		if (address == null) {
 			throw new IllegalArgumentException("Missing customer address");
