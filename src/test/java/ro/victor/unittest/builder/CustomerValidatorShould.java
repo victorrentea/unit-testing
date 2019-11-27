@@ -1,20 +1,28 @@
 package ro.victor.unittest.builder;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.util.concurrent.ExecutionException;
 
 public class CustomerValidatorShould {
 
 	private CustomerValidator validator = new CustomerValidator();
 
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
+
 	@Test
 	public void yesSir() {
 		validator.validate(ObjectMother.aValidCustomer());
 	}
-	@Test(expected = CustomerValidator.CustomerWithoutNameException.class)
+	@Test
 	public void throwsForNullName() {
-			validator.validate(ObjectMother.aValidCustomer()
-					.addLabel("label")
-					.setName(null));
+		expectedException.expectMessage("Missing customer name");
+		validator.validate(ObjectMother.aValidCustomer()
+				.addLabel("label")
+				.setName(null));
 	}
 //	@Test(expected = IllegalArgumentException.class)
 //	public void throwsForNullAddress() {

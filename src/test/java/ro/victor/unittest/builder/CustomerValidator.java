@@ -4,10 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public class CustomerValidator {
 
-	static class CustomerWithoutNameException extends RuntimeException {}
+
 	public void validate(Customer customer) {
 		if (StringUtils.isBlank(customer.getName())) {
-			throw new CustomerWithoutNameException();
+			throw new IllegalArgumentException("Missing customer name");
 		}
 		validateAddress(customer.getAddress());
 		//etc
