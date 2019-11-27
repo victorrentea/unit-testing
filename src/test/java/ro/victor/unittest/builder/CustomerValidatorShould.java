@@ -10,22 +10,22 @@ public class CustomerValidatorShould {
 	public void yesSir() {
 		validator.validate(ObjectMother.aValidCustomer());
 	}
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = CustomerValidator.CustomerWithoutNameException.class)
 	public void throwsForNullName() {
-		validator.validate(ObjectMother.aValidCustomer()
-				.addLabel("label")
-				.setName(null)				);
+			validator.validate(ObjectMother.aValidCustomer()
+					.addLabel("label")
+					.setName(null));
 	}
-	@Test(expected = IllegalArgumentException.class)
-	public void throwsForNullAddress() {
-		validator.validate(ObjectMother.aValidCustomer()
-				.setAddress(null)				);
-	}
-	@Test(expected = IllegalArgumentException.class)
-	public void throwsForNullAddressCity() {
-		validator.validate(ObjectMother.aValidCustomer()
-				.setAddress(ObjectMother.aValidAddress().setCity(null))				);
-	}
+//	@Test(expected = IllegalArgumentException.class)
+//	public void throwsForNullAddress() {
+//		validator.validate(ObjectMother.aValidCustomer()
+//				.setAddress(null)				);
+//	}
+//	@Test(expected = IllegalArgumentException.class)
+//	public void throwsForNullAddressCity() {
+//		validator.validate(ObjectMother.aValidCustomer()
+//				.setAddress(ObjectMother.aValidAddress().setCity(null))				);
+//	}
 
 
 }
