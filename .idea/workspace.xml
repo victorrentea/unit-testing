@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameParameterizedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -167,6 +166,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd.tennis" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
@@ -192,7 +192,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TennisGameTest">
+  <component name="RunManager" selected="JUnit.TennisGameParameterizedTest">
     <configuration name="CustomerValidatorShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -208,16 +208,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NonTransactionalTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TennisGameParameterizedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.db.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.tennis.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.db" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.NonTransactionalTest" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.tennis" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.tennis.TennisGameParameterizedTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -271,11 +271,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TennisGameParameterizedTest" />
         <item itemvalue="JUnit.TennisGameTest" />
         <item itemvalue="JUnit.TestTimeRuleTest" />
         <item itemvalue="JUnit.TennisGameTest.initialScore" />
         <item itemvalue="JUnit.CustomerValidatorShould" />
-        <item itemvalue="JUnit.NonTransactionalTest" />
       </list>
     </recent_temporary>
   </component>
@@ -328,7 +328,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="20467000" />
+      <workItem from="1574794872658" duration="21348000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -582,7 +582,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574856022826</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="TDD facut de voi">
+      <created>1574862258188</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1574862258188</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -612,7 +619,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Exceptii cu mesaj text." />
     <MESSAGE value="TDD + Paramterized" />
     <MESSAGE value="Feature files, unleashed" />
     <MESSAGE value="prep mockito exercise" />
@@ -637,7 +643,8 @@
     <MESSAGE value="asserting exception message (FRAGIL)" />
     <MESSAGE value="ExceptionMatcher (Hamcrest tata)" />
     <MESSAGE value="deleted Tennis Tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted Tennis Tests" />
+    <MESSAGE value="TDD facut de voi" />
+    <option name="LAST_COMMIT_MESSAGE" value="TDD facut de voi" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
