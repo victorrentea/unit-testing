@@ -1,41 +1,42 @@
 package ro.victor.unittest.builder;
 
-import cucumber.api.java.cs.A;
-import org.junit.Rule;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class CustomerValidatorShould {
 
 	private CustomerValidator validator = new CustomerValidator();
-	
-	@Test
-	public void yesSir() {
-		Customer customer = new Customer();
+
+	private Customer customer = new Customer();
+	public CustomerValidatorShould() {
+		System.out.println("Aoleu. O instanta de clasa de test noua");
+	}
+
+	@Before
+	public void setup() {
 		customer.setName("John");
 		customer.setAddress(new Address());
 		customer.getAddress().setCity("Bucale");
-		new CustomerValidator().validate(customer);
+	}
+
+	@Test
+	public void yesSir() {
+		validator.validate(customer);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullName() {
-		Customer customer = new Customer();
-		customer.setAddress(new Address());
-		customer.getAddress().setCity("Bucale");
-		new CustomerValidator().validate(customer);
+		customer.setName(null);
+		validator.validate(customer);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullAddress() {
-		Customer customer = new Customer();
-		customer.setName("John");
-		new CustomerValidator().validate(customer);
+		customer.setAddress(null);
+		validator.validate(customer);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullAddressCity() {
-		Customer customer = new Customer();
-		customer.setName("John");
-		customer.setAddress(new Address());
-		new CustomerValidator().validate(customer);
+		customer.getAddress().setCity(null);
+		validator.validate(customer);
 	}
 
 

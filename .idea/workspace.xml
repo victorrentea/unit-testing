@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" afterDir="false" />
     </list>
@@ -315,7 +314,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="6612000" />
+      <workItem from="1574794872658" duration="6855000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -499,7 +498,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574843231012</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Gata testele. Dar greu de mentenat">
+      <created>1574843602018</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1574843602018</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -529,7 +535,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="unittesting: Add Cucumber + DB testing" />
     <MESSAGE value="unittesting: fix typo in .feature" />
     <MESSAGE value="minor logging fixes" />
     <MESSAGE value="gitignore" />
@@ -554,7 +559,8 @@
     <MESSAGE value="Prep for mutation testing" />
     <MESSAGE value="Clean up code" />
     <MESSAGE value="UN TEST BUN de micsorare" />
-    <option name="LAST_COMMIT_MESSAGE" value="UN TEST BUN de micsorare" />
+    <MESSAGE value="Gata testele. Dar greu de mentenat" />
+    <option name="LAST_COMMIT_MESSAGE" value="Gata testele. Dar greu de mentenat" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
