@@ -1,18 +1,31 @@
 package ro.victor.unittest.builder;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.PostConstruct;
 
 import static ro.victor.unittest.builder.ExceptiaMea.ErrorCode.*;
 
-public class CustomerValidatorShould {
+public class CustomerValidatorShould extends CommonTestBase {
 
 	private CustomerValidator validator = new CustomerValidator();
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 
+	public CustomerValidatorShould() {
+		System.out.println("#sieu");
+	}
+
+	@Before
+	public void deSus2() {
+		System.out.println("in clasa mea de test");
+	}
 	@Test
 	public void yesSir() {
 		validator.validate(ObjectMother.aValidCustomer());

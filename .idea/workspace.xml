@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CommonTestBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tricks/AssertionsPlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tricks/AssertionsPlayTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,8 +79,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit4 Test Class" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -139,6 +141,9 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.builder" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
@@ -166,6 +171,7 @@
       <recent name="ro.victor.unittest.builder.ObjectMother" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.builder" />
       <recent name="ro.victor.unittest.tdd" />
       <recent name="ro.victor.unittest.tdd.wordwrap" />
       <recent name="ro.victor.unittest.tdd.outsidein" />
@@ -184,7 +190,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CustomerValidatorShould">
+  <component name="RunManager" selected="JUnit.TestTimeRuleTest">
     <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
       <module name="unit-testing" />
@@ -194,21 +200,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AssertDatabaseContentsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.db.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.db" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.AssertDatabaseContentsTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -243,6 +234,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestTimeRuleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.time.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.time" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.time.TestTimeRuleTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TransactionalTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -260,11 +266,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestTimeRuleTest" />
         <item itemvalue="JUnit.CustomerValidatorShould" />
         <item itemvalue="JUnit.NonTransactionalTest" />
         <item itemvalue="JUnit.TransactionalTest" />
         <item itemvalue="Application.StartDatabase" />
-        <item itemvalue="JUnit.AssertDatabaseContentsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -317,7 +323,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="9149000" />
+      <workItem from="1574794872658" duration="14199000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -557,7 +563,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574846117740</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="ExceptionMatcher (Hamcrest tata)">
+      <created>1574846513093</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1574846513093</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -587,7 +600,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage" />
     <MESSAGE value="cleanup" />
     <MESSAGE value="Exceptii cu mesaj text." />
     <MESSAGE value="TDD + Paramterized" />
@@ -612,7 +624,8 @@
     <MESSAGE value="fluent setters" />
     <MESSAGE value="Prindere de exceptii selectiv (duce la prea multe custom exceptions)" />
     <MESSAGE value="asserting exception message (FRAGIL)" />
-    <option name="LAST_COMMIT_MESSAGE" value="asserting exception message (FRAGIL)" />
+    <MESSAGE value="ExceptionMatcher (Hamcrest tata)" />
+    <option name="LAST_COMMIT_MESSAGE" value="ExceptionMatcher (Hamcrest tata)" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

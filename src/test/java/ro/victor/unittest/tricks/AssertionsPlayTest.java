@@ -1,13 +1,18 @@
 package ro.victor.unittest.tricks;
 
 import org.assertj.core.api.Assertions;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
 public class AssertionsPlayTest {
+
+    @BeforeClass
 
     @Test
     public void m() {
