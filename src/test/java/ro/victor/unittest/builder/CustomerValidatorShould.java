@@ -8,25 +8,23 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void yesSir() {
-		validator.validate(ObjectMother.aValidCustomer().build());
+		validator.validate(ObjectMother.aValidCustomer());
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullName() {
 		validator.validate(ObjectMother.aValidCustomer()
-				.withName(null)
-				.build());
+				.addLabel("label")
+				.setName(null)				);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullAddress() {
 		validator.validate(ObjectMother.aValidCustomer()
-				.withAddress(null)
-				.build());
+				.setAddress(null)				);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullAddressCity() {
 		validator.validate(ObjectMother.aValidCustomer()
-				.withAddressBuilder(ObjectMother.aValidAddress().withCity(null))
-				.build());
+				.setAddress(ObjectMother.aValidAddress().setCity(null))				);
 	}
 
 
@@ -34,16 +32,16 @@ public class CustomerValidatorShould {
 
 class ObjectMother {
 
-	public static CustomerBuilder aValidCustomer() {
-		return new CustomerBuilder()
-				.withName("Nume")
-				.withAddressBuilder(aValidAddress());
+	public static Customer aValidCustomer() {
+		return new Customer()
+				.setName("Nume")
+				.setAddress(aValidAddress());
 	}
 
-	public static AddressBuilder aValidAddress() {
-		return new AddressBuilder()
-				.withCity("Bucale")
-				.withStreetName("Preciziei")
-				.withStreetNumber(12);
+	public static Address aValidAddress() {
+		return new Address()
+				.setCity("Bucale")
+				.setStreetName("Preciziei")
+				.setStreetNumber(12);
 	}
 }
