@@ -9,6 +9,8 @@ import java.util.UUID;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
+import static java.util.Date.*;
+
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
@@ -43,10 +45,7 @@ public class TelemetryDiagnosticControls {
 
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(UUID.randomUUID().toString());
-		config.setSessionStart(java.util.Date
-                .from(LocalDateTime.now(clock)
-                        .atZone(ZoneId.systemDefault())
-                        .toInstant()).getTime());
+		config.setSessionStart(from(LocalDateTime.now(clock).atZone(ZoneId.systemDefault()).toInstant()).getTime());
 		config.setAckMode(AckMode.NORMAL);
 
 		telemetryClient.configure(config);

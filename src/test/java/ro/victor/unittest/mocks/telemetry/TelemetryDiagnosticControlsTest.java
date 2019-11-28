@@ -82,6 +82,8 @@ public class TelemetryDiagnosticControlsTest {
                 from(LocalDateTime.now(clock)
             .atZone(ZoneId.systemDefault())
             .toInstant()).getTime());
+
+        assertThat(configDinProd.getSessionId()).isNotNull();
 }
 
 
