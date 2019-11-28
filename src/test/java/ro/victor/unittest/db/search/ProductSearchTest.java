@@ -6,8 +6,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.db.search.Product.Category;
@@ -29,6 +31,10 @@ public class ProductSearchTest extends RepoBaseTest{
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
+    @MockBean
+    public Alta alta;
+
+
     @Before
     public void verificCaECuratInBaza() {
         assertThat(repo.count()).isEqualTo(0);
@@ -36,6 +42,7 @@ public class ProductSearchTest extends RepoBaseTest{
     @Test
     public void name() {
 
+        Mockito.when(alta.ia()).thenReturn("P'asta");
         Product pInDB = new Product().setName("Lego").setOriginCountry(c);
         repo.save(pInDB);
         criteria.name = "E";

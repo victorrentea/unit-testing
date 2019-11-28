@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearchImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearchImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductSearchTest.java" afterDir="false" />
     </list>
@@ -328,14 +329,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="43284000" />
-    </task>
-    <task id="LOCAL-00006" summary="unit test php: solved pretty good">
-      <created>1562836954773</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836954773</updated>
+      <workItem from="1574794872658" duration="43777000" />
     </task>
     <task id="LOCAL-00007" summary="unittesting: Time Rule fix">
       <created>1562877239535</created>
@@ -673,7 +667,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574952750762</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="gata cu JPQL">
+      <created>1574953031603</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1574953031603</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -735,7 +736,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Builder returnati de metode statice ==&gt; &quot;Object Mother&quot; F.... Pattern" />
     <MESSAGE value="ObjectMother (TM)" />
     <MESSAGE value="fluent setters" />
     <MESSAGE value="Prindere de exceptii selectiv (duce la prea multe custom exceptions)" />
@@ -760,7 +760,8 @@
     <MESSAGE value="START DB" />
     <MESSAGE value="p6spy in action." />
     <MESSAGE value="pre result DTO" />
-    <option name="LAST_COMMIT_MESSAGE" value="pre result DTO" />
+    <MESSAGE value="gata cu JPQL" />
+    <option name="LAST_COMMIT_MESSAGE" value="gata cu JPQL" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
