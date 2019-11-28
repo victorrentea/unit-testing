@@ -38,12 +38,12 @@ public class TelemetryDiagnosticControls {
 			throw new Exception("Unable to connect."); // OK
 		}
 
-//		ClientConfiguration config = new ClientConfiguration();
-//		config.setSessionId(UUID.randomUUID().toString());
-//		config.setSessionStart(new Date().getTime());
-//		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(UUID.randomUUID().toString());
+		config.setSessionStart(new Date().getTime());
+		config.setAckMode(AckMode.NORMAL);
 
-		telemetryClient.configure(new ClientConfiguration());
+		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // OK
 		diagnosticInfo = telemetryClient.receive(); // OK

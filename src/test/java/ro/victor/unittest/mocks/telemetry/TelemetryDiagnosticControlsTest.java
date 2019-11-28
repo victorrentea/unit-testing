@@ -7,10 +7,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
+
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.rules.ExpectedException.none;
@@ -61,8 +65,14 @@ public class TelemetryDiagnosticControlsTest {
 
     @Test
     public void configuresClient() throws Exception {
+        ArgumentCaptor<ClientConfiguration> mincioc = ArgumentCaptor.forClass(ClientConfiguration.class);
         controls.checkTransmission();
-        verify(client).configure(notNull());
+        verify(client).configure(mincioc.capture());
+
+        ClientConfiguration configDinProd = mincioc.getValue();
+        assertThat(configDinProd.getAckMode()).isEqualTo(ClientConfiguration.AckMode.NORMAL);
+
+        assertThat(new Date(configDinProd.getSessionStart())).isInSameDayAs(new Date());
     }
 
 
