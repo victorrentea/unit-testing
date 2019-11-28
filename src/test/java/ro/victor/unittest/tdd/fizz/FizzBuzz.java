@@ -14,16 +14,16 @@ public class FizzBuzz {
     }
 
     public String getString(int number) {
-        StringBuilder result = new StringBuilder();
+        String result = "";
         for (Integer divisor : factors.keySet()) {
             if (number % divisor == 0) {
-                result.append(factors.get(divisor));
+                result += factors.get(divisor);
             }
         }
-        if (result.toString().isEmpty()) {
+        if (result.isEmpty()) {
             return String.valueOf(number);
         }
-        return result.toString();
+        return result;
     }
 
 
