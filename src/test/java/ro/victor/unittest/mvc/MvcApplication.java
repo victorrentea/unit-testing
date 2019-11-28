@@ -45,7 +45,7 @@ class RestInPeaceController {
 	@Autowired
 	private RestInPeaceService service;
 	
-	@GetMapping("/peace/{ssn}")
+	@GetMapping(value = "/peace/{ssn}", produces = "application/json")
 	public Peace peace(@PathVariable String ssn) {
 		return service.getPeace(ssn);
 	}

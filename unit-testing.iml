@@ -43,7 +43,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: net.minidev:accessors-smart:1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.ow2.asm:asm:5.0.4" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.assertj:assertj-core:3.11.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-core:2.23.4" level="project" />
     <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy:1.9.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy-agent:1.9.12" level="project" />
@@ -139,6 +138,7 @@
     <orderEntry type="library" name="Maven: info.cukes:cucumber-jvm-deps:1.0.5" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:gherkin:2.12.2" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-spring:1.2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.assertj:assertj-core:3.11.1" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-junit:1.2.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4:2.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4-common:2.0.2" level="project" />

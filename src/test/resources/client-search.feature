@@ -9,6 +9,7 @@ Feature: Search for clients
 
   Background:
     Given A Client exists in DB
+    # ~= @Before
 
   Scenario: By name matches
     Given The Client has name "John Doe"
