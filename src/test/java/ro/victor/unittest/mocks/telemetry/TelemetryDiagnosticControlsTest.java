@@ -14,8 +14,13 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 
+import static java.util.Date.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.rules.ExpectedException.none;
 import static org.mockito.Mockito.*;
@@ -27,12 +32,13 @@ public class TelemetryDiagnosticControlsTest {
 
     @Mock
     private TelemetryClient client;
-    @InjectMocks
+//    @InjectMocks
     private TelemetryDiagnosticControls controls;
+    private Clock clock = Clock.fixed(LocalDateTime.parse("2019-01-01T12:12:12").toInstant(ZoneOffset.UTC), ZoneId.systemDefault());
 
     @Before
     public void setUp() throws Exception {
-//        controls = new TelemetryDiagnosticControls(client); // ai nevoie doar daca testezi doua clase frati de sange inconjurati de fatzarnici (mockuri).
+        controls = new TelemetryDiagnosticControls(client, clock); // ai nevoie doar daca testezi doua clase frati de sange inconjurati de fatzarnici (mockuri).
         when(client.getOnlineStatus()).thenReturn(true);
     }
 
@@ -72,8 +78,11 @@ public class TelemetryDiagnosticControlsTest {
         ClientConfiguration configDinProd = mincioc.getValue();
         assertThat(configDinProd.getAckMode()).isEqualTo(ClientConfiguration.AckMode.NORMAL);
 
-        assertThat(new Date(configDinProd.getSessionStart())).isInSameDayAs(new Date());
-    }
+        assertThat(configDinProd.getSessionStart()).isEqualTo(
+                from(LocalDateTime.now(clock)
+            .atZone(ZoneId.systemDefault())
+            .toInstant()).getTime());
+}
 
 
 }
