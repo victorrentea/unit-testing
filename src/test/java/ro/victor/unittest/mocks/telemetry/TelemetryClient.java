@@ -2,8 +2,6 @@ package ro.victor.unittest.mocks.telemetry;
 
 import java.util.Random;
 
-import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
-
 public class TelemetryClient {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 	
@@ -59,7 +57,7 @@ public class TelemetryClient {
 		onlineStatus = false;
 	}
 
-	public void send(String message) {
+	public void send(String message, String name) {
 		if (message == null || "".equals(message)) {
 			throw new IllegalArgumentException();
 		}

@@ -1,15 +1,12 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,7 +53,7 @@ public class TelemetryDiagnosticControlsTest {
     @Test
     public void sendsDiagnosticMessage() throws Exception {
         controls.checkTransmission();
-        verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+        verify(client).send(anyString(), eq("kiki"));
     }
 
 
