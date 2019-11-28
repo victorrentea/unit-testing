@@ -1,5 +1,6 @@
 package ro.victor.unittest.db.search;
 
+import lombok.AllArgsConstructor;
 import lombok.ToString;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -59,4 +60,11 @@ public class ProductSearchTest extends RepoBaseTest{
 class ProductSearchCriteria { // pute a JSON
     public String name;
     public Category category;
+}
+
+@AllArgsConstructor
+class ProductSearchResult {
+    public Long id;
+    public String name;
+
 }

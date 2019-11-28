@@ -20,6 +20,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
 
     @Override
     public List<Product> search(ProductSearchCriteria criteria) {
+//        String jpql = "SELECT new ro.victor.unittest.db.search.ProductSearchResult(p.id, p.name) FROM Product p WHERE 1=1 ";
         String jpql = "SELECT p FROM Product p WHERE 1=1 ";
 
         Map<String, Object> paramMap = new HashMap<>();
