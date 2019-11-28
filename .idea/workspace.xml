@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearchImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductSearchTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,6 +86,7 @@
         <option value="JUnit4 Test Class" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -173,11 +181,11 @@
       <recent name="ro.victor.unittest.builder.ObjectMother" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.db.search" />
       <recent name="ro.victor.unittest.tdd.fizz" />
       <recent name="ro.victor.unittest.tdd.tennis" />
       <recent name="ro.victor.unittest.builder" />
       <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -192,33 +200,63 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TelemetryDiagnosticControlsTest">
-    <configuration name="ClientConfigurationFactoryTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ProductSearchTest">
+    <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
+          <option name="PATTERN" value="ro.victor.unittest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.ClientConfigurationFactoryTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.db.search.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.db.search" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.ProductSearchTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientConfigurationFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductSearchTest.category" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
+          <option name="PATTERN" value="ro.victor.unittest.db.search.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.ClientConfigurationFactoryTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.db.search" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.ProductSearchTest" />
+      <option name="METHOD_NAME" value="category" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductSearchTest.unu" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.db.search.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.db.search" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.ProductSearchTest" />
+      <option name="METHOD_NAME" value="unu" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -238,45 +276,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TelemetryDiagnosticControlsTest.configuresClient" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
-      <option name="METHOD_NAME" value="configuresClient" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TelemetryDiagnosticControlsTest.jdd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
-      <option name="METHOD_NAME" value="jdd" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductSearchTest" />
+        <item itemvalue="JUnit.ProductSearchTest.category" />
+        <item itemvalue="JUnit.ProductSearchTest.unu" />
+        <item itemvalue="Application.StartDatabase" />
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
-        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.configuresClient" />
-        <item itemvalue="JUnit.ClientConfigurationFactoryTest" />
-        <item itemvalue="JUnit.ClientConfigurationFactoryTest (1)" />
-        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.jdd" />
       </list>
     </recent_temporary>
   </component>
@@ -329,14 +335,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="39514000" />
-    </task>
-    <task id="LOCAL-00003" summary="unittesting: fix typo in .feature">
-      <created>1562836571900</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836571900</updated>
+      <workItem from="1574794872658" duration="42728000" />
     </task>
     <task id="LOCAL-00004" summary="minor logging fixes">
       <created>1562836799037</created>
@@ -674,7 +673,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574948580952</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="START DB">
+      <created>1574949250380</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1574949250381</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -736,7 +742,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Gata testele. Dar greu de mentenat" />
     <MESSAGE value="Surpriza!! Pentru fiecare @Test se instantiaza clasa de test din nou. Deci tot ce pui pe camp(uri) se pierde pentru urmatorul test." />
     <MESSAGE value="Folosind Builder" />
     <MESSAGE value="Builder returnati de metode statice ==&gt; &quot;Object Mother&quot; F.... Pattern" />
@@ -761,7 +766,8 @@
     <MESSAGE value="FixedClock din Java8" />
     <MESSAGE value="cat de cat am terminat" />
     <MESSAGE value="Am aplicat separation by layers of abstraction" />
-    <option name="LAST_COMMIT_MESSAGE" value="Am aplicat separation by layers of abstraction" />
+    <MESSAGE value="START DB" />
+    <option name="LAST_COMMIT_MESSAGE" value="START DB" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
