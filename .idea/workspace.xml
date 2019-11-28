@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearchImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductSearchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Country.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/RepoBaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductSearchTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,8 +80,8 @@
       <list>
         <option value="JUnit4 Test Class" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -335,14 +330,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="42728000" />
-    </task>
-    <task id="LOCAL-00004" summary="minor logging fixes">
-      <created>1562836799037</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836799037</updated>
+      <workItem from="1574794872658" duration="43010000" />
     </task>
     <task id="LOCAL-00005" summary="gitignore">
       <created>1562836908285</created>
@@ -680,7 +668,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574949250381</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="p6spy in action.">
+      <created>1574952440301</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1574952440301</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -742,7 +737,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Surpriza!! Pentru fiecare @Test se instantiaza clasa de test din nou. Deci tot ce pui pe camp(uri) se pierde pentru urmatorul test." />
     <MESSAGE value="Folosind Builder" />
     <MESSAGE value="Builder returnati de metode statice ==&gt; &quot;Object Mother&quot; F.... Pattern" />
     <MESSAGE value="ObjectMother (TM)" />
@@ -767,7 +761,8 @@
     <MESSAGE value="cat de cat am terminat" />
     <MESSAGE value="Am aplicat separation by layers of abstraction" />
     <MESSAGE value="START DB" />
-    <option name="LAST_COMMIT_MESSAGE" value="START DB" />
+    <MESSAGE value="p6spy in action." />
+    <option name="LAST_COMMIT_MESSAGE" value="p6spy in action." />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

@@ -5,6 +5,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 @ToString
@@ -17,12 +18,24 @@ public class Product {
 
     private Category category;
 
+    @ManyToOne
+    private Country originCountry;
+
     enum Category {
         CASA, MASINA, COPII, NEVASTA
     }
 
     public Long getId() {
         return id;
+    }
+
+    public Country getOriginCountry() {
+        return originCountry;
+    }
+
+    public Product setOriginCountry(Country originCountry) {
+        this.originCountry = originCountry;
+        return this;
     }
 
     public Product setId(Long id) {

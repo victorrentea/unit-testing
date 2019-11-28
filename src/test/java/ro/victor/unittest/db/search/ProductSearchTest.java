@@ -17,10 +17,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // profile, mockbean, props
-@SpringBootTest
-@RunWith(SpringRunner.class)
-@Transactional
-public class ProductSearchTest {
+
+public class ProductSearchTest extends RepoBaseTest{
 
     @Autowired
     private ProductRepo repo;
@@ -36,7 +34,8 @@ public class ProductSearchTest {
     }
     @Test
     public void name() {
-        Product pInDB = new Product().setName("Lego");
+
+        Product pInDB = new Product().setName("Lego").setOriginCountry(c);
         repo.save(pInDB);
         criteria.name = "E";
         assertThat(repo.search(criteria)).anyMatch(pp -> pp.getId().equals(pInDB.getId()));
