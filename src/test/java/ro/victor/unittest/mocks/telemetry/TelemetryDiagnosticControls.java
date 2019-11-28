@@ -3,7 +3,6 @@ package ro.victor.unittest.mocks.telemetry;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.UUID;
 
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
@@ -14,23 +13,20 @@ import static java.util.Date.*;
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
-	private final Clock clock;
-	private String diagnosticInfo = "";
-
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, Clock clock) {
+	private final TelemetryClient telemetryClient;
+	private final ClientConfigurationFactory configFactory;
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ClientConfigurationFactory configFactory) {
 		this.telemetryClient = telemetryClient;
-        this.clock = clock;
-    }
+		this.configFactory = configFactory;
+	}
+
+	private String diagnosticInfo = "";
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
-	public void setDiagnosticInfo(String diagnosticInfo) {
-		this.diagnosticInfo = diagnosticInfo;
-	}
 
-	public void checkTransmission() throws Exception {
+	public void checkTransmission() throws IllegalArgumentException {
 		telemetryClient.disconnect(); // OK
 
 		int currentRetry = 1;
@@ -40,18 +36,32 @@ public class TelemetryDiagnosticControls {
 		}
 
 		if (! telemetryClient.getOnlineStatus()) {
-			throw new Exception("Unable to connect."); // OK
+			throw new IllegalArgumentException("Unable to connect."); // OK
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(UUID.randomUUID().toString());
-		config.setSessionStart(from(LocalDateTime.now(clock).atZone(ZoneId.systemDefault()).toInstant()).getTime());
-		config.setAckMode(AckMode.NORMAL);
-
-		telemetryClient.configure(config);
+		telemetryClient.configure(configFactory.createConfig());
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // OK
 		diagnosticInfo = telemetryClient.receive(); // OK
 	}
 
+}
+
+
+//mai low level ca cea de sus
+//@Service
+class ClientConfigurationFactory {
+	private final Clock clock;
+
+	public ClientConfigurationFactory(Clock clock) {
+		this.clock = clock;
+	}
+
+	public ClientConfiguration createConfig() {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(UUID.randomUUID().toString());
+		config.setSessionStart(from(LocalDateTime.now(clock).atZone(ZoneId.systemDefault()).toInstant()).getTime());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
+	}
 }

@@ -194,49 +194,32 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.TelemetryDiagnosticControlsTest">
-    <configuration name="FizzBuzzTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ClientConfigurationFactoryTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.fizz.*" />
+          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.fizz" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.fizz.FizzBuzzTest" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.ClientConfigurationFactoryTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FizzBuzzTest.testNumber3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ClientConfigurationFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.fizz.*" />
+          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.fizz" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.fizz.FizzBuzzTest" />
-      <option name="METHOD_NAME" value="testNumber3" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FizzBuzzTest.testNumber5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.fizz.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.fizz" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.fizz.FizzBuzzTest" />
-      <option name="METHOD_NAME" value="testNumber5" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.ClientConfigurationFactoryTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -252,6 +235,22 @@
       <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TelemetryDiagnosticControlsTest.configuresClient" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
+      <option name="METHOD_NAME" value="configuresClient" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -275,10 +274,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
+        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.configuresClient" />
+        <item itemvalue="JUnit.ClientConfigurationFactoryTest" />
+        <item itemvalue="JUnit.ClientConfigurationFactoryTest (1)" />
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.jdd" />
-        <item itemvalue="JUnit.FizzBuzzTest" />
-        <item itemvalue="JUnit.FizzBuzzTest.testNumber5" />
-        <item itemvalue="JUnit.FizzBuzzTest.testNumber3" />
       </list>
     </recent_temporary>
   </component>
@@ -331,14 +330,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="37981000" />
-    </task>
-    <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
-      <created>1562356900385</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1562356900385</updated>
+      <workItem from="1574794872658" duration="38788000" />
     </task>
     <task id="LOCAL-00002" summary="unittesting: Add Cucumber + DB testing">
       <created>1562836507941</created>
@@ -669,7 +661,21 @@
       <option name="project" value="LOCAL" />
       <updated>1574947235206</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="FixedClock din Java8">
+      <created>1574947656075</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1574947656075</updated>
+    </task>
+    <task id="LOCAL-00050" summary="cat de cat am terminat">
+      <created>1574947828492</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1574947828492</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -731,8 +737,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Prep for mutation testing" />
-    <MESSAGE value="Clean up code" />
     <MESSAGE value="UN TEST BUN de micsorare" />
     <MESSAGE value="Gata testele. Dar greu de mentenat" />
     <MESSAGE value="Surpriza!! Pentru fiecare @Test se instantiaza clasa de test din nou. Deci tot ce pui pe camp(uri) se pierde pentru urmatorul test." />
@@ -756,7 +760,9 @@
     <MESSAGE value="notNull() arg matcher" />
     <MESSAGE value="ai nevoie sa pleci la pescuit de Argumente" />
     <MESSAGE value="Ingineria: trunchem data la assert" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ingineria: trunchem data la assert" />
+    <MESSAGE value="FixedClock din Java8" />
+    <MESSAGE value="cat de cat am terminat" />
+    <option name="LAST_COMMIT_MESSAGE" value="cat de cat am terminat" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

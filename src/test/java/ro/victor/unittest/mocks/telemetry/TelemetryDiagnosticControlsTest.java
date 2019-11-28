@@ -1,16 +1,12 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
@@ -18,7 +14,6 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.Date;
 
 import static java.util.Date.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,18 +27,20 @@ public class TelemetryDiagnosticControlsTest {
 
     @Mock
     private TelemetryClient client;
-//    @InjectMocks
+    @Mock
+    private ClientConfigurationFactory configFactory;
+    @InjectMocks
     private TelemetryDiagnosticControls controls;
-    private Clock clock = Clock.fixed(LocalDateTime.parse("2019-01-01T12:12:12").toInstant(ZoneOffset.UTC), ZoneId.systemDefault());
 
     @Before
     public void setUp() throws Exception {
-        controls = new TelemetryDiagnosticControls(client, clock); // ai nevoie doar daca testezi doua clase frati de sange inconjurati de fatzarnici (mockuri).
+//        controls = new TelemetryDiagnosticControls(client); // ai nevoie doar daca testezi doua clase frati de sange inconjurati de fatzarnici (mockuri).
         when(client.getOnlineStatus()).thenReturn(true);
     }
 
     @Test
     public void throwsForOnlineStatusFalse() throws Exception {
+        expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("connect");
         when(client.getOnlineStatus()).thenReturn(false);
         controls.checkTransmission();
@@ -71,20 +68,9 @@ public class TelemetryDiagnosticControlsTest {
 
     @Test
     public void configuresClient() throws Exception {
-        ArgumentCaptor<ClientConfiguration> mincioc = ArgumentCaptor.forClass(ClientConfiguration.class);
         controls.checkTransmission();
-        verify(client).configure(mincioc.capture());
-
-        ClientConfiguration configDinProd = mincioc.getValue();
-        assertThat(configDinProd.getAckMode()).isEqualTo(ClientConfiguration.AckMode.NORMAL);
-
-        assertThat(configDinProd.getSessionStart()).isEqualTo(
-                from(LocalDateTime.now(clock)
-            .atZone(ZoneId.systemDefault())
-            .toInstant()).getTime());
-
-        assertThat(configDinProd.getSessionId()).isNotNull();
-}
-
+        verify(client).configure(anyObject());
+    }
 
 }
+
