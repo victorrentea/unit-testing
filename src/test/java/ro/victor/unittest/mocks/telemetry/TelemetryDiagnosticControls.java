@@ -15,6 +15,7 @@ public class TelemetryDiagnosticControls {
 
 	private final TelemetryClient telemetryClient;
 	private final ClientConfigurationFactory configFactory;
+
 	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ClientConfigurationFactory configFactory) {
 		this.telemetryClient = telemetryClient;
 		this.configFactory = configFactory;

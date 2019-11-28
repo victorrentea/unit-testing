@@ -4,7 +4,6 @@
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -330,14 +329,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="38788000" />
-    </task>
-    <task id="LOCAL-00002" summary="unittesting: Add Cucumber + DB testing">
-      <created>1562836507941</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836507941</updated>
+      <workItem from="1574794872658" duration="39514000" />
     </task>
     <task id="LOCAL-00003" summary="unittesting: fix typo in .feature">
       <created>1562836571900</created>
@@ -675,7 +667,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574947828492</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Am aplicat separation by layers of abstraction">
+      <created>1574948580952</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1574948580952</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -737,7 +736,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="UN TEST BUN de micsorare" />
     <MESSAGE value="Gata testele. Dar greu de mentenat" />
     <MESSAGE value="Surpriza!! Pentru fiecare @Test se instantiaza clasa de test din nou. Deci tot ce pui pe camp(uri) se pierde pentru urmatorul test." />
     <MESSAGE value="Folosind Builder" />
@@ -762,7 +760,8 @@
     <MESSAGE value="Ingineria: trunchem data la assert" />
     <MESSAGE value="FixedClock din Java8" />
     <MESSAGE value="cat de cat am terminat" />
-    <option name="LAST_COMMIT_MESSAGE" value="cat de cat am terminat" />
+    <MESSAGE value="Am aplicat separation by layers of abstraction" />
+    <option name="LAST_COMMIT_MESSAGE" value="Am aplicat separation by layers of abstraction" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
