@@ -59,5 +59,11 @@ public class TelemetryDiagnosticControlsTest {
         verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
     }
 
+    @Test
+    public void configuresClient() throws Exception {
+        controls.checkTransmission();
+        verify(client).configure(notNull());
+    }
+
 
 }

@@ -6,7 +6,7 @@ import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
 public class TelemetryClient {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
-	
+
 	public static class ClientConfiguration {
 		enum AckMode {NORMAL, TIMEBOXED, FLOOD};
 		private String sessionId;

@@ -45,7 +45,7 @@ public class TelemetryDiagnosticControls {
 
 		telemetryClient.configure(config);
 
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // OK
 		diagnosticInfo = telemetryClient.receive(); // OK
 	}
 

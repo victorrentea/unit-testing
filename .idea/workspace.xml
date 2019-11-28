@@ -331,7 +331,7 @@
       <workItem from="1567146899125" duration="3375000" />
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
-      <workItem from="1574794872658" duration="36871000" />
+      <workItem from="1574794872658" duration="37125000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -634,7 +634,21 @@
       <option name="project" value="LOCAL" />
       <updated>1574946431935</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="arg matchers doar pe unii argumenti">
+      <created>1574946508778</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1574946508778</updated>
+    </task>
+    <task id="LOCAL-00045" summary="back">
+      <created>1574946521280</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1574946521280</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -696,8 +710,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Outside IN TDD : DOne" />
-    <MESSAGE value="JDK" />
     <MESSAGE value="fix Java version" />
     <MESSAGE value="Fix DBUnit" />
     <MESSAGE value="Gitignore" />
@@ -721,7 +733,9 @@
     <MESSAGE value="FizzBuzz cu mapa" />
     <MESSAGE value="Mockito RULZ" />
     <MESSAGE value="Claudiu: merge!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Claudiu: merge!" />
+    <MESSAGE value="arg matchers doar pe unii argumenti" />
+    <MESSAGE value="back" />
+    <option name="LAST_COMMIT_MESSAGE" value="back" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
