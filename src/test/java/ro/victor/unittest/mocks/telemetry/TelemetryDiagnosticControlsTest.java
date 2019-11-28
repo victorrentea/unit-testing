@@ -26,10 +26,11 @@ public class TelemetryDiagnosticControlsTest {
     @InjectMocks
     private TelemetryDiagnosticControls controls;
 
-//    @Before
-//    public void setUp() throws Exception { // ai nevoie doar daca testezi doua clase frati de sange inconjurati de fatzarnici (mockuri).
-//        controls = new TelemetryDiagnosticControls(client);
-//    }
+    @Before
+    public void setUp() throws Exception {
+//        controls = new TelemetryDiagnosticControls(client); // ai nevoie doar daca testezi doua clase frati de sange inconjurati de fatzarnici (mockuri).
+        when(client.getOnlineStatus()).thenReturn(true);
+    }
 
     @Test
     public void throwsForOnlineStatusFalse() throws Exception {
@@ -39,19 +40,23 @@ public class TelemetryDiagnosticControlsTest {
     }
     @Test
     public void disconnectsClient() throws Exception {
-        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission();
         verify(client).disconnect();
     }
 
     @Test
     public void receivesDiagnosticInfo() throws Exception {
-        when(client.getOnlineStatus()).thenReturn(true);
         when(client.receive()).thenReturn("Tataie");
         controls.checkTransmission();
         // verify(client,times(1)).receive(); // doar atunci are sens sa verifici un QUERY facut de obiectul testat.
         // ARE sens sa verifici daca: face side effects (nu e pura), costa bani, sau dureaza timp mult
         assertThat(controls.getDiagnosticInfo()).isEqualTo("Tataie");
+    }
+
+    @Test
+    public void sendsDiagnosticMessage() throws Exception {
+        controls.checkTransmission();
+        verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
     }
 
 
