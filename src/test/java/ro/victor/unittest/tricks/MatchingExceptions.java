@@ -11,42 +11,42 @@ public class MatchingExceptions {
     public ExpectedException exception = ExpectedException.none();
 
 
-    @Test(expected = ExceptiaMea.class)
+    @Test(expected = MyException.class)
     public void throwsForNegativeParam_ingineresteVorbind() {
-        ClasaDeTestat.cevaGreuCareMaiSiCrapa(-1);
+        ClassToTest.cevaGreuCareMaiSiCrapa(-1);
     }
     @Test
     public void throwsForNegativeParam() {
-        exception.expect(new ExceptiaMeaMatcher(ExceptiaMea.ErrorCode.NEGATIVE_PARAM));
-        ClasaDeTestat.cevaGreuCareMaiSiCrapa(-1);
+        exception.expect(new MyExceptionMatcher(MyException.ErrorCode.NEGATIVE_PARAM));
+        ClassToTest.cevaGreuCareMaiSiCrapa(-1);
     }
 
     @Test
     public void throwsForParamOver10() {
-        exception.expect(new ExceptiaMeaMatcher(ExceptiaMea.ErrorCode.PARAM_OVER_10));
-        ClasaDeTestat.cevaGreuCareMaiSiCrapa(11);
+        exception.expect(new MyExceptionMatcher(MyException.ErrorCode.PARAM_OVER_10));
+        ClassToTest.cevaGreuCareMaiSiCrapa(11);
     }
 
     @Test
     public void okForParam9() {
-        ClasaDeTestat.cevaGreuCareMaiSiCrapa(9);
+        ClassToTest.cevaGreuCareMaiSiCrapa(9);
     }
 }
 
-class ExceptiaMeaMatcher extends BaseMatcher<ExceptiaMea> {
+class MyExceptionMatcher extends BaseMatcher<MyException> {
 
-        private final ExceptiaMea.ErrorCode negativeParam;
+        private final MyException.ErrorCode negativeParam;
 
-        ExceptiaMeaMatcher(ExceptiaMea.ErrorCode negativeParam) {
+        MyExceptionMatcher(MyException.ErrorCode negativeParam) {
             this.negativeParam = negativeParam;
         }
 
         @Override
         public boolean matches(Object item) {
-            if (!(item instanceof ExceptiaMea)) {
+            if (!(item instanceof MyException)) {
                 return false;
             }
-            ExceptiaMea e = (ExceptiaMea) item;
+            MyException e = (MyException) item;
             return e.getCode() == negativeParam;
         }
 
@@ -57,22 +57,22 @@ class ExceptiaMeaMatcher extends BaseMatcher<ExceptiaMea> {
 
 }
 
-class ClasaDeTestat {
+class ClassToTest {
     public static void cevaGreuCareMaiSiCrapa(int i) {
 
         if (i < 0) {
-            throw new ExceptiaMea(ExceptiaMea.ErrorCode.NEGATIVE_PARAM);
+            throw new MyException(MyException.ErrorCode.NEGATIVE_PARAM);
         }
 
 
         if (i > 10) {
-            throw new ExceptiaMea(ExceptiaMea.ErrorCode.PARAM_OVER_10);
+            throw new MyException(MyException.ErrorCode.PARAM_OVER_10);
         }
     }
 }
 
 
-class ExceptiaMea extends RuntimeException {
+class MyException extends RuntimeException {
     public enum ErrorCode {
         NEGATIVE_PARAM,
         PARAM_OVER_10
@@ -80,7 +80,7 @@ class ExceptiaMea extends RuntimeException {
 
     private final ErrorCode code;
 
-    public ExceptiaMea(ErrorCode code) {
+    public MyException(ErrorCode code) {
         this.code = code;
     }
 

@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class ExceptionContaingCode {
+public class ExceptionContainingMessage {
 	
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
