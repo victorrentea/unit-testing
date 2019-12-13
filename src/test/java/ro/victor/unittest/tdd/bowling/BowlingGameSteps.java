@@ -6,8 +6,11 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.api.Assertions;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class BowlingGameSteps {
 
@@ -15,12 +18,11 @@ public class BowlingGameSteps {
 
     @When("^The sequence of rolls is \"([^\"]*)\"$")
     public void the_row_is(String rowStr) throws Throwable {
-        String[] numberStrings = rowStr.split(" ");
 
-        int[] ints = new int[numberStrings.length];
-        for (int i = 0; i < numberStrings.length; i++) {
-            ints[i] = Integer.parseInt(numberStrings[i]);
-        }
+        List<Integer> ints = Stream.of(rowStr.split(" "))
+                .map(Integer::parseInt)
+                .collect(toList());
+
         actualScore = BowlingGame.calculateScore(ints);
     }
 

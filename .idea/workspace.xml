@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameFeature.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/bowling.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameSteps.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,7 +305,7 @@
       <workItem from="1574794872658" duration="4687000" />
       <workItem from="1575012038335" duration="676000" />
       <workItem from="1575063689119" duration="149000" />
-      <workItem from="1576252230475" duration="3236000" />
+      <workItem from="1576252230475" duration="3982000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -479,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574811665845</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list.">
+      <created>1576255668600</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1576255668600</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -533,33 +536,50 @@
     <MESSAGE value="Fix DBUnit" />
     <MESSAGE value="Gitignore" />
     <MESSAGE value="Prep for mutation testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prep for mutation testing" />
+    <MESSAGE value="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list." />
+    <option name="LAST_COMMIT_MESSAGE" value="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list." />
   </component>
   <component name="WindowStateProjectService">
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576256099002">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576256099002" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575063693814">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
-    <state width="1492" height="170" key="GridCell.Tab.0.bottom" timestamp="1576255508587">
+    <state x="406" y="22" key="CommitChangelistDialog2" timestamp="1576255668037">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576255508587" />
-    <state width="1492" height="170" key="GridCell.Tab.0.center" timestamp="1576255508586">
+    <state x="406" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576255668037" />
+    <state width="1492" height="170" key="GridCell.Tab.0.bottom" timestamp="1576255913420">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576255508586" />
-    <state width="1492" height="170" key="GridCell.Tab.0.left" timestamp="1576255508586">
+    <state width="1492" height="170" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576255913420" />
+    <state width="1492" height="170" key="GridCell.Tab.0.center" timestamp="1576255913419">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576255508586" />
-    <state width="1492" height="170" key="GridCell.Tab.0.right" timestamp="1576255508587">
+    <state width="1492" height="170" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576255913419" />
+    <state width="1492" height="170" key="GridCell.Tab.0.left" timestamp="1576255913419">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576255508587" />
+    <state width="1492" height="170" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576255913419" />
+    <state width="1492" height="170" key="GridCell.Tab.0.right" timestamp="1576255913420">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="170" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576255913420" />
     <state x="279" y="77" key="SettingsEditor" timestamp="1576255395985">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="279" y="77" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1576255395985" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1576255678030">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576255678030" />
+    <state x="499" y="194" key="extract.method.dialog" timestamp="1576255706294">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="499" y="194" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576255706294" />
     <state x="474" y="193" width="588" height="478" key="find.popup" timestamp="1576254224761">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
