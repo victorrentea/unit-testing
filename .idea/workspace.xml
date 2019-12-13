@@ -4,7 +4,7 @@
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/bowling.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/bowling.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -305,7 +305,7 @@
       <workItem from="1574794872658" duration="4687000" />
       <workItem from="1575012038335" duration="676000" />
       <workItem from="1575063689119" duration="149000" />
-      <workItem from="1576252230475" duration="3982000" />
+      <workItem from="1576252230475" duration="5940000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -482,7 +482,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576255668600</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="OOP : try to continue">
+      <created>1576256226320</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1576256226320</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -512,7 +519,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="rename bdd to filtering.&#10;added time @Rule" />
     <MESSAGE value="unittesting: Add Cucumber + DB testing" />
     <MESSAGE value="unittesting: fix typo in .feature" />
     <MESSAGE value="minor logging fixes" />
@@ -537,45 +543,46 @@
     <MESSAGE value="Gitignore" />
     <MESSAGE value="Prep for mutation testing" />
     <MESSAGE value="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list." />
-    <option name="LAST_COMMIT_MESSAGE" value="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list." />
+    <MESSAGE value="OOP : try to continue" />
+    <option name="LAST_COMMIT_MESSAGE" value="OOP : try to continue" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576256099002">
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576258339841">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576256099002" />
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576258339841" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575063693814">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
-    <state x="406" y="22" key="CommitChangelistDialog2" timestamp="1576255668037">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1576256225696">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="406" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576255668037" />
-    <state width="1492" height="170" key="GridCell.Tab.0.bottom" timestamp="1576255913420">
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576256225696" />
+    <state width="1492" height="170" key="GridCell.Tab.0.bottom" timestamp="1576258526287">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576255913420" />
-    <state width="1492" height="170" key="GridCell.Tab.0.center" timestamp="1576255913419">
+    <state width="1492" height="170" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576258526287" />
+    <state width="1492" height="170" key="GridCell.Tab.0.center" timestamp="1576258526286">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576255913419" />
-    <state width="1492" height="170" key="GridCell.Tab.0.left" timestamp="1576255913419">
+    <state width="1492" height="170" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576258526286" />
+    <state width="1492" height="170" key="GridCell.Tab.0.left" timestamp="1576258526286">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576255913419" />
-    <state width="1492" height="170" key="GridCell.Tab.0.right" timestamp="1576255913420">
+    <state width="1492" height="170" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576258526286" />
+    <state width="1492" height="170" key="GridCell.Tab.0.right" timestamp="1576258526286">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576255913420" />
+    <state width="1492" height="170" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576258526286" />
     <state x="279" y="77" key="SettingsEditor" timestamp="1576255395985">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="279" y="77" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1576255395985" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1576255678030">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1576256227975">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576255678030" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576256227975" />
     <state x="499" y="194" key="extract.method.dialog" timestamp="1576255706294">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -584,14 +591,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="474" y="193" width="588" height="478" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1576254224761" />
+    <state x="511" y="57" key="refactoring.ChangeSignatureDialog" timestamp="1576258244531">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="511" y="57" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1576258244531" />
     <state x="425" y="189" key="run.anything.popup" timestamp="1576253336861">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576253336861" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576254318268">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576258498160">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576254318268" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576258498160" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
