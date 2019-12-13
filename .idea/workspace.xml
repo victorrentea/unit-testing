@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameFeature.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGameTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/bowling.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
@@ -76,8 +81,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit4 Test Class" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -136,6 +141,13 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.bowling" />
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+      <recent name="ro.victor.unittest.cucumber.search" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
@@ -145,13 +157,6 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.tdd" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\builder" />
       <recent name="C:\workspace\unit-testing\src\test\java" />
@@ -160,22 +165,29 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
-      <recent name="ro.victor.unittest.tdd.outsidein" />
-      <recent name="ro.victor.unittest.cucumber.search" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.NonTransactionalTest">
-    <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
+  <component name="RunManager" selected="JUnit.BowlingGameFeature">
+    <configuration name="Feature: bowling" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/bowling.feature" />
+      <option name="GLUE" value="cucumber.api.spring" />
+      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
       <module name="unit-testing" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome" />
+      <option name="SUGGESTED_NAME" value="Feature: bowling" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tricks.*" />
+          <option name="PATTERN" value="cucumber.api.cli.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -183,16 +195,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AssertDatabaseContentsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BowlingGameFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.db.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.bowling.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.db" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.AssertDatabaseContentsTest" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.bowling" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.bowling.BowlingGameFeature" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BowlingGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.bowling.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.bowling" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.bowling.BowlingGameTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -228,29 +255,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransactionalTest.countTotalUsers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.db.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.db" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.TransactionalTest" />
-      <option name="METHOD_NAME" value="countTotalUsers" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BowlingGameFeature" />
+        <item itemvalue="Cucumber java.Feature: bowling" />
+        <item itemvalue="JUnit.BowlingGameTest" />
         <item itemvalue="JUnit.NonTransactionalTest" />
         <item itemvalue="JUnit.TransactionalTest" />
-        <item itemvalue="Application.StartDatabase" />
-        <item itemvalue="JUnit.AssertDatabaseContentsTest" />
-        <item itemvalue="JUnit.TransactionalTest.countTotalUsers" />
       </list>
     </recent_temporary>
   </component>
@@ -298,6 +309,7 @@
       <workItem from="1574794872658" duration="4687000" />
       <workItem from="1575012038335" duration="676000" />
       <workItem from="1575063689119" duration="149000" />
+      <workItem from="1576252230475" duration="3236000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -528,6 +540,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
+    <state width="1492" height="170" key="GridCell.Tab.0.bottom" timestamp="1576255508587">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="170" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576255508587" />
+    <state width="1492" height="170" key="GridCell.Tab.0.center" timestamp="1576255508586">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="170" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576255508586" />
+    <state width="1492" height="170" key="GridCell.Tab.0.left" timestamp="1576255508586">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="170" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576255508586" />
+    <state width="1492" height="170" key="GridCell.Tab.0.right" timestamp="1576255508587">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="170" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576255508587" />
+    <state x="279" y="77" key="SettingsEditor" timestamp="1576255395985">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="279" y="77" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1576255395985" />
+    <state x="474" y="193" width="588" height="478" key="find.popup" timestamp="1576254224761">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="474" y="193" width="588" height="478" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1576254224761" />
+    <state x="425" y="189" key="run.anything.popup" timestamp="1576253336861">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576253336861" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576254318268">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576254318268" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
