@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGamePureTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,14 +144,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.tennis" />
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
       <recent name="ro.victor.unittest.tdd.wordwrap" />
       <recent name="ro.victor.unittest.tdd.outsidein" />
-      <recent name="ro.victor.unittest.cucumber.search" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
+    </key>
+    <key name="IntroduceConstantDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd.tennis.TennisGame" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -182,37 +181,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.InjectingFixedClock">
-    <configuration name="BowlingGameFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.bowling.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.bowling" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.bowling.BowlingGameFeature" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ImpossibleBoundaryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.time.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.ImpossibleBoundaryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.TennisGameTest">
     <configuration name="InjectingFixedClock" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -228,17 +197,48 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InjectingFixedClock.a" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TennisGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.time.*" />
+          <option name="PATTERN" value="ro.victor.unittest.tdd.tennis.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.time" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.time.InjectingFixedClock" />
-      <option name="METHOD_NAME" value="a" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.tennis" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.tennis.TennisGameTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TennisGameTest.returns40LoveWhenPlayer1ScoresThreePoint" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.tennis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.tennis" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.tennis.TennisGameTest" />
+      <option name="METHOD_NAME" value="returns40LoveWhenPlayer1ScoresThreePoint" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TennisGameTest.returnsLoveLoveWhenNewGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.tennis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.tennis" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.tennis.TennisGameTest" />
+      <option name="METHOD_NAME" value="returnsLoveLoveWhenNewGame" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -260,11 +260,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TennisGameTest" />
+        <item itemvalue="JUnit.TennisGameTest.returns40LoveWhenPlayer1ScoresThreePoint" />
+        <item itemvalue="JUnit.TennisGameTest.returnsLoveLoveWhenNewGame" />
         <item itemvalue="JUnit.InjectingFixedClock" />
         <item itemvalue="JUnit.ro.victor.unittest.time in unit-testing" />
-        <item itemvalue="JUnit.ImpossibleBoundaryTest" />
-        <item itemvalue="JUnit.InjectingFixedClock.a" />
-        <item itemvalue="JUnit.BowlingGameFeature" />
       </list>
     </recent_temporary>
   </component>
@@ -518,7 +518,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576576080147</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Tenni wipe out">
+      <created>1576581537101</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1576581537101</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +555,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="gitignore" />
     <MESSAGE value="unit test php: solved pretty good" />
     <MESSAGE value="unittesting: Time Rule fix" />
     <MESSAGE value="UnitTesting: Search in JPA implem complete" />
@@ -573,7 +579,8 @@
     <MESSAGE value="Add Search TDD" />
     <MESSAGE value="INjecting Clock" />
     <MESSAGE value="Dirties Context arunca containerul de Spring la gunoi cu tot cu orice obiect (H2 in mem db, de ex) ar contine." />
-    <option name="LAST_COMMIT_MESSAGE" value="Dirties Context arunca containerul de Spring la gunoi cu tot cu orice obiect (H2 in mem db, de ex) ar contine." />
+    <MESSAGE value="Tenni wipe out" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tenni wipe out" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576576468230">
@@ -584,26 +591,46 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576581526757">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576581536592">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576581526757" />
-    <state width="1492" height="200" key="GridCell.Tab.0.bottom" timestamp="1576576696585">
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576581536592" />
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom" timestamp="1576587102288">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="200" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576576696585" />
-    <state width="1492" height="200" key="GridCell.Tab.0.center" timestamp="1576576696584">
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576587102288" />
+    <state width="1492" height="200" key="GridCell.Tab.0.center" timestamp="1576587102288">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="200" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576576696584" />
-    <state width="1492" height="200" key="GridCell.Tab.0.left" timestamp="1576576696584">
+    <state width="1492" height="200" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576587102288" />
+    <state width="1492" height="200" key="GridCell.Tab.0.left" timestamp="1576587102287">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="200" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576576696584" />
-    <state width="1492" height="200" key="GridCell.Tab.0.right" timestamp="1576576696584">
+    <state width="1492" height="200" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576587102287" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right" timestamp="1576587102288">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="200" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576576696584" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576587102288" />
+    <state width="1492" height="200" key="GridCell.Tab.1.bottom" timestamp="1576581863039">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="200" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576581863039" />
+    <state width="1492" height="200" key="GridCell.Tab.1.center" timestamp="1576581863039">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="200" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1576581863039" />
+    <state width="1492" height="200" key="GridCell.Tab.1.left" timestamp="1576581863038">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="200" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1576581863038" />
+    <state width="1492" height="200" key="GridCell.Tab.1.right" timestamp="1576581863039">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="200" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1576581863039" />
+    <state x="592" y="369" key="ReplaceDuplicatesPrompt" timestamp="1576584942123">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="592" y="369" key="ReplaceDuplicatesPrompt/0.0.1536.834@0.0.1536.834" timestamp="1576584942123" />
     <state x="279" y="77" key="SettingsEditor" timestamp="1576255395985">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -612,26 +639,26 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576576384700" />
-    <state x="499" y="194" key="extract.method.dialog" timestamp="1576255706294">
+    <state x="930" y="108" width="538" height="484" key="extract.method.dialog" timestamp="1576585085512">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="499" y="194" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576255706294" />
+    <state x="930" y="108" width="538" height="484" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576585085512" />
     <state x="474" y="193" width="588" height="478" key="find.popup" timestamp="1576254224761">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="474" y="193" width="588" height="478" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1576254224761" />
-    <state x="511" y="57" key="refactoring.ChangeSignatureDialog" timestamp="1576258244531">
+    <state x="935" y="85" key="refactoring.ChangeSignatureDialog" timestamp="1576585406509">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="511" y="57" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1576258244531" />
+    <state x="935" y="85" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1576585406509" />
     <state x="425" y="189" key="run.anything.popup" timestamp="1576576050953">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576576050953" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576573197553">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576584801568">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576573197553" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576584801568" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
