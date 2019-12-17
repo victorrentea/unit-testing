@@ -1,5 +1,6 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.UUID;
 
@@ -43,9 +44,7 @@ public class TelemetryDiagnosticControls {
 
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(UUID.randomUUID().toString());
-		config.setSessionStart(java.util.Date.from(TimeProvider.currentDate().atStartOfDay()
-				.atZone(ZoneId.systemDefault())
-				.toInstant()).getTime());
+		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		telemetryClient.configure(config);
 

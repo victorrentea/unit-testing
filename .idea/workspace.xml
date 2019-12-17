@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsShould.java" afterDir="false" />
     </list>
@@ -577,7 +578,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576592859881</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="nu prea are sens verify pe metode pe care ai facut when().thenReturn()">
+      <created>1576593201365</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1576593201365</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -607,7 +615,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Exceptii cu mesaj text." />
     <MESSAGE value="TDD + Paramterized" />
     <MESSAGE value="Feature files, unleashed" />
     <MESSAGE value="prep mockito exercise" />
@@ -632,7 +639,8 @@
     <MESSAGE value="tenni feature" />
     <MESSAGE value="LEGACY CODE KATA START" />
     <MESSAGE value="matching exception codes" />
-    <option name="LAST_COMMIT_MESSAGE" value="matching exception codes" />
+    <MESSAGE value="nu prea are sens verify pe metode pe care ai facut when().thenReturn()" />
+    <option name="LAST_COMMIT_MESSAGE" value="nu prea are sens verify pe metode pe care ai facut when().thenReturn()" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576592568572">
@@ -651,26 +659,26 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="569" y="278" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog/0.0.1536.834@0.0.1536.834" timestamp="1576592789207" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576592859309">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576593200895">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576592859309" />
-    <state width="1492" height="196" key="GridCell.Tab.0.bottom" timestamp="1576593181820">
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576593200895" />
+    <state width="1492" height="196" key="GridCell.Tab.0.bottom" timestamp="1576593832889">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576593181820" />
-    <state width="1492" height="196" key="GridCell.Tab.0.center" timestamp="1576593181820">
+    <state width="1492" height="196" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576593832889" />
+    <state width="1492" height="196" key="GridCell.Tab.0.center" timestamp="1576593832889">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576593181820" />
-    <state width="1492" height="196" key="GridCell.Tab.0.left" timestamp="1576593181819">
+    <state width="1492" height="196" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576593832889" />
+    <state width="1492" height="196" key="GridCell.Tab.0.left" timestamp="1576593832889">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576593181819" />
-    <state width="1492" height="196" key="GridCell.Tab.0.right" timestamp="1576593181820">
+    <state width="1492" height="196" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576593832889" />
+    <state width="1492" height="196" key="GridCell.Tab.0.right" timestamp="1576593832889">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576593181820" />
+    <state width="1492" height="196" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576593832889" />
     <state width="1492" height="200" key="GridCell.Tab.1.bottom" timestamp="1576581863039">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -703,10 +711,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576576384700" />
-    <state x="930" y="108" width="538" height="484" key="extract.method.dialog" timestamp="1576585085512">
+    <state x="930" y="108" width="538" height="484" key="extract.method.dialog" timestamp="1576593859093">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="930" y="108" width="538" height="484" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576585085512" />
+    <state x="930" y="108" width="538" height="484" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576593859093" />
     <state x="474" y="193" width="590" height="478" key="find.popup" timestamp="1576588440473">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -719,14 +727,14 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="935" y="85" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1576591294616" />
-    <state x="425" y="189" key="run.anything.popup" timestamp="1576593111705">
+    <state x="425" y="189" key="run.anything.popup" timestamp="1576593252344">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576593111705" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576592657533">
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576593252344" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576593461367">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576592657533" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576593461367" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
