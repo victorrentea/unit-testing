@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameParameterizedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,7 +180,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TennisGameTest">
+  <component name="RunManager" selected="JUnit.TennisGameParameterizedTest">
     <configuration name="InjectingFixedClock" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -192,6 +191,21 @@
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.time" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.time.InjectingFixedClock" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TennisGameParameterizedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.tennis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.tennis" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.tennis.TennisGameParameterizedTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -244,27 +258,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ro.victor.unittest.time in unit-testing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.time.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.time" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TennisGameParameterizedTest" />
         <item itemvalue="JUnit.TennisGameTest" />
         <item itemvalue="JUnit.TennisGameTest.returns40LoveWhenPlayer1ScoresThreePoint" />
         <item itemvalue="JUnit.TennisGameTest.returnsLoveLoveWhenNewGame" />
         <item itemvalue="JUnit.InjectingFixedClock" />
-        <item itemvalue="JUnit.ro.victor.unittest.time in unit-testing" />
       </list>
     </recent_temporary>
   </component>
@@ -525,7 +525,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576581537101</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="TDD done">
+      <created>1576587312659</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1576587312659</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -555,7 +562,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="unit test php: solved pretty good" />
     <MESSAGE value="unittesting: Time Rule fix" />
     <MESSAGE value="UnitTesting: Search in JPA implem complete" />
     <MESSAGE value="unittesting: bank search working with SQL.&#10;adding mybatis to the mix" />
@@ -580,37 +586,38 @@
     <MESSAGE value="INjecting Clock" />
     <MESSAGE value="Dirties Context arunca containerul de Spring la gunoi cu tot cu orice obiect (H2 in mem db, de ex) ar contine." />
     <MESSAGE value="Tenni wipe out" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tenni wipe out" />
+    <MESSAGE value="TDD done" />
+    <option name="LAST_COMMIT_MESSAGE" value="TDD done" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576576468230">
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576587527041">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576576468230" />
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576587527041" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575063693814">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576581536592">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576587312099">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576581536592" />
-    <state width="1492" height="200" key="GridCell.Tab.0.bottom" timestamp="1576587102288">
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576587312099" />
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom" timestamp="1576587717401">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="200" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576587102288" />
-    <state width="1492" height="200" key="GridCell.Tab.0.center" timestamp="1576587102288">
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576587717401" />
+    <state width="1492" height="200" key="GridCell.Tab.0.center" timestamp="1576587717400">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="200" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576587102288" />
-    <state width="1492" height="200" key="GridCell.Tab.0.left" timestamp="1576587102287">
+    <state width="1492" height="200" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576587717400" />
+    <state width="1492" height="200" key="GridCell.Tab.0.left" timestamp="1576587717400">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="200" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576587102287" />
-    <state width="1492" height="200" key="GridCell.Tab.0.right" timestamp="1576587102288">
+    <state width="1492" height="200" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576587717400" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right" timestamp="1576587717400">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="200" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576587102288" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576587717400" />
     <state width="1492" height="200" key="GridCell.Tab.1.bottom" timestamp="1576581863039">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
