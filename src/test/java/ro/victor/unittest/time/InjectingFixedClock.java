@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Service;
@@ -47,10 +48,11 @@ public class InjectingFixedClock {
 }
 
 @Configuration
+@Profile("test")
 class ClockConfig {
     @Bean
-    @Profile("test")
-    public Clock clock() {
+    @Primary
+    public Clock testClock() {
         System.out.println("FAKE");
         return InjectingFixedClock.fixed;
     }
@@ -59,7 +61,6 @@ class ClockConfig {
 @SpringBootApplication
 class FixedClockApp {
     @Bean
-    @Profile("!test")
     public Clock clock() {
         return Clock.systemDefaultZone();
     }

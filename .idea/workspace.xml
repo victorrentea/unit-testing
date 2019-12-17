@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/Builder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/ImpossibleBoundaryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/ImpossibleBoundaryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/InjectingFixedClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/InjectingFixedClock.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +81,7 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -143,13 +141,6 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd.bowling" />
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
-      <recent name="ro.victor.unittest.tdd.outsidein" />
-      <recent name="ro.victor.unittest.cucumber.search" />
-    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
@@ -159,23 +150,30 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.tdd" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\builder" />
-      <recent name="C:\workspace\unit-testing\src\test\java" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ro.victor.unittest.tdd.bowling" />
-      <recent name="ro.victor.unittest.tdd" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
       <recent name="C:\workspace\unit-testing\src\test\resources" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
       <recent name="C:\workspace\training\unit-testing\src\test\resources" />
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\time" />
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\builder" />
+      <recent name="C:\workspace\unit-testing\src\test\java" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd.bowling" />
+      <recent name="ro.victor.unittest.tdd" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.bowling" />
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+      <recent name="ro.victor.unittest.cucumber.search" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.InjectingFixedClock">
@@ -309,7 +307,7 @@
       <workItem from="1575012038335" duration="676000" />
       <workItem from="1575063689119" duration="149000" />
       <workItem from="1576252230475" duration="5940000" />
-      <workItem from="1576567169883" duration="5586000" />
+      <workItem from="1576567169883" duration="6412000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -507,7 +505,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576574012558</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Dirties Context arunca containerul de Spring la gunoi cu tot cu orice obiect (H2 in mem db, de ex) ar contine.">
+      <created>1576576080147</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1576576080147</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -537,7 +542,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="minor logging fixes" />
     <MESSAGE value="gitignore" />
     <MESSAGE value="unit test php: solved pretty good" />
     <MESSAGE value="unittesting: Time Rule fix" />
@@ -562,45 +566,46 @@
     <MESSAGE value="OOP : try to continue" />
     <MESSAGE value="Add Search TDD" />
     <MESSAGE value="INjecting Clock" />
-    <option name="LAST_COMMIT_MESSAGE" value="INjecting Clock" />
+    <MESSAGE value="Dirties Context arunca containerul de Spring la gunoi cu tot cu orice obiect (H2 in mem db, de ex) ar contine." />
+    <option name="LAST_COMMIT_MESSAGE" value="Dirties Context arunca containerul de Spring la gunoi cu tot cu orice obiect (H2 in mem db, de ex) ar contine." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576574074726">
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576576468230">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576574074726" />
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576576468230" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575063693814">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1576574012016">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1576576079372">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576574012016" />
-    <state width="1492" height="505" key="GridCell.Tab.0.bottom" timestamp="1576576045221">
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576576079372" />
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom" timestamp="1576576696585">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="505" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576576045221" />
-    <state width="1492" height="505" key="GridCell.Tab.0.center" timestamp="1576576045220">
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576576696585" />
+    <state width="1492" height="200" key="GridCell.Tab.0.center" timestamp="1576576696584">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="505" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576576045220" />
-    <state width="1492" height="505" key="GridCell.Tab.0.left" timestamp="1576576045220">
+    <state width="1492" height="200" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576576696584" />
+    <state width="1492" height="200" key="GridCell.Tab.0.left" timestamp="1576576696584">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="505" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576576045220" />
-    <state width="1492" height="505" key="GridCell.Tab.0.right" timestamp="1576576045220">
+    <state width="1492" height="200" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576576696584" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right" timestamp="1576576696584">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="505" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576576045220" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576576696584" />
     <state x="279" y="77" key="SettingsEditor" timestamp="1576255395985">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="279" y="77" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1576255395985" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1576574015306">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1576576384700">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576574015306" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576576384700" />
     <state x="499" y="194" key="extract.method.dialog" timestamp="1576255706294">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
