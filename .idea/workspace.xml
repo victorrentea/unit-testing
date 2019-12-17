@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsShould.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -585,7 +582,21 @@
       <option name="project" value="LOCAL" />
       <updated>1576593201365</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Cu captori. In ce hal arata">
+      <created>1576593867280</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1576593867280</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Expun metode pentru teste package-protected">
+      <created>1576593963186</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1576593963186</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -615,8 +626,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="TDD + Paramterized" />
-    <MESSAGE value="Feature files, unleashed" />
     <MESSAGE value="prep mockito exercise" />
     <MESSAGE value="Mockito play" />
     <MESSAGE value="outside-in" />
@@ -640,7 +649,9 @@
     <MESSAGE value="LEGACY CODE KATA START" />
     <MESSAGE value="matching exception codes" />
     <MESSAGE value="nu prea are sens verify pe metode pe care ai facut when().thenReturn()" />
-    <option name="LAST_COMMIT_MESSAGE" value="nu prea are sens verify pe metode pe care ai facut when().thenReturn()" />
+    <MESSAGE value="Cu captori. In ce hal arata" />
+    <MESSAGE value="Expun metode pentru teste package-protected" />
+    <option name="LAST_COMMIT_MESSAGE" value="Expun metode pentru teste package-protected" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576592568572">
@@ -659,10 +670,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="569" y="278" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog/0.0.1536.834@0.0.1536.834" timestamp="1576592789207" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576593866794">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576593962707">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576593866794" />
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576593962707" />
     <state width="1492" height="196" key="GridCell.Tab.0.bottom" timestamp="1576593832889">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
