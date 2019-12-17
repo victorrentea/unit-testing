@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="LEGACY CODE KATA START">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsShould.java" afterDir="false" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsShould.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,6 +155,9 @@
     </key>
     <key name="IntroduceConstantDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.tdd.tennis.TennisGame" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.mocks.telemetry" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -567,7 +570,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576591047947</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="matching exception codes">
+      <created>1576592859881</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1576592859881</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -597,7 +607,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="cleanup" />
     <MESSAGE value="Exceptii cu mesaj text." />
     <MESSAGE value="TDD + Paramterized" />
     <MESSAGE value="Feature files, unleashed" />
@@ -622,7 +631,8 @@
     <MESSAGE value="Tennis Game feature" />
     <MESSAGE value="tenni feature" />
     <MESSAGE value="LEGACY CODE KATA START" />
-    <option name="LAST_COMMIT_MESSAGE" value="LEGACY CODE KATA START" />
+    <MESSAGE value="matching exception codes" />
+    <option name="LAST_COMMIT_MESSAGE" value="matching exception codes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576592568572">
@@ -641,26 +651,26 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="569" y="278" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog/0.0.1536.834@0.0.1536.834" timestamp="1576592789207" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576592232688">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576592859309">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576592232688" />
-    <state width="1492" height="196" key="GridCell.Tab.0.bottom" timestamp="1576592841987">
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576592859309" />
+    <state width="1492" height="196" key="GridCell.Tab.0.bottom" timestamp="1576593181820">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576592841987" />
-    <state width="1492" height="196" key="GridCell.Tab.0.center" timestamp="1576592841987">
+    <state width="1492" height="196" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576593181820" />
+    <state width="1492" height="196" key="GridCell.Tab.0.center" timestamp="1576593181820">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576592841987" />
-    <state width="1492" height="196" key="GridCell.Tab.0.left" timestamp="1576592841987">
+    <state width="1492" height="196" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576593181820" />
+    <state width="1492" height="196" key="GridCell.Tab.0.left" timestamp="1576593181819">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576592841987" />
-    <state width="1492" height="196" key="GridCell.Tab.0.right" timestamp="1576592841987">
+    <state width="1492" height="196" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576593181819" />
+    <state width="1492" height="196" key="GridCell.Tab.0.right" timestamp="1576593181820">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576592841987" />
+    <state width="1492" height="196" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576593181820" />
     <state width="1492" height="200" key="GridCell.Tab.1.bottom" timestamp="1576581863039">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -709,10 +719,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="935" y="85" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1576591294616" />
-    <state x="425" y="189" key="run.anything.popup" timestamp="1576591941838">
+    <state x="425" y="189" key="run.anything.popup" timestamp="1576593111705">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576591941838" />
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576593111705" />
     <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576592657533">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

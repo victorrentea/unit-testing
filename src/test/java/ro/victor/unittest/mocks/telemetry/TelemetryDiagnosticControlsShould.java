@@ -1,5 +1,6 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.SGException.ErrorCode;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -53,6 +55,14 @@ public class TelemetryDiagnosticControlsShould {
 //        exception.expectMessage("Unable to connect.");
         exception.expect(new SGExceptionMatcher(ErrorCode.UNABLE_TO_CONNECT));
         controls.checkTransmission();
+    }
+    @Test
+    public void receives() throws Exception {
+        when(telemetryClient.getOnlineStatus()).thenReturn(true);
+        when(telemetryClient.receive()).thenReturn("tataie");
+        controls.checkTransmission();
+        assertEquals("tataie", controls.getDiagnosticInfo());
+//        verify(telemetryClient).receive(); // inutil: niciodata nu crapa doar di ncauza asta.
     }
 
 }

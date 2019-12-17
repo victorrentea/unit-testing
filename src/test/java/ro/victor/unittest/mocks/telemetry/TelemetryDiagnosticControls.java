@@ -38,14 +38,8 @@ public class TelemetryDiagnosticControls {
 
 
 		if (! telemetryClient.getOnlineStatus()) {
-			throw new SGException(SGException.ErrorCode.UNABLE_TO_CONNECT);
+			throw new SGException(SGException.ErrorCode.UNABLE_TO_CONNECT); // OK
 		}
-//		if (lunaPeCer) {
-//			throw new SGException(SGException.ErrorCode.LUNA);
-//		}
-//		if (soarelePeCer) {
-//			throw new SGException(SGException.ErrorCode.SOARELE);
-//		}
 
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(UUID.randomUUID().toString());
@@ -56,7 +50,7 @@ public class TelemetryDiagnosticControls {
 		telemetryClient.configure(config);
 
 
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // OK
 		diagnosticInfo = telemetryClient.receive();
 	}
 
