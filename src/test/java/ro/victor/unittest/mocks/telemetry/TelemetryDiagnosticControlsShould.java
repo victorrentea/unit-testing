@@ -24,6 +24,7 @@ import java.time.temporal.TemporalUnit;
 import java.util.concurrent.TimeUnit;
 
 import static java.time.LocalDateTime.now;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -91,8 +92,18 @@ public class TelemetryDiagnosticControlsShould {
         ClientConfiguration config = configCapture.getValue();
         assertEquals(AckMode.NORMAL, config.getAckMode());
         assertNotNull(config.getSessionId());
-        Assertions.assertThat(config.getSessionStart()).isEqualToIgnoringMinutes(now());
-        Assertions.assertThat(config.getSessionStart()).isCloseTo(now(), new TemporalUnitWithinOffset(1, ChronoUnit.MINUTES));
+        assertThat(config.getSessionStart()).isEqualToIgnoringMinutes(now());
+        assertThat(config.getSessionStart()).isCloseTo(now(), new TemporalUnitWithinOffset(1, ChronoUnit.MINUTES));
+    }
+    // TO BE CONTINUED....
+
+    @Test
+    public void createsCorrectConfig() {
+        ClientConfiguration config = controls.createConfig();
+        assertEquals(AckMode.NORMAL, config.getAckMode());
+        assertNotNull(config.getSessionId());
+        assertThat(config.getSessionStart()).isEqualToIgnoringMinutes(now());
+        assertThat(config.getSessionStart()).isCloseTo(now(), new TemporalUnitWithinOffset(1, ChronoUnit.MINUTES));
     }
 
 }

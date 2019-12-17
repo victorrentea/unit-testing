@@ -42,15 +42,20 @@ public class TelemetryDiagnosticControls {
 			throw new SGException(SGException.ErrorCode.UNABLE_TO_CONNECT); // OK
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = createConfig();
 		telemetryClient.configure(config);
 
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // OK
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	ClientConfiguration createConfig() {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
 	}
 
 }

@@ -659,10 +659,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="569" y="278" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog/0.0.1536.834@0.0.1536.834" timestamp="1576592789207" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576593200895">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576593866794">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576593200895" />
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576593866794" />
     <state width="1492" height="196" key="GridCell.Tab.0.bottom" timestamp="1576593832889">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -711,10 +711,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576576384700" />
-    <state x="930" y="108" width="538" height="484" key="extract.method.dialog" timestamp="1576593859093">
+    <state x="930" y="108" width="538" height="484" key="extract.method.dialog" timestamp="1576593874912">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="930" y="108" width="538" height="484" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576593859093" />
+    <state x="930" y="108" width="538" height="484" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576593874912" />
     <state x="474" y="193" width="590" height="478" key="find.popup" timestamp="1576588440473">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -731,10 +731,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576593252344" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576593461367">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576593922440">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576593461367" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576593922440" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
