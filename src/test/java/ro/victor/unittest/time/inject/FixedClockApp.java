@@ -11,7 +11,7 @@ import java.time.Clock;
 @SpringBootApplication
 public class FixedClockApp implements CommandLineRunner {
     public static void main(String[] args) {
-        SpringApplication.run(FixedClockApp.class);
+        SpringApplication.run(FixedClockApp.class).close();
     }
     @Autowired
     private OrderService service;
@@ -22,6 +22,9 @@ public class FixedClockApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("End of break at " + service.endOfBreak());
+        System.out.println();
+        System.out.println();
+        System.out.println("*** End of break at " + service.endOfBreak());
+        System.out.println();
     }
 }
