@@ -10,17 +10,15 @@ import ro.victor.unittest.time.TimeProvider;
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
-
-	public TelemetryDiagnosticControls setTelemetryClient(TelemetryClient telemetryClient) {
-		this.telemetryClient = telemetryClient;
-		return this;
-	}
+	private boolean soarelePeCer;
+	private boolean lunaPeCer;
 
 	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
 	}
+
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
@@ -30,18 +28,24 @@ public class TelemetryDiagnosticControls {
 	}
 
 	public void checkTransmission() throws Exception {
-		telemetryClient.disconnect();
+		telemetryClient.disconnect(); // OK
 
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
 			telemetryClient.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
 			currentRetry ++;
 		}
-		
+
 
 		if (! telemetryClient.getOnlineStatus()) {
-			throw new IllegalStateException("Unable to connect.");
+			throw new SGException(SGException.ErrorCode.UNABLE_TO_CONNECT);
 		}
+//		if (lunaPeCer) {
+//			throw new SGException(SGException.ErrorCode.LUNA);
+//		}
+//		if (soarelePeCer) {
+//			throw new SGException(SGException.ErrorCode.SOARELE);
+//		}
 
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(UUID.randomUUID().toString());
@@ -57,3 +61,42 @@ public class TelemetryDiagnosticControls {
 	}
 
 }
+
+class SGException extends RuntimeException {
+	enum ErrorCode {
+		GENERAL,
+		SOARELE,
+		LUNA,
+		UNABLE_TO_CONNECT
+	}
+	private final ErrorCode code;
+
+	public ErrorCode getCode() {
+		return code;
+	}
+
+	public SGException(ErrorCode code) {
+		this.code = code;
+	}
+
+	public SGException(String message, ErrorCode code) {
+		super(message);
+		this.code = code;
+	}
+
+	public SGException(String message, Throwable cause, ErrorCode code) {
+		super(message, cause);
+		this.code = code;
+	}
+
+	public SGException(Throwable cause, ErrorCode code) {
+		super(cause);
+		this.code = code;
+	}
+
+	public SGException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, ErrorCode code) {
+		super(message, cause, enableSuppression, writableStackTrace);
+		this.code = code;
+	}
+}
+
