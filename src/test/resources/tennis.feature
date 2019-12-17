@@ -23,8 +23,8 @@ Feature: Tennis Game
     Then Score is "<expectedScore>"
 
     Examples:
-      | player1 | player2 | expectedScore    |
-      | 0       | 0       | Love - Love      |
+      | player1 | player2 | expectedScore     |
+      | 0       | 0       | Love - Love       |
       | 7       | 6       | Advantage Player1 |
-      | 6       | 6       | Deuce            |
-      | 2       | 3       | Thirty - Forty   |
+      | 6       | 6       | Deuce             |
+      | 2       | 3       | Thirty - Forty    |

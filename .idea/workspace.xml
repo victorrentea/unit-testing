@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameFeature.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/tennis.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -546,7 +543,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576587737272</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Tennis Game feature">
+      <created>1576588566133</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1576588566133</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -576,7 +580,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="UnitTesting: Search in JPA implem complete" />
     <MESSAGE value="unittesting: bank search working with SQL.&#10;adding mybatis to the mix" />
     <MESSAGE value="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage" />
     <MESSAGE value="cleanup" />
@@ -601,7 +604,8 @@
     <MESSAGE value="Tenni wipe out" />
     <MESSAGE value="TDD done" />
     <MESSAGE value="Paramterized tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Paramterized tests" />
+    <MESSAGE value="Tennis Game feature" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tennis Game feature" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576587527041">
@@ -612,10 +616,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576587736653">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576588565594">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576587736653" />
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576588565594" />
     <state width="1492" height="200" key="GridCell.Tab.0.bottom" timestamp="1576588467855">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
