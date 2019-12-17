@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/ImpossibleBoundaryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/LoggingImpact.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/InjectingFixedClock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/Builder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/ImpossibleBoundaryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/ImpossibleBoundaryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/InjectingFixedClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/InjectingFixedClock.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +133,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -179,25 +178,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.InjectingFixedClock.a">
-    <configuration name="Feature: bowling" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/bowling.feature" />
-      <option name="GLUE" value="cucumber.api.spring" />
-      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
-      <module name="unit-testing" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome" />
-      <option name="SUGGESTED_NAME" value="Feature: bowling" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cucumber.api.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.InjectingFixedClock">
     <configuration name="BowlingGameFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -213,21 +194,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BowlingGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.bowling.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.bowling" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.bowling.BowlingGameTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ImpossibleBoundaryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -238,6 +204,21 @@
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.ImpossibleBoundaryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InjectingFixedClock" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.time.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.time" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.time.InjectingFixedClock" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -259,13 +240,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ro.victor.unittest.time in unit-testing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.time.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.time" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.InjectingFixedClock.a" />
+        <item itemvalue="JUnit.InjectingFixedClock" />
+        <item itemvalue="JUnit.ro.victor.unittest.time in unit-testing" />
         <item itemvalue="JUnit.ImpossibleBoundaryTest" />
+        <item itemvalue="JUnit.InjectingFixedClock.a" />
         <item itemvalue="JUnit.BowlingGameFeature" />
-        <item itemvalue="Cucumber java.Feature: bowling" />
-        <item itemvalue="JUnit.BowlingGameTest" />
       </list>
     </recent_temporary>
   </component>
@@ -314,7 +309,7 @@
       <workItem from="1575012038335" duration="676000" />
       <workItem from="1575063689119" duration="149000" />
       <workItem from="1576252230475" duration="5940000" />
-      <workItem from="1576567169883" duration="3844000" />
+      <workItem from="1576567169883" duration="5586000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -505,7 +500,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576260174712</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="INjecting Clock">
+      <created>1576574012558</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1576574012558</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,7 +537,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="unittesting: fix typo in .feature" />
     <MESSAGE value="minor logging fixes" />
     <MESSAGE value="gitignore" />
     <MESSAGE value="unit test php: solved pretty good" />
@@ -560,45 +561,46 @@
     <MESSAGE value="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list." />
     <MESSAGE value="OOP : try to continue" />
     <MESSAGE value="Add Search TDD" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Search TDD" />
+    <MESSAGE value="INjecting Clock" />
+    <option name="LAST_COMMIT_MESSAGE" value="INjecting Clock" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576258339841">
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576574074726">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576258339841" />
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576574074726" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575063693814">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1576260174005">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1576574012016">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576260174005" />
-    <state width="1492" height="185" key="GridCell.Tab.0.bottom" timestamp="1576573577563">
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576574012016" />
+    <state width="1492" height="505" key="GridCell.Tab.0.bottom" timestamp="1576576045221">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="185" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576573577563" />
-    <state width="1492" height="185" key="GridCell.Tab.0.center" timestamp="1576573577563">
+    <state width="1492" height="505" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576576045221" />
+    <state width="1492" height="505" key="GridCell.Tab.0.center" timestamp="1576576045220">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="185" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576573577563" />
-    <state width="1492" height="185" key="GridCell.Tab.0.left" timestamp="1576573577563">
+    <state width="1492" height="505" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576576045220" />
+    <state width="1492" height="505" key="GridCell.Tab.0.left" timestamp="1576576045220">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="185" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576573577563" />
-    <state width="1492" height="185" key="GridCell.Tab.0.right" timestamp="1576573577563">
+    <state width="1492" height="505" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576576045220" />
+    <state width="1492" height="505" key="GridCell.Tab.0.right" timestamp="1576576045220">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="185" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576573577563" />
+    <state width="1492" height="505" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576576045220" />
     <state x="279" y="77" key="SettingsEditor" timestamp="1576255395985">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="279" y="77" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1576255395985" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1576260175382">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1576574015306">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576260175382" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1576574015306" />
     <state x="499" y="194" key="extract.method.dialog" timestamp="1576255706294">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -611,10 +613,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="511" y="57" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1576258244531" />
-    <state x="425" y="189" key="run.anything.popup" timestamp="1576253336861">
+    <state x="425" y="189" key="run.anything.popup" timestamp="1576576050953">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576253336861" />
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576576050953" />
     <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576573197553">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

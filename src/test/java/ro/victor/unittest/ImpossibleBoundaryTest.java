@@ -10,6 +10,10 @@ public class ImpossibleBoundaryTest {
 
     private final Prod prod = new Prod();
 
+    public ImpossibleBoundaryTest() {
+        System.out.println("Uaa!!");
+    }
+
     @Test
     public void sumok() {
         assertThat(prod.sum(1,1)).isEqualTo(2);

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -29,8 +30,16 @@ public class InjectingFixedClock {
     @Autowired
     private OrderService service;
 
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     @Test
     public void a() {
+        LocalDateTime now = LocalDateTime.now(fixed);
+        assertEquals(now.plusMinutes(10), service.m());
+    }
+
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    @Test
+    public void b() {
         LocalDateTime now = LocalDateTime.now(fixed);
         assertEquals(now.plusMinutes(10), service.m());
     }
