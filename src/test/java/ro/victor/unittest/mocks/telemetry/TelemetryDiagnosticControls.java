@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
-import ro.victor.unittest.time.TimeProvider;
+import ro.victor.unittest.time.rule.TimeProvider;
 
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";

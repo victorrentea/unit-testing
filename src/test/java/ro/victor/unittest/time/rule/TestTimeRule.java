@@ -1,4 +1,4 @@
-package ro.victor.unittest.time;
+package ro.victor.unittest.time.rule;
 
 import org.junit.rules.ExternalResource;
 

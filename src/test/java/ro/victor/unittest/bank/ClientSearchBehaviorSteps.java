@@ -1,25 +1,17 @@
 package ro.victor.unittest.bank;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import ro.victor.unittest.bank.entity.Account;
 import ro.victor.unittest.bank.entity.Client;
-import ro.victor.unittest.bank.repo.ClientJdbcRepository;
 import ro.victor.unittest.bank.repo.ClientJpaRepository;
-import ro.victor.unittest.bank.repo.ClientMybatisRepository;
 import ro.victor.unittest.bank.vo.ClientSearchCriteria;
 import ro.victor.unittest.bank.vo.ClientSearchResult;
-import ro.victor.unittest.time.TestTimeRule;
 
 import javax.persistence.EntityManager;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 

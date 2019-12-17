@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/bowling/BowlingGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/bowling.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/bowling.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/inject/FixedClockApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/inject/InjectingFixedClock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/inject/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/rule/TestTimeRule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TestTimeRuleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/rule/TestTimeRuleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/TimeProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/rule/TimeProvider.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,20 +145,21 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd.bowling" />
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
-      <recent name="ro.victor.unittest.tdd.outsidein" />
-      <recent name="ro.victor.unittest.cucumber.search" />
-    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.time.inject" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -169,15 +173,15 @@
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.bowling" />
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+      <recent name="ro.victor.unittest.cucumber.search" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BowlingGameFeature">
+  <component name="RunManager" selected="Spring Boot.FixedClockApp">
     <configuration name="Feature: bowling" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="1.2" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/bowling.feature" />
@@ -241,28 +245,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransactionalTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FixedClockApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.db.*" />
+          <option name="PATTERN" value="ro.victor.unittest.time.inject.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.db" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.TransactionalTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ro.victor.unittest.time.inject.FixedClockApp" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.FixedClockApp" />
         <item itemvalue="JUnit.BowlingGameFeature" />
         <item itemvalue="Cucumber java.Feature: bowling" />
         <item itemvalue="JUnit.BowlingGameTest" />
         <item itemvalue="JUnit.NonTransactionalTest" />
-        <item itemvalue="JUnit.TransactionalTest" />
       </list>
     </recent_temporary>
   </component>
@@ -552,34 +554,42 @@
     <option name="LAST_COMMIT_MESSAGE" value="OOP : try to continue" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576258339841">
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576576969262">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576258339841" />
+    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576576969262" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575063693814">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
+    <state x="571" y="323" width="393" height="223" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1576576882190">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="571" y="323" width="393" height="223" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1576576882190" />
+    <state x="487" y="138" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1576577073948">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="487" y="138" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1536.834@0.0.1536.834" timestamp="1576577073948" />
     <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1576256225696">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576256225696" />
-    <state width="1492" height="170" key="GridCell.Tab.0.bottom" timestamp="1576258526287">
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom" timestamp="1576577003152">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576258526287" />
-    <state width="1492" height="170" key="GridCell.Tab.0.center" timestamp="1576258526286">
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576577003152" />
+    <state width="1492" height="200" key="GridCell.Tab.0.center" timestamp="1576577003152">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576258526286" />
-    <state width="1492" height="170" key="GridCell.Tab.0.left" timestamp="1576258526286">
+    <state width="1492" height="200" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576577003152" />
+    <state width="1492" height="200" key="GridCell.Tab.0.left" timestamp="1576577003152">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576258526286" />
-    <state width="1492" height="170" key="GridCell.Tab.0.right" timestamp="1576258526286">
+    <state width="1492" height="200" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576577003152" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right" timestamp="1576577003152">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="170" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576258526286" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576577003152" />
     <state x="279" y="77" key="SettingsEditor" timestamp="1576255395985">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

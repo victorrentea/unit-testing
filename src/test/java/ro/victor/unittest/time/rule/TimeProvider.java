@@ -1,4 +1,4 @@
-package ro.victor.unittest.time;
+package ro.victor.unittest.time.rule;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

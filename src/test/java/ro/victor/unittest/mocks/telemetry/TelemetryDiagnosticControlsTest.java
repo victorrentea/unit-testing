@@ -1,6 +1,5 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,12 +7,9 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
-import ro.victor.unittest.time.TestTimeRule;
-import ro.victor.unittest.time.TimeProvider;
+import ro.victor.unittest.time.rule.TestTimeRule;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
