@@ -2,27 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Job.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobRepositoryCustom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchCriteria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepoTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepositoryFeature.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepositorySteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/SearchApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Skill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/job-search.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Country.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearchImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductSearchTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/RepoBaseTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Job.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepositorySteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepositorySteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Skill.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +190,7 @@
       <recent name="ro.victor.unittest.tdd" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JobSearchRepoTest.bySkill">
+  <component name="RunManager" selected="JUnit.JobSearchRepoTest">
     <configuration name="JobSearchRepoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -284,8 +268,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.JobSearchRepoTest.bySkill" />
         <item itemvalue="JUnit.JobSearchRepoTest" />
+        <item itemvalue="JUnit.JobSearchRepoTest.bySkill" />
         <item itemvalue="JUnit.JobSearchRepoTest.byName" />
         <item itemvalue="JUnit.JobSearchRepositoryFeature" />
         <item itemvalue="Spring Boot.SearchApp" />
@@ -301,11 +285,6 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:H2 local" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:H2 local" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@19a5bf32" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -345,14 +324,7 @@
       <workItem from="1568703537592" duration="7766000" />
       <workItem from="1574794872658" duration="43777000" />
       <workItem from="1576662403952" duration="4258000" />
-      <workItem from="1576668444948" duration="2438000" />
-    </task>
-    <task id="LOCAL-00010" summary="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage">
-      <created>1562905012705</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1562905012705</updated>
+      <workItem from="1576668444948" duration="3091000" />
     </task>
     <task id="LOCAL-00011" summary="cleanup">
       <created>1562906329675</created>
@@ -690,7 +662,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576667843714</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Trebuie setate ambele capete ale unei relatii bidirectionale">
+      <created>1576671091373</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1576671091374</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -752,7 +731,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="asserting exception message (FRAGIL)" />
     <MESSAGE value="ExceptionMatcher (Hamcrest tata)" />
     <MESSAGE value="deleted Tennis Tests" />
     <MESSAGE value="TDD facut de voi" />
@@ -777,7 +755,8 @@
     <MESSAGE value="@MockBean" />
     <MESSAGE value="Mockuirea unor metode statice : Opt1: Construiesti un wrapper peste cu metode de instanta pe care apoi il injectezi/resppectiv mockuiesti" />
     <MESSAGE value="Mockuri statice. Nu folositi." />
-    <option name="LAST_COMMIT_MESSAGE" value="Mockuri statice. Nu folositi." />
+    <MESSAGE value="Trebuie setate ambele capete ale unei relatii bidirectionale" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trebuie setate ambele capete ale unei relatii bidirectionale" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="78" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576668606635">
@@ -788,26 +767,26 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576669246896" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576667843274">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576671090781">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576667843274" />
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom" timestamp="1576671069559">
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576671090781" />
+    <state width="1492" height="225" key="GridCell.Tab.0.bottom" timestamp="1576671479403">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576671069559" />
-    <state width="1493" height="207" key="GridCell.Tab.0.center" timestamp="1576671069559">
+    <state width="1492" height="225" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576671479403" />
+    <state width="1492" height="225" key="GridCell.Tab.0.center" timestamp="1576671479403">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576671069559" />
-    <state width="1493" height="207" key="GridCell.Tab.0.left" timestamp="1576671069558">
+    <state width="1492" height="225" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576671479403" />
+    <state width="1492" height="225" key="GridCell.Tab.0.left" timestamp="1576671479403">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576671069558" />
-    <state width="1493" height="207" key="GridCell.Tab.0.right" timestamp="1576671069559">
+    <state width="1492" height="225" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576671479403" />
+    <state width="1492" height="225" key="GridCell.Tab.0.right" timestamp="1576671479403">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576671069559" />
+    <state width="1492" height="225" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576671479403" />
     <state width="1493" height="199" key="GridCell.Tab.1.bottom" timestamp="1576669305179">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

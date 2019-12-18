@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Data
 public class Skill {
     @Id
     @GeneratedValue
@@ -16,6 +15,14 @@ public class Skill {
     private String name;
     @ManyToOne
     private Job job;
+
+    public String getName() {
+        return name;
+    }
+
+    void setJob(Job job) {
+        this.job = job;
+    }
 
     public Skill(String name) {
         this.name = name;

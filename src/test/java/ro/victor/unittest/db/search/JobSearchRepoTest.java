@@ -22,8 +22,7 @@ public class JobSearchRepoTest {
     private JobSearchCriteria criteria = new JobSearchCriteria();
     @Test
     public void byName() {
-        Job job = new Job();
-        job.setName("Jr Architect");
+        Job job = new Job().setName("Jr Architect");
         repo.save(job);
 
         criteria.jobName = "ARCH";
@@ -36,10 +35,7 @@ public class JobSearchRepoTest {
     }
     @Test
     public void bySkill() {
-        Job job = new Job();
-        Skill skill = new Skill("Pragmatic");
-        job.getSkills().add(skill);
-        skill.setJob(job);
+        Job job = new Job().addSkill(new Skill("Pragmatic"));
         repo.save(job);
 
         criteria.skill = "ragmaT";
@@ -49,10 +45,7 @@ public class JobSearchRepoTest {
     }
     @Test
     public void bySkill_noMatch() {
-        Job job = new Job();
-        Skill skill = new Skill("Pragmatic");
-        job.getSkills().add(skill);
-        skill.setJob(job);
+        Job job = new Job().addSkill(new Skill("Pragmatic"));
         repo.save(job);
 
         criteria.skill = "Bautor";
