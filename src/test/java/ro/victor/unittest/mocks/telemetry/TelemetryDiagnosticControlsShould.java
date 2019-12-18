@@ -37,6 +37,8 @@ public class TelemetryDiagnosticControlsShould {
 
     @Mock
     private TelemetryClient telemetryClient;
+    @Mock
+    private ClientConfigurationProvider configProvider;
     @InjectMocks
     private TelemetryDiagnosticControls controls;
 
@@ -84,9 +86,11 @@ public class TelemetryDiagnosticControlsShould {
 
     @Test
     public void configuresClient() throws Exception {
+        ClientConfiguration config = new ClientConfiguration();
         when(telemetryClient.getOnlineStatus()).thenReturn(true);
+        when(configProvider.createConfig()).thenReturn(config);
         controls.checkTransmission();
-        verify(telemetryClient).configure(any());
+        verify(telemetryClient).configure(config);
 //        ClientConfiguration config = configCapture.getValue();
 //        assertEquals(AckMode.NORMAL, config.getAckMode());
 //        assertNotNull(config.getSessionId());
@@ -94,14 +98,5 @@ public class TelemetryDiagnosticControlsShould {
 //        assertThat(config.getSessionStart()).isCloseTo(now(), new TemporalUnitWithinOffset(1, ChronoUnit.MINUTES));
     }
     // TO BE CONTINUED....
-
-    @Test
-    public void createsCorrectConfig() {
-        ClientConfiguration config = controls.createConfig();
-        assertEquals(AckMode.NORMAL, config.getAckMode());
-        assertNotNull(config.getSessionId());
-        assertThat(config.getSessionStart()).isEqualToIgnoringMinutes(now());
-        assertThat(config.getSessionStart()).isCloseTo(now(), new TemporalUnitWithinOffset(1, ChronoUnit.MINUTES));
-    }
 
 }

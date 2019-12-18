@@ -1,23 +1,23 @@
 package ro.victor.unittest.mocks.telemetry;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.UUID;
 
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
-import ro.victor.unittest.time.TimeProvider;
 
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient;
+	private final ClientConfigurationProvider configurationProvider;
 	private String diagnosticInfo = "";
 	private boolean soarelePeCer;
 	private boolean lunaPeCer;
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ClientConfigurationProvider configurationProvider) {
 		this.telemetryClient = telemetryClient;
+		this.configurationProvider = configurationProvider;
 	}
 
 
@@ -41,7 +41,7 @@ public class TelemetryDiagnosticControls {
 			throw new SGException(SGException.ErrorCode.UNABLE_TO_CONNECT); // OK
 		}
 
-		ClientConfiguration config = createConfig();
+		ClientConfiguration config = configurationProvider.createConfig();
 		telemetryClient.configure(config);
 
 
@@ -49,7 +49,10 @@ public class TelemetryDiagnosticControls {
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfig() {
+}
+
+class ClientConfigurationProvider {
+	public ClientConfiguration createConfig() {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
