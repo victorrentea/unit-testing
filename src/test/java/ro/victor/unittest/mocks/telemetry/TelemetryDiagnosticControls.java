@@ -15,6 +15,7 @@ public class TelemetryDiagnosticControls {
 
 	private final TelemetryClient telemetryClient;
 	private final ClientConfigurationFactory configFactory;
+	private final Noua noua = new Noua();
 
 	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ClientConfigurationFactory configFactory) {
 		this.telemetryClient = telemetryClient;
@@ -40,11 +41,13 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalArgumentException("Unable to connect."); // OK
 		}
 
+		noua.metodaGrea();
 		telemetryClient.configure(configFactory.createConfig());
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // OK
 		diagnosticInfo = telemetryClient.receive(); // OK
 	}
+
 
 }
 

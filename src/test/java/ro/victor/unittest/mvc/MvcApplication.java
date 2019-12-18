@@ -48,14 +48,21 @@ class RestInPeaceController {
 	@GetMapping(value = "/peace/{ssn}", produces = "application/json")
 	public Peace peace(@PathVariable String ssn) {
 		return service.getPeace(ssn);
+		// eg json: {"ssn":"ssnval"}
 	}
 }
-
-class Peace {
+class OnYou {
 	public String ssn;
 
-	public Peace(String ssn) {
+	public OnYou(String ssn) {
 		this.ssn = ssn;
+	}
+}
+class Peace {
+	public OnYou you;
+
+	public Peace(OnYou you) {
+		this.you = you;
 	}
 }
 
@@ -63,7 +70,7 @@ class Peace {
 class RestInPeaceService {
 
 	public Peace getPeace(String ssn) {
-		return new Peace(ssn.toUpperCase()); 
+		return new Peace(new OnYou(ssn.toUpperCase()));
 	}
 	
 }

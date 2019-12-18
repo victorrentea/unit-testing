@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/Noua.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mvc/MvcPortTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepositorySteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepositorySteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mvc/MvcApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mvc/MvcApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mvc/MvcTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mvc/MvcTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,6 +177,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.mvc" />
       <recent name="ro.victor.unittest.tdd.tennis" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
@@ -187,7 +192,7 @@
       <recent name="ro.victor.unittest.tdd" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JobSearchRepositoryFeature">
+  <component name="RunManager" selected="JUnit.MvcTest.peaceTest">
     <configuration name="JobSearchRepoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -250,26 +255,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SearchApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="MvcTest.peaceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.db.search.*" />
+          <option name="PATTERN" value="ro.victor.unittest.mvc.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ro.victor.unittest.db.search.SearchApp" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mvc" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mvc.MvcTest" />
+      <option name="METHOD_NAME" value="peaceTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MvcTest.peaceTest" />
         <item itemvalue="JUnit.JobSearchRepositoryFeature" />
         <item itemvalue="JUnit.JobSearchRepoTest" />
         <item itemvalue="JUnit.JobSearchRepoTest.bySkill" />
         <item itemvalue="JUnit.JobSearchRepoTest.byName" />
-        <item itemvalue="Spring Boot.SearchApp" />
       </list>
     </recent_temporary>
   </component>
@@ -321,14 +329,7 @@
       <workItem from="1568703537592" duration="7766000" />
       <workItem from="1574794872658" duration="43777000" />
       <workItem from="1576662403952" duration="4258000" />
-      <workItem from="1576668444948" duration="3424000" />
-    </task>
-    <task id="LOCAL-00012" summary="Exceptii cu mesaj text.">
-      <created>1563264127590</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1563264127591</updated>
+      <workItem from="1576668444948" duration="7221000" />
     </task>
     <task id="LOCAL-00013" summary="TDD + Paramterized">
       <created>1563282492753</created>
@@ -666,7 +667,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576671613146</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Feature + criteria working">
+      <created>1576671930521</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1576671930521</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -728,7 +736,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="deleted Tennis Tests" />
     <MESSAGE value="TDD facut de voi" />
     <MESSAGE value="Paramterized Test" />
     <MESSAGE value="YOLO" />
@@ -753,37 +760,38 @@
     <MESSAGE value="Mockuri statice. Nu folositi." />
     <MESSAGE value="Trebuie setate ambele capete ale unei relatii bidirectionale" />
     <MESSAGE value="Job criteria TDDed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Job criteria TDDed" />
+    <MESSAGE value="Feature + criteria working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feature + criteria working" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="78" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576668606635">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="78" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1576668606635" />
-    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser" timestamp="1576669246896">
+    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser" timestamp="1576673348343">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576669246896" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576671612633">
+    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576673348343" />
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576671930028">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576671612633" />
-    <state width="1492" height="225" key="GridCell.Tab.0.bottom" timestamp="1576671915050">
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576671930028" />
+    <state width="1492" height="295" key="GridCell.Tab.0.bottom" timestamp="1576673824696">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="225" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576671915050" />
-    <state width="1492" height="225" key="GridCell.Tab.0.center" timestamp="1576671915050">
+    <state width="1492" height="295" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576673824696" />
+    <state width="1492" height="295" key="GridCell.Tab.0.center" timestamp="1576673824695">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="225" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576671915050" />
-    <state width="1492" height="225" key="GridCell.Tab.0.left" timestamp="1576671915050">
+    <state width="1492" height="295" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576673824695" />
+    <state width="1492" height="295" key="GridCell.Tab.0.left" timestamp="1576673824695">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="225" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576671915050" />
-    <state width="1492" height="225" key="GridCell.Tab.0.right" timestamp="1576671915050">
+    <state width="1492" height="295" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576673824695" />
+    <state width="1492" height="295" key="GridCell.Tab.0.right" timestamp="1576673824696">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="225" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576671915050" />
+    <state width="1492" height="295" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576673824696" />
     <state width="1493" height="199" key="GridCell.Tab.1.bottom" timestamp="1576669305179">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -804,22 +812,34 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="189" height="457" key="HiddenNamespacesPopup/0.0.1536.834@0.0.1536.834" timestamp="1576668372090" />
+    <state x="487" y="142" width="561" height="568" key="RefactorJ.ExtractClass" timestamp="1576674874892">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="487" y="142" width="561" height="568" key="RefactorJ.ExtractClass/0.0.1536.834@0.0.1536.834" timestamp="1576674874892" />
     <state x="549" y="106" width="438" height="647" key="RefactorJ.IntroduceParameterObject" timestamp="1576669979412">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="106" width="438" height="647" key="RefactorJ.IntroduceParameterObject/0.0.1536.834@0.0.1536.834" timestamp="1576669979412" />
-    <state x="474" y="178" width="588" height="478" key="find.popup" timestamp="1576671764834">
+    <state x="592" y="369" key="ReplaceDuplicatesPrompt" timestamp="1576674847886">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="474" y="178" width="588" height="478" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1576671764834" />
+    <state x="592" y="369" key="ReplaceDuplicatesPrompt/0.0.1536.834@0.0.1536.834" timestamp="1576674847886" />
+    <state x="499" y="194" width="538" height="484" key="extract.method.dialog" timestamp="1576674844353">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="499" y="194" width="538" height="484" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576674844353" />
+    <state x="474" y="178" width="588" height="478" key="find.popup" timestamp="1576673236703">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="474" y="178" width="588" height="478" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1576673236703" />
     <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1576669034301">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576669034301" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576670774242">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576676006205">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576670774242" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576676006205" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
