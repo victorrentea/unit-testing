@@ -20,7 +20,7 @@ import ro.victor.unittest.db.prod.ReportingRepo;
 @RunWith(SpringRunner.class)
 @Transactional // SOLUTION
 @WithCommonReferenceData // SOLUTION
-public class TransactionalTest {
+public class TransactionalTest{
 	
 	@Autowired
 	private NotificationRepo notificationRepo;
