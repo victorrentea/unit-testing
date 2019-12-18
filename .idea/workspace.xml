@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/aproapeIntegrationTest/MyApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/aproapeIntegrationTest/SpringPartialMockuit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/CumMockuiOClasaFinala.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -188,16 +187,18 @@
       <recent name="ro.victor.unittest.tdd" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SpringPartialMockuit.mtest">
-    <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
+  <component name="RunManager" selected="JUnit.CumMockuiOClasaFinala">
+    <configuration name="CumMockuiOClasaFinala" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.*" />
+          <option name="PATTERN" value="ro.victor.unittest.mocks.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.CumMockuiOClasaFinala" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -267,11 +268,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CumMockuiOClasaFinala" />
         <item itemvalue="JUnit.SpringPartialMockuit.mtest" />
         <item itemvalue="JUnit.ProductSearchTest" />
         <item itemvalue="JUnit.ProductSearchTest.category" />
         <item itemvalue="JUnit.ProductSearchTest.unu" />
-        <item itemvalue="Application.StartDatabase" />
       </list>
     </recent_temporary>
   </component>
@@ -317,14 +318,7 @@
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
       <workItem from="1574794872658" duration="43777000" />
-      <workItem from="1576662403952" duration="511000" />
-    </task>
-    <task id="LOCAL-00007" summary="unittesting: Time Rule fix">
-      <created>1562877239535</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1562877239535</updated>
+      <workItem from="1576662403952" duration="3144000" />
     </task>
     <task id="LOCAL-00008" summary="UnitTesting: Search in JPA implem complete">
       <created>1562879638407</created>
@@ -662,7 +656,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574953031603</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="@MockBean">
+      <created>1576663183166</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1576663183166</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -724,7 +725,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="ObjectMother (TM)" />
     <MESSAGE value="fluent setters" />
     <MESSAGE value="Prindere de exceptii selectiv (duce la prea multe custom exceptions)" />
     <MESSAGE value="asserting exception message (FRAGIL)" />
@@ -749,25 +749,34 @@
     <MESSAGE value="p6spy in action." />
     <MESSAGE value="pre result DTO" />
     <MESSAGE value="gata cu JPQL" />
-    <option name="LAST_COMMIT_MESSAGE" value="gata cu JPQL" />
+    <MESSAGE value="@MockBean" />
+    <option name="LAST_COMMIT_MESSAGE" value="@MockBean" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1492" height="305" key="GridCell.Tab.0.bottom" timestamp="1576663037079">
+    <state x="386" y="22" key="CommitChangelistDialog2" timestamp="1576663182737">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="305" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576663037079" />
-    <state width="1492" height="305" key="GridCell.Tab.0.center" timestamp="1576663037079">
+    <state x="386" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576663182737" />
+    <state width="1493" height="305" key="GridCell.Tab.0.bottom" timestamp="1576667332546">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="305" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576663037079" />
-    <state width="1492" height="305" key="GridCell.Tab.0.left" timestamp="1576663037078">
+    <state width="1493" height="305" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576667332546" />
+    <state width="1493" height="305" key="GridCell.Tab.0.center" timestamp="1576667332546">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="305" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576663037078" />
-    <state width="1492" height="305" key="GridCell.Tab.0.right" timestamp="1576663037079">
+    <state width="1493" height="305" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576667332546" />
+    <state width="1493" height="305" key="GridCell.Tab.0.left" timestamp="1576667332546">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="305" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576663037079" />
+    <state width="1493" height="305" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576667332546" />
+    <state width="1493" height="305" key="GridCell.Tab.0.right" timestamp="1576667332546">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="305" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576667332546" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576666304214">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576666304214" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
