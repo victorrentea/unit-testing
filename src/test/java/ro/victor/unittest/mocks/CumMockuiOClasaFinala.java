@@ -6,43 +6,46 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ClasaDinFramework.class, LocalDate.class})
 public class CumMockuiOClasaFinala {
-    @InjectMocks
-    private DeTestat sut;
-    @Mock
-    ClasaDinFrameworkWrapper wrapper;
 
     @Test
     public void x() {
-        when(wrapper.someMethod()).thenReturn(1);
-        int actual = sut.m();
+        PowerMockito.mockStatic(ClasaDinFramework.class);
+        PowerMockito.when(ClasaDinFramework.someMethod()).thenReturn(1);
+        int actual = new DeTestat().m();
         Assert.assertEquals(2, actual);
+    }
+    @Test
+    public void y() {
+        LocalDate timpulFixat = LocalDate.parse("2019-01-01");
+        PowerMockito.mockStatic(LocalDate.class);
+        PowerMockito.when(LocalDate.now()).thenReturn(timpulFixat);
+        //macabru
+        LocalDate now = LocalDate.now();
+        Assert.assertEquals(timpulFixat, now);
     }
 }
 
 class DeTestat {
-    private final ClasaDinFrameworkWrapper wrapper;
-
-    DeTestat(ClasaDinFrameworkWrapper wrapper) {
-        this.wrapper = wrapper;
-    }
 
     public int m() {
-        return 2 * wrapper.someMethod();
+        return 2 * ClasaDinFramework.someMethod();
     }
 }
 
-class ClasaDinFrameworkWrapper {
-    public int someMethod() {
-        return ClasaDinFramework.someMethod();
-    }
-}
 
-class ClasaDinFramework {
+final class ClasaDinFramework {
     public static int someMethod() {
         throw new IllegalArgumentException();
     }

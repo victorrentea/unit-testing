@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/CumMockuiOClasaFinala.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/CumMockuiOClasaFinala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/CumMockuiOClasaFinala.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +187,7 @@
       <recent name="ro.victor.unittest.tdd" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CumMockuiOClasaFinala">
+  <component name="RunManager" selected="JUnit.CumMockuiOClasaFinala.y">
     <configuration name="CumMockuiOClasaFinala" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -199,6 +199,22 @@
       <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.CumMockuiOClasaFinala" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CumMockuiOClasaFinala.y" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.mocks.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.CumMockuiOClasaFinala" />
+      <option name="METHOD_NAME" value="y" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -234,22 +250,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductSearchTest.unu" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.db.search.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.db.search" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.ProductSearchTest" />
-      <option name="METHOD_NAME" value="unu" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="SpringPartialMockuit.mtest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -268,11 +268,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CumMockuiOClasaFinala.y" />
         <item itemvalue="JUnit.CumMockuiOClasaFinala" />
         <item itemvalue="JUnit.SpringPartialMockuit.mtest" />
         <item itemvalue="JUnit.ProductSearchTest" />
         <item itemvalue="JUnit.ProductSearchTest.category" />
-        <item itemvalue="JUnit.ProductSearchTest.unu" />
       </list>
     </recent_temporary>
   </component>
@@ -318,14 +318,7 @@
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
       <workItem from="1574794872658" duration="43777000" />
-      <workItem from="1576662403952" duration="3144000" />
-    </task>
-    <task id="LOCAL-00008" summary="UnitTesting: Search in JPA implem complete">
-      <created>1562879638407</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1562879638407</updated>
+      <workItem from="1576662403952" duration="3671000" />
     </task>
     <task id="LOCAL-00009" summary="unittesting: bank search working with SQL.&#10;adding mybatis to the mix">
       <created>1562904275181</created>
@@ -663,7 +656,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576663183166</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Mockuirea unor metode statice : Opt1: Construiesti un wrapper peste cu metode de instanta pe care apoi il injectezi/resppectiv mockuiesti">
+      <created>1576667369631</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1576667369631</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -725,7 +725,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="fluent setters" />
     <MESSAGE value="Prindere de exceptii selectiv (duce la prea multe custom exceptions)" />
     <MESSAGE value="asserting exception message (FRAGIL)" />
     <MESSAGE value="ExceptionMatcher (Hamcrest tata)" />
@@ -750,29 +749,30 @@
     <MESSAGE value="pre result DTO" />
     <MESSAGE value="gata cu JPQL" />
     <MESSAGE value="@MockBean" />
-    <option name="LAST_COMMIT_MESSAGE" value="@MockBean" />
+    <MESSAGE value="Mockuirea unor metode statice : Opt1: Construiesti un wrapper peste cu metode de instanta pe care apoi il injectezi/resppectiv mockuiesti" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mockuirea unor metode statice : Opt1: Construiesti un wrapper peste cu metode de instanta pe care apoi il injectezi/resppectiv mockuiesti" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="386" y="22" key="CommitChangelistDialog2" timestamp="1576663182737">
+    <state x="386" y="22" key="CommitChangelistDialog2" timestamp="1576667369131">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="386" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576663182737" />
-    <state width="1493" height="305" key="GridCell.Tab.0.bottom" timestamp="1576667332546">
+    <state x="386" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576667369131" />
+    <state width="1493" height="163" key="GridCell.Tab.0.bottom" timestamp="1576667796521">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="305" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576667332546" />
-    <state width="1493" height="305" key="GridCell.Tab.0.center" timestamp="1576667332546">
+    <state width="1493" height="163" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576667796521" />
+    <state width="1493" height="163" key="GridCell.Tab.0.center" timestamp="1576667796521">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="305" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576667332546" />
-    <state width="1493" height="305" key="GridCell.Tab.0.left" timestamp="1576667332546">
+    <state width="1493" height="163" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576667796521" />
+    <state width="1493" height="163" key="GridCell.Tab.0.left" timestamp="1576667796521">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="305" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576667332546" />
-    <state width="1493" height="305" key="GridCell.Tab.0.right" timestamp="1576667332546">
+    <state width="1493" height="163" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576667796521" />
+    <state width="1493" height="163" key="GridCell.Tab.0.right" timestamp="1576667796521">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="305" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576667332546" />
+    <state width="1493" height="163" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576667796521" />
     <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576666304214">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
