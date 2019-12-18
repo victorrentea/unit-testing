@@ -2,8 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Job.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobRepositoryCustom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchCriteria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepositoryFeature.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/JobSearchRepositorySteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/SearchApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Skill.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/job-search.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/CumMockuiOClasaFinala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/CumMockuiOClasaFinala.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Country.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearchImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductSearchTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/RepoBaseTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,15 +174,15 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="ro.victor.unittest.tdd" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
       <recent name="C:\workspace\unit-testing\src\test\resources" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
       <recent name="C:\workspace\training\unit-testing\src\test\resources" />
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\builder" />
@@ -187,39 +206,8 @@
       <recent name="ro.victor.unittest.tdd" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CumMockuiOClasaFinala.y">
-    <configuration name="CumMockuiOClasaFinala" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.CumMockuiOClasaFinala" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CumMockuiOClasaFinala.y" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.CumMockuiOClasaFinala" />
-      <option name="METHOD_NAME" value="y" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.JobSearchRepoTest.bySkill">
+    <configuration name="JobSearchRepoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -228,13 +216,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.db.search" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.ProductSearchTest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.JobSearchRepoTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductSearchTest.category" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JobSearchRepoTest.byName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -243,36 +231,64 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.db.search" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.ProductSearchTest" />
-      <option name="METHOD_NAME" value="category" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.JobSearchRepoTest" />
+      <option name="METHOD_NAME" value="byName" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SpringPartialMockuit.mtest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JobSearchRepoTest.bySkill" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.aproapeIntegrationTest.*" />
+          <option name="PATTERN" value="ro.victor.unittest.db.search.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.aproapeIntegrationTest" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.aproapeIntegrationTest.SpringPartialMockuit" />
-      <option name="METHOD_NAME" value="mtest" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.db.search" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.JobSearchRepoTest" />
+      <option name="METHOD_NAME" value="bySkill" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JobSearchRepositoryFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.db.search.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.db.search" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.db.search.JobSearchRepositoryFeature" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SearchApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.db.search.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ro.victor.unittest.db.search.SearchApp" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CumMockuiOClasaFinala.y" />
-        <item itemvalue="JUnit.CumMockuiOClasaFinala" />
-        <item itemvalue="JUnit.SpringPartialMockuit.mtest" />
-        <item itemvalue="JUnit.ProductSearchTest" />
-        <item itemvalue="JUnit.ProductSearchTest.category" />
+        <item itemvalue="JUnit.JobSearchRepoTest.bySkill" />
+        <item itemvalue="JUnit.JobSearchRepoTest" />
+        <item itemvalue="JUnit.JobSearchRepoTest.byName" />
+        <item itemvalue="JUnit.JobSearchRepositoryFeature" />
+        <item itemvalue="Spring Boot.SearchApp" />
       </list>
     </recent_temporary>
   </component>
@@ -281,7 +297,17 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:H2 local" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:H2 local" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@19a5bf32" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -318,14 +344,8 @@
       <workItem from="1567510122050" duration="4724000" />
       <workItem from="1568703537592" duration="7766000" />
       <workItem from="1574794872658" duration="43777000" />
-      <workItem from="1576662403952" duration="3671000" />
-    </task>
-    <task id="LOCAL-00009" summary="unittesting: bank search working with SQL.&#10;adding mybatis to the mix">
-      <created>1562904275181</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1562904275181</updated>
+      <workItem from="1576662403952" duration="4258000" />
+      <workItem from="1576668444948" duration="2438000" />
     </task>
     <task id="LOCAL-00010" summary="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage">
       <created>1562905012705</created>
@@ -663,7 +683,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576667369631</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Mockuri statice. Nu folositi.">
+      <created>1576667843714</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1576667843714</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -725,7 +752,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Prindere de exceptii selectiv (duce la prea multe custom exceptions)" />
     <MESSAGE value="asserting exception message (FRAGIL)" />
     <MESSAGE value="ExceptionMatcher (Hamcrest tata)" />
     <MESSAGE value="deleted Tennis Tests" />
@@ -750,33 +776,74 @@
     <MESSAGE value="gata cu JPQL" />
     <MESSAGE value="@MockBean" />
     <MESSAGE value="Mockuirea unor metode statice : Opt1: Construiesti un wrapper peste cu metode de instanta pe care apoi il injectezi/resppectiv mockuiesti" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mockuirea unor metode statice : Opt1: Construiesti un wrapper peste cu metode de instanta pe care apoi il injectezi/resppectiv mockuiesti" />
+    <MESSAGE value="Mockuri statice. Nu folositi." />
+    <option name="LAST_COMMIT_MESSAGE" value="Mockuri statice. Nu folositi." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="386" y="22" key="CommitChangelistDialog2" timestamp="1576667369131">
+    <state x="361" y="78" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576668606635">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="386" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576667369131" />
-    <state width="1493" height="163" key="GridCell.Tab.0.bottom" timestamp="1576667796521">
+    <state x="361" y="78" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1576668606635" />
+    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser" timestamp="1576669246896">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576667796521" />
-    <state width="1493" height="163" key="GridCell.Tab.0.center" timestamp="1576667796521">
+    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576669246896" />
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576667843274">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576667796521" />
-    <state width="1493" height="163" key="GridCell.Tab.0.left" timestamp="1576667796521">
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576667843274" />
+    <state width="1493" height="207" key="GridCell.Tab.0.bottom" timestamp="1576671069559">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576667796521" />
-    <state width="1493" height="163" key="GridCell.Tab.0.right" timestamp="1576667796521">
+    <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576671069559" />
+    <state width="1493" height="207" key="GridCell.Tab.0.center" timestamp="1576671069559">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576667796521" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576666304214">
+    <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576671069559" />
+    <state width="1493" height="207" key="GridCell.Tab.0.left" timestamp="1576671069558">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576666304214" />
+    <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576671069558" />
+    <state width="1493" height="207" key="GridCell.Tab.0.right" timestamp="1576671069559">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576671069559" />
+    <state width="1493" height="199" key="GridCell.Tab.1.bottom" timestamp="1576669305179">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="199" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576669305179" />
+    <state width="1493" height="199" key="GridCell.Tab.1.center" timestamp="1576669305178">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="199" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1576669305178" />
+    <state width="1493" height="199" key="GridCell.Tab.1.left" timestamp="1576669305178">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="199" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1576669305178" />
+    <state width="1493" height="199" key="GridCell.Tab.1.right" timestamp="1576669305178">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="199" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1576669305178" />
+    <state width="189" height="457" key="HiddenNamespacesPopup" timestamp="1576668372090">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="189" height="457" key="HiddenNamespacesPopup/0.0.1536.834@0.0.1536.834" timestamp="1576668372090" />
+    <state x="549" y="106" width="438" height="647" key="RefactorJ.IntroduceParameterObject" timestamp="1576669979412">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="549" y="106" width="438" height="647" key="RefactorJ.IntroduceParameterObject/0.0.1536.834@0.0.1536.834" timestamp="1576669979412" />
+    <state x="474" y="178" width="588" height="478" key="find.popup" timestamp="1576668696320">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="474" y="178" width="588" height="478" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1576668696320" />
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1576669034301">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576669034301" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576670774242">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576670774242" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
