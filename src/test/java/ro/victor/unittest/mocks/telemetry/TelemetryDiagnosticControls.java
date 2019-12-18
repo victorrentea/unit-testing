@@ -37,6 +37,8 @@ public class TelemetryDiagnosticControls {
 			currentRetry ++;
 		}
 
+		;
+
 		if (! telemetryClient.getOnlineStatus()) {
 			throw new SGException(SGException.ErrorCode.UNABLE_TO_CONNECT); // OK
 		}
@@ -45,8 +47,13 @@ public class TelemetryDiagnosticControls {
 		telemetryClient.configure(config);
 
 
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // OK
+		telemetryClient.send(altaFunctieComplexa()); // OK
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	String altaFunctieComplexa() {
+		//50 linii de logica
+		return "X";
 	}
 
 }

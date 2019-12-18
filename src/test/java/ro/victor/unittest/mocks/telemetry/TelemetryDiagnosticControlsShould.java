@@ -10,9 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.SGException.ErrorCode;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
@@ -40,6 +38,7 @@ public class TelemetryDiagnosticControlsShould {
     @Mock
     private ClientConfigurationProvider configProvider;
     @InjectMocks
+    @Spy
     private TelemetryDiagnosticControls controls;
 
     @Before
@@ -54,6 +53,7 @@ public class TelemetryDiagnosticControlsShould {
     @Test
     public void sends() throws Exception {
         when(telemetryClient.getOnlineStatus()).thenReturn(true);
+        when(controls.altaFunctieComplexa()).thenReturn(TelemetryClient.DIAGNOSTIC_MESSAGE);
         controls.checkTransmission();
         verify(telemetryClient).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
     }
