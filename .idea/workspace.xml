@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -322,6 +323,7 @@
       <workItem from="1575063689119" duration="149000" />
       <workItem from="1576252230475" duration="5940000" />
       <workItem from="1576567169883" duration="6412000" />
+      <workItem from="1576654462961" duration="247000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -596,7 +598,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576593963186</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="end of day1">
+      <created>1576610581401</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1576610581401</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -626,7 +635,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="prep mockito exercise" />
     <MESSAGE value="Mockito play" />
     <MESSAGE value="outside-in" />
     <MESSAGE value="Aproape gata (80%)" />
@@ -651,7 +659,8 @@
     <MESSAGE value="nu prea are sens verify pe metode pe care ai facut when().thenReturn()" />
     <MESSAGE value="Cu captori. In ce hal arata" />
     <MESSAGE value="Expun metode pentru teste package-protected" />
-    <option name="LAST_COMMIT_MESSAGE" value="Expun metode pentru teste package-protected" />
+    <MESSAGE value="end of day1" />
+    <option name="LAST_COMMIT_MESSAGE" value="end of day1" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576592568572">
@@ -670,26 +679,26 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="569" y="278" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog/0.0.1536.834@0.0.1536.834" timestamp="1576592789207" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576593962707">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1576610580947">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576593962707" />
-    <state width="1492" height="196" key="GridCell.Tab.0.bottom" timestamp="1576593832889">
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576610580947" />
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom" timestamp="1576610588275">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576593832889" />
-    <state width="1492" height="196" key="GridCell.Tab.0.center" timestamp="1576593832889">
+    <state width="1492" height="200" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1576610588275" />
+    <state width="1492" height="200" key="GridCell.Tab.0.center" timestamp="1576610588275">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576593832889" />
-    <state width="1492" height="196" key="GridCell.Tab.0.left" timestamp="1576593832889">
+    <state width="1492" height="200" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1576610588275" />
+    <state width="1492" height="200" key="GridCell.Tab.0.left" timestamp="1576610588275">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576593832889" />
-    <state width="1492" height="196" key="GridCell.Tab.0.right" timestamp="1576593832889">
+    <state width="1492" height="200" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1576610588275" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right" timestamp="1576610588275">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="196" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576593832889" />
+    <state width="1492" height="200" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1576610588275" />
     <state width="1492" height="200" key="GridCell.Tab.1.bottom" timestamp="1576581863039">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

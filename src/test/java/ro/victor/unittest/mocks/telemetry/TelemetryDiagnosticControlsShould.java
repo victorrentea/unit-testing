@@ -86,14 +86,12 @@ public class TelemetryDiagnosticControlsShould {
     public void configuresClient() throws Exception {
         when(telemetryClient.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission();
-        ArgumentCaptor<ClientConfiguration> configCapture =
-                forClass(ClientConfiguration.class);
-        verify(telemetryClient).configure(configCapture.capture());
-        ClientConfiguration config = configCapture.getValue();
-        assertEquals(AckMode.NORMAL, config.getAckMode());
-        assertNotNull(config.getSessionId());
-        assertThat(config.getSessionStart()).isEqualToIgnoringMinutes(now());
-        assertThat(config.getSessionStart()).isCloseTo(now(), new TemporalUnitWithinOffset(1, ChronoUnit.MINUTES));
+        verify(telemetryClient).configure(any());
+//        ClientConfiguration config = configCapture.getValue();
+//        assertEquals(AckMode.NORMAL, config.getAckMode());
+//        assertNotNull(config.getSessionId());
+//        assertThat(config.getSessionStart()).isEqualToIgnoringMinutes(now());
+//        assertThat(config.getSessionStart()).isCloseTo(now(), new TemporalUnitWithinOffset(1, ChronoUnit.MINUTES));
     }
     // TO BE CONTINUED....
 

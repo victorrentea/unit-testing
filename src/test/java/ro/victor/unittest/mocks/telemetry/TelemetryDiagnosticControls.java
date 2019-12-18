@@ -37,7 +37,6 @@ public class TelemetryDiagnosticControls {
 			currentRetry ++;
 		}
 
-
 		if (! telemetryClient.getOnlineStatus()) {
 			throw new SGException(SGException.ErrorCode.UNABLE_TO_CONNECT); // OK
 		}
