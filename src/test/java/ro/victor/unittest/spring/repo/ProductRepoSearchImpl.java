@@ -2,6 +2,7 @@ package ro.victor.unittest.spring.repo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import ro.victor.unittest.spring.facade.ProductSearchResult;
 import ro.victor.unittest.spring.infra.ExternalServiceClient;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
@@ -21,9 +22,9 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
     private final ExternalServiceClient externalServiceClient;
 
     @Override
-    public List<Product> search(ProductSearchCriteria criteria) {
+    public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
 //        String jpql = "SELECT new ro.victor.unittest.spring.search.ProductSearchResult(p.id, p.name) FROM Product p WHERE 1=1 ";
-        String jpql = "SELECT p FROM Product p WHERE 1=1 ";
+        String jpql = "SELECT new ro.victor.unittest.spring.facade.ProductSearchResult(p.id, p.name) FROM Product p WHERE 1=1 ";
 
         System.out.println(externalServiceClient.callService());
 
@@ -37,7 +38,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
             paramMap.put("category", criteria.category);
         }
 
-        TypedQuery<Product> query = em.createQuery(jpql, Product.class);
+        TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
         for (String paramName : paramMap.keySet()) {
             query.setParameter(paramName, paramMap.get(paramName));
         }
