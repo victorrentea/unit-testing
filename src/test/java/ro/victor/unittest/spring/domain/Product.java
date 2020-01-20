@@ -1,4 +1,4 @@
-package ro.victor.unittest.db.search;
+package ro.victor.unittest.spring.domain;
 
 import lombok.ToString;
 
@@ -21,7 +21,7 @@ public class Product {
     @ManyToOne
     private Country originCountry;
 
-    enum Category {
+    public enum Category {
         CASA, MASINA, COPII, NEVASTA
     }
 

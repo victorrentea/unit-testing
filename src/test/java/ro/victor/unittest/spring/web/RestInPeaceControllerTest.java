@@ -1,4 +1,4 @@
-package ro.victor.unittest.mvc;
+package ro.victor.unittest.spring.web;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 //@ContextConfiguration(classes = MvcApplication.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MvcTest {
+public class RestInPeaceControllerTest {
 
 //	@Autowired
 //    private WebApplicationContext wac;

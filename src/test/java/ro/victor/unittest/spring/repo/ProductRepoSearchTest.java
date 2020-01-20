@@ -1,27 +1,21 @@
-package ro.victor.unittest.db.search;
+package ro.victor.unittest.spring.repo;
 
-import lombok.AllArgsConstructor;
-import lombok.ToString;
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
-import ro.victor.unittest.db.search.Product.Category;
+import ro.victor.unittest.spring.domain.Product;
+import ro.victor.unittest.spring.facade.ProductSearchCriteria;
+import ro.victor.unittest.spring.infra.ExternalServiceClient;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 // profile, mockbean, props
 
-public class ProductSearchTest extends RepoBaseTest{
+public class ProductRepoSearchTest extends RepoBaseTest{
 
     @Autowired
     private ProductRepo repo;
@@ -32,7 +26,7 @@ public class ProductSearchTest extends RepoBaseTest{
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
     @MockBean
-    public Alta alta;
+    public ExternalServiceClient externalServiceClient;
 
 
     @Before
@@ -42,7 +36,7 @@ public class ProductSearchTest extends RepoBaseTest{
     @Test
     public void name() {
 
-        Mockito.when(alta.ia()).thenReturn("P'asta");
+        Mockito.when(externalServiceClient.callService()).thenReturn("P'asta");
         Product pInDB = new Product().setName("Lego").setOriginCountry(c);
         repo.save(pInDB);
         criteria.name = "E";
@@ -54,24 +48,13 @@ public class ProductSearchTest extends RepoBaseTest{
     }
     @Test
     public void category() {
-        Product pInDB = new Product().setCategory(Category.NEVASTA);
+        Product pInDB = new Product().setCategory(Product.Category.NEVASTA);
         repo.save(pInDB);
-        criteria.category = Category.NEVASTA;
+        criteria.category = Product.Category.NEVASTA;
         assertThat(repo.search(criteria)).anyMatch(
                 pp -> pp.getId().equals(pInDB.getId()));
-        criteria.category = Category.COPII;
+        criteria.category = Product.Category.COPII;
         assertThat(repo.search(criteria)).isEmpty();
     }
 }
 
-class ProductSearchCriteria { // pute a JSON
-    public String name;
-    public Category category;
-}
-
-@AllArgsConstructor
-class ProductSearchResult {
-    public Long id;
-    public String name;
-
-}

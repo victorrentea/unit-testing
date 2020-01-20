@@ -1,38 +1,31 @@
-package ro.victor.unittest.db.search;
+package ro.victor.unittest.spring.repo;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import ro.victor.unittest.spring.infra.ExternalServiceClient;
+import ro.victor.unittest.spring.domain.Product;
+import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-@Component
-class Alta {
-
-    public String ia() {
-        throw new IllegalArgumentException("Esti in teste frate, n-i cum sa chemi AUthorizatioBService");
-    }
-}
 @Repository
 @RequiredArgsConstructor
 public class ProductRepoSearchImpl implements ProductRepoSearch {
     private final EntityManager em;
-    private final Alta alta;
+    private final ExternalServiceClient externalServiceClient;
 
     @Override
     public List<Product> search(ProductSearchCriteria criteria) {
-//        String jpql = "SELECT new ro.victor.unittest.db.search.ProductSearchResult(p.id, p.name) FROM Product p WHERE 1=1 ";
+//        String jpql = "SELECT new ro.victor.unittest.spring.search.ProductSearchResult(p.id, p.name) FROM Product p WHERE 1=1 ";
         String jpql = "SELECT p FROM Product p WHERE 1=1 ";
 
-        System.out.println(alta.ia());
+        System.out.println(externalServiceClient.callService());
 
         Map<String, Object> paramMap = new HashMap<>();
         if (isNotEmpty(criteria.name)) {

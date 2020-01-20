@@ -1,4 +1,4 @@
-package ro.victor.unittest.db.search;
+package ro.victor.unittest.spring.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
