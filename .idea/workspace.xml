@@ -582,10 +582,14 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="487" y="138" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1536.834@0.0.1536.834" timestamp="1576577073948" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1576577122523">
+    <state x="499" y="168" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579522277948">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1576577122523" />
+    <state x="499" y="168" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1579522277948" />
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1579522306785">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1579522306785" />
     <state width="1493" height="207" key="GridCell.Tab.0.bottom" timestamp="1576676117225">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -642,10 +646,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1576678654707" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1576678744188">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1579522295490">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1576678744188" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1579522295490" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
