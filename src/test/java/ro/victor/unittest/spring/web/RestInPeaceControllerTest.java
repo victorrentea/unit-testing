@@ -16,31 +16,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
-//@WebAppConfiguration
-//@ContextConfiguration(classes = MvcApplication.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class RestInPeaceControllerTest {
-
-//	@Autowired
-//    private WebApplicationContext wac;
-
 	@Autowired
     private MockMvc mockMvc;
 
-//    @Before
-//    public void setup() {
-//        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-//    }
-    
-    @Test
-    public void peaceTest() throws Exception {
-    	mockMvc.perform(get("/peace/{ssn}","abc"))
-    		.andExpect(status().isOk())
-    		.andExpect(header().string("Head-Shot", "true"))
-    		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-    		.andExpect(jsonPath("$.ssn").value("ABC"));
-    }
+	// TODO test peace
+
+	// TODO test port
 
 }
 

@@ -2,23 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/RestInPeaceService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductSearchCriteria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/infra/ExternalServiceClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/Peace.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/Country.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/ProductApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductRepoSearchImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/ProductSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/db/search/RepoBaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mvc/MvcApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mvc/MvcTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/ProductApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/SomeSpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/RestInPeaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/RestInPeaceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +186,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RestInPeaceControllerTest">
+  <component name="RunManager" selected="Spring Boot.SomeSpringApplication">
     <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -245,19 +233,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FixedClockApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.time.inject.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ro.victor.unittest.time.inject.FixedClockApp" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ProductApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -271,13 +246,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SomeSpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ro.victor.unittest.spring.SomeSpringApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.SomeSpringApplication" />
         <item itemvalue="JUnit.RestInPeaceControllerTest" />
         <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.ProductSearchTest.name" />
         <item itemvalue="Spring Boot.ProductApplication" />
-        <item itemvalue="Spring Boot.FixedClockApp" />
       </list>
     </recent_temporary>
   </component>
@@ -524,7 +512,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579522327343</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Spring Testing">
+      <created>1579523039644</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1579523039644</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -554,7 +549,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="minor logging fixes" />
     <MESSAGE value="gitignore" />
     <MESSAGE value="unit test php: solved pretty good" />
     <MESSAGE value="unittesting: Time Rule fix" />
@@ -579,7 +573,8 @@
     <MESSAGE value="OOP : try to continue" />
     <MESSAGE value="Time: injecting a Clock.fixed() + faking Spring beans" />
     <MESSAGE value="yolo" />
-    <option name="LAST_COMMIT_MESSAGE" value="yolo" />
+    <MESSAGE value="Spring Testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Spring Testing" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576576969262">
@@ -610,50 +605,50 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="168" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1579522453970" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1579522326770">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1579523039053">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1579522326770" />
-    <state width="1493" height="187" key="GridCell.Tab.0.bottom" timestamp="1579522992121">
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1579523039053" />
+    <state width="1493" height="187" key="GridCell.Tab.0.bottom" timestamp="1579523138278">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1579522992121" />
-    <state width="1493" height="187" key="GridCell.Tab.0.center" timestamp="1579522992120">
+    <state width="1493" height="187" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
+    <state width="1493" height="187" key="GridCell.Tab.0.center" timestamp="1579523138278">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1579522992120" />
-    <state width="1493" height="187" key="GridCell.Tab.0.left" timestamp="1579522992120">
+    <state width="1493" height="187" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
+    <state width="1493" height="187" key="GridCell.Tab.0.left" timestamp="1579523138278">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1579522992120" />
-    <state width="1493" height="187" key="GridCell.Tab.0.right" timestamp="1579522992120">
+    <state width="1493" height="187" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
+    <state width="1493" height="187" key="GridCell.Tab.0.right" timestamp="1579523138278">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1579522992120" />
-    <state width="1493" height="187" key="GridCell.Tab.1.bottom" timestamp="1579522515667">
+    <state width="1493" height="187" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
+    <state width="1493" height="187" key="GridCell.Tab.1.bottom" timestamp="1579523138278">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1579522515667" />
-    <state width="1493" height="187" key="GridCell.Tab.1.center" timestamp="1579522515667">
+    <state width="1493" height="187" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
+    <state width="1493" height="187" key="GridCell.Tab.1.center" timestamp="1579523138278">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1579522515667" />
-    <state width="1493" height="187" key="GridCell.Tab.1.left" timestamp="1579522515667">
+    <state width="1493" height="187" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
+    <state width="1493" height="187" key="GridCell.Tab.1.left" timestamp="1579523138278">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1579522515667" />
-    <state width="1493" height="187" key="GridCell.Tab.1.right" timestamp="1579522515667">
+    <state width="1493" height="187" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
+    <state width="1493" height="187" key="GridCell.Tab.1.right" timestamp="1579523138278">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1579522515667" />
+    <state width="1493" height="187" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
     <state x="279" y="77" key="SettingsEditor" timestamp="1576255395985">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="279" y="77" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1576255395985" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1579522369657">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1579523040519">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1579522369657" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1579523040519" />
     <state x="499" y="194" key="extract.method.dialog" timestamp="1576255706294">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

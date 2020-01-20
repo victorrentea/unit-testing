@@ -11,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SpringBootApplication
-public class ProductApplication implements WebMvcConfigurer {
+public class SomeSpringApplication implements WebMvcConfigurer {
     public static void main(String[] args) {
-
-        SpringApplication.run(ProductApplication.class);
+        SpringApplication.run(SomeSpringApplication.class);
     }
 
     public void addInterceptors(InterceptorRegistry registry) {
