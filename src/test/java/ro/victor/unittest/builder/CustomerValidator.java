@@ -17,7 +17,10 @@ public class CustomerValidator {
 			throw new IllegalArgumentException("Missing customer address");
 		}
 		if (StringUtils.isBlank(address.getCity())) {
-			throw new IllegalArgumentException("Missing address xcity");
+			throw new ExceptiaMea(ExceptiaMea.ErrorCode.CUSTOMER_WITH_NO_ADDRESS_CITY);
+		}
+		if (StringUtils.isBlank(address.getStreetName())) {
+			throw new IllegalArgumentException("Missing streetName");
 		}
 	}
 }
