@@ -17,14 +17,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ProductRepoSearchImpl implements ProductRepoSearch {
     private final EntityManager em;
-//    private final ExternalServiceClient externalServiceClient;
+    private final ExternalServiceClient externalServiceClient;
 
     @Override
     public List<Product> search(ProductSearchCriteria criteria) {
 //        String jpql = "SELECT new ro.victor.unittest.spring.search.ProductSearchResult(p.id, p.name) FROM Product p WHERE 1=1 ";
         String jpql = "SELECT p FROM Product p WHERE 1=1 ";
 
-//        System.out.println(externalServiceClient.callService());
+        System.out.println(externalServiceClient.callService());
 
         Map<String, Object> paramMap = new HashMap<>();
         if (StringUtils.isNotBlank(criteria.name)) {

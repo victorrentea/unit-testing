@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/SomeFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/SomeFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/spy.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/spy.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -332,7 +324,7 @@
       <workItem from="1575063689119" duration="149000" />
       <workItem from="1576252230475" duration="5940000" />
       <workItem from="1576678577380" duration="1081000" />
-      <workItem from="1580288104476" duration="20207000" />
+      <workItem from="1580288104476" duration="20451000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -628,7 +620,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580384403195</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Query TDD done">
+      <created>1580386873783</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1580386873783</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -668,7 +667,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
     <MESSAGE value="JDK" />
     <MESSAGE value="fix Java version" />
@@ -693,7 +691,8 @@
     <MESSAGE value="NU FACETI ASA ! E prea urat." />
     <MESSAGE value="PowerMock" />
     <MESSAGE value="Undo Spring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Undo Spring" />
+    <MESSAGE value="Query TDD done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Query TDD done" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="95" key="#Notifications" timestamp="1579528210917">
@@ -748,46 +747,46 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="168" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1579522453970" />
-    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1580386862225">
+    <state x="0" y="22" key="CommitChangelistDialog2" timestamp="1580386873085">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="0" key="CommitChangelistDialog2.inPresentationMode" timestamp="1580290661732">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="0" key="CommitChangelistDialog2.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290661732" />
-    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1580386862225" />
-    <state width="1492" height="221" key="GridCell.Tab.0.bottom" timestamp="1580386858785">
+    <state x="0" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1580386873085" />
+    <state width="1492" height="421" key="GridCell.Tab.0.bottom" timestamp="1580387116906">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1580375813661">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580375813661" />
-    <state width="1492" height="221" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1580386858785" />
-    <state width="1492" height="221" key="GridCell.Tab.0.center" timestamp="1580386858785">
+    <state width="1492" height="421" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1580387116906" />
+    <state width="1492" height="421" key="GridCell.Tab.0.center" timestamp="1580387116906">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1580375813660">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580375813660" />
-    <state width="1492" height="221" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1580386858785" />
-    <state width="1492" height="221" key="GridCell.Tab.0.left" timestamp="1580386858785">
+    <state width="1492" height="421" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1580387116906" />
+    <state width="1492" height="421" key="GridCell.Tab.0.left" timestamp="1580387116906">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1580375813660">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580375813660" />
-    <state width="1492" height="221" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1580386858785" />
-    <state width="1492" height="221" key="GridCell.Tab.0.right" timestamp="1580386858785">
+    <state width="1492" height="421" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1580387116906" />
+    <state width="1492" height="421" key="GridCell.Tab.0.right" timestamp="1580387116906">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1580375813661">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580375813661" />
-    <state width="1492" height="221" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1580386858785" />
+    <state width="1492" height="421" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1580387116906" />
     <state width="1493" height="186" key="GridCell.Tab.1.bottom" timestamp="1580152291201">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -848,14 +847,14 @@
     </state>
     <state x="36" y="0" key="refactoring.ChangeSignatureDialog.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290844327" />
     <state x="511" y="57" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1580379338742" />
-    <state x="425" y="189" key="run.anything.popup" timestamp="1580386084984">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1580387099144">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="170" key="run.anything.popup.inPresentationMode" timestamp="1580292262974">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="170" key="run.anything.popup.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580292262974" />
-    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1580386084984" />
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1580387099144" />
     <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1580385050816">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

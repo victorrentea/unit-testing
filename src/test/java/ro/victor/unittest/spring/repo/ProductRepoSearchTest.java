@@ -2,9 +2,12 @@ package ro.victor.unittest.spring.repo;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
+import ro.victor.unittest.spring.infra.ExternalServiceClient;
 
 import java.util.List;
 
@@ -22,6 +25,9 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     // TODO search by category
     // TODO @Before check no garbage in
 
+    @MockBean
+    private ExternalServiceClient mockClient;
+
     @Autowired
     private ProductRepo repo;
 
@@ -30,6 +36,7 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     @Before
     public void checkNoRowsInDbInitially() {
         assertEquals(0, repo.count());
+        Mockito.when(mockClient.callService()).thenReturn("Call me Baby!");
     }
     @Test
     public void noCriteria() {
