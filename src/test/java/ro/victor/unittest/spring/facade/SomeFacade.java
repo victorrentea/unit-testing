@@ -2,6 +2,7 @@ package ro.victor.unittest.spring.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.RestInPeaceService;
 import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.web.Peace;
@@ -19,7 +20,7 @@ public class SomeFacade {
         return domainService.getPeace(ssn);
     }
 
-    public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
+    public List<Product> searchProduct(ProductSearchCriteria criteria) {
         return productRepo.search(criteria);
     }
 }

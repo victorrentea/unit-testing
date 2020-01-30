@@ -11,9 +11,9 @@ import ro.victor.unittest.spring.domain.Country;
 
 import javax.persistence.EntityManager;
 
-// @SpringBootTest , or, even better (faster):
-@DataJpaTest
 @RunWith(SpringRunner.class)
+ @SpringBootTest// , or, even better (faster):
+//@DataJpaTest
 @Transactional
 public class RepoBaseTest {
     @Autowired
