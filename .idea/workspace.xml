@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="Gotta make you understand">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerOn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerOn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/PowerOn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -322,7 +321,7 @@
       <workItem from="1575063689119" duration="149000" />
       <workItem from="1576252230475" duration="5940000" />
       <workItem from="1576678577380" duration="1081000" />
-      <workItem from="1580288104476" duration="16107000" />
+      <workItem from="1580288104476" duration="16389000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -583,7 +582,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580378820090</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Singleton manageuit de spring. Solutia cu refactor. Daca ai acces la codul singletonulu. Daca nu ... oups.">
+      <created>1580379398417</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1580379398417</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -623,7 +629,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="TDD + Paramterized" />
     <MESSAGE value="Feature files, unleashed" />
     <MESSAGE value="prep mockito exercise" />
     <MESSAGE value="Mockito play" />
@@ -648,7 +653,8 @@
     <MESSAGE value="Made method package protected for testing" />
     <MESSAGE value="Pragmatic s**t" />
     <MESSAGE value="TOT" />
-    <option name="LAST_COMMIT_MESSAGE" value="TOT" />
+    <MESSAGE value="Singleton manageuit de spring. Solutia cu refactor. Daca ai acces la codul singletonulu. Daca nu ... oups." />
+    <option name="LAST_COMMIT_MESSAGE" value="Singleton manageuit de spring. Solutia cu refactor. Daca ai acces la codul singletonulu. Daca nu ... oups." />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="95" key="#Notifications" timestamp="1579528210917">
@@ -699,14 +705,14 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="168" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1579522453970" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1580378859091">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1580379397928">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="0" key="CommitChangelistDialog2.inPresentationMode" timestamp="1580290661732">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="0" key="CommitChangelistDialog2.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290661732" />
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1580378859091" />
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1580379397928" />
     <state width="1492" height="221" key="GridCell.Tab.0.bottom" timestamp="1580378730854">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

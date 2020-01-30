@@ -2,44 +2,37 @@ package ro.victor.unittest.mocks;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 
 public class PowerOn {
     @Test
     public void m1() {
         // vreau sa mockuiesc metoda locaIp
-        String actual = new CodDeProd(dep).m();
+        String actual = new CodDeProd().m();
         Assert.assertEquals("???:8080", actual);
     }
 }
 
 class CodDeProd {
-    private final SingletonuMeu dep;
-
-    CodDeProd(SingletonuMeu dep) {
-        this.dep = dep;
-    }
-
     public String m() {
         return SingletonuMeu.getInstance().localIp() + ":8080";
     }
 }
-@Service
-class SingletonuMeu {
-//    private static SingletonuMeu INSTANCE;
 
-    @PostConstruct
-    private void init() {
+// acu singletonul e intr-un jar de la altu
+// => hacker solution1: extinzi clasa si folosesti subclasa ta.
+// => hacker solution2: decompilezi clasa, o modifici si o pui in acelasi pachet in src-ul tau.
+class SingletonuMeu {
+    private static SingletonuMeu INSTANCE;
+
+    private SingletonuMeu() {
         //faci chestii scumpe. esti un scump
     }
-//    public static SingletonuMeu getInstance() {
-//        if (INSTANCE == null) {
-//            INSTANCE = new SingletonuMeu();
-//        }
-//        return INSTANCE;
-//    }
+    public static SingletonuMeu getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new SingletonuMeu();
+        }
+        return INSTANCE;
+    }
     public String localIp() {
         return "ceva";
     }
