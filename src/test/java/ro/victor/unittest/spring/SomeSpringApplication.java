@@ -3,12 +3,14 @@ package ro.victor.unittest.spring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Clock;
 
 @SpringBootApplication
 public class SomeSpringApplication implements WebMvcConfigurer {
@@ -18,6 +20,11 @@ public class SomeSpringApplication implements WebMvcConfigurer {
 
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(headShotInterceptor()).addPathPatterns("/**");
+    }
+    @Bean
+    @Profile("!test")
+    public Clock clock() {
+        return Clock.systemDefaultZone();
     }
     @Bean
     public HandlerInterceptor headShotInterceptor() {

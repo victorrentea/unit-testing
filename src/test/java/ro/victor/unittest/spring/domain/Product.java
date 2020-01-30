@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 
 @Entity
 @ToString
@@ -17,6 +18,17 @@ public class Product {
     private String name;
 
     private Category category;
+
+    private LocalDate creationDate;
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public Product setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+        return this;
+    }
 
     @ManyToOne
     private Country originCountry;

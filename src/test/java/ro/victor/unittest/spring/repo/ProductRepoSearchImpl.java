@@ -9,6 +9,8 @@ import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.time.Clock;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import java.util.Map;
 public class ProductRepoSearchImpl implements ProductRepoSearch {
     private final EntityManager em;
     private final ExternalServiceClient externalServiceClient;
+    private final Clock clock;
 
     @Override
     public List<Product> search(ProductSearchCriteria criteria) {
@@ -36,6 +39,9 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
             jpql += "   AND p.category = :category ";
             paramMap.put("category", criteria.category);
         }
+
+        jpql += "   AND p.creationDate > :limitDate ";
+        paramMap.put("limitDate", LocalDate.now(clock).minusDays(30));
 
         TypedQuery<Product> query = em.createQuery(jpql, Product.class);
 
