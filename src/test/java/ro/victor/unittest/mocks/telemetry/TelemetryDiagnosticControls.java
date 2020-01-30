@@ -13,13 +13,9 @@ public class TelemetryDiagnosticControls {
 	private TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
 
-//	public TelemetryDiagnosticControls setTelemetryClient(TelemetryClient telemetryClient) {
-//		this.telemetryClient = telemetryClient;
-//		return this;
-//	}
-
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls setTelemetryClient(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
+		return this;
 	}
 
 	public String getDiagnosticInfo() {
@@ -30,7 +26,7 @@ public class TelemetryDiagnosticControls {
 	}
 
 	public void checkTransmission() throws Exception {
-		telemetryClient.disconnect(); // asta
+		telemetryClient.disconnect();
 
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
@@ -40,23 +36,19 @@ public class TelemetryDiagnosticControls {
 		
 
 		if (! telemetryClient.getOnlineStatus()) {
-			throw new IllegalStateException("Unable to connect."); // OK
+			throw new IllegalStateException("Unable to connect.");
 		}
 
-		telemetryClient.configure(createClientConfiguration()); // ??
-
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // OK
-		diagnosticInfo = telemetryClient.receive(); // OK
-	}
-
-	ClientConfiguration createClientConfiguration() {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(UUID.randomUUID().toString());
 		config.setSessionStart(java.util.Date.from(TimeProvider.currentDate().atStartOfDay()
 				.atZone(ZoneId.systemDefault())
 				.toInstant()).getTime());
 		config.setAckMode(AckMode.NORMAL);
-		return config;
+		telemetryClient.configure(config);
+
+		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		diagnosticInfo = telemetryClient.receive();
 	}
 
 }
