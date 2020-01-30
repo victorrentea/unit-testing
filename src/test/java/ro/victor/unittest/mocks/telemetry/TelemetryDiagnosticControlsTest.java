@@ -56,16 +56,10 @@ public class TelemetryDiagnosticControlsTest {
         // sa verifici metode pe care le faci when.thenReturn NU ARE SENS
         assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
     }
-    @Captor
-    ArgumentCaptor<ClientConfiguration> captor;
     @Test
     public void configuresClient() throws Exception {
         controls.checkTransmission();
-        verify(client).configure(captor.capture());
-        ClientConfiguration config = captor.getValue();
-        assertThat(config.getAckMode()).isEqualTo(ClientConfiguration.AckMode.NORMAL);
-        assertThat(new Date(config.getSessionStart())).isInSameDayAs(new Date());
-        assertThat(config.getSessionId()).isNotNull();
+        verify(client).configure(notNull());
     }
 
     @Test
