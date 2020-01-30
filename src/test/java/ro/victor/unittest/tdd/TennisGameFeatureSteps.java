@@ -1,36 +1,38 @@
 package ro.victor.unittest.tdd;
 
 import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TennisGameFeatureSteps {
+
+
     private TennisGame tennisGame;
 
-    @Given("^A new tennis game$")
-    public void a_new_tennis_game() throws Throwable {
+    @Given("^An empty game$")
+    public void an_empty_game() throws Throwable {
         tennisGame = new TennisGame();
     }
 
-    @Then("^Score is \"([^\"]*)\"$")
-    public void score_is(String expected) throws Throwable {
-        assertEquals(expected, tennisGame.score());
+    @Then("^The score is \"([^\"]*)\"$")
+    public void the_score_is(String expectedScore) throws Throwable {
+        assertThat(tennisGame.score()).isEqualTo(expectedScore);
     }
+
 
     @When("^Player(\\d+) scores$")
-    public void playerScores(int playerNo) {
-        tennisGame.addPoint(playerNo);
+    public void playerScores(int playerNumber) {
+        tennisGame.addPoint(playerNumber);
     }
 
-    @And("^Player(\\d+) scores (\\d+) points$")
-    public void playerScoresPoints(int playerNo, int points) {
+    @When("^Player(\\d+) scores (\\d+) points$")
+    public void playerScoresPoints(int playerNumber, int points) {
         for (int i = 0; i < points; i++) {
-            tennisGame.addPoint(playerNo);
+            tennisGame.addPoint(playerNumber);
         }
     }
 }

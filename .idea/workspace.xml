@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/ExceptiaMea.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/ExceptiaMeaMatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/c/1ccd97be301e968a7ea6ee96d3cc8c84ec5fd4a6" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/tennis-game.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/tennis-game.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +85,7 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -149,21 +146,24 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.bowling" />
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+      <recent name="ro.victor.unittest.cucumber.search" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.builder" />
+    </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.time.inject.FixedClockTestConfig" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.spring" />
@@ -183,15 +183,15 @@
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd.bowling" />
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
-      <recent name="ro.victor.unittest.tdd.outsidein" />
-      <recent name="ro.victor.unittest.cucumber.search" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CustomerValidatorShould.throwForCustomerWithNoAddressCity_cuMatcher">
+  <component name="RunManager" selected="JUnit.TennisGameFeature">
     <configuration name="CustomerValidatorShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -203,22 +203,6 @@
       <option name="PACKAGE_NAME" value="ro.victor.unittest.builder" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.builder.CustomerValidatorShould" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CustomerValidatorShould.beOK" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.builder.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.builder" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.builder.CustomerValidatorShould" />
-      <option name="METHOD_NAME" value="beOK" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -271,13 +255,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TennisGameFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameFeature" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TennisGameFeature" />
+        <item itemvalue="JUnit.CustomerValidatorShould" />
         <item itemvalue="JUnit.CustomerValidatorShould.throwForCustomerWithNoAddressCity_cuMatcher" />
         <item itemvalue="JUnit.CustomerValidatorShould.throwForCustomerWithNoName_cuMatcher" />
         <item itemvalue="JUnit.CustomerValidatorShould.throwForCustomerWithNoName_exMessage" />
-        <item itemvalue="JUnit.CustomerValidatorShould" />
-        <item itemvalue="JUnit.CustomerValidatorShould.beOK" />
       </list>
     </recent_temporary>
   </component>
@@ -327,7 +326,7 @@
       <workItem from="1575063689119" duration="149000" />
       <workItem from="1576252230475" duration="5940000" />
       <workItem from="1576678577380" duration="1081000" />
-      <workItem from="1580288104476" duration="2543000" />
+      <workItem from="1580288104476" duration="11834000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -539,7 +538,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579529410648</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Verificarea exceptiilor">
+      <created>1580290662254</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1580290662254</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -579,7 +585,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="unit test php: solved pretty good" />
     <MESSAGE value="unittesting: Time Rule fix" />
     <MESSAGE value="UnitTesting: Search in JPA implem complete" />
     <MESSAGE value="unittesting: bank search working with SQL.&#10;adding mybatis to the mix" />
@@ -604,7 +609,8 @@
     <MESSAGE value="yolo" />
     <MESSAGE value="Spring Testing" />
     <MESSAGE value="Spring Testing DB" />
-    <option name="LAST_COMMIT_MESSAGE" value="Spring Testing DB" />
+    <MESSAGE value="Verificarea exceptiilor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Verificarea exceptiilor" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="95" key="#Notifications" timestamp="1579528210917">
@@ -658,39 +664,43 @@
     <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1579529410177">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
+    <state x="0" y="0" key="CommitChangelistDialog2.inPresentationMode" timestamp="1580290661732">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="0" y="0" key="CommitChangelistDialog2.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290661732" />
     <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1579529410177" />
-    <state width="1492" height="295" key="GridCell.Tab.0.bottom" timestamp="1580152291221">
+    <state width="1493" height="168" key="GridCell.Tab.0.bottom" timestamp="1580307370485">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1536" height="349" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1580290460908">
+    <state width="1536" height="531" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1580292662211">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1536" height="349" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290460908" />
-    <state width="1492" height="295" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1580152291221" />
-    <state width="1492" height="295" key="GridCell.Tab.0.center" timestamp="1580152291221">
+    <state width="1536" height="531" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580292662211" />
+    <state width="1493" height="168" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1580307370485" />
+    <state width="1493" height="168" key="GridCell.Tab.0.center" timestamp="1580307370485">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1536" height="349" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1580290460908">
+    <state width="1536" height="531" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1580292662211">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1536" height="349" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290460908" />
-    <state width="1492" height="295" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1580152291221" />
-    <state width="1492" height="295" key="GridCell.Tab.0.left" timestamp="1580152291221">
+    <state width="1536" height="531" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580292662211" />
+    <state width="1493" height="168" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1580307370485" />
+    <state width="1493" height="168" key="GridCell.Tab.0.left" timestamp="1580307370485">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1536" height="349" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1580290460908">
+    <state width="1536" height="531" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1580292662211">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1536" height="349" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290460908" />
-    <state width="1492" height="295" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1580152291221" />
-    <state width="1492" height="295" key="GridCell.Tab.0.right" timestamp="1580152291221">
+    <state width="1536" height="531" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580292662211" />
+    <state width="1493" height="168" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1580307370485" />
+    <state width="1493" height="168" key="GridCell.Tab.0.right" timestamp="1580307370485">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1536" height="349" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1580290460908">
+    <state width="1536" height="531" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1580292662211">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1536" height="349" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290460908" />
-    <state width="1492" height="295" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1580152291221" />
+    <state width="1536" height="531" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580292662211" />
+    <state width="1493" height="168" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1580307370485" />
     <state width="1493" height="186" key="GridCell.Tab.1.bottom" timestamp="1580152291201">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -714,6 +724,10 @@
     <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1579529412627">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
+    <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode" timestamp="1580290802370">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290802370" />
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1579529412627" />
     <state x="499" y="194" key="extract.method.dialog" timestamp="1576255706294">
       <screen x="0" y="0" width="1536" height="834" />
@@ -723,21 +737,29 @@
     </state>
     <state x="0" y="0" key="extract.method.dialog.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580289388562" />
     <state x="499" y="194" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576255706294" />
-    <state x="474" y="193" width="588" height="478" key="find.popup" timestamp="1576678619237">
+    <state x="474" y="193" width="588" height="496" key="find.popup" timestamp="1580307019516">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="474" y="193" width="588" height="478" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1576678619237" />
+    <state x="0" y="0" width="1536" height="1510" key="find.popup.inPresentationMode" timestamp="1580294396995">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="0" y="0" width="1536" height="1510" key="find.popup.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580294396995" />
+    <state x="474" y="193" width="588" height="496" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1580307019516" />
     <state x="511" y="57" key="refactoring.ChangeSignatureDialog" timestamp="1576258244531">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="36" y="0" key="refactoring.ChangeSignatureDialog.inPresentationMode" timestamp="1580290519590">
+    <state x="36" y="0" key="refactoring.ChangeSignatureDialog.inPresentationMode" timestamp="1580290844327">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="36" y="0" key="refactoring.ChangeSignatureDialog.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290519590" />
+    <state x="36" y="0" key="refactoring.ChangeSignatureDialog.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290844327" />
     <state x="511" y="57" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1576258244531" />
     <state x="425" y="189" key="run.anything.popup" timestamp="1579522382163">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
+    <state x="0" y="170" key="run.anything.popup.inPresentationMode" timestamp="1580292262974">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="0" y="170" key="run.anything.popup.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580292262974" />
     <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1579522382163" />
     <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1579522295490">
       <screen x="0" y="0" width="1536" height="834" />

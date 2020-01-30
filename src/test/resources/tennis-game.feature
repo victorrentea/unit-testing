@@ -1,35 +1,37 @@
-Feature: Tennis Game
+@txn
+Feature: Tennis Score
 
-  Scenario: New Game
-    Given A new tennis game
-    Then Score is "Love-Love"
+  Scenario: Empty Game - Dragoste
+    Given An empty game
+    Then The score is "Love-Love"
 
-
-  Scenario: New Game
-    Given A new tennis game
+  Scenario: Fifteen Love
+    Given An empty game
     When Player1 scores
-    Then Score is "Fifteen-Love"
+    Then The score is "Fifteen-Love"
 
-  Scenario: New Game
-    Given A new tennis game
+  Scenario: Fifteen Love
+    Given An empty game
     When Player1 scores
     And Player2 scores
-    Then Score is "Fifteen-Fifteen"
+    Then The score is "Fifteen-Fifteen"
 
   Scenario: Deuce
-    Given A new tennis game
+    Given An empty game
     When Player1 scores 3 points
     And Player2 scores 3 points
-    Then Score is "Deuce"
+    Then The score is "Deuce"
 
-  Scenario Outline: Tabel, sa planga bizu
-    Given A new tennis game
-    When Player1 scores <player1Points> points
-    And Player2 scores <player2Points> points
-    Then Score is "<expectedScore>"
+
+  Scenario Outline: Toate (businessul are o lacrima in coltul ochiului)
+    Given An empty game
+    When Player1 scores <pointsPlayer1> points
+    And Player2 scores <pointsPlayer2> points
+    Then The score is "<expectedScore>"
 
     Examples:
-      | player1Points | player2Points | expectedScore    |
-      | 0             | 0             | Love-Love        |
-      | 1             | 0             | Fifteen-Love     |
-      | 7             | 5             | Game won Player1 |
+      | pointsPlayer1 | pointsPlayer2 | expectedScore        |
+      | 0             | 0             | Love-Love            |
+      | 0             | 1             | Love-Fifteen            |
+      | 6             | 4             | Game won Player1 |
+      | 7             | 8             | Advantage Player2   |

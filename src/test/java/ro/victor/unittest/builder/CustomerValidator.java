@@ -3,6 +3,9 @@ package ro.victor.unittest.builder;
 import org.apache.commons.lang3.StringUtils;
 
 public class CustomerValidator {
+	public CustomerValidator() {
+		System.out.println("Uaaa!!");
+	}
 
 	public void validate(Customer customer) {
 		if (StringUtils.isBlank(customer.getName())) {
