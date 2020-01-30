@@ -11,10 +11,12 @@ public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient;
+	private final ClientConfigurationFactory configFactory;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ClientConfigurationFactory configFactory) {
 		this.telemetryClient = telemetryClient;
+		this.configFactory = configFactory;
 	}
 
 
@@ -39,20 +41,11 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		telemetryClient.configure(createConfig());
+		telemetryClient.configure(configFactory.createConfig());
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfig() {
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(UUID.randomUUID().toString());
-		config.setSessionStart(java.util.Date.from(TimeProvider.currentDate().atStartOfDay()
-				.atZone(ZoneId.systemDefault())
-				.toInstant()).getTime());
-		config.setAckMode(AckMode.NORMAL);
-		return config;
-	}
-
 }
+
