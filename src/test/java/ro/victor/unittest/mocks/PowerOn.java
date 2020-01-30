@@ -2,19 +2,31 @@ package ro.victor.unittest.mocks;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(SingletonuMeu.class)
 public class PowerOn {
     @Test
     public void m1() {
+        PowerMockito.mockStatic(SingletonuMeu.class);
+        SingletonuMeu mock = Mockito.mock(SingletonuMeu.class);
+        Mockito.when(SingletonuMeu.getInstance()).thenReturn(mock);
+        Mockito.when(mock.localIp()).thenReturn("tataie");
         // vreau sa mockuiesc metoda locaIp
         String actual = new CodDeProd().m();
-        Assert.assertEquals("???:8080", actual);
+        Assert.assertEquals("tataie:8080", actual);
     }
 }
 
 class CodDeProd {
     public String m() {
-        return SingletonuMeu.getInstance().localIp() + ":8080";
+        SingletonuMeu mock = SingletonuMeu.getInstance();
+        return mock.localIp() + ":8080";
     }
 }
 
