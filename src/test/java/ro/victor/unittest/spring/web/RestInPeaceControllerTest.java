@@ -1,5 +1,6 @@
 package ro.victor.unittest.spring.web;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -17,7 +18,12 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 // want to open port:
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestInPeaceControllerTest {
@@ -34,11 +40,13 @@ public class RestInPeaceControllerTest {
 
     @Test
     public void peaceTest() throws Exception {
-        // TODO check status 200
-    	// TODO check "Head-Shot" header
-        // TODO check contentType
-        // TODO check jsonPath $.ssn
-        // TODO [extra] check and control TIME :) Hint: @Primary @Bean
+        mockMvc.perform(MockMvcRequestBuilders.get("/peace/{ssn}",1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(header().string("Head-Shot","true"))
+                .andExpect(jsonPath("$.happy.ssn", equalTo("1 SUCCESS")))
+        ;
+
     }
 
 }

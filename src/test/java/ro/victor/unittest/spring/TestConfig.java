@@ -14,12 +14,12 @@ import java.time.ZoneId;
 @Configuration
 public class TestConfig {
 
-    @Bean
-    @Profile("test")
-    public Clock clock(@Value("${current.date}") String currentDate) {
-        System.out.println("parsing " + currentDate);
-        Instant instant = LocalDate.parse(currentDate).atStartOfDay(ZoneId.systemDefault()).toInstant();
-
-        return Clock.fixed(instant, ZoneId.systemDefault());
-    }
+//    @Bean
+//    @Profile("test")
+//    public Clock clock(@Value("${current.date}") String currentDate) {
+//        System.out.println("parsing " + currentDate);
+//        Instant instant = LocalDate.parse(currentDate).atStartOfDay(ZoneId.systemDefault()).toInstant();
+//
+//        return Clock.fixed(instant, ZoneId.systemDefault());
+//    }
 }

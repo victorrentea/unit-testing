@@ -22,7 +22,6 @@ public class SomeSpringApplication implements WebMvcConfigurer {
         registry.addInterceptor(headShotInterceptor()).addPathPatterns("/**");
     }
     @Bean
-    @Profile("!test")
     public Clock clock() {
         return Clock.systemDefaultZone();
     }

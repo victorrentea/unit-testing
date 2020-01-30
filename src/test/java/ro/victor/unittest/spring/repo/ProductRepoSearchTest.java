@@ -11,6 +11,7 @@ import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 import ro.victor.unittest.spring.infra.ExternalServiceClient;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,6 +36,9 @@ public class ProductRepoSearchTest extends RepoBaseTest{
 
     @Autowired
     private ProductRepo repo;
+
+//    @MockBean
+//    private Clock clock;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
     private Product product = new Product();
