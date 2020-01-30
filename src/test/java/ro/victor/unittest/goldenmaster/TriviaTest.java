@@ -1,26 +1,47 @@
 package ro.victor.unittest.goldenmaster;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.StringWriter;
 import java.util.Random;
 
+import static org.junit.Assert.assertEquals;
+
 public class TriviaTest {
-    public static void main(String[] args) {
+    @Test
+    public void caracterizationTest() {
+        for (int seed = 0; seed < 10_000; seed++) {
+            String expectedOutput = getOutput(seed, new Trivia());
+            String actualOutput = getOutput(seed, new TriviaBetter());
+            assertEquals(expectedOutput, actualOutput);
+        }
+    }
+    private static String getOutput(int seed, ITrivia trivia) {
+        Random rand = new Random(seed);
+        StringWriter sw = new StringWriter();
+        trivia.setWriter(sw);
+        int nPlayers = rand.nextInt(4) + 2;
+        for (int i = 0; i < nPlayers; i++) {
+            trivia.add("Player" + i);
+        }
 
-        Trivia aGame = new Trivia();
-        aGame.add("Chet");
-        aGame.add("Pat");
-        aGame.add("Sue");
 
-        Random rand = new Random();
+        // f (trivia, seed) : String
+
         boolean notAWinner = false;
         do {
-            aGame.roll(rand.nextInt(5) + 1);
+            trivia.roll(rand.nextInt(5) + 1); // 1-- 5
 
             if (rand.nextInt(9) == 7) {
-                notAWinner = aGame.wrongAnswer();
+                notAWinner = trivia.wrongAnswer();
             } else {
-                notAWinner = aGame.wasCorrectlyAnswered();
+                notAWinner = trivia.wasCorrectlyAnswered();
             }
 
         } while (notAWinner);
+
+
+        return sw.toString();
     }
 }

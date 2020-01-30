@@ -6,7 +6,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Trivia implements ITrivia {
+public class TriviaBetter implements ITrivia {
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses = new int[6];
@@ -23,7 +23,7 @@ public class Trivia implements ITrivia {
     private Writer writer = new PrintWriter(System.out);
 
 
-    public Trivia() {
+    public TriviaBetter() {
         for (int i = 0; i < 50; i++) {
             popQuestions.addLast("Pop Question " + i);
             scienceQuestions.addLast(("Science Question " + i));

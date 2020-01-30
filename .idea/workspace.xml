@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/goldenmaster/CapturaDeConsola.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/goldenmaster/ITrivia.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/goldenmaster/RandomNuERandom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/goldenmaster/TriviaBetter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/goldenmaster/Trivia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/goldenmaster/Trivia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/goldenmaster/TriviaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/goldenmaster/TriviaTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +83,7 @@
         <option value="JUnit4 Test Class" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -142,15 +149,15 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd.bowling" />
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
-      <recent name="ro.victor.unittest.tdd.outsidein" />
-      <recent name="ro.victor.unittest.cucumber.search" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="ro.victor.unittest.goldenmaster" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ro.victor.unittest.tdd.outsidein" />
@@ -160,6 +167,9 @@
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.time.inject.FixedClockTestConfig" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ro.victor.unittest.spring" />
@@ -176,77 +186,59 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.goldenmaster" />
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\training\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.bowling" />
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+      <recent name="ro.victor.unittest.tdd.outsidein" />
+      <recent name="ro.victor.unittest.cucumber.search" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RestInPeaceControllerTest.peaceTest">
-    <configuration name="PowerOn.controllingTime" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="         Random r = new Random(1);         " />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.TriviaTest.caracterizationTest">
+    <configuration name="CapturaDeConsola" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.goldenmaster.CapturaDeConsola" />
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.*" />
+          <option name="PATTERN" value="ro.victor.unittest.goldenmaster.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.PowerOn" />
-      <option name="METHOD_NAME" value="controllingTime" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PowerToTheMasses.productionCodeReturnsSingletonStateToUpper" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RandomNuERandom" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.goldenmaster.RandomNuERandom" />
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.*" />
+          <option name="PATTERN" value="ro.victor.unittest.goldenmaster.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.PowerToTheMasses" />
-      <option name="METHOD_NAME" value="productionCodeReturnsSingletonStateToUpper" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TriviaTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.goldenmaster.TriviaTest" />
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
+          <option name="PATTERN" value="ro.victor.unittest.goldenmaster.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductRepoSearchTest.byName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
-      <option name="METHOD_NAME" value="byName" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -267,13 +259,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TriviaTest.caracterizationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.goldenmaster.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.goldenmaster" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.goldenmaster.TriviaTest" />
+      <option name="METHOD_NAME" value="caracterizationTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TriviaTest.caracterizationTest" />
+        <item itemvalue="Application.RandomNuERandom" />
+        <item itemvalue="Application.TriviaTest" />
+        <item itemvalue="Application.CapturaDeConsola" />
         <item itemvalue="JUnit.RestInPeaceControllerTest.peaceTest" />
-        <item itemvalue="JUnit.ProductRepoSearchTest" />
-        <item itemvalue="JUnit.ProductRepoSearchTest.byName" />
-        <item itemvalue="JUnit.PowerToTheMasses.productionCodeReturnsSingletonStateToUpper" />
-        <item itemvalue="JUnit.PowerOn.controllingTime" />
       </list>
     </recent_temporary>
   </component>
@@ -733,6 +741,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="95" key="#Notifications/0.0.1536.834@0.0.1536.834" timestamp="1579528210917" />
+    <state x="100" y="100" width="1336" height="664" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1580395515565">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="100" y="100" width="1336" height="664" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1536.834@0.0.1536.834" timestamp="1580395515565" />
     <state x="543" y="242" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580385973895">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -773,10 +785,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="487" y="138" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1536.834@0.0.1536.834" timestamp="1576577073948" />
-    <state x="217" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579522576444">
+    <state x="217" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1580395370119">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="217" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1579522576444" />
+    <state x="217" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1580395370119" />
     <state x="499" y="168" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579522453970">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -793,38 +805,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="100" y="100" width="1336" height="664" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1580389966629" />
-    <state width="1492" height="284" key="GridCell.Tab.0.bottom" timestamp="1580390644971">
+    <state width="1492" height="163" key="GridCell.Tab.0.bottom" timestamp="1580395864954">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1580375813661">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580375813661" />
-    <state width="1492" height="284" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1580390644971" />
-    <state width="1492" height="284" key="GridCell.Tab.0.center" timestamp="1580390644971">
+    <state width="1492" height="163" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1580395864954" />
+    <state width="1492" height="163" key="GridCell.Tab.0.center" timestamp="1580395864954">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1580375813660">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580375813660" />
-    <state width="1492" height="284" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1580390644971" />
-    <state width="1492" height="284" key="GridCell.Tab.0.left" timestamp="1580390644971">
+    <state width="1492" height="163" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1580395864954" />
+    <state width="1492" height="163" key="GridCell.Tab.0.left" timestamp="1580395864954">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1580375813660">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580375813660" />
-    <state width="1492" height="284" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1580390644971" />
-    <state width="1492" height="284" key="GridCell.Tab.0.right" timestamp="1580390644971">
+    <state width="1492" height="163" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1580395864954" />
+    <state width="1492" height="163" key="GridCell.Tab.0.right" timestamp="1580395864954">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1580375813661">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="146" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580375813661" />
-    <state width="1492" height="284" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1580390644971" />
+    <state width="1492" height="163" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1580395864954" />
     <state width="1493" height="186" key="GridCell.Tab.1.bottom" timestamp="1580152291201">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -845,10 +857,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="209" height="461" key="HiddenNamespacesPopup/0.0.1536.834@0.0.1536.834" timestamp="1580385443929" />
+    <state x="592" y="370" key="ReplaceDuplicatesPrompt" timestamp="1580394465204">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="592" y="370" key="ReplaceDuplicatesPrompt/0.0.1536.834@0.0.1536.834" timestamp="1580394465204" />
     <state x="279" y="77" key="SettingsEditor" timestamp="1580386629769">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="279" y="77" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1580386629769" />
+    <state x="497" y="181" width="540" height="524" key="StructurePopup" timestamp="1580394441960">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="497" y="181" width="540" height="524" key="StructurePopup/0.0.1536.834@0.0.1536.834" timestamp="1580394441960" />
     <state width="1398" height="828" key="SwitcherDM.inPresentationMode" timestamp="1580375749693">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -861,14 +881,14 @@
     </state>
     <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290802370" />
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1579529412627" />
-    <state x="499" y="194" key="extract.method.dialog" timestamp="1580379571175">
+    <state x="499" y="194" width="538" height="481" key="extract.method.dialog" timestamp="1580395242949">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="0" key="extract.method.dialog.inPresentationMode" timestamp="1580289388562">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="0" key="extract.method.dialog.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580289388562" />
-    <state x="499" y="194" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1580379571175" />
+    <state x="499" y="194" width="538" height="481" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1580395242949" />
     <state x="474" y="193" width="588" height="496" key="find.popup" timestamp="1580390089764">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -877,30 +897,30 @@
     </state>
     <state x="0" y="0" width="1536" height="1510" key="find.popup.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580294396995" />
     <state x="474" y="193" width="588" height="496" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1580390089764" />
-    <state x="511" y="57" key="refactoring.ChangeSignatureDialog" timestamp="1580379338742">
+    <state x="511" y="57" key="refactoring.ChangeSignatureDialog" timestamp="1580394924153">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="36" y="0" key="refactoring.ChangeSignatureDialog.inPresentationMode" timestamp="1580290844327">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="36" y="0" key="refactoring.ChangeSignatureDialog.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580290844327" />
-    <state x="511" y="57" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1580379338742" />
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1580390094847">
+    <state x="511" y="57" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1580394924153" />
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1580395218181">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="170" key="run.anything.popup.inPresentationMode" timestamp="1580292262974">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="170" key="run.anything.popup.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580292262974" />
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1580390094847" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1580389942887">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1580395218181" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1580395326034">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="-3" key="search.everywhere.popup.inPresentationMode" timestamp="1580289030745">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="-3" key="search.everywhere.popup.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1580289030745" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1580389942887" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1580395326034" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
