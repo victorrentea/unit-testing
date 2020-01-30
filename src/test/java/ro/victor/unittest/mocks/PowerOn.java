@@ -9,7 +9,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(SingletonuMeu.class)
+@PrepareForTest({SingletonuMeu.class})
 public class PowerOn {
     @Test
     public void m1() {
@@ -21,12 +21,29 @@ public class PowerOn {
         String actual = new CodDeProd().m();
         Assert.assertEquals("tataie:8080", actual);
     }
+
+    @Test
+    public void m2() {
+        String s = new CodDeProd().m();
+        Assert.assertEquals("ceva:8080", s);
+    }
+    @Test
+    public void controllingTime() {
+        PowerMockito.mockStatic(System.class);
+        PowerMockito.when(System.currentTimeMillis()).thenReturn(1580380105956L);
+        String s = new CodDeProd().m2();
+        Assert.assertEquals("E ora 1580380105956", s);
+    }
 }
 
 class CodDeProd {
     public String m() {
         SingletonuMeu mock = SingletonuMeu.getInstance();
         return mock.localIp() + ":8080";
+    }
+
+    public String m2() {
+        return "E ora " + System.currentTimeMillis();
     }
 }
 
