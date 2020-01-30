@@ -22,21 +22,21 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+//@SpringBootTest
 @AutoConfigureMockMvc
 // want to open port:
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestInPeaceControllerTest {
 
 	@Autowired
     private MockMvc mockMvc;
 
-//    @LocalServerPort
-//    private int port;
-//    @Before
-//    public void initialize() {
-//        System.out.println("Opened port on " + port);
-//    }
+    @LocalServerPort
+    private int port;
+    @Before
+    public void initialize() {
+        System.out.println("Opened port on " + port);
+    }
 
     @Test
     public void peaceTest() throws Exception {
