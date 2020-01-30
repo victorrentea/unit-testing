@@ -18,9 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
 // want to open port:
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestInPeaceControllerTest {
@@ -37,11 +34,6 @@ public class RestInPeaceControllerTest {
 
     @Test
     public void peaceTest() throws Exception {
-    	mockMvc.perform(get("/peace/{ssn}","abc"))
-    		.andExpect(status().isOk())
-    		.andExpect(header().string("Head-Shot", "true"))
-    		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-    		.andExpect(jsonPath("$.ssn").value(CoreMatchers.startsWith("ABC")));
         // TODO check status 200
     	// TODO check "Head-Shot" header
         // TODO check contentType
