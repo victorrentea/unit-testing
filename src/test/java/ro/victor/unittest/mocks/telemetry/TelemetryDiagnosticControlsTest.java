@@ -5,10 +5,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.time.rule.TestTimeRule;
@@ -70,4 +67,13 @@ public class TelemetryDiagnosticControlsTest {
         assertThat(new Date(config.getSessionStart())).isInSameDayAs(new Date());
         assertThat(config.getSessionId()).isNotNull();
     }
+
+    @Test
+    public void configuresClientFaraCaptor() throws Exception {
+        ClientConfiguration config = new TelemetryDiagnosticControls(null).createConfig();
+        assertThat(config.getAckMode()).isEqualTo(ClientConfiguration.AckMode.NORMAL);
+        assertThat(new Date(config.getSessionStart())).isInSameDayAs(new Date());
+        assertThat(config.getSessionId()).isNotNull();
+    }
+
 }

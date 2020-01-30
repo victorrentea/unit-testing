@@ -39,16 +39,20 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
+		telemetryClient.configure(createConfig());
+
+		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		diagnosticInfo = telemetryClient.receive();
+	}
+
+	ClientConfiguration createConfig() {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(UUID.randomUUID().toString());
 		config.setSessionStart(java.util.Date.from(TimeProvider.currentDate().atStartOfDay()
 				.atZone(ZoneId.systemDefault())
 				.toInstant()).getTime());
 		config.setAckMode(AckMode.NORMAL);
-		telemetryClient.configure(config);
-
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
-		diagnosticInfo = telemetryClient.receive();
+		return config;
 	}
 
 }
