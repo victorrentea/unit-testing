@@ -10,13 +10,13 @@ import ro.victor.unittest.time.rule.TimeProvider;
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls setTelemetryClient(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
-		return this;
 	}
+
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
@@ -26,14 +26,14 @@ public class TelemetryDiagnosticControls {
 	}
 
 	public void checkTransmission() throws Exception {
-		telemetryClient.disconnect();
+		telemetryClient.disconnect();  // ASTA
 
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
 			telemetryClient.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
 			currentRetry ++;
 		}
-		
+
 
 		if (! telemetryClient.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");

@@ -1,5 +1,6 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import java.util.Date;
 import java.util.Random;
 
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
