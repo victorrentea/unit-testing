@@ -1,16 +1,16 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import java.time.LocalDateTime;
 import java.util.Random;
-
-import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
 public class TelemetryClient {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
-	
-	public static class ClientConfiguration {
+
+
+    public static class ClientConfiguration {
 		enum AckMode {NORMAL, TIMEBOXED, FLOOD};
 		private String sessionId;
-		private long sessionStart;
+		private LocalDateTime sessionStart;
 		private AckMode ackMode;
 		
 		public String getSessionId() {
@@ -19,10 +19,10 @@ public class TelemetryClient {
 		public void setSessionId(String sessionId) {
 			this.sessionId = sessionId;
 		}
-		public long getSessionStart() {
+		public LocalDateTime getSessionStart() {
 			return sessionStart;
 		}
-		public void setSessionStart(long sessionStart) {
+		public void setSessionStart(LocalDateTime sessionStart) {
 			this.sessionStart = sessionStart;
 		}
 		public AckMode getAckMode() {
@@ -53,6 +53,10 @@ public class TelemetryClient {
 		boolean success = connectionEventsSimulator.nextInt(10) <= 8;
 
 		onlineStatus = success;
+	}
+
+	public String getVersion() {
+		return "1.3";
 	}
 
 	public void disconnect() {
