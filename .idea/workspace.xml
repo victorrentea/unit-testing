@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/c/1ccd97be301e968a7ea6ee96d3cc8c84ec5fd4a6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +141,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
@@ -185,22 +186,7 @@
       <recent name="ro.victor.unittest.cucumber.search" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductRepoSearchTest.name">
-    <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="PIT Runner.Builder">
     <configuration name="ProductRepoSearchTest.name" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -248,6 +234,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Builder" type="PIT" factoryName="PIT Runner" REPORT_DIR="$PROJECT_DIR$/target/report" SOURCE_DIRS="$PROJECT_DIR$/src/test/java" TARGET_CLASSES="ro.victor.unittest.builder.*" TARGET_TESTS="" otherParams="--outputFormats XML,HTML">
+      <module name="unit-testing" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SomeSpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -261,13 +253,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.ProductRepoSearchTest.name" />
+      <item itemvalue="JUnit.RestInPeaceControllerTest" />
+      <item itemvalue="JUnit.RestInPeaceControllerTest.peaceTest" />
+      <item itemvalue="PIT Runner.Builder" />
+      <item itemvalue="Spring Boot.SomeSpringApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ProductRepoSearchTest.name" />
         <item itemvalue="JUnit.RestInPeaceControllerTest" />
         <item itemvalue="JUnit.RestInPeaceControllerTest.peaceTest" />
         <item itemvalue="Spring Boot.SomeSpringApplication" />
-        <item itemvalue="JUnit.ProductRepoSearchTest" />
       </list>
     </recent_temporary>
   </component>
@@ -317,6 +315,8 @@
       <workItem from="1575063689119" duration="149000" />
       <workItem from="1576252230475" duration="5940000" />
       <workItem from="1576678577380" duration="1081000" />
+      <workItem from="1588656263146" duration="33000" />
+      <workItem from="1588656316809" duration="104000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -528,6 +528,7 @@
     <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.History.Properties">
+    <option name="SHOW_OTHER_BRANCHES" value="true" />
     <option name="COLUMN_ORDER">
       <list>
         <option value="0" />
@@ -589,42 +590,18 @@
     <option name="LAST_COMMIT_MESSAGE" value="Spring Testing" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="95" key="#Notifications" timestamp="1579528210917">
+    <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="95" key="#Notifications/0.0.1536.834@0.0.1536.834" timestamp="1579528210917" />
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser" timestamp="1576576969262">
+    <state x="361" y="79" key="#Notifications/0.0.1536.834@0.0.1536.834" timestamp="1588656268898" />
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588656457276">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="151" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1576576969262" />
-    <state x="550" y="128" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1579528230991">
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1588656457276" />
+    <state x="571" y="286" width="393" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1588656484277">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="550" y="128" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1536.834@0.0.1536.834" timestamp="1579528230991" />
-    <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575063693814">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.834@0.0.1536.834" timestamp="1575063693814" />
-    <state x="571" y="323" width="394" height="223" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1579522706093">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="571" y="323" width="394" height="223" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1579522706093" />
-    <state x="571" y="330" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1579522443607">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="571" y="330" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1536.834@0.0.1536.834" timestamp="1579522443607" />
-    <state x="487" y="138" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1576577073948">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="487" y="138" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1536.834@0.0.1536.834" timestamp="1576577073948" />
-    <state x="217" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579522576444">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="217" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1579522576444" />
-    <state x="499" y="168" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579522453970">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="499" y="168" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1579522453970" />
+    <state x="571" y="286" width="393" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1588656484277" />
     <state x="499" y="183" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1580506030157">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -633,66 +610,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1580506065713" />
-    <state width="1492" height="187" key="GridCell.Tab.0.bottom" timestamp="1579529359757">
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588656371359">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="187" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1579529359757" />
-    <state width="1492" height="187" key="GridCell.Tab.0.center" timestamp="1579529359757">
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1588656371359" />
+    <state width="1493" height="325" key="GridCell.Tab.0.bottom" timestamp="1588656605417">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="187" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1579529359757" />
-    <state width="1492" height="187" key="GridCell.Tab.0.left" timestamp="1579529359757">
+    <state width="1493" height="325" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588656605417" />
+    <state width="1493" height="325" key="GridCell.Tab.0.center" timestamp="1588656605417">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="187" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1579529359757" />
-    <state width="1492" height="187" key="GridCell.Tab.0.right" timestamp="1579529359757">
+    <state width="1493" height="325" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588656605417" />
+    <state width="1493" height="325" key="GridCell.Tab.0.left" timestamp="1588656605417">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="187" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1579529359757" />
-    <state width="1493" height="187" key="GridCell.Tab.1.bottom" timestamp="1579523138278">
+    <state width="1493" height="325" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588656605417" />
+    <state width="1493" height="325" key="GridCell.Tab.0.right" timestamp="1588656605417">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
-    <state width="1493" height="187" key="GridCell.Tab.1.center" timestamp="1579523138278">
+    <state width="1493" height="325" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588656605417" />
+    <state x="279" y="63" key="SettingsEditor" timestamp="1588656437818">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="187" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
-    <state width="1493" height="187" key="GridCell.Tab.1.left" timestamp="1579523138278">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state width="1493" height="187" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
-    <state width="1493" height="187" key="GridCell.Tab.1.right" timestamp="1579523138278">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state width="1493" height="187" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1579523138278" />
-    <state x="279" y="77" key="SettingsEditor" timestamp="1576255395985">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="279" y="77" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1576255395985" />
+    <state x="279" y="63" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1588656437818" />
     <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1580506067642">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1580506067642" />
-    <state x="499" y="194" key="extract.method.dialog" timestamp="1576255706294">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588656326923">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="499" y="194" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1576255706294" />
-    <state x="474" y="193" width="588" height="478" key="find.popup" timestamp="1576678619237">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="474" y="193" width="588" height="478" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1576678619237" />
-    <state x="511" y="57" key="refactoring.ChangeSignatureDialog" timestamp="1576258244531">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="511" y="57" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1576258244531" />
-    <state x="425" y="189" key="run.anything.popup" timestamp="1579522382163">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1579522382163" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1579522295490">
-      <screen x="0" y="0" width="1536" height="834" />
-    </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1579522295490" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588656326923" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
