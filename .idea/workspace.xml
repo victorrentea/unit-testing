@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_beust_jcommander_1_72.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_extras_beanshell_bsh_2_0b6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_testng_testng_6_14_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -604,7 +597,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588663014504</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="TestNG. Exceptii custom. AssertJ">
+      <created>1588666246794</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1588666246794</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -645,7 +645,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="unittesting: bank search working with SQL.&#10;adding mybatis to the mix" />
     <MESSAGE value="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage" />
     <MESSAGE value="cleanup" />
     <MESSAGE value="Exceptii cu mesaj text." />
@@ -670,7 +669,8 @@
     <MESSAGE value="Add more Spring" />
     <MESSAGE value="Inainte de incepere" />
     <MESSAGE value="Mutation Testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mutation Testing" />
+    <MESSAGE value="TestNG. Exceptii custom. AssertJ" />
+    <option name="LAST_COMMIT_MESSAGE" value="TestNG. Exceptii custom. AssertJ" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -705,10 +705,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="183" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1536.834@0.0.1536.834" timestamp="1580506030157" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588663013832">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588666246156">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588663013832" />
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588666246156" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588656371359">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
