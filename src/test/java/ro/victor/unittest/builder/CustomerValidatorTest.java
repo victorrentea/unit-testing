@@ -15,33 +15,33 @@ public class CustomerValidatorTest {
 
 	private CustomerValidator validator = new CustomerValidator();
 
-	private Customer aValidCustomer() {
-		return new Customer()
-				.setName("John")
-				.setAddress(new Address().setCity("Bucharest"));
-	}
-
 	@Test
 	public void ok() {
-		validator.validate(aValidCustomer());
+		validator.validate(DummyDataForCustomerSubdomain.aValidCustomer());
 	}
 
 	@Test(expected = MyException.class)
 	public void throwsForBlankName() {
-		validator.validate(aValidCustomer().setName(null));
+		Customer customer = DummyDataForCustomerSubdomain.aValidCustomer().setName(null);
+
+		validator.validate(customer);
 	}
 
 	@org.testng.annotations.Test
 	public void throwsForNoAddress() {
-		MyException myException = Assertions.catchThrowableOfType(() -> {
-			validator.validate(aValidCustomer().setAddress(null));
-		}, MyException.class);
+		// fixture
+		Customer customer = DummyDataForCustomerSubdomain.aValidCustomer().setAddress(null);
 
+		// act
+		MyException myException = Assertions.catchThrowableOfType(
+				() -> validator.validate(customer), MyException.class);
+
+		// assert
 		assertThat(myException.getErrorCode()).isEqualTo(ErrorCode.MISSING_CUSTOMER_ADDRESS);
 
 
 		assertThatThrownBy(() -> {
-			validator.validate(aValidCustomer().setAddress(null));
+			validator.validate(customer);
 		}).isInstanceOf(MyException.class)/*.hasMessage(…)*/
 				.hasFieldOrPropertyWithValue("errorCode",ErrorCode.MISSING_CUSTOMER_ADDRESS);
 
@@ -53,7 +53,7 @@ public class CustomerValidatorTest {
 	@Test
 	public void throwsForNoAddressCity() {
 		expectedException.expectMessage("City");
-		validator.validate(aValidCustomer()
+		validator.validate(DummyDataForCustomerSubdomain.aValidCustomer()
 				.setAddress(new Address().setCity(null)));
 	}
 

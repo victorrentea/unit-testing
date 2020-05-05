@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/AltaClasaDeTst.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/DummyDataForCustomerSubdomain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,6 +160,7 @@
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.builder.ObjectMother" />
       <recent name="ro.victor.unittest.time.inject.FixedClockTestConfig" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -604,7 +609,21 @@
       <option name="project" value="LOCAL" />
       <updated>1588666246794</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="revert Tennis implem. Prep for TDD">
+      <created>1588666578454</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1588666578454</updated>
+    </task>
+    <task id="LOCAL-00036" summary="revert Tennis implem. Prep for TDD">
+      <created>1588666605512</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1588666605512</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -645,7 +664,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage" />
     <MESSAGE value="cleanup" />
     <MESSAGE value="Exceptii cu mesaj text." />
     <MESSAGE value="TDD + Paramterized" />
@@ -670,7 +688,8 @@
     <MESSAGE value="Inainte de incepere" />
     <MESSAGE value="Mutation Testing" />
     <MESSAGE value="TestNG. Exceptii custom. AssertJ" />
-    <option name="LAST_COMMIT_MESSAGE" value="TestNG. Exceptii custom. AssertJ" />
+    <MESSAGE value="revert Tennis implem. Prep for TDD" />
+    <option name="LAST_COMMIT_MESSAGE" value="revert Tennis implem. Prep for TDD" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -689,14 +708,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.834@0.0.1536.834" timestamp="1588657005597" />
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1588664153665">
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1588668903255">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1588664153665" />
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1588668903255" />
     <state x="571" y="286" width="412" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1588657633326">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="571" y="286" width="412" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1588657633326" />
+    <state x="487" y="148" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1588668692370">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="487" y="148" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1536.834@0.0.1536.834" timestamp="1588668692370" />
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1588659964697">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -705,10 +728,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="183" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1536.834@0.0.1536.834" timestamp="1580506030157" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588666577926">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588666604820">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588666577926" />
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588666604820" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588656371359">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -745,18 +768,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="195" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1588662195808" />
-    <state width="1116" height="652" key="javadoc.popup.new" timestamp="1588663393178">
+    <state width="1116" height="652" key="javadoc.popup.new" timestamp="1588667206501">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1116" height="652" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1588663393178" />
+    <state width="1116" height="652" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1588667206501" />
+    <state x="477" y="58" key="refactoring.ChangeSignatureDialog" timestamp="1588668673636">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="477" y="58" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1588668673636" />
     <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1588663288990">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1588663288990" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588664325541">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588668479562">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588664325541" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588668479562" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
