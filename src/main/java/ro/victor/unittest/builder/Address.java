@@ -5,6 +5,16 @@ public class Address {
 	private Integer streetNumber;
 	private String city;
 	private String country;
+	private Customer customer;
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	Address setCustomer(Customer customer) {
+		this.customer = customer;
+		return this;
+	}
 
 	public String getStreetName() {
 		return streetName;
@@ -18,8 +28,9 @@ public class Address {
 		return city;
 	}
 
-	public void setCity(String city) {
+	public Address setCity(String city) {
 		this.city = city;
+		return this;
 	}
 
 	public String getCountry() {
