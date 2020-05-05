@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 // want to open port:
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RestInPeaceControllerTest {
+public class RestInProductControllerTest {
 
 	@Autowired
     private MockMvc mockMvc;

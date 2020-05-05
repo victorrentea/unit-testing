@@ -2,9 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/tennis-game.examples" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lombok.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/SupplierRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/tennis-game.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/tennis-game.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/SomeSpringApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/Country.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/RestInPeaceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductSearchCriteria.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/SomeFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/infra/ExternalServiceClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/Peace.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInProductControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,14 +149,14 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -159,20 +176,21 @@
       <recent name="ro.victor.unittest.time.inject.FixedClockTestConfig" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.spring.web" />
+      <recent name="ro.victor.unittest.spring.repo" />
       <recent name="ro.victor.unittest.builder" />
       <recent name="ro.victor.unittest.spring" />
       <recent name="ro.victor.unittest.spring.search" />
-      <recent name="ExternalServiceClient" />
-      <recent name="ro.victor.unittest.time.inject" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\workspace\unit-testing\src\main\java" />
       <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\builder" />
       <recent name="C:\workspace\unit-testing\src\test\java" />
       <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\cucumber\search" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.spring.repo" />
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
@@ -201,7 +219,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RestInPeaceControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RestInProductControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -210,13 +228,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.RestInPeaceControllerTest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.RestInProductControllerTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RestInPeaceControllerTest.peaceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RestInProductControllerTest.peaceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -225,7 +243,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.RestInPeaceControllerTest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.RestInProductControllerTest" />
       <option name="METHOD_NAME" value="peaceTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -252,17 +270,17 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.ProductRepoSearchTest.name" />
-      <item itemvalue="JUnit.RestInPeaceControllerTest" />
-      <item itemvalue="JUnit.RestInPeaceControllerTest.peaceTest" />
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="Spring Boot.SomeSpringApplication" />
+      <item itemvalue="JUnit.ProductRepoSearchTest.name" />
+      <item itemvalue="JUnit.RestInProductControllerTest" />
+      <item itemvalue="JUnit.RestInProductControllerTest.peaceTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ProductRepoSearchTest.name" />
-        <item itemvalue="JUnit.RestInPeaceControllerTest" />
-        <item itemvalue="JUnit.RestInPeaceControllerTest.peaceTest" />
+        <item itemvalue="JUnit.RestInProductControllerTest" />
+        <item itemvalue="JUnit.RestInProductControllerTest.peaceTest" />
         <item itemvalue="Spring Boot.SomeSpringApplication" />
       </list>
     </recent_temporary>
@@ -599,6 +617,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="79" key="#Notifications/0.0.1536.834@0.0.1536.834" timestamp="1588656268898" />
+    <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1588658341468">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1536.834@0.0.1536.834" timestamp="1588658341468" />
     <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588656457276">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -607,10 +629,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.834@0.0.1536.834" timestamp="1588657005597" />
-    <state x="571" y="286" width="393" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1588656484277">
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1588659988133">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="571" y="286" width="393" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1588656484277" />
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1588659988133" />
+    <state x="571" y="286" width="412" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1588657633326">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="571" y="286" width="412" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1588657633326" />
+    <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1588659964697">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
     <state x="499" y="183" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1580506030157">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -639,14 +669,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1493" height="325" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588656605417" />
-    <state x="279" y="63" key="SettingsEditor" timestamp="1588656437818">
+    <state x="279" y="63" key="SettingsEditor" timestamp="1588660007494">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="279" y="63" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1588656437818" />
+    <state x="279" y="63" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1588660007494" />
     <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1588656689997">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1588656689997" />
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1588659689166">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1588659689166" />
     <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588656326923">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

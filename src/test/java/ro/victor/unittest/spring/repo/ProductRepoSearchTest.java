@@ -2,17 +2,11 @@ package ro.victor.unittest.spring.repo;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
-import ro.victor.unittest.spring.infra.ExternalServiceClient;
-
-import javax.persistence.EntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 // profile, mockbean, props
 public class ProductRepoSearchTest extends RepoBaseTest{
@@ -28,14 +22,9 @@ public class ProductRepoSearchTest extends RepoBaseTest{
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-    @MockBean
-    public ExternalServiceClient externalServiceClient;
-
-
     @Before
     public void verificCaECuratInBaza() {
         assertThat(repo.count()).isEqualTo(0);
-        when(externalServiceClient.callService()).thenReturn("P'asta");
     }
     @Test
     public void name() {
@@ -50,12 +39,12 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     }
     @Test
     public void category() {
-        Product pInDB = new Product().setCategory(Product.Category.NEVASTA);
+        Product pInDB = new Product().setCategory(Product.Category.PT_CASA);
         repo.save(pInDB);
-        criteria.category = Product.Category.NEVASTA;
+        criteria.category = Product.Category.PT_CASA;
         assertThat(repo.search(criteria)).anyMatch(
                 pp -> pp.id.equals(pInDB.getId()));
-        criteria.category = Product.Category.COPII;
+        criteria.category = Product.Category.PT_MINE;
         assertThat(repo.search(criteria)).isEmpty();
     }
 }
