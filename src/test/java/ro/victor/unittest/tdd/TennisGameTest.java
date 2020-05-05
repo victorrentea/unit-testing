@@ -12,6 +12,18 @@ import static org.junit.Assert.assertEquals;
 public class TennisGameTest {
     private TennisGame tennisGame = new TennisGame();
 
+
+    private void setScore(int player1Score, int player2Score) {
+        setPlayerScore(1, player1Score);
+        setPlayerScore(2, player2Score);
+    }
+
+    private void setPlayerScore(int playerNumber, int playerScore) {
+        for (int i = 0; i < playerScore; i++) {
+            tennisGame.addPoint(playerNumber);
+        }
+    }
+
     @Test
     public void loveLove() {
         setScore(0, 0);
@@ -39,6 +51,11 @@ public class TennisGameTest {
         String score = tennisGame.score();
         assertEquals("Thirty-Love", score);
     }
+//    @Test(expected = IllegalStateException.class)
+//    public void aberrant() {
+//        setScore(7, 0);
+//        tennisGame.score();
+//    }
 
     @Test
     public void fortyLove() {
@@ -50,6 +67,12 @@ public class TennisGameTest {
     @Test
     public void deuce() {
         setScore(3, 3);
+        String score = tennisGame.score();
+        assertEquals("Deuce", score);
+    }
+    @Test
+    public void deuce4() {
+        setScore(4, 4);
         String score = tennisGame.score();
         assertEquals("Deuce", score);
     }
@@ -91,14 +114,5 @@ public class TennisGameTest {
 
 
 
-    private void setScore(int player1Score, int player2Score) {
-        setPlayerScore(1, player1Score);
-        setPlayerScore(2, player2Score);
-    }
 
-    private void setPlayerScore(int playerNumber, int playerScore) {
-        for (int i = 0; i < playerScore; i++) {
-            tennisGame.addPoint(playerNumber);
-        }
-    }
 }

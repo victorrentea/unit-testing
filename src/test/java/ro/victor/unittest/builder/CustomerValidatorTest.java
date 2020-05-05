@@ -20,6 +20,7 @@ public class CustomerValidatorTest {
 		validator.validate(DummyDataForCustomerSubdomain.aValidCustomer());
 	}
 
+
 	@Test(expected = MyException.class)
 	public void throwsForBlankName() {
 		Customer customer = DummyDataForCustomerSubdomain.aValidCustomer().setName(null);
