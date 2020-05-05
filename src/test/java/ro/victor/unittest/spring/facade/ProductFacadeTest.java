@@ -29,13 +29,14 @@ public class ProductFacadeTest {
     private ProductFacade productFacade;
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWholeWorkflow() {
+    public void testWar() {
         when(externalServiceClient.covidVaccineExists()).thenReturn(true);
+        productFacade.getProduct(6L);
     }
 
     @Test
     @Transactional
-    public void testPeace() {
+    public void testWholeWorkflow() {
         when(externalServiceClient.covidVaccineExists()).thenReturn(false);
         Product product = new Product();
         Supplier supplier = new Supplier().setActive(true);

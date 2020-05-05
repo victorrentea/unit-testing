@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/lombok.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/SupplierRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/SomeSpringApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/Country.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/domain/RestInPeaceService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductSearchCriteria.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/SomeFacade.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/infra/ExternalServiceClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/Peace.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInPeaceControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInProductControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +184,37 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="PIT Runner.Builder">
+  <component name="RunManager" selected="JUnit.ProductFacadeTest">
+    <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProductRepoSearchTest.name" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -256,32 +268,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SomeSpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ro.victor.unittest.spring.SomeSpringApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="Spring Boot.SomeSpringApplication" />
       <item itemvalue="JUnit.ProductRepoSearchTest.name" />
       <item itemvalue="JUnit.RestInProductControllerTest" />
       <item itemvalue="JUnit.RestInProductControllerTest.peaceTest" />
+      <item itemvalue="JUnit.ProductRepoSearchTest" />
+      <item itemvalue="JUnit.ProductFacadeTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductFacadeTest" />
+        <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.ProductRepoSearchTest.name" />
         <item itemvalue="JUnit.RestInProductControllerTest" />
         <item itemvalue="JUnit.RestInProductControllerTest.peaceTest" />
-        <item itemvalue="Spring Boot.SomeSpringApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -544,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588656689359</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Add more Spring">
+      <created>1588660022323</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1588660022323</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,7 +593,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="unit test php: solved pretty good" />
     <MESSAGE value="unittesting: Time Rule fix" />
     <MESSAGE value="UnitTesting: Search in JPA implem complete" />
     <MESSAGE value="unittesting: bank search working with SQL.&#10;adding mybatis to the mix" />
@@ -610,7 +617,8 @@
     <MESSAGE value="yolo" />
     <MESSAGE value="Spring Testing" />
     <MESSAGE value="Prep for PIT" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prep for PIT" />
+    <MESSAGE value="Add more Spring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add more Spring" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -645,38 +653,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="183" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1536.834@0.0.1536.834" timestamp="1580506030157" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588656688800">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588660021798">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588656688800" />
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588660021798" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588656371359">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1588656371359" />
-    <state width="1493" height="325" key="GridCell.Tab.0.bottom" timestamp="1588656605417">
+    <state width="1493" height="173" key="GridCell.Tab.0.bottom" timestamp="1588660226705">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="325" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588656605417" />
-    <state width="1493" height="325" key="GridCell.Tab.0.center" timestamp="1588656605417">
+    <state width="1493" height="173" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588660226705" />
+    <state width="1493" height="173" key="GridCell.Tab.0.center" timestamp="1588660226705">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="325" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588656605417" />
-    <state width="1493" height="325" key="GridCell.Tab.0.left" timestamp="1588656605417">
+    <state width="1493" height="173" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588660226705" />
+    <state width="1493" height="173" key="GridCell.Tab.0.left" timestamp="1588660226705">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="325" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588656605417" />
-    <state width="1493" height="325" key="GridCell.Tab.0.right" timestamp="1588656605417">
+    <state width="1493" height="173" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588660226705" />
+    <state width="1493" height="173" key="GridCell.Tab.0.right" timestamp="1588660226705">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="325" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588656605417" />
+    <state width="1493" height="173" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588660226705" />
     <state x="279" y="63" key="SettingsEditor" timestamp="1588660007494">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="279" y="63" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1588660007494" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1588656689997">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1588660023514">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1588656689997" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1588660023514" />
     <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1588659689166">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
