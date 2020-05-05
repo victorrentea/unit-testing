@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -188,25 +186,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TennisGameTest">
-    <configuration name="All Features in: test" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test" />
-      <option name="GLUE" value="ro.victor.unittest.bank ro.victor.unittest.bdd.filtering ro.victor.unittest.tdd" />
-      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
-      <module name="unit-testing" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome" />
-      <option name="SUGGESTED_NAME" value="All Features in: test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cucumber.api.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.TennisGameTest.player2Won">
     <configuration name="CustomerValidatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -285,6 +265,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TennisGameTest.player2Won" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
+      <option name="METHOD_NAME" value="player2Won" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Builder" type="PIT" factoryName="PIT Runner" REPORT_DIR="$PROJECT_DIR$/target/report" SOURCE_DIRS="$PROJECT_DIR$/src/test/java" TARGET_CLASSES="ro.victor.unittest.builder.*" TARGET_TESTS="" otherParams="--outputFormats XML,HTML">
       <module name="unit-testing" />
       <method v="2">
@@ -318,7 +314,6 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Cucumber java.All Features in: test" />
       <item itemvalue="JUnit.CustomerValidatorTest.ok" />
       <item itemvalue="JUnit.CustomerValidatorTest" />
       <item itemvalue="JUnit.CustomerValidatorTest.yesSir" />
@@ -327,14 +322,15 @@
       <item itemvalue="TestNG.Unnamed" />
       <item itemvalue="JUnit.TennisGameTest" />
       <item itemvalue="JUnit.TennisGameTest.loveLove" />
+      <item itemvalue="JUnit.TennisGameTest.player2Won" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TennisGameTest.player2Won" />
         <item itemvalue="JUnit.TennisGameTest" />
         <item itemvalue="JUnit.TennisGameTest.loveLove" />
         <item itemvalue="JUnit.CustomerValidatorTest" />
         <item itemvalue="JUnit.CustomerValidatorTest.yesSir" />
-        <item itemvalue="Cucumber java.All Features in: test" />
       </list>
     </recent_temporary>
   </component>
@@ -646,7 +642,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588670456554</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Totu-i verde in zare">
+      <created>1588673177943</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1588673177943</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -687,7 +690,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Exceptii cu mesaj text." />
     <MESSAGE value="TDD + Paramterized" />
     <MESSAGE value="Feature files, unleashed" />
     <MESSAGE value="prep mockito exercise" />
@@ -712,7 +714,8 @@
     <MESSAGE value="TestNG. Exceptii custom. AssertJ" />
     <MESSAGE value="revert Tennis implem. Prep for TDD" />
     <MESSAGE value="Cum sa creez Fixture usor: date dummy. s.a" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cum sa creez Fixture usor: date dummy. s.a" />
+    <MESSAGE value="Totu-i verde in zare" />
+    <option name="LAST_COMMIT_MESSAGE" value="Totu-i verde in zare" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -755,38 +758,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="183" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1536.834@0.0.1536.834" timestamp="1580506030157" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588673169866">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588673176812">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588673169866" />
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588673176812" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588670434989">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1588670434989" />
-    <state width="1492" height="173" key="GridCell.Tab.0.bottom" timestamp="1588673113015">
+    <state width="1492" height="173" key="GridCell.Tab.0.bottom" timestamp="1588673608737">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="173" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588673113015" />
-    <state width="1492" height="173" key="GridCell.Tab.0.center" timestamp="1588673113014">
+    <state width="1492" height="173" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588673608737" />
+    <state width="1492" height="173" key="GridCell.Tab.0.center" timestamp="1588673608737">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="173" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588673113014" />
-    <state width="1492" height="173" key="GridCell.Tab.0.left" timestamp="1588673113014">
+    <state width="1492" height="173" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588673608737" />
+    <state width="1492" height="173" key="GridCell.Tab.0.left" timestamp="1588673608737">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="173" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588673113014" />
-    <state width="1492" height="173" key="GridCell.Tab.0.right" timestamp="1588673113015">
+    <state width="1492" height="173" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588673608737" />
+    <state width="1492" height="173" key="GridCell.Tab.0.right" timestamp="1588673608737">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="173" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588673113015" />
+    <state width="1492" height="173" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588673608737" />
     <state x="299" y="90" key="Maven.ArtifactSearchDialog" timestamp="1588663244452">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="299" y="90" key="Maven.ArtifactSearchDialog/0.0.1536.834@0.0.1536.834" timestamp="1588663244452" />
-    <state x="592" y="369" key="ReplaceDuplicatesPrompt" timestamp="1588672049364">
+    <state x="592" y="369" key="ReplaceDuplicatesPrompt" timestamp="1588673556379">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="592" y="369" key="ReplaceDuplicatesPrompt/0.0.1536.834@0.0.1536.834" timestamp="1588672049364" />
+    <state x="592" y="369" key="ReplaceDuplicatesPrompt/0.0.1536.834@0.0.1536.834" timestamp="1588673556379" />
     <state x="559" y="18" key="SettingsEditor" timestamp="1588672779500">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -799,26 +802,30 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1588663018568" />
-    <state x="499" y="195" width="538" height="481" key="extract.method.dialog" timestamp="1588672024372">
+    <state x="239" y="3" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1588673500383">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="499" y="195" width="538" height="481" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1588672024372" />
+    <state x="239" y="3" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.834@0.0.1536.834" timestamp="1588673500383" />
+    <state x="499" y="195" width="538" height="481" key="extract.method.dialog" timestamp="1588673554001">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="499" y="195" width="538" height="481" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1588673554001" />
     <state width="1116" height="652" key="javadoc.popup.new" timestamp="1588667206501">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1116" height="652" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1588667206501" />
-    <state x="477" y="58" key="refactoring.ChangeSignatureDialog" timestamp="1588668673636">
+    <state x="477" y="58" key="refactoring.ChangeSignatureDialog" timestamp="1588673782096">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="477" y="58" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1588668673636" />
+    <state x="477" y="58" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1588673782096" />
     <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1588672858650">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1588672858650" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588670598665">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588673594129">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588670598665" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588673594129" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
