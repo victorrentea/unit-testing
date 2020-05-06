@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="**** Start DAY 2">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/Life.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/infra/ExternalServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/infra/ExternalServiceClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/RestInPeaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +187,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.ProductRepoSearchTest.category">
+  <component name="RunManager" selected="TestNG.Life">
     <configuration name="CustomerValidatorTest.ok" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -238,6 +231,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Life" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.Life" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Life.test1" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.Life" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProductControllerTest" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -249,41 +277,6 @@
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerTest" />
       <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductFacadeTest" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductFacadeTest.testWar" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
-      <option name="METHOD_NAME" value="testWar" />
-      <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
       <method v="2">
@@ -333,19 +326,19 @@
       <item itemvalue="PIT Runner.Unnamed" />
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="TestNG.Unnamed" />
-      <item itemvalue="TestNG.ProductFacadeTest.testWar" />
-      <item itemvalue="TestNG.ProductFacadeTest" />
       <item itemvalue="JUnit.ProductControllerTest" />
       <item itemvalue="TestNG.ProductControllerTest" />
       <item itemvalue="TestNG.ProductRepoSearchTest.category" />
+      <item itemvalue="TestNG.Life.test1" />
+      <item itemvalue="TestNG.Life" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.Life" />
+        <item itemvalue="TestNG.Life.test1" />
         <item itemvalue="TestNG.ProductRepoSearchTest.category" />
         <item itemvalue="TestNG.ProductControllerTest" />
         <item itemvalue="JUnit.ProductControllerTest" />
-        <item itemvalue="TestNG.ProductFacadeTest" />
-        <item itemvalue="TestNG.ProductFacadeTest.testWar" />
       </list>
     </recent_temporary>
   </component>
@@ -692,7 +685,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588745240397</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="**** Start DAY 2">
+      <created>1588746281526</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1588746281526</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -733,7 +733,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="outside-in" />
     <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
     <MESSAGE value="JDK" />
@@ -758,7 +757,8 @@
     <MESSAGE value="DataProvider - wasted opportunity" />
     <MESSAGE value="Feature files rock!" />
     <MESSAGE value="Spring Facade test JUNit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Spring Facade test JUNit" />
+    <MESSAGE value="**** Start DAY 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="**** Start DAY 2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -769,10 +769,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1536.834@0.0.1536.834" timestamp="1588658341468" />
-    <state x="170" y="110" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588663895581">
+    <state x="170" y="110" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588748212605">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="170" y="110" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1588663895581" />
+    <state x="170" y="110" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1588748212605" />
     <state x="100" y="100" width="1336" height="664" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1588672640945">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -801,30 +801,30 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="183" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1536.834@0.0.1536.834" timestamp="1580506030157" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588745239912">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588748237978">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588745239912" />
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588670434989">
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588748237978" />
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588748237509">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1588670434989" />
-    <state width="1493" height="268" key="GridCell.Tab.0.bottom" timestamp="1588746177151">
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1588748237509" />
+    <state width="1493" height="135" key="GridCell.Tab.0.bottom" timestamp="1588748302062">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="268" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588746177151" />
-    <state width="1493" height="268" key="GridCell.Tab.0.center" timestamp="1588746177151">
+    <state width="1493" height="135" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588748302062" />
+    <state width="1493" height="135" key="GridCell.Tab.0.center" timestamp="1588748302062">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="268" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588746177151" />
-    <state width="1493" height="268" key="GridCell.Tab.0.left" timestamp="1588746177151">
+    <state width="1493" height="135" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588748302062" />
+    <state width="1493" height="135" key="GridCell.Tab.0.left" timestamp="1588748302062">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="268" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588746177151" />
-    <state width="1493" height="268" key="GridCell.Tab.0.right" timestamp="1588746177151">
+    <state width="1493" height="135" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588748302062" />
+    <state width="1493" height="135" key="GridCell.Tab.0.right" timestamp="1588748302062">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="268" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588746177151" />
+    <state width="1493" height="135" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588748302062" />
     <state x="299" y="90" key="Maven.ArtifactSearchDialog" timestamp="1588663244452">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -845,6 +845,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1588663018568" />
+    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588746382389">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.834@0.0.1536.834" timestamp="1588746382389" />
     <state x="239" y="3" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1588673500383">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -853,10 +857,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="195" width="538" height="481" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1588673554001" />
-    <state width="1047" height="384" key="javadoc.popup.new" timestamp="1588745439125">
+    <state width="1047" height="384" key="javadoc.popup.new" timestamp="1588748048521">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1047" height="384" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1588745439125" />
+    <state width="1047" height="384" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1588748048521" />
     <state x="477" y="58" key="refactoring.ChangeSignatureDialog" timestamp="1588745980588">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -865,10 +869,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1588672858650" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588742773498">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588748229603">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588742773498" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588748229603" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
