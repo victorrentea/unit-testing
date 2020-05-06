@@ -1,5 +1,6 @@
 package ro.victor.unittest.spring.repo;
 
+import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -7,6 +8,7 @@ import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 // profile, mockbean, props
 public class ProductRepoSearchTest extends RepoBaseTest{
@@ -28,6 +30,7 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     }
     @Test
     public void name() {
+//        Assertions.assertThat("a").withFailMessage("a nu e b).isEqualTo("b")
         Product product = new Product().setName("Lego");
         repo.save(product);
         criteria.name = "E";

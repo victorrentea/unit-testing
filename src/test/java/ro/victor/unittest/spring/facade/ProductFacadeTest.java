@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -58,6 +59,7 @@ public class ProductFacadeTest extends AbstractTransactionalTestNGSpringContextT
         when(clock.getZone()).thenReturn(ZoneId.systemDefault());
     }
 
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test(expectedExceptions = IllegalStateException.class)
     public void testWar() {
         when(externalServiceClient.covidVaccineExists()).thenReturn(true);
@@ -66,6 +68,7 @@ public class ProductFacadeTest extends AbstractTransactionalTestNGSpringContextT
         productFacade.getProduct(product.getId());
     }
 
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
     public void testWholeWorkflow() {
         when(externalServiceClient.covidVaccineExists()).thenReturn(false);

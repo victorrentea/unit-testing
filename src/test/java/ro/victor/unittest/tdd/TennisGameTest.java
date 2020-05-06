@@ -1,11 +1,12 @@
 package ro.victor.unittest.tdd;
 
+import lombok.NonNull;
+import org.mockito.Spy;
 import org.testng.annotations.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class TennisGameTest {
-
 
     private String getScoreString(int player1Score, int player2Score) {
         TennisGame tennisGame = new TennisGame();
@@ -13,7 +14,7 @@ public class TennisGameTest {
         return tennisGame.score();
     }
 
-    private void setScore(TennisGame tennisGame, int player1Score, int player2Score) {
+    private void setScore( TennisGame tennisGame, int player1Score, int player2Score) {
         setPlayerScore(tennisGame, 1, player1Score);
         setPlayerScore(tennisGame, 2, player2Score);
     }
@@ -26,12 +27,15 @@ public class TennisGameTest {
 
     @Test
     public void loveLove() {
-        assertEquals("Love-Love", getScoreString(0, 0));
+        TennisGame tennisGame = new TennisGame();
+        assertEquals("Love-Love", tennisGame.score());
     }
 
     @Test
     public void loveFifteen() {
-        assertEquals("Love-Fifteen", getScoreString(0, 1));
+        TennisGame tennisGame = new TennisGame();
+        tennisGame.addPoint(2);
+        assertEquals("Love-Fifteen", tennisGame.score());
     }
 
     @Test

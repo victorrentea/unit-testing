@@ -1,5 +1,6 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import lombok.NonNull;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.time.LocalDateTime;
@@ -70,7 +71,7 @@ public class TelemetryClient {
 		onlineStatus = false;
 	}
 
-	public void send(String message) {
+	public void send(@NonNull String message) {
 		if (message == null || "".equals(message)) {
 			throw new IllegalArgumentException();
 		}

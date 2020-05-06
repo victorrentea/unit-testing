@@ -18,6 +18,8 @@ public class TelemetryDiagnosticControlsTest {
     private TelemetryClient client;
     @InjectMocks
     private TelemetryDiagnosticControls controls;
+//    @InjectMocks
+//    private AltaClasa alta;
     @Captor
     private ArgumentCaptor<ClientConfiguration> configCaptor;
 
