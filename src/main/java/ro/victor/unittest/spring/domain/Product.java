@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,7 +26,7 @@ public class Product {
 
     private Category category;
 
-    private LocalDateTime sampleDate;
+    private LocalDate sampleDate;
 
     private LocalDateTime createDate = LocalDateTime.now();
 
@@ -36,7 +37,7 @@ public class Product {
         PT_NEVASTA, PT_COPII, PT_MINE, PT_CASA
     }
 
-    public Optional<LocalDateTime> getSampleDate() {
+    public Optional<LocalDate> getSampleDate() {
         return Optional.ofNullable(sampleDate);
     }
 
@@ -67,7 +68,7 @@ public class Product {
         return this;
     }
 
-    public Product setSampleDate(LocalDateTime sampleDate) {
+    public Product setSampleDate(LocalDate sampleDate) {
         this.sampleDate = sampleDate;
         return this;
     }

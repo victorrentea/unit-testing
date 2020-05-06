@@ -18,13 +18,13 @@ public class ProductService {
 	private final ProductRepo productRepo;
 
 
-	public Product getProduct(Long productId) {
-		Product product = productRepo.findById(productId).orElseThrow(IllegalAccessError::new);
+	public Product getProduct(long productId) {
+		Product product = productRepo.findById(productId).orElseThrow(IllegalArgumentException::new);
 		boolean covidVaccineExists = externalServiceClient.covidVaccineExists();
 		log.info("COVID Vaccine: " + covidVaccineExists);
 		if (covidVaccineExists) {
 			// heavy geo-political business logic
-			throw new IllegalArgumentException("Bio-war");
+			throw new IllegalStateException("Bio-war");
 		}
 		if (!product.getSupplier().isActive()) {
 			throw new IllegalStateException("Supplier inactive. Product not listed.");

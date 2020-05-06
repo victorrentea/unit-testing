@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/tennis-game.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +190,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TennisGameFeature">
+  <component name="RunManager" selected="JUnit.ProductFacadeTest">
     <configuration name="Scenario: Joc nou" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="1.2" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/tennis-game.feature" />
@@ -223,6 +226,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TennisGameFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -234,22 +252,6 @@
       <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameFeature" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TennisGameTest.player2Won" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.TennisGameTest" />
-      <option name="METHOD_NAME" value="player2Won" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -325,19 +327,19 @@
       <item itemvalue="PIT Runner.Unnamed" />
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="TestNG.Unnamed" />
-      <item itemvalue="JUnit.TennisGameTest.player2Won" />
       <item itemvalue="TestNG.TennisGameTest" />
       <item itemvalue="TestNG.TennisGameNGTest" />
       <item itemvalue="Cucumber java.Scenario: Joc nou" />
       <item itemvalue="JUnit.TennisGameFeature" />
+      <item itemvalue="JUnit.ProductFacadeTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductFacadeTest" />
         <item itemvalue="JUnit.TennisGameFeature" />
         <item itemvalue="Cucumber java.Scenario: Joc nou" />
         <item itemvalue="TestNG.TennisGameNGTest" />
         <item itemvalue="TestNG.TennisGameTest" />
-        <item itemvalue="JUnit.TennisGameTest.player2Won" />
       </list>
     </recent_temporary>
   </component>
@@ -670,7 +672,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588674296611</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Feature files rock!">
+      <created>1588675047248</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1588675047248</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -711,7 +720,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="prep mockito exercise" />
     <MESSAGE value="Mockito play" />
     <MESSAGE value="outside-in" />
     <MESSAGE value="Aproape gata (80%)" />
@@ -736,7 +744,8 @@
     <MESSAGE value="Totu-i verde in zare" />
     <MESSAGE value="Testing pure functions is sweet" />
     <MESSAGE value="DataProvider - wasted opportunity" />
-    <option name="LAST_COMMIT_MESSAGE" value="DataProvider - wasted opportunity" />
+    <MESSAGE value="Feature files rock!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feature files rock!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -779,30 +788,30 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="183" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1536.834@0.0.1536.834" timestamp="1580506030157" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588674296004">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588675046690">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588674296004" />
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588675046690" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588670434989">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1588670434989" />
-    <state width="1492" height="171" key="GridCell.Tab.0.bottom" timestamp="1588674839928">
+    <state width="1493" height="282" key="GridCell.Tab.0.bottom" timestamp="1588745200428">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="171" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588674839928" />
-    <state width="1492" height="171" key="GridCell.Tab.0.center" timestamp="1588674839927">
+    <state width="1493" height="282" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588745200428" />
+    <state width="1493" height="282" key="GridCell.Tab.0.center" timestamp="1588745200428">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="171" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588674839927" />
-    <state width="1492" height="171" key="GridCell.Tab.0.left" timestamp="1588674839927">
+    <state width="1493" height="282" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588745200428" />
+    <state width="1493" height="282" key="GridCell.Tab.0.left" timestamp="1588745200428">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="171" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588674839927" />
-    <state width="1492" height="171" key="GridCell.Tab.0.right" timestamp="1588674839927">
+    <state width="1493" height="282" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588745200428" />
+    <state width="1493" height="282" key="GridCell.Tab.0.right" timestamp="1588745200428">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="171" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588674839927" />
+    <state width="1493" height="282" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588745200428" />
     <state x="299" y="90" key="Maven.ArtifactSearchDialog" timestamp="1588663244452">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -831,10 +840,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="195" width="538" height="481" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1588673554001" />
-    <state width="1116" height="652" key="javadoc.popup.new" timestamp="1588667206501">
+    <state width="433" height="514" key="javadoc.popup.new" timestamp="1588744996378">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1116" height="652" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1588667206501" />
+    <state width="433" height="514" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1588744996378" />
     <state x="477" y="58" key="refactoring.ChangeSignatureDialog" timestamp="1588673782096">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -843,10 +852,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1588672858650" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588674004159">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588742773498">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588674004159" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588742773498" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
