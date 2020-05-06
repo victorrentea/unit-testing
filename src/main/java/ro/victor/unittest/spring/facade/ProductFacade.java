@@ -28,7 +28,7 @@ public class ProductFacade {
         return dto;
     }
 
-    public List<ProductSearchResult> searchPeace(ProductSearchCriteria criteria) {
+    public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
         return productRepo.search(criteria);
     }
 }

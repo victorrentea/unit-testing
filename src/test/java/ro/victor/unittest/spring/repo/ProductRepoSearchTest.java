@@ -1,8 +1,8 @@
 package ro.victor.unittest.spring.repo;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
@@ -22,7 +22,7 @@ public class ProductRepoSearchTest extends RepoBaseTest{
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-    @Before
+    @BeforeClass
     public void verificCaECuratInBaza() {
         assertThat(repo.count()).isEqualTo(0);
     }

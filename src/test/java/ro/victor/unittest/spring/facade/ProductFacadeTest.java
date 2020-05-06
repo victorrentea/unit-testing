@@ -1,16 +1,24 @@
 package ro.victor.unittest.spring.facade;
 
-import org.junit.Before;
-import org.junit.Test;
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.infra.ExternalServiceClient;
@@ -27,9 +35,10 @@ import java.time.format.DateTimeFormatter;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProductFacadeTest {
+@TestExecutionListeners(MockitoTestExecutionListener.class)
+public class ProductFacadeTest extends AbstractTransactionalTestNGSpringContextTests {
     @MockBean
     public ExternalServiceClient externalServiceClient;
 
@@ -43,14 +52,13 @@ public class ProductFacadeTest {
 
     private LocalDateTime currentTime = LocalDateTime.now();
 
-    @Before
+    @BeforeClass
     public void setupTime() {
         when(clock.instant()).thenAnswer(call -> currentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(currentTime)));
         when(clock.getZone()).thenReturn(ZoneId.systemDefault());
     }
 
-    @Transactional
-    @Test(expected = IllegalStateException.class)
+    @Test(expectedExceptions = IllegalStateException.class)
     public void testWar() {
         when(externalServiceClient.covidVaccineExists()).thenReturn(true);
         Product product = new Product();
@@ -59,7 +67,6 @@ public class ProductFacadeTest {
     }
 
     @Test
-    @Transactional
     public void testWholeWorkflow() {
         when(externalServiceClient.covidVaccineExists()).thenReturn(false);
         Product product = new Product().setName("Prod");

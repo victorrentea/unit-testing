@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 public class ExternalServiceClient {
 
     public boolean covidVaccineExists() {
-        throw new IllegalArgumentException("Esti in teste frate, n-i cum sa chemi AUthorizatioBService");
+        throw new IllegalArgumentException("Esti in teste frate, n-ai cum sa chemi AUthorizatioBService");
     }
 }

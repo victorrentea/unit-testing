@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
-import org.junit.Test;
+//import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,17 +16,26 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testng.annotations.Test;
+import ro.victor.unittest.spring.domain.Product;
 
-@RunWith(SpringRunner.class)
+import javax.persistence.EntityManager;
+
+//@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 // want to open port:
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RestInProductControllerTest {
+public class ProductControllerTest extends AbstractTransactionalTestNGSpringContextTests {
 
 	@Autowired
     private MockMvc mockMvc;
+
+	@Autowired
+	private EntityManager em;
 
 //    @LocalServerPort
 //    private int port;
@@ -37,7 +46,9 @@ public class RestInProductControllerTest {
 
     @Test
     public void peaceTest() throws Exception {
-    	mockMvc.perform(get("/peace/{ssn}","abc"))
+		Product ceapa = new Product("Ceapa");
+		em.persist(ceapa);
+    	mockMvc.perform(get("/product/{id}",ceapa.getId()))
     		.andExpect(status().isOk())
     		.andExpect(header().string("Head-Shot", "true"))
     		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))

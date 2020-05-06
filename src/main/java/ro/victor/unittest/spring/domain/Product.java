@@ -36,6 +36,11 @@ public class Product {
     public enum Category {
         PT_NEVASTA, PT_COPII, PT_MINE, PT_CASA
     }
+    public Product(String name) {
+        this.name = name;
+    }
+    public Product() {}
+
 
     public Optional<LocalDate> getSampleDate() {
         return Optional.ofNullable(sampleDate);

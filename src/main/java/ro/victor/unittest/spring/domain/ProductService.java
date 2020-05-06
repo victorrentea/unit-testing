@@ -19,7 +19,7 @@ public class ProductService {
 
 
 	public Product getProduct(long productId) {
-		Product product = productRepo.findById(productId).orElseThrow(IllegalArgumentException::new);
+		Product product = productRepo.findById(productId).get();
 		boolean covidVaccineExists = externalServiceClient.covidVaccineExists();
 		log.info("COVID Vaccine: " + covidVaccineExists);
 		if (covidVaccineExists) {
