@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="**** Start DAY 2">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/Life.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +188,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.Life">
+  <component name="RunManager" selected="TestNG.TelemetryDiagnosticControlsTest">
     <configuration name="CustomerValidatorTest.ok" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -200,21 +201,6 @@
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.builder.CustomerValidatorTest" />
       <option name="METHOD_NAME" value="ok" />
       <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -266,16 +252,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductControllerTest" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="TelemetryDiagnosticControlsTest" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
+          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerTest" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
@@ -283,17 +269,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductRepoSearchTest.category" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="TelemetryDiagnosticControlsTest.disconnects_and_sendsDiagnosticInfo" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
+          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
-      <option name="METHOD_NAME" value="category" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
+      <option name="METHOD_NAME" value="disconnects_and_sendsDiagnosticInfo" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <option name="PARAMETERS" value="0" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TelemetryDiagnosticControlsTest.test" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
+      <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -326,19 +331,19 @@
       <item itemvalue="PIT Runner.Unnamed" />
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="TestNG.Unnamed" />
-      <item itemvalue="JUnit.ProductControllerTest" />
-      <item itemvalue="TestNG.ProductControllerTest" />
-      <item itemvalue="TestNG.ProductRepoSearchTest.category" />
       <item itemvalue="TestNG.Life.test1" />
       <item itemvalue="TestNG.Life" />
+      <item itemvalue="TestNG.TelemetryDiagnosticControlsTest.test" />
+      <item itemvalue="TestNG.TelemetryDiagnosticControlsTest.disconnects_and_sendsDiagnosticInfo" />
+      <item itemvalue="TestNG.TelemetryDiagnosticControlsTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.TelemetryDiagnosticControlsTest" />
+        <item itemvalue="TestNG.TelemetryDiagnosticControlsTest.disconnects_and_sendsDiagnosticInfo" />
+        <item itemvalue="TestNG.TelemetryDiagnosticControlsTest.test" />
         <item itemvalue="TestNG.Life" />
         <item itemvalue="TestNG.Life.test1" />
-        <item itemvalue="TestNG.ProductRepoSearchTest.category" />
-        <item itemvalue="TestNG.ProductControllerTest" />
-        <item itemvalue="JUnit.ProductControllerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -692,7 +697,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588746281526</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Test NG test class instance life">
+      <created>1588749572005</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1588749572005</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -733,7 +745,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
     <MESSAGE value="JDK" />
     <MESSAGE value="fix Java version" />
@@ -758,7 +769,8 @@
     <MESSAGE value="Feature files rock!" />
     <MESSAGE value="Spring Facade test JUNit" />
     <MESSAGE value="**** Start DAY 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="**** Start DAY 2" />
+    <MESSAGE value="Test NG test class instance life" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test NG test class instance life" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -801,30 +813,30 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="183" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1536.834@0.0.1536.834" timestamp="1580506030157" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588748237978">
+    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588749571452">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588748237978" />
+    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588749571452" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588748237509">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1588748237509" />
-    <state width="1493" height="135" key="GridCell.Tab.0.bottom" timestamp="1588748302062">
+    <state width="1492" height="191" key="GridCell.Tab.0.bottom" timestamp="1588752474048">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="135" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588748302062" />
-    <state width="1493" height="135" key="GridCell.Tab.0.center" timestamp="1588748302062">
+    <state width="1492" height="191" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588752474048" />
+    <state width="1492" height="191" key="GridCell.Tab.0.center" timestamp="1588752474047">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="135" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588748302062" />
-    <state width="1493" height="135" key="GridCell.Tab.0.left" timestamp="1588748302062">
+    <state width="1492" height="191" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588752474047" />
+    <state width="1492" height="191" key="GridCell.Tab.0.left" timestamp="1588752474046">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="135" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588748302062" />
-    <state width="1493" height="135" key="GridCell.Tab.0.right" timestamp="1588748302062">
+    <state width="1492" height="191" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588752474046" />
+    <state width="1492" height="191" key="GridCell.Tab.0.right" timestamp="1588752474047">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="135" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588748302062" />
+    <state width="1492" height="191" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588752474047" />
     <state x="299" y="90" key="Maven.ArtifactSearchDialog" timestamp="1588663244452">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -857,22 +869,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="195" width="538" height="481" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1588673554001" />
-    <state width="1047" height="384" key="javadoc.popup.new" timestamp="1588748048521">
+    <state width="823" height="288" key="javadoc.popup.new" timestamp="1588752172651">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1047" height="384" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1588748048521" />
-    <state x="477" y="58" key="refactoring.ChangeSignatureDialog" timestamp="1588745980588">
+    <state width="823" height="288" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1588752172651" />
+    <state x="477" y="58" key="refactoring.ChangeSignatureDialog" timestamp="1588749972317">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="477" y="58" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1588745980588" />
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1588672858650">
+    <state x="477" y="58" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1588749972317" />
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1588750073737">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1588672858650" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588748229603">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1588750073737" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1588751796544">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588748229603" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1588751796544" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

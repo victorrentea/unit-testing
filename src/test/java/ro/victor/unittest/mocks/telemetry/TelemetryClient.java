@@ -1,13 +1,20 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 
 public class TelemetryClient {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
+	public List<String> getList() {
+		throw new NotImplementedException();
+	}
 
-    public static class ClientConfiguration {
+
+	public static class ClientConfiguration {
 		enum AckMode {NORMAL, TIMEBOXED, FLOOD};
 		private String sessionId;
 		private LocalDateTime sessionStart;
