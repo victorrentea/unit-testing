@@ -9,6 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Clock;
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class SomeSpringApplication implements WebMvcConfigurer {
@@ -28,5 +30,9 @@ public class SomeSpringApplication implements WebMvcConfigurer {
                 return true;
             }
         };
+    }
+    @Bean
+    public Clock clock() {
+        return Clock.systemDefaultZone(); // from: LocalDateTime.now();
     }
 }

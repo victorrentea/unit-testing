@@ -2,8 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Supplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/infra/ExternalServiceClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/RestInPeaceController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/RestInProductControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,6 +198,21 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.ProductFacadeTest">
+    <configuration name="ProductControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -196,6 +224,22 @@
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductFacadeTest.testWholeWorkflow" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
+      <option name="METHOD_NAME" value="testWholeWorkflow" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -231,37 +275,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RestInProductControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.RestInProductControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RestInProductControllerTest.peaceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.RestInProductControllerTest" />
-      <option name="METHOD_NAME" value="peaceTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Builder" type="PIT" factoryName="PIT Runner" REPORT_DIR="$PROJECT_DIR$/target/report" SOURCE_DIRS="$PROJECT_DIR$/src/test/java" TARGET_CLASSES="ro.victor.unittest.builder.*" TARGET_TESTS="" otherParams="--outputFormats XML,HTML">
       <module name="unit-testing" />
       <method v="2">
@@ -269,20 +282,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="JUnit.ProductRepoSearchTest.name" />
-      <item itemvalue="JUnit.RestInProductControllerTest" />
-      <item itemvalue="JUnit.RestInProductControllerTest.peaceTest" />
       <item itemvalue="JUnit.ProductRepoSearchTest" />
       <item itemvalue="JUnit.ProductFacadeTest" />
+      <item itemvalue="PIT Runner.Builder" />
+      <item itemvalue="JUnit.ProductFacadeTest.testWholeWorkflow" />
+      <item itemvalue="JUnit.ProductControllerTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ProductFacadeTest" />
+        <item itemvalue="JUnit.ProductControllerTest" />
         <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.ProductRepoSearchTest.name" />
-        <item itemvalue="JUnit.RestInProductControllerTest" />
-        <item itemvalue="JUnit.RestInProductControllerTest.peaceTest" />
+        <item itemvalue="JUnit.ProductFacadeTest.testWholeWorkflow" />
       </list>
     </recent_temporary>
   </component>
@@ -334,6 +347,7 @@
       <workItem from="1576678577380" duration="1081000" />
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
+      <workItem from="1588838737591" duration="247000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -661,22 +675,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1588656371359" />
-    <state width="1493" height="173" key="GridCell.Tab.0.bottom" timestamp="1588660226705">
+    <state width="1492" height="252" key="GridCell.Tab.0.bottom" timestamp="1588839050928">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="173" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588660226705" />
-    <state width="1493" height="173" key="GridCell.Tab.0.center" timestamp="1588660226705">
+    <state width="1492" height="252" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1588839050928" />
+    <state width="1492" height="252" key="GridCell.Tab.0.center" timestamp="1588839050928">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="173" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588660226705" />
-    <state width="1493" height="173" key="GridCell.Tab.0.left" timestamp="1588660226705">
+    <state width="1492" height="252" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1588839050928" />
+    <state width="1492" height="252" key="GridCell.Tab.0.left" timestamp="1588839050928">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="173" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588660226705" />
-    <state width="1493" height="173" key="GridCell.Tab.0.right" timestamp="1588660226705">
+    <state width="1492" height="252" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1588839050928" />
+    <state width="1492" height="252" key="GridCell.Tab.0.right" timestamp="1588839050928">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="173" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588660226705" />
+    <state width="1492" height="252" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588839050928" />
     <state x="279" y="63" key="SettingsEditor" timestamp="1588660007494">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

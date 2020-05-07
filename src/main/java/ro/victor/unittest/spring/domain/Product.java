@@ -1,42 +1,45 @@
 package ro.victor.unittest.spring.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 @Entity
+//@Data NEVER
 @ToString
 public class Product {
     @Id
     @GeneratedValue
-    @Getter
     private Long id;
 
-    @Getter
     private String name;
 
-    @Getter
     private Category category;
 
-    private LocalDateTime sampleDate;
+    private LocalDate sampleDate;
 
-    @Getter
-    @ManyToOne
+    private LocalDateTime createDate = LocalDateTime.now();
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Supplier supplier;
 
     public enum Category {
         PT_NEVASTA, PT_COPII, PT_MINE, PT_CASA
     }
+    public Product(String name) {
+        this.name = name;
+    }
+    public Product() {}
 
 
-    public Optional<LocalDateTime> getSampleDate() {
+    public Optional<LocalDate> getSampleDate() {
         return Optional.ofNullable(sampleDate);
     }
 
@@ -67,7 +70,7 @@ public class Product {
         return this;
     }
 
-    public Product setSampleDate(LocalDateTime sampleDate) {
+    public Product setSampleDate(LocalDate sampleDate) {
         this.sampleDate = sampleDate;
         return this;
     }
