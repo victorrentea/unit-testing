@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,6 +22,8 @@ import org.springframework.test.context.testng.AbstractTransactionalTestNGSpring
 import org.springframework.test.web.servlet.MockMvc;
 import org.testng.annotations.Test;
 import ro.victor.unittest.spring.domain.Product;
+import ro.victor.unittest.spring.domain.Supplier;
+import ro.victor.unittest.spring.infra.WhoServiceClient;
 
 import javax.persistence.EntityManager;
 
@@ -33,6 +36,8 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
 
 	@Autowired
     private MockMvc mockMvc;
+	@MockBean
+	private WhoServiceClient whoService;
 
 	@Autowired
 	private EntityManager em;
@@ -46,13 +51,13 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
 
     @Test
     public void peaceTest() throws Exception {
-		Product ceapa = new Product("Ceapa");
+		Product ceapa = new Product("Ceapa").setSupplier(new Supplier("Piata").setActive(true));
 		em.persist(ceapa);
     	mockMvc.perform(get("/product/{id}",ceapa.getId()))
     		.andExpect(status().isOk())
     		.andExpect(header().string("Head-Shot", "true"))
     		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-    		.andExpect(jsonPath("$.ssn").value(CoreMatchers.startsWith("ABC")));
+    		.andExpect(jsonPath("$.productName").value(CoreMatchers.startsWith("Cea")));
         // TODO check status 200
     	// TODO check "Head-Shot" header
         // TODO check contentType

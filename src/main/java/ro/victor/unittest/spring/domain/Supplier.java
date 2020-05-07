@@ -22,6 +22,12 @@ public class Supplier {
     @Getter
     private boolean active;
 
+    public Supplier() {}
+
+    public Supplier(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

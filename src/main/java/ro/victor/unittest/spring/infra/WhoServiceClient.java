@@ -3,9 +3,9 @@ package ro.victor.unittest.spring.infra;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExternalServiceClient {
+public class WhoServiceClient {
 
     public boolean covidVaccineExists() {
-        throw new IllegalArgumentException("Esti in teste frate, n-ai cum sa chemi AUthorizatioBService");
+        throw new IllegalArgumentException("Can't call the external web service from this environment");
     }
 }

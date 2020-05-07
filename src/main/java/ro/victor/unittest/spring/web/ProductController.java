@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductController {
 	private final ProductFacade facade;
 
-	@GetMapping("/peace/{productId}")
+	@GetMapping("/product/{productId}")
 	public ProductDto getProduct(@PathVariable Long productId) {
 		return facade.getProduct(productId);
 	}

@@ -1,8 +1,11 @@
 package ro.victor.unittest.spring.repo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
@@ -10,6 +13,7 @@ import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+@Slf4j
 // profile, mockbean, props
 public class ProductRepoSearchTest extends RepoBaseTest{
 
@@ -21,16 +25,24 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     // TODO @Before check no garbage in
     @Autowired
     private ProductRepo repo;
+    @Autowired
+    private SupplierRepo supplierRepo;
 
-    private ProductSearchCriteria criteria = new ProductSearchCriteria();
+    private ProductSearchCriteria criteria;
 
     @BeforeClass
     public void verificCaECuratInBaza() {
+    }
+    @BeforeMethod
+    public void clearCriteria() {
+        assertThat(supplierRepo.count()).isEqualTo(1);
         assertThat(repo.count()).isEqualTo(0);
+        log.info("BeforeMethod in test class");
+        criteria = new ProductSearchCriteria();
     }
     @Test
+    @Transactional
     public void name() {
-//        Assertions.assertThat("a").withFailMessage("a nu e b).isEqualTo("b")
         Product product = new Product().setName("Lego");
         repo.save(product);
         criteria.name = "E";
@@ -41,6 +53,7 @@ public class ProductRepoSearchTest extends RepoBaseTest{
         assertThat(repo.search(criteria)).isEmpty();
     }
     @Test
+    @Transactional
     public void category() {
         Product pInDB = new Product().setCategory(Product.Category.PT_CASA);
         repo.save(pInDB);

@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -30,7 +27,7 @@ public class Product {
 
     private LocalDateTime createDate = LocalDateTime.now();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Supplier supplier;
 
     public enum Category {
