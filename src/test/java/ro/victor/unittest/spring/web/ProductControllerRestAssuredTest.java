@@ -29,6 +29,8 @@ import static io.restassured.RestAssured.when;
 public class ProductControllerRestAssuredTest {
     @LocalServerPort
     int serverPort;
+    // TODO have a look at our friend Eugen, too :
+    // https://www.baeldung.com/rest-assured-tutorial
 
     @Before
     public void setupRestAssured() {
