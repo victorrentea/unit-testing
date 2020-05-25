@@ -21,12 +21,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/CustomHeaderInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_tomakehurst_wiremock_jre8_standalone_2_26_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_rest_assured_json_path_3_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_rest_assured_rest_assured_3_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_rest_assured_rest_assured_common_3_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_rest_assured_xml_path_3_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_5_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ccil_cowan_tagsoup_tagsoup_1_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_2_5_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_json_2_5_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_xml_2_5_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_test_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcPortTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestAssuredTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestTemplateTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/mappings/some-thing.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +137,8 @@
       <MavenImportingSettings>
         <option name="downloadDocsAutomatically" value="true" />
         <option name="downloadSourcesAutomatically" value="true" />
+        <option name="jdkForImporter" value="1.8" />
+        <option name="lookForNested" value="true" />
         <option name="vmOptionsForImporter" value="-Xmx768m" />
       </MavenImportingSettings>
     </option>
@@ -154,6 +179,7 @@
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
@@ -191,6 +217,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\bank\repo" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.spring.web" />
       <recent name="ro.victor.unittest.spring.repo" />
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
@@ -203,8 +230,8 @@
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductControllerTest.test">
-    <configuration name="ProductControllerTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ProductControllerMvcPortTest">
+    <configuration name="ProductControllerMvcPortTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -213,61 +240,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerTest" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerMvcPortTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductRepoSearchTest.name" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
-      <option name="METHOD_NAME" value="name" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RestInProductControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductControllerRestAssuredTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -276,10 +256,69 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.RestInProductControllerTest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestAssuredTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerRestAssuredTest.moreComplex" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestAssuredTest" />
+      <option name="METHOD_NAME" value="moreComplex" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestAssuredTest" />
+      <option name="METHOD_NAME" value="moreComplexByWireMockProgramatically" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerRestAssuredTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestAssuredTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="Builder" type="PIT" factoryName="PIT Runner" REPORT_DIR="$PROJECT_DIR$/target/report" SOURCE_DIRS="$PROJECT_DIR$/src/test/java" TARGET_CLASSES="ro.victor.unittest.builder.*" TARGET_TESTS="" otherParams="--outputFormats XML,HTML">
@@ -289,20 +328,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.ProductRepoSearchTest.name" />
-      <item itemvalue="JUnit.RestInProductControllerTest" />
-      <item itemvalue="JUnit.ProductRepoSearchTest" />
-      <item itemvalue="JUnit.ProductFacadeTest" />
       <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="JUnit.ProductControllerTest.test" />
+      <item itemvalue="JUnit.ProductControllerRestAssuredTest.test" />
+      <item itemvalue="JUnit.ProductControllerRestAssuredTest" />
+      <item itemvalue="JUnit.ProductControllerRestAssuredTest.moreComplex" />
+      <item itemvalue="JUnit.ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically" />
+      <item itemvalue="JUnit.ProductControllerMvcPortTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProductControllerTest.test" />
-        <item itemvalue="JUnit.ProductFacadeTest" />
-        <item itemvalue="JUnit.ProductRepoSearchTest" />
-        <item itemvalue="JUnit.ProductRepoSearchTest.name" />
-        <item itemvalue="JUnit.RestInProductControllerTest" />
+        <item itemvalue="JUnit.ProductControllerMvcPortTest" />
+        <item itemvalue="JUnit.ProductControllerRestAssuredTest" />
+        <item itemvalue="JUnit.ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically" />
+        <item itemvalue="JUnit.ProductControllerRestAssuredTest.moreComplex" />
+        <item itemvalue="JUnit.ProductControllerRestAssuredTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -343,7 +382,7 @@
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
-      <workItem from="1590385363094" duration="3625000" />
+      <workItem from="1590385363094" duration="11572000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -576,7 +615,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590386312335</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Restore Spring MVC Test">
+      <created>1590391773502</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1590391773502</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -628,7 +674,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage" />
     <MESSAGE value="cleanup" />
     <MESSAGE value="Exceptii cu mesaj text." />
     <MESSAGE value="TDD + Paramterized" />
@@ -653,7 +698,8 @@
     <MESSAGE value="tweaks" />
     <MESSAGE value="fix compilation. migrate to java 11" />
     <MESSAGE value="fix compilation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix compilation" />
+    <MESSAGE value="Restore Spring MVC Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restore Spring MVC Test" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -692,54 +738,74 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="758" y="0" key="CommitChangelistDialog2" timestamp="1590386311896">
+    <state x="758" y="0" key="CommitChangelistDialog2" timestamp="1590391773052">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="758" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590386311896" />
+    <state x="758" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590391773052" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590391671553">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590391671553" />
-    <state width="1493" height="318" key="GridCell.Tab.0.bottom" timestamp="1590391557353">
+    <state width="1493" height="113" key="GridCell.Tab.0.bottom" timestamp="1590402201393">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="318" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590391557353" />
-    <state width="1493" height="318" key="GridCell.Tab.0.center" timestamp="1590391557353">
+    <state width="1493" height="113" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590402201393" />
+    <state width="1493" height="113" key="GridCell.Tab.0.center" timestamp="1590402201392">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="318" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590391557353" />
-    <state width="1493" height="318" key="GridCell.Tab.0.left" timestamp="1590391557353">
+    <state width="1493" height="113" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590402201392" />
+    <state width="1493" height="113" key="GridCell.Tab.0.left" timestamp="1590402201392">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="318" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590391557353" />
-    <state width="1493" height="318" key="GridCell.Tab.0.right" timestamp="1590391557353">
+    <state width="1493" height="113" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590402201392" />
+    <state width="1493" height="113" key="GridCell.Tab.0.right" timestamp="1590402201392">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="318" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590391557353" />
-    <state x="278" y="0" width="1258" height="710" key="SettingsEditor" timestamp="1590391028684">
+    <state width="1493" height="113" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590402201392" />
+    <state width="1493" height="249" key="GridCell.Tab.1.bottom" timestamp="1590392535928">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590391028684" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590386313857">
+    <state width="1493" height="249" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590392535928" />
+    <state width="1493" height="249" key="GridCell.Tab.1.center" timestamp="1590392535928">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590386313857" />
-    <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590391283559">
+    <state width="1493" height="249" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1590392535928" />
+    <state width="1493" height="249" key="GridCell.Tab.1.left" timestamp="1590392535928">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1590391283559" />
-    <state width="840" height="478" key="javadoc.popup.new" timestamp="1590391531906">
+    <state width="1493" height="249" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1590392535928" />
+    <state width="1493" height="249" key="GridCell.Tab.1.right" timestamp="1590392535928">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="840" height="478" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590391531906" />
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1588659689166">
+    <state width="1493" height="249" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1590392535928" />
+    <state x="299" y="72" key="Maven.ArtifactSearchDialog" timestamp="1590399694342">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1588659689166" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590391554503">
+    <state x="299" y="72" key="Maven.ArtifactSearchDialog/0.0.1536.834@0.0.1536.834" timestamp="1590399694342" />
+    <state x="278" y="0" width="1258" height="710" key="SettingsEditor" timestamp="1590394464565">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590391554503" />
+    <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590394464565" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590391774694">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590391774694" />
+    <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590395108673">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1590395108673" />
+    <state width="676" height="454" key="javadoc.popup.new" timestamp="1590401270486">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="676" height="454" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590401270486" />
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1590393221421">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590393221421" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590400409378">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590400409378" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
