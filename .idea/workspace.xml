@@ -21,35 +21,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_tomakehurst_wiremock_jre8_standalone_2_26_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_rest_assured_json_path_3_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_rest_assured_rest_assured_3_3_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_rest_assured_rest_assured_common_3_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_rest_assured_xml_path_3_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_5_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ccil_cowan_tagsoup_tagsoup_1_2_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_2_5_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_json_2_5_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_xml_2_5_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_1_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_test_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcPortTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestAssuredTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestTemplateTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/mappings/some-thing.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcPortTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcPortTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -382,7 +355,7 @@
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
-      <workItem from="1590385363094" duration="11572000" />
+      <workItem from="1590385363094" duration="12489000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -622,7 +595,21 @@
       <option name="project" value="LOCAL" />
       <updated>1590391773502</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Add Spring Integration Testing examples + WEB">
+      <created>1590402873406</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1590402873406</updated>
+    </task>
+    <task id="LOCAL-00036" summary="add ref">
+      <created>1590402997130</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1590402997130</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -674,8 +661,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="cleanup" />
-    <MESSAGE value="Exceptii cu mesaj text." />
     <MESSAGE value="TDD + Paramterized" />
     <MESSAGE value="Feature files, unleashed" />
     <MESSAGE value="prep mockito exercise" />
@@ -699,7 +684,9 @@
     <MESSAGE value="fix compilation. migrate to java 11" />
     <MESSAGE value="fix compilation" />
     <MESSAGE value="Restore Spring MVC Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Restore Spring MVC Test" />
+    <MESSAGE value="Add Spring Integration Testing examples + WEB" />
+    <MESSAGE value="add ref" />
+    <option name="LAST_COMMIT_MESSAGE" value="add ref" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -738,10 +725,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="758" y="0" key="CommitChangelistDialog2" timestamp="1590391773052">
+    <state x="626" y="0" key="CommitChangelistDialog2" timestamp="1590402996673">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="758" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590391773052" />
+    <state x="626" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590402996673" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590391671553">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -778,6 +765,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1493" height="249" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1590392535928" />
+    <state x="349" y="152" key="IDE.errors.dialog" timestamp="1590403159824">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="349" y="152" key="IDE.errors.dialog/0.0.1536.834@0.0.1536.834" timestamp="1590403159824" />
     <state x="299" y="72" key="Maven.ArtifactSearchDialog" timestamp="1590399694342">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -786,10 +777,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590394464565" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590391774694">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590402998875">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590391774694" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590402998875" />
     <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590395108673">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

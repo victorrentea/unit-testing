@@ -47,6 +47,7 @@ public class ProductControllerMvcPortTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("1"));
     }
+    // ref https://www.baeldung.com/spring-security-integration-tests
     @WithMockUser("security")
     @Test
     public void testSecured() throws Exception {
