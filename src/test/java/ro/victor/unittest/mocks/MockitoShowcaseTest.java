@@ -49,7 +49,6 @@ public class MockitoShowcaseTest {
 			mockedList.add("one");
 			mockedList.clear();
 		}
-		var s = "a";
 
 		// verification
 		verify(mockedList).add("one");

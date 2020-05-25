@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/MockitoShowcaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/MockitoShowcaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/record-search.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/record-search.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
-    </list>
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,7 +125,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="editing.templates" />
@@ -323,7 +314,7 @@
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
-      <workItem from="1590385363094" duration="528000" />
+      <workItem from="1590385363094" duration="853000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -542,7 +533,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588660022323</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="fix compilation. migrate to java 11">
+      <created>1590386159174</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1590386159174</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -582,7 +580,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="UnitTesting: Search in JPA implem complete" />
     <MESSAGE value="unittesting: bank search working with SQL.&#10;adding mybatis to the mix" />
     <MESSAGE value="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage" />
     <MESSAGE value="cleanup" />
@@ -607,7 +604,8 @@
     <MESSAGE value="Prep for PIT" />
     <MESSAGE value="Add more Spring" />
     <MESSAGE value="tweaks" />
-    <option name="LAST_COMMIT_MESSAGE" value="tweaks" />
+    <MESSAGE value="fix compilation. migrate to java 11" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix compilation. migrate to java 11" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -630,22 +628,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1588659988133" />
-    <state x="571" y="286" width="412" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1588657633326">
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590386111862">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="571" y="286" width="412" height="265" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1588657633326" />
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1590386111862" />
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1588659964697">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="360" y="22" key="CommitChangelistDialog2" timestamp="1588660021798">
+    <state x="770" y="0" key="CommitChangelistDialog2" timestamp="1590386158635">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="360" y="22" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1588660021798" />
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1588656371359">
+    <state x="770" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590386158635" />
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590386217591">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1588656371359" />
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590386217591" />
     <state width="1493" height="173" key="GridCell.Tab.0.bottom" timestamp="1588660226705">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -662,14 +660,14 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1493" height="173" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1588660226705" />
-    <state x="279" y="0" key="SettingsEditor" timestamp="1590385889541">
+    <state x="279" y="0" key="SettingsEditor" timestamp="1590386215591">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="279" y="0" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590385889541" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1588660023514">
+    <state x="279" y="0" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590386215591" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590386162941">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1588660023514" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590386162941" />
     <state width="408" height="515" key="javadoc.popup.new" timestamp="1590385718420">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -678,10 +676,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1588659689166" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590385369360">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590386054141">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590385369360" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590386054141" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
