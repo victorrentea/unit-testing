@@ -43,7 +43,6 @@ public class ProductSearchSteps {
     @Given("^One product exists$")
     public void aProductExists() {
         product = new Product();
-        productRepo.save(product);
     }
 
     @And("^That product has name \"([^\"]*)\"$")

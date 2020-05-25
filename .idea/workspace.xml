@@ -21,11 +21,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchFeature.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +303,7 @@
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
-      <workItem from="1590385363094" duration="17826000" />
+      <workItem from="1590385363094" duration="18156000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -575,7 +571,28 @@
       <option name="project" value="LOCAL" />
       <updated>1590441727080</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Cucumber Repo search working">
+      <created>1590442709096</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1590442709096</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Cucumber: No TestTransaction available">
+      <created>1590442736991</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1590442736991</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Proof that @txn works + workaround for Tx not flushing: merge() before search">
+      <created>1590442973130</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1590442973130</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -627,9 +644,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Feature files, unleashed" />
-    <MESSAGE value="prep mockito exercise" />
-    <MESSAGE value="Mockito play" />
     <MESSAGE value="outside-in" />
     <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
@@ -652,7 +666,10 @@
     <MESSAGE value="Add Spring Integration Testing examples + WEB" />
     <MESSAGE value="add ref" />
     <MESSAGE value="Repo .feature sample" />
-    <option name="LAST_COMMIT_MESSAGE" value="Repo .feature sample" />
+    <MESSAGE value="Cucumber Repo search working" />
+    <MESSAGE value="Cucumber: No TestTransaction available" />
+    <MESSAGE value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
+    <option name="LAST_COMMIT_MESSAGE" value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -691,30 +708,30 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="626" y="0" key="CommitChangelistDialog2" timestamp="1590441726538">
+    <state x="626" y="0" key="CommitChangelistDialog2" timestamp="1590442972716">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="626" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590441726538" />
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590391671553">
+    <state x="626" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590442972716" />
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590442688974">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590391671553" />
-    <state width="1493" height="356" key="GridCell.Tab.0.bottom" timestamp="1590442472758">
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590442688974" />
+    <state width="1493" height="356" key="GridCell.Tab.0.bottom" timestamp="1590442936426">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590442472758" />
-    <state width="1493" height="356" key="GridCell.Tab.0.center" timestamp="1590442472758">
+    <state width="1493" height="356" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590442936426" />
+    <state width="1493" height="356" key="GridCell.Tab.0.center" timestamp="1590442936425">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590442472758" />
-    <state width="1493" height="356" key="GridCell.Tab.0.left" timestamp="1590442472758">
+    <state width="1493" height="356" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590442936425" />
+    <state width="1493" height="356" key="GridCell.Tab.0.left" timestamp="1590442936425">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590442472758" />
-    <state width="1493" height="356" key="GridCell.Tab.0.right" timestamp="1590442472758">
+    <state width="1493" height="356" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590442936425" />
+    <state width="1493" height="356" key="GridCell.Tab.0.right" timestamp="1590442936426">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590442472758" />
+    <state width="1493" height="356" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590442936426" />
     <state width="1493" height="363" key="GridCell.Tab.1.bottom" timestamp="1590440993214">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -743,10 +760,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590394464565" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590441728605">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590442975084">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590441728605" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590442975084" />
     <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590439033424">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
