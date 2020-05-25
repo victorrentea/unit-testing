@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.transaction.TestTransaction;
 import ro.victor.unittest.spring.SomeSpringApplication;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Product.Category;
@@ -83,8 +82,6 @@ public class ProductSearchSteps {
         List<ProductSearchResult> results = productRepo.search(criteria);
         assertThat(results).hasSize(1);
         assertThat(results.get(0).id).isEqualTo(thatProduct.getId());
-        TestTransaction.flagForCommit();
-        TestTransaction.end();
     }
 
     @Then("^No products are returned by search$")
