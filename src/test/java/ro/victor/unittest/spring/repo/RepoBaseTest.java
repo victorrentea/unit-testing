@@ -16,16 +16,16 @@ import javax.persistence.EntityManager;
 @Slf4j
 @DataJpaTest // faster than @SpringBootTest
 @Transactional
-//@Rollback(false) -- decomenteaza daca vrei sate uiti in baza ce ramane dupa test
+//@Commit -- uncomment to let the test transaction be commited
 public class RepoBaseTest {
     @Autowired
     protected EntityManager em;
 
-    protected Supplier c  = new Supplier().setName("Romanica");
+    protected Supplier c  = new Supplier().setName("emag");
 
     @Before
-    public void insertRefCountry() {
-        log.info("Inserting ref country");
+    public void insertSupplier() {
+        log.info("Inserting supplier");
         em.persist(c);
     }
 }

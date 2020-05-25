@@ -29,8 +29,9 @@ public class ProductRepoSearchTest extends RepoBaseTest{
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
+
     @Before
-    public void clearCriteria() {
+    public void checkEmptyDatabase() {
         assertThat(supplierRepo.count()).isEqualTo(1);
         assertThat(repo.count()).isEqualTo(0);
         log.info("BeforeMethod in test class");
