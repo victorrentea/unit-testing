@@ -6,11 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import ro.victor.unittest.spring.web.CustomHeaderInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.Clock;
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class SomeSpringApplication implements WebMvcConfigurer {
@@ -23,16 +21,11 @@ public class SomeSpringApplication implements WebMvcConfigurer {
     }
     @Bean
     public HandlerInterceptor headShotInterceptor() {
-        return new HandlerInterceptor() {
-            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-                System.out.println("INTERCEPTOR RUNS");
-                response.addHeader("Head-Shot", "true");
-                return true;
-            }
-        };
+        return new CustomHeaderInterceptor();
     }
     @Bean
     public Clock clock() {
         return Clock.systemDefaultZone(); // from: LocalDateTime.now();
     }
+
 }
