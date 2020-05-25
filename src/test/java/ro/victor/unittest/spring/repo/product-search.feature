@@ -20,3 +20,7 @@ Feature: Search for product
     And That product has name "name"
     When The search criteria name is "namex"
     Then No products are returned by search
+
+  Scenario:
+    Given One product exists
+    Then That product is returned by search
