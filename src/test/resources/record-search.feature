@@ -16,7 +16,7 @@
 ## (Comments)
 @txn
 Feature: Records Search
-
+  Background: Insert standard data
   Scenario Outline: Search for an Active Record by Version
     Given A Record with regliss reference "001.1.000001" with the following names in versions
       | V1 | V2 | V3 | V4 |

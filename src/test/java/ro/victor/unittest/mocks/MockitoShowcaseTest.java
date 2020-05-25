@@ -30,7 +30,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 @SuppressWarnings("unchecked")
 @RunWith(MockitoJUnitRunner.class)
 public class MockitoShowcaseTest {
-	
 	public interface Dependency { // or concrete class
 		public String someMethod(String string);
 	}
@@ -50,6 +49,7 @@ public class MockitoShowcaseTest {
 			mockedList.add("one");
 			mockedList.clear();
 		}
+		var s = "a";
 
 		// verification
 		verify(mockedList).add("one");
