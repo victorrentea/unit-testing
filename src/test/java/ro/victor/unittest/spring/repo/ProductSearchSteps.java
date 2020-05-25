@@ -5,11 +5,10 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.transaction.TestTransaction;
 import ro.victor.unittest.spring.SomeSpringApplication;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Product.Category;
@@ -26,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(
         classes = SomeSpringApplication.class,
         loader = SpringBootContextLoader.class)
-//@ContextConfiguration(classes = SomeSpringApplication.class)
 public class ProductSearchSteps {
     @Autowired
     private ProductRepo productRepo;
@@ -85,6 +83,8 @@ public class ProductSearchSteps {
         List<ProductSearchResult> results = productRepo.search(criteria);
         assertThat(results).hasSize(1);
         assertThat(results.get(0).id).isEqualTo(thatProduct.getId());
+        TestTransaction.flagForCommit();
+        TestTransaction.end();
     }
 
     @Then("^No products are returned by search$")

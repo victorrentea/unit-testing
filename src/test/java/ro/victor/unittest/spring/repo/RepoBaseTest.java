@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 @Slf4j
 @DataJpaTest // faster than @SpringBootTest
 @Transactional
-//@Commit -- uncomment to let the test transaction be commited
+//@Commit //-- uncomment to let the test transaction be commited
 public class RepoBaseTest {
     @Autowired
     protected EntityManager em;

@@ -10,6 +10,7 @@
         <webroots />
         <sourceRoots>
           <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -134,7 +135,7 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.1.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.199" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.6" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: p6spy:p6spy:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: p6spy:p6spy:3.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.swagger:swagger-parser:1.0.21" level="project" />
     <orderEntry type="library" name="Maven: io.swagger:swagger-core:1.5.8" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
