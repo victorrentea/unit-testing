@@ -31,7 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ProductController.class)
-@AutoConfigureMockMvc
 public class ProductControllerMvcTinyTest {
     @Autowired
     private MockMvc mockMvc;

@@ -26,9 +26,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/response-json/test.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestAssuredTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestAssuredTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcTinyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcTinyTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -317,14 +317,7 @@
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
-      <workItem from="1590385363094" duration="33692000" />
-    </task>
-    <task id="LOCAL-00011" summary="cleanup">
-      <created>1562906329675</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1562906329676</updated>
+      <workItem from="1590385363094" duration="34793000" />
     </task>
     <task id="LOCAL-00012" summary="Exceptii cu mesaj text.">
       <created>1563264127590</created>
@@ -662,7 +655,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590487599283</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="RestAssuring a WireMock">
+      <created>1590488915525</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1590488915526</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -714,7 +714,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="tweaks" />
     <MESSAGE value="fix compilation. migrate to java 11" />
     <MESSAGE value="fix compilation" />
     <MESSAGE value="Restore Spring MVC Test" />
@@ -739,7 +738,8 @@
     <MESSAGE value="Testarea WEb cu Spring" />
     <MESSAGE value="Testing URL-based security" />
     <MESSAGE value="Using [Test]RestTemplate to test your own API" />
-    <option name="LAST_COMMIT_MESSAGE" value="Using [Test]RestTemplate to test your own API" />
+    <MESSAGE value="RestAssuring a WireMock" />
+    <option name="LAST_COMMIT_MESSAGE" value="RestAssuring a WireMock" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -778,10 +778,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590487598371">
+    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590488914908">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590487598371" />
+    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590488914908" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -790,22 +790,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590488309733" />
-    <state width="1492" height="346" key="GridCell.Tab.0.bottom" timestamp="1590488122375">
+    <state width="1492" height="334" key="GridCell.Tab.0.bottom" timestamp="1590488879390">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="346" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590488122375" />
-    <state width="1492" height="346" key="GridCell.Tab.0.center" timestamp="1590488122375">
+    <state width="1492" height="334" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590488879390" />
+    <state width="1492" height="334" key="GridCell.Tab.0.center" timestamp="1590488879389">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="346" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590488122375" />
-    <state width="1492" height="346" key="GridCell.Tab.0.left" timestamp="1590488122375">
+    <state width="1492" height="334" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590488879389" />
+    <state width="1492" height="334" key="GridCell.Tab.0.left" timestamp="1590488879389">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="346" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590488122375" />
-    <state width="1492" height="346" key="GridCell.Tab.0.right" timestamp="1590488122375">
+    <state width="1492" height="334" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590488879389" />
+    <state width="1492" height="334" key="GridCell.Tab.0.right" timestamp="1590488879389">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="346" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590488122375" />
+    <state width="1492" height="334" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590488879389" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590480171296">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -846,10 +846,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1590439033424" />
-    <state width="462" height="526" key="javadoc.popup.new" timestamp="1590487625110">
+    <state width="462" height="526" key="javadoc.popup.new" timestamp="1590488725401">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="462" height="526" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590487625110" />
+    <state width="462" height="526" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590488725401" />
     <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1590479503116">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
