@@ -6,8 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.transaction.TestTransaction;
+import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
@@ -28,6 +31,7 @@ import static ro.victor.unittest.spring.domain.Product.*;
 
 // profile, mockbean, props
 @ActiveProfiles("test") // override props using application-test.properties
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ProductRepoSearchTest extends RepoBaseTest{
 
 
@@ -50,8 +54,14 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     }
 
     @Test
-    public void noCriteriaReturnsEverything() {
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    public void ano11CriteriaReturnsEverything() { // Ludovic XIV: Dupa mine, potopul
         repo.save(new Product());
+        // Tranzactia de test creata de @Transactional vine de la inceput cu
+        // flagul de commit pe false (adica vrea sa faca rollback)
+        TestTransaction.flagForCommit();// suprascrie acel flag
+        TestTransaction.end();
+        TestTransaction.start();
         List<ProductSearchResult> results = repo.search(criteria);
         assertThat(results).hasSize(1);
     }

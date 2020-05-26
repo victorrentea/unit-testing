@@ -11,7 +11,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
@@ -28,7 +30,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = {"vreo.prop=altfel"})
 @Transactional
 public class ProductFacadeTest {
     @Autowired
@@ -39,6 +41,13 @@ public class ProductFacadeTest {
     private WhoServiceClient externalServiceClient;
     @MockBean
     private Clock clock;
+
+//    @Configuration // asta va opri cautarea de SpringBootApplication
+    @TestConfiguration
+    public static class MyPrivateConfig {
+
+        // asta va opri cautarea de SpringBootApplication
+    }
 
     private Instant instant = Instant.now();
 
