@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
@@ -26,6 +27,7 @@ import static ro.victor.unittest.spring.domain.Product.*;
 //@Rollback(false)
 
 // profile, mockbean, props
+@ActiveProfiles("test") // override props using application-test.properties
 public class ProductRepoSearchTest extends RepoBaseTest{
 
 
@@ -54,6 +56,7 @@ public class ProductRepoSearchTest extends RepoBaseTest{
         assertThat(results).hasSize(1);
     }
     @Test
+//    @Commit sau @Rollback(false)
     public void searchByName() {
         assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
         criteria.name = "X";

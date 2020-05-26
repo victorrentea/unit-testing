@@ -18,7 +18,7 @@ import javax.persistence.EntityManager;
 @Slf4j
 @SpringBootTest
 //@DataJpaTest // atentie: config db in mem strict // faster than @SpringBootTest
-//@Transactional
+@Transactional
 //@Commit //-- uncomment to let the test transaction be commited
 public class RepoBaseTest {
     @Autowired
