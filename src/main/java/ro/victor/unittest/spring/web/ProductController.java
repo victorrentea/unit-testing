@@ -33,6 +33,10 @@ public class ProductController {
     public int secured() {
         return 99; // dummy endpoint to test security
     }
+    @GetMapping("critical")
+    public int critical() {
+        return 99; // dummy endpoint to test security
+    }
     @GetMapping("secured/method")
     public int securedByAnnotation() {
         return 99; // dummy endpoint to test security

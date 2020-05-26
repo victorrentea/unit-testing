@@ -37,7 +37,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -97,13 +97,18 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.1.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.1.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:3.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.1.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.1.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.1.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework.security:spring-security-test:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.1.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis.spring.boot:mybatis-spring-boot-autoconfigure:2.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.5.1" level="project" />

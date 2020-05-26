@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,6 +38,7 @@ public class ProductControllerMvcTinyTest {
     @MockBean
     private ProductFacade facade;
 
+    @WithMockUser("spring")
     @Test
     public void search() throws Exception {
         when(facade.searchProduct(ArgumentMatchers.anyObject()))
@@ -45,5 +47,27 @@ public class ProductControllerMvcTinyTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name", Matchers.equalTo("Cuie")));
 //                .andExpect(content().string("[]"));
+    }
+    @Test
+    public void securedIsDeniedForAnonymous() throws Exception {
+        mockMvc.perform(get("/secured"))
+                .andExpect(status().isUnauthorized());
+    }
+    @WithMockUser("spring")
+    @Test
+    public void securedIsAccessible() throws Exception {
+        mockMvc.perform(get("/secured"))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void unsecuredIsAccessibleForAnnonymous() throws Exception {
+        mockMvc.perform(get("/unsecured"))
+                .andExpect(status().isOk());
+    }
+    @WithMockUser(roles = "ADMIN")
+    @Test
+    public void criticalAccessibleByAdmin() throws Exception {
+        mockMvc.perform(get("/critical"))
+                .andExpect(status().isOk());
     }
 }
