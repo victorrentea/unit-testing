@@ -92,6 +92,6 @@ public class ProductFacadeTest {
         when(externalServiceClient.covidVaccineExists()).thenReturn(false);
         ProductDto dto = facade.getProduct(product.getId());
         assertThat(dto.sampleDate).isEqualTo(
-                LocalDateTime.now(clock).format(DateTimeFormatter.ISO_DATE_TIME));
+                LocalDateTime.now(clock).minusDays(1).format(DateTimeFormatter.ISO_DATE_TIME));
     }
 }
