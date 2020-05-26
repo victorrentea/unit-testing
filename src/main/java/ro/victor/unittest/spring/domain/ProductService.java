@@ -16,7 +16,7 @@ public class ProductService {
 
 	public Product getProduct(long productId) {
 		Product product = productRepo.findById(productId).get();
-		boolean covidVaccineExists = whoServiceClient.covidVaccineExists();
+		boolean covidVaccineExists = whoServiceClient.covidVaccineExists(); //WS care nu poate fi apelat din teste
 		log.info("COVID Vaccine: " + covidVaccineExists);
 		if (covidVaccineExists) {
 			// heavy geo-political business logic

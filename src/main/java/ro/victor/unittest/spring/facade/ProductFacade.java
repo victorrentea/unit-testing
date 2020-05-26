@@ -11,6 +11,7 @@ import ro.victor.unittest.spring.web.ProductDto;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -24,7 +25,7 @@ public class ProductFacade {
     public ProductDto getProduct(long productId) {
         Product product = productService.getProduct(productId);
         ProductDto dto = new ProductDto(product);
-        dto.sampleDate = product.getSampleDate().orElse(LocalDate.now(clock)).toString();
+        dto.sampleDate = product.getSampleDate().orElse(LocalDateTime.now(clock)).format(DateTimeFormatter.ISO_DATE_TIME);
         return dto;
     }
 

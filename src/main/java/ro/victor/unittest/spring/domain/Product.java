@@ -23,7 +23,7 @@ public class Product {
 
     private Category category;
 
-    private LocalDate sampleDate;
+    private LocalDateTime sampleDate;
 
     private LocalDateTime createDate = LocalDateTime.now();
 
@@ -39,7 +39,7 @@ public class Product {
     public Product() {}
 
 
-    public Optional<LocalDate> getSampleDate() {
+    public Optional<LocalDateTime> getSampleDate() {
         return Optional.ofNullable(sampleDate);
     }
 
@@ -70,7 +70,7 @@ public class Product {
         return this;
     }
 
-    public Product setSampleDate(LocalDate sampleDate) {
+    public Product setSampleDate(LocalDateTime sampleDate) {
         this.sampleDate = sampleDate;
         return this;
     }
