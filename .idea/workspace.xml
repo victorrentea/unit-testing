@@ -169,7 +169,7 @@
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductRepoSearchTest.searchByNameMismatch">
+  <component name="RunManager" selected="JUnit.ProductRepoSearchTest">
     <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
       <module name="unit-testing" />
@@ -272,9 +272,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.ProductRepoSearchTest.searchByNameMismatch" />
         <item itemvalue="Application.StartDatabase" />
-        <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.ProductRepoSearchTest.searchByName" />
         <item itemvalue="JUnit.ProductFacadeTest" />
       </list>

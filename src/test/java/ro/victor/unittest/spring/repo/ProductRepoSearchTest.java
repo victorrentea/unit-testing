@@ -56,7 +56,7 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     @Test
     public void searchByName() {
         assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
-        criteria.name = "Xy";
+        criteria.name = "X";
         Product product = new Product().setName("axB");
         repo.save(product);
         List<ProductSearchResult> results = repo.search(criteria);
