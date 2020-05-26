@@ -29,33 +29,5 @@ public class ProductRepoSearchTest extends RepoBaseTest{
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-
-    @Before
-    public void checkEmptyDatabase() {
-        assertThat(supplierRepo.count()).isEqualTo(1);
-        assertThat(repo.count()).isEqualTo(0);
-        log.info("BeforeMethod in test class");
-    }
-    @Test
-    public void name() {
-        Product product = new Product().setName("Lego");
-        repo.save(product);
-        criteria.name = "E";
-        assertThat(repo.search(criteria)).anyMatch(pp -> pp.id.equals(product.getId()));
-        criteria.name = "Lego";
-        assertThat(repo.search(criteria)).anyMatch(pp -> pp.id.equals(product.getId()));
-        criteria.name = "LegoX";
-        assertThat(repo.search(criteria)).isEmpty();
-    }
-    @Test
-    public void category() {
-        Product pInDB = new Product().setCategory(Product.Category.PT_CASA);
-        repo.save(pInDB);
-        criteria.category = Product.Category.PT_CASA;
-        assertThat(repo.search(criteria)).anyMatch(
-                pp -> pp.id.equals(pInDB.getId()));
-        criteria.category = Product.Category.PT_MINE;
-        assertThat(repo.search(criteria)).isEmpty();
-    }
 }
 
