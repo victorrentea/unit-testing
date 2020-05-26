@@ -26,13 +26,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/DateStr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/infra/WhoServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/infra/WhoServiceClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +168,7 @@
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductFacadeTest">
+  <component name="RunManager" selected="JUnit.ProductRepoSearchTest">
     <configuration name="DateStr" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.DateStr" />
       <module name="unit-testing" />
@@ -194,23 +193,6 @@
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductFacadeTest.getProductIntegrated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
-      <option name="METHOD_NAME" value="getProductIntegrated" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
@@ -250,6 +232,22 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
@@ -266,18 +264,18 @@
     <list>
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="JUnit.ProductFacadeTest" />
-      <item itemvalue="JUnit.ProductFacadeTest.getProductIntegrated" />
       <item itemvalue="JUnit.ProductFacadeTest.returnsCorrectly" />
       <item itemvalue="JUnit.ProductFacadeTest.returnsCorrectlyForNoProductSampleDate" />
       <item itemvalue="Application.DateStr" />
+      <item itemvalue="JUnit.ProductRepoSearchTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.ProductFacadeTest" />
         <item itemvalue="JUnit.ProductFacadeTest.returnsCorrectly" />
         <item itemvalue="JUnit.ProductFacadeTest.returnsCorrectlyForNoProductSampleDate" />
         <item itemvalue="Application.DateStr" />
-        <item itemvalue="JUnit.ProductFacadeTest.getProductIntegrated" />
       </list>
     </recent_temporary>
   </component>
@@ -318,7 +316,7 @@
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
-      <workItem from="1590385363094" duration="22557000" />
+      <workItem from="1590385363094" duration="24014000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -628,7 +626,21 @@
       <option name="project" value="LOCAL" />
       <updated>1590474912598</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Time Testing">
+      <created>1590477577938</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1590477577938</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Time Testing">
+      <created>1590477702081</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1590477702081</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -680,7 +692,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="JDK" />
     <MESSAGE value="fix Java version" />
     <MESSAGE value="Fix DBUnit" />
     <MESSAGE value="Gitignore" />
@@ -705,7 +716,8 @@
     <MESSAGE value="Cucumber polish" />
     <MESSAGE value="Undo solution" />
     <MESSAGE value="Undo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Undo" />
+    <MESSAGE value="Time Testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Time Testing" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -732,10 +744,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.834@0.0.1536.834" timestamp="1590390232663" />
-    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590386111862">
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590477777854">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1590386111862" />
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1590477777854" />
     <state x="551" y="261" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog" timestamp="1590390233545">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -744,30 +756,30 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590474911785">
+    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590477701503">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590474911785" />
+    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590477701503" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590442688974">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590442688974" />
-    <state width="1492" height="364" key="GridCell.Tab.0.bottom" timestamp="1590477475475">
+    <state width="1492" height="304" key="GridCell.Tab.0.bottom" timestamp="1590478844791">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="364" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590477475475" />
-    <state width="1492" height="364" key="GridCell.Tab.0.center" timestamp="1590477475474">
+    <state width="1492" height="304" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590478844791" />
+    <state width="1492" height="304" key="GridCell.Tab.0.center" timestamp="1590478844789">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="364" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590477475474" />
-    <state width="1492" height="364" key="GridCell.Tab.0.left" timestamp="1590477475474">
+    <state width="1492" height="304" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590478844789" />
+    <state width="1492" height="304" key="GridCell.Tab.0.left" timestamp="1590478844788">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="364" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590477475474" />
-    <state width="1492" height="364" key="GridCell.Tab.0.right" timestamp="1590477475474">
+    <state width="1492" height="304" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590478844788" />
+    <state width="1492" height="304" key="GridCell.Tab.0.right" timestamp="1590478844790">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="364" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590477475474" />
+    <state width="1492" height="304" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590478844790" />
     <state width="1493" height="363" key="GridCell.Tab.1.bottom" timestamp="1590440993214">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -804,18 +816,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1590439033424" />
-    <state width="538" height="441" key="javadoc.popup.new" timestamp="1590439894437">
+    <state width="538" height="441" key="javadoc.popup.new" timestamp="1590478857239">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="538" height="441" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590439894437" />
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1590393221421">
+    <state width="538" height="441" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590478857239" />
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1590478890860">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590393221421" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590436615785">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590478890860" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590477933066">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590436615785" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590477933066" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

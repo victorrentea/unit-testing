@@ -8,7 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
+import ro.victor.unittest.spring.facade.ProductSearchResult;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -27,7 +34,42 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     @Autowired
     private SupplierRepo supplierRepo;
 
-    private ProductSearchCriteria criteria = new ProductSearchCriteria();
+    private ProductSearchCriteria criteria;
 
+    @Before/*Method*/
+    public void initialize() {
+        criteria = new ProductSearchCriteria();
+    }
+
+    @Test
+    public void noCriteriaReturnsEverything() {
+        assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
+        repo.save(new Product());
+        List<ProductSearchResult> results = repo.search(criteria);
+        assertThat(results).hasSize(1);
+    }
+    @Test
+    public void searchByName() {
+        assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
+        criteria.name = "X";
+        Product product = new Product().setName("axB");
+        repo.save(product);
+        List<ProductSearchResult> results = repo.search(criteria);
+        // forma1
+        assertThat(results).hasSize(1);
+        assertThat(results.get(0).getId()).isEqualTo(product.getId()); // optional
+        // forma2, mai geeky dar mai greu de urmarit
+        assertThat(results.stream().map(ProductSearchResult::getId)
+                .collect(toList())).isEqualTo(asList(product.getId()));
+    }
+    @Test
+    public void searchByNameMismatch() {
+        assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
+        criteria.name = "X";
+        Product product = new Product().setName("Y");
+        repo.save(product);
+        List<ProductSearchResult> results = repo.search(criteria);
+        assertThat(results).isEmpty();
+    }
 }
 

@@ -24,7 +24,6 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
                 " FROM Product p " +
                 " WHERE 1=1 ";
 
-
         Map<String, Object> paramMap = new HashMap<>();
         if (isNotEmpty(criteria.name)) {
             jpql += "  AND UPPER(p.name) LIKE UPPER(:name)   ";

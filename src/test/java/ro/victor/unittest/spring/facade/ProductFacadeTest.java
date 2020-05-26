@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.infra.WhoServiceClient;
@@ -28,6 +29,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class ProductFacadeTest {
     @Autowired
     private ProductFacade facade;
@@ -50,7 +52,8 @@ public class ProductFacadeTest {
     @Test(expected = IllegalStateException.class)
     public void throwsForCovidVaccineTrue() {
         Product product = new Product();
-        productRepo.save(product);
+        productRepo.save(product); // sau Mockui repo: when(productRepoMock.findById(anyLong()).thenReturn(product);
+//        productRepo.flush();
         when(externalServiceClient.covidVaccineExists()).thenReturn(true);
         facade.getProduct(product.getId());
     }

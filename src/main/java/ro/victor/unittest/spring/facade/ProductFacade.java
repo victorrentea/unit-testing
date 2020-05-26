@@ -3,6 +3,8 @@ package ro.victor.unittest.spring.facade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.ProductService;
 import ro.victor.unittest.spring.repo.ProductRepo;
@@ -22,6 +24,7 @@ public class ProductFacade {
     private final ProductRepo productRepo;
     private final Clock clock;
 
+//    @Transactional(propagation = Propagation.REQUIRES_NEW) // deschide o noua Tx pe o conex noua luata din pool
     public ProductDto getProduct(long productId) {
         Product product = productService.getProduct(productId);
         ProductDto dto = new ProductDto(product);
