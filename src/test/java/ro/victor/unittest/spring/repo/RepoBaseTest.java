@@ -10,18 +10,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Supplier;
+import wiremock.org.checkerframework.checker.units.qual.A;
 
 import javax.persistence.EntityManager;
 
 @RunWith(SpringRunner.class)
 @Slf4j
 @SpringBootTest
-//@DataJpaTest // faster than @SpringBootTest
+//@DataJpaTest // atentie: config db in mem strict // faster than @SpringBootTest
 //@Transactional
 //@Commit //-- uncomment to let the test transaction be commited
 public class RepoBaseTest {
     @Autowired
     protected EntityManager em;
+    @Autowired
     private SupplierRepo repo;
 
     protected Supplier c  = new Supplier().setName("emag");

@@ -10,7 +10,7 @@ public class StartDatabase {
 //		org.hsqldb.server.Server.main("--database.0 mem:test --dbname.0 test".split(" "));
 
 		// H2 does :)
-		org.h2.tools.Server.createTcpServer().start();
+		org.h2.tools.Server.createTcpServer("-ifNotExists").start();
 
 	}
 }

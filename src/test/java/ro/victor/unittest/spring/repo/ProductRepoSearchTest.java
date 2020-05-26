@@ -5,6 +5,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
@@ -18,8 +20,11 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static ro.victor.unittest.spring.domain.Product.*;
 
 @Slf4j
+//@Rollback(false)
+
 // profile, mockbean, props
 public class ProductRepoSearchTest extends RepoBaseTest{
 
@@ -51,7 +56,7 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     @Test
     public void searchByName() {
         assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
-        criteria.name = "X";
+        criteria.name = "Xy";
         Product product = new Product().setName("axB");
         repo.save(product);
         List<ProductSearchResult> results = repo.search(criteria);
@@ -70,6 +75,19 @@ public class ProductRepoSearchTest extends RepoBaseTest{
         repo.save(product);
         List<ProductSearchResult> results = repo.search(criteria);
         assertThat(results).isEmpty();
+    }
+    @Test
+    public void searchByCategory() {
+        assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
+        Product product = new Product()
+                .setCategory(Category.PT_MINE);
+        repo.save(product);
+
+        criteria.category = Category.PT_MINE;
+        assertThat(repo.search(criteria)).hasSize(1);
+
+        criteria.category = Category.PT_NEVASTA;
+        assertThat(repo.search(criteria)).isEmpty();
     }
 }
 
