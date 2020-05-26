@@ -26,9 +26,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/FileRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/FileRepoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/FileRepoForTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +168,7 @@
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductRepoSearchTest">
+  <component name="RunManager" selected="JUnit.ProductFacadeTest">
     <configuration name="SpringTestUtilsPlay" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.SpringTestUtilsPlay" />
       <module name="unit-testing" />
@@ -265,9 +268,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductFacadeTest" />
         <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.ro.victor.unittest.spring in unit-testing" />
-        <item itemvalue="JUnit.ProductFacadeTest" />
         <item itemvalue="Application.SpringTestUtilsPlay" />
         <item itemvalue="JUnit.ProductSearchFeature" />
       </list>
@@ -310,14 +313,7 @@
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
-      <workItem from="1590385363094" duration="28774000" />
-    </task>
-    <task id="LOCAL-00004" summary="minor logging fixes">
-      <created>1562836799037</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836799037</updated>
+      <workItem from="1590385363094" duration="29577000" />
     </task>
     <task id="LOCAL-00005" summary="gitignore">
       <created>1562836908285</created>
@@ -655,7 +651,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590482454337</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Test care face comit in baza, dar apoi distruge springu">
+      <created>1590483776224</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1590483776224</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -707,7 +710,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list." />
     <MESSAGE value="OOP : try to continue" />
     <MESSAGE value="Time: injecting a Clock.fixed() + faking Spring beans" />
     <MESSAGE value="yolo" />
@@ -732,7 +734,8 @@
     <MESSAGE value="Overriding properties for tests" />
     <MESSAGE value="cucumber for testing repo dynamic search" />
     <MESSAGE value="Overriding constant value, in JDK 8" />
-    <option name="LAST_COMMIT_MESSAGE" value="Overriding constant value, in JDK 8" />
+    <MESSAGE value="Test care face comit in baza, dar apoi distruge springu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test care face comit in baza, dar apoi distruge springu" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -751,10 +754,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.834@0.0.1536.834" timestamp="1588657005597" />
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1588659988133">
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1590484243414">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1588659988133" />
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1590484243414" />
     <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590390232663">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -771,10 +774,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590482453736">
+    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590483775608">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590482453736" />
+    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590483775608" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -783,22 +786,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590442688974" />
-    <state width="1492" height="373" key="GridCell.Tab.0.bottom" timestamp="1590483694625">
+    <state width="1492" height="234" key="GridCell.Tab.0.bottom" timestamp="1590484429702">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="373" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590483694625" />
-    <state width="1492" height="373" key="GridCell.Tab.0.center" timestamp="1590483694625">
+    <state width="1492" height="234" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590484429702" />
+    <state width="1492" height="234" key="GridCell.Tab.0.center" timestamp="1590484429702">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="373" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590483694625" />
-    <state width="1492" height="373" key="GridCell.Tab.0.left" timestamp="1590483694625">
+    <state width="1492" height="234" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590484429702" />
+    <state width="1492" height="234" key="GridCell.Tab.0.left" timestamp="1590484429702">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="373" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590483694625" />
-    <state width="1492" height="373" key="GridCell.Tab.0.right" timestamp="1590483694625">
+    <state width="1492" height="234" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590484429702" />
+    <state width="1492" height="234" key="GridCell.Tab.0.right" timestamp="1590484429702">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="373" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590483694625" />
+    <state width="1492" height="234" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590484429702" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590480171296">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -843,10 +846,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590479503116" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590483713622">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590484182970">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590483713622" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590484182970" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
