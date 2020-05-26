@@ -1,5 +1,6 @@
 package ro.victor.unittest.spring.repo;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -34,4 +35,27 @@ public class ProductSearchSteps {
 
     private Product product;
 
+
+    @Given("^A product exists in database$")
+    public void aProductExistsInDatabase() {
+        product = new Product();
+        productRepo.save(product);
+    }
+
+    @And("^That product name is \"([^\"]*)\"$")
+    public void thatProductNameIs(String productName) throws Throwable {
+        product.setName(productName);
+    }
+
+    @When("^Search criteria name is \"([^\"]*)\"$")
+    public void searchCriteriaNameIs(String searchName) throws Throwable {
+        criteria.name = searchName;
+    }
+
+    @Then("^That product is returned$")
+    public void thatProductIsReturned() {
+        List<ProductSearchResult> results = productRepo.search(criteria);
+        assertThat(results).hasSize(1);
+        assertThat(results.get(0).getId()).isEqualTo(product.getId());
+    }
 }

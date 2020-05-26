@@ -46,11 +46,11 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     @Before/*Method*/
     public void initialize() {
         criteria = new ProductSearchCriteria();
+        assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
     }
 
     @Test
     public void noCriteriaReturnsEverything() {
-        assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
         repo.save(new Product());
         List<ProductSearchResult> results = repo.search(criteria);
         assertThat(results).hasSize(1);
@@ -58,7 +58,6 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     @Test
 //    @Commit sau @Rollback(false)
     public void searchByName() {
-        assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
         criteria.name = "X";
         Product product = new Product().setName("axB");
         repo.save(product);
@@ -72,7 +71,6 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     }
     @Test
     public void searchByNameMismatch() {
-        assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
         criteria.name = "X";
         Product product = new Product().setName("Y");
         repo.save(product);
@@ -81,7 +79,6 @@ public class ProductRepoSearchTest extends RepoBaseTest{
     }
     @Test
     public void searchByCategory() {
-        assertThat(repo.count()).isEqualTo(0); // verifici starea bazei la inceput
         Product product = new Product()
                 .setCategory(Category.PT_MINE);
         repo.save(product);

@@ -2,6 +2,7 @@ package ro.victor.unittest.tdd.bowling;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.api.Assertions;
@@ -34,4 +35,5 @@ public class BowlingGameSteps {
     @And("^Means a \"([^\"]*)\"$")
     public void meansA(String arg0) throws Throwable {
     }
+
 }
