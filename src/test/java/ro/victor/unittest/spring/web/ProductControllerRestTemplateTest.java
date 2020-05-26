@@ -16,6 +16,8 @@ import static org.junit.Assert.assertEquals;
 public class ProductControllerRestTemplateTest {
     @Autowired
     private TestRestTemplate rest; // vs RestTemplate helps with auth
+    // dintr-un param poti sa indrepti testele astea catre un alt proces, alta masina,
+//    private TestRestTemplate rest = new TestRestTemplate(); // vs RestTemplate helps with auth
 
     @Test
     public void testUnsecured() {
@@ -27,5 +29,7 @@ public class ProductControllerRestTemplateTest {
         ResponseEntity<String> result = rest.withBasicAuth("spring", "secret")
                 .getForEntity("/secured", String.class);
         assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals("99", result.getBody());
+        assertEquals("true", result.getHeaders().get("Head-Shot").get(0));
     }
 }

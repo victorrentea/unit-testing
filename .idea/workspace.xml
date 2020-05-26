@@ -26,18 +26,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_1_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_test_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_1_5_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcTinyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerMvcTinyTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestTemplateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestTemplateTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +164,7 @@
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductControllerMvcTinyTest">
+  <component name="RunManager" selected="JUnit.ProductControllerRestTemplateTest">
     <configuration name="ProductControllerMvcPortTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -185,22 +175,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerMvcPortTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductControllerMvcTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerMvcTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -257,6 +231,22 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProductControllerRestTemplateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestTemplateTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
@@ -272,19 +262,19 @@
     </configuration>
     <list>
       <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="JUnit.ProductControllerMvcTest" />
       <item itemvalue="JUnit.ProductControllerMvcPortTest" />
       <item itemvalue="JUnit.ProductControllerMvcTinyTest" />
       <item itemvalue="JUnit.ProductControllerMvcTinyTest.search" />
       <item itemvalue="JUnit.ProductControllerMvcTinyTest.securedIsAccessible" />
+      <item itemvalue="JUnit.ProductControllerRestTemplateTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductControllerRestTemplateTest" />
         <item itemvalue="JUnit.ProductControllerMvcTinyTest" />
         <item itemvalue="JUnit.ProductControllerMvcTinyTest.securedIsAccessible" />
         <item itemvalue="JUnit.ProductControllerMvcTinyTest.search" />
         <item itemvalue="JUnit.ProductControllerMvcPortTest" />
-        <item itemvalue="JUnit.ProductControllerMvcTest" />
       </list>
     </recent_temporary>
   </component>
@@ -325,14 +315,7 @@
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
-      <workItem from="1590385363094" duration="32186000" />
-    </task>
-    <task id="LOCAL-00009" summary="unittesting: bank search working with SQL.&#10;adding mybatis to the mix">
-      <created>1562904275181</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1562904275181</updated>
+      <workItem from="1590385363094" duration="32490000" />
     </task>
     <task id="LOCAL-00010" summary="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage">
       <created>1562905012705</created>
@@ -670,7 +653,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590486395272</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Testing URL-based security">
+      <created>1590487307315</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1590487307315</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -722,7 +712,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Prep for PIT" />
     <MESSAGE value="Add more Spring" />
     <MESSAGE value="tweaks" />
     <MESSAGE value="fix compilation. migrate to java 11" />
@@ -747,7 +736,8 @@
     <MESSAGE value="VERDE-n jur, imprejur in departare" />
     <MESSAGE value="Testare a endpointurilor emuland requesturi HTTP" />
     <MESSAGE value="Testarea WEb cu Spring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Testarea WEb cu Spring" />
+    <MESSAGE value="Testing URL-based security" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing URL-based security" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -786,10 +776,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590486394626">
+    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590487306563">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590486394626" />
+    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590487306563" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -798,22 +788,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590442688974" />
-    <state width="1492" height="316" key="GridCell.Tab.0.bottom" timestamp="1590487037228">
+    <state width="1492" height="161" key="GridCell.Tab.0.bottom" timestamp="1590487396010">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="316" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590487037228" />
-    <state width="1492" height="316" key="GridCell.Tab.0.center" timestamp="1590487037228">
+    <state width="1492" height="161" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590487396010" />
+    <state width="1492" height="161" key="GridCell.Tab.0.center" timestamp="1590487396009">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="316" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590487037228" />
-    <state width="1492" height="316" key="GridCell.Tab.0.left" timestamp="1590487037228">
+    <state width="1492" height="161" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590487396009" />
+    <state width="1492" height="161" key="GridCell.Tab.0.left" timestamp="1590487396009">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="316" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590487037228" />
-    <state width="1492" height="316" key="GridCell.Tab.0.right" timestamp="1590487037228">
+    <state width="1492" height="161" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590487396009" />
+    <state width="1492" height="161" key="GridCell.Tab.0.right" timestamp="1590487396010">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="316" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590487037228" />
+    <state width="1492" height="161" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590487396010" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590480171296">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
