@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import ro.victor.unittest.spring.facade.ProductFacade;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 import ro.victor.unittest.spring.facade.ProductSearchResult;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 
+@EnableSwagger2
 @RestController
 @RequiredArgsConstructor
 public class ProductController {
