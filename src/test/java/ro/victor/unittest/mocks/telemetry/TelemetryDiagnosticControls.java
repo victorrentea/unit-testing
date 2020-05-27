@@ -23,7 +23,7 @@ public class TelemetryDiagnosticControls {
 		this.diagnosticInfo = diagnosticInfo;
 	}
 
-	public void checkTransmission() {
+	public void checkTransmission(int v) {
 		telemetryClient.disconnect();
 
 		int currentRetry = 1;
@@ -32,10 +32,13 @@ public class TelemetryDiagnosticControls {
 			currentRetry ++;
 		}
 
-		if (! telemetryClient.getOnlineStatus()) {
+		if (! telemetryClient.getOnlineStatus()/* || true*/) {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
+		if (v == 1) {
+			throw new IllegalStateException("V is 1");
+		}
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
