@@ -48,8 +48,7 @@ public class TelemetryDiagnosticControls {
 			throw new TelemetryException("value is 1", VALUE_IS_1);
 		}
 		// cum testam astea:
-		ClientConfiguration config = createConfig();
-		telemetryClient.configure(config);
+		telemetryClient.configure(createConfig());
 		// pana aici
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);

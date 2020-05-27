@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
 import static org.junit.rules.ExpectedException.none;
@@ -108,6 +110,8 @@ public class TelemetryDiagnosticControlsTest {
         ClientConfiguration config = controls.createConfig();
         assertEquals(NORMAL, config.getAckMode());
         Assertions.assertThat(config.getSessionId()).startsWith(new TelemetryClient().getVersion() + "-");
+        Assertions.assertThat(config.getSessionStart()).isNotNull(); // echipa siktir
+        Assertions.assertThat(config.getSessionStart()).isEqualToIgnoringHours(LocalDateTime.now()); // echipa cu pretentii, si noroc in viata
     }
 
 
