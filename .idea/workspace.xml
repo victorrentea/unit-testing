@@ -10,6 +10,11 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
     </expand>
     <select>
       <path>
@@ -21,7 +26,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +55,10 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="EBS201911" />
+        <entry key="$PROJECT_DIR$" value="Adobe202005_followup" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -103,7 +109,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -157,21 +163,8 @@
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductSearchFeature">
-    <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductControllerMvcPortTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically">
+    <configuration name="ProductControllerMvcTinyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -180,14 +173,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerMvcPortTest" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerMvcTinyTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductControllerMvcTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductControllerMvcTinyTest.securedIsAccessible" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -196,39 +189,58 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerMvcTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerMvcTinyTest" />
+      <option name="METHOD_NAME" value="securedIsAccessible" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestAssuredTest" />
+      <option name="METHOD_NAME" value="moreComplexByWireMockProgramatically" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductSearchFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductControllerRestAssuredTest.testSearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductSearchFeature" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestAssuredTest" />
+      <option name="METHOD_NAME" value="testSearch" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerRestTemplateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestTemplateTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -249,20 +261,20 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.ProductControllerMvcTinyTest" />
+      <item itemvalue="JUnit.ProductControllerMvcTinyTest.securedIsAccessible" />
+      <item itemvalue="JUnit.ProductControllerRestTemplateTest" />
+      <item itemvalue="JUnit.ProductControllerRestAssuredTest.testSearch" />
+      <item itemvalue="JUnit.ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically" />
       <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="JUnit.ProductControllerMvcPortTest" />
-      <item itemvalue="JUnit.ProductSearchFeature" />
-      <item itemvalue="Application.StartDatabase" />
-      <item itemvalue="JUnit.ProductControllerMvcTest" />
-      <item itemvalue="JUnit.ProductFacadeTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProductSearchFeature" />
-        <item itemvalue="JUnit.ProductFacadeTest" />
-        <item itemvalue="JUnit.ProductControllerMvcTest" />
-        <item itemvalue="Application.StartDatabase" />
-        <item itemvalue="JUnit.ProductControllerMvcPortTest" />
+        <item itemvalue="JUnit.ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically" />
+        <item itemvalue="JUnit.ProductControllerRestAssuredTest.testSearch" />
+        <item itemvalue="JUnit.ProductControllerRestTemplateTest" />
+        <item itemvalue="JUnit.ProductControllerMvcTinyTest" />
+        <item itemvalue="JUnit.ProductControllerMvcTinyTest.securedIsAccessible" />
       </list>
     </recent_temporary>
   </component>
@@ -303,84 +315,7 @@
       <workItem from="1588656263146" duration="33000" />
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
-      <workItem from="1590385363094" duration="18156000" />
-    </task>
-    <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
-      <created>1562356900385</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1562356900385</updated>
-    </task>
-    <task id="LOCAL-00002" summary="unittesting: Add Cucumber + DB testing">
-      <created>1562836507941</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836507941</updated>
-    </task>
-    <task id="LOCAL-00003" summary="unittesting: fix typo in .feature">
-      <created>1562836571900</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836571900</updated>
-    </task>
-    <task id="LOCAL-00004" summary="minor logging fixes">
-      <created>1562836799037</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836799037</updated>
-    </task>
-    <task id="LOCAL-00005" summary="gitignore">
-      <created>1562836908285</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836908285</updated>
-    </task>
-    <task id="LOCAL-00006" summary="unit test php: solved pretty good">
-      <created>1562836954773</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1562836954773</updated>
-    </task>
-    <task id="LOCAL-00007" summary="unittesting: Time Rule fix">
-      <created>1562877239535</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1562877239535</updated>
-    </task>
-    <task id="LOCAL-00008" summary="UnitTesting: Search in JPA implem complete">
-      <created>1562879638407</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1562879638407</updated>
-    </task>
-    <task id="LOCAL-00009" summary="unittesting: bank search working with SQL.&#10;adding mybatis to the mix">
-      <created>1562904275181</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1562904275181</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage">
-      <created>1562905012705</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1562905012705</updated>
-    </task>
-    <task id="LOCAL-00011" summary="cleanup">
-      <created>1562906329675</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1562906329676</updated>
+      <workItem from="1590385363094" duration="34793000" />
     </task>
     <task id="LOCAL-00012" summary="Exceptii cu mesaj text.">
       <created>1563264127590</created>
@@ -592,7 +527,140 @@
       <option name="project" value="LOCAL" />
       <updated>1590442973130</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Cucumber polish">
+      <created>1590443006039</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1590443006039</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Undo solution">
+      <created>1590474805446</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1590474805446</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Undo">
+      <created>1590474912597</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1590474912598</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Time Testing">
+      <created>1590477577938</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1590477577938</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Time Testing">
+      <created>1590477702081</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1590477702081</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Exemplu de teste care fara @Transactional se impacteaza unul pe altul">
+      <created>1590479248160</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1590479248160</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Exemplu de teste care fara @Transactional se impacteaza unul pe altul">
+      <created>1590480586328</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1590480586328</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Exemplu de teste care fara @Transactional se impacteaza unul pe altul">
+      <created>1590480731832</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1590480731832</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Overriding properties for tests">
+      <created>1590480991513</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1590480991514</updated>
+    </task>
+    <task id="LOCAL-00051" summary="cucumber for testing repo dynamic search">
+      <created>1590481584298</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1590481584298</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Overriding constant value, in JDK 8">
+      <created>1590482454337</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1590482454337</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Test care face comit in baza, dar apoi distruge springu">
+      <created>1590483776224</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1590483776224</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Dummy implem. Profiles.">
+      <created>1590484556493</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1590484556493</updated>
+    </task>
+    <task id="LOCAL-00055" summary="VERDE-n jur, imprejur in departare">
+      <created>1590484602086</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1590484602086</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Testare a endpointurilor emuland requesturi HTTP">
+      <created>1590485827576</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1590485827576</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Testarea WEb cu Spring">
+      <created>1590486395272</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1590486395272</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Testing URL-based security">
+      <created>1590487307315</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1590487307315</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Using [Test]RestTemplate to test your own API">
+      <created>1590487599283</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1590487599283</updated>
+    </task>
+    <task id="LOCAL-00060" summary="RestAssuring a WireMock">
+      <created>1590488915525</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1590488915526</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -644,22 +712,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="outside-in" />
-    <MESSAGE value="Aproape gata (80%)" />
-    <MESSAGE value="Outside IN TDD : DOne" />
-    <MESSAGE value="JDK" />
-    <MESSAGE value="fix Java version" />
-    <MESSAGE value="Fix DBUnit" />
-    <MESSAGE value="Gitignore" />
-    <MESSAGE value="Prep for mutation testing" />
-    <MESSAGE value="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list." />
-    <MESSAGE value="OOP : try to continue" />
-    <MESSAGE value="Time: injecting a Clock.fixed() + faking Spring beans" />
-    <MESSAGE value="yolo" />
-    <MESSAGE value="Spring Testing" />
-    <MESSAGE value="Prep for PIT" />
-    <MESSAGE value="Add more Spring" />
-    <MESSAGE value="tweaks" />
     <MESSAGE value="fix compilation. migrate to java 11" />
     <MESSAGE value="fix compilation" />
     <MESSAGE value="Restore Spring MVC Test" />
@@ -669,7 +721,23 @@
     <MESSAGE value="Cucumber Repo search working" />
     <MESSAGE value="Cucumber: No TestTransaction available" />
     <MESSAGE value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
-    <option name="LAST_COMMIT_MESSAGE" value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
+    <MESSAGE value="Cucumber polish" />
+    <MESSAGE value="Undo solution" />
+    <MESSAGE value="Undo" />
+    <MESSAGE value="Time Testing" />
+    <MESSAGE value="Exemplu de teste care fara @Transactional se impacteaza unul pe altul" />
+    <MESSAGE value="Overriding properties for tests" />
+    <MESSAGE value="cucumber for testing repo dynamic search" />
+    <MESSAGE value="Overriding constant value, in JDK 8" />
+    <MESSAGE value="Test care face comit in baza, dar apoi distruge springu" />
+    <MESSAGE value="Dummy implem. Profiles." />
+    <MESSAGE value="VERDE-n jur, imprejur in departare" />
+    <MESSAGE value="Testare a endpointurilor emuland requesturi HTTP" />
+    <MESSAGE value="Testarea WEb cu Spring" />
+    <MESSAGE value="Testing URL-based security" />
+    <MESSAGE value="Using [Test]RestTemplate to test your own API" />
+    <MESSAGE value="RestAssuring a WireMock" />
+    <option name="LAST_COMMIT_MESSAGE" value="RestAssuring a WireMock" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -680,26 +748,26 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1536.834@0.0.1536.834" timestamp="1590391014541" />
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590385753924">
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590480155009">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590385753924" />
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590480155009" />
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588657005597">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.834@0.0.1536.834" timestamp="1588657005597" />
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1588659988133">
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1590484243414">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1588659988133" />
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1590484243414" />
     <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590390232663">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.834@0.0.1536.834" timestamp="1590390232663" />
-    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590386111862">
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590477777854">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1590386111862" />
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1590477777854" />
     <state x="551" y="261" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog" timestamp="1590390233545">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -708,46 +776,50 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="626" y="0" key="CommitChangelistDialog2" timestamp="1590442972716">
+    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590488914908">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="626" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590442972716" />
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590442688974">
+    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590488914908" />
+    <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590442688974" />
-    <state width="1493" height="356" key="GridCell.Tab.0.bottom" timestamp="1590442936426">
+    <state width="254" height="195" key="DatabaseViewActions_Filter/0.0.1536.834@0.0.1536.834" timestamp="1590479389168" />
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590488309733">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590442936426" />
-    <state width="1493" height="356" key="GridCell.Tab.0.center" timestamp="1590442936425">
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590488309733" />
+    <state width="1492" height="334" key="GridCell.Tab.0.bottom" timestamp="1590488879390">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590442936425" />
-    <state width="1493" height="356" key="GridCell.Tab.0.left" timestamp="1590442936425">
+    <state width="1492" height="334" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590488879390" />
+    <state width="1492" height="334" key="GridCell.Tab.0.center" timestamp="1590488879389">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590442936425" />
-    <state width="1493" height="356" key="GridCell.Tab.0.right" timestamp="1590442936426">
+    <state width="1492" height="334" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590488879389" />
+    <state width="1492" height="334" key="GridCell.Tab.0.left" timestamp="1590488879389">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590442936426" />
-    <state width="1493" height="363" key="GridCell.Tab.1.bottom" timestamp="1590440993214">
+    <state width="1492" height="334" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590488879389" />
+    <state width="1492" height="334" key="GridCell.Tab.0.right" timestamp="1590488879389">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="363" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590440993214" />
-    <state width="1493" height="363" key="GridCell.Tab.1.center" timestamp="1590440993213">
+    <state width="1492" height="334" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590488879389" />
+    <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590480171296">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="363" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1590440993213" />
-    <state width="1493" height="363" key="GridCell.Tab.1.left" timestamp="1590440993213">
+    <state width="1492" height="195" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590480171296" />
+    <state width="1492" height="195" key="GridCell.Tab.1.center" timestamp="1590480171296">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="363" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1590440993213" />
-    <state width="1493" height="363" key="GridCell.Tab.1.right" timestamp="1590440993213">
+    <state width="1492" height="195" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1590480171296" />
+    <state width="1492" height="195" key="GridCell.Tab.1.left" timestamp="1590480171296">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="363" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1590440993213" />
+    <state width="1492" height="195" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1590480171296" />
+    <state width="1492" height="195" key="GridCell.Tab.1.right" timestamp="1590480171296">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1492" height="195" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1590480171296" />
     <state x="349" y="152" key="IDE.errors.dialog" timestamp="1590403159824">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -756,30 +828,34 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="299" y="72" key="Maven.ArtifactSearchDialog/0.0.1536.834@0.0.1536.834" timestamp="1590399694342" />
-    <state x="278" y="0" width="1258" height="710" key="SettingsEditor" timestamp="1590394464565">
+    <state x="278" y="0" width="1258" height="710" key="SettingsEditor" timestamp="1590486503502">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590394464565" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590442975084">
+    <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590486503502" />
+    <state x="497" y="181" width="540" height="524" key="StructurePopup" timestamp="1590485211114">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590442975084" />
+    <state x="497" y="181" width="540" height="524" key="StructurePopup/0.0.1536.834@0.0.1536.834" timestamp="1590485211114" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590474916393">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590474916393" />
     <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590439033424">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1590439033424" />
-    <state width="538" height="441" key="javadoc.popup.new" timestamp="1590439894437">
+    <state width="462" height="526" key="javadoc.popup.new" timestamp="1590488725401">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="538" height="441" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590439894437" />
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1590393221421">
+    <state width="462" height="526" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590488725401" />
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1590479503116">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590393221421" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590436615785">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590479503116" />
+    <state x="431" y="155" width="672" height="158" key="search.everywhere.popup" timestamp="1590488415209">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590436615785" />
+    <state x="431" y="155" width="672" height="158" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590488415209" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
