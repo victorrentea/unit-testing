@@ -1,6 +1,5 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -13,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
 import static org.junit.rules.ExpectedException.none;
 import static org.mockito.Mockito.*;
+import static ro.victor.unittest.mocks.telemetry.TelemetryException.ErrorCode.VALUE_IS_1;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,7 +29,7 @@ public class TelemetryDiagnosticControlsTest {
         controls.checkTransmission(0);
         verify(client).disconnect();
     }
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = TelemetryException.class)
     public void throwsWhenNotOnline() {
         when(client.getOnlineStatus()).thenReturn(false);
         controls.checkTransmission(0);
@@ -41,22 +41,29 @@ public class TelemetryDiagnosticControlsTest {
         try {
             controls.checkTransmission(1);
             fail("Should have thrown exception");
-        } catch (IllegalStateException e) {
-            assertEquals("V is 1", e.getMessage());
+        } catch (TelemetryException e) {
+            assertEquals("value is 1", e.getMessage());
         }
     }
     @Test
     public void throwsWhenVIs1_assertions() {
         when(client.getOnlineStatus()).thenReturn(true);
         assertThatThrownBy(() -> controls.checkTransmission(1))
-            .hasMessageContaining("V is 1");
+            .hasMessageContaining("value is 1");
     }
     @Rule
     public ExpectedException expectedException = none();
 
     @Test
     public void throwsWhenVIs1_junit() {
-        expectedException.expectMessage("V is 1");
+        expectedException.expectMessage("value is 1");
+        when(client.getOnlineStatus()).thenReturn(true);
+        controls.checkTransmission(1);
+    }
+
+    @Test
+    public void throwsWhenVIs1_junit_matchers() {
+        expectedException.expect(new TelemetryExceptionMatcher(VALUE_IS_1));
         when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission(1);
     }
