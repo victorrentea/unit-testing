@@ -5,14 +5,19 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
 import static org.junit.rules.ExpectedException.none;
+import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
+import static ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode.NORMAL;
 import static ro.victor.unittest.mocks.telemetry.TelemetryException.ErrorCode.VALUE_IS_1;
 
 
@@ -83,6 +88,26 @@ public class TelemetryDiagnosticControlsTest {
 
 //        verify(client).receive();
         Assertions.assertThat(controls.getDiagnosticInfo()).isEqualTo("TATAIE");
+    }
+
+
+    @Captor
+    ArgumentCaptor<ClientConfiguration> configCaptor;
+    @Test
+    public void configuresClient() {
+        when(client.getOnlineStatus()).thenReturn(true);
+        controls.checkTransmission(0);
+//        ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
+        verify(client).configure(configCaptor.capture());
+        ClientConfiguration config = configCaptor.getValue();
+        assertEquals(NORMAL, config.getAckMode());
+    }
+
+    @Test
+    public void createConfigCorrectly() {
+        ClientConfiguration config = controls.createConfig();
+        assertEquals(NORMAL, config.getAckMode());
+        Assertions.assertThat(config.getSessionId()).startsWith(new TelemetryClient().getVersion() + "-");
     }
 
 

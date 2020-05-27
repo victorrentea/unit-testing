@@ -47,14 +47,21 @@ public class TelemetryDiagnosticControls {
 		if (value == 1) {
 			throw new TelemetryException("value is 1", VALUE_IS_1);
 		}
+		// cum testam astea:
+		ClientConfiguration config = createConfig();
+		telemetryClient.configure(config);
+		// pana aici
+
+		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		diagnosticInfo = telemetryClient.receive();
+	}
+
+	ClientConfiguration createConfig() {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
-		telemetryClient.configure(config);
-
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
-		diagnosticInfo = telemetryClient.receive();
+		return config;
 	}
 
 }

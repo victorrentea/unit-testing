@@ -29,7 +29,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryException.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,13 +320,6 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-    </task>
-    <task id="LOCAL-00018" summary="Aproape gata (80%)">
-      <created>1563365001923</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1563365001923</updated>
     </task>
     <task id="LOCAL-00019" summary="Outside IN TDD : DOne">
       <created>1563366852496</created>
@@ -665,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590569268642</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Am verificat un command si un query outbound">
+      <created>1590570746098</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1590570746098</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -717,7 +716,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Cucumber Repo search working" />
     <MESSAGE value="Cucumber: No TestTransaction available" />
     <MESSAGE value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
     <MESSAGE value="Cucumber polish" />
@@ -742,7 +740,8 @@
     <MESSAGE value="MockitoRunner + validarea exceptiei" />
     <MESSAGE value="JUnit @Rule pt ExcpectedException" />
     <MESSAGE value="MAtchuirea codului din exceptie" />
-    <option name="LAST_COMMIT_MESSAGE" value="MAtchuirea codului din exceptie" />
+    <MESSAGE value="Am verificat un command si un query outbound" />
+    <option name="LAST_COMMIT_MESSAGE" value="Am verificat un command si un query outbound" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -781,34 +780,34 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="75" y="0" key="CommitChangelistDialog2" timestamp="1590569267783">
+    <state x="701" y="0" key="CommitChangelistDialog2" timestamp="1590570745228">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="75" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590569267783" />
+    <state x="701" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590570745228" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="254" height="195" key="DatabaseViewActions_Filter/0.0.1536.834@0.0.1536.834" timestamp="1590479389168" />
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590562064922">
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590570733014">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590562064922" />
-    <state width="1492" height="163" key="GridCell.Tab.0.bottom" timestamp="1590570284731">
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590570733014" />
+    <state width="1492" height="163" key="GridCell.Tab.0.bottom" timestamp="1590571827315">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590570284731" />
-    <state width="1492" height="163" key="GridCell.Tab.0.center" timestamp="1590570284730">
+    <state width="1492" height="163" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590571827315" />
+    <state width="1492" height="163" key="GridCell.Tab.0.center" timestamp="1590571827314">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590570284730" />
-    <state width="1492" height="163" key="GridCell.Tab.0.left" timestamp="1590570284730">
+    <state width="1492" height="163" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590571827314" />
+    <state width="1492" height="163" key="GridCell.Tab.0.left" timestamp="1590571827313">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590570284730" />
-    <state width="1492" height="163" key="GridCell.Tab.0.right" timestamp="1590570284730">
+    <state width="1492" height="163" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590571827313" />
+    <state width="1492" height="163" key="GridCell.Tab.0.right" timestamp="1590571827314">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590570284730" />
+    <state width="1492" height="163" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590571827314" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590480171296">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -845,6 +844,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590474916393" />
+    <state x="499" y="182" key="extract.method.dialog" timestamp="1590571902841">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="499" y="182" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1590571902841" />
     <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590439033424">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -865,10 +868,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590479503116" />
-    <state x="431" y="155" width="672" height="158" key="search.everywhere.popup" timestamp="1590566783319">
+    <state x="431" y="155" width="672" height="158" key="search.everywhere.popup" timestamp="1590572025178">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="158" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590566783319" />
+    <state x="431" y="155" width="672" height="158" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590572025178" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
