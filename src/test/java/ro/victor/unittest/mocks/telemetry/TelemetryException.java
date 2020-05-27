@@ -1,12 +1,18 @@
 package ro.victor.unittest.mocks.telemetry;
 
 import org.springframework.validation.Errors;
+class TelemetryExceptionHandledException extends TelemetryException {
 
+    public TelemetryExceptionHandledException(Throwable cause) {
+        super(cause, ErrorCode.HANDLED_ERROR);
+    }
+}
 public class TelemetryException extends RuntimeException {
 
     public enum ErrorCode {
         GENERAL,
         VALUE_IS_1,
+        HANDLED_ERROR,
         NOT_CONNECTED
     }
 

@@ -27,7 +27,12 @@ public class TelemetryDiagnosticControls {
 	}
 
 	public void checkTransmission(int value) {
-		telemetryClient.disconnect();
+
+//		try {
+			telemetryClient.disconnect();
+//		} catch (TelemetryExceptionHandledException e) {
+			// Recomandare: creati subtipuri de exceptii doar pentru cazurile cand le si tratati selectiv
+//		}
 
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {

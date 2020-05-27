@@ -1,5 +1,6 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -66,6 +67,22 @@ public class TelemetryDiagnosticControlsTest {
         expectedException.expect(new TelemetryExceptionMatcher(VALUE_IS_1));
         when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission(1);
+    }
+
+    @Test
+    public void checkTransmissionOk() {
+        when(client.getOnlineStatus()).thenReturn(true);
+        when(client.receive()).thenReturn("TATAIE");
+        controls.checkTransmission(0);
+
+        verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // foloseste constanta in general 90+%
+
+//        verify(client).send("AT#UD"); -- cand vrei sa impiedici modificare avalorii
+        // pt ca (tipic) apartine protocolului de comunicatie cu alt sistem
+        // sau hardware -> aperi impotriva idio**lor care modifica valoare constantei
+
+//        verify(client).receive();
+        Assertions.assertThat(controls.getDiagnosticInfo()).isEqualTo("TATAIE");
     }
 
 

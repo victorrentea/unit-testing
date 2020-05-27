@@ -26,11 +26,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryExceptionMatcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryException.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +184,7 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TelemetryDiagnosticControlsTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TelemetryDiagnosticControlsTest.sendsDiagnosticMessage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -195,7 +194,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
-      <option name="METHOD_NAME" value="test" />
+      <option name="METHOD_NAME" value="sendsDiagnosticMessage" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -268,19 +267,19 @@
     </configuration>
     <list>
       <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.test" />
       <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
       <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1" />
       <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1_assertions" />
       <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1_junit" />
+      <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.sendsDiagnosticMessage" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
+        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.sendsDiagnosticMessage" />
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1_junit" />
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1_assertions" />
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1" />
-        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -322,13 +321,6 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-    </task>
-    <task id="LOCAL-00017" summary="outside-in">
-      <created>1563361478116</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1563361478116</updated>
     </task>
     <task id="LOCAL-00018" summary="Aproape gata (80%)">
       <created>1563365001923</created>
@@ -666,7 +658,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590568853974</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="MAtchuirea codului din exceptie">
+      <created>1590569268642</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1590569268642</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -718,7 +717,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Repo .feature sample" />
     <MESSAGE value="Cucumber Repo search working" />
     <MESSAGE value="Cucumber: No TestTransaction available" />
     <MESSAGE value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
@@ -743,7 +741,8 @@
     <MESSAGE value="Hint: incercati sa testati clasele impreuna mai degraba decat sa le sectionati marunt cu mockuri" />
     <MESSAGE value="MockitoRunner + validarea exceptiei" />
     <MESSAGE value="JUnit @Rule pt ExcpectedException" />
-    <option name="LAST_COMMIT_MESSAGE" value="JUnit @Rule pt ExcpectedException" />
+    <MESSAGE value="MAtchuirea codului din exceptie" />
+    <option name="LAST_COMMIT_MESSAGE" value="MAtchuirea codului din exceptie" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -762,10 +761,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.834@0.0.1536.834" timestamp="1588657005597" />
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1590568967541">
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1590569374826">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1590568967541" />
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1590569374826" />
     <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590569232519">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -782,10 +781,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="75" y="0" key="CommitChangelistDialog2" timestamp="1590568853258">
+    <state x="75" y="0" key="CommitChangelistDialog2" timestamp="1590569267783">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="75" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590568853258" />
+    <state x="75" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590569267783" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -794,22 +793,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590562064922" />
-    <state width="1492" height="163" key="GridCell.Tab.0.bottom" timestamp="1590569062886">
+    <state width="1492" height="163" key="GridCell.Tab.0.bottom" timestamp="1590570284731">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590569062886" />
-    <state width="1492" height="163" key="GridCell.Tab.0.center" timestamp="1590569062885">
+    <state width="1492" height="163" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590570284731" />
+    <state width="1492" height="163" key="GridCell.Tab.0.center" timestamp="1590570284730">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590569062885" />
-    <state width="1492" height="163" key="GridCell.Tab.0.left" timestamp="1590569062885">
+    <state width="1492" height="163" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590570284730" />
+    <state width="1492" height="163" key="GridCell.Tab.0.left" timestamp="1590570284730">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590569062885" />
-    <state width="1492" height="163" key="GridCell.Tab.0.right" timestamp="1590569062886">
+    <state width="1492" height="163" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590570284730" />
+    <state width="1492" height="163" key="GridCell.Tab.0.right" timestamp="1590570284730">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590569062886" />
+    <state width="1492" height="163" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590570284730" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590480171296">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
