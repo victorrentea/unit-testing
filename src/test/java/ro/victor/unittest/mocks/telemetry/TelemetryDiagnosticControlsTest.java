@@ -1,35 +1,20 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
-import ro.victor.unittest.time.rule.TestTimeRule;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
 
 
 public class TelemetryDiagnosticControlsTest {
 
     @Test
     public void test() {
-        TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls();
-        // Temporal Coupling: trebuie sa chemi setTelemetryClient inainte sa chemi check transmission.
-        // si asta doar batranii o stiu
-        controls.setTelemetryClient(new TelemetryClient());
+        // Intentia default ar trebui sa fie sa testtezi si clientul in joc cu Controls, eventual decupland sub client, cat mai aproape de exterior.
+        TelemetryClient client = new TelemetryClient();
+        TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls(client);
         controls.checkTransmission();
+
     }
 
 }

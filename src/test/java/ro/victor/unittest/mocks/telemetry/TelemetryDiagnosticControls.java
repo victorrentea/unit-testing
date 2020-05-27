@@ -1,20 +1,18 @@
 package ro.victor.unittest.mocks.telemetry;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.UUID;
 
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
-import ro.victor.unittest.time.rule.TimeProvider;
 
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
 	}
 
