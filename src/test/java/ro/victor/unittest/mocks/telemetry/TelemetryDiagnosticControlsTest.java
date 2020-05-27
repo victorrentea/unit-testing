@@ -82,8 +82,9 @@ public class TelemetryDiagnosticControlsTest {
         when(client.receive()).thenReturn("TATAIE");
         controls.checkTransmission(0);
 
-        verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // foloseste constanta in general 90+%
+        verify(client, times(1)).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // foloseste constanta in general 90+%
 
+//        verifyNoMoreInteractions(client);
 //        verify(client).send("AT#UD"); -- cand vrei sa impiedici modificare avalorii
         // pt ca (tipic) apartine protocolului de comunicatie cu alt sistem
         // sau hardware -> aperi impotriva idio**lor care modifica valoare constantei
@@ -107,12 +108,28 @@ public class TelemetryDiagnosticControlsTest {
 
     @Test
     public void createConfigCorrectly() {
+        when(client.getVersion()).thenReturn("VER");
         ClientConfiguration config = controls.createConfig();
         assertEquals(NORMAL, config.getAckMode());
-        Assertions.assertThat(config.getSessionId()).startsWith(new TelemetryClient().getVersion() + "-");
+        Assertions.assertThat(config.getSessionId()).startsWith("VER-");
         Assertions.assertThat(config.getSessionStart()).isNotNull(); // echipa siktir
         Assertions.assertThat(config.getSessionStart()).isEqualToIgnoringHours(LocalDateTime.now()); // echipa cu pretentii, si noroc in viata
     }
 
+    @Test
+    public void configuresClientWithWhatever() {
+        when(client.getOnlineStatus()).thenReturn(true);
+        controls.checkTransmission(0);
+        verify(client).configure(any());
+        // nu e absolut tot testat inca:
+        // poate sa se modif cod de prod astfeL :
+        //telemetryClient.configure(new ClientConfig()); -- mutant ne prins de test
+
+        // super-strict ar insemna sa citesti despre
+        /** @see org.mockito.Spy */
+        // tu ai vrea sa scrii:
+//        verify(controls).createConfig();
+
+    }
 
 }
