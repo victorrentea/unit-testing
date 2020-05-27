@@ -20,11 +20,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+
 public class TelemetryDiagnosticControlsTest {
 
     @Test
     public void test() {
-        assertTrue(true);
+        TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls();
+        // Temporal Coupling: trebuie sa chemi setTelemetryClient inainte sa chemi check transmission.
+        // si asta doar batranii o stiu
+        controls.setTelemetryClient(new TelemetryClient());
+        controls.checkTransmission();
     }
 
 }
