@@ -45,8 +45,20 @@ public class FizzBuzzTest {
     public void test15() {
         assertEquals("Fizz Buzz", fizzBuzz.getItem(15));
     }
+    @Test
+    public void test105() {
+        assertEquals("Fizz Buzz Wizz", fizzBuzz.getItem(3*5*7));
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testNegative() {
+        fizzBuzz.getItem(1);
+    }
 
     // 7 Wizz
     // 21 Fizz Wizz
     // 105 Fizz Buzz Wizz
+
+    // Kent Beck: You have to do a difficult change. \
+    // First you make that change easy [Warning: this might be difficult] -REFACTOR
+    // Then you do the ease change
 }
