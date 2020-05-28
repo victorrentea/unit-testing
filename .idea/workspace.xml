@@ -26,7 +26,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="hehe - tzeapa in pregatire">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -161,7 +164,20 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CustomerValidatorShould">
+  <component name="RunManager" selected="JUnit.ProductRepoSearchTest.test">
+    <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CustomerValidatorShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -178,7 +194,7 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductRepoSearchTest.category" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductRepoSearchTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
@@ -188,24 +204,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
-      <option name="METHOD_NAME" value="category" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductRepoSearchTest.name" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
-      <option name="METHOD_NAME" value="name" />
+      <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -267,19 +266,19 @@
     <list>
       <item itemvalue="PIT Runner.Tennis" />
       <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="JUnit.ProductRepoSearchTest.category" />
-      <item itemvalue="JUnit.ProductRepoSearchTest.name" />
       <item itemvalue="JUnit.CustomerValidatorShould" />
       <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1_assertions" />
       <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
+      <item itemvalue="Application.StartDatabase" />
+      <item itemvalue="JUnit.ProductRepoSearchTest.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductRepoSearchTest.test" />
+        <item itemvalue="Application.StartDatabase" />
         <item itemvalue="JUnit.CustomerValidatorShould" />
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1_assertions" />
-        <item itemvalue="JUnit.ProductRepoSearchTest.name" />
-        <item itemvalue="JUnit.ProductRepoSearchTest.category" />
       </list>
     </recent_temporary>
   </component>
@@ -321,14 +320,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-      <workItem from="1590644943200" duration="11179000" />
-    </task>
-    <task id="LOCAL-00031" summary="Add more Spring">
-      <created>1588660022323</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1588660022323</updated>
+      <workItem from="1590644943200" duration="12862000" />
     </task>
     <task id="LOCAL-00032" summary="fix compilation. migrate to java 11">
       <created>1590386159174</created>
@@ -666,7 +658,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590657505787</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="hehe - tzeapa in pregatire">
+      <created>1590657894811</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1590657894811</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -743,7 +742,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="VERDE-n jur, imprejur in departare" />
     <MESSAGE value="Testare a endpointurilor emuland requesturi HTTP" />
     <MESSAGE value="Testarea WEb cu Spring" />
     <MESSAGE value="Testing URL-based security" />
@@ -768,7 +766,8 @@
     <MESSAGE value="Classic Builder" />
     <MESSAGE value="Fluent setters, chiar cu Lombok (vezi lombok.config)" />
     <MESSAGE value="ierarhie de clase de test" />
-    <option name="LAST_COMMIT_MESSAGE" value="ierarhie de clase de test" />
+    <MESSAGE value="hehe - tzeapa in pregatire" />
+    <option name="LAST_COMMIT_MESSAGE" value="hehe - tzeapa in pregatire" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -779,10 +778,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1536.834@0.0.1536.834" timestamp="1590391014541" />
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590655538340">
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590659047935">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590655538340" />
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590659047935" />
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588657005597">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -811,10 +810,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590657505014">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590658277972">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590657505014" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590658277972" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -823,22 +822,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590655221600" />
-    <state width="1492" height="286" key="GridCell.Tab.0.bottom" timestamp="1590657480136">
+    <state width="1492" height="335" key="GridCell.Tab.0.bottom" timestamp="1590659381538">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="286" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590657480136" />
-    <state width="1492" height="286" key="GridCell.Tab.0.center" timestamp="1590657480135">
+    <state width="1492" height="335" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590659381538" />
+    <state width="1492" height="335" key="GridCell.Tab.0.center" timestamp="1590659381537">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="286" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590657480135" />
-    <state width="1492" height="286" key="GridCell.Tab.0.left" timestamp="1590657480135">
+    <state width="1492" height="335" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590659381537" />
+    <state width="1492" height="335" key="GridCell.Tab.0.left" timestamp="1590659381537">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="286" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590657480135" />
-    <state width="1492" height="286" key="GridCell.Tab.0.right" timestamp="1590657480135">
+    <state width="1492" height="335" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590659381537" />
+    <state width="1492" height="335" key="GridCell.Tab.0.right" timestamp="1590659381537">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="286" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590657480135" />
+    <state width="1492" height="335" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590659381537" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -899,10 +898,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="558" y="333" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1536.834@0.0.1536.834" timestamp="1590562110357" />
-    <state width="300" height="339" key="javadoc.popup.new" timestamp="1590656418911">
+    <state width="756" height="339" key="javadoc.popup.new" timestamp="1590659248505">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="300" height="339" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590656418911" />
+    <state width="756" height="339" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590659248505" />
     <state x="521" y="353" key="org.jetbrains.plugins.cucumber.inspections.ui.CreateStepDefinitionFileDialog" timestamp="1590650729775">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -915,21 +914,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590655616773" />
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590653801402">
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590659065938">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590653801402" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/ro/victor/unittest/StartDatabase.java</url>
-          <line>9</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590659065938" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
