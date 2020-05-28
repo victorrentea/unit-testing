@@ -13,7 +13,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
@@ -28,11 +31,15 @@ import static ro.victor.unittest.mocks.telemetry.TelemetryException.ErrorCode.VA
 public class TelemetryDiagnosticControlsTest {
     @Mock
     private TelemetryClient client;
+    @Mock
+    private Clock clock;
     @InjectMocks
     private TelemetryDiagnosticControls controls;
 
     @Before
     public void initializeMocks() {
+        when(clock.getZone()).thenReturn(ZoneId.of("UTC"));
+        when(clock.instant()).thenReturn(Instant.parse("2020-01-01T08:00:00.00Z"));
         when(client.getOnlineStatus()).thenReturn(true);
     }
     @Before
@@ -116,7 +123,12 @@ public class TelemetryDiagnosticControlsTest {
         assertEquals(NORMAL, config.getAckMode());
         Assertions.assertThat(config.getSessionId()).startsWith("VER-");
         Assertions.assertThat(config.getSessionStart()).isNotNull(); // echipa siktir
-        Assertions.assertThat(config.getSessionStart()).isEqualToIgnoringHours(LocalDateTime.now()); // echipa cu pretentii, si noroc in viata
+//        Assertions.assertThat(config.getSessionStart()).isEqualToIgnoringHours(LocalDateTime.now()); // echipa cu pretentii, si noroc in viata
+        // DOAR DACA FACI OPERATII PE TIMPUL IN COD DE PROD
+        // Si vrei sa asertezi acele operatii
+        //geekyTimeTesting:
+
+        Assertions.assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.parse("2020-01-01T08:00:00").minusSeconds(5)); // echipa siktir
     }
 
     @Test

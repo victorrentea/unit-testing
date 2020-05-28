@@ -1,5 +1,6 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,8 +16,9 @@ public class TelemetryDiagnosticControls {
 	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, Clock clock) {
 		this.telemetryClient = telemetryClient;
+		this.clock = clock;
 	}
 
 	public String getDiagnosticInfo() {
@@ -58,9 +60,11 @@ public class TelemetryDiagnosticControls {
 	ClientConfiguration createConfig() {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now().minusSeconds(5));
+		config.setSessionStart(LocalDateTime.now(clock).minusSeconds(5));
 		config.setAckMode(AckMode.NORMAL);
 		return config;
 	}
+
+	private final Clock clock;
 
 }
