@@ -39,15 +39,6 @@ public class ProductRepo {
 
     Map<String, Object> paramMap = new HashMap<>();
 
-    if (isNotEmpty(criteria.name)) {
-      sql += "  AND UPPER(p.name) LIKE UPPER(:name)   ";
-      paramMap.put("name", "%" + criteria.name + "%");
-    }
-    if (criteria.category != null) {
-      sql += "  AND p.category = :category ";
-      paramMap.put("category", criteria.category);
-    }
-
     return jdbc.query(sql, paramMap, new RowMapper<ProductSearchResult>() {
       @Override
       public ProductSearchResult mapRow(ResultSet rs, int rowNum) throws SQLException {

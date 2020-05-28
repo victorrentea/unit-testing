@@ -2,6 +2,7 @@ package ro.victor.unittest.spring.repo;
 
 import com.github.tomakehurst.wiremock.extension.Parameters;
 import lombok.extern.slf4j.Slf4j;
+import org.dbunit.assertion.DbUnitAssert;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,12 +21,13 @@ import java.util.Collections;
 
 import static java.util.Collections.emptyMap;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 @Slf4j
-@Sql
+@WithCommonSupplierData
 // profile, mockbean, props
 public class ProductRepoSearchTest extends RepoBaseTest {
 
@@ -36,16 +38,13 @@ public class ProductRepoSearchTest extends RepoBaseTest {
 
     @Before
     public void insertSupplier() {
-
-//        log.info("Inserting supplier");
-        // language=sql
-//        jdbc.update("INSERT INTO SUPPLIER(ID, NAME, ACTIVE) VALUES (1,'emag', 1)", emptyMap() );
+        // DBunit: de cereceta         new DbUnitAssert().
+        assertEquals(1, (int) jdbc.queryForObject("SELECT count(*) FROM SUPPLIER", emptyMap(), Integer.class));
+        assertEquals(0, (int) jdbc.queryForObject("SELECT count(*) FROM PRODUCT", emptyMap(), Integer.class));
     }
 
     @Test
     public void test() {
-        int count = jdbc.queryForObject("SELECT count(*) FROM SUPPLIER", emptyMap(), Integer.class);
-        Assert.assertEquals(1, count);
     }
 
 

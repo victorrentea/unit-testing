@@ -26,8 +26,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="hehe - tzeapa in pregatire">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/WithCommonSupplierData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/SupplierData.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,6 +51,7 @@
         <option value="JUnit4 Test Class" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -116,11 +118,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.spring.repo" />
       <recent name="ro.victor.unittest.builder" />
       <recent name="ro.victor.unittest.tdd.fizzbuzz" />
       <recent name="ro.victor.unittest.spring.domain" />
       <recent name="ro.victor.unittest.tdd.bowling" />
-      <recent name="ro.victor.unittest.tdd" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -320,21 +322,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-      <workItem from="1590644943200" duration="12862000" />
-    </task>
-    <task id="LOCAL-00032" summary="fix compilation. migrate to java 11">
-      <created>1590386159174</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1590386159174</updated>
-    </task>
-    <task id="LOCAL-00033" summary="fix compilation">
-      <created>1590386312335</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1590386312335</updated>
+      <workItem from="1590644943200" duration="13211000" />
     </task>
     <task id="LOCAL-00034" summary="Restore Spring MVC Test">
       <created>1590391773502</created>
@@ -665,7 +653,21 @@
       <option name="project" value="LOCAL" />
       <updated>1590657894811</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Insert date referentiale de test din @Before sau programatic cerand insertia lor">
+      <created>1590659719783</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1590659719783</updated>
+    </task>
+    <task id="LOCAL-00082" summary="@Sql in Spring (de copiat) ruleaza automat fisiere SQL fie default : numele clasei, fie mentionate explic">
+      <created>1590659762093</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1590659762094</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -742,8 +744,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Testare a endpointurilor emuland requesturi HTTP" />
-    <MESSAGE value="Testarea WEb cu Spring" />
     <MESSAGE value="Testing URL-based security" />
     <MESSAGE value="Using [Test]RestTemplate to test your own API" />
     <MESSAGE value="RestAssuring a WireMock" />
@@ -767,7 +767,9 @@
     <MESSAGE value="Fluent setters, chiar cu Lombok (vezi lombok.config)" />
     <MESSAGE value="ierarhie de clase de test" />
     <MESSAGE value="hehe - tzeapa in pregatire" />
-    <option name="LAST_COMMIT_MESSAGE" value="hehe - tzeapa in pregatire" />
+    <MESSAGE value="Insert date referentiale de test din @Before sau programatic cerand insertia lor" />
+    <MESSAGE value="@Sql in Spring (de copiat) ruleaza automat fisiere SQL fie default : numele clasei, fie mentionate explic" />
+    <option name="LAST_COMMIT_MESSAGE" value="@Sql in Spring (de copiat) ruleaza automat fisiere SQL fie default : numele clasei, fie mentionate explic" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -782,10 +784,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590659047935" />
-    <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588657005597">
+    <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590659632262">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.834@0.0.1536.834" timestamp="1588657005597" />
+    <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.834@0.0.1536.834" timestamp="1590659632262" />
     <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1590649508486">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -810,10 +812,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590658277972">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590659761429">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590658277972" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590659761429" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -822,22 +824,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590655221600" />
-    <state width="1492" height="335" key="GridCell.Tab.0.bottom" timestamp="1590659381538">
+    <state width="1492" height="169" key="GridCell.Tab.0.bottom" timestamp="1590659661102">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="335" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590659381538" />
-    <state width="1492" height="335" key="GridCell.Tab.0.center" timestamp="1590659381537">
+    <state width="1492" height="169" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590659661102" />
+    <state width="1492" height="169" key="GridCell.Tab.0.center" timestamp="1590659661102">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="335" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590659381537" />
-    <state width="1492" height="335" key="GridCell.Tab.0.left" timestamp="1590659381537">
+    <state width="1492" height="169" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590659661102" />
+    <state width="1492" height="169" key="GridCell.Tab.0.left" timestamp="1590659661102">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="335" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590659381537" />
-    <state width="1492" height="335" key="GridCell.Tab.0.right" timestamp="1590659381537">
+    <state width="1492" height="169" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590659661102" />
+    <state width="1492" height="169" key="GridCell.Tab.0.right" timestamp="1590659661102">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="335" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590659381537" />
+    <state width="1492" height="169" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590659661102" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
