@@ -1,6 +1,5 @@
 package ro.victor.unittest.tdd.fizzbuzz;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -10,6 +9,7 @@ public class FizzBuzzTest {
     // si apoi printr-o metoda getItem(i):String sa iti dea stringul respectiv
 
     private final FizzBuzz fizzBuzz = new FizzBuzz();
+
 
     @Test
     public void test1() {

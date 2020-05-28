@@ -26,14 +26,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzzParameterizedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzzTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzzTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,6 +118,13 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.tdd.fizzbuzz" />
+      <recent name="ro.victor.unittest.spring.domain" />
+      <recent name="ro.victor.unittest.tdd.bowling" />
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
@@ -143,13 +145,6 @@
       <recent name="ro.victor.unittest.builder" />
       <recent name="ro.victor.unittest.spring" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\unit-testing\src\main\resources" />
-      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\spring\repo" />
-      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\unit-testing\src\test\resources" />
       <recent name="C:\workspace\unit-testing\src\main\java" />
@@ -158,20 +153,37 @@
       <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd.fizzbuzz" />
       <recent name="ro.victor.unittest.spring.web" />
       <recent name="ro.victor.unittest.spring.repo" />
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.tdd.fizzbuzz" />
-      <recent name="ro.victor.unittest.spring.domain" />
-      <recent name="ro.victor.unittest.tdd.bowling" />
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\unit-testing\src\main\resources" />
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\spring\repo" />
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductRepoSearchTest">
+  <component name="RunManager" selected="JUnit.FizzBuzzParameterizedTest">
+    <configuration name="FizzBuzzParameterizedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.fizzbuzz.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.fizzbuzz" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.fizzbuzz.FizzBuzzParameterizedTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FizzBuzzTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -238,22 +250,6 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TelemetryDiagnosticControlsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
@@ -268,20 +264,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
       <item itemvalue="JUnit.FizzBuzzTest.test" />
       <item itemvalue="JUnit.FizzBuzzTest" />
       <item itemvalue="JUnit.FizzBuzzTest.test105" />
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="JUnit.ProductRepoSearchTest" />
+      <item itemvalue="JUnit.FizzBuzzParameterizedTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FizzBuzzParameterizedTest" />
         <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.FizzBuzzTest" />
         <item itemvalue="JUnit.FizzBuzzTest.test105" />
         <item itemvalue="JUnit.FizzBuzzTest.test" />
-        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -323,14 +319,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-      <workItem from="1590644943200" duration="2548000" />
-    </task>
-    <task id="LOCAL-00023" summary="Gitignore">
-      <created>1574811488528</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1574811488528</updated>
+      <workItem from="1590644943200" duration="3245000" />
     </task>
     <task id="LOCAL-00024" summary="Prep for mutation testing">
       <created>1574811665845</created>
@@ -668,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590577904158</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="interim db WIP">
+      <created>1590649280881</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1590649280882</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -720,7 +716,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Undo" />
     <MESSAGE value="Time Testing" />
     <MESSAGE value="Exemplu de teste care fara @Transactional se impacteaza unul pe altul" />
     <MESSAGE value="Overriding properties for tests" />
@@ -745,7 +740,8 @@
     <MESSAGE value="Testing time : pragmatic version" />
     <MESSAGE value="TDD: Desingul primelor spec" />
     <MESSAGE value="TDD Done" />
-    <option name="LAST_COMMIT_MESSAGE" value="TDD Done" />
+    <MESSAGE value="interim db WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="interim db WIP" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -764,10 +760,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.834@0.0.1536.834" timestamp="1588657005597" />
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1590569374826">
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1590649508486">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1590569374826" />
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1590649508486" />
     <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590569232519">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -784,10 +780,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590577903534">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590649280196">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590577903534" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590649280196" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -796,22 +792,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590570733014" />
-    <state width="1492" height="188" key="GridCell.Tab.0.bottom" timestamp="1590648971401">
+    <state width="1492" height="188" key="GridCell.Tab.0.bottom" timestamp="1590649643061">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="188" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590648971401" />
-    <state width="1492" height="188" key="GridCell.Tab.0.center" timestamp="1590648971401">
+    <state width="1492" height="188" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590649643061" />
+    <state width="1492" height="188" key="GridCell.Tab.0.center" timestamp="1590649643061">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="188" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590648971401" />
-    <state width="1492" height="188" key="GridCell.Tab.0.left" timestamp="1590648971401">
+    <state width="1492" height="188" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590649643061" />
+    <state width="1492" height="188" key="GridCell.Tab.0.left" timestamp="1590649643061">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="188" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590648971401" />
-    <state width="1492" height="188" key="GridCell.Tab.0.right" timestamp="1590648971401">
+    <state width="1492" height="188" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590649643061" />
+    <state width="1492" height="188" key="GridCell.Tab.0.right" timestamp="1590649643061">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="188" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590648971401" />
+    <state width="1492" height="188" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590649643061" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -872,10 +868,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590648935367" />
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590572476015">
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590649622274">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590572476015" />
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590649622274" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
