@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional
 @Slf4j
-//@Sql
+@Sql
 // profile, mockbean, props
 public class ProductRepoSearchTest extends RepoBaseTest {
 
@@ -39,7 +39,7 @@ public class ProductRepoSearchTest extends RepoBaseTest {
 
 //        log.info("Inserting supplier");
         // language=sql
-        jdbc.update("INSERT INTO SUPPLIER(ID, NAME, ACTIVE) VALUES (1,'emag', 1)", emptyMap() );
+//        jdbc.update("INSERT INTO SUPPLIER(ID, NAME, ACTIVE) VALUES (1,'emag', 1)", emptyMap() );
     }
 
     @Test
