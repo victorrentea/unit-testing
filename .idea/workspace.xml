@@ -22,7 +22,7 @@
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestAssuredTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestAssuredTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControls.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +314,7 @@
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="18156000" />
       <workItem from="1590661202787" duration="270000" />
-      <workItem from="1590661499488" duration="2199000" />
+      <workItem from="1590661499488" duration="3086000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -638,7 +638,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590663266445</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Wiremock demo (brief)">
+      <created>1590663738811</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1590663738811</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -690,7 +697,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix DBUnit" />
     <MESSAGE value="Gitignore" />
     <MESSAGE value="Prep for mutation testing" />
     <MESSAGE value="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list." />
@@ -715,7 +721,8 @@
     <MESSAGE value="auto-cleanup @Rule junit" />
     <MESSAGE value="Powermock" />
     <MESSAGE value="solutie dezirabila fata de powermock" />
-    <option name="LAST_COMMIT_MESSAGE" value="solutie dezirabila fata de powermock" />
+    <MESSAGE value="Wiremock demo (brief)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Wiremock demo (brief)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -754,30 +761,30 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590663265774">
+    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590663738152">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590663265774" />
+    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590663738152" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590442688974">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590442688974" />
-    <state width="1492" height="213" key="GridCell.Tab.0.bottom" timestamp="1590663609242">
+    <state width="1492" height="499" key="GridCell.Tab.0.bottom" timestamp="1590663702709">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="213" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590663609242" />
-    <state width="1492" height="213" key="GridCell.Tab.0.center" timestamp="1590663609241">
+    <state width="1492" height="499" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590663702709" />
+    <state width="1492" height="499" key="GridCell.Tab.0.center" timestamp="1590663702709">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="213" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590663609241" />
-    <state width="1492" height="213" key="GridCell.Tab.0.left" timestamp="1590663609241">
+    <state width="1492" height="499" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590663702709" />
+    <state width="1492" height="499" key="GridCell.Tab.0.left" timestamp="1590663702709">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="213" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590663609241" />
-    <state width="1492" height="213" key="GridCell.Tab.0.right" timestamp="1590663609241">
+    <state width="1492" height="499" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590663702709" />
+    <state width="1492" height="499" key="GridCell.Tab.0.right" timestamp="1590663702709">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="213" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590663609241" />
+    <state width="1492" height="499" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590663702709" />
     <state width="1493" height="363" key="GridCell.Tab.1.bottom" timestamp="1590440993214">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -834,10 +841,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590662228016" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590663562172">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590663964464">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590663562172" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590663964464" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

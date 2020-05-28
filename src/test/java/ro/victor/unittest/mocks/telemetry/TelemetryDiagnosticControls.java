@@ -57,6 +57,7 @@ public class TelemetryDiagnosticControls {
 		diagnosticInfo = telemetryClient.receive();
 	}
 
+//	class ConfigurationFactory {
 	ClientConfiguration createConfig() {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
@@ -65,6 +66,7 @@ public class TelemetryDiagnosticControls {
 		config.setAckMode(AckMode.NORMAL);
 		return config;
 	}
+//	}
 
 	private final Clock clock;
 
