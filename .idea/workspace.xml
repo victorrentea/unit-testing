@@ -26,14 +26,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShouldWithFluentSetters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShouldWithFluentSetters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -328,14 +321,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-      <workItem from="1590644943200" duration="10821000" />
-    </task>
-    <task id="LOCAL-00030" summary="Prep for PIT">
-      <created>1588656689359</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1588656689359</updated>
+      <workItem from="1590644943200" duration="11179000" />
     </task>
     <task id="LOCAL-00031" summary="Add more Spring">
       <created>1588660022323</created>
@@ -673,7 +659,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590656293731</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="ierarhie de clase de test">
+      <created>1590657505787</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1590657505787</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -750,7 +743,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Dummy implem. Profiles." />
     <MESSAGE value="VERDE-n jur, imprejur in departare" />
     <MESSAGE value="Testare a endpointurilor emuland requesturi HTTP" />
     <MESSAGE value="Testarea WEb cu Spring" />
@@ -775,7 +767,8 @@
     <MESSAGE value="Mutation testing  + Coverage explanation" />
     <MESSAGE value="Classic Builder" />
     <MESSAGE value="Fluent setters, chiar cu Lombok (vezi lombok.config)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fluent setters, chiar cu Lombok (vezi lombok.config)" />
+    <MESSAGE value="ierarhie de clase de test" />
+    <option name="LAST_COMMIT_MESSAGE" value="ierarhie de clase de test" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -818,10 +811,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590656292942">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590657505014">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590656292942" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590657505014" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -830,22 +823,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590655221600" />
-    <state width="1492" height="134" key="GridCell.Tab.0.bottom" timestamp="1590656764749">
+    <state width="1492" height="286" key="GridCell.Tab.0.bottom" timestamp="1590657480136">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="134" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590656764749" />
-    <state width="1492" height="134" key="GridCell.Tab.0.center" timestamp="1590656764748">
+    <state width="1492" height="286" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590657480136" />
+    <state width="1492" height="286" key="GridCell.Tab.0.center" timestamp="1590657480135">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="134" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590656764748" />
-    <state width="1492" height="134" key="GridCell.Tab.0.left" timestamp="1590656764748">
+    <state width="1492" height="286" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590657480135" />
+    <state width="1492" height="286" key="GridCell.Tab.0.left" timestamp="1590657480135">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="134" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590656764748" />
-    <state width="1492" height="134" key="GridCell.Tab.0.right" timestamp="1590656764749">
+    <state width="1492" height="286" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590657480135" />
+    <state width="1492" height="286" key="GridCell.Tab.0.right" timestamp="1590657480135">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="134" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590656764749" />
+    <state width="1492" height="286" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590657480135" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
