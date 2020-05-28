@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Repository
@@ -39,6 +40,11 @@ public class ProductRepo {
         " WHERE 1=1 ";
 
     Map<String, Object> paramMap = new HashMap<>();
+
+    if (isNotBlank(criteria.name)) {
+      sql += " AND UPPER(p.name) LIKE UPPER(:name) ";
+      paramMap.put("name",  "%" + criteria.name + "%");
+    }
 
     return jdbc.query(sql, paramMap, new RowMapper<ProductSearchResult>() {
       @Override
