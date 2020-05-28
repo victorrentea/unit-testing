@@ -4,19 +4,37 @@ import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
+import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
+
+import javax.persistence.EntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Transactional
 @Slf4j
 // profile, mockbean, props
 public class ProductRepoSearchTest extends RepoBaseTest{
 
+    @Autowired
+    protected EntityManager em;
 
+    protected Supplier c  = new Supplier().setName("emag");
+
+    @Before
+    public void insertSupplier() {
+        log.info("Inserting supplier");
+        em.persist(c);
+    }
     // TODO DELETE all below
     // TODO search for no criteria
     // TODO search by name

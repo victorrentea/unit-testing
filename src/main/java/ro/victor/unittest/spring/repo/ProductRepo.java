@@ -60,6 +60,8 @@ public class ProductRepo {
   }
 
   public void save(Product product) {
+    Long id = jdbc.queryForObject("SELECT hibernate_sequence.nextval from DUAL", Collections.emptyMap(), Long.class);
+    product.setId(id);
     Map<String, Object> map = new HashMap<>();
     map.put("id", product.getId());
     map.put("name", product.getName());
