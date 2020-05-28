@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.junit.Test;
@@ -14,7 +15,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(OldSingleton.class)
+@PrepareForTest({OldSingleton.class, LocalDateTime.class})
 public class PowerToTheMasses {
 	public static final String CONST = "a";
 
@@ -36,10 +37,14 @@ public class PowerToTheMasses {
 
 
 		PowerMockito.mockStatic(System.class);
+		PowerMockito.mockStatic(LocalDateTime.class);
 		when(System.currentTimeMillis()).thenReturn(0l);
+		LocalDateTime fixed = LocalDateTime.of(2019, 01, 01, 0, 0);
+		when(LocalDateTime.now()).thenReturn(fixed);
 
 		System.out.println(System.currentTimeMillis());
 		System.out.println(System.currentTimeMillis());
+		System.out.println(LocalDateTime.now());
 		System.out.println(new Date());
 	}
 
