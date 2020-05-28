@@ -26,9 +26,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzzTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzzTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,11 +116,11 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
@@ -166,7 +171,7 @@
       <recent name="ro.victor.unittest.tdd.wordwrap" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FizzBuzzTest">
+  <component name="RunManager" selected="JUnit.ProductRepoSearchTest">
     <configuration name="FizzBuzzTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -217,6 +222,22 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TelemetryDiagnosticControlsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -228,23 +249,6 @@
       <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TelemetryDiagnosticControlsTest.sendsDiagnosticMessage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
-      <option name="METHOD_NAME" value="sendsDiagnosticMessage" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
@@ -264,20 +268,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
-      <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.sendsDiagnosticMessage" />
       <item itemvalue="JUnit.FizzBuzzTest.test" />
       <item itemvalue="JUnit.FizzBuzzTest" />
       <item itemvalue="JUnit.FizzBuzzTest.test105" />
+      <item itemvalue="PIT Runner.Builder" />
+      <item itemvalue="JUnit.ProductRepoSearchTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.FizzBuzzTest" />
         <item itemvalue="JUnit.FizzBuzzTest.test105" />
         <item itemvalue="JUnit.FizzBuzzTest.test" />
         <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
-        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.sendsDiagnosticMessage" />
       </list>
     </recent_temporary>
   </component>
@@ -319,13 +323,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-    </task>
-    <task id="LOCAL-00022" summary="Fix DBUnit">
-      <created>1574811459373</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1574811459373</updated>
+      <workItem from="1590644943200" duration="2548000" />
     </task>
     <task id="LOCAL-00023" summary="Gitignore">
       <created>1574811488528</created>
@@ -663,7 +661,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590576954701</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="TDD Done">
+      <created>1590577904157</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1590577904158</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -715,7 +720,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Undo solution" />
     <MESSAGE value="Undo" />
     <MESSAGE value="Time Testing" />
     <MESSAGE value="Exemplu de teste care fara @Transactional se impacteaza unul pe altul" />
@@ -740,7 +744,8 @@
     <MESSAGE value="AM extras o metoda cu codul care creea instanta pe care voiam sa o testez, ca sa evit sa folosesc ArgumentCaptor" />
     <MESSAGE value="Testing time : pragmatic version" />
     <MESSAGE value="TDD: Desingul primelor spec" />
-    <option name="LAST_COMMIT_MESSAGE" value="TDD: Desingul primelor spec" />
+    <MESSAGE value="TDD Done" />
+    <option name="LAST_COMMIT_MESSAGE" value="TDD Done" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -751,10 +756,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1536.834@0.0.1536.834" timestamp="1590391014541" />
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590480155009">
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590645401933">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590480155009" />
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590645401933" />
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588657005597">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -779,10 +784,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590576954011">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590577903534">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590576954011" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590577903534" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -791,38 +796,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590570733014" />
-    <state width="1492" height="163" key="GridCell.Tab.0.bottom" timestamp="1590577646845">
+    <state width="1492" height="188" key="GridCell.Tab.0.bottom" timestamp="1590648971401">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590577646845" />
-    <state width="1492" height="163" key="GridCell.Tab.0.center" timestamp="1590577646844">
+    <state width="1492" height="188" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590648971401" />
+    <state width="1492" height="188" key="GridCell.Tab.0.center" timestamp="1590648971401">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590577646844" />
-    <state width="1492" height="163" key="GridCell.Tab.0.left" timestamp="1590577646844">
+    <state width="1492" height="188" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590648971401" />
+    <state width="1492" height="188" key="GridCell.Tab.0.left" timestamp="1590648971401">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590577646844" />
-    <state width="1492" height="163" key="GridCell.Tab.0.right" timestamp="1590577646844">
+    <state width="1492" height="188" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590648971401" />
+    <state width="1492" height="188" key="GridCell.Tab.0.right" timestamp="1590648971401">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="163" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590577646844" />
-    <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590480171296">
+    <state width="1492" height="188" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590648971401" />
+    <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="195" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590480171296" />
-    <state width="1492" height="195" key="GridCell.Tab.1.center" timestamp="1590480171296">
+    <state width="1492" height="195" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590644925432" />
+    <state width="1492" height="195" key="GridCell.Tab.1.center" timestamp="1590644925431">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="195" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1590480171296" />
-    <state width="1492" height="195" key="GridCell.Tab.1.left" timestamp="1590480171296">
+    <state width="1492" height="195" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1590644925431" />
+    <state width="1492" height="195" key="GridCell.Tab.1.left" timestamp="1590644925431">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="195" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1590480171296" />
-    <state width="1492" height="195" key="GridCell.Tab.1.right" timestamp="1590480171296">
+    <state width="1492" height="195" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1590644925431" />
+    <state width="1492" height="195" key="GridCell.Tab.1.right" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="195" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1590480171296" />
+    <state width="1492" height="195" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1590644925432" />
     <state x="349" y="152" key="IDE.errors.dialog" timestamp="1590403159824">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -831,10 +836,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="299" y="72" key="Maven.ArtifactSearchDialog/0.0.1536.834@0.0.1536.834" timestamp="1590399694342" />
-    <state x="278" y="0" width="1258" height="710" key="SettingsEditor" timestamp="1590486503502">
+    <state x="278" y="0" width="1258" height="710" key="SettingsEditor" timestamp="1590648454875">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590486503502" />
+    <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590648454875" />
     <state x="497" y="181" width="540" height="524" key="StructurePopup" timestamp="1590485211114">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -855,18 +860,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="558" y="333" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1536.834@0.0.1536.834" timestamp="1590562110357" />
-    <state width="972" height="356" key="javadoc.popup.new" timestamp="1590572455692">
+    <state width="300" height="356" key="javadoc.popup.new" timestamp="1590648370472">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="972" height="356" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590572455692" />
+    <state width="300" height="356" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590648370472" />
     <state x="563" y="179" key="refactoring.ChangeSignatureDialog" timestamp="1590576584865">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="563" y="179" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1590576584865" />
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1590575633124">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1590648935367">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590575633124" />
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590648935367" />
     <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590572476015">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

@@ -15,7 +15,7 @@ public class ProductService {
 
 
 	public Product getProduct(long productId) {
-		Product product = productRepo.findById(productId).get();
+		Product product = null;//productRepo.findById(productId).get();
 		boolean covidVaccineExists = whoServiceClient.covidVaccineExists();
 		log.info("COVID Vaccine: " + covidVaccineExists);
 		if (covidVaccineExists) {
