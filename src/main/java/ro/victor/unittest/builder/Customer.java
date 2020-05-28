@@ -17,6 +17,7 @@ public class Customer {
 	private List<String> labels = new ArrayList<>();
 	@Getter @Setter
 	private Address address;
+	@Getter @Setter
 	private Date createDate;
 
 	public String getName() {
@@ -34,12 +35,5 @@ public class Customer {
 		this.labels.addAll(Arrays.asList(labels));
 	}
 
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
 
 }

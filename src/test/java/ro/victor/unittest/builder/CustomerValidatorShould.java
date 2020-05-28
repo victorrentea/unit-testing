@@ -1,12 +1,20 @@
 package ro.victor.unittest.builder;
 
+import org.junit.Before;
 import org.junit.Test;
 import ro.victor.unittest.tdd.tennis.TennisGame;
 
-public class CustomerValidatorShould {
+public class CustomerValidatorShould extends CustomerValidatorBase {
 
-	private CustomerValidator validator = new CustomerValidator();
+	@Before
+	public void alteInitializari() {
+		System.out.println("Din clasa de test mai persist alte  chestii" +
+				" ,dar folosesc si "  + validator + " din super ");
+	}
 
+	public CustomerValidatorShould() {
+		System.out.println("Acum se instantiaza o clasa test");
+	}
 
 	@Test
 	public void yesSir() {

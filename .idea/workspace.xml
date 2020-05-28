@@ -27,9 +27,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShouldWithFluentSetters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShouldWithFluentSetters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShouldWithFluentSetters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,11 +120,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.builder" />
       <recent name="ro.victor.unittest.tdd.fizzbuzz" />
       <recent name="ro.victor.unittest.spring.domain" />
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -165,30 +168,17 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductRepoSearchTest.name">
-    <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
+  <component name="RunManager" selected="JUnit.CustomerValidatorShould">
+    <configuration name="CustomerValidatorShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.*" />
+          <option name="PATTERN" value="ro.victor.unittest.builder.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.builder" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.builder.CustomerValidatorShould" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -229,17 +219,34 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TennisGameFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TelemetryDiagnosticControlsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.tennis.*" />
+          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.tennis" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.tennis.TennisGameFeature" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TelemetryDiagnosticControlsTest.throwsWhenVIs1_assertions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
+      <option name="METHOD_NAME" value="throwsWhenVIs1_assertions" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
@@ -265,21 +272,21 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.StartDatabase" />
-      <item itemvalue="JUnit.ProductRepoSearchTest" />
-      <item itemvalue="JUnit.TennisGameFeature" />
       <item itemvalue="PIT Runner.Tennis" />
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="JUnit.ProductRepoSearchTest.category" />
       <item itemvalue="JUnit.ProductRepoSearchTest.name" />
+      <item itemvalue="JUnit.CustomerValidatorShould" />
+      <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1_assertions" />
+      <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CustomerValidatorShould" />
+        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
+        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.throwsWhenVIs1_assertions" />
         <item itemvalue="JUnit.ProductRepoSearchTest.name" />
         <item itemvalue="JUnit.ProductRepoSearchTest.category" />
-        <item itemvalue="JUnit.TennisGameFeature" />
-        <item itemvalue="JUnit.ProductRepoSearchTest" />
-        <item itemvalue="Application.StartDatabase" />
       </list>
     </recent_temporary>
   </component>
@@ -321,14 +328,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-      <workItem from="1590644943200" duration="9664000" />
-    </task>
-    <task id="LOCAL-00029" summary="Spring Testing">
-      <created>1579523039644</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1579523039644</updated>
+      <workItem from="1590644943200" duration="10821000" />
     </task>
     <task id="LOCAL-00030" summary="Prep for PIT">
       <created>1588656689359</created>
@@ -666,7 +666,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590655952214</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Fluent setters, chiar cu Lombok (vezi lombok.config)">
+      <created>1590656293731</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1590656293731</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -743,7 +750,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Test care face comit in baza, dar apoi distruge springu" />
     <MESSAGE value="Dummy implem. Profiles." />
     <MESSAGE value="VERDE-n jur, imprejur in departare" />
     <MESSAGE value="Testare a endpointurilor emuland requesturi HTTP" />
@@ -768,7 +774,8 @@
     <MESSAGE value="prep DB" />
     <MESSAGE value="Mutation testing  + Coverage explanation" />
     <MESSAGE value="Classic Builder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Classic Builder" />
+    <MESSAGE value="Fluent setters, chiar cu Lombok (vezi lombok.config)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fluent setters, chiar cu Lombok (vezi lombok.config)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -811,10 +818,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590655951541">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590656292942">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590655951541" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590656292942" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -823,22 +830,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590655221600" />
-    <state width="1492" height="519" key="GridCell.Tab.0.bottom" timestamp="1590655208407">
+    <state width="1492" height="134" key="GridCell.Tab.0.bottom" timestamp="1590656764749">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="519" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590655208407" />
-    <state width="1492" height="519" key="GridCell.Tab.0.center" timestamp="1590655208407">
+    <state width="1492" height="134" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590656764749" />
+    <state width="1492" height="134" key="GridCell.Tab.0.center" timestamp="1590656764748">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="519" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590655208407" />
-    <state width="1492" height="519" key="GridCell.Tab.0.left" timestamp="1590655208407">
+    <state width="1492" height="134" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590656764748" />
+    <state width="1492" height="134" key="GridCell.Tab.0.left" timestamp="1590656764748">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="519" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590655208407" />
-    <state width="1492" height="519" key="GridCell.Tab.0.right" timestamp="1590655208407">
+    <state width="1492" height="134" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590656764748" />
+    <state width="1492" height="134" key="GridCell.Tab.0.right" timestamp="1590656764749">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="519" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590655208407" />
+    <state width="1492" height="134" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590656764749" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -891,18 +898,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="182" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1590655893372" />
-    <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590439033424">
+    <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590656692040">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1590439033424" />
+    <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1590656692040" />
     <state x="558" y="333" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1590562110357">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="558" y="333" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1536.834@0.0.1536.834" timestamp="1590562110357" />
-    <state width="300" height="356" key="javadoc.popup.new" timestamp="1590648370472">
+    <state width="300" height="339" key="javadoc.popup.new" timestamp="1590656418911">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="300" height="356" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590648370472" />
+    <state width="300" height="339" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590656418911" />
     <state x="521" y="353" key="org.jetbrains.plugins.cucumber.inspections.ui.CreateStepDefinitionFileDialog" timestamp="1590650729775">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

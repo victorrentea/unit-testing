@@ -1,6 +1,7 @@
 package ro.victor.unittest.mocks.telemetry;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -30,22 +31,29 @@ public class TelemetryDiagnosticControlsTest {
     @InjectMocks
     private TelemetryDiagnosticControls controls;
 
+    @Before
+    public void initializeMocks() {
+        when(client.getOnlineStatus()).thenReturn(true);
+    }
+    @Before
+    public void initializeMocks2() {
+        when(client.getOnlineStatus()).thenReturn(true);
+    }
     @Test
     public void disconnects() {
         // Intentia default ar trebui sa fie sa testtezi si clientul in joc cu Controls, eventual decupland sub client, cat mai aproape de exterior.
-        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission(0);
         verify(client).disconnect();
     }
     @Test(expected = TelemetryException.class)
     public void throwsWhenNotOnline() {
+        reset(client);
         when(client.getOnlineStatus()).thenReturn(false);
         controls.checkTransmission(0);
     }
 
     @Test
     public void throwsWhenVIs1_oldSchool() {
-        when(client.getOnlineStatus()).thenReturn(true);
         try {
             controls.checkTransmission(1);
             fail("Should have thrown exception");
@@ -55,7 +63,6 @@ public class TelemetryDiagnosticControlsTest {
     }
     @Test
     public void throwsWhenVIs1_assertions() {
-        when(client.getOnlineStatus()).thenReturn(true);
         assertThatThrownBy(() -> controls.checkTransmission(1))
             .hasMessageContaining("value is 1");
     }
@@ -65,20 +72,17 @@ public class TelemetryDiagnosticControlsTest {
     @Test
     public void throwsWhenVIs1_junit() {
         expectedException.expectMessage("value is 1");
-        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission(1);
     }
 
     @Test
     public void throwsWhenVIs1_junit_matchers() {
         expectedException.expect(new TelemetryExceptionMatcher(VALUE_IS_1));
-        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission(1);
     }
 
     @Test
     public void checkTransmissionOk() {
-        when(client.getOnlineStatus()).thenReturn(true);
         when(client.receive()).thenReturn("TATAIE");
         controls.checkTransmission(0);
 
@@ -98,7 +102,6 @@ public class TelemetryDiagnosticControlsTest {
     ArgumentCaptor<ClientConfiguration> configCaptor;
     @Test
     public void configuresClient() {
-        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission(0);
 //        ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
         verify(client).configure(configCaptor.capture());
@@ -118,7 +121,6 @@ public class TelemetryDiagnosticControlsTest {
 
     @Test
     public void configuresClientWithWhatever() {
-        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission(0);
         verify(client).configure(any());
         // nu e absolut tot testat inca:
