@@ -18,6 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PrepareForTest({OldSingleton.class, LocalDateTime.class})
 public class PowerToTheMasses {
 	public static final String CONST = "a";
+//	private final OldSingleton oldSingleton;
 
 	private String productionCode() {
 		OldSingleton mock = OldSingleton.getInstance();
