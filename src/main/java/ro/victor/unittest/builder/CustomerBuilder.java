@@ -1,15 +1,20 @@
 package ro.victor.unittest.builder;
 
 public class CustomerBuilder {
-	private final Customer customer = new Customer();
+	private final Customer customerUnderConstruction = new Customer();
 
 	public CustomerBuilder withName(String name) {
-		customer.setName(name);
+		customerUnderConstruction.setName(name);
 		return this;
 	}
 
 
 	public Customer build() {
-		return customer;
+		return customerUnderConstruction;
 	}
+
+  public CustomerBuilder withAddress(Address address) {
+		customerUnderConstruction.setAddress(address);
+		return this;
+  }
 }
