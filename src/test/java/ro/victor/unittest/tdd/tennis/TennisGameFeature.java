@@ -1,4 +1,4 @@
-package ro.victor.unittest.tdd;
+package ro.victor.unittest.tdd.tennis;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

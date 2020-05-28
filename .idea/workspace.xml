@@ -19,22 +19,27 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGamePureTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/RepoBaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/application-realdb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application-realdb.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/tdd/tennis/TennisGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameFeature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/TennisGameFeatureSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/inject/FixedClockApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/time/inject/FixedClockApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/inject/FixedClockTestConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/time/inject/FixedClockTestConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/inject/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/time/inject/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/inject/OrderServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/time/inject/OrderServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/rule/TestTimeRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/time/rule/TestTimeRule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/rule/TestTimeRuleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/time/rule/TestTimeRuleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/time/rule/TimeProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/tennis/time/rule/TimeProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/tennis-game.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/tennis-game.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,9 +51,6 @@
   </component>
   <component name="ComposerSettings">
     <execution />
-  </component>
-  <component name="CoverageViewManager">
-    <option name="myElementSize" value="214" />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -145,11 +147,11 @@
       <recent name="ro.victor.unittest.time.inject.FixedClockTestConfig" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.tdd.tennis" />
       <recent name="ro.victor.unittest.spring.infra" />
       <recent name="ro.victor.unittest.spring.web" />
       <recent name="ro.victor.unittest.spring.repo" />
       <recent name="ro.victor.unittest.builder" />
-      <recent name="ro.victor.unittest.spring" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\unit-testing\src\test\resources" />
@@ -173,7 +175,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.StartDatabase">
+  <component name="RunManager" selected="JUnit.TennisGameFeature">
     <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
       <module name="unit-testing" />
@@ -195,26 +197,6 @@
       <module name="unit-testing" />
       <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome" />
       <option name="SUGGESTED_NAME" value="Feature: tennis-game" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cucumber.api.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Scenario: Empty Game" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/tennis-game.feature" />
-      <option name="GLUE" value="cucumber.api.spring ro.victor.unittest.tdd" />
-      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
-      <module name="unit-testing" />
-      <option name="NAME_FILTER" value="^Empty Game$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome --name &quot;^Empty Game$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: Empty Game" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -259,6 +241,22 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TennisGameFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.tdd.tennis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.tennis" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.tennis.TennisGameFeature" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
@@ -272,21 +270,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Tennis" type="PIT" factoryName="PIT Runner" REPORT_DIR="$PROJECT_DIR$/target/report" SOURCE_DIRS="$PROJECT_DIR$/src/main/java" TARGET_CLASSES="ro.victor.unittest.tdd.tennis.TennisGame" TARGET_TESTS="ro.victor.unittest.tdd.tennis.*" otherParams="--outputFormats XML,HTML">
+      <module name="unit-testing" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="JUnit.ProductRepoSearchTest" />
-      <item itemvalue="Cucumber Java.Scenario: Empty Game" />
-      <item itemvalue="Cucumber Java.Feature: tennis-game" />
-      <item itemvalue="JUnit.PowerToTheMasses.productionCodeReturnsSingletonStateToUpper" />
       <item itemvalue="Application.StartDatabase" />
+      <item itemvalue="Cucumber Java.Feature: tennis-game" />
+      <item itemvalue="JUnit.ProductRepoSearchTest" />
+      <item itemvalue="JUnit.PowerToTheMasses.productionCodeReturnsSingletonStateToUpper" />
+      <item itemvalue="JUnit.TennisGameFeature" />
+      <item itemvalue="PIT Runner.Tennis" />
+      <item itemvalue="PIT Runner.Builder" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TennisGameFeature" />
         <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="Application.StartDatabase" />
         <item itemvalue="JUnit.PowerToTheMasses.productionCodeReturnsSingletonStateToUpper" />
         <item itemvalue="Cucumber Java.Feature: tennis-game" />
-        <item itemvalue="Cucumber Java.Scenario: Empty Game" />
       </list>
     </recent_temporary>
   </component>
@@ -328,14 +333,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-      <workItem from="1590644943200" duration="5944000" />
-    </task>
-    <task id="LOCAL-00026" summary="OOP : try to continue">
-      <created>1576256226320</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1576256226320</updated>
+      <workItem from="1590644943200" duration="8266000" />
     </task>
     <task id="LOCAL-00027" summary="Time: injecting a Clock.fixed() + faking Spring beans">
       <created>1576577123062</created>
@@ -673,7 +671,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590652010624</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="prep DB">
+      <created>1590652594838</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1590652594838</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -695,7 +700,27 @@
       <map>
         <entry key="1">
           <value>
-            <State />
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/workspace/unit-testing/src/test/java/ro/victor/unittest/tdd/tennis" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
         <entry key="MAIN">
@@ -706,7 +731,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/master" />
                       </list>
                     </value>
                   </entry>
@@ -717,6 +742,11 @@
         </entry>
       </map>
     </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
@@ -725,7 +755,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Overriding properties for tests" />
     <MESSAGE value="cucumber for testing repo dynamic search" />
     <MESSAGE value="Overriding constant value, in JDK 8" />
     <MESSAGE value="Test care face comit in baza, dar apoi distruge springu" />
@@ -750,7 +779,8 @@
     <MESSAGE value="interim db WIP" />
     <MESSAGE value="@Parameterized &#10;// e mai bun decat a face un for peste colectia cu intrari/iesiri, &#10;    // pentru ca vezi fiecare test rulat in izolare" />
     <MESSAGE value="feature files" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature files" />
+    <MESSAGE value="prep DB" />
+    <option name="LAST_COMMIT_MESSAGE" value="prep DB" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -761,10 +791,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1536.834@0.0.1536.834" timestamp="1590391014541" />
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590652520947">
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590653920873">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590652520947" />
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590653920873" />
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588657005597">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -773,14 +803,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1590649508486" />
-    <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590569232519">
+    <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590654028297">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.834@0.0.1536.834" timestamp="1590569232519" />
-    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590477777854">
+    <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.834@0.0.1536.834" timestamp="1590654028297" />
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590654038746">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1590477777854" />
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1590654038746" />
+    <state x="566" y="313" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1590654031319">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="566" y="313" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1536.834@0.0.1536.834" timestamp="1590654031319" />
     <state x="551" y="261" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog" timestamp="1590569233169">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -789,10 +823,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590652009858">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590652594124">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590652009858" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590652594124" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -801,22 +835,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590570733014" />
-    <state width="1492" height="412" key="GridCell.Tab.0.bottom" timestamp="1590652498253">
+    <state width="1492" height="276" key="GridCell.Tab.0.bottom" timestamp="1590654218726">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="412" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590652498253" />
-    <state width="1492" height="412" key="GridCell.Tab.0.center" timestamp="1590652498253">
+    <state width="1492" height="276" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590654218726" />
+    <state width="1492" height="276" key="GridCell.Tab.0.center" timestamp="1590654218725">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="412" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590652498253" />
-    <state width="1492" height="412" key="GridCell.Tab.0.left" timestamp="1590652498253">
+    <state width="1492" height="276" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590654218725" />
+    <state width="1492" height="276" key="GridCell.Tab.0.left" timestamp="1590654218725">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="412" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590652498253" />
-    <state width="1492" height="412" key="GridCell.Tab.0.right" timestamp="1590652498253">
+    <state width="1492" height="276" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590654218725" />
+    <state width="1492" height="276" key="GridCell.Tab.0.right" timestamp="1590654218726">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="412" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590652498253" />
+    <state width="1492" height="276" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590654218726" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -845,6 +879,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590648454875" />
+    <state x="100" y="100" width="1336" height="664" key="ShowDiffWithBranchDialog" timestamp="1590654214229">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="100" y="100" width="1336" height="664" key="ShowDiffWithBranchDialog/0.0.1536.834@0.0.1536.834" timestamp="1590654214229" />
     <state x="497" y="181" width="540" height="524" key="StructurePopup" timestamp="1590485211114">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -881,10 +919,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590648935367" />
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590652388545">
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590653801402">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590652388545" />
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590653801402" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -907,6 +945,9 @@
     </SUITE>
     <SUITE FILE_PATH="coverage/unit_testing$ClientSearchBehaviorTest.ic" NAME="ClientSearchBehaviorTest Coverage Results" MODIFIED="1563370638245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.bank.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/unit_testing$TennisGameFeature.ic" NAME="TennisGameFeature Coverage Results" MODIFIED="1590653836140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ro.victor.unittest.tdd.tennis.*</FILTER>
     </SUITE>
   </component>
 </project>

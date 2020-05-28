@@ -1,13 +1,8 @@
-package ro.victor.unittest.tdd;
+package ro.victor.unittest.tdd.tennis;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Assert;
-
-import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
 
