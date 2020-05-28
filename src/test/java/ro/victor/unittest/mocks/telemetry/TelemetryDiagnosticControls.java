@@ -61,6 +61,7 @@ public class TelemetryDiagnosticControls {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now(clock).minusSeconds(5));
+		//		config.setSessionStart(); auto-configured: am pus-o
 		config.setAckMode(AckMode.NORMAL);
 		return config;
 	}
