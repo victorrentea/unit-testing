@@ -33,6 +33,7 @@ public class ProductRepo {
 
 
   public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
+    // language=sql
     String sql = "SELECT p.id, p.name" +
         " FROM PRODUCT p " +
         " WHERE 1=1 ";

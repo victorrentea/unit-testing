@@ -13,11 +13,16 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
+import ro.victor.unittest.spring.facade.ProductSearchCriteria;
+import ro.victor.unittest.spring.facade.ProductSearchResult;
+import wiremock.org.checkerframework.checker.units.qual.A;
 
 import javax.persistence.EntityManager;
 
 import java.util.Collections;
+import java.util.List;
 
 import static java.util.Collections.emptyMap;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
+//@Transactional
 @Slf4j
 @WithCommonSupplierData
 // profile, mockbean, props
@@ -33,6 +38,8 @@ public class ProductRepoSearchTest extends RepoBaseTest {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbc;
+    @Autowired
+    ProductRepo repo;
 
     protected Supplier s = new Supplier().setName("emag");
 
@@ -44,7 +51,28 @@ public class ProductRepoSearchTest extends RepoBaseTest {
     }
 
     @Test
-    public void test() {
+    public void noCriteria() {
+        ProductSearchCriteria criteria = new ProductSearchCriteria();
+        repo.save(new Product());
+        List<ProductSearchResult> results = repo.search(criteria);
+        assertEquals(1, results.size());
+    }
+
+    @Test
+    public void byName() {
+        ProductSearchCriteria criteria = new ProductSearchCriteria();
+        criteria.name = "x";
+        repo.save(new Product().setName("x"));
+        List<ProductSearchResult> results = repo.search(criteria);
+        assertEquals(1, results.size());
+    }
+    @Test
+    public void byNameNoMatch() {
+        ProductSearchCriteria criteria = new ProductSearchCriteria();
+        criteria.name = "y";
+        repo.save(new Product().setName("x"));
+        List<ProductSearchResult> results = repo.search(criteria);
+        assertEquals(0, results.size());
     }
 
 
