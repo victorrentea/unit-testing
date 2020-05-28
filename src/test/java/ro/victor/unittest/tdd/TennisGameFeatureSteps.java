@@ -7,30 +7,38 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 
+import java.util.regex.Pattern;
+
 import static org.junit.Assert.assertEquals;
 
 public class TennisGameFeatureSteps {
-    private TennisGame tennisGame;
+  private TennisGame tennisGame;
 
-    @Given("^A new tennis game$")
-    public void a_new_tennis_game() throws Throwable {
-        tennisGame = new TennisGame();
-    }
+  @Given("^an empty game$")
+  public void anEmptyGame() {
+    tennisGame = new TennisGame();
+  }
 
-    @Then("^Score is \"([^\"]*)\"$")
-    public void score_is(String expected) throws Throwable {
-        assertEquals(expected, tennisGame.score());
-    }
+  @Then("^the score is \"([^\"]*)\"$")
+  public void theScoreIs(String expectedScore) throws Throwable {
+    assertEquals(expectedScore, tennisGame.score());
+  }
 
-    @When("^Player(\\d+) scores$")
-    public void playerScores(int playerNo) {
-        tennisGame.addPoint(playerNo);
-    }
+  @When("^Player1 scores$")
+  public void playerScores() {
+    tennisGame.addPoint(1);
+  }
 
-    @And("^Player(\\d+) scores (\\d+) points$")
-    public void playerScoresPoints(int playerNo, int points) {
-        for (int i = 0; i < points; i++) {
-            tennisGame.addPoint(playerNo);
-        }
+  @When("^both players scores$")
+  public void bothPlayersScores() {
+    tennisGame.addPoint(1);
+    tennisGame.addPoint(2);
+  }
+
+  @When("^Player([1,2]) scores (\\d+) point[s]?$")
+  public void playerScoresPoints(int playerNumber, int points) {
+    for (int i = 0; i < points; i++) {
+      tennisGame.addPoint(playerNumber);
     }
+  }
 }

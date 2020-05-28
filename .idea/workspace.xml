@@ -26,9 +26,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzzParameterizedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzzTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/fizzbuzz/FizzBuzzTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameFeatureSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameParameterizedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGamePureTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/tdd/TennisGameTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/tennis-game.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/tennis-game.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +171,46 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FizzBuzzParameterizedTest">
+  <component name="RunManager" selected="Cucumber Java.Feature: tennis-game">
+    <configuration name="Feature: tennis-game" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/tennis-game.feature" />
+      <option name="GLUE" value="cucumber.api.spring ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
+      <module name="unit-testing" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome" />
+      <option name="SUGGESTED_NAME" value="Feature: tennis-game" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cucumber.api.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Scenario: Empty Game" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/tennis-game.feature" />
+      <option name="GLUE" value="cucumber.api.spring ro.victor.unittest.tdd" />
+      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
+      <module name="unit-testing" />
+      <option name="NAME_FILTER" value="^Empty Game$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome --name &quot;^Empty Game$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Empty Game" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cucumber.api.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FizzBuzzParameterizedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <extension name="coverage">
@@ -195,40 +238,6 @@
       <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.fizzbuzz" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.fizzbuzz.FizzBuzzTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FizzBuzzTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.fizzbuzz.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.fizzbuzz" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.fizzbuzz.FizzBuzzTest" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FizzBuzzTest.test105" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.tdd.fizzbuzz.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.tdd.fizzbuzz" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.tdd.fizzbuzz.FizzBuzzTest" />
-      <option name="METHOD_NAME" value="test105" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
@@ -264,20 +273,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.FizzBuzzTest.test" />
       <item itemvalue="JUnit.FizzBuzzTest" />
-      <item itemvalue="JUnit.FizzBuzzTest.test105" />
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="JUnit.ProductRepoSearchTest" />
       <item itemvalue="JUnit.FizzBuzzParameterizedTest" />
+      <item itemvalue="Cucumber Java.Scenario: Empty Game" />
+      <item itemvalue="Cucumber Java.Feature: tennis-game" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Cucumber Java.Feature: tennis-game" />
+        <item itemvalue="Cucumber Java.Scenario: Empty Game" />
         <item itemvalue="JUnit.FizzBuzzParameterizedTest" />
         <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.FizzBuzzTest" />
-        <item itemvalue="JUnit.FizzBuzzTest.test105" />
-        <item itemvalue="JUnit.FizzBuzzTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -319,14 +328,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-      <workItem from="1590644943200" duration="3245000" />
-    </task>
-    <task id="LOCAL-00024" summary="Prep for mutation testing">
-      <created>1574811665845</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1574811665845</updated>
+      <workItem from="1590644943200" duration="5428000" />
     </task>
     <task id="LOCAL-00025" summary="FORK here to try LinkedList.remove and &quot;eat&quot; rolls from the input list.">
       <created>1576255668600</created>
@@ -664,7 +666,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590649280882</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="@Parameterized &#10;// e mai bun decat a face un for peste colectia cu intrari/iesiri, &#10;    // pentru ca vezi fiecare test rulat in izolare">
+      <created>1590649827386</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1590649827386</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -716,7 +725,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Time Testing" />
     <MESSAGE value="Exemplu de teste care fara @Transactional se impacteaza unul pe altul" />
     <MESSAGE value="Overriding properties for tests" />
     <MESSAGE value="cucumber for testing repo dynamic search" />
@@ -741,7 +749,8 @@
     <MESSAGE value="TDD: Desingul primelor spec" />
     <MESSAGE value="TDD Done" />
     <MESSAGE value="interim db WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="interim db WIP" />
+    <MESSAGE value="@Parameterized &#10;// e mai bun decat a face un for peste colectia cu intrari/iesiri, &#10;    // pentru ca vezi fiecare test rulat in izolare" />
+    <option name="LAST_COMMIT_MESSAGE" value="@Parameterized &#10;// e mai bun decat a face un for peste colectia cu intrari/iesiri, &#10;    // pentru ca vezi fiecare test rulat in izolare" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -780,10 +789,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590649280196">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590649826610">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590649280196" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590649826610" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -792,22 +801,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590570733014" />
-    <state width="1492" height="188" key="GridCell.Tab.0.bottom" timestamp="1590649643061">
+    <state width="1492" height="188" key="GridCell.Tab.0.bottom" timestamp="1590651682570">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="188" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590649643061" />
-    <state width="1492" height="188" key="GridCell.Tab.0.center" timestamp="1590649643061">
+    <state width="1492" height="188" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590651682570" />
+    <state width="1492" height="188" key="GridCell.Tab.0.center" timestamp="1590651682569">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="188" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590649643061" />
-    <state width="1492" height="188" key="GridCell.Tab.0.left" timestamp="1590649643061">
+    <state width="1492" height="188" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590651682569" />
+    <state width="1492" height="188" key="GridCell.Tab.0.left" timestamp="1590651682569">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="188" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590649643061" />
-    <state width="1492" height="188" key="GridCell.Tab.0.right" timestamp="1590649643061">
+    <state width="1492" height="188" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590651682569" />
+    <state width="1492" height="188" key="GridCell.Tab.0.right" timestamp="1590651682569">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="188" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590649643061" />
+    <state width="1492" height="188" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590651682569" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -860,6 +869,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="300" height="356" key="javadoc.popup.new/0.0.1536.834@0.0.1536.834" timestamp="1590648370472" />
+    <state x="521" y="353" key="org.jetbrains.plugins.cucumber.inspections.ui.CreateStepDefinitionFileDialog" timestamp="1590650729775">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="521" y="353" key="org.jetbrains.plugins.cucumber.inspections.ui.CreateStepDefinitionFileDialog/0.0.1536.834@0.0.1536.834" timestamp="1590650729775" />
     <state x="563" y="179" key="refactoring.ChangeSignatureDialog" timestamp="1590576584865">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -868,10 +881,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590648935367" />
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590649622274">
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590650896067">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590649622274" />
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590650896067" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

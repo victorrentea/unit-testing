@@ -1,46 +1,30 @@
-Feature: Tennis Game
+Feature:
 
-  Scenario: New Game
-    Given A new tennis game
-    Then Score is "Love-Love"
+  Background: #runs before each Scenario bellow
+    Given an empty game
 
+  Scenario: Empty Game
+    Then the score is "Love-Love"
 
-  Scenario: New Game
-    Given A new tennis game
+  Scenario: Empty Game
     When Player1 scores
-    Then Score is "Fifteen-Love"
+    Then the score is "Fifteen-Love"
 
-  Scenario: New Game
-    Given A new tennis game
-    When Player1 scores
-    And Player2 scores
-    Then Score is "Fifteen-Fifteen"
+  Scenario: Fifteen Fifteen
+    When both players scores
+    Then the score is "Fifteen-Fifteen"
 
-  Scenario: Deuce
-    Given A new tennis game
-    When Player1 scores 3 points
-    And Player2 scores 3 points
-    Then Score is "Deuce"
+  Scenario: Fifteen Thirty
+    When Player1 scores 1 point
+    When Player2 scores 2 points
+    Then the score is "Fifteen-Thirty"
 
-  Scenario Outline: Tabel, sa planga bizu
-    Given A new tennis game
-    When Player1 scores <player1Points> points
-    And Player2 scores <player2Points> points
-    Then Score is "<expectedScore>"
+  Scenario Template: All
+    When Player1 scores <player1Points> point
+    When Player2 scores <player2Points> points
+    Then the score is "<expectedScore>"
 
     Examples:
-      | player1Points | player2Points | expectedScore     |
-      | 0             | 0             | Love-Love         |
-      | 1             | 0             | Fifteen-Love      |
-      | 0             | 1             | Love-Fifteen      |
-      | 1             | 1             | Fifteen-Fifteen   |
-      | 2             | 0             | Thirty-Love       |
-      | 3             | 0             | Forty-Love        |
-      | 3             | 3             | Deuce             |
-      | 4             | 4             | Deuce             |
-      | 8             | 8             | Deuce             |
-      | 4             | 3             | Advantage Player1 |
-      | 5             | 6             | Advantage Player2 |
-      | 8             | 6             | Game Won Player1  |
-      | 0             | 4             | Game Won Player2  |
-      | 1             | 4             | Game Won Player2  |
+      | player1Points | player2Points | expectedScore  |
+      | 1             | 2             | Fifteen-Thirty |
+      | 4             | 4             | Deuce          |
