@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
+import io.restassured.http.ContentType;
 import io.restassured.matcher.ResponseAwareMatcher;
 import io.restassured.matcher.RestAssuredMatchers;
 import io.restassured.response.Response;
@@ -71,11 +72,15 @@ public class ProductControllerRestAssuredTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody("[{\"id\":12, \"value\":\"WireMock\"}]")));
         // validates the response from wiremock - obviously, just for demo purposes; no purpose in real-life
-        Response response = when().get("http://localhost:8089/other/thing");
+        Response response = given()
+            .accept(ContentType.XML)
+            .when()
+            .get("http://localhost:8089/other/thing");
 
         response.then()
 //                .log().ifError()
 //                .log().body()
+
                 .time(Matchers.lessThan(1000L), TimeUnit.MILLISECONDS)
                 .statusCode(200)
                 .assertThat()
