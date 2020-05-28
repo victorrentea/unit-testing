@@ -26,10 +26,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="Mutation testing  + Coverage explanation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" afterDir="false" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShouldWithFluentSetters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Customer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,11 +151,11 @@
       <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ro.victor.unittest.builder" />
       <recent name="ro.victor.unittest.tdd.fizzbuzz" />
       <recent name="ro.victor.unittest.spring.web" />
       <recent name="ro.victor.unittest.spring.repo" />
       <recent name="ro.victor.unittest.tdd.bowling" />
-      <recent name="ro.victor.unittest.tdd" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\workspace\unit-testing\src\main\resources" />
@@ -321,14 +321,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-      <workItem from="1590644943200" duration="9247000" />
-    </task>
-    <task id="LOCAL-00028" summary="yolo">
-      <created>1579522327343</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1579522327343</updated>
+      <workItem from="1590644943200" duration="9664000" />
     </task>
     <task id="LOCAL-00029" summary="Spring Testing">
       <created>1579523039644</created>
@@ -666,7 +659,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590654911149</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Classic Builder">
+      <created>1590655952214</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1590655952214</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -743,7 +743,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Overriding constant value, in JDK 8" />
     <MESSAGE value="Test care face comit in baza, dar apoi distruge springu" />
     <MESSAGE value="Dummy implem. Profiles." />
     <MESSAGE value="VERDE-n jur, imprejur in departare" />
@@ -768,7 +767,8 @@
     <MESSAGE value="feature files" />
     <MESSAGE value="prep DB" />
     <MESSAGE value="Mutation testing  + Coverage explanation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mutation testing  + Coverage explanation" />
+    <MESSAGE value="Classic Builder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Classic Builder" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -811,10 +811,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590655222255">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590655951541">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590655222255" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590655951541" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -887,10 +887,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="610" y="0" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1536.834@0.0.1536.834" timestamp="1590655059414" />
-    <state x="499" y="182" key="extract.method.dialog" timestamp="1590655824884">
+    <state x="499" y="182" key="extract.method.dialog" timestamp="1590655893372">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="499" y="182" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1590655824884" />
+    <state x="499" y="182" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1590655893372" />
     <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590439033424">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

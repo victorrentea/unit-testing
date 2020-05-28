@@ -18,8 +18,9 @@ public class Address {
 		return city;
 	}
 
-	public void setCity(String city) {
+	public Address setCity(String city) {
 		this.city = city;
+		return this;
 	}
 
 	public String getCountry() {
