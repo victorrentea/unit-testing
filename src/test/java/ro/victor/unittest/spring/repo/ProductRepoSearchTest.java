@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.transaction.TestTransaction;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
@@ -45,6 +46,8 @@ public class ProductRepoSearchTest extends RepoBaseTest {
 
     @Before
     public void insertSupplier() {
+        jdbc.update("DELETE FROM PRODUCT",emptyMap()); // sa lasi gunoi dupa permite si debuggin
+        // in baza: iei copy paste querul si-l rulezi pe baza ramasa
         // DBunit: de cereceta         new DbUnitAssert().
         assertEquals(1, (int) jdbc.queryForObject("SELECT count(*) FROM SUPPLIER", emptyMap(), Integer.class));
         assertEquals(0, (int) jdbc.queryForObject("SELECT count(*) FROM PRODUCT", emptyMap(), Integer.class));

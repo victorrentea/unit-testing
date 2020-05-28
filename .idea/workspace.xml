@@ -26,10 +26,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="Teste care se impacteaza unul pe altul: lasa gunoi in baza de date. pentru ca fiecare test comituie in baza datele lor (le lasa in baza)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductRepoSearchTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/SupplierData.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/SupplierData.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +166,7 @@
       <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductRepoSearchTest.noCriteria">
+  <component name="RunManager" selected="JUnit.ProductRepoSearchTest">
     <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
       <module name="unit-testing" />
@@ -276,8 +276,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProductRepoSearchTest.noCriteria" />
         <item itemvalue="JUnit.ProductRepoSearchTest" />
+        <item itemvalue="JUnit.ProductRepoSearchTest.noCriteria" />
         <item itemvalue="JUnit.ProductRepoSearchTest.test" />
         <item itemvalue="Application.StartDatabase" />
         <item itemvalue="JUnit.CustomerValidatorShould" />
@@ -322,14 +322,7 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="34793000" />
-      <workItem from="1590644943200" duration="13899000" />
-    </task>
-    <task id="LOCAL-00035" summary="Add Spring Integration Testing examples + WEB">
-      <created>1590402873406</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1590402873406</updated>
+      <workItem from="1590644943200" duration="14562000" />
     </task>
     <task id="LOCAL-00036" summary="add ref">
       <created>1590402997130</created>
@@ -667,7 +660,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590660082896</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="Teste care se impacteaza unul pe altul: lasa gunoi in baza de date. pentru ca fiecare test comituie in baza datele lor (le lasa in baza)">
+      <created>1590660635058</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1590660635058</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -744,7 +744,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Using [Test]RestTemplate to test your own API" />
     <MESSAGE value="RestAssuring a WireMock" />
     <MESSAGE value="Start EA Training" />
     <MESSAGE value="Temporal Coupling" />
@@ -769,7 +768,8 @@
     <MESSAGE value="Insert date referentiale de test din @Before sau programatic cerand insertia lor" />
     <MESSAGE value="@Sql in Spring (de copiat) ruleaza automat fisiere SQL fie default : numele clasei, fie mentionate explic" />
     <MESSAGE value="Query - revert implem" />
-    <option name="LAST_COMMIT_MESSAGE" value="Query - revert implem" />
+    <MESSAGE value="Teste care se impacteaza unul pe altul: lasa gunoi in baza de date. pentru ca fiecare test comituie in baza datele lor (le lasa in baza)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Teste care se impacteaza unul pe altul: lasa gunoi in baza de date. pentru ca fiecare test comituie in baza datele lor (le lasa in baza)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="632" y="245" key="#Language_Injections" timestamp="1590660259024">
@@ -816,10 +816,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590660082185">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1590661012051">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590660082185" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590661012051" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1590479389168">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -828,22 +828,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590655221600" />
-    <state width="1492" height="169" key="GridCell.Tab.0.bottom" timestamp="1590660441705">
+    <state width="1492" height="310" key="GridCell.Tab.0.bottom" timestamp="1590660915163">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="169" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590660441705" />
-    <state width="1492" height="169" key="GridCell.Tab.0.center" timestamp="1590660441705">
+    <state width="1492" height="310" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590660915163" />
+    <state width="1492" height="310" key="GridCell.Tab.0.center" timestamp="1590660915163">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="169" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590660441705" />
-    <state width="1492" height="169" key="GridCell.Tab.0.left" timestamp="1590660441704">
+    <state width="1492" height="310" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590660915163" />
+    <state width="1492" height="310" key="GridCell.Tab.0.left" timestamp="1590660915163">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="169" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590660441704" />
-    <state width="1492" height="169" key="GridCell.Tab.0.right" timestamp="1590660441705">
+    <state width="1492" height="310" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590660915163" />
+    <state width="1492" height="310" key="GridCell.Tab.0.right" timestamp="1590660915163">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="169" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590660441705" />
+    <state width="1492" height="310" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590660915163" />
     <state width="1492" height="195" key="GridCell.Tab.1.bottom" timestamp="1590644925432">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -920,10 +920,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590655616773" />
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590660058750">
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup" timestamp="1590660793210">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590660058750" />
+    <state x="431" y="155" width="672" height="160" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590660793210" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
