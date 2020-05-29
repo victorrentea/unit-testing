@@ -21,7 +21,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoJdbc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,9 +36,6 @@
   </component>
   <component name="ComposerSettings">
     <execution />
-  </component>
-  <component name="CoverageViewManager">
-    <option name="myElementSize" value="214" />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -103,11 +103,11 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="coverage" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
@@ -157,7 +157,7 @@
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductSearchFeature">
+  <component name="RunManager" selected="JUnit.ProductRepoSearchTest">
     <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
       <module name="unit-testing" />
@@ -169,22 +169,6 @@
       </extension>
       <method v="2">
         <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductControllerMvcPortTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerMvcPortTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="ProductControllerMvcTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -219,9 +203,29 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <useClassPathOnly />
+      <extension name="coverage" runner="jacoco">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProductSearchFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
-      <extension name="coverage">
+      <useClassPathOnly />
+      <extension name="coverage" runner="jacoco">
         <pattern>
           <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
           <option name="ENABLED" value="true" />
@@ -229,7 +233,9 @@
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductSearchFeature" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
@@ -249,20 +255,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="JUnit.ProductControllerMvcPortTest" />
-      <item itemvalue="JUnit.ProductSearchFeature" />
       <item itemvalue="Application.StartDatabase" />
+      <item itemvalue="JUnit.ProductSearchFeature" />
       <item itemvalue="JUnit.ProductControllerMvcTest" />
       <item itemvalue="JUnit.ProductFacadeTest" />
+      <item itemvalue="JUnit.ProductRepoSearchTest" />
+      <item itemvalue="PIT Runner.Builder" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductRepoSearchTest" />
         <item itemvalue="JUnit.ProductSearchFeature" />
         <item itemvalue="JUnit.ProductFacadeTest" />
         <item itemvalue="JUnit.ProductControllerMvcTest" />
         <item itemvalue="Application.StartDatabase" />
-        <item itemvalue="JUnit.ProductControllerMvcPortTest" />
       </list>
     </recent_temporary>
   </component>
@@ -680,10 +686,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1536.834@0.0.1536.834" timestamp="1590391014541" />
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590385753924">
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590732167006">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590385753924" />
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590732167006" />
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588657005597">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -716,22 +722,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590442688974" />
-    <state width="1493" height="356" key="GridCell.Tab.0.bottom" timestamp="1590442936426">
+    <state width="1492" height="245" key="GridCell.Tab.0.bottom" timestamp="1590732182278">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590442936426" />
-    <state width="1493" height="356" key="GridCell.Tab.0.center" timestamp="1590442936425">
+    <state width="1492" height="245" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590732182278" />
+    <state width="1492" height="245" key="GridCell.Tab.0.center" timestamp="1590732182277">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590442936425" />
-    <state width="1493" height="356" key="GridCell.Tab.0.left" timestamp="1590442936425">
+    <state width="1492" height="245" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590732182277" />
+    <state width="1492" height="245" key="GridCell.Tab.0.left" timestamp="1590732182277">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590442936425" />
-    <state width="1493" height="356" key="GridCell.Tab.0.right" timestamp="1590442936426">
+    <state width="1492" height="245" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590732182277" />
+    <state width="1492" height="245" key="GridCell.Tab.0.right" timestamp="1590732182277">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590442936426" />
+    <state width="1492" height="245" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590732182277" />
     <state width="1493" height="363" key="GridCell.Tab.1.bottom" timestamp="1590440993214">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -756,10 +762,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="299" y="72" key="Maven.ArtifactSearchDialog/0.0.1536.834@0.0.1536.834" timestamp="1590399694342" />
-    <state x="278" y="0" width="1258" height="710" key="SettingsEditor" timestamp="1590394464565">
+    <state x="278" y="0" width="1258" height="710" key="SettingsEditor" timestamp="1590732255219">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590394464565" />
+    <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590732255219" />
     <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590442975084">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -786,11 +792,20 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/unit_testing$ProductRepoSearchTest.ic" NAME="ProductRepoSearchTest Coverage Results" MODIFIED="1590732126288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ro.victor.unittest.spring.repo.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/unit_testing$ProductRepoSearchTest.exec" NAME="ProductRepoSearchTest Coverage Results" MODIFIED="1590732182254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ro.victor.unittest.spring.repo.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/unit_testing$AccountFeature.ic" NAME="AccountFeature Coverage Results" MODIFIED="1563370806316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.tdd.outsidein.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/unit_testing$ClientSearchBehaviorTest.ic" NAME="ClientSearchBehaviorTest Coverage Results" MODIFIED="1563370638245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.bank.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/unit_testing$ProductSearchFeature.ic" NAME="ProductSearchFeature Coverage Results" MODIFIED="1590731963534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ro.victor.unittest.spring.repo.*</FILTER>
     </SUITE>
   </component>
 </project>
