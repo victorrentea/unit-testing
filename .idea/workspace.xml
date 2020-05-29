@@ -20,11 +20,20 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoJdbc.java" afterDir="false" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="add JdbcRepo for search">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_micrometer_micrometer_core_1_1_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hdrhistogram_HdrHistogram_2_1_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_latencyutils_LatencyUtils_2_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_autoconfigure_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_actuator_2_1_4_RELEASE.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,84 +166,20 @@
       <recent name="ro.victor.unittest.tdd.outsidein" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductRepoSearchTest">
-    <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductControllerMvcTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerMvcTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductRepoSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Spring Boot.SomeSpringApplication">
+    <configuration name="CustomerValidatorShould.yesSir" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <useClassPathOnly />
-      <extension name="coverage" runner="jacoco">
+      <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
+          <option name="PATTERN" value="ro.victor.unittest.builder.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductRepoSearchTest" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductSearchFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <useClassPathOnly />
-      <extension name="coverage" runner="jacoco">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.repo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.repo" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.repo.ProductSearchFeature" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.builder" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.builder.CustomerValidatorShould" />
+      <option name="METHOD_NAME" value="yesSir" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -242,7 +187,12 @@
       </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
+      <useClassPathOnly />
+      <extension name="coverage" runner="jacoco" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
@@ -254,21 +204,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SomeSpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ro.victor.unittest.spring.SomeSpringApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="Application.StartDatabase" />
-      <item itemvalue="JUnit.ProductSearchFeature" />
-      <item itemvalue="JUnit.ProductControllerMvcTest" />
-      <item itemvalue="JUnit.ProductFacadeTest" />
-      <item itemvalue="JUnit.ProductRepoSearchTest" />
+      <item itemvalue="JUnit.CustomerValidatorShould.yesSir" />
       <item itemvalue="PIT Runner.Builder" />
+      <item itemvalue="Spring Boot.SomeSpringApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProductRepoSearchTest" />
-        <item itemvalue="JUnit.ProductSearchFeature" />
-        <item itemvalue="JUnit.ProductFacadeTest" />
-        <item itemvalue="JUnit.ProductControllerMvcTest" />
-        <item itemvalue="Application.StartDatabase" />
+        <item itemvalue="Spring Boot.SomeSpringApplication" />
+        <item itemvalue="JUnit.CustomerValidatorShould.yesSir" />
       </list>
     </recent_temporary>
   </component>
@@ -598,7 +555,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590442973130</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="add JdbcRepo for search">
+      <created>1590732279558</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1590732279558</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -650,7 +614,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="outside-in" />
     <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
     <MESSAGE value="JDK" />
@@ -675,7 +638,8 @@
     <MESSAGE value="Cucumber Repo search working" />
     <MESSAGE value="Cucumber: No TestTransaction available" />
     <MESSAGE value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
-    <option name="LAST_COMMIT_MESSAGE" value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
+    <MESSAGE value="add JdbcRepo for search" />
+    <option name="LAST_COMMIT_MESSAGE" value="add JdbcRepo for search" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -686,10 +650,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1536.834@0.0.1536.834" timestamp="1590391014541" />
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590732167006">
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590732857070">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590732167006" />
+    <state x="379" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1590732857070" />
     <state x="493" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588657005597">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -714,62 +678,66 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="626" y="0" key="CommitChangelistDialog2" timestamp="1590442972716">
+    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590741297798">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="626" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590442972716" />
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590442688974">
+    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590741297798" />
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590741274541">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590442688974" />
-    <state width="1492" height="245" key="GridCell.Tab.0.bottom" timestamp="1590732182278">
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590741274541" />
+    <state width="1492" height="245" key="GridCell.Tab.0.bottom" timestamp="1590742633484">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590732182278" />
-    <state width="1492" height="245" key="GridCell.Tab.0.center" timestamp="1590732182277">
+    <state width="1492" height="245" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
+    <state width="1492" height="245" key="GridCell.Tab.0.center" timestamp="1590742633484">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590732182277" />
-    <state width="1492" height="245" key="GridCell.Tab.0.left" timestamp="1590732182277">
+    <state width="1492" height="245" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
+    <state width="1492" height="245" key="GridCell.Tab.0.left" timestamp="1590742633484">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590732182277" />
-    <state width="1492" height="245" key="GridCell.Tab.0.right" timestamp="1590732182277">
+    <state width="1492" height="245" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
+    <state width="1492" height="245" key="GridCell.Tab.0.right" timestamp="1590742633484">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590732182277" />
-    <state width="1493" height="363" key="GridCell.Tab.1.bottom" timestamp="1590440993214">
+    <state width="1492" height="245" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
+    <state width="1492" height="245" key="GridCell.Tab.1.bottom" timestamp="1590742633484">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="363" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590440993214" />
-    <state width="1493" height="363" key="GridCell.Tab.1.center" timestamp="1590440993213">
+    <state width="1492" height="245" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
+    <state width="1492" height="245" key="GridCell.Tab.1.center" timestamp="1590742633484">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="363" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1590440993213" />
-    <state width="1493" height="363" key="GridCell.Tab.1.left" timestamp="1590440993213">
+    <state width="1492" height="245" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
+    <state width="1492" height="245" key="GridCell.Tab.1.left" timestamp="1590742633484">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="363" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1590440993213" />
-    <state width="1493" height="363" key="GridCell.Tab.1.right" timestamp="1590440993213">
+    <state width="1492" height="245" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
+    <state width="1492" height="245" key="GridCell.Tab.1.right" timestamp="1590742633484">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="363" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1590440993213" />
+    <state width="1492" height="245" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
     <state x="349" y="152" key="IDE.errors.dialog" timestamp="1590403159824">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="349" y="152" key="IDE.errors.dialog/0.0.1536.834@0.0.1536.834" timestamp="1590403159824" />
-    <state x="299" y="72" key="Maven.ArtifactSearchDialog" timestamp="1590399694342">
+    <state x="299" y="72" key="Maven.ArtifactSearchDialog" timestamp="1590742511819">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="299" y="72" key="Maven.ArtifactSearchDialog/0.0.1536.834@0.0.1536.834" timestamp="1590399694342" />
+    <state x="299" y="72" key="Maven.ArtifactSearchDialog/0.0.1536.834@0.0.1536.834" timestamp="1590742511819" />
+    <state x="470" y="119" key="RollbackChangesDialog" timestamp="1590741295682">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="470" y="119" key="RollbackChangesDialog/0.0.1536.834@0.0.1536.834" timestamp="1590741295682" />
     <state x="278" y="0" width="1258" height="710" key="SettingsEditor" timestamp="1590732255219">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590732255219" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590442975084">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590732281185">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590442975084" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590732281185" />
     <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590439033424">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -792,6 +760,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/unit_testing$CustomerValidatorShould_yesSir.exec" NAME="CustomerValidatorShould.yesSir Coverage Results" MODIFIED="1590732742740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ro.victor.unittest.builder.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/unit_testing$ProductRepoSearchTest.ic" NAME="ProductRepoSearchTest Coverage Results" MODIFIED="1590732126288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.spring.repo.*</FILTER>
     </SUITE>
@@ -800,6 +771,9 @@
     </SUITE>
     <SUITE FILE_PATH="coverage/unit_testing$AccountFeature.ic" NAME="AccountFeature Coverage Results" MODIFIED="1563370806316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.tdd.outsidein.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/unit_testing$CustomerValidatorShould_yesSir.ic" NAME="CustomerValidatorShould.yesSir Coverage Results" MODIFIED="1590732863859" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ro.victor.unittest.builder.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/unit_testing$ClientSearchBehaviorTest.ic" NAME="ClientSearchBehaviorTest Coverage Results" MODIFIED="1563370638245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.bank.*</FILTER>

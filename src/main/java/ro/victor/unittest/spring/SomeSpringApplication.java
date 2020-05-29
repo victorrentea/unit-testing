@@ -7,9 +7,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ro.victor.unittest.spring.web.CustomHeaderInterceptor;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.Clock;
 
+@EnableSwagger2
 @SpringBootApplication
 public class SomeSpringApplication implements WebMvcConfigurer {
     public static void main(String[] args) {

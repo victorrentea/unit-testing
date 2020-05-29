@@ -182,6 +182,12 @@
     <orderEntry type="library" name="Maven: info.cukes:gherkin:2.12.2" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-spring:1.2.4" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-junit:1.2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-actuator:2.1.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator-autoconfigure:2.1.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator:2.1.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-core:1.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.hdrhistogram:HdrHistogram:2.1.9" level="project" />
+    <orderEntry type="library" name="Maven: org.latencyutils:LatencyUtils:2.0.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4:2.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4-common:2.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-reflect:2.0.2" level="project" />
