@@ -20,20 +20,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="add JdbcRepo for search">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_micrometer_micrometer_core_1_1_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hdrhistogram_HdrHistogram_2_1_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_latencyutils_LatencyUtils_2_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_2_1_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_autoconfigure_2_1_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_actuator_2_1_4_RELEASE.xml" afterDir="false" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/prework/NuclearService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/web/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +108,13 @@
     <property name="settings.editor.selected.configurable" value="coverage" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.prework" />
+      <recent name="ro.victor.unittest.spring.domain" />
+      <recent name="ro.victor.unittest.tdd.bowling" />
+      <recent name="ro.victor.unittest.tdd" />
+      <recent name="ro.victor.unittest.tdd.wordwrap" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
@@ -138,13 +134,6 @@
       <recent name="ro.victor.unittest.builder" />
       <recent name="ro.victor.unittest.spring" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\unit-testing\src\main\resources" />
-      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\spring\repo" />
-      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
-      <recent name="C:\workspace\unit-testing\src\test\resources" />
-      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\workspace\unit-testing\src\test\resources" />
       <recent name="C:\workspace\unit-testing\src\main\java" />
@@ -158,12 +147,12 @@
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ro.victor.unittest.spring.domain" />
-      <recent name="ro.victor.unittest.tdd.bowling" />
-      <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
-      <recent name="ro.victor.unittest.tdd.outsidein" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\unit-testing\src\main\resources" />
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\spring\repo" />
+      <recent name="C:\workspace\unit-testing\src\test\java\ro\victor\unittest\db" />
+      <recent name="C:\workspace\unit-testing\src\test\resources" />
+      <recent name="C:\workspace\training\unit-testing\src\test\java\ro\victor\unittest\db" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.SomeSpringApplication">
@@ -267,6 +256,8 @@
       <workItem from="1588656316809" duration="932000" />
       <workItem from="1590324649366" duration="613000" />
       <workItem from="1590385363094" duration="18156000" />
+      <workItem from="1591165920724" duration="69000" />
+      <workItem from="1592204797639" duration="1241000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -562,7 +553,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590732279558</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="changing logging level via actuator">
+      <created>1590743213615</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1590743213615</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -614,7 +612,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Aproape gata (80%)" />
     <MESSAGE value="Outside IN TDD : DOne" />
     <MESSAGE value="JDK" />
     <MESSAGE value="fix Java version" />
@@ -639,7 +636,8 @@
     <MESSAGE value="Cucumber: No TestTransaction available" />
     <MESSAGE value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
     <MESSAGE value="add JdbcRepo for search" />
-    <option name="LAST_COMMIT_MESSAGE" value="add JdbcRepo for search" />
+    <MESSAGE value="changing logging level via actuator" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing logging level via actuator" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -678,46 +676,50 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590741297798">
+    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1590743213163">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590741297798" />
+    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1590743213163" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590741274541">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1590741274541" />
-    <state width="1492" height="245" key="GridCell.Tab.0.bottom" timestamp="1590742633484">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1591165924371">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
-    <state width="1492" height="245" key="GridCell.Tab.0.center" timestamp="1590742633484">
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1591165924371" />
+    <state width="1493" height="245" key="GridCell.Tab.0.bottom" timestamp="1591044410607">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
-    <state width="1492" height="245" key="GridCell.Tab.0.left" timestamp="1590742633484">
+    <state width="1493" height="245" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1591044410607" />
+    <state width="1493" height="245" key="GridCell.Tab.0.center" timestamp="1591044410606">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
-    <state width="1492" height="245" key="GridCell.Tab.0.right" timestamp="1590742633484">
+    <state width="1493" height="245" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1591044410606" />
+    <state width="1493" height="245" key="GridCell.Tab.0.left" timestamp="1591044410606">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
-    <state width="1492" height="245" key="GridCell.Tab.1.bottom" timestamp="1590742633484">
+    <state width="1493" height="245" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1591044410606" />
+    <state width="1493" height="245" key="GridCell.Tab.0.right" timestamp="1591044410606">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
-    <state width="1492" height="245" key="GridCell.Tab.1.center" timestamp="1590742633484">
+    <state width="1493" height="245" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1591044410606" />
+    <state width="1493" height="245" key="GridCell.Tab.1.bottom" timestamp="1591044410609">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
-    <state width="1492" height="245" key="GridCell.Tab.1.left" timestamp="1590742633484">
+    <state width="1493" height="245" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1591044410609" />
+    <state width="1493" height="245" key="GridCell.Tab.1.center" timestamp="1591044410608">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
-    <state width="1492" height="245" key="GridCell.Tab.1.right" timestamp="1590742633484">
+    <state width="1493" height="245" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1591044410608" />
+    <state width="1493" height="245" key="GridCell.Tab.1.left" timestamp="1591044410607">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="245" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1590742633484" />
+    <state width="1493" height="245" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1591044410607" />
+    <state width="1493" height="245" key="GridCell.Tab.1.right" timestamp="1591044410608">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="245" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1591044410608" />
     <state x="349" y="152" key="IDE.errors.dialog" timestamp="1590403159824">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -734,10 +736,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590732255219" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590732281185">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1590743214951">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590732281185" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1590743214951" />
     <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590439033424">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -750,10 +752,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1590393221421" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1590436615785">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1592205592799">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1590436615785" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1592205592799" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
