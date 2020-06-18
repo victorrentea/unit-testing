@@ -9,6 +9,7 @@ public class CustomerValidatorShould {
 
 	private final CustomerValidator customerValidator = new CustomerValidator();
 
+
 	private Customer aValidCustomer() {
 		return new Customer()
 			.setName("John")

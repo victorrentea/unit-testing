@@ -2,6 +2,7 @@ package ro.victor.unittest.mocks;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class TelemetryClient {
@@ -36,8 +37,7 @@ public class TelemetryClient {
 		public void setAckMode(AckMode ackMode) {
 			this.ackMode = ackMode;
 		}
-		
-		
+
 	}
 
 	private boolean onlineStatus;

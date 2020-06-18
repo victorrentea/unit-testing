@@ -6,6 +6,9 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class CustomerValidator {
 
+	public CustomerValidator() {
+		System.out.println("NEW");
+	}
 	int validationCount  = 0;
 
 	public int getValidationCount() {

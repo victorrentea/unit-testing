@@ -1,5 +1,6 @@
 package ro.victor.unittest.time.rule;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -19,16 +20,16 @@ public class TestTimeRuleTest {
 
     public static class WithHackedTime {
         // TODO solution: uncomment this
-//        @Rule
-//        public TestTimeRule timeRule = new TestTimeRule(LocalDateTime.of(2019, 01, 01, 0, 0));
+        @Rule
+        public TestTimeRule timeRule = new TestTimeRule(LocalDateTime.of(2019, 01, 01, 0, 0));
 
         @Test
         public void testWithHackedTime() {
 
             LocalDateTime testTime = LocalDateTime.of(2019, 01, 01, 0, 0);
-            TimeProvider.setTestTime(testTime);
+//            TimeProvider.setTestTime(testTime);
             assertEquals(testTime, getTimeFromProd());
-            TimeProvider.clearTestTime(); // TODO forget this
+//            TimeProvider.clearTestTime(); // TODO forget this
 
             // TODO Try LocalDateTime.now(Clock)
         }

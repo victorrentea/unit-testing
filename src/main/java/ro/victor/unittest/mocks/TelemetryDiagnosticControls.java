@@ -26,25 +26,33 @@ public class TelemetryDiagnosticControls {
 	public void checkTransmission() {
 		telemetryClient.disconnect();
 
-		int currentRetry = 1;
-		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
-			telemetryClient.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
-			currentRetry ++;
-		}
+//		int currentRetry = 1;
+//		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
+//			telemetryClient.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
+//			currentRetry ++;
+//		}
 
 		if (! telemetryClient.getOnlineStatus() && f()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		TelemetryClient.ClientConfiguration config = new TelemetryClient.ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(TelemetryClient.ClientConfiguration.AckMode.NORMAL);
-		telemetryClient.configure(config);
+		telemetryClient.configure(createConfiguration());
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
+
+	private TelemetryClient.ClientConfiguration createConfiguration() {
+		TelemetryClient.ClientConfiguration config = new TelemetryClient.ClientConfiguration();
+		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(TelemetryClient.ClientConfiguration.AckMode.NORMAL);
+		return config;
+	}
+	// +getter ar permite asert direct pe ce s-a calculat
+	// DAR, murdareste designul de prod pentru folosul strict al testelor
+	// pt ca probabil se va pastra o ref la "config" si din Client oricum.
+//	private TelemetryClient.ClientConfiguration config;
 
 	private boolean f() {
 		return true;
