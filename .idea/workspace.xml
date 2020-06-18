@@ -21,14 +21,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/mocks/ShortCircuitCoverage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/ShortCircuitCoverageTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/builder/CustomerValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/builder/CustomerValidatorShould.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit-testing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unit-testing.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/telemetry/TelemetryDiagnosticControlsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/mocks/TelemetryDiagnosticControlsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +36,9 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -163,7 +162,7 @@
       <recent name="ro.victor.unittest.tdd.wordwrap" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CustomerValidatorShould">
+  <component name="RunManager" selected="JUnit.TelemetryDiagnosticControlsTest">
     <configuration name="CustomerValidatorShould" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <useClassPathOnly />
@@ -221,7 +220,7 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShortCircuitCoverageTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TelemetryDiagnosticControlsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <useClassPathOnly />
       <extension name="coverage" runner="jacoco">
@@ -231,28 +230,28 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.ShortCircuitCoverageTest" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.TelemetryDiagnosticControlsTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TelemetryDiagnosticControlsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TelemetryDiagnosticControlsTest.ok" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <useClassPathOnly />
       <extension name="coverage" runner="jacoco">
         <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.mocks.telemetry.*" />
+          <option name="PATTERN" value="ro.victor.unittest.mocks.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks.telemetry" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.telemetry.TelemetryDiagnosticControlsTest" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.mocks" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.mocks.TelemetryDiagnosticControlsTest" />
+      <option name="METHOD_NAME" value="ok" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -280,18 +279,18 @@
     <list>
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
-      <item itemvalue="JUnit.ShortCircuitCoverageTest.test" />
       <item itemvalue="JUnit.CustomerValidatorShould.throwsForCustomerWithNullName" />
       <item itemvalue="JUnit.CustomerValidatorShould" />
       <item itemvalue="JUnit.CustomerValidatorShould.throwsForCustomerWithNullAddress" />
+      <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.ok" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
+        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest.ok" />
         <item itemvalue="JUnit.CustomerValidatorShould" />
         <item itemvalue="JUnit.CustomerValidatorShould.throwsForCustomerWithNullAddress" />
         <item itemvalue="JUnit.CustomerValidatorShould.throwsForCustomerWithNullName" />
-        <item itemvalue="JUnit.ShortCircuitCoverageTest.test" />
-        <item itemvalue="JUnit.TelemetryDiagnosticControlsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -335,7 +334,7 @@
       <workItem from="1590385363094" duration="18156000" />
       <workItem from="1591165920724" duration="69000" />
       <workItem from="1592204797639" duration="1241000" />
-      <workItem from="1592462442724" duration="3887000" />
+      <workItem from="1592462442724" duration="5512000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -652,7 +651,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592464781694</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Customer Validator: mini-test-framework - factory methods, expected=,">
+      <created>1592466915429</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1592466915429</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -704,7 +710,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="fix Java version" />
     <MESSAGE value="Fix DBUnit" />
     <MESSAGE value="Gitignore" />
     <MESSAGE value="Prep for mutation testing" />
@@ -729,13 +734,18 @@
     <MESSAGE value="changing logging level via actuator" />
     <MESSAGE value="asta e" />
     <MESSAGE value="Mockito basics" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mockito basics" />
+    <MESSAGE value="Customer Validator: mini-test-framework - factory methods, expected=," />
+    <option name="LAST_COMMIT_MESSAGE" value="Customer Validator: mini-test-framework - factory methods, expected=," />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="79" key="#Notifications/0.0.1536.834@0.0.1536.834" timestamp="1588656268898" />
+    <state x="370" y="35" key="#TelemetryDiagnosticControlsTest.ok" timestamp="1592467194506">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="370" y="35" key="#TelemetryDiagnosticControlsTest.ok/0.0.1536.834@0.0.1536.834" timestamp="1592467194506" />
     <state x="485" y="274" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1590391014541">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -756,10 +766,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="581" y="341" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.834@0.0.1536.834" timestamp="1590390232663" />
-    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1592463674589">
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1592467196646">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1592463674589" />
+    <state x="571" y="286" width="619" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1592467196646" />
     <state x="551" y="261" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog" timestamp="1590390233545">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -768,10 +778,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1588659964697" />
-    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1592464780706">
+    <state x="288" y="0" key="CommitChangelistDialog2" timestamp="1592466914709">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592464780706" />
+    <state x="288" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592466914709" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590741274541">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -780,38 +790,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1591165924371" />
-    <state width="1492" height="215" key="GridCell.Tab.0.bottom" timestamp="1592466576746">
+    <state width="1492" height="169" key="GridCell.Tab.0.bottom" timestamp="1592468149159">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="215" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592466576746" />
-    <state width="1492" height="215" key="GridCell.Tab.0.center" timestamp="1592466576746">
+    <state width="1492" height="169" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592468149159" />
+    <state width="1492" height="169" key="GridCell.Tab.0.center" timestamp="1592468149158">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="215" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592466576746" />
-    <state width="1492" height="215" key="GridCell.Tab.0.left" timestamp="1592466576746">
+    <state width="1492" height="169" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592468149158" />
+    <state width="1492" height="169" key="GridCell.Tab.0.left" timestamp="1592468149158">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="215" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592466576746" />
-    <state width="1492" height="215" key="GridCell.Tab.0.right" timestamp="1592466576746">
+    <state width="1492" height="169" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592468149158" />
+    <state width="1492" height="169" key="GridCell.Tab.0.right" timestamp="1592468149158">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="215" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592466576746" />
+    <state width="1492" height="169" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592468149158" />
     <state width="1493" height="245" key="GridCell.Tab.1.bottom" timestamp="1591044410609">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -848,10 +858,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1592464784151" />
-    <state x="499" y="182" key="extract.method.dialog" timestamp="1592466625795">
+    <state x="499" y="182" key="extract.method.dialog" timestamp="1592466763681">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="499" y="182" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1592466625795" />
+    <state x="499" y="182" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1592466763681" />
     <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1590439033424">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -872,10 +882,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1592464429599" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1592463959915">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1592466931566">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1592463959915" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1592466931566" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -888,11 +898,11 @@
     <SUITE FILE_PATH="coverage/unit_testing$AccountFeature.ic" NAME="AccountFeature Coverage Results" MODIFIED="1563370806316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.tdd.outsidein.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/unit_testing$TelemetryDiagnosticControlsTest_ok.exec" NAME="TelemetryDiagnosticControlsTest.ok Coverage Results" MODIFIED="1592464323627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>ro.victor.unittest.mocks.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/unit_testing$TelemetryDiagnosticControlsTest.exec" NAME="TelemetryDiagnosticControlsTest Coverage Results" MODIFIED="1592464278821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/unit_testing$TelemetryDiagnosticControlsTest_ok.exec" NAME="TelemetryDiagnosticControlsTest.ok Coverage Results" MODIFIED="1592467175627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.mocks.telemetry.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/unit_testing$TelemetryDiagnosticControlsTest.exec" NAME="TelemetryDiagnosticControlsTest Coverage Results" MODIFIED="1592468123718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ro.victor.unittest.mocks.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/unit_testing$ShortCircuitCoverageTest_test.exec" NAME="ShortCircuitCoverageTest.test Coverage Results" MODIFIED="1592465064869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.mocks.*</FILTER>
@@ -915,7 +925,7 @@
     <SUITE FILE_PATH="coverage/unit_testing$ClientSearchBehaviorTest.ic" NAME="ClientSearchBehaviorTest Coverage Results" MODIFIED="1563370638245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.bank.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/unit_testing$CustomerValidatorShould.exec" NAME="CustomerValidatorShould Coverage Results" MODIFIED="1592466856505" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/unit_testing$CustomerValidatorShould.exec" NAME="CustomerValidatorShould Coverage Results" MODIFIED="1592467077957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ro.victor.unittest.builder.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/unit_testing$ProductSearchFeature.ic" NAME="ProductSearchFeature Coverage Results" MODIFIED="1590731963534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

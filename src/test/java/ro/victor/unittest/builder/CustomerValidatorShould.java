@@ -1,5 +1,6 @@
 package ro.victor.unittest.builder;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -23,6 +24,7 @@ public class CustomerValidatorShould {
 	@Test
 	public void success() {
 		customerValidator.validate(aValidCustomer());
+		Assert.assertEquals(1, customerValidator.getValidationCount());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
