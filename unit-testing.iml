@@ -174,7 +174,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-json:2.5.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.rest-assured:rest-assured-common:3.1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.rest-assured:xml-path:3.1.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.github.tomakehurst:wiremock-jre8-standalone:2.26.3" level="project" />
+    <orderEntry type="library" name="Maven: com.github.tomakehurst:wiremock-jre8-standalone:2.26.3" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-java:1.2.4" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-core:1.2.4" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-html:0.2.3" level="project" />
