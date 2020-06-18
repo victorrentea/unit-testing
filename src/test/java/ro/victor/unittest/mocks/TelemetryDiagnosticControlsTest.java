@@ -76,7 +76,30 @@ public class TelemetryDiagnosticControlsTest {
         Assertions.assertThat(config.getSessionStart()).isEqualToIgnoringHours(LocalDateTime.now());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
+    public void createConfig() {
+        ClientConfiguration config = controls.createConfiguration();
+        assertEquals(ClientConfiguration.AckMode.NORMAL, config.getAckMode());
+        Assertions.assertThat(config.getSessionStart()).isEqualToIgnoringHours(LocalDateTime.now());
+    }
+
+
+    @Test
+    public void configuresClientCuOrice() {
+        when(mockClient.getOnlineStatus()).thenReturn(true);
+        controls.checkTransmission();
+        verify(mockClient).configure(any());
+        // daca vrei sa fii mai catolic decat papa, si sa verifici 100%
+        // poate te duce gandul la
+        /** @see org.mockito.Spy */
+        // NU-L FOLOSI,
+        // in loc, fa asa:
+
+        // Extrage createConfiguration intr-o alta clasa numita ConfigFactory
+        // testeaz-o p-aia, si apoi injecteaza un @Mock obisnuit in Controls.
+    }
+
+        @Test(expected = IllegalStateException.class)
     public void bum() {
         when(mockClient.getOnlineStatus()).thenReturn(false);
         controls.checkTransmission();

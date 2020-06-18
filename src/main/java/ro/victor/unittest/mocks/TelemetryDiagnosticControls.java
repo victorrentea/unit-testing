@@ -41,8 +41,10 @@ public class TelemetryDiagnosticControls {
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
+//	@Autowired
+//	private ConfigFactory configFactory;
 
-	private TelemetryClient.ClientConfiguration createConfiguration() {
+	TelemetryClient.ClientConfiguration createConfiguration() {
 		TelemetryClient.ClientConfiguration config = new TelemetryClient.ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
