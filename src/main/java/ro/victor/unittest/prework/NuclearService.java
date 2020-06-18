@@ -18,6 +18,7 @@ public class NuclearService {
    private DistanceService distanceService;
    private ProbeService probeService;
 
+
    // TODO test me
    public double interpolateQuantum(int atoms, double mark1) {
       if (atoms - phaserThreshold < 5) {

@@ -20,10 +20,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/prework/NuclearService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,7 +47,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="EBS201911" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -258,6 +255,7 @@
       <workItem from="1590385363094" duration="18156000" />
       <workItem from="1591165920724" duration="69000" />
       <workItem from="1592204797639" duration="1241000" />
+      <workItem from="1592462442724" duration="501000" />
     </task>
     <task id="LOCAL-00001" summary="rename bdd to filtering.&#10;added time @Rule">
       <created>1562356900385</created>
@@ -744,6 +742,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1590439033424" />
+    <state x="558" y="318" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1592462497905">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="558" y="318" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1536.834@0.0.1536.834" timestamp="1592462497905" />
     <state width="538" height="441" key="javadoc.popup.new" timestamp="1590439894437">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
