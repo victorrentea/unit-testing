@@ -1,13 +1,18 @@
-package ro.victor.unittest.mocks.telemetry;
+package ro.victor.unittest.mocks;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 
 public class TelemetryClient {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
+	public List<String> getList() {
+		return null;
+	}
 
-    public static class ClientConfiguration {
+
+	public static class ClientConfiguration {
 		enum AckMode {NORMAL, TIMEBOXED, FLOOD};
 		private String sessionId;
 		private LocalDateTime sessionStart;
