@@ -45,7 +45,11 @@ public class TelemetryDiagnosticControlsTest {
         verify(mockClient).send("AT#UD"); // ce simti? PANICA. Cand e IO catre alt sistem, format extern
         verify(mockClient).send(DIAGNOSTIC_MESSAGE); // esti do[a]mn[a] -- as recomanda
 
-        verify(mockClient).receive();
+//        verify(mockClient).receive(); // 99.9% din cazuri, sa faci verify() pe ceva ce faci si when.thenReturn() e inutil.
+        // cu alte cuvinte nu e cazul sa verifici ca o functie tip "QUERY" (pure function) este chemata. De ob, valoarea din thenReturn
+        // influenteaza cumva relevant executia pe care tu o observi
+
+        verify(mockClient, times(1)).receive(); // 0.1% - cand trebuie sa faci verify ? - cand e o SCUMPA (200ms)
         assertEquals("EXPECTED_RECEIVE_VALUE", controls.getDiagnosticInfo());
     }
 

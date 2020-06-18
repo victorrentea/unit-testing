@@ -59,5 +59,4 @@ public class TelemetryDiagnosticControls {
 	private boolean f() {
 		return true;
 	}
-
 }
