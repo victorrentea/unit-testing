@@ -164,7 +164,7 @@
       <recent name="ro.victor.unittest.spring.infra" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductFacadeTest.searchProductByName">
+  <component name="RunManager" selected="JUnit.ProductFacadeTest">
     <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <useClassPathOnly />
@@ -288,9 +288,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductFacadeTest" />
         <item itemvalue="JUnit.ProductFacadeTest.searchProductByName" />
         <item itemvalue="JUnit.ProductFacadeTest.searchProduct" />
-        <item itemvalue="JUnit.ProductFacadeTest" />
         <item itemvalue="JUnit.ProductFacadeTest2" />
         <item itemvalue="JUnit.ProductFacadeTest2.searchProduct" />
       </list>

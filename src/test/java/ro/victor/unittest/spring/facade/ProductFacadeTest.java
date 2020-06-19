@@ -46,6 +46,8 @@ public class ProductFacadeTest {
    @Autowired
    private SupplierRepo supplierRepo;
 
+
+
    @Before
    public void checkNoProductsInDb() {
 //      Assertions.assertThat(productRepo.count()).isEqualTo(0);
@@ -69,11 +71,11 @@ public class ProductFacadeTest {
 
    @Test
    public void getProduct() {
-//      Supplier supplier = new Supplier("emag")
-//          .setActive(true);
-//      supplierRepo.save(supplier);
+      Supplier supplier = new Supplier("emag")
+          .setActive(true);
+      supplierRepo.save(supplier);
       Product product = new Product("Ceapa");
-//      product.setSupplier(supplier);
+      product.setSupplier(supplier);
       productRepo.save(product);
 //      WhoServiceClientForTests.vaccineExists = true;
 
