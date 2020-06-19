@@ -5,7 +5,7 @@
   },
   "response": {
     "status": 200,
-    "body": "Hello WireMock!",
+    "body": "<b>Hello WireMock!</b>",
     "headers": {
       "Content-Type": "text/plain"
     }
