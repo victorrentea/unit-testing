@@ -31,6 +31,7 @@ import static org.springframework.test.annotation.DirtiesContext.MethodMode.BEFO
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 // mai bine probabil cureti Springu(de ob tabelele) intr-un @Before
 
+@Transactional
 public class ProductFacadeTest {
 
    @Autowired
@@ -42,16 +43,15 @@ public class ProductFacadeTest {
    private SupplierRepo supplierRepo;
 
    @Test
-   @DirtiesContext(methodMode = BEFORE_METHOD)
+//   @DirtiesContext(methodMode = BEFORE_METHOD)
    public void searchProduct() {
-      productRepo.save(new Product("Zeama"));
+//      productRepo.save(new Product("Zeama"));
       ProductSearchCriteria criteria = new ProductSearchCriteria();
-      criteria.name="z";
+//      criteria.name="z";
       int n = facade.searchProduct(criteria).size();
-      Assertions.assertThat(n).isEqualTo(1);
+      Assertions.assertThat(n).isEqualTo(0);
    }
    @Test
-//   @Transactional
    public void getProduct() {
 //      Supplier supplier = new Supplier("emag")
 //          .setActive(true);
