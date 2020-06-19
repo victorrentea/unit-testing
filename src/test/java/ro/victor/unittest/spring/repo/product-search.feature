@@ -21,6 +21,41 @@ Feature: Search for product
     When The search criteria name is "namex"
     Then No products are returned by search
 
+
+
+
+  Scenario Template:
+    Given One product exists
+    And That product has name "<productName>"
+    When The search criteria name is "<criteriaName>"
+    Then That product is returned by search
+
+    Examples:
+    | productName | criteriaName |
+    | namE        | e            |
+    | namEx        | e            |
+    | namEx        | E            |
+    | namEx        | n            |
+
+
+
+  Scenario:
+    Given One product exists
+    And That product has name "namE"
+    When The search criteria name is "e"
+    Then That product is returned by search
+
+  Scenario:
+    Given One product exists
+    And That product has name "namEx"
+    When The search criteria name is "e"
+    Then That product is returned by search
+
+
+
+
+
+
   Scenario:
     Given One product exists
     Then That product is returned by search

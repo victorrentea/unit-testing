@@ -21,9 +21,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/ProductSearchSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/product-search.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/product-search.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -340,14 +337,7 @@
       <workItem from="1591165920724" duration="69000" />
       <workItem from="1592204797639" duration="1241000" />
       <workItem from="1592462442724" duration="16731000" />
-      <workItem from="1592552955580" duration="6178000" />
-    </task>
-    <task id="LOCAL-00015" summary="prep mockito exercise">
-      <created>1563285627086</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1563285627086</updated>
+      <workItem from="1592552955580" duration="6492000" />
     </task>
     <task id="LOCAL-00016" summary="Mockito play">
       <created>1563309436176</created>
@@ -685,7 +675,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592558165013</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Cucumber tests OK">
+      <created>1592560063285</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1592560063285</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -737,7 +734,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Repo .feature sample" />
     <MESSAGE value="Cucumber Repo search working" />
     <MESSAGE value="Cucumber: No TestTransaction available" />
     <MESSAGE value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
@@ -762,13 +758,18 @@
     <MESSAGE value="Tranzacti intermediare te obliga sa TRUNCATE TABLE sau @DirtiesContext" />
     <MESSAGE value="compilation fix" />
     <MESSAGE value="all tests passing" />
-    <option name="LAST_COMMIT_MESSAGE" value="all tests passing" />
+    <MESSAGE value="Cucumber tests OK" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cucumber tests OK" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="79" key="#Notifications/0.0.1536.834@0.0.1536.834" timestamp="1588656268898" />
+    <state x="249" y="0" key="#Project_Structure" timestamp="1592560249578">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="249" y="0" key="#Project_Structure/0.0.1536.834@0.0.1536.834" timestamp="1592560249578" />
     <state x="370" y="35" key="#TelemetryDiagnosticControlsTest.ok" timestamp="1592467194506">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -809,10 +810,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1592550839114" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1592558164359">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1592560062580">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592558164359" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592560062580" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1592558636585">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -825,38 +826,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1591165924371" />
-    <state width="1493" height="209" key="GridCell.Tab.0.bottom" timestamp="1592559815875">
+    <state width="1493" height="222" key="GridCell.Tab.0.bottom" timestamp="1592560235360">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1592557529450">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529450" />
-    <state width="1493" height="209" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592559815875" />
-    <state width="1493" height="209" key="GridCell.Tab.0.center" timestamp="1592559815875">
+    <state width="1493" height="222" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592560235360" />
+    <state width="1493" height="222" key="GridCell.Tab.0.center" timestamp="1592560235359">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1592557529449">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529449" />
-    <state width="1493" height="209" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592559815875" />
-    <state width="1493" height="209" key="GridCell.Tab.0.left" timestamp="1592559815875">
+    <state width="1493" height="222" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592560235359" />
+    <state width="1493" height="222" key="GridCell.Tab.0.left" timestamp="1592560235359">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1592557529448">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529448" />
-    <state width="1493" height="209" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592559815875" />
-    <state width="1493" height="209" key="GridCell.Tab.0.right" timestamp="1592559815875">
+    <state width="1493" height="222" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592560235359" />
+    <state width="1493" height="222" key="GridCell.Tab.0.right" timestamp="1592560235359">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1592557529449">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529449" />
-    <state width="1493" height="209" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592559815875" />
+    <state width="1493" height="222" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592560235359" />
     <state width="1492" height="131" key="GridCell.Tab.1.bottom" timestamp="1592552932469">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
