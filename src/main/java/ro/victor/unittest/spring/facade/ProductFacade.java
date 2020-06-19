@@ -10,7 +10,6 @@ import ro.victor.unittest.spring.web.ProductDto;
 
 import java.time.Clock;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
