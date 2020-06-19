@@ -78,7 +78,7 @@ public class ProductControllerRestAssuredTest {
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
-                        .withBody("{\"labels\":[{\"id\":12, \"value\":\"WireMock\"}]}")));
+                        .withBody("[{\"id\":12, \"value\":\"WireMock\"}]")));
         // validates the response from wiremock - obviously, just for demo purposes; no purpose in real-life
 
         Assertions.assertThat(facade.getLabel(12)).isEqualTo("WireMock");

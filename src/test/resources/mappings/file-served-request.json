@@ -5,7 +5,7 @@
   },
   "response": {
     "status": 200,
-    "body": "{\"labels\":[{\"id\":12, \"value\":\"WireMock\"}]}",
+    "body": "[{\"id\":12, \"value\":\"WireMock\"}]",
     "headers": {
       "Content-Type": "application/json"
     }
