@@ -1,5 +1,6 @@
 package ro.victor.unittest.tricks;
 
+import org.assertj.core.api.Assertions;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.junit.Rule;

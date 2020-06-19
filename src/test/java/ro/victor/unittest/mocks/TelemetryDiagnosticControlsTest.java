@@ -9,10 +9,7 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import ro.victor.unittest.mocks.TelemetryClient;
 import ro.victor.unittest.mocks.TelemetryClient.ClientConfiguration;
-import ro.victor.unittest.mocks.TelemetryDiagnosticControls;
-import ro.victor.unittest.mocks.X;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -27,7 +24,13 @@ public class TelemetryDiagnosticControlsTest {
     @Mock
     private TelemetryClient mockClient;
     @InjectMocks
+    private ConfigurationFactory configFactory;
+//    @InjectMocks
     private TelemetryDiagnosticControls controls;
+    @Before
+    public void initialize() {
+        controls = new TelemetryDiagnosticControls(mockClient, configFactory);
+    }
 
     @Test
     public void checkTransmission_basicFlow() {
@@ -82,7 +85,7 @@ public class TelemetryDiagnosticControlsTest {
 
     @Test
     public void createConfig() {
-        ClientConfiguration config = controls.createConfiguration();
+        ClientConfiguration config = configFactory.createConfiguration();
         assertEquals(ClientConfiguration.AckMode.NORMAL, config.getAckMode());
         Assertions.assertThat(config.getSessionStart()).isEqualToIgnoringHours(LocalDateTime.now());
     }
