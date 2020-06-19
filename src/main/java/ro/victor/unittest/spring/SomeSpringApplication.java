@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -18,7 +20,7 @@ import java.time.Clock;
 
 @EnableSwagger2
 @SpringBootApplication
-public class SomeSpringApplication implements WebMvcConfigurer, CommandLineRunner {
+public class SomeSpringApplication implements WebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(SomeSpringApplication.class);
     }
@@ -36,11 +38,5 @@ public class SomeSpringApplication implements WebMvcConfigurer, CommandLineRunne
     }
 
 
-    @Autowired
-    private ProductRepo productRepo;
-    @Override
-    @Transactional
-    public void run(String... args) throws Exception {
-        productRepo.save(new Product("Scaun la cap"));
-    }
 }
+
