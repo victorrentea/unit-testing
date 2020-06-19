@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,8 @@ import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.repo.SupplierRepo;
+
+import static org.springframework.test.annotation.DirtiesContext.MethodMode.BEFORE_METHOD;
 
 @SpringBootTest
 @ActiveProfiles({"test",
@@ -33,6 +36,12 @@ public class ProductFacadeTest {
    private SupplierRepo supplierRepo;
 
    @Test
+   @DirtiesContext(methodMode = BEFORE_METHOD)
+   public void searchProduct() {
+      int n = facade.searchProduct(new ProductSearchCriteria()).size();
+      Assertions.assertThat(n).isEqualTo(0);
+   }
+   @Test
 //   @Transactional
    public void getProduct() {
 //      Supplier supplier = new Supplier("emag")
@@ -44,10 +53,5 @@ public class ProductFacadeTest {
 //      WhoServiceClientForTests.vaccineExists = true;
 
       facade.getProduct(product.getId());
-   }
-   @Test
-   public void searchProduct() {
-      int n = facade.searchProduct(new ProductSearchCriteria()).size();
-      Assertions.assertThat(n).isEqualTo(0);
    }
 }

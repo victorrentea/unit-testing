@@ -21,11 +21,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/SomeSpringApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/infra/WhoServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/infra/WhoServiceClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/WhoServiceClientForTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/WhoServiceClientForTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -169,20 +165,7 @@
       <recent name="ro.victor.unittest.spring.infra" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductFacadeTest2">
-    <configuration name="StartDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.StartDatabase" />
-      <module name="unit-testing" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.ProductFacadeTest">
     <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <useClassPathOnly />
@@ -240,6 +223,25 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProductFacadeTest.searchProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <useClassPathOnly />
+      <extension name="coverage" runner="jacoco">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
+      <option name="METHOD_NAME" value="searchProduct" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <useClassPathOnly />
       <extension name="coverage" runner="jacoco" />
@@ -278,20 +280,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.StartDatabase" />
       <item itemvalue="JUnit.ProductFacadeTest" />
       <item itemvalue="PIT Runner.Builder" />
       <item itemvalue="JUnit.ro.victor.unittest.spring.facade in unit-testing" />
       <item itemvalue="JUnit.ProductFacadeTest2.searchProduct" />
       <item itemvalue="JUnit.ProductFacadeTest2" />
+      <item itemvalue="JUnit.ProductFacadeTest.searchProduct" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductFacadeTest" />
+        <item itemvalue="JUnit.ProductFacadeTest.searchProduct" />
         <item itemvalue="JUnit.ProductFacadeTest2" />
         <item itemvalue="JUnit.ProductFacadeTest2.searchProduct" />
         <item itemvalue="JUnit.ro.victor.unittest.spring.facade in unit-testing" />
-        <item itemvalue="JUnit.ProductFacadeTest" />
-        <item itemvalue="Application.StartDatabase" />
       </list>
     </recent_temporary>
   </component>
@@ -336,14 +338,7 @@
       <workItem from="1591165920724" duration="69000" />
       <workItem from="1592204797639" duration="1241000" />
       <workItem from="1592462442724" duration="16731000" />
-      <workItem from="1592552955580" duration="2259000" />
-    </task>
-    <task id="LOCAL-00008" summary="UnitTesting: Search in JPA implem complete">
-      <created>1562879638407</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1562879638407</updated>
+      <workItem from="1592552955580" duration="2574000" />
     </task>
     <task id="LOCAL-00009" summary="unittesting: bank search working with SQL.&#10;adding mybatis to the mix">
       <created>1562904275181</created>
@@ -681,7 +676,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592553300816</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Dummy Data Inserter. Transactional Tests. ActiveProfiles">
+      <created>1592555899018</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1592555899018</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -733,7 +735,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add more Spring" />
     <MESSAGE value="tweaks" />
     <MESSAGE value="fix compilation. migrate to java 11" />
     <MESSAGE value="fix compilation" />
@@ -758,7 +759,8 @@
     <MESSAGE value="Init mock data at startup" />
     <MESSAGE value="Implementare alternativa a unui bean, doar pentru teste - da exceptie ca-s doua vizibile lu Spring" />
     <MESSAGE value="Primul Verde: am persistat date intr-o tranzactie privata a testului respectiv" />
-    <option name="LAST_COMMIT_MESSAGE" value="Primul Verde: am persistat date intr-o tranzactie privata a testului respectiv" />
+    <MESSAGE value="Dummy Data Inserter. Transactional Tests. ActiveProfiles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dummy Data Inserter. Transactional Tests. ActiveProfiles" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -801,10 +803,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1592550839114" />
-    <state x="53" y="0" key="CommitChangelistDialog2" timestamp="1592553300101">
+    <state x="53" y="0" key="CommitChangelistDialog2" timestamp="1592555898266">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="53" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592553300101" />
+    <state x="53" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592555898266" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590741274541">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -813,38 +815,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1591165924371" />
-    <state width="1492" height="242" key="GridCell.Tab.0.bottom" timestamp="1592554520946">
+    <state width="1492" height="242" key="GridCell.Tab.0.bottom" timestamp="1592555981549">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="242" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592554520946" />
-    <state width="1492" height="242" key="GridCell.Tab.0.center" timestamp="1592554520945">
+    <state width="1492" height="242" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592555981549" />
+    <state width="1492" height="242" key="GridCell.Tab.0.center" timestamp="1592555981549">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="242" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592554520945" />
-    <state width="1492" height="242" key="GridCell.Tab.0.left" timestamp="1592554520945">
+    <state width="1492" height="242" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592555981549" />
+    <state width="1492" height="242" key="GridCell.Tab.0.left" timestamp="1592555981549">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="242" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592554520945" />
-    <state width="1492" height="242" key="GridCell.Tab.0.right" timestamp="1592554520945">
+    <state width="1492" height="242" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592555981549" />
+    <state width="1492" height="242" key="GridCell.Tab.0.right" timestamp="1592555981549">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="242" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592554520945" />
+    <state width="1492" height="242" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592555981549" />
     <state width="1492" height="131" key="GridCell.Tab.1.bottom" timestamp="1592552932469">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -877,6 +879,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590732255219" />
+    <state width="498" height="468" key="SwitcherDM" timestamp="1592555764450">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="498" height="468" key="SwitcherDM/0.0.1536.834@0.0.1536.834" timestamp="1592555764450" />
     <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1592464784151">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

@@ -10,7 +10,11 @@ import ro.victor.unittest.spring.infra.IWhoServiceClient;
 @Profile("no-who-client")
 @Primary // asta inseamna ca oricand are de ales intre implem reala din src/main/java si asta, o ia pe asta
 public class WhoServiceClientForTests implements IWhoServiceClient {
-   public static boolean vaccineExists = false;
+   private boolean vaccineExists = false;
+
+   public void setVaccineExists(boolean vaccineExists) {
+      this.vaccineExists = vaccineExists;
+   }
 
    @Override
    public boolean covidVaccineExists() {
