@@ -83,6 +83,6 @@ public class ProductFacadeTest {
    @Test
    @DirtiesContext(methodMode = AFTER_METHOD)
    public void createProductCareFaceTranzactieNouaSioComite() {
-      facade.createProduct(new ProductDto());
+      facade.createProduct(new ProductDto("a"));
    }
 }

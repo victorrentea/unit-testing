@@ -20,10 +20,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="@Transaction tests are rollbacked aftere each @Test">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" afterDir="false" />
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -340,14 +337,7 @@
       <workItem from="1591165920724" duration="69000" />
       <workItem from="1592204797639" duration="1241000" />
       <workItem from="1592462442724" duration="16731000" />
-      <workItem from="1592552955580" duration="4314000" />
-    </task>
-    <task id="LOCAL-00012" summary="Exceptii cu mesaj text.">
-      <created>1563264127590</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1563264127591</updated>
+      <workItem from="1592552955580" duration="4651000" />
     </task>
     <task id="LOCAL-00013" summary="TDD + Paramterized">
       <created>1563282492753</created>
@@ -685,7 +675,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592556640304</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Tranzacti intermediare te obliga sa TRUNCATE TABLE sau @DirtiesContext">
+      <created>1592558058372</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1592558058372</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -737,7 +734,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Restore Spring MVC Test" />
     <MESSAGE value="Add Spring Integration Testing examples + WEB" />
     <MESSAGE value="add ref" />
     <MESSAGE value="Repo .feature sample" />
@@ -762,7 +758,8 @@
     <MESSAGE value="DirtiesContext ca ultima masura. De ce? Pierzi timp. Ar trebui sa nu MURDARESTi, nu sa fii nevoit sa CURETI la inceput, de frica" />
     <MESSAGE value="Dirties Context" />
     <MESSAGE value="@Transaction tests are rollbacked aftere each @Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="@Transaction tests are rollbacked aftere each @Test" />
+    <MESSAGE value="Tranzacti intermediare te obliga sa TRUNCATE TABLE sau @DirtiesContext" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tranzacti intermediare te obliga sa TRUNCATE TABLE sau @DirtiesContext" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -805,10 +802,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1592550839114" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1592557001479">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1592558057593">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592557001479" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592558057593" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590741274541">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -817,38 +814,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1591165924371" />
-    <state width="1493" height="260" key="GridCell.Tab.0.bottom" timestamp="1592557681470">
+    <state width="1493" height="260" key="GridCell.Tab.0.bottom" timestamp="1592557748290">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1592557529450">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529450" />
-    <state width="1493" height="260" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592557681470" />
-    <state width="1493" height="260" key="GridCell.Tab.0.center" timestamp="1592557681469">
+    <state width="1493" height="260" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592557748290" />
+    <state width="1493" height="260" key="GridCell.Tab.0.center" timestamp="1592557748290">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1592557529449">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529449" />
-    <state width="1493" height="260" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592557681469" />
-    <state width="1493" height="260" key="GridCell.Tab.0.left" timestamp="1592557681469">
+    <state width="1493" height="260" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592557748290" />
+    <state width="1493" height="260" key="GridCell.Tab.0.left" timestamp="1592557748290">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1592557529448">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529448" />
-    <state width="1493" height="260" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592557681469" />
-    <state width="1493" height="260" key="GridCell.Tab.0.right" timestamp="1592557681469">
+    <state width="1493" height="260" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592557748290" />
+    <state width="1493" height="260" key="GridCell.Tab.0.right" timestamp="1592557748290">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1592557529449">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529449" />
-    <state width="1493" height="260" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592557681469" />
+    <state width="1493" height="260" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592557748290" />
     <state width="1492" height="131" key="GridCell.Tab.1.bottom" timestamp="1592552932469">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
