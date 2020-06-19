@@ -20,7 +20,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
+    <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="@Transaction tests are rollbacked aftere each @Test">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductSearchResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/repo/ProductRepoSearchImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +104,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="full.screen.before.presentation.mode" value="true" />
+    <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -164,7 +167,7 @@
       <recent name="ro.victor.unittest.spring.infra" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductFacadeTest">
+  <component name="RunManager" selected="JUnit.ProductFacadeTest.searchProductByName">
     <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <useClassPathOnly />
@@ -241,19 +244,7 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <useClassPathOnly />
-      <extension name="coverage" runner="jacoco" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ro.victor.unittest.spring.facade in unit-testing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductFacadeTest.searchProductByName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <useClassPathOnly />
       <extension name="coverage" runner="jacoco">
@@ -263,9 +254,21 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
+      <option name="METHOD_NAME" value="searchProductByName" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <useClassPathOnly />
+      <extension name="coverage" runner="jacoco" />
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -281,18 +284,18 @@
     <list>
       <item itemvalue="JUnit.ProductFacadeTest" />
       <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="JUnit.ro.victor.unittest.spring.facade in unit-testing" />
       <item itemvalue="JUnit.ProductFacadeTest2.searchProduct" />
       <item itemvalue="JUnit.ProductFacadeTest2" />
       <item itemvalue="JUnit.ProductFacadeTest.searchProduct" />
+      <item itemvalue="JUnit.ProductFacadeTest.searchProductByName" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProductFacadeTest" />
+        <item itemvalue="JUnit.ProductFacadeTest.searchProductByName" />
         <item itemvalue="JUnit.ProductFacadeTest.searchProduct" />
+        <item itemvalue="JUnit.ProductFacadeTest" />
         <item itemvalue="JUnit.ProductFacadeTest2" />
         <item itemvalue="JUnit.ProductFacadeTest2.searchProduct" />
-        <item itemvalue="JUnit.ro.victor.unittest.spring.facade in unit-testing" />
       </list>
     </recent_temporary>
   </component>
@@ -337,21 +340,7 @@
       <workItem from="1591165920724" duration="69000" />
       <workItem from="1592204797639" duration="1241000" />
       <workItem from="1592462442724" duration="16731000" />
-      <workItem from="1592552955580" duration="3027000" />
-    </task>
-    <task id="LOCAL-00010" summary="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage">
-      <created>1562905012705</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1562905012705</updated>
-    </task>
-    <task id="LOCAL-00011" summary="cleanup">
-      <created>1562906329675</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1562906329676</updated>
+      <workItem from="1592552955580" duration="4314000" />
     </task>
     <task id="LOCAL-00012" summary="Exceptii cu mesaj text.">
       <created>1563264127590</created>
@@ -682,7 +671,21 @@
       <option name="project" value="LOCAL" />
       <updated>1592556155110</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Dirties Context">
+      <created>1592556562867</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1592556562867</updated>
+    </task>
+    <task id="LOCAL-00060" summary="@Transaction tests are rollbacked aftere each @Test">
+      <created>1592556640304</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1592556640304</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -734,8 +737,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="fix compilation. migrate to java 11" />
-    <MESSAGE value="fix compilation" />
     <MESSAGE value="Restore Spring MVC Test" />
     <MESSAGE value="Add Spring Integration Testing examples + WEB" />
     <MESSAGE value="add ref" />
@@ -759,7 +760,9 @@
     <MESSAGE value="Primul Verde: am persistat date intr-o tranzactie privata a testului respectiv" />
     <MESSAGE value="Dummy Data Inserter. Transactional Tests. ActiveProfiles" />
     <MESSAGE value="DirtiesContext ca ultima masura. De ce? Pierzi timp. Ar trebui sa nu MURDARESTi, nu sa fii nevoit sa CURETI la inceput, de frica" />
-    <option name="LAST_COMMIT_MESSAGE" value="DirtiesContext ca ultima masura. De ce? Pierzi timp. Ar trebui sa nu MURDARESTi, nu sa fii nevoit sa CURETI la inceput, de frica" />
+    <MESSAGE value="Dirties Context" />
+    <MESSAGE value="@Transaction tests are rollbacked aftere each @Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="@Transaction tests are rollbacked aftere each @Test" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -802,10 +805,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1592550839114" />
-    <state x="53" y="0" key="CommitChangelistDialog2" timestamp="1592556154445">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1592557001479">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="53" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592556154445" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592557001479" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590741274541">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -814,38 +817,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1591165924371" />
-    <state width="1493" height="158" key="GridCell.Tab.0.bottom" timestamp="1592556258219">
+    <state width="1493" height="260" key="GridCell.Tab.0.bottom" timestamp="1592557681470">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="267" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1592463084128">
+    <state width="1536" height="265" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1592557529450">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="267" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1493" height="158" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592556258219" />
-    <state width="1493" height="158" key="GridCell.Tab.0.center" timestamp="1592556258218">
+    <state width="1536" height="265" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529450" />
+    <state width="1493" height="260" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592557681470" />
+    <state width="1493" height="260" key="GridCell.Tab.0.center" timestamp="1592557681469">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="267" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1592463084128">
+    <state width="1536" height="265" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1592557529449">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="267" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1493" height="158" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592556258218" />
-    <state width="1493" height="158" key="GridCell.Tab.0.left" timestamp="1592556258216">
+    <state width="1536" height="265" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529449" />
+    <state width="1493" height="260" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592557681469" />
+    <state width="1493" height="260" key="GridCell.Tab.0.left" timestamp="1592557681469">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="267" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1592463084128">
+    <state width="1536" height="265" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1592557529448">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="267" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1493" height="158" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592556258216" />
-    <state width="1493" height="158" key="GridCell.Tab.0.right" timestamp="1592556258219">
+    <state width="1536" height="265" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529448" />
+    <state width="1493" height="260" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592557681469" />
+    <state width="1493" height="260" key="GridCell.Tab.0.right" timestamp="1592557681469">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="267" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1592463084128">
+    <state width="1536" height="265" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1592557529449">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1492" height="267" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1493" height="158" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592556258219" />
+    <state width="1536" height="265" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529449" />
+    <state width="1493" height="260" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592557681469" />
     <state width="1492" height="131" key="GridCell.Tab.1.bottom" timestamp="1592552932469">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -878,10 +881,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590732255219" />
-    <state width="498" height="468" key="SwitcherDM" timestamp="1592555764450">
+    <state width="498" height="497" key="SwitcherDM" timestamp="1592557101565">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="498" height="468" key="SwitcherDM/0.0.1536.834@0.0.1536.834" timestamp="1592555764450" />
+    <state width="498" height="497" key="SwitcherDM/0.0.1536.834@0.0.1536.834" timestamp="1592557101565" />
     <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1592464784151">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -890,10 +893,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="182" key="extract.method.dialog/0.0.1536.834@0.0.1536.834" timestamp="1592471195998" />
-    <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1592550543988">
+    <state x="478" y="150" width="580" height="534" key="find.popup" timestamp="1592556930933">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1592550543988" />
+    <state x="478" y="150" width="580" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1592556930933" />
     <state x="558" y="318" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1592462497905">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -906,14 +909,14 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="563" y="179" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1592466289734" />
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1592550447112">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1592557085462">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1592550447112" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1592553140755">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1592557085462" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1592556916759">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1592553140755" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1592556916759" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

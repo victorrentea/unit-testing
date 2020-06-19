@@ -3,6 +3,8 @@ package ro.victor.unittest.spring.facade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.ProductService;
 import ro.victor.unittest.spring.repo.ProductRepo;
@@ -25,6 +27,12 @@ public class ProductFacade {
         ProductDto dto = new ProductDto(product);
         dto.sampleDate = product.getSampleDate().orElse(LocalDate.now(clock)).toString();
         return dto;
+    }
+    // iti face tranzactie noua, diferita de cea care vine din teste.
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void createProduct(ProductDto productDto) {
+        // TODO
+        // repo.save(e); - buba
     }
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
