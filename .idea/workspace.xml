@@ -21,8 +21,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/WhoServiceClientForTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/WhoServiceClientForTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/facade/ProductFacadeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -338,14 +337,7 @@
       <workItem from="1591165920724" duration="69000" />
       <workItem from="1592204797639" duration="1241000" />
       <workItem from="1592462442724" duration="16731000" />
-      <workItem from="1592552955580" duration="2574000" />
-    </task>
-    <task id="LOCAL-00009" summary="unittesting: bank search working with SQL.&#10;adding mybatis to the mix">
-      <created>1562904275181</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1562904275181</updated>
+      <workItem from="1592552955580" duration="3027000" />
     </task>
     <task id="LOCAL-00010" summary="Mybatis configured but not implemented yet the full criteria. Leaving in DRAFT stage">
       <created>1562905012705</created>
@@ -683,7 +675,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592555899018</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="DirtiesContext ca ultima masura. De ce? Pierzi timp. Ar trebui sa nu MURDARESTi, nu sa fii nevoit sa CURETI la inceput, de frica">
+      <created>1592556155110</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1592556155110</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -735,7 +734,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="tweaks" />
     <MESSAGE value="fix compilation. migrate to java 11" />
     <MESSAGE value="fix compilation" />
     <MESSAGE value="Restore Spring MVC Test" />
@@ -760,7 +758,8 @@
     <MESSAGE value="Implementare alternativa a unui bean, doar pentru teste - da exceptie ca-s doua vizibile lu Spring" />
     <MESSAGE value="Primul Verde: am persistat date intr-o tranzactie privata a testului respectiv" />
     <MESSAGE value="Dummy Data Inserter. Transactional Tests. ActiveProfiles" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dummy Data Inserter. Transactional Tests. ActiveProfiles" />
+    <MESSAGE value="DirtiesContext ca ultima masura. De ce? Pierzi timp. Ar trebui sa nu MURDARESTi, nu sa fii nevoit sa CURETI la inceput, de frica" />
+    <option name="LAST_COMMIT_MESSAGE" value="DirtiesContext ca ultima masura. De ce? Pierzi timp. Ar trebui sa nu MURDARESTi, nu sa fii nevoit sa CURETI la inceput, de frica" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -803,10 +802,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1592550839114" />
-    <state x="53" y="0" key="CommitChangelistDialog2" timestamp="1592555898266">
+    <state x="53" y="0" key="CommitChangelistDialog2" timestamp="1592556154445">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="53" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592555898266" />
+    <state x="53" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592556154445" />
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1590741274541">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -815,38 +814,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1591165924371" />
-    <state width="1492" height="242" key="GridCell.Tab.0.bottom" timestamp="1592555981549">
+    <state width="1493" height="158" key="GridCell.Tab.0.bottom" timestamp="1592556258219">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="242" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592555981549" />
-    <state width="1492" height="242" key="GridCell.Tab.0.center" timestamp="1592555981549">
+    <state width="1493" height="158" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592556258219" />
+    <state width="1493" height="158" key="GridCell.Tab.0.center" timestamp="1592556258218">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="242" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592555981549" />
-    <state width="1492" height="242" key="GridCell.Tab.0.left" timestamp="1592555981549">
+    <state width="1493" height="158" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592556258218" />
+    <state width="1493" height="158" key="GridCell.Tab.0.left" timestamp="1592556258216">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="242" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592555981549" />
-    <state width="1492" height="242" key="GridCell.Tab.0.right" timestamp="1592555981549">
+    <state width="1493" height="158" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592556258216" />
+    <state width="1493" height="158" key="GridCell.Tab.0.right" timestamp="1592556258219">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1592463084128">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1492" height="267" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592463084128" />
-    <state width="1492" height="242" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592555981549" />
+    <state width="1493" height="158" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592556258219" />
     <state width="1492" height="131" key="GridCell.Tab.1.bottom" timestamp="1592552932469">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

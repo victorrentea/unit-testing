@@ -18,6 +18,7 @@ import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.repo.SupplierRepo;
 
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static org.springframework.test.annotation.DirtiesContext.MethodMode.BEFORE_METHOD;
 
 @SpringBootTest
@@ -25,6 +26,11 @@ import static org.springframework.test.annotation.DirtiesContext.MethodMode.BEFO
     "no-who-client" // doar acest test vrea sa scoata din joc implem reala de WHO service client
 }) //
 @RunWith(SpringRunner.class)
+
+// daca te gandesti sa faci:
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+// mai bine probabil cureti Springu(de ob tabelele) intr-un @Before
+
 public class ProductFacadeTest {
 
    @Autowired
@@ -38,8 +44,11 @@ public class ProductFacadeTest {
    @Test
    @DirtiesContext(methodMode = BEFORE_METHOD)
    public void searchProduct() {
-      int n = facade.searchProduct(new ProductSearchCriteria()).size();
-      Assertions.assertThat(n).isEqualTo(0);
+      productRepo.save(new Product("Zeama"));
+      ProductSearchCriteria criteria = new ProductSearchCriteria();
+      criteria.name="z";
+      int n = facade.searchProduct(criteria).size();
+      Assertions.assertThat(n).isEqualTo(1);
    }
    @Test
 //   @Transactional
