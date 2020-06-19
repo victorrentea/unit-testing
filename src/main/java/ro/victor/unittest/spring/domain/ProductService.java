@@ -25,6 +25,7 @@ public class ProductService {
 			// heavy geo-political business logic
 			throw new IllegalStateException("Bio-war");
 		}
+		log.debug("Product: " + product);
 		if (!product.getSupplier().isActive()) {
 			throw new IllegalStateException("Supplier inactive. Product not listed.");
 		}
