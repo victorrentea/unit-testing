@@ -2,7 +2,7 @@
 Feature: Search for product
 
   Background:
-    Given Supplier "X" exists
+    Given Supplier "X" e in baza
     And Supplier "Y" exists
 
   Scenario:

@@ -8,8 +8,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
+import ro.victor.unittest.spring.infra.IWhoServiceClient;
 import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.repo.SupplierRepo;
 import ro.victor.unittest.spring.web.ProductDto;
@@ -47,6 +50,9 @@ public class ProductFacadeTest {
    private SupplierRepo supplierRepo;
 
 
+   // alternativa la @Primary WhoServiceClientForTests
+   @MockBean
+   private IWhoServiceClient whoServiceClient;
 
    @Before
    public void checkNoProductsInDb() {
@@ -86,5 +92,13 @@ public class ProductFacadeTest {
    @DirtiesContext(methodMode = AFTER_METHOD)
    public void createProductCareFaceTranzactieNouaSioComite() {
       facade.createProduct(new ProductDto("a"));
+   }
+
+   @Test(expected = IllegalStateException.class)
+   public void bioWar() {
+      Product product = new Product("NuConteaza");
+      Mockito.when(whoServiceClient.covidVaccineExists()).thenReturn(true);
+      productRepo.save(product);
+      facade.getProduct(product.getId());
    }
 }

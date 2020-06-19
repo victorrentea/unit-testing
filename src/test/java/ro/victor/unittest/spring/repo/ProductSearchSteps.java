@@ -1,5 +1,6 @@
 package ro.victor.unittest.spring.repo;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -7,6 +8,7 @@ import cucumber.api.java.en.When;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import ro.victor.unittest.spring.SomeSpringApplication;
 import ro.victor.unittest.spring.domain.Product;
@@ -21,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Slf4j
+@ActiveProfiles("test")
 @ContextConfiguration(
         classes = SomeSpringApplication.class,
         loader = SpringBootContextLoader.class)
@@ -33,6 +36,11 @@ public class ProductSearchSteps {
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
     private Product product;
+    @Given("^Supplier \"([^\"]*)\" e in baza$")
+    public void supplierEInBaza(String supplierName) throws Throwable {
+        log.debug("Persisting supplier {}", supplierName);
+        supplierRepo.save(new Supplier().setName(supplierName));
+    }
 
     @Given("^Supplier \"([^\"]*)\" exists$")
     public void supplierExists(String supplierName) {
@@ -90,4 +98,6 @@ public class ProductSearchSteps {
         List<ProductSearchResult> results = productRepo.search(criteria);
         assertThat(results).isEmpty();
     }
+
+
 }
