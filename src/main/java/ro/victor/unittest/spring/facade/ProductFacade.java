@@ -5,8 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ro.victor.unittest.spring.domain.Label;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.ProductService;
+import ro.victor.unittest.spring.infra.LabelWebServiceClient;
 import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.web.ProductDto;
 
@@ -21,6 +23,7 @@ public class ProductFacade {
     private final ProductService productService;
     private final ProductRepo productRepo;
     private final Clock clock;
+    private final LabelWebServiceClient labelClient;
 
     public ProductDto getProduct(long productId) {
         Product product = productService.getProduct(productId);
@@ -37,5 +40,10 @@ public class ProductFacade {
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
         return productRepo.search(criteria);
+    }
+
+    public String getLabel(long id) {
+        List<Label> labels = labelClient.retrieveAllLabels();
+        return labels.stream().filter(l -> l.getId() == id).findFirst().get().getValue();
     }
 }

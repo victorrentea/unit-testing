@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/other/thing"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"labels\":[{\"id\":12, \"value\":\"WireMock\"}]}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
+

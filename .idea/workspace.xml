@@ -21,7 +21,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a329aa-0181-4443-9dc0-7d9d8d46f36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/product-search.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/repo/product-search.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/domain/Label.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/infra/LabelWebServiceClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestAssuredFilesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/application-fake-label-service.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/mappings/file-served-request.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ro/victor/unittest/spring/facade/ProductFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestAssuredTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ro/victor/unittest/spring/web/ProductControllerRestAssuredTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,11 +122,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ro.victor.unittest.spring.infra" />
       <recent name="ro.victor.unittest.prework" />
       <recent name="ro.victor.unittest.spring.domain" />
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
-      <recent name="ro.victor.unittest.tdd.wordwrap" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -147,8 +155,8 @@
       <recent name="C:\workspace\training\unit-testing\src\test\resources\ro\victor\unittest\db" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ro.victor.unittest.spring.facade" />
       <recent name="ro.victor.unittest.spring.web" />
+      <recent name="ro.victor.unittest.spring.facade" />
       <recent name="ro.victor.unittest.spring.repo" />
       <recent name="ro.victor.unittest.tdd.bowling" />
       <recent name="ro.victor.unittest.tdd" />
@@ -164,7 +172,45 @@
       <recent name="ro.victor.unittest.spring.infra" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductSearchFeature">
+  <component name="RunManager" selected="JUnit.ProductControllerRestAssuredFilesTest">
+    <configuration name="ProductControllerRestAssuredFilesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <useClassPathOnly />
+      <extension name="coverage" runner="jacoco">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestAssuredFilesTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="unit-testing" />
+      <useClassPathOnly />
+      <extension name="coverage" runner="jacoco">
+        <pattern>
+          <option name="PATTERN" value="ro.victor.unittest.spring.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.web" />
+      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.web.ProductControllerRestAssuredTest" />
+      <option name="METHOD_NAME" value="moreComplexByWireMockProgramatically" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProductFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="unit-testing" />
       <useClassPathOnly />
@@ -178,44 +224,6 @@
       <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductFacadeTest2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <useClassPathOnly />
-      <extension name="coverage" runner="jacoco">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest2" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductFacadeTest.searchProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="unit-testing" />
-      <useClassPathOnly />
-      <extension name="coverage" runner="jacoco">
-        <pattern>
-          <option name="PATTERN" value="ro.victor.unittest.spring.facade.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ro.victor.unittest.spring.facade" />
-      <option name="MAIN_CLASS_NAME" value="ro.victor.unittest.spring.facade.ProductFacadeTest" />
-      <option name="METHOD_NAME" value="searchProduct" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -281,18 +289,18 @@
     <list>
       <item itemvalue="JUnit.ProductFacadeTest" />
       <item itemvalue="PIT Runner.Builder" />
-      <item itemvalue="JUnit.ProductFacadeTest2" />
-      <item itemvalue="JUnit.ProductFacadeTest.searchProduct" />
       <item itemvalue="JUnit.ProductFacadeTest.searchProductByName" />
       <item itemvalue="JUnit.ProductSearchFeature" />
+      <item itemvalue="JUnit.ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically" />
+      <item itemvalue="JUnit.ProductControllerRestAssuredFilesTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductControllerRestAssuredFilesTest" />
+        <item itemvalue="JUnit.ProductControllerRestAssuredTest.moreComplexByWireMockProgramatically" />
         <item itemvalue="JUnit.ProductSearchFeature" />
         <item itemvalue="JUnit.ProductFacadeTest" />
         <item itemvalue="JUnit.ProductFacadeTest.searchProductByName" />
-        <item itemvalue="JUnit.ProductFacadeTest.searchProduct" />
-        <item itemvalue="JUnit.ProductFacadeTest2" />
       </list>
     </recent_temporary>
   </component>
@@ -337,14 +345,7 @@
       <workItem from="1591165920724" duration="69000" />
       <workItem from="1592204797639" duration="1241000" />
       <workItem from="1592462442724" duration="16731000" />
-      <workItem from="1592552955580" duration="6492000" />
-    </task>
-    <task id="LOCAL-00016" summary="Mockito play">
-      <created>1563309436176</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1563309436176</updated>
+      <workItem from="1592552955580" duration="8227000" />
     </task>
     <task id="LOCAL-00017" summary="outside-in">
       <created>1563361478116</created>
@@ -682,7 +683,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592560063285</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Tabele de date intrari-iesiri. Ori de cate ori reduci o problema la input-output, nu ezita --&gt; FEATURE Sceario Outline:">
+      <created>1592560362470</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1592560362470</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -734,7 +742,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Cucumber Repo search working" />
     <MESSAGE value="Cucumber: No TestTransaction available" />
     <MESSAGE value="Proof that @txn works + workaround for Tx not flushing: merge() before search" />
     <MESSAGE value="add JdbcRepo for search" />
@@ -759,7 +766,8 @@
     <MESSAGE value="compilation fix" />
     <MESSAGE value="all tests passing" />
     <MESSAGE value="Cucumber tests OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cucumber tests OK" />
+    <MESSAGE value="Tabele de date intrari-iesiri. Ori de cate ori reduci o problema la input-output, nu ezita --&gt; FEATURE Sceario Outline:" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tabele de date intrari-iesiri. Ori de cate ori reduci o problema la input-output, nu ezita --&gt; FEATURE Sceario Outline:" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="79" key="#Notifications" timestamp="1588656268898">
@@ -810,10 +818,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="233" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1592550839114" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1592560062580">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1592560361791">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592560062580" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1592560361791" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1592558636585">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -826,38 +834,38 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1591165924371" />
-    <state width="1493" height="222" key="GridCell.Tab.0.bottom" timestamp="1592560235360">
+    <state width="1493" height="215" key="GridCell.Tab.0.bottom" timestamp="1592561963555">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1592557529450">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529450" />
-    <state width="1493" height="222" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592560235360" />
-    <state width="1493" height="222" key="GridCell.Tab.0.center" timestamp="1592560235359">
+    <state width="1493" height="215" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1592561963555" />
+    <state width="1493" height="215" key="GridCell.Tab.0.center" timestamp="1592561963554">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1592557529449">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.center.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529449" />
-    <state width="1493" height="222" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592560235359" />
-    <state width="1493" height="222" key="GridCell.Tab.0.left" timestamp="1592560235359">
+    <state width="1493" height="215" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1592561963554" />
+    <state width="1493" height="215" key="GridCell.Tab.0.left" timestamp="1592561963554">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1592557529448">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.left.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529448" />
-    <state width="1493" height="222" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592560235359" />
-    <state width="1493" height="222" key="GridCell.Tab.0.right" timestamp="1592560235359">
+    <state width="1493" height="215" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1592561963554" />
+    <state width="1493" height="215" key="GridCell.Tab.0.right" timestamp="1592561963554">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1592557529449">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="1536" height="265" key="GridCell.Tab.0.right.inPresentationMode/0.0.1536.834@0.0.1536.834" timestamp="1592557529449" />
-    <state width="1493" height="222" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592560235359" />
+    <state width="1493" height="215" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1592561963554" />
     <state width="1492" height="131" key="GridCell.Tab.1.bottom" timestamp="1592552932469">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -890,14 +898,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="278" y="0" width="1258" height="710" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1590732255219" />
+    <state x="490" y="159" width="540" height="524" key="StructurePopup" timestamp="1592560724844">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="490" y="159" width="540" height="524" key="StructurePopup/0.0.1536.834@0.0.1536.834" timestamp="1592560724844" />
     <state width="498" height="497" key="SwitcherDM" timestamp="1592557101565">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="498" height="497" key="SwitcherDM/0.0.1536.834@0.0.1536.834" timestamp="1592557101565" />
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1592464784151">
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2" timestamp="1592560364525">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1592464784151" />
+    <state x="361" y="168" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1592560364525" />
     <state x="499" y="182" key="extract.method.dialog" timestamp="1592558271961">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -918,14 +930,14 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="563" y="179" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1592466289734" />
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1592559799021">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup" timestamp="1592561587339">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1592559799021" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1592559915897">
+    <state x="425" y="189" width="672" height="677" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1592561587339" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1592561297647">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1592559915897" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1592561297647" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
