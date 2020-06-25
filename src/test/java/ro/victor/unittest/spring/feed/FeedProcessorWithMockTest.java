@@ -17,13 +17,10 @@ public class FeedProcessorWithMockTest {
    @Autowired
    private FeedProcessor feedProcessor;
 
-//   @MockBean
-//   private IFileRepo fileRepoMock;
-
    @Test
    public void test1() throws IOException {
-//      when(fileRepoMock.getFileNames()).thenReturn(Collections.singleton("one.txt"));
-//      when(fileRepoMock.openFile("one.txt")).thenReturn(IOUtils.toInputStream("one line"));
+//      when(fileRepoMock.getFileNames()).thenReturn(...);
+//      when(fileRepoMock.openFile(...)).thenReturn(...);
       assertThat(feedProcessor.countPendingLines()).isEqualTo(1);
    }
 }
