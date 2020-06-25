@@ -91,11 +91,6 @@
         </dependency>
     </dependencies>
     <build>
-        <testResources>
-            <testResource>
-                <directory>src/test/java</directory>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -105,5 +100,6 @@
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
 </project>

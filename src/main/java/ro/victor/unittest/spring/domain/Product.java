@@ -31,7 +31,7 @@ public class Product {
     private Supplier supplier;
 
     public enum Category {
-        PT_NEVASTA, PT_COPII, PT_MINE, PT_CASA
+        WIFE, KIDS, ME, HOME
     }
     public Product(String name) {
         this.name = name;
