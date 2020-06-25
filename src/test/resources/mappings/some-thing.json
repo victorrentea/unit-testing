@@ -1,13 +1,13 @@
 {
   "request": {
     "method": "GET",
-    "url": "/some/thing"
+    "url": "/product/UNSAFE-REF/safety"
   },
   "response": {
     "status": 200,
-    "body": "Hello WireMock!",
+    "body": "[{\"category\":\"DETERMINED\", \"safeToSell\":false}]",
     "headers": {
-      "Content-Type": "text/plain"
+      "Content-Type": "application/json"
     }
   }
 }

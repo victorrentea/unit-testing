@@ -13,11 +13,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.infra.SafetyServiceClient;
+import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.web.ProductDto;
 
 import javax.persistence.EntityManager;
@@ -32,10 +34,11 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @Transactional
+@ActiveProfiles("db-mem")
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
-public class ProductFacade2Test {
+public class ProductFacadeWireMockTest {
     @Autowired
-    private EntityManager em;
+    private ProductRepo productRepo;
     @Autowired
     private ProductFacade productFacade;
 
@@ -55,28 +58,23 @@ public class ProductFacade2Test {
 
     @Test(expected = IllegalStateException.class)
     public void throwsWhenNotSafe() {
-        Product product = new Product().setSupplier(new Supplier().setActive(true));
+        Product product = new Product().setExternalRef("UNSAFE-REF").setSupplier(new Supplier().setActive(true));
 
-        em.persist(product);
+        productRepo.save(product);
 
-        WireMock.stubFor(get(urlEqualTo("/product/"+product.getId()+"/safety"))
-            .willReturn(aResponse()
-                .withStatus(200)
-                .withHeader("Content-Type", "application/json")
-                .withBody("[{\"category\":\"DETERMINED\", \"safeToSell\":false}]")));
         productFacade.getProduct(product.getId());
     }
 
     @Test
     public void success() {
-        Product product = new Product().setName("Prod");
+        Product product = new Product().setName("Prod").setExternalRef("EXTREF");
         Supplier supplier = new Supplier().setActive(true);
         product.setSupplier(supplier);
-        em.persist(product);
+        productRepo.save(product);
 //        em.persist(supplier);
         currentTime = LocalDateTime.parse("2020-01-01T20:00:00");
 
-        WireMock.stubFor(get(urlEqualTo("/product/"+product.getId()+"/safety"))
+        WireMock.stubFor(get(urlEqualTo("/product/EXTREF/safety"))
             .willReturn(aResponse()
                 .withStatus(200)
                 .withHeader("Content-Type", "application/json")

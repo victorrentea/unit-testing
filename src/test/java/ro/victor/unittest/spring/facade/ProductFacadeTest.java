@@ -10,11 +10,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.infra.SafetyServiceClient;
+import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.web.ProductDto;
 
 import javax.persistence.EntityManager;
@@ -28,15 +30,15 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @Transactional
 @SpringBootTest
+@ActiveProfiles("db-mem")
 public class ProductFacadeTest {
     @MockBean
     public SafetyServiceClient mockSafetyClient;
 
     @Autowired
-    private EntityManager em;
+    private ProductRepo productRepo;
     @Autowired
     private ProductFacade productFacade;
-
     @MockBean
     private Clock clock;
 
@@ -49,21 +51,20 @@ public class ProductFacadeTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void testWar() {
-        Product product = new Product();
-        em.persist(product);
-        when(mockSafetyClient.isSafe(product.getId())).thenReturn(false);
+    public void throwsForUnsafeProduct() {
+        Product product = new Product().setExternalRef("EXTREF");
+        productRepo.save(product);
+        when(mockSafetyClient.isSafe("EXTREF")).thenReturn(false);
         productFacade.getProduct(product.getId());
     }
 
     @Test
-    public void testWholeWorkflow() {
-        Product product = new Product().setName("Prod");
+    public void fullOk() {
+        Product product = new Product().setExternalRef("EXTREF").setName("Prod");
         Supplier supplier = new Supplier().setActive(true);
         product.setSupplier(supplier);
-        em.persist(product);
-//        em.persist(supplier);
-        when(mockSafetyClient.isSafe(product.getId())).thenReturn(true);
+        productRepo.save(product);
+        when(mockSafetyClient.isSafe("EXTREF")).thenReturn(true);
         currentTime = LocalDateTime.parse("2020-01-01T20:00:00");
 
         ProductDto dto = productFacade.getProduct(product.getId());
@@ -72,4 +73,10 @@ public class ProductFacadeTest {
         System.out.println(dto.sampleDate);
         assertThat(dto.sampleDate).isEqualTo("2020-01-01");
     }
+
+    // TIP: sample response from Safety Service: "[{\"category\":\"DETERMINED\", \"safeToSell\":true}]"
+
+    // TIP2:
+    // when(clock.instant()).thenAnswer(call -> currentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(currentTime)));
+    // when(clock.getZone()).thenReturn(ZoneId.systemDefault());
 }
