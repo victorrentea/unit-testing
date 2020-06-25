@@ -26,10 +26,10 @@ public class SomeSpringApplication implements WebMvcConfigurer {
     public HandlerInterceptor headShotInterceptor() {
         return new CustomHeaderInterceptor();
     }
-    @Bean
-    public Clock clock() {
-        return Clock.systemDefaultZone(); // from: LocalDateTime.now();
-    }
+//    @Bean
+//    public Clock clock() {
+//        return Clock.systemDefaultZone(); // from: LocalDateTime.now();
+//    }
 
     @Bean
     public RestTemplate rest() {
