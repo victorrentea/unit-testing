@@ -4,7 +4,10 @@ package ro.victor.unittest.spring.facade;
 //import org.junit.Test;
 //import org.junit.Test;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +25,15 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @Transactional
-@SpringBootTest
-public class ProductFacadeTest {
-    @MockBean
-    public SafetyServiceClient mockSafetyClient;
-
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
+public class ProductFacade2Test {
     @Autowired
     private EntityManager em;
     @Autowired
@@ -48,23 +50,37 @@ public class ProductFacadeTest {
         when(clock.getZone()).thenReturn(ZoneId.systemDefault());
     }
 
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule(8089);
+
     @Test(expected = IllegalStateException.class)
-    public void testWar() {
-        Product product = new Product();
+    public void throwsWhenNotSafe() {
+        Product product = new Product().setSupplier(new Supplier().setActive(true));
+
         em.persist(product);
-        when(mockSafetyClient.isSafe(product.getId())).thenReturn(false);
+
+        WireMock.stubFor(get(urlEqualTo("/product/"+product.getId()+"/safety"))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type", "application/json")
+                .withBody("[{\"category\":\"DETERMINED\", \"safeToSell\":false}]")));
         productFacade.getProduct(product.getId());
     }
 
     @Test
-    public void testWholeWorkflow() {
+    public void success() {
         Product product = new Product().setName("Prod");
         Supplier supplier = new Supplier().setActive(true);
         product.setSupplier(supplier);
         em.persist(product);
 //        em.persist(supplier);
-        when(mockSafetyClient.isSafe(product.getId())).thenReturn(true);
         currentTime = LocalDateTime.parse("2020-01-01T20:00:00");
+
+        WireMock.stubFor(get(urlEqualTo("/product/"+product.getId()+"/safety"))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type", "application/json")
+                .withBody("[{\"category\":\"DETERMINED\", \"safeToSell\":true}]")));
 
         ProductDto dto = productFacade.getProduct(product.getId());
 

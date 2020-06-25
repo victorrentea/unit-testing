@@ -3,27 +3,28 @@ package ro.victor.unittest.spring.domain;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ro.victor.unittest.spring.infra.WhoServiceClient;
+import ro.victor.unittest.spring.infra.SafetyServiceClient;
 import ro.victor.unittest.spring.repo.ProductRepo;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-	private final WhoServiceClient whoServiceClient;
+	private final SafetyServiceClient safetyClient;
 	private final ProductRepo productRepo;
 
-
 	public Product getProduct(long productId) {
-		Product product = productRepo.findById(productId).get();
-		boolean covidVaccineExists = whoServiceClient.covidVaccineExists();
-		log.info("COVID Vaccine: " + covidVaccineExists);
-		if (covidVaccineExists) {
-			// heavy geo-political business logic
-			throw new IllegalStateException("Bio-war");
-		}
+		Product product = productRepo.findById(productId)
+			.orElseThrow(() -> new IllegalArgumentException("Product not found: " + productId));
+
 		if (!product.getSupplier().isActive()) {
 			throw new IllegalStateException("Supplier inactive. Product not listed.");
+		}
+
+		boolean safe = safetyClient.isSafe(productId);
+		log.info("Product is safe: " + safe);
+		if (!safe) {
+			throw new IllegalStateException("Product is not safe: " + productId);
 		}
 		return product;
 	}

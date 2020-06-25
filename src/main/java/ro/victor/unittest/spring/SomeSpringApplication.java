@@ -3,6 +3,7 @@ package ro.victor.unittest.spring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -30,4 +31,8 @@ public class SomeSpringApplication implements WebMvcConfigurer {
         return Clock.systemDefaultZone(); // from: LocalDateTime.now();
     }
 
+    @Bean
+    public RestTemplate rest() {
+        return new RestTemplate();
+    }
 }
