@@ -1,4 +1,4 @@
-package ro.victor.unittest;
+package ro.victor.unittest.spring;
 
 import java.sql.SQLException;
 

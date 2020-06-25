@@ -2,8 +2,10 @@ package ro.victor.unittest.spring.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import ro.victor.unittest.spring.facade.ProductFacade;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 import ro.victor.unittest.spring.facade.ProductSearchResult;
@@ -34,7 +36,6 @@ public class ProductController {
     public int secured() {
         return 99; // dummy endpoint to test security
     }
-    @PreAuthorize("hasRole('USER')")
     @GetMapping("secured/method")
     public int securedByAnnotation() {
         return 99; // dummy endpoint to test security
