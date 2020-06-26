@@ -22,12 +22,12 @@ public class SafetyServiceClient {
     @Autowired
     private RestTemplate rest;
 
-    public boolean isSafe(long productId) {
+    public boolean isSafe(String externalRef) {
         ResponseEntity<List<SafetyReportDto>> response = rest.exchange(
             baseUrl.toString() + "/product/{id}/safety",
             HttpMethod.GET, null,
             new ParameterizedTypeReference<List<SafetyReportDto>>() { },
-            productId
+            externalRef
             );
 
         if (response.getBody() == null) {
@@ -35,6 +35,6 @@ public class SafetyServiceClient {
             return false;
         }
         return response.getBody().stream()
-            .allMatch(report -> report.isSafeToSell() && report.getCategory().equals("DETERMINED"));
+            .allMatch(report -> report.isSafeToSell() && report.getCategory().equals("DETERMIND")); // BUG HERE
     }
 }

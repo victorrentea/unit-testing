@@ -17,15 +17,16 @@ public class ProductService {
 		Product product = productRepo.findById(productId)
 			.orElseThrow(() -> new IllegalArgumentException("Product not found: " + productId));
 
-		if (!product.getSupplier().isActive()) {
-			throw new IllegalStateException("Supplier inactive. Product not listed.");
-		}
-
-		boolean safe = safetyClient.isSafe(productId);
+		boolean safe = safetyClient.isSafe(product.getExternalRef());
 		log.info("Product is safe: " + safe);
 		if (!safe) {
 			throw new IllegalStateException("Product is not safe: " + productId);
 		}
+
+		if (!product.getSupplier().isActive()) {
+			throw new IllegalStateException("Supplier inactive. Product not listed.");
+		}
+
 		return product;
 	}
 

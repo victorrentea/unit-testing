@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomHeaderInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         log.debug("Interceptor Runs");
-        response.addHeader("Head-Shot", "true");
+        response.addHeader("Custom-Header", "true");
         return true;
     }
 }

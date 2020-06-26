@@ -1,14 +1,11 @@
 package ro.victor.unittest.spring.domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Optional;
 
 @Entity
@@ -19,19 +16,25 @@ public class Product {
     @GeneratedValue
     private Long id;
 
+    @Getter @Setter
     private String name;
 
+    @Getter @Setter
     private Category category;
 
-    private LocalDate sampleDate;
+    @Setter
+    private LocalDateTime sampleDate;
+    @Getter @Setter
+    private String externalRef;
 
     private LocalDateTime createDate = LocalDateTime.now();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @Getter @Setter
     private Supplier supplier;
 
     public enum Category {
-        PT_NEVASTA, PT_COPII, PT_MINE, PT_CASA
+        WIFE, KIDS, ME, HOME
     }
     public Product(String name) {
         this.name = name;
@@ -39,7 +42,7 @@ public class Product {
     public Product() {}
 
 
-    public Optional<LocalDate> getSampleDate() {
+    public Optional<LocalDateTime> getSampleDate() {
         return Optional.ofNullable(sampleDate);
     }
 
@@ -52,35 +55,4 @@ public class Product {
         return this;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Product setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public Product setCategory(Category category) {
-        this.category = category;
-        return this;
-    }
-
-    public Product setSampleDate(LocalDate sampleDate) {
-        this.sampleDate = sampleDate;
-        return this;
-    }
-
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public Product setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-        return this;
-    }
 }

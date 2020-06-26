@@ -24,15 +24,10 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
                 " FROM Product p " +
                 " WHERE 1=1 ";
 
-
         Map<String, Object> paramMap = new HashMap<>();
         if (isNotEmpty(criteria.name)) {
-            jpql += "  AND UPPER(p.name) LIKE UPPER(:name)   ";
-            paramMap.put("name", "%" + criteria.name + "%");
-        }
-        if (criteria.category != null) {
-            jpql += "  AND p.category = :category ";
-            paramMap.put("category", criteria.category);
+            jpql += "  AND p.name = :name   ";
+            paramMap.put("name", criteria.name);
         }
 
         TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
