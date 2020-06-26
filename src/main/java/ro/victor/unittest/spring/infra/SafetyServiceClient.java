@@ -35,6 +35,11 @@ public class SafetyServiceClient {
             return false;
         }
         return response.getBody().stream()
-            .allMatch(report -> report.isSafeToSell() && report.getCategory().equals("DETERMIND")); // BUG HERE
+            .allMatch(this::reportIsSafe);
+    }
+
+    private boolean reportIsSafe(SafetyReportDto report) {
+        return report.isSafeToSell() &&
+            report.getCategory().equals("DETERMIND"); // BUG HERE :P
     }
 }

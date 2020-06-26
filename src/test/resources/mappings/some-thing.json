@@ -5,7 +5,13 @@
   },
   "response": {
     "status": 200,
-    "body": "[{\"category\":\"DETERMINED\", \"safeToSell\":false}]",
+    "jsonBody": [
+      {
+        "category": "DETERMINED",
+        "safeToSell": false,
+        "detailsUrl": "http://details.info"
+      }
+    ],
     "headers": {
       "Content-Type": "application/json"
     }
