@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import ro.victor.unittest.spring.infra.SafetyServiceClient;
 import ro.victor.unittest.spring.repo.ProductRepo;
 
+
+
 @Slf4j
 @Service
 @RequiredArgsConstructor

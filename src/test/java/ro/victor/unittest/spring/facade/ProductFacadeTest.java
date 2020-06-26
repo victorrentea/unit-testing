@@ -4,7 +4,9 @@ package ro.victor.unittest.spring.facade;
 //import org.junit.Test;
 //import org.junit.Test;
 
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +31,23 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @Transactional
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9988")
 @ActiveProfiles("db-mem")
+
 public class ProductFacadeTest {
     @Autowired
     private ProductRepo productRepo;
     @Autowired
     private ProductFacade productFacade;
 
-    @Test
-    public void test() {
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule(9988);
 
+    @Test(expected = IllegalStateException.class)
+    public void test() {
+        Product product = new Product().setExternalRef("UNSAFE-REF");
+        productRepo.save(product);
+        productFacade.getProduct(product.getId());
     }
 }
 
