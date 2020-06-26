@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.annotation.DirtiesContext.MethodMode;
@@ -17,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles("inmemrepo")
+//@ActiveProfiles("inmemrepo")
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class FeedProcessorTest {
    @Autowired
@@ -30,6 +33,17 @@ public class FeedProcessorTest {
       repoForTest.addFile("one.txt", "one line");
       assertThat(feedProcessor.countPendingLines()).isEqualTo(1);
    }
+
+   @TestConfiguration
+   public static class MyOwnConfig {
+      @Bean
+      @Primary
+      public FileRepoForTest repoForTest () {
+         return new FileRepoForTest();
+      }
+   }
+
+
    @Test
    public void test2() throws IOException {
       //if one file containing 1 line

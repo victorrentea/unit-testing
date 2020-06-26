@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@Component
-@Primary
-@Profile("inmemrepo")
+//@Component
+//@Primary
+//@Profile("inmemrepo")
 public class FileRepoForTest implements IFileRepo {
    private final Map<String, String> data = new HashMap<>();
    @Override
