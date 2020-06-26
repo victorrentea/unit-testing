@@ -40,6 +40,6 @@ public class SafetyServiceClient {
 
     private boolean reportIsSafe(SafetyReportDto report) {
         return report.isSafeToSell() &&
-            report.getCategory().equals("DETERMINED"); // BUG HERE :P
+            report.getCategory().equals("DETERMIND"); // BUG HERE :P
     }
 }
