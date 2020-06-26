@@ -22,13 +22,13 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 public class ProductFacade {
     private final ProductService productService;
     private final ProductRepo productRepo;
-    private final Clock clock;
+//    private final Clock clock;
 
     public ProductDto getProduct(long productId) {
         Product product = productService.getProduct(productId);
         ProductDto dto = new ProductDto(product);
         dto.sampleDate = product.getSampleDate()
-            .orElse(LocalDateTime.now(clock).minus(5, SECONDS))
+            .orElse(LocalDateTime.now().minus(5, SECONDS))
             .toString();
         return dto;
     }
