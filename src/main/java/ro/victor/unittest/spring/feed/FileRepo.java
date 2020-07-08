@@ -1,6 +1,7 @@
 package ro.victor.unittest.spring.feed;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -14,6 +15,7 @@ import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 
 @Component
+@Profile("!test")
 public class FileRepo implements IFileRepo {
    @Value("${feed.in.folder}")
    private File inFolder;
