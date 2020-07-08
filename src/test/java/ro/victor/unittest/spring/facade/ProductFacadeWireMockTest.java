@@ -58,7 +58,7 @@ public class ProductFacadeWireMockTest {
 
     @Test(expected = IllegalStateException.class)
     public void throwsWhenNotSafe() {
-        Product product = new Product().setExternalRef("UNSAFE-REF").setSupplier(new Supplier().setActive(true));
+        Product product = new Product().setExternalRef("UNSAFE").setSupplier(new Supplier().setActive(true));
 
         productRepo.save(product);
 
@@ -69,21 +69,21 @@ public class ProductFacadeWireMockTest {
     public void success() {
         Product product = new Product()
             .setName("Prod")
-            .setExternalRef("EXTREF")
+            .setExternalRef("SAFE")
             .setSupplier(new Supplier().setActive(true)); // long-live CascadeType.PERSIST
         productRepo.save(product);
         currentTime = LocalDateTime.parse("2020-01-01T20:00:00");
 
-        WireMock.stubFor(get(urlEqualTo("/product/EXTREF/safety"))
+        WireMock.stubFor(get(urlEqualTo("/product/SAFE/safety"))
             .willReturn(aResponse()
                 .withStatus(200)
                 .withHeader("Content-Type", "application/json")
                 .withBody("[{\"category\":\"DETERMINED\", \"safeToSell\":true}]")));
-        //                                          ^ BUG
+        //                                          ^ BUG in client!
         ProductDto dto = productFacade.getProduct(product.getId());
 
         assertThat(dto.productName).isEqualTo("Prod");
         System.out.println(dto.sampleDate);
-        assertThat(dto.sampleDate).isEqualTo("2020-01-01");
+        assertThat(dto.sampleDate).isEqualTo("2020-01-01T19:59:55");
     }
 }

@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/product/UNSAFE/safety"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": [
+      {
+        "category": "DETERMINED",
+        "safeToSell": false
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

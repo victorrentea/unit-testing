@@ -24,7 +24,7 @@ public class SafetyServiceClient {
 
     public boolean isSafe(String externalRef) {
         ResponseEntity<List<SafetyReportDto>> response = rest.exchange(
-            baseUrl.toString() + "/product/{id}/safety",
+            baseUrl.toString() + "/product/{externalRef}/safety",
             HttpMethod.GET, null,
             new ParameterizedTypeReference<List<SafetyReportDto>>() { },
             externalRef
@@ -34,7 +34,12 @@ public class SafetyServiceClient {
             log.warn("No body received!?");
             return false;
         }
-        return response.getBody().stream()
-            .allMatch(report -> report.isSafeToSell() && report.getCategory().equals("DETERMIND")); // BUG HERE
+        return response.getBody().stream().allMatch(this::reportIsSafe);
+    }
+
+    private boolean reportIsSafe(SafetyReportDto report) {
+        return report.isSafeToSell() &&
+            report.getCategory().equals("DETERMINED");
+//                                               ^ TYPO HERE
     }
 }
