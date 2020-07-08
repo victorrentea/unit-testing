@@ -1,6 +1,7 @@
 package ro.victor.unittest.spring.repo;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,11 +35,14 @@ public class ProductRepoSearchTest {
         System.out.println("proto = " + myProto
         );
     }
+    @Before
+    public void deleteAll() {
+        repo.deleteAll();
+    }
     @Test
     public void noCriteria() {
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
-        repo.deleteAll();
     }
     @Test
     public void noCriteria2() {
