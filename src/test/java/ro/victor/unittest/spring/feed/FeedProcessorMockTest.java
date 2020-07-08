@@ -35,7 +35,6 @@ public class FeedProcessorMockTest {
       when(mockRepo.getFileNames()).thenReturn(Collections.singleton("one.txt"));
       when(mockRepo.openFile("one.txt")).thenReturn(IOUtils.toInputStream("one line"));
       assertThat(processor.countPendingLines()).isEqualTo(1);
-      // 2: ce tre sa faci musai aici<<<<<<<<<<
    }
    @Test
    public void testYTwo() throws IOException {
