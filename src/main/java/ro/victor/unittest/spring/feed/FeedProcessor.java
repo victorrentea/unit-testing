@@ -1,8 +1,8 @@
 package ro.victor.unittest.spring.feed;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,14 +12,15 @@ import java.util.Set;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class FeedProcessor {
-   @Autowired
-   private FileRepo fileRepo;
+   private final FileRepo fileRepo;
+   private final AltaClasa altaClasa;
 
    public int countPendingLines() throws IOException {
       Set<String> names = fileRepo.getFileNames();
       log.debug("Found files: " + names);
-      int count = 0;
+      int count = altaClasa.m();
       for (String fileName : names) {
          try (InputStream is = fileRepo.openFile(fileName)) {
             List<String> lines = IOUtils.readLines(is);
@@ -28,6 +29,13 @@ public class FeedProcessor {
          }
       }
       return count;
+   }
+}
+
+@Service
+class AltaClasa {
+   public int m() {
+       return 0;
    }
 }
 
