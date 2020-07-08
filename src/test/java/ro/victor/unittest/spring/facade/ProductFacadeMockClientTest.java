@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 @Transactional
 @SpringBootTest
 @ActiveProfiles("db-mem")
-public class ProductFacadeMockedClientTest {
+public class ProductFacadeMockClientTest {
     @MockBean
     public SafetyServiceClient mockSafetyClient;
 
