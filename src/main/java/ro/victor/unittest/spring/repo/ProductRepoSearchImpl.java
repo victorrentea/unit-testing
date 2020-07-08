@@ -35,7 +35,11 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
          paramMap.put("name", "%" + criteria.name + "%");
       }
 
-      compo.met();
+      try {
+         compo.met();
+      } catch (Exception e) {
+         // SWALLOW EX
+      }
       TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
       for (String paramName : paramMap.keySet()) {
          query.setParameter(paramName, paramMap.get(paramName));
@@ -52,5 +56,8 @@ class Compo {
    @Transactional(propagation = Propagation.REQUIRES_NEW)
    public void met() {
       em.persist(new Product());
+      System.out.println("Dupa persist");
+      em.flush();
+      throw new IllegalArgumentException();
    }
 }
