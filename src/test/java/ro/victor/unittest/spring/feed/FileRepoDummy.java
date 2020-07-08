@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Service
 @Primary
-@Profile("!real-fs")
+@Profile("!test-real-fs")
 public class FileRepoDummy implements IFileRepo{
    private final Map<String, String> fileContents = new HashMap<>();
 
