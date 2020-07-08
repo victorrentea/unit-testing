@@ -51,6 +51,9 @@ public class ProductRepoSearchTest {
         assertThat(repo.search(criteria)).hasSize(1);
         criteria.name = "A";
         assertThat(repo.search(criteria)).hasSize(1);
+        // fara asta: tot iful din prod code putea disparea
+        criteria.name = "y";
+        assertThat(repo.search(criteria)).hasSize(0);
     }
 
     // TODO
