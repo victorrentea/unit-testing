@@ -14,7 +14,7 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class FeedProcessor {
-   private final FileRepo fileRepo;
+   private final IFileRepo fileRepo;
    private final AltaClasa altaClasa;
 
    public int countPendingLines() throws IOException {
