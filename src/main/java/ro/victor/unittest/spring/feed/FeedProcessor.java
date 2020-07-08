@@ -13,7 +13,7 @@ import java.util.Set;
 @Service
 public class FeedProcessor {
    @Autowired
-   private IFileRepo fileRepo;
+   private FileRepo fileRepo;
 
    public int countPendingLines() throws IOException {
       Set<String> names = fileRepo.getFileNames();
