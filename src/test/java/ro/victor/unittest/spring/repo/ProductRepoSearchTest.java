@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional
 @RunWith(SpringRunner.class)
+@ActiveProfiles("db-real")
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
@@ -40,9 +42,14 @@ public class ProductRepoSearchTest {
         assertThat(repo.search(criteria)).hasSize(1);
     }
     @Test
+//    @Commit // doar pt debug
     public void byName() {
         criteria.name = "x";
-        repo.save(new Product("x"));
+        repo.save(new Product("aXb"));
+        assertThat(repo.search(criteria)).hasSize(1);
+        criteria.name = "B";
+        assertThat(repo.search(criteria)).hasSize(1);
+        criteria.name = "A";
         assertThat(repo.search(criteria)).hasSize(1);
     }
 
