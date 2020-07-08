@@ -13,6 +13,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
+import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,7 +46,7 @@ public class ProductRepoSearchTest {
 //    @Commit // doar pt debug
     public void byName() {
         criteria.name = "x";
-        repo.save(new Product("aXb"));
+        repo.save(new Product("aXb").setSupplier(new Supplier()));
         assertThat(repo.search(criteria)).hasSize(1);
         criteria.name = "B";
         assertThat(repo.search(criteria)).hasSize(1);

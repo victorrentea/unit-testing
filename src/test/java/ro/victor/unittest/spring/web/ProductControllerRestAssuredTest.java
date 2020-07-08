@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +26,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
 @RunWith(SpringRunner.class)
+//@Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProductControllerRestAssuredTest {
     @LocalServerPort
@@ -39,6 +41,7 @@ public class ProductControllerRestAssuredTest {
 
     @Test
     public void test() {
+//        repo.save
         RestAssured.when().get("unsecured").then()
                 .statusCode(200)
                 .body(Matchers.containsString("1"));

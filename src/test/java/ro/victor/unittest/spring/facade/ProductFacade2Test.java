@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
@@ -31,9 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@Transactional
+
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
-public class ProductFacade2Test {
+public class ProductFacade2Test extends RepoTest {
     @Autowired
     private EntityManager em;
     @Autowired
@@ -55,11 +56,13 @@ public class ProductFacade2Test {
 
     @Test(expected = IllegalStateException.class)
     public void throwsWhenNotSafe() {
-        Product product = new Product().setSupplier(new Supplier().setActive(true));
+        Product product = new Product()
+            .setExternalRef("REF")
+            .setSupplier(new Supplier().setActive(true));
 
         em.persist(product);
 
-        WireMock.stubFor(get(urlEqualTo("/product/"+product.getId()+"/safety"))
+        WireMock.stubFor(get(urlEqualTo("/product/"+"REF"+"/safety"))
             .willReturn(aResponse()
                 .withStatus(200)
                 .withHeader("Content-Type", "application/json")
@@ -69,23 +72,23 @@ public class ProductFacade2Test {
 
     @Test
     public void success() {
-        Product product = new Product().setName("Prod");
+        Product product = new Product().setExternalRef("REF").setName("Prod");
         Supplier supplier = new Supplier().setActive(true);
         product.setSupplier(supplier);
         em.persist(product);
 //        em.persist(supplier);
         currentTime = LocalDateTime.parse("2020-01-01T20:00:00");
 
-        WireMock.stubFor(get(urlEqualTo("/product/"+product.getId()+"/safety"))
-            .willReturn(aResponse()
-                .withStatus(200)
-                .withHeader("Content-Type", "application/json")
-                .withBody("[{\"category\":\"DETERMINED\", \"safeToSell\":true}]")));
+//        WireMock.stubFor(get(urlEqualTo("/product/REF/safety"))
+//            .willReturn(aResponse()
+//                .withStatus(200)
+//                .withHeader("Content-Type", "application/json")
+//                .withBody("[{\"category\":\"DETERMINED\", \"safeToSell\":true}]")));
 
         ProductDto dto = productFacade.getProduct(product.getId());
 
         assertThat(dto.productName).isEqualTo("Prod");
         System.out.println(dto.sampleDate);
-        assertThat(dto.sampleDate).isEqualTo("2020-01-01");
+        assertThat(dto.sampleDate).startsWith("2020-01-01");
     }
 }

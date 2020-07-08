@@ -47,6 +47,7 @@ public class ProductFacadeMockClientTest {
 
     @Before
     public void setupTime() {
+        // callback not thenReturn because I want it to lazy eval durin prod call, so that I can change the field value in @Test bellow (ruunig after this @Before line)
         when(clock.instant()).thenAnswer(call -> currentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(currentTime)));
         when(clock.getZone()).thenReturn(ZoneId.systemDefault());
     }
@@ -72,7 +73,7 @@ public class ProductFacadeMockClientTest {
 
         assertThat(dto.productName).isEqualTo("Prod");
         System.out.println(dto.sampleDate);
-        assertThat(dto.sampleDate).isEqualTo("2020-01-01T19:59:55");
+        assertThat(dto.sampleDate).startsWith("2020-01-01T19:59:55");
     }
 
     // TIP: sample response from Safety Service: "[{\"category\":\"DETERMINED\", \"safeToSell\":true}]"
