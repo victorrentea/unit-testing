@@ -2,6 +2,7 @@ package ro.victor.unittest.spring.feed;
 
 import org.assertj.core.api.Assertions;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,25 +27,25 @@ public class FeedProcessorTest {
    @Autowired
    private FileRepoDummy dummyRepo;
 
-//   @After
-//   public void mamaMiaZisSaCuratDupaMine() {
-//      dummyRepo.cleanFiles();
-//   }
-   @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
+   @Before
+   public void mamaMiaZisSaCuratDupaMine() {
+      dummyRepo.cleanFiles(); // mult mai rapid, dar tre sa stii ce ai modificat exact
+   }
+//   @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
    @Test
    public void oneXLine() throws IOException {
       dummyRepo.addTestFile("one.txt", "one line");
       assertThat(processor.countPendingLines()).isEqualTo(1);
       // 2: ce tre sa faci musai aici<<<<<<<<<<
    }
-   @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
+//   @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
    @Test
    public void testYTwo() throws IOException {
       dummyRepo.addTestFile("one.txt", "one line");
       dummyRepo.addTestFile("two.txt", "one line");
       assertThat(processor.countPendingLines()).isEqualTo(2);
    }
-   @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
+//   @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
    @Test
    public void testZTwoFilesWithThreeLines() throws IOException {
       dummyRepo.addTestFile("one.txt", "one line");
