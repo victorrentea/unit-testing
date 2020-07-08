@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-@Repository
+//@Repository
 @RequiredArgsConstructor
 public class ProductRepoSearchImpl implements ProductRepoSearch {
     private final EntityManager em;

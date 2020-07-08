@@ -16,10 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles("db-mem")
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
+
+    @Autowired
+    private MyProto myProto;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
@@ -27,8 +29,18 @@ public class ProductRepoSearchTest {
         System.out.println("New test class instance");
     }
 
+    @Before
+    public void m() {
+        System.out.println("proto = " + myProto
+        );
+    }
     @Test
     public void noCriteria() {
+        repo.save(new Product());
+        assertThat(repo.search(criteria)).hasSize(1);
+    }
+    @Test
+    public void noCriteria2() {
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
     }
