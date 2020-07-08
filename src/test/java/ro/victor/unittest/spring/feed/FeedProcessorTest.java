@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest // cauta in sus primul pachet care sa contina o @SpringBootApplication
 @RunWith(SpringRunner.class)
-@ActiveProfiles("test")
+@ActiveProfiles("real-fs") // adica doar acest test vrea sa mearga pe folder real, nu in mem
 public class FeedProcessorTest {
    @Autowired
    private FeedProcessor processor;
