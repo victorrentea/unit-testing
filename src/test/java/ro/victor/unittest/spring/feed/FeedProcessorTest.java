@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest // cauta in sus primul pachet care sa contina o @SpringBootApplication
 @RunWith(SpringRunner.class)
-@ActiveProfiles("test-real-fs") // adica doar acest test vrea sa mearga pe folder real, nu in mem
 public class FeedProcessorTest {
    @Autowired
    private FeedProcessor processor;
@@ -23,8 +22,21 @@ public class FeedProcessorTest {
    private FileRepoDummy dummyRepo;
 
    @Test
-   public void test() throws IOException {
+   public void oneXLine() throws IOException {
       dummyRepo.addTestFile("one.txt", "one line");
       assertThat(processor.countPendingLines()).isEqualTo(1);
+      // 2: ce tre sa faci musai aici<<<<<<<<<<
+   }
+   @Test
+   public void testYTwo() throws IOException {
+      dummyRepo.addTestFile("one.txt", "one line");
+      dummyRepo.addTestFile("two.txt", "one line");
+      assertThat(processor.countPendingLines()).isEqualTo(2);
+   }
+   @Test
+   public void testZTwoFilesWithThreeLines() throws IOException {
+      dummyRepo.addTestFile("one.txt", "one line");
+      dummyRepo.addTestFile("two.txt", "two\nlines");
+      assertThat(processor.countPendingLines()).isEqualTo(3);
    }
 }
