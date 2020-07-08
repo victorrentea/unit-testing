@@ -10,19 +10,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 @RunWith(SpringRunner.class)
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
-
-    @Autowired
-    private MyProto myProto;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
@@ -31,13 +30,9 @@ public class ProductRepoSearchTest {
     }
 
     @Before
-    public void m() {
-        System.out.println("proto = " + myProto
-        );
-    }
-    @Before
     public void deleteAll() {
-        repo.deleteAll();
+//        repo.deleteAll();
+        assertThat(repo.count()).isEqualTo(0); //precheck
     }
     @Test
     public void noCriteria() {
@@ -45,8 +40,9 @@ public class ProductRepoSearchTest {
         assertThat(repo.search(criteria)).hasSize(1);
     }
     @Test
-    public void noCriteria2() {
-        repo.save(new Product());
+    public void byName() {
+        criteria.name = "x";
+        repo.save(new Product("x"));
         assertThat(repo.search(criteria)).hasSize(1);
     }
 
