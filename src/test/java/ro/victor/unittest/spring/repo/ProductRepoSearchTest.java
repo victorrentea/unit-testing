@@ -36,8 +36,10 @@ public class ProductRepoSearchTest {
     }
     @Test
     public void noCriteria() {
-        repo.save(new Product());
+        Product product = new Product();
+        repo.save(product);
         assertThat(repo.search(criteria)).hasSize(1);
+        repo.deleteById(product.getId());
     }
     @Test
     public void noCriteria2() {
