@@ -32,7 +32,7 @@ public class ProductRepoSearchTest {
     }
 
     @Before
-    public void deleteAll() {
+    public void checkDbState() {
 //        repo.deleteAll();
         assertThat(repo.count()).isEqualTo(0); //precheck
     }
