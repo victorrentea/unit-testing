@@ -20,6 +20,9 @@ public class FileRepoDummy implements IFileRepo{
       fileContents.put(fileName, contents);
    }
 
+   public void cleanFiles() {
+      fileContents.clear();
+   }
    @Override
    public Set<String> getFileNames() {
       return fileContents.keySet();

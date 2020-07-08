@@ -1,6 +1,7 @@
 package ro.victor.unittest.spring.feed;
 
 import org.assertj.core.api.Assertions;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class FeedProcessorTest {
    @Autowired
    private FileRepoDummy dummyRepo;
 
+   @After
+   public void mamaMiaZisSaCuratDupaMine() {
+      dummyRepo.cleanFiles();
+   }
    @Test
    public void oneXLine() throws IOException {
       dummyRepo.addTestFile("one.txt", "one line");
