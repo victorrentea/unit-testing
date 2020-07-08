@@ -14,15 +14,15 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class FeedProcessor {
-   private final IFileRepo fileRepo;
+   private final IFileRepo repo;
    private final AltaClasa altaClasa;
 
    public int countPendingLines() throws IOException {
-      Set<String> names = fileRepo.getFileNames();
+      Set<String> names = repo.getFileNames();
       log.debug("Found files: " + names);
       int count = altaClasa.m();
       for (String fileName : names) {
-         try (InputStream is = fileRepo.openFile(fileName)) {
+         try (InputStream is = repo.openFile(fileName)) {
             List<String> lines = IOUtils.readLines(is);
             log.debug("Found {} lines in {}", lines.size(), fileName);
             count += lines.size();

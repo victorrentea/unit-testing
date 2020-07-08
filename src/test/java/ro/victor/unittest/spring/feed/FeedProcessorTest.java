@@ -1,13 +1,15 @@
 package ro.victor.unittest.spring.feed;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest // cauta in sus primul pachet care sa contina o @SpringBootApplication
 @RunWith(SpringRunner.class)
@@ -15,8 +17,12 @@ public class FeedProcessorTest {
    @Autowired
    private FeedProcessor processor;
 
+   @Autowired
+   private FileRepoDummy dummyRepo;
+
    @Test
    public void test() throws IOException {
-      processor.countPendingLines();
+      dummyRepo.addTestFile("one.txt", "one line");
+      assertThat(processor.countPendingLines()).isEqualTo(1);
    }
 }
