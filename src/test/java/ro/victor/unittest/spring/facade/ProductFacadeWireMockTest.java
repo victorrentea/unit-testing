@@ -82,7 +82,6 @@ public class ProductFacadeWireMockTest {
                 .withBody("[{\"category\":\"DETERMINED\", \"safeToSell\":true}]")));
         //                                          ^ BUG in client!
 
-        Resource
         ProductDto dto = productFacade.getProduct(product.getId());
 
         assertThat(dto.productName).isEqualTo("Prod");
