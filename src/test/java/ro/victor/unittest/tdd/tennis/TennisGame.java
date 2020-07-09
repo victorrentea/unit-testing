@@ -7,14 +7,16 @@ public class TennisGame {
    private int score2;
 
    public String score() {
-      if (score1 >= 3 && score2 >= 3 && score1 == score2) {
-         return "Deuce";
-      }
-      if (score1 >= 3 && score2 >= 3 && score1 == score2 + 1) {
-         return "Advantage Player1";
-      }
-      if (score1 >= 3 && score2 >= 3 && score2 == score1 + 1) {
-         return "Advantage Player2";
+      if (score1 >= 3 && score2 >= 3) {
+         if (score1 == score2) {
+            return "Deuce";
+         }
+         if (score1 == score2 + 1) {
+            return "Advantage Player1";
+         }
+         if (score2 == score1 + 1) {
+            return "Advantage Player2";
+         }
       }
 //      if (score1 >= 4/* && score1 - score2 >= 2*/) {
 //         return "Game Won Player1";
