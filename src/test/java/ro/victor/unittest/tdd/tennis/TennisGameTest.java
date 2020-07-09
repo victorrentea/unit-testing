@@ -63,10 +63,16 @@ public class TennisGameTest {
       assertEquals("Advantage Player2", resolveScore(3, 4));
    }
 
-//   @Test
-//   public void gameWonByPlayer1() {
-//      assertEquals("Game Won Player1", resolveScore(4, 0));
-//      assertEquals("Game Won Player1", resolveScore(5, 3));
-//   }
+   @Test
+   public void gameWonByPlayer1() {
+      assertEquals("Game Won Player1", resolveScore(4, 0));
+      assertEquals("Game Won Player1", resolveScore(5, 3));
+      assertEquals("Game Won Player1", resolveScore(4, 1));
+   }
+   @Test
+   public void gameWonByPlayer2() {
+      assertEquals("Game Won Player2", resolveScore(0, 4));
+      assertEquals("Game Won Player2", resolveScore(3, 5));
+   }
 
 }
