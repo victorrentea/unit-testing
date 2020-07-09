@@ -100,6 +100,16 @@ public class CheckTransmisionTest {
 //        when(configFactoryMock.createConfiguration("VersionNo")).thenReturn(config);
 
         controls.checkTransmission();
+
+        // NICIODATA!!
+//        Customer customer = mock(Customer.class);
+//        when(customer.getOrders())
+
+//        Customer customer = new Customer();
+//        customer.setORders()
+
+
+        Mockito.verifyNoMoreInteractions(mockClient);
 //        verify(mockClient).configure(configCaptor.capture());
 //
 //        assertEquals(AckMode.NORMAL, configCaptor.getValue().getAckMode());
