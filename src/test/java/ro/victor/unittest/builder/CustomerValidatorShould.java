@@ -3,6 +3,8 @@ package ro.victor.unittest.builder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import ro.victor.unittest.MyException.ErrorCode;
+import ro.victor.unittest.tricks.MyExceptionMatcher;
 
 public class CustomerValidatorShould {
 
@@ -24,12 +26,13 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void throwsForNullName() {
-		expectedException.expectMessage("name");
+		expectedException.expect(new MyExceptionMatcher(ErrorCode.MISSING_CUSTOMER_NAME));
 		validator.validate(aValidCustomer().setName(null));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void throwsForNullAddress() {
+		expectedException.expect(new MyExceptionMatcher(ErrorCode.MISSING_CUSTOMER_ADDRESS));
 		validator.validate(aValidCustomer().setAddress(null));
 	}
 
