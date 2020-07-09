@@ -4,21 +4,26 @@ public class TennisGame {
 
    private int score1;
    private int score2;
-   private String scoreString = "Love - Love";
 
    public String score() {
-      return scoreString;
+      return translate(score1) + " - " + translate(score2);
+   }
+
+   private String translate(int score2) {
+      switch (score2) {
+         case 0:
+            return "Love";
+         case 1:
+            return "Fifteen";
+      }
+      return "";
    }
 
    public void addPoint(int playerNumber) {
       if (playerNumber == 1) {
-         scoreString = "Fifteen - Love";
+         score1 ++;
       } else {
-         if (score().equals("Fifteen - Love")) {
-            scoreString = "Fifteen - Fifteen";
-         } else {
-            scoreString = "Love - Fifteen";
-         }
+         score2 ++;
       }
    }
 }
