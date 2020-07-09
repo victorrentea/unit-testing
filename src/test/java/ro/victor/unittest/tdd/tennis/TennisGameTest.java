@@ -24,10 +24,36 @@ public class TennisGameTest {
    }
 
    @Test
+   // il las desi de duplicat (crapa mereu cu cate un frate), niciodata singur,
+   // dar il las pentru ca aduce valoare de documentare
    public void fifteenFifteen() {
       TennisGame tennisGame = new TennisGame();
       tennisGame.addPoint(1);
       tennisGame.addPoint(2);
       assertEquals("Fifteen - Fifteen", tennisGame.score());
+   }
+   @Test
+   public void thirtyLove() {
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.addPoint(1);
+      tennisGame.addPoint(1);
+      assertEquals("Thirty - Love", tennisGame.score());
+   }
+   @Test
+   public void fortyLove() {
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.addPoint(1);
+      tennisGame.addPoint(1);
+      tennisGame.addPoint(1);
+      assertEquals("Forty - Love", tennisGame.score());
+   }
+   @Test
+   public void gameWonByPlayer1() {
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.addPoint(1);
+      tennisGame.addPoint(1);
+      tennisGame.addPoint(1);
+      tennisGame.addPoint(1);
+      assertEquals("Game Won Player1", tennisGame.score());
    }
 }

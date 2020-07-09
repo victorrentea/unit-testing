@@ -6,6 +6,9 @@ public class TennisGame {
    private int score2;
 
    public String score() {
+      if (score1 == 4) {
+         return "Game Won Player1";
+      }
       return translate(score1) + " - " + translate(score2);
    }
 
@@ -15,6 +18,10 @@ public class TennisGame {
             return "Love";
          case 1:
             return "Fifteen";
+         case 2:
+            return "Thirty";
+         case 3:
+            return "Forty";
       }
       return "";
    }
