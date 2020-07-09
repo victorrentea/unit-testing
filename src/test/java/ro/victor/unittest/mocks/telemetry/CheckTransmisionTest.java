@@ -42,6 +42,7 @@ public class CheckTransmisionTest {
         when(mockClient.getOnlineStatus()).thenReturn(true);
 
     }
+
     @Test
     public void basicFlow() {
         // arrange
@@ -105,16 +106,4 @@ public class CheckTransmisionTest {
         verify(mockClient).configure(config);
     }
 
-
-//    @Test
-//    public void createsConfiguration() {
-//
-//
-//        ClientConfiguration config = controls.createConfiguration("VERSIUNE");
-//        assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-//
-//        assertThat(config.getSessionId()).isNotNull();
-//
-//        assertThat(config.getSessionId()).startsWith("VERSIUNE-");
-//    }
 }
