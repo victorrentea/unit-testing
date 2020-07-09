@@ -23,10 +23,11 @@ public class TennisGameTest {
       assertEquals("Love - Fifteen", tennisGame.score());
    }
 
-//   @Test
-//   public void fifteenFifteen() {
-//      TennisGame.addPoint(1);
-//      TennisGame.addPoint(2);
-//      assertEquals("Fifteen - Fifteen", TennisGame.score());
-//   }
+   @Test
+   public void fifteenFifteen() {
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.addPoint(1);
+      tennisGame.addPoint(2);
+      assertEquals("Fifteen - Fifteen", tennisGame.score());
+   }
 }

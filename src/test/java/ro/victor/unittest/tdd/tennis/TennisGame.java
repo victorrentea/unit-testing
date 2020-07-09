@@ -2,6 +2,8 @@ package ro.victor.unittest.tdd.tennis;
 
 public class TennisGame {
 
+   private int score1;
+   private int score2;
    private String scoreString = "Love - Love";
 
    public String score() {
@@ -12,11 +14,11 @@ public class TennisGame {
       if (playerNumber == 1) {
          scoreString = "Fifteen - Love";
       } else {
-//         if (score().equals("Fifteen - Love")) {
-//            scoreString = "Fifteen - Fifteen";
-//         } else {
+         if (score().equals("Fifteen - Love")) {
+            scoreString = "Fifteen - Fifteen";
+         } else {
             scoreString = "Love - Fifteen";
-//         }
+         }
       }
    }
 }
