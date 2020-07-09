@@ -36,11 +36,12 @@ public class TelemetryDiagnosticControls {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		config.setAckMode(AckMode.NORMAL); // <--- verific-o p'ASTA
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // ok
 		diagnosticInfo = telemetryClient.receive();
 	}
+
 
 }
