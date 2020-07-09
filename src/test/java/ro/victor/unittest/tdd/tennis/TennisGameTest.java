@@ -10,4 +10,21 @@ public class TennisGameTest {
    public void test() {
       assertEquals("Love - Love", TennisGame.score());
    }
+   @Test
+   public void fifteenLove() {
+      TennisGame.addPoint(1);
+      assertEquals("Fifteen - Love", TennisGame.score());
+   }
+   @Test
+   public void loveFifteen() {
+      TennisGame.addPoint(2);
+      assertEquals("Love - Fifteen", TennisGame.score());
+   }
+
+//   @Test
+//   public void fifteenFifteen() {
+//      TennisGame.addPoint(1);
+//      TennisGame.addPoint(2);
+//      assertEquals("Fifteen - Fifteen", TennisGame.score());
+//   }
 }
