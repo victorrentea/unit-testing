@@ -22,7 +22,7 @@ public class TelemetryDiagnosticControls {
 	}
 
 	public void checkTransmission() {
-		telemetryClient.disconnect();
+		telemetryClient.disconnect(); // ok
 
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
@@ -40,7 +40,7 @@ public class TelemetryDiagnosticControls {
 		config.setAckMode(AckMode.NORMAL);
 		telemetryClient.configure(config);
 
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // ok
 		diagnosticInfo = telemetryClient.receive();
 	}
 
