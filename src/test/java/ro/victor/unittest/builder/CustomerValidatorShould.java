@@ -6,33 +6,35 @@ public class CustomerValidatorShould {
 
 	private CustomerValidator validator = new CustomerValidator();
 
+	private Customer aValidCustomer() {
+		return new Customer()
+			.setName("nume")
+			.setAddress(aValidAddress());
+	}
+
+	private Address aValidAddress() {
+		return new Address()
+			.setCity("Bucharest");
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullName() {
-		validator.validate(new Customer());
+		validator.validate(aValidCustomer().setName(null));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullAddress() {
-		Customer customer = new Customer()
-			.setName("nume");
-		validator.validate(customer);
+		validator.validate(aValidCustomer().setAddress(null));
 	}
 
 	@Test
 	public void ok() {
-		Customer customer = new Customer()
-			.setName("nume")
-			.setAddress(new Address()
-				.setCity("Bucharest"));
-		validator.validate(customer);
+		validator.validate(aValidCustomer());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNoCity() {
-		Customer customer = new Customer()
-			.setName("de ce eu")
-			.setAddress(new Address());
-		validator.validate(customer);
+		validator.validate(aValidCustomer().setAddress(aValidAddress().setCity(null)));
 	}
 
 }
