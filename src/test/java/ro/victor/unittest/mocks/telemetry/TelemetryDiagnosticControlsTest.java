@@ -1,20 +1,6 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
-import ro.victor.unittest.time.rule.TestTimeRule;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -22,9 +8,30 @@ import static org.mockito.Mockito.*;
 
 public class TelemetryDiagnosticControlsTest {
 
+    // fix asta face Mockito.mocK:
+//    new TelemetryClient() {
+//        @Override
+//        public String receive() {
+//            return "ce vrea muchiu testului";
+//        }
+//    };
     @Test
     public void test() {
-        assertTrue(true);
+        // arrange
+        TelemetryClient mockClient = mock(TelemetryClient.class);
+        when(mockClient.getOnlineStatus()).thenReturn(true);
+        TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls(mockClient);
+
+        //act
+        controls.checkTransmission();
+
+        // assert
+        verify(mockClient).disconnect();
+        // ingeneral constante:
+        verify(mockClient).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+
+        verify(mockClient).send("AT#UD"); // cand ai vrea sa pui literal, nu constanta?
+        // "cand AT#UD e cerut de un sistem extern" - Silviu
     }
 
 }
