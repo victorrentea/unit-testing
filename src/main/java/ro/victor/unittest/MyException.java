@@ -3,7 +3,7 @@ package ro.victor.unittest;
 public class MyException extends RuntimeException {
    public enum ErrorCode {
       NEGATIVE_PARAM,
-      MISSING_CUSTOMER_NAME, MISSING_CUSTOMER_ADDRESS, PARAM_OVER_10
+      MISSING_CUSTOMER_NAME, MISSING_CUSTOMER_ADDRESS, MISSING_CUSTOMER_ADDRESS_CITY, PARAM_OVER_10
    }
 
    private final ErrorCode code;

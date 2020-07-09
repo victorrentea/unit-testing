@@ -1,8 +1,12 @@
 package ro.victor.unittest.builder;
 
+import org.assertj.core.api.Assertions;
+import org.assertj.core.api.Condition;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import ro.victor.unittest.MyException;
 import ro.victor.unittest.MyException.ErrorCode;
 import ro.victor.unittest.tricks.MyExceptionMatcher;
 
@@ -43,7 +47,10 @@ public class CustomerValidatorShould {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNoCity() {
-		validator.validate(aValidCustomer().setAddress(aValidAddress().setCity(null)));
+//		MyException exception = Assertions.assertThatExceptionOfType()() ->
+		MyException exception = Assertions.catchThrowableOfType(() ->
+			validator.validate(aValidCustomer().setAddress(aValidAddress().setCity(null))), MyException.class);
+		Assertions.assertThat(exception.getCode()).isEqualTo(ErrorCode.MISSING_CUSTOMER_ADDRESS_CITY);
 	}
 
 }

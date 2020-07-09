@@ -22,7 +22,7 @@ public class CustomerValidator {
 			throw new MyException(ErrorCode.MISSING_CUSTOMER_ADDRESS);
 		}
 		if (isBlank(address.getCity())) {
-			throw new IllegalArgumentException("Missing address xcity");
+			throw new MyException(ErrorCode.MISSING_CUSTOMER_ADDRESS_CITY);
 		}
 	}
 }
