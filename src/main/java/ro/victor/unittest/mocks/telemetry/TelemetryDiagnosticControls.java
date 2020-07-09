@@ -10,10 +10,13 @@ import java.util.UUID;
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 	private final TelemetryClient telemetryClient;
+	private final ConfigurationFactory configFactory;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ConfigurationFactory configFactory) {
 		this.telemetryClient = telemetryClient;
+		this.configFactory = configFactory;
 	}
 
 	public String getDiagnosticInfo() {
@@ -33,14 +36,19 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = createConfiguration(telemetryClient.getVersion());
+		ClientConfiguration config = configFactory.createConfiguration(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // ok
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfiguration(String clientVersion) {
+
+
+}
+
+class ConfigurationFactory {
+	public ClientConfiguration createConfiguration(String clientVersion) {
 		ClientConfiguration config = new ClientConfiguration();
 		// ne imaginam ca aici e tona de logica
 		config.setSessionId(clientVersion + "-" + UUID.randomUUID().toString());
@@ -48,6 +56,5 @@ public class TelemetryDiagnosticControls {
 		config.setAckMode(AckMode.NORMAL); // <--- verific-o p'ASTA
 		return config;
 	}
-
 
 }

@@ -1,12 +1,10 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import io.swagger.config.ConfigFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
@@ -22,6 +20,8 @@ import static org.mockito.Mockito.*;
 public class CheckTransmisionTest {
     @Mock
     private TelemetryClient mockClient;
+    @Mock
+    private ConfigurationFactory configFactoryMock;
     @InjectMocks
     private TelemetryDiagnosticControls controls;
 
@@ -97,24 +97,24 @@ public class CheckTransmisionTest {
 
     @Test
     public void configuresClient() {
+        ClientConfiguration config = new ClientConfiguration();
+        when(mockClient.getVersion()).thenReturn("VersionNo");
+        when(configFactoryMock.createConfiguration("VersionNo")).thenReturn(config);
 
         controls.checkTransmission();
-        //capcana de ursi
-        verify(mockClient).configure(configCaptor.capture()); //deschi capcana
-        ClientConfiguration config = configCaptor.getValue(); // iau din capcana ce s-a prins
-
-
-        assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+        verify(mockClient).configure(config);
     }
 
 
-    @Test
-    public void createsConfiguration() {
-        ClientConfiguration config = controls.createConfiguration("VERSIUNE");
-        assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-
-        assertThat(config.getSessionId()).isNotNull();
-
-        assertThat(config.getSessionId()).startsWith("VERSIUNE-");
-    }
+//    @Test
+//    public void createsConfiguration() {
+//
+//
+//        ClientConfiguration config = controls.createConfiguration("VERSIUNE");
+//        assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+//
+//        assertThat(config.getSessionId()).isNotNull();
+//
+//        assertThat(config.getSessionId()).startsWith("VERSIUNE-");
+//    }
 }
