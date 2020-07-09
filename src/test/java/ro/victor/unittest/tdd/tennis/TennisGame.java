@@ -7,9 +7,9 @@ public class TennisGame {
    private int score2;
 
    public String score() {
-      if (score1 == 4) {
-         return "Game Won Player1";
-      }
+//      if (score1 >= 4/* && score1 - score2 >= 2*/) {
+//         return "Game Won Player1";
+//      }
       return LABELS[score1] + " - " + LABELS[score2];
    }
 

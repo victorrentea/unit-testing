@@ -23,7 +23,6 @@ public class TennisGameTest {
    @Test
    public void fifteenLove() {
       assertEquals("Fifteen - Love", resolveScore(1, 0));
-      assertEquals("Fifteen - Love", resolveScore(1, 0));
    }
 
    @Test
@@ -50,16 +49,11 @@ public class TennisGameTest {
       assertEquals("Forty - Love", resolveScore(3, 0));
    }
 
-   @Test
-   public void gameWonByPlayer1() {
-      assertEquals("Game Won Player1", resolveScore(4, 0));
-   }
 
-
-//   private String resolveScore(n) {
-//      for (i) {
-//         addPOint
-//      }
-//      return score();
+//   @Test
+//   public void gameWonByPlayer1() {
+//      assertEquals("Game Won Player1", resolveScore(4, 0));
+//      assertEquals("Game Won Player1", resolveScore(5, 3));
 //   }
+
 }
