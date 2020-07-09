@@ -2,14 +2,20 @@ package ro.victor.unittest.mocks.telemetry;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TelemetryDiagnosticControlsTest {
+    @Mock
     private TelemetryClient mockClient;
+    @InjectMocks
     private TelemetryDiagnosticControls controls;
 
     // fix asta face Mockito.mocK:
@@ -20,11 +26,11 @@ public class TelemetryDiagnosticControlsTest {
 //        }
 //    };
 
-
     @Before
     public void initialize() {
-        mockClient = mock(TelemetryClient.class);
-        controls = new TelemetryDiagnosticControls(mockClient);
+        // le face acum automa runnerul Mockito @RunWith
+//        mockClient = mock(TelemetryClient.class);
+//        controls = new TelemetryDiagnosticControls(mockClient);
 
     }
     @Test

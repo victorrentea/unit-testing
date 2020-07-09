@@ -9,7 +9,6 @@ import java.util.UUID;
 // CERN
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
-
 	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
 
