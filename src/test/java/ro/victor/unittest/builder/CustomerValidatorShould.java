@@ -28,14 +28,26 @@ public class CustomerValidatorShould {
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 
+
+	int x = 0; // morala: ceea ce pui pe campuri in clasa de test se
+	// reseteaza oricum pt unrmatorul @Test,
+	// ca se reinstantiaza clasa asta pt fiecare @test
+
+	{
+		System.out.println("Ma nasc");
+	}
+
 	@Test
 	public void throwsForNullName() {
+		x = 1;
+		Assert.assertEquals(1, x);
 		expectedException.expect(new MyExceptionMatcher(ErrorCode.MISSING_CUSTOMER_NAME));
 		validator.validate(aValidCustomer().setName(null));
 	}
 
 	@Test
 	public void throwsForNullAddress() {
+		Assert.assertEquals(0, x);
 		expectedException.expect(new MyExceptionMatcher(ErrorCode.MISSING_CUSTOMER_ADDRESS));
 		validator.validate(aValidCustomer().setAddress(null));
 	}
@@ -45,7 +57,7 @@ public class CustomerValidatorShould {
 		validator.validate(aValidCustomer());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void throwsForNoCity() {
 //		MyException exception = Assertions.assertThatExceptionOfType()() ->
 		MyException exception = Assertions.catchThrowableOfType(() ->
