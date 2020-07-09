@@ -2,13 +2,13 @@ package ro.victor.unittest.tdd.tennis;
 
 public class TennisGame {
 
-   private static String scoreString = "Love - Love";
+   private String scoreString = "Love - Love";
 
-   public static String score() {
+   public String score() {
       return scoreString;
    }
 
-   public static void addPoint(int playerNumber) {
+   public void addPoint(int playerNumber) {
       if (playerNumber == 1) {
          scoreString = "Fifteen - Love";
       } else {

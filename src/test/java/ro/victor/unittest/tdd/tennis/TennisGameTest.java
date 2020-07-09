@@ -8,17 +8,19 @@ import static org.junit.Assert.assertEquals;
 public class TennisGameTest {
    @Test
    public void test() {
-      assertEquals("Love - Love", TennisGame.score());
+      assertEquals("Love - Love", new TennisGame().score());
    }
    @Test
    public void fifteenLove() {
-      TennisGame.addPoint(1);
-      assertEquals("Fifteen - Love", TennisGame.score());
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.addPoint(1);
+      assertEquals("Fifteen - Love", tennisGame.score());
    }
    @Test
    public void loveFifteen() {
-      TennisGame.addPoint(2);
-      assertEquals("Love - Fifteen", TennisGame.score());
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.addPoint(2);
+      assertEquals("Love - Fifteen", tennisGame.score());
    }
 
 //   @Test
