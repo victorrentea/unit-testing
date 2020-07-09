@@ -33,14 +33,20 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL); // <--- verific-o p'ASTA
+		ClientConfiguration config = createConfiguration(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // ok
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	ClientConfiguration createConfiguration(String clientVersion) {
+		ClientConfiguration config = new ClientConfiguration();
+		// ne imaginam ca aici e tona de logica
+		config.setSessionId(clientVersion + "-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL); // <--- verific-o p'ASTA
+		return config;
 	}
 
 

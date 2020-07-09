@@ -1,17 +1,16 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
-import javax.websocket.ClientEndpointConfig;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,6 +27,7 @@ public class CheckTransmisionTest {
 
     // fix asta face Mockito.mocK:
 //    new TelemetryClient() {
+
 //        @Override
 //        public String receive() {
 //            return "ce vrea muchiu testului";
@@ -68,13 +68,18 @@ public class CheckTransmisionTest {
 
     @Test
     public void receives() {
+        when(mockClient.getOnlineStatus()).thenReturn(true);
+        when(mockClient.getOnlineStatus()).thenReturn(true);
+        when(mockClient.getOnlineStatus()).thenReturn(true);
+        when(mockClient.getOnlineStatus()).thenReturn(true);
 
         when(mockClient.receive()).thenReturn("TATAIE");
         controls.checkTransmission();
 
 
 //        de fapt, times faci cand op respectiva in prod merge pe sisteme straine
-//        verify(mockClient.getOnlineStatus(), times(1));// daca apelul dureaza 1sec
+        verify(mockClient, times(2)).getOnlineStatus();// daca apelul dureaza 1sec
+        verify(mockClient, times(2)).getOnlineStatus();// daca apelul dureaza 1sec
 //        verify(mockClient.getOnlineStatus(), times(1));// times() ai nevoie daca met poate intoarce valori diferite la apeluri succesive (non referntial trasparent)
         // verify(mockClient.save(anyObject()), times(2)); : dc rei sa verifici ca a facut 2 inserturi
 
@@ -87,12 +92,14 @@ public class CheckTransmisionTest {
 //        assertEquals("TATAIE", controls.getDiagnosticInfo());
     }
 
+    @Captor
+    private ArgumentCaptor<ClientConfiguration> configCaptor;
+
     @Test
     public void configuresClient() {
 
         controls.checkTransmission();
         //capcana de ursi
-        ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);// plasa de pescuit
         verify(mockClient).configure(configCaptor.capture()); //deschi capcana
         ClientConfiguration config = configCaptor.getValue(); // iau din capcana ce s-a prins
 
@@ -100,4 +107,14 @@ public class CheckTransmisionTest {
         assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
     }
 
+
+    @Test
+    public void createsConfiguration() {
+        ClientConfiguration config = controls.createConfiguration("VERSIUNE");
+        assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+
+        assertThat(config.getSessionId()).isNotNull();
+
+        assertThat(config.getSessionId()).startsWith("VERSIUNE-");
+    }
 }
