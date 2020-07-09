@@ -56,6 +56,11 @@ public class TennisGameTest {
    @Test
    public void advantagePlayer1() {
       assertEquals("Advantage Player1", resolveScore(4, 3));
+      assertEquals("Advantage Player1", resolveScore(34, 33));
+   }
+   @Test
+   public void advantagePlayer2() {
+      assertEquals("Advantage Player2", resolveScore(3, 4));
    }
 
 //   @Test

@@ -13,6 +13,9 @@ public class TennisGame {
       if (score1 >= 3 && score2 >= 3 && score1 == score2 + 1) {
          return "Advantage Player1";
       }
+      if (score1 >= 3 && score2 >= 3 && score2 == score1 + 1) {
+         return "Advantage Player2";
+      }
 //      if (score1 >= 4/* && score1 - score2 >= 2*/) {
 //         return "Game Won Player1";
 //      }
