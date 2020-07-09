@@ -1,6 +1,7 @@
 package ro.victor.unittest.tdd.tennis;
 
 public class TennisGame {
+   private final static String[] LABELS = {"Love", "Fifteen", "Thirty", "Forty"};
 
    private int score1;
    private int score2;
@@ -9,21 +10,7 @@ public class TennisGame {
       if (score1 == 4) {
          return "Game Won Player1";
       }
-      return translate(score1) + " - " + translate(score2);
-   }
-
-   private String translate(int score2) {
-      switch (score2) {
-         case 0:
-            return "Love";
-         case 1:
-            return "Fifteen";
-         case 2:
-            return "Thirty";
-         case 3:
-            return "Forty";
-      }
-      return "";
+      return LABELS[score1] + " - " + LABELS[score2];
    }
 
    public void addPoint(int playerNumber) {
