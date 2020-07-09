@@ -1,6 +1,8 @@
 package ro.victor.unittest.builder;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class CustomerValidatorShould {
 
@@ -17,8 +19,12 @@ public class CustomerValidatorShould {
 			.setCity("Bucharest");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
+
+	@Test
 	public void throwsForNullName() {
+		expectedException.expectMessage("name");
 		validator.validate(aValidCustomer().setName(null));
 	}
 
