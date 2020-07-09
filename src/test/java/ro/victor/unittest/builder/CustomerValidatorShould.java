@@ -29,7 +29,7 @@ public class CustomerValidatorShould {
 	public ExpectedException expectedException = ExpectedException.none();
 
 
-	int x = 0; // morala: ceea ce pui pe campuri in clasa de test se
+	static int x = 0; // morala: ceea ce pui pe campuri in clasa de test se
 	// reseteaza oricum pt unrmatorul @Test,
 	// ca se reinstantiaza clasa asta pt fiecare @test
 
