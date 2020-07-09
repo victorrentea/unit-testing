@@ -1,6 +1,5 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import io.swagger.config.ConfigFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +19,7 @@ import static org.mockito.Mockito.*;
 public class CheckTransmisionTest {
     @Mock
     private TelemetryClient mockClient;
-    @Mock
-    private ConfigurationFactory configFactoryMock;
-    @InjectMocks
+    private ConfigurationFactory configFactory = new ConfigurationFactory();
     private TelemetryDiagnosticControls controls;
 
     // fix asta face Mockito.mocK:
@@ -40,6 +37,7 @@ public class CheckTransmisionTest {
 //        mockClient = mock(TelemetryClient.class);
 //        controls = new TelemetryDiagnosticControls(mockClient);
         when(mockClient.getOnlineStatus()).thenReturn(true);
+        controls = new TelemetryDiagnosticControls(mockClient, configFactory);
 
     }
 
@@ -98,12 +96,13 @@ public class CheckTransmisionTest {
 
     @Test
     public void configuresClient() {
-        ClientConfiguration config = new ClientConfiguration();
         when(mockClient.getVersion()).thenReturn("VersionNo");
-        when(configFactoryMock.createConfiguration("VersionNo")).thenReturn(config);
+//        when(configFactoryMock.createConfiguration("VersionNo")).thenReturn(config);
 
         controls.checkTransmission();
-        verify(mockClient).configure(config);
+//        verify(mockClient).configure(configCaptor.capture());
+//
+//        assertEquals(AckMode.NORMAL, configCaptor.getValue().getAckMode());
     }
 
 }
