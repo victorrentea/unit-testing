@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ProductRepoSearch {
     List<ProductSearchResult> search(ProductSearchCriteria criteria);
+
+    void cevaUrat();
 }

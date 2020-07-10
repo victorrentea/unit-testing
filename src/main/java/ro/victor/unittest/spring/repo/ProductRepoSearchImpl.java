@@ -2,6 +2,9 @@ package ro.victor.unittest.spring.repo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchResult;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
@@ -27,7 +30,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
 
         Map<String, Object> paramMap = new HashMap<>();
         if (isNotEmpty(criteria.name)) {
-            jpql += "  AND p.name = :name   ";
+            jpql += "  AND UPPER(p.name) = UPPER(:name)   ";
             paramMap.put("name", criteria.name);
         }
 
@@ -36,5 +39,11 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
             query.setParameter(paramName, paramMap.get(paramName));
         }
         return query.getResultList();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void cevaUrat() {
+        em.persist(new Product());
     }
 }
