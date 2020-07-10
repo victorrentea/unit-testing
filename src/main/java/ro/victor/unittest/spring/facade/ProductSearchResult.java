@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class ProductSearchResult {
-    public Long id;
-    public String name;
+    public final Long id;
+    public final String name;
 
 
 }
