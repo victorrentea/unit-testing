@@ -39,7 +39,7 @@ public class ProductRepoSearchImplTest {
    public void byName() {
       ProductSearchCriteria criteria = new ProductSearchCriteria();
       criteria.name = "a";
-      repo.save(new Product().setName("a"));
+      repo.save(new Product().setName("A"));
       List<ProductSearchResult> results = repo.search(criteria);
       assertThat(results).hasSize(1);
    }
