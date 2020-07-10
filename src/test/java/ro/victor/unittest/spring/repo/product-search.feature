@@ -15,11 +15,16 @@ Feature: Search for product
     And The search criteria category is "PT_MINE"
     Then That product is returned by search
 
-  Scenario:
+  Scenario Outline:
     Given One product exists
-    And That product has name "name"
-    When The search criteria name is "namex"
-    Then No products are returned by search
+    And That product has name "<productName>"
+    When The search criteria name is "<criteriaName>"
+    Then That product is returned by search
+    Examples:
+      |  productName| criteriaName|
+    | n           | n           |
+    | n           | N           |
+    | anb           | N           |
 
   Scenario:
     Given One product exists
