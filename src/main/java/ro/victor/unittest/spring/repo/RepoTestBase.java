@@ -22,14 +22,6 @@ public abstract class RepoTestBase {
    }
 }
 
-@Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest
-@ActiveProfiles({"db-real","dummyFileRepo"})
-@Transactional
-@interface RepoTest {
-
-}
-
 
 
 
