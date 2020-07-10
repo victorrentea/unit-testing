@@ -23,9 +23,9 @@ public class FileRepo implements IFileRepo {
 
    @PostConstruct
    public void checkFolder() {
-      if (!inFolder.isDirectory()) {
-         throw new IllegalArgumentException("Not a folder: " + inFolder);
-      }
+//      if (!inFolder.isDirectory()) {
+//         throw new IllegalArgumentException("Not a folder: " + inFolder);
+//      }
    }
 
    @Override
