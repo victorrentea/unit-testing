@@ -1,10 +1,14 @@
 package ro.victor.unittest.spring.feed;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -16,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest()
 @RunWith(SpringRunner.class)
 @ActiveProfiles("dummyFileRepo")
+//@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) // te rupe la timp
 public class FeedProcessorWithDummyImplTest {
    @Autowired
    private FeedProcessor processor;
@@ -27,6 +32,7 @@ public class FeedProcessorWithDummyImplTest {
       dummyRepo.clearFiles();
    }
 
+   //@DirtiesContext(methodMode = MethodMode.AFTER_METHOD) // = +20-90 sec pierdute dar e safe
    @Test
    public void oneFileWithOneLine() throws IOException {
       dummyRepo.addFile("one.txt", "oneLine");
