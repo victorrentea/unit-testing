@@ -1,6 +1,7 @@
 package ro.victor.unittest.spring.feed;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -8,7 +9,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -16,7 +16,8 @@ import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 
 @Component
-public class FileRepo {
+@Profile("!dummyFileRepo")
+public class FileRepo implements IFileRepo {
    @Value("${feed.in.folder}")
    private File inFolder;
 
@@ -27,6 +28,7 @@ public class FileRepo {
       }
    }
 
+   @Override
    public Set<String> getFileNames() {
       File[] files = inFolder.listFiles();
       if (files == null) {
@@ -38,6 +40,7 @@ public class FileRepo {
           .collect(toSet());
    }
 
+   @Override
    public InputStream openFile(String fileName) {
       File file = new File(inFolder, fileName);
       if (!file.isFile()) {

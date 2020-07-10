@@ -10,7 +10,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 
 @Configuration
-@Profile("test")
+@Profile("dummyFileRepo")
 public class FixedClockTestConfig {
     public static final Clock fixedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
 

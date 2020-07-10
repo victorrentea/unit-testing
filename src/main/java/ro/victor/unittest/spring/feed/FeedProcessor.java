@@ -2,21 +2,19 @@ package ro.victor.unittest.spring.feed;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 @Slf4j
 @Service
 public class FeedProcessor {
-   private final FileRepo fileRepo;
+   private final IFileRepo fileRepo;
    private final AltaDep altaDep;
 
-   public FeedProcessor(FileRepo fileRepo, AltaDep altaDep) {
+   public FeedProcessor(IFileRepo fileRepo, AltaDep altaDep) {
       this.fileRepo = fileRepo;
       this.altaDep = altaDep;
    }

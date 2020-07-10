@@ -4,47 +4,42 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
-import java.util.HashSet;
 
-import static java.util.Arrays.asList;
 import static org.apache.commons.io.IOUtils.toInputStream;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest()
 @RunWith(SpringRunner.class)
-public class FeedProcessorWithMockBeanTest {
+@ActiveProfiles("dummyFileRepo")
+public class FeedProcessorWithDummyImplTest {
    @Autowired
    private FeedProcessor processor;
 
-   @MockBean
-   private IFileRepo repoMock;
+   @Autowired
+   private FileRepoFromMemoryForTests dummyRepo;
 
    @Test
    public void oneFileWithOneLine() throws IOException {
-      when(repoMock.getFileNames()).thenReturn(new HashSet<>(asList("one.txt")));
-      when(repoMock.openFile("one.txt")).thenReturn(toInputStream("oneLine"));
+      dummyRepo.addFile("one.txt", "oneLine");
       int count = processor.countPendingLines();
       assertEquals(1, count);
    }
 
    @Test
    public void oneFileWithTwoLines() throws IOException {
-      when(repoMock.getFileNames()).thenReturn(new HashSet<>(asList("one.txt")));
-      when(repoMock.openFile("one.txt")).thenReturn(toInputStream("oneLine\ntwo"));
+      dummyRepo.addFile("one.txt", "oneLine\ntwo");
       int count = processor.countPendingLines();
       assertEquals(2, count);
    }
 
    @Test
    public void twoFiles() throws IOException {
-      when(repoMock.getFileNames()).thenReturn(new HashSet<>(asList("one.txt", "two.txt")));
-      when(repoMock.openFile("one.txt")).thenReturn(toInputStream("oneLine"));
-      when(repoMock.openFile("two.txt")).thenReturn(toInputStream("oneLine2"));
+      dummyRepo.addFile("one.txt", "oneLine");
+      dummyRepo.addFile("two.txt", "oneLine2");
       int count = processor.countPendingLines();
       assertEquals(2, count);
    }
