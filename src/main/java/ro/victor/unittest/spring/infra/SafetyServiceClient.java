@@ -39,7 +39,7 @@ public class SafetyServiceClient {
 
     private boolean reportIsSafe(SafetyReportDto report) {
         return report.isSafeToSell() &&
-            report.getCategory().equals("DETERMINED");
+            report.getCategory().equals("DETERMIND");
 //                                               ^ TYPO HERE
     }
 }
