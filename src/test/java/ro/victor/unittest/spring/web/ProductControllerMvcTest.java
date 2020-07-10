@@ -12,7 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductFacade;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
@@ -21,6 +23,7 @@ import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.repo.RealDBRepoTest;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -60,6 +63,32 @@ public class ProductControllerMvcTest {
 //        String json = new ObjectMapper().writeValueAsString(criteria);
 
 //        when(facade.searchProduct(any())).thenReturn(Arrays.asList(new ProductSearchResult(1L, "Tree")));
+        MockHttpServletRequestBuilder request = post("/product/search")
+            .content("{\"name\":\"c\"}") // ASTA
+            .contentType(MediaType.APPLICATION_JSON); //
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(header().string("Custom-Header", "true")) // ASTA
+//                .andExpect(content().string(contains("Tree")))
+                .andExpect(jsonPath("$[0].name").value("Mancare"));
+    }
+
+
+
+    @Test
+    public void testSearchBlackBox() throws Exception {
+        List<String> names = Arrays.asList("Haine", "Mancare", "Apa", "Bautura", "Masti");
+        for (String productName : names) {
+            RequestBuilder createRequest = post("/product")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                    "\t\"productName\":\""+ productName + "\"\n" +
+                    "}");
+            mockMvc.perform(createRequest)
+                .andExpect(status().isOk())
+            ;
+        }
+
         MockHttpServletRequestBuilder request = post("/product/search")
             .content("{\"name\":\"c\"}") // ASTA
             .contentType(MediaType.APPLICATION_JSON); //

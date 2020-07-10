@@ -24,6 +24,11 @@ public class ProductController {
         return facade.searchProduct(criteria);
     }
 
+    @PostMapping("product")
+    public long createProduct(@RequestBody ProductDto dto) {
+        return facade.createProduct(dto);
+    }
+
     @GetMapping("unsecured")
     public int unsecured() {
         log.debug("Unsecured Endpoint");
