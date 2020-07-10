@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
+import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 import ro.victor.unittest.spring.facade.ProductSearchResult;
 
@@ -19,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles({"db-mem","dummyFileRepo"})
+@Transactional
 public class ProductRepoSearchImplTest {
 
    @Autowired
@@ -27,7 +30,7 @@ public class ProductRepoSearchImplTest {
    @Test
    public void emptyCriteria() {
       ProductSearchCriteria criteria = new ProductSearchCriteria();
-      repo.save(new Product());
+      repo.save(new Product().setSupplier(new Supplier()));
       List<ProductSearchResult> results = repo.search(criteria);
 //      assertEquals(1, results.size()); // are mesaj de failure enervant
       assertThat(results).hasSize(1);
