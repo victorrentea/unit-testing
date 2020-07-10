@@ -1,5 +1,6 @@
 package ro.victor.unittest.spring.feed;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class FeedProcessorWithDummyImplTest {
 
    @Autowired
    private FileRepoFromMemoryForTests dummyRepo;
+   @Before
+   public void initialize() {
+      dummyRepo.clearFiles();
+   }
 
    @Test
    public void oneFileWithOneLine() throws IOException {

@@ -27,4 +27,8 @@ public class FileRepoFromMemoryForTests implements  IFileRepo{
    public InputStream openFile(String fileName) {
       return IOUtils.toInputStream(fileContents.get(fileName));
    }
+
+   public void clearFiles() {
+      fileContents.clear();
+   }
 }
