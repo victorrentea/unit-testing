@@ -3,10 +3,12 @@ package ro.victor.unittest.spring.feed;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -14,11 +16,17 @@ import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 
 @Component
-public class FileRepo implements IFileRepo {
+public class FileRepo {
    @Value("${feed.in.folder}")
    private File inFolder;
 
-   @Override
+   @PostConstruct
+   public void checkFolder() {
+      if (!inFolder.isDirectory()) {
+         throw new IllegalArgumentException("Not a folder: " + inFolder);
+      }
+   }
+
    public Set<String> getFileNames() {
       File[] files = inFolder.listFiles();
       if (files == null) {
@@ -30,7 +38,6 @@ public class FileRepo implements IFileRepo {
           .collect(toSet());
    }
 
-   @Override
    public InputStream openFile(String fileName) {
       File file = new File(inFolder, fileName);
       if (!file.isFile()) {

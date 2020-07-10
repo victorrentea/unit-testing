@@ -6,14 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 @Slf4j
 @Service
 public class FeedProcessor {
-   @Autowired
-   private IFileRepo fileRepo;
+   private final FileRepo fileRepo;
+   private final AltaDep altaDep;
+
+   public FeedProcessor(FileRepo fileRepo, AltaDep altaDep) {
+      this.fileRepo = fileRepo;
+      this.altaDep = altaDep;
+   }
 
    public int countPendingLines() throws IOException {
       Set<String> names = fileRepo.getFileNames();
@@ -28,5 +34,8 @@ public class FeedProcessor {
       }
       return count;
    }
+}
+@Service
+class AltaDep {
 }
 
