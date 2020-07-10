@@ -22,11 +22,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
-@SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles({"db-real","dummyFileRepo"})
-@Transactional
-public class ProductRepoSearchImplTest {
+@RepoTest
+public class ProductRepoSearchImplTest extends RepoTestBase {
 
    @Autowired
    private ProductRepo repo;
