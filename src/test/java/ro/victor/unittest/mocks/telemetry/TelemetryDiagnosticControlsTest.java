@@ -24,7 +24,24 @@ public class TelemetryDiagnosticControlsTest {
 
     @Test
     public void test() {
-        assertTrue(true);
+        TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls();
+        controls.setTelemetryClient(new TelemetryClient(){
+            @Override
+            public void disconnect() {
+                super.disconnect();
+            }
+
+            @Override
+            public boolean getOnlineStatus() {
+                return super.getOnlineStatus();
+            }
+
+            @Override
+            public String getVersion() {
+                return "1";
+            }
+        });
+        controls.checkTransmission();
     }
 
 }

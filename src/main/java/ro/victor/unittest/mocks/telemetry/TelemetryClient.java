@@ -61,6 +61,8 @@ public class TelemetryClient {
 
 	public void disconnect() {
 		onlineStatus = false;
+
+		throw new IllegalStateException("Nu ai voie sa chemi din teste");
 	}
 
 	public void send(String message) {

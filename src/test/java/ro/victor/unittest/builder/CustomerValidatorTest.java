@@ -32,6 +32,11 @@ public class CustomerValidatorTest {
 		customerValidator.validate(aValidCustomer());
 	}
 
+	@Test(expected = MyAppException.class)
+	public void throwForCustomerWithNullNameBasic() {
+		Customer customer = aValidCustomer().setName(null);
+		customerValidator.validate(customer);
+	}
 	@Test
 	public void throwForCustomerWithNullName() {
 		expectedException.expect(new MyAppExceptionMatcher(ErrorCode.CUSTOMER_WITHOUT_NAME));

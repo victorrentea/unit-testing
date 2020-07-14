@@ -1,13 +1,12 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.UUID;
-
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
-import ro.victor.unittest.time.rule.TimeProvider;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+//CERN
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
