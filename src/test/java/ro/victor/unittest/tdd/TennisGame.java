@@ -9,8 +9,13 @@ public class TennisGame {
       if (player1Score >= 3 && player1Score == player2Score) {
          return "Deuce";
       }
-      if (player1Score >= 3 && player2Score >= 3 && player1Score - player2Score == 1) {
-         return "Advantage Player1";
+      if (player1Score >= 3 && player2Score >= 3) {
+         if (player1Score - player2Score == 1) {
+            return "Advantage Player1";
+         }
+         if (player2Score - player1Score == 1) {
+            return "Advantage Player2";
+         }
       }
       return translate(player1Score) + " - " + translate(player2Score);
    }
