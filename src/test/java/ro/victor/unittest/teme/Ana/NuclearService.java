@@ -1,6 +1,7 @@
 package ro.victor.unittest.teme.Ana;
 
 
+import org.junit.Assume;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

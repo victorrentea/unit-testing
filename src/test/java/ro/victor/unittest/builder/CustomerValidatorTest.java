@@ -1,5 +1,7 @@
 package ro.victor.unittest.builder;
 
+import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -39,9 +41,12 @@ public class CustomerValidatorTest {
 
 	@Test
 	public void throwForCustomerWithNullAddress() {
-		expectedException.expect(new MyAppExceptionMatcher(ErrorCode.CUSTOMER_WITHOUT_ADDRESS));
+
 		Customer customer = aValidCustomer().setAddress(null);
-		customerValidator.validate(customer);
+		MyAppException actualException = Assertions.catchThrowableOfType(
+			() -> customerValidator.validate(customer), MyAppException.class);
+
+		Assert.assertEquals(ErrorCode.CUSTOMER_WITHOUT_ADDRESS, actualException.getErrorCode());
 	}
 
 	@Rule
