@@ -1,5 +1,6 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,10 +20,13 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
     @InjectMocks
     TelemetryDiagnosticControls controls;// = new TelemetryDiagnosticControls(clientMock);
 
+    @Before
+    public void initialize() {
+        when(clientMock.getOnlineStatus()).thenReturn(true);
+    }
 
     @Test
     public void disconnectsAndSends() {
-        when(clientMock.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission();
         verify(clientMock).disconnect();
 
@@ -36,13 +40,12 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
 
     @Test(expected = IllegalStateException.class)
     public void throwsWhenOffline() {
-        when(clientMock.getOnlineStatus()).thenReturn(false);
+        when(clientMock.getOnlineStatus()).thenReturn(false); // override la ce "mosteneai" din before
         controls.checkTransmission();
     }
 
     @Test
     public void receives() {
-        when(clientMock.getOnlineStatus()).thenReturn(true);
         when(clientMock.receive()).thenReturn("RECEIVE_VALUE");
         controls.checkTransmission();
 
@@ -51,6 +54,13 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
         // ci codul testat ar trebui sa ia cumva deczii/ sa expuna datele citite din metoda mockuite
 
         assertEquals("RECEIVE_VALUE", controls.getDiagnosticInfo());
+    }
+
+    @Test
+    public void configuresClient() {
+        controls.checkTransmission();
+        verify(clientMock).configure(any());
+        controls.getConfig(); // asert aici
     }
 
 
