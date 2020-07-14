@@ -1,12 +1,17 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -56,11 +61,16 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
         assertEquals("RECEIVE_VALUE", controls.getDiagnosticInfo());
     }
 
+
     @Test
     public void configuresClient() {
         controls.checkTransmission();
-        verify(clientMock).configure(any());
-        controls.getConfig(); // asert aici
+        // post-mortem
+        ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
+        verify(clientMock).configure(configCaptor.capture());
+
+//        assertEquals(AckMode.NORMAL, configCaptor.getValue().getAckMode());
+        assertThat(configCaptor.getValue().getAckMode()).isEqualTo(AckMode.FLOOD); // mai brain-friend
     }
 
 
