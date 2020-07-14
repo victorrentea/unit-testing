@@ -3,60 +3,29 @@ package ro.victor.unittest.builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Collections.unmodifiableList;
 
 public class Customer {
 
+	@Getter
+	@Setter
 	private String name;
 	private String phone;
 	private List<String> labels = new ArrayList<>();
 	@Getter
 	@Setter
 	private Address address;
+	@Getter
+	@Setter
 	private Date createDate;
 
-//	public Address getAddress() {
-//		return address;
-//	}
-//
-//	public Customer setAddress(Address address) {
-//		this.address = address;
-//		return this;
-//	}
-
-	public String getName() {
-		return name;
+	public List<String> getLabels() {
+		return unmodifiableList(labels);
 	}
-
-	public Customer setName(String name) {
-		this.name = name;
+	public Customer addLabels(String... newLabels) { // pt teste
+		labels.addAll(Arrays.asList(newLabels));
 		return this;
 	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public List<String> getLabels() {
-		return labels;
-	}
-
-	public void setLabels(List<String> labels) {
-		this.labels = labels;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
 }
