@@ -22,6 +22,9 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
     @Mock
     TelemetryClient clientMock;// = mock(TelemetryClient.class);
 
+    @Mock
+    ClientConfigurationFactory configFactoryMock;
+
     @InjectMocks
     TelemetryDiagnosticControls controls;// = new TelemetryDiagnosticControls(clientMock);
 
@@ -65,16 +68,14 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
     @Test
     public void configuresClient() {
         when(clientMock.getVersion()).thenReturn("VERS");
+        ClientConfiguration config = new ClientConfiguration();
+        when(configFactoryMock.createConfig("VERS")).thenReturn(config);
         controls.checkTransmission();
         // post-mortem
         ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
         verify(clientMock).configure(configCaptor.capture());
 
-//        assertEquals(AckMode.NORMAL, configCaptor.getValue().getAckMode());
-        ClientConfiguration configCaptorValue = configCaptor.getValue();
-        assertThat(configCaptorValue.getAckMode()).isEqualTo(AckMode.FLOOD); // mai brain-friend
-        assertThat(configCaptorValue.getSessionId()).isNotNull();
-        assertThat(configCaptorValue.getSessionId()).startsWith("VERS-");
+        assertTrue(config == configCaptor.getValue());
     }
 
 
@@ -82,14 +83,3 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
 
 }
 
-// schita, eseu:
-class ClientConfigurationFactoryTest {
-    @Test
-    public void configuresClient2() {
-        ClientConfiguration config = new ClientConfigurationFactory().createConfig("VERS");
-        assertThat(config.getAckMode()).isEqualTo(AckMode.FLOOD); // mai brain-friend
-        assertThat(config.getSessionId()).isNotNull();
-        assertThat(config.getSessionId()).startsWith("VERS-");
-    }
-
-}
