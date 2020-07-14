@@ -27,6 +27,14 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
 
     TelemetryDiagnosticControls controls;// = new TelemetryDiagnosticControls(clientMock);
 
+    public TelemetryDiagnosticControls_CheckTransmissionTest() {
+        // orice camp folosesti care trebuie initializat de un Runner (@Autowired, @Mock, @MockBean)
+        // ele vor fi inca** null aici, ca runnerul inca nu a apaucat sa ruleze
+//        controls = new TelemetryDiagnosticControls(clientMock, configFactory);
+//        when(clientMock.getOnlineStatus()).thenReturn(true);
+    }
+
+
     @Before
     public void initialize() {
         controls = new TelemetryDiagnosticControls(clientMock, configFactory);
