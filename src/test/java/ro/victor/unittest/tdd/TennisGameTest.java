@@ -7,25 +7,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TennisGameTest {
 
+   private final TennisGame tennisGame = new TennisGame();
+
    @Test
    public void newGame() {
-      String s = new TennisGame().score();
-      assertThat(s).isEqualTo("Love - Love");
+      assertThat(tennisGame.score()).isEqualTo("Love - Love");
    }
 
    @Test
    public void fifteenLove() {
-      TennisGame tennisGame = new TennisGame();
       tennisGame.scoresPoint(Players.PLAYER1);// b i e s
-      String s = tennisGame.score();
-      assertThat(s).isEqualTo("Fifteen - Love");
+      assertThat(tennisGame.score()).isEqualTo("Fifteen - Love");
    }
    @Test
    public void thirtyLove() {
-      TennisGame tennisGame = new TennisGame();
+      // arrange
       tennisGame.scoresPoint(Players.PLAYER1);// b i e s
       tennisGame.scoresPoint(Players.PLAYER1);// b i e s
-      String s = tennisGame.score();
-      assertThat(s).isEqualTo("Thirty - Love");
+
+      // act
+      String actualScore = tennisGame.score();
+
+      // assert
+      assertThat(actualScore).isEqualTo("Thirty - Love");
    }
+
 }
