@@ -7,7 +7,9 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.omg.CORBA.TCKind;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.time.rule.TestTimeRule;
 
@@ -25,22 +27,24 @@ public class TelemetryDiagnosticControlsTest {
     @Test
     public void test() {
         TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls();
-        controls.setTelemetryClient(new TelemetryClient(){
-            @Override
-            public void disconnect() {
-                super.disconnect();
-            }
+        TelemetryClient clientMock = mock(TelemetryClient.class);
+        controls.setTelemetryClient(clientMock);
 
-            @Override
-            public boolean getOnlineStatus() {
-                return super.getOnlineStatus();
-            }
+        when(clientMock.getOnlineStatus()).thenReturn(true);
 
-            @Override
-            public String getVersion() {
-                return "1";
-            }
-        });
+        controls.checkTransmission();
+
+        verify(clientMock).disconnect();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void throwsWhenOffline() {
+        TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls();
+        TelemetryClient clientMock = mock(TelemetryClient.class);
+        controls.setTelemetryClient(clientMock);
+
+        when(clientMock.getOnlineStatus()).thenReturn(false);
+
         controls.checkTransmission();
     }
 

@@ -25,15 +25,16 @@ public class TelemetryDiagnosticControls {
 	}
 
 	public void checkTransmission() {
-		telemetryClient.disconnect();
+		telemetryClient.disconnect(); // pasta
 
+		// exercitiu cititorului
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
 			telemetryClient.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
 			currentRetry ++;
 		}
 
-		if (! telemetryClient.getOnlineStatus()) {
+		if (! telemetryClient.getOnlineStatus()) { //ok
 			throw new IllegalStateException("Unable to connect.");
 		}
 
@@ -43,7 +44,7 @@ public class TelemetryDiagnosticControls {
 		config.setAckMode(AckMode.NORMAL);
 		telemetryClient.configure(config);
 
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // <-----
 		diagnosticInfo = telemetryClient.receive();
 	}
 
