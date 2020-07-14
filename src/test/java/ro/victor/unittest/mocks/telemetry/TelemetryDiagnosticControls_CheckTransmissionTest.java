@@ -23,9 +23,7 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
     @Test
     public void disconnectsAndSends() {
         when(clientMock.getOnlineStatus()).thenReturn(true);
-
         controls.checkTransmission();
-
         verify(clientMock).disconnect();
 
         verify(clientMock).send(anyString()); // orice string e bun -> error prome
@@ -38,12 +36,22 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
 
     @Test(expected = IllegalStateException.class)
     public void throwsWhenOffline() {
-
         when(clientMock.getOnlineStatus()).thenReturn(false);
-
         controls.checkTransmission();
     }
 
+    @Test
+    public void receives() {
+        when(clientMock.getOnlineStatus()).thenReturn(true);
+        when(clientMock.receive()).thenReturn("RECEIVE_VALUE");
+        controls.checkTransmission();
+
+//        verify(clientMock).receive();
+        // daca ai programat o metoda cu when.thenReturn atunci nu prea are sens sa ii faci verify
+        // ci codul testat ar trebui sa ia cumva deczii/ sa expuna datele citite din metoda mockuite
+
+        assertEquals("RECEIVE_VALUE", controls.getDiagnosticInfo());
+    }
 
 
 }
