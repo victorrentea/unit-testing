@@ -78,13 +78,18 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
     }
 
 
+
+
+}
+
+// schita, eseu:
+class ClientConfigurationFactoryTest {
     @Test
     public void configuresClient2() {
-        ClientConfiguration config = controls.createConfig("VERS");
+        ClientConfiguration config = new ClientConfigurationFactory().createConfig("VERS");
         assertThat(config.getAckMode()).isEqualTo(AckMode.FLOOD); // mai brain-friend
         assertThat(config.getSessionId()).isNotNull();
         assertThat(config.getSessionId()).startsWith("VERS-");
     }
-
 
 }

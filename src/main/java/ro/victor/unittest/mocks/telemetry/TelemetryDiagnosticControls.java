@@ -11,10 +11,12 @@ public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient;
+	private final ClientConfigurationFactory configFactory;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ClientConfigurationFactory configFactory) {
 		this.telemetryClient = telemetryClient;
+		this.configFactory = configFactory;
 	}
 
 	public String getDiagnosticInfo() {
@@ -38,12 +40,16 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = createConfig(telemetryClient.getVersion());
+		ClientConfiguration config = configFactory.createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // <-----
 		diagnosticInfo = telemetryClient.receive();
 	}
+
+}
+
+class ClientConfigurationFactory {
 
 	public ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
@@ -53,5 +59,4 @@ public class TelemetryDiagnosticControls {
 		config.setAckMode(AckMode.FLOOD);// <<<<< ??
 		return config;
 	}
-
 }
