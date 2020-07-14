@@ -1,31 +1,15 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.omg.CORBA.TCKind;
-import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
-import ro.victor.unittest.time.rule.TestTimeRule;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
-public class TelemetryDiagnosticControlsTest {
+public class TelemetryDiagnosticControls_CheckTransmissionTest {
 
     @Test
-    public void test() {
+    public void disconnects() {
         TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls();
         TelemetryClient clientMock = mock(TelemetryClient.class);
         controls.setTelemetryClient(clientMock);
@@ -47,5 +31,25 @@ public class TelemetryDiagnosticControlsTest {
 
         controls.checkTransmission();
     }
+
+    @Test
+    public void sends() {
+        TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls();
+        TelemetryClient clientMock = mock(TelemetryClient.class);
+        controls.setTelemetryClient(clientMock);
+
+        when(clientMock.getOnlineStatus()).thenReturn(true);
+
+        controls.checkTransmission();
+
+        verify(clientMock).send(anyString()); // orice string e bun -> error prome
+
+        verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // a - mai mereu
+
+        verify(clientMock).send("AT#UD"); // b -- cand stringul e parte dintr-un protocol de comm cu un sistem extern
+
+
+    }
+
 
 }
