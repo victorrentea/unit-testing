@@ -38,14 +38,20 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.FLOOD);// <<<<< ??
+		ClientConfiguration config = createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE); // <-----
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	public ClientConfiguration createConfig(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		// logica complex
+		config.setSessionId(version + "-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.FLOOD);// <<<<< ??
+		return config;
 	}
 
 }

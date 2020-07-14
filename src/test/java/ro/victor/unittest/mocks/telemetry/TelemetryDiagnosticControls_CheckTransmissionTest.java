@@ -1,6 +1,5 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,6 +75,15 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
         assertThat(configCaptorValue.getAckMode()).isEqualTo(AckMode.FLOOD); // mai brain-friend
         assertThat(configCaptorValue.getSessionId()).isNotNull();
         assertThat(configCaptorValue.getSessionId()).startsWith("VERS-");
+    }
+
+
+    @Test
+    public void configuresClient2() {
+        ClientConfiguration config = controls.createConfig("VERS");
+        assertThat(config.getAckMode()).isEqualTo(AckMode.FLOOD); // mai brain-friend
+        assertThat(config.getSessionId()).isNotNull();
+        assertThat(config.getSessionId()).startsWith("VERS-");
     }
 
 
