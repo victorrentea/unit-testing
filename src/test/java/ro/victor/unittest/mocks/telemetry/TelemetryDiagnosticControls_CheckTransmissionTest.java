@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
@@ -22,14 +21,15 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
     @Mock
     TelemetryClient clientMock;// = mock(TelemetryClient.class);
 
-    @Mock
-    ClientConfigurationFactory configFactoryMock;
 
-    @InjectMocks
+    ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
+
+
     TelemetryDiagnosticControls controls;// = new TelemetryDiagnosticControls(clientMock);
 
     @Before
     public void initialize() {
+        controls = new TelemetryDiagnosticControls(clientMock, configFactory);
         when(clientMock.getOnlineStatus()).thenReturn(true);
     }
 
@@ -68,14 +68,16 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
     @Test
     public void configuresClient() {
         when(clientMock.getVersion()).thenReturn("VERS");
-        ClientConfiguration config = new ClientConfiguration();
-        when(configFactoryMock.createConfig("VERS")).thenReturn(config);
+//        when(configFactory.createConfig("VERS")).thenReturn(config);
         controls.checkTransmission();
         // post-mortem
         ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
         verify(clientMock).configure(configCaptor.capture());
+        ClientConfiguration config = configCaptor.getValue();
 
-        assertTrue(config == configCaptor.getValue());
+        assertThat(config.getAckMode()).isEqualTo(AckMode.FLOOD); // mai brain-friend
+        assertThat(config.getSessionId()).isNotNull();
+        assertThat(config.getSessionId()).startsWith("VERS-");
     }
 
 
