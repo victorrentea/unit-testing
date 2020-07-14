@@ -1,19 +1,27 @@
 package ro.victor.unittest.mocks.telemetry;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TelemetryDiagnosticControls_CheckTransmissionTest {
+
+    @Mock
+    TelemetryClient clientMock;// = mock(TelemetryClient.class);
+
+    @InjectMocks
+    TelemetryDiagnosticControls controls;// = new TelemetryDiagnosticControls(clientMock);
+
 
     @Test
     public void disconnectsAndSends() {
-        TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls();
-        TelemetryClient clientMock = mock(TelemetryClient.class);
-        controls.setTelemetryClient(clientMock);
-
         when(clientMock.getOnlineStatus()).thenReturn(true);
 
         controls.checkTransmission();
@@ -30,9 +38,6 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
 
     @Test(expected = IllegalStateException.class)
     public void throwsWhenOffline() {
-        TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls();
-        TelemetryClient clientMock = mock(TelemetryClient.class);
-        controls.setTelemetryClient(clientMock);
 
         when(clientMock.getOnlineStatus()).thenReturn(false);
 
