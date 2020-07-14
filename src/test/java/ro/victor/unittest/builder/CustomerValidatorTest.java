@@ -7,6 +7,10 @@ public class CustomerValidatorTest {
 
 	private final CustomerValidator customerValidator = new CustomerValidator();
 
+	public CustomerValidatorTest() {
+		System.out.println("O noua instanta de clasa de TEST se naste pentru fiecare @Test in parte");
+	}
+
 	private Customer aValidCustomer() {
 		return new Customer()
 			.setName("John")
