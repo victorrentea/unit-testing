@@ -12,6 +12,7 @@ import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -64,13 +65,17 @@ public class TelemetryDiagnosticControls_CheckTransmissionTest {
 
     @Test
     public void configuresClient() {
+        when(clientMock.getVersion()).thenReturn("VERS");
         controls.checkTransmission();
         // post-mortem
         ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
         verify(clientMock).configure(configCaptor.capture());
 
 //        assertEquals(AckMode.NORMAL, configCaptor.getValue().getAckMode());
-        assertThat(configCaptor.getValue().getAckMode()).isEqualTo(AckMode.FLOOD); // mai brain-friend
+        ClientConfiguration configCaptorValue = configCaptor.getValue();
+        assertThat(configCaptorValue.getAckMode()).isEqualTo(AckMode.FLOOD); // mai brain-friend
+        assertThat(configCaptorValue.getSessionId()).isNotNull();
+        assertThat(configCaptorValue.getSessionId()).startsWith("VERS-");
     }
 
 
