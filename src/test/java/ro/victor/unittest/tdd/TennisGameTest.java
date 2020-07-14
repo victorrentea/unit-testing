@@ -15,6 +15,11 @@ public class TennisGameTest {
    }
 
    @Test
+   public void loveFifteen() {
+       tennisGame.scoresPoint(Players.PLAYER2);
+      assertThat(tennisGame.score()).isEqualTo("Love - Fifteen");
+   }
+   @Test
    public void fifteenLove() {
       tennisGame.scoresPoint(Players.PLAYER1);// b i e s
       assertThat(tennisGame.score()).isEqualTo("Fifteen - Love");

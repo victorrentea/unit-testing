@@ -6,21 +6,28 @@ public class TennisGame {
    private int player2Score;
 
    public String score() {
-      String s;
-      if (player1Score == 0) {
-         s = "Love - Love";
-      } else if (player1Score == 1) {
-         s = "Fifteen - Love";
-      } else if (player1Score == 2) {
-         s = "Thirty - Love";
-      } else {
-         throw new IllegalArgumentException();
+      return translate(player1Score) + " - " + translate(player2Score);
+   }
+
+   private String translate(int score) {
+      switch (score) {
+         case 0:
+            return "Love";
+         case 1:
+            return "Fifteen";
+         case 2:
+            return "Thirty";
+         default:
+            throw new IllegalArgumentException();
       }
-      return s;
    }
 
    public void scoresPoint(Players player) {
-      player1Score ++;
+      if (player == Players.PLAYER1) {
+         player1Score++;
+      } else {
+         player2Score++;
+      }
    }
 }
 // The running score of each game is

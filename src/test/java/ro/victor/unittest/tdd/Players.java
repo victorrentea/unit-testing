@@ -1,5 +1,5 @@
 package ro.victor.unittest.tdd;
 
 public enum Players {
-   PLAYER1
+   PLAYER2, PLAYER1
 }
