@@ -2,7 +2,7 @@ package ro.victor.unittest.builder;
 
 import org.junit.Test;
 
-public class CustomerValidatorShould {
+public class CustomerValidatorTest {
 
 
 	private final CustomerValidator customerValidator = new CustomerValidator();
