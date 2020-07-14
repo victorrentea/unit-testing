@@ -8,7 +8,7 @@ public class CustomerValidator {
 
 	public void validate(Customer customer) {
 		if (isBlank(customer.getName())) {
-			throw new IllegalArgumentException("Missing customer name");
+			throw new MyAppException(ErrorCode.CUSTOMER_WITHOUT_NAME);
 		}
 		validateAddress(customer.getAddress());
 		//etc
@@ -16,10 +16,11 @@ public class CustomerValidator {
 
 	private void validateAddress(Address address) {
 		if (address == null) {
-			throw new IllegalArgumentException("Missing customer address");
+			throw new MyAppException(ErrorCode.CUSTOMER_WITHOUT_ADDRESS);
 		}
 		if (isBlank(address.getCity())) {
 			throw new IllegalArgumentException("Missing address city");
 		}
 	}
 }
+

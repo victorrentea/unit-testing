@@ -30,14 +30,16 @@ public class CustomerValidatorTest {
 		customerValidator.validate(aValidCustomer());
 	}
 
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void throwForCustomerWithNullName() {
+		expectedException.expect(new MyAppExceptionMatcher(ErrorCode.CUSTOMER_WITHOUT_NAME));
 		Customer customer = aValidCustomer().setName(null);
 		customerValidator.validate(customer);
 	}
 
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void throwForCustomerWithNullAddress() {
+		expectedException.expect(new MyAppExceptionMatcher(ErrorCode.CUSTOMER_WITHOUT_ADDRESS));
 		Customer customer = aValidCustomer().setAddress(null);
 		customerValidator.validate(customer);
 	}
@@ -48,6 +50,7 @@ public class CustomerValidatorTest {
 	@Test
 	public void throwForCustomerWithNullAddressCity() {
 		expectedException.expectMessage("address city");
+
 		Customer customer = aValidCustomer().setAddress(aValidAddress().setCity(null));
 		customerValidator.validate(customer);
 	}
