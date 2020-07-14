@@ -1,5 +1,8 @@
 package ro.victor.unittest.builder;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,23 +12,27 @@ public class Customer {
 	private String name;
 	private String phone;
 	private List<String> labels = new ArrayList<>();
+	@Getter
+	@Setter
 	private Address address;
 	private Date createDate;
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+//	public Address getAddress() {
+//		return address;
+//	}
+//
+//	public Customer setAddress(Address address) {
+//		this.address = address;
+//		return this;
+//	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Customer setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getPhone() {
