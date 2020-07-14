@@ -9,13 +9,23 @@ public class TennisGameTest {
 
    @Test
    public void newGame() {
-       String s = TennisGame.score();
-       assertThat(s).isEqualTo("Love - Love");
+      String s = new TennisGame().score();
+      assertThat(s).isEqualTo("Love - Love");
    }
+
    @Test
    public void fifteenLove() {
-      TennisGame.scoresPoint(Players.PLAYER1);// b i e s
-       String s = TennisGame.score();
-       assertThat(s).isEqualTo("Fifteen - Love");
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.scoresPoint(Players.PLAYER1);// b i e s
+      String s = tennisGame.score();
+      assertThat(s).isEqualTo("Fifteen - Love");
+   }
+   @Test
+   public void thirtyLove() {
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.scoresPoint(Players.PLAYER1);// b i e s
+      tennisGame.scoresPoint(Players.PLAYER1);// b i e s
+      String s = tennisGame.score();
+      assertThat(s).isEqualTo("Thirty - Love");
    }
 }
