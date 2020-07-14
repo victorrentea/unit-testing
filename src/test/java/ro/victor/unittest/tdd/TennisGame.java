@@ -6,6 +6,12 @@ public class TennisGame {
    private int player2Score;
 
    public String score() {
+      if (player1Score >= 3 && player1Score == player2Score) {
+         return "Deuce";
+      }
+      if (player1Score >= 3 && player2Score >= 3 && player1Score - player2Score == 1) {
+         return "Advantage Player1";
+      }
       return translate(player1Score) + " - " + translate(player2Score);
    }
 
@@ -17,6 +23,8 @@ public class TennisGame {
             return "Fifteen";
          case 2:
             return "Thirty";
+         case 3:
+            return "Forty";
          default:
             throw new IllegalArgumentException();
       }
