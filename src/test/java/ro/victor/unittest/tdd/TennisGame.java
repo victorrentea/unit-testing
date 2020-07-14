@@ -2,19 +2,25 @@ package ro.victor.unittest.tdd;
 
 public class TennisGame {
 
-   private String scoreString = "Love - Love";
+   private int player1Score;
+   private int player2Score;
 
    public String score() {
-      return scoreString;
+      String s;
+      if (player1Score == 0) {
+         s = "Love - Love";
+      } else if (player1Score == 1) {
+         s = "Fifteen - Love";
+      } else if (player1Score == 2) {
+         s = "Thirty - Love";
+      } else {
+         throw new IllegalArgumentException();
+      }
+      return s;
    }
 
    public void scoresPoint(Players player) {
-
-      if (scoreString.equals("Fifteen - Love")) {
-         scoreString = "Thirty - Love";
-      } else {
-         scoreString = "Fifteen - Love";
-      }
+      player1Score ++;
    }
 }
 // The running score of each game is
