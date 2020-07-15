@@ -1,22 +1,24 @@
 package ro.victor.unittest.goldenmaster;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.util.Random;
 
 public class TriviaTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Trivia aGame = new Trivia();
+        StringWriter writer = new StringWriter();
+        aGame.setWriter(writer);
         aGame.add("Chet");
         aGame.add("Pat");
         aGame.add("Sue");
 
-//        aGame.roll(5);
-//        aGame.wasCorrectlyAnswered();
-//        aGame.roll(4);
-//        aGame.wrongAnswer();
+//        for (int i = 0; i < 1000; i++) {
 
-        Random rand = new Random(1);
-
+//        }
+        Random rand = new Random(3);
 
         boolean notAWinner = false;
         do {
@@ -29,5 +31,7 @@ public class TriviaTest {
             }
 
         } while (notAWinner);
+
+        System.out.println(writer.toString());
     }
 }
