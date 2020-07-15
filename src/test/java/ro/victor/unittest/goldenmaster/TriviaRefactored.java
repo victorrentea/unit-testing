@@ -5,7 +5,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Trivia implements ITrivia {
+public class TriviaRefactored implements  ITrivia {
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses = new int[6];
@@ -18,7 +18,6 @@ public class Trivia implements ITrivia {
 
     private Writer writer;
 
-    @Override
     public void setWriter(Writer writer) {
         this.writer = writer;
     }
@@ -26,7 +25,7 @@ public class Trivia implements ITrivia {
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
 
-    public Trivia() {
+    public TriviaRefactored() {
         for (int i = 0; i < 50; i++) {
             popQuestions.addLast("Pop Question " + i);
             scienceQuestions.addLast(("Science Question " + i));
@@ -43,7 +42,6 @@ public class Trivia implements ITrivia {
         return (howManyPlayers() >= 2);
     }
 
-    @Override
     public boolean add(String playerName) {
 
 
@@ -69,7 +67,6 @@ public class Trivia implements ITrivia {
         return players.size();
     }
 
-    @Override
     public void roll(int roll) {
         print(players.get(currentPlayer) + " is the current player");
         print("They have rolled a " + roll);
@@ -131,7 +128,6 @@ public class Trivia implements ITrivia {
         return "Rock";
     }
 
-    @Override
     public boolean wasCorrectlyAnswered() {
         if (inPenaltyBox[currentPlayer]) {
             if (isGettingOutOfPenaltyBox) {
@@ -171,7 +167,6 @@ public class Trivia implements ITrivia {
         }
     }
 
-    @Override
     public boolean wrongAnswer() {
         print("Question was incorrectly answered");
         print(players.get(currentPlayer) + " was sent to the penalty box");

@@ -1,25 +1,34 @@
 package ro.victor.unittest.goldenmaster;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.util.Random;
 
 public class TriviaTest {
-    public static void main(String[] args) throws IOException {
+    @Test
+    public void zatest() {
+        for (int seed = 0; seed < 1000; seed++) {
 
-        Trivia aGame = new Trivia();
+            String expected = runGameAsPureFunction(new Trivia(), seed);
+
+            String actual = runGameAsPureFunction(new TriviaRefactored(), seed);
+
+            Assert.assertEquals(expected, actual);
+        }
+
+    }
+
+    private static String runGameAsPureFunction(ITrivia aGame, int seed) {
+        Random rand = new Random(seed);
         StringWriter writer = new StringWriter();
         aGame.setWriter(writer);
         aGame.add("Chet");
         aGame.add("Pat");
         aGame.add("Sue");
-
-//        for (int i = 0; i < 1000; i++) {
-
-//        }
-        Random rand = new Random(3);
-
         boolean notAWinner = false;
         do {
             aGame.roll(rand.nextInt(6) + 1); // [1 .. 6]
@@ -31,7 +40,6 @@ public class TriviaTest {
             }
 
         } while (notAWinner);
-
-        System.out.println(writer.toString());
+        return writer.toString();
     }
 }
