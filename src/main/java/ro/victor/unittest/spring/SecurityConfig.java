@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable() // TODO move this setting to tests only
                 .authorizeRequests()
-                .mvcMatchers("product/search").authenticated()
+                .mvcMatchers("product/search").hasRole("ADMIN")
                 .mvcMatchers("secured/**").authenticated()
                 .mvcMatchers("unsecured/**").permitAll()
                 .and()
