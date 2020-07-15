@@ -19,6 +19,7 @@ import ro.victor.unittest.spring.repo.ProductRepo;
 
 import java.util.Arrays;
 
+import static java.util.Arrays.asList;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,9 +40,11 @@ public class ProductControllerMvcTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testSearch() throws Exception {
-        when(facade.searchProduct(any())).thenReturn(Arrays.asList(new ProductSearchResult(1L, "Tree")));
+        ProductSearchResult result = new ProductSearchResult(1L, "Tree");
+        when(facade.searchProduct(any())).thenReturn(asList(result));
+
         mockMvc.perform(post("/product/search")
-                .content("{}")
+                .content("{\"name\":\"M\"}")
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isOk())
