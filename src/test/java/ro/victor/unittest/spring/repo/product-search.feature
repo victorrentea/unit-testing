@@ -7,6 +7,9 @@ Feature: Search for product
 
   Scenario:
     Given One product exists
+#    | camp1 | camp2 | DataTables
+#    | a     | b     |
+#    And That product has content "rec1.json"
     And That product has name "name"
     And That product has supplier "X"
     And That product has category "PT_MINE"
