@@ -12,6 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductFacade;
 import ro.victor.unittest.spring.facade.ProductSearchResult;
@@ -27,29 +28,34 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest // Start up only web part. Requires @MockBean for deeper layers
-//@WebMvcTest(value=ProductController.class) // - Even more fine-grained
-//@SpringBootTest @AutoConfigureMockMvc // deeper e2e tests
+@ActiveProfiles("db-real")
+@Transactional
+@SpringBootTest @AutoConfigureMockMvc // deeper e2e tests
 public class ProductControllerMvcTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private ProductFacade facade;
+    @Autowired
+    private ProductRepo productRepo;
+//    @MockBean
+//    private ProductFacade facade;
 
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testSearch() throws Exception {
-        ProductSearchResult result = new ProductSearchResult(1L, "Tree");
-        when(facade.searchProduct(any())).thenReturn(asList(result));
+//        ProductSearchResult result = new ProductSearchResult(1L, "Tree");
+//        when(facade.searchProduct(any())).thenReturn(asList(result));
+        productRepo.save(new Product("Tree"));
+
 
         mockMvc.perform(post("/product/search")
-                .content("{\"name\":\"M\"}")
+                .content("{\"name\":\"re\"}")
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isOk())
                 .andExpect(header().string("Custom-Header", "true"))
 //                .andExpect(content().string(contains("Tree")))
+
                 .andExpect(jsonPath("$[0].name").value("Tree"));
     }
 
