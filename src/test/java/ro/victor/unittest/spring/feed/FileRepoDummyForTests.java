@@ -27,6 +27,10 @@ public class FileRepoDummyForTests implements IFileRepo{
       return IOUtils.toInputStream(fileContents.get(fileName));
    }
 
+   public void clearFiles() {
+      fileContents.clear();
+   }
+
    public void addDummyFile(String fileName, String contents) {
       fileContents.put(fileName, contents);
    }

@@ -1,6 +1,7 @@
 package ro.victor.unittest.spring.feed;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class FeedProcessorWithDummyShould {
    // B) cand ai nevoie de spring printre metodele tale. Ex: @Cacheable si @Trasactional
    private FileRepoDummyForTests fileRepoDummy;
 
+   @Before
+   public void initialize() {
+       fileRepoDummy.clearFiles();
+   }
    @Test
    public void test() throws IOException {
       fileRepoDummy.addDummyFile("one.txt", "oneLine");
