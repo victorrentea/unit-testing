@@ -15,6 +15,8 @@ import java.util.Set;
 public class FeedProcessor {
    @Autowired
    private IFileRepo fileRepo;
+   @Autowired
+   private FeedScanner scanner;
 
    public int countPendingLines() throws IOException {
       Collection<String> names = fileRepo.getFileNames();
@@ -23,6 +25,7 @@ public class FeedProcessor {
       for (String fileName : names) {
          try (Reader is = fileRepo.openFile(fileName)) {
             List<String> lines = IOUtils.readLines(is);
+            scanner.removeComments(lines);
             log.debug("Found {} lines in {}", lines.size(), fileName);
             count += lines.size();
          }
