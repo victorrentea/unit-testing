@@ -27,11 +27,17 @@ public class ProductRepoSearchTest {
 
    private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
+   @Before
+   public void initialize() {
+      assertThat(repo.findAll()).isEmpty();
+   }
+
    @Test
    public void emptyCriteria() {
       repo.save(new Product());
       assertThat(repo.search(criteria)).hasSize(1);
    }
+
    @Test
 //   @Commit // pt debug, lasa Tx de test sa faca commit in DB, ca sa poti
    // rula si tu query-ul de mana din ce program vrei tu
