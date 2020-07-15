@@ -26,6 +26,10 @@ public class FeedProcessorShould {
    private FeedProcessor processor;
 
    @MockBean
+   // In mod normal preferi @Mock mockito fara Spring. (de ~20-100x mai rapid)
+   // Dar e necesar @MockBean cand:
+   // A) sunt foarte multe clase implicate (5+) - sa le legi manual cu new e nasol. sa nu-ti pse care de care se leaga
+   // B) cand ai nevoie de spring printre metodele tale. Ex: @Cacheable si @Trasactional
    private FileRepo fileRepoMock;
 
    @Test
@@ -34,5 +38,20 @@ public class FeedProcessorShould {
       when(fileRepoMock.openFile("one.txt")).thenReturn(IOUtils.toInputStream("lineOne"));
       int actualLines = processor.countPendingLines();
       assertEquals(1, actualLines);
+   }
+   @Test
+   public void test2() throws IOException {
+         when(fileRepoMock.getFileNames()).thenReturn(new HashSet<>(asList("two.txt")));
+         when(fileRepoMock.openFile("two.txt")).thenReturn(IOUtils.toInputStream("lineOne\nlineTwo"));
+      int actualLines = processor.countPendingLines();
+      assertEquals(2, actualLines);
+   }
+   @Test
+   public void test3() throws IOException {
+      when(fileRepoMock.getFileNames()).thenReturn(new HashSet<>(asList("one.txt","two.txt")));
+      when(fileRepoMock.openFile("one.txt")).thenReturn(IOUtils.toInputStream("lineOne"));
+      when(fileRepoMock.openFile("two.txt")).thenReturn(IOUtils.toInputStream("lineOne\nlineTwo"));
+      int actualLines = processor.countPendingLines();
+      assertEquals(3, actualLines);
    }
 }
