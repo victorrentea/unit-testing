@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
@@ -17,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles({"db-mem", "test"})
+@Transactional
 public class ProductRepoSearchTest {
    @Autowired
    private ProductRepo repo;
@@ -24,12 +26,6 @@ public class ProductRepoSearchTest {
    private SupplierRepo srepo;
 
    private ProductSearchCriteria criteria = new ProductSearchCriteria();
-
-   @Before
-   public void initialize() {
-      srepo.deleteAll();
-       repo.deleteAll();
-   }
 
    @Test
    public void primuTest_cuOLumanarePeMasa() {
