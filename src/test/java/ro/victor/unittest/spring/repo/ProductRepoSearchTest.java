@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles({"db-mem", "test"})
+@ActiveProfiles({"db-real", "test"})
 @Transactional
 public class ProductRepoSearchTest {
    @Autowired
@@ -32,6 +33,8 @@ public class ProductRepoSearchTest {
       assertThat(repo.search(criteria)).hasSize(1);
    }
    @Test
+   @Commit // pt debug, lasa Tx de test sa faca commit in DB, ca sa poti
+   // rula si tu query-ul de mana din ce program vrei tu
    public void byName() {
       repo.save(new Product("Masca De Protectie"));
       criteria.name = "dE";

@@ -27,7 +27,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
         Map<String, Object> paramMap = new HashMap<>();
         if (isNotEmpty(criteria.name)) {
             jpql += "  AND UPPER(p.name) LIKE UPPER(:name)   ";
-            paramMap.put("name", "%" +criteria.name +"%");
+            paramMap.put("name", "%" +criteria.name +"%"); // <---- bug
         }
 
         TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
