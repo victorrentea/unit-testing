@@ -3,6 +3,7 @@ package ro.victor.unittest.spring.feed;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -37,6 +38,9 @@ public class FeedProcessor {
 
 @Service
 class Dep {
+   @Cacheable("x")
+   public void m() {
 
+   }
 }
 
