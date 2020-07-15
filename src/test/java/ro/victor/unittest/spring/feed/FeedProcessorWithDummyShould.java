@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -18,6 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
+//@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) Doamne fereste
 public class FeedProcessorWithDummyShould {
    @Autowired
    private FeedProcessor processor;
@@ -32,24 +36,14 @@ public class FeedProcessorWithDummyShould {
    @Test
    public void test() throws IOException {
       fileRepoDummy.addDummyFile("one.txt", "oneLine");
-//      when(fileRepoDummy.getFileNames()).thenReturn(new HashSet<>(asList("one.txt")));
-//      when(fileRepoDummy.openFile("one.txt")).thenReturn(IOUtils.toInputStream("lineOne"));
       int actualLines = processor.countPendingLines();
       assertEquals(1, actualLines);
    }
-//   @Test
-//   public void test2() throws IOException {
-//         when(fileRepoDummy.getFileNames()).thenReturn(new HashSet<>(asList("two.txt")));
-//         when(fileRepoDummy.openFile("two.txt")).thenReturn(IOUtils.toInputStream("lineOne\nlineTwo"));
-//      int actualLines = processor.countPendingLines();
-//      assertEquals(2, actualLines);
-//   }
-//   @Test
-//   public void test3() throws IOException {
-//      when(fileRepoDummy.getFileNames()).thenReturn(new HashSet<>(asList("one.txt","two.txt")));
-//      when(fileRepoDummy.openFile("one.txt")).thenReturn(IOUtils.toInputStream("lineOne"));
-//      when(fileRepoDummy.openFile("two.txt")).thenReturn(IOUtils.toInputStream("lineOne\nlineTwo"));
-//      int actualLines = processor.countPendingLines();
-//      assertEquals(3, actualLines);
-//   }
+   @Test
+//   @DirtiesContext(methodMode = MethodMode.BEFORE_METHOD) DOAR PENTRU DEBUG. NU COMITE ASTA
+   public void test2() throws IOException {
+      fileRepoDummy.addDummyFile("two.txt", "lineOne\nlineTwo");
+      int actualLines = processor.countPendingLines();
+      assertEquals(2, actualLines);
+   }
 }

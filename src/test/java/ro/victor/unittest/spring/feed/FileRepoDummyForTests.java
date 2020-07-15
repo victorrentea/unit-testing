@@ -2,6 +2,7 @@ package ro.victor.unittest.spring.feed;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Service
 @Profile("test")
+//@Scope("prototype") NUmerge pentru ca springul cere O SINGURA DATA o instanta din asta cand creeaza acea UNICA instanta de FeedProcessor (care e@Service > singleton deci)
 public class FileRepoDummyForTests implements IFileRepo{
 
    private final Map<String, String> fileContents = new HashMap<>();
