@@ -33,7 +33,7 @@ public class ProductRepoSearchTest {
       assertThat(repo.search(criteria)).hasSize(1);
    }
    @Test
-   @Commit // pt debug, lasa Tx de test sa faca commit in DB, ca sa poti
+//   @Commit // pt debug, lasa Tx de test sa faca commit in DB, ca sa poti
    // rula si tu query-ul de mana din ce program vrei tu
    public void byName() {
       repo.save(new Product("Masca De Protectie"));
