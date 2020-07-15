@@ -1,18 +1,14 @@
 package ro.victor.unittest.spring.feed;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 
 import static java.util.Arrays.asList;
@@ -21,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FeedProcessorShould {
+public class FeedProcessorWithMockBeanShould {
    @Autowired
    private FeedProcessor processor;
 
@@ -30,7 +26,7 @@ public class FeedProcessorShould {
    // Dar e necesar @MockBean cand:
    // A) sunt foarte multe clase implicate (5+) - sa le legi manual cu new e nasol. sa nu-ti pse care de care se leaga
    // B) cand ai nevoie de spring printre metodele tale. Ex: @Cacheable si @Trasactional
-   private FileRepo fileRepoMock;
+   private IFileRepo fileRepoMock;
 
    @Test
    public void test() throws IOException {

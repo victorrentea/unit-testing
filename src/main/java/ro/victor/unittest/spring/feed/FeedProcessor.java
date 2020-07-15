@@ -2,7 +2,6 @@ package ro.victor.unittest.spring.feed;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +12,10 @@ import java.util.Set;
 @Slf4j
 @Service
 public class FeedProcessor {
-   private final FileRepo fileRepo;
+   private final IFileRepo fileRepo;
    private final Dep dep;
 
-   public FeedProcessor(FileRepo fileRepo, Dep dep) {
+   public FeedProcessor(IFileRepo fileRepo, Dep dep) {
       this.fileRepo = fileRepo;
       this.dep = dep;
    }
