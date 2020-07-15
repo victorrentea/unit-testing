@@ -3,11 +3,8 @@ package ro.victor.unittest.spring.feed;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Set;
+import java.io.*;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 import static java.util.Collections.emptySet;
@@ -19,7 +16,7 @@ public class FileRepo implements IFileRepo {
    private File inFolder;
 
    @Override
-   public Set<String> getFileNames() {
+   public Collection<String> getFileNames() {
       File[] files = inFolder.listFiles();
       if (files == null) {
          return emptySet();
@@ -31,13 +28,13 @@ public class FileRepo implements IFileRepo {
    }
 
    @Override
-   public InputStream openFile(String fileName) {
+   public Reader openFile(String fileName) {
       File file = new File(inFolder, fileName);
       if (!file.isFile()) {
          throw new IllegalArgumentException("Not a file name: " + fileName);
       }
       try {
-         return new FileInputStream(file);
+         return new FileReader(file);
       } catch (FileNotFoundException e) {
          throw new IllegalArgumentException(e);
       }

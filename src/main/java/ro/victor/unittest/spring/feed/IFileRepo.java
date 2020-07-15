@@ -1,10 +1,10 @@
 package ro.victor.unittest.spring.feed;
 
-import java.io.InputStream;
-import java.util.Set;
+import java.io.Reader;
+import java.util.Collection;
 
 public interface IFileRepo {
-   Set<String> getFileNames();
+   Collection<String> getFileNames();
 
-   InputStream openFile(String fileName);
+   Reader openFile(String fileName);
 }

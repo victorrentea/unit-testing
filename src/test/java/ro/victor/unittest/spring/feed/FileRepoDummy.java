@@ -3,11 +3,11 @@ package ro.victor.unittest.spring.feed;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 @Primary
 @Component
@@ -20,13 +20,12 @@ public class FileRepoDummy implements IFileRepo {
    }
 
    @Override
-   public Set<String> getFileNames() {
+   public Collection<String> getFileNames() {
       return fileContents.keySet();
    }
 
    @Override
-   public InputStream openFile(String fileName) {
-      byte[] bytes = fileContents.get(fileName).getBytes();
-      return new ByteArrayInputStream(bytes);
+   public Reader openFile(String fileName) {
+      return new StringReader(fileContents.get(fileName));
    }
 }

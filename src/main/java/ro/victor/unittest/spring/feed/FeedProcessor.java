@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -16,11 +17,11 @@ public class FeedProcessor {
    private IFileRepo fileRepo;
 
    public int countPendingLines() throws IOException {
-      Set<String> names = fileRepo.getFileNames();
+      Collection<String> names = fileRepo.getFileNames();
       log.debug("Found files: " + names);
       int count = 0;
       for (String fileName : names) {
-         try (InputStream is = fileRepo.openFile(fileName)) {
+         try (Reader is = fileRepo.openFile(fileName)) {
             List<String> lines = IOUtils.readLines(is);
             log.debug("Found {} lines in {}", lines.size(), fileName);
             count += lines.size();
