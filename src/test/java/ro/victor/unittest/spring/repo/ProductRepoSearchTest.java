@@ -17,18 +17,15 @@ import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles({"db-real", "test"})
-@Transactional
-public class ProductRepoSearchTest {
+
+public class ProductRepoSearchTest extends AbstractRepoTestBase {
    @Autowired
    private ProductRepo repo;
 
    private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
    @Before
-   public void initialize() {
+   public void initialize2() {
       assertThat(repo.findAll()).isEmpty();
    }
 
