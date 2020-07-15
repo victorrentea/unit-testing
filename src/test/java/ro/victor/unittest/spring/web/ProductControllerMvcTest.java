@@ -45,7 +45,12 @@ public class ProductControllerMvcTest {
     public void testSearch() throws Exception {
 //        ProductSearchResult result = new ProductSearchResult(1L, "Tree");
 //        when(facade.searchProduct(any())).thenReturn(asList(result));
+
+
+        // in loc de asta:
         productRepo.save(new Product("Tree"));
+
+//        mockMvc.perform(post("/product") ) // cu un body care sa creeze produsul
 
 
         mockMvc.perform(post("/product/search")
