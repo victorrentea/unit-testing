@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = "in.folder=/out")
 @ActiveProfiles("test")
 //@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) Doamne fereste
 public class FeedProcessorWithDummyShould {
