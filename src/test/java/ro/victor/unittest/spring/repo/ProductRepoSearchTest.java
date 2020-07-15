@@ -1,6 +1,7 @@
 package ro.victor.unittest.spring.repo;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,19 +23,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProductRepoSearchTest {
    @Autowired
    private ProductRepo repo;
-   @Autowired
-   private SupplierRepo srepo;
 
    private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
    @Test
-   public void primuTest_cuOLumanarePeMasa() {
-      repo.save(new Product().setSupplier(new Supplier()));
+   public void emptyCriteria() {
+      repo.save(new Product());
       assertThat(repo.search(criteria)).hasSize(1);
    }
    @Test
-   public void primuTest_cuOLumanarePeMasa2() {
-      repo.save(new Product().setSupplier(new Supplier()));
+   public void byName() {
+      repo.save(new Product("Masca De Protectie"));
+      criteria.name = "dE";
       assertThat(repo.search(criteria)).hasSize(1);
+
+      criteria.name = "notindb";
+//      Assert.assertEquals(1, repo.search(criteria).size()); // mesaj de fail anost
+
+      assertThat(repo.search(criteria)).hasSize(0);
+      // mesaj de fail e mult mai sugestiv, ca face toString la elementele din lista
+
    }
 }
