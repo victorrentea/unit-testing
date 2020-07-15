@@ -3,6 +3,7 @@ package ro.victor.unittest.spring.feed;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,6 +18,14 @@ import static java.util.stream.Collectors.toSet;
 public class FileRepo  {
    @Value("${feed.in.folder}")
    private File inFolder;
+
+   @PostConstruct
+   public void checkFolderExists() {
+      if (!inFolder.isDirectory()) {
+         throw new IllegalArgumentException("Not a folder : " + inFolder.getAbsolutePath());
+      }
+   }
+
 
    public Set<String> getFileNames() {
       File[] files = inFolder.listFiles();

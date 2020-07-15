@@ -12,8 +12,13 @@ import java.util.Set;
 @Slf4j
 @Service
 public class FeedProcessor {
-   @Autowired
-   private FileRepo fileRepo;
+   private final FileRepo fileRepo;
+   private final Dep dep;
+
+   public FeedProcessor(FileRepo fileRepo, Dep dep) {
+      this.fileRepo = fileRepo;
+      this.dep = dep;
+   }
 
    public int countPendingLines() throws IOException {
       Set<String> names = fileRepo.getFileNames();
@@ -28,5 +33,10 @@ public class FeedProcessor {
       }
       return count;
    }
+}
+
+@Service
+class Dep {
+
 }
 
