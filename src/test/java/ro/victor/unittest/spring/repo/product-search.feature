@@ -12,6 +12,7 @@ Feature: Search for product
     And That product has category "PT_MINE"
     When The search criteria name is "name"
     And The search criteria supplier is "X"
+#    And The search criteria age is "14"
     And The search criteria category is "PT_MINE"
     Then That product is returned by search
 
