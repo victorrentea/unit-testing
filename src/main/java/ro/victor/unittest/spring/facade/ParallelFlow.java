@@ -2,11 +2,17 @@ package ro.victor.unittest.spring.facade;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 import static java.util.concurrent.CompletableFuture.completedFuture;
 
@@ -16,9 +22,14 @@ public class ParallelFlow {
    private final ImageProcessingServiceClient client;
 
 
+   @SneakyThrows
    public void doIt(String image) {
+      List<Future<String>> all = new ArrayList<>();
       for (int i = 0; i < 5; i++) {
-         client.call(image);
+         all.add(client.call(image));
+      }
+      for (Future<String> stringFuture : all) {
+         System.out.println(stringFuture.get());
       }
    }
 }
@@ -37,12 +48,17 @@ class ImageProcessingServiceClient {
 
 @Component
 class OtherClient {
+   @Value("${image.service.url}")
+   private URL url;
 
    @SneakyThrows
    public String callSync(String image) {
 //      Thread.sleep(100);
       System.out.println("ASTA NU RULEAZA DIN TESTE");
 //      return completedFuture(image + " CAT");
-      throw new IllegalArgumentException();
+
+      RestTemplate rest = new RestTemplate();
+      return rest.getForObject(url.toURI().toString() + "/stuff", String.class);
+
    }
 }

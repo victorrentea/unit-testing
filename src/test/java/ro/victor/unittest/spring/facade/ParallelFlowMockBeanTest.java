@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @Slf4j
 @RunWith(SpringRunner.class) // doar pt junit4
-public class ParallelFlowTest {
+public class ParallelFlowMockBeanTest {
 
    @Autowired
    private ParallelFlow flow;
