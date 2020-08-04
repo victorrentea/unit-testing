@@ -18,6 +18,8 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class ProductRepoSearchImpl implements ProductRepoSearch {
     private final EntityManager em;
 
+    //27
+    //46-29 = 17
     @Override
     public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
         String jpql = "SELECT new ro.victor.unittest.spring.facade.ProductSearchResult(p.id, p.name)" +

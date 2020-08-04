@@ -8,9 +8,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
@@ -19,6 +23,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles({"db-mem", "test"})
+//@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) // rade tot dar costa timp.
+@Transactional
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
@@ -29,10 +35,11 @@ public class ProductRepoSearchTest {
         System.out.println("New test class instance");
     }
 
-    @After
-    public void mamaMiaSpusSaCuratDupaMine() {
-        repo.deleteAll();
-    }
+
+//    @After
+//    public void mamaMiaSpusSaCuratDupaMine() {
+//        repo.deleteAll();
+//    }
 
     @Test
     public void noCriteria() {
