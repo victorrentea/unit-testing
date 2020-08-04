@@ -7,6 +7,7 @@ import cucumber.api.java.en.When;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import ro.victor.unittest.spring.SomeSpringApplication;
 import ro.victor.unittest.spring.domain.Product;
@@ -24,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(
         classes = SomeSpringApplication.class,
         loader = SpringBootContextLoader.class)
+@ActiveProfiles("db-mem")
 public class ProductSearchSteps {
     @Autowired
     private ProductRepo productRepo;

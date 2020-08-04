@@ -5,7 +5,7 @@ Feature: Search for product
     Given Supplier "X" exists
     And Supplier "Y" exists
 
-  Scenario:
+  Scenario: Full Search
     Given One product exists
     And That product has name "name"
     And That product has supplier "X"
