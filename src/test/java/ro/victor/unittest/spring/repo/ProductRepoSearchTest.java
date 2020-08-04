@@ -1,6 +1,8 @@
 package ro.victor.unittest.spring.repo;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles("db-mem")
+@ActiveProfiles({"db-mem", "test"})
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
@@ -27,10 +29,23 @@ public class ProductRepoSearchTest {
         System.out.println("New test class instance");
     }
 
+    @After
+    public void mamaMiaSpusSaCuratDupaMine() {
+        repo.deleteAll();
+    }
+
     @Test
     public void noCriteria() {
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
+    }
+
+    @Test
+    public void noCriteria2() {
+        repo.save(new Product());
+//        Assert.assertTrue(1 == repo.search(criteria).size());
+//        Assert.assertEquals(1, repo.search(criteria).size());
+        assertThat(repo.search(criteria)).hasSize(1); // better failure message - to string la colectie.
     }
 
     // TODO

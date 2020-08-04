@@ -1,6 +1,7 @@
 package ro.victor.unittest.spring;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.repo.ProductRepo;
@@ -8,6 +9,7 @@ import ro.victor.unittest.spring.repo.ProductRepo;
 import java.util.stream.Stream;
 
 @Component
+@Profile("!test")
 public class DummyDataCreator implements CommandLineRunner {
    private final ProductRepo productRepo;
 
