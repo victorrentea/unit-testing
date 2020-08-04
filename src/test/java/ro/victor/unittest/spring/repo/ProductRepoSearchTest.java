@@ -8,9 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.annotation.DirtiesContext.MethodMode;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,9 +24,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles({"db-mem", "test"})
+@ActiveProfiles({"db-real", "test"})
 //@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) // rade tot dar costa timp.
 @Transactional
+
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
@@ -32,6 +35,7 @@ public class ProductRepoSearchTest {
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
     public ProductRepoSearchTest() {
+
         System.out.println("New test class instance");
     }
 
@@ -48,11 +52,18 @@ public class ProductRepoSearchTest {
     }
 
     @Test
-    public void noCriteria2() {
-        repo.save(new Product());
-//        Assert.assertTrue(1 == repo.search(criteria).size());
-//        Assert.assertEquals(1, repo.search(criteria).size());
+//    @Commit
+    public void byName() {
+        repo.save(new Product("Paine"));
+        criteria.name = "N";
         assertThat(repo.search(criteria)).hasSize(1); // better failure message - to string la colectie.
+    }
+    @Test
+//    @Commit
+    public void byNameMismatch() {
+        repo.save(new Product("Paine"));
+        criteria.name = "XNOTINDB";
+        assertThat(repo.search(criteria)).isEmpty(); // better failure message - to string la colectie.
     }
 
     // TODO
