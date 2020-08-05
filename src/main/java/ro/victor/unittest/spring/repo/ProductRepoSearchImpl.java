@@ -2,6 +2,8 @@ package ro.victor.unittest.spring.repo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.facade.ProductSearchResult;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
@@ -36,6 +38,13 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
         for (String paramName : paramMap.keySet()) {
             query.setParameter(paramName, paramMap.get(paramName));
         }
+        f();
         return query.getResultList();
     }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void f() {
+        //insert / save
+    }
+    // dupa, un proxy ar putea face commit, desi tu cica la sfarsit rollback (dar pe alta conex)
 }

@@ -45,6 +45,7 @@ public class ProductRepoSearchTest {
 //        repo.deleteAll();
 //    }
 
+//    @DirtiesContext(methodMode = )
     @Test
     public void noCriteria() {
         repo.save(new Product());
