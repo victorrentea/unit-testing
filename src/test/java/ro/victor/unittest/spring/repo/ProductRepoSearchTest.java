@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,9 +24,8 @@ public class ProductRepoSearchTest {
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-    public ProductRepoSearchTest() {
-        System.out.println("New test class instance");
-    }
+    @Value("${spring.datasource.url}")
+    String url;
 
     @After
     public void mamaMiaSpusSaCuratDupaMine() {
@@ -34,16 +34,9 @@ public class ProductRepoSearchTest {
 
     @Test
     public void noCriteria() {
+        System.out.println(">>> " + url);
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
-    }
-
-    @Test
-    public void noCriteria2() {
-        repo.save(new Product());
-//        Assert.assertTrue(1 == repo.search(criteria).size());
-//        Assert.assertEquals(1, repo.search(criteria).size());
-        assertThat(repo.search(criteria)).hasSize(1); // better failure message - to string la colectie.
     }
 
     // TODO

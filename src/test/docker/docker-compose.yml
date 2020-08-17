@@ -1,0 +1,21 @@
+version: '2.1'
+
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=ThePassword
+      - MYSQL_DATABASE=dockerdemo
+    networks:
+      - mysql-net
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=ThePassword --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
+
+
+networks:
+  mysql-net:
