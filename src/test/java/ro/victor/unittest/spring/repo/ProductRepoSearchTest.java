@@ -27,11 +27,6 @@ public class ProductRepoSearchTest {
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-    @After
-    public void mamaMiaSpusSaCuratDupaMine() {
-        repo.deleteAll();
-    }
-
     @Test
     public void noCriteria() {
         repo.save(new Product());
