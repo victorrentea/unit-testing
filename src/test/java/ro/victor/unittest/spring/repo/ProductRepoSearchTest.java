@@ -34,7 +34,7 @@ public class ProductRepoSearchTest {
 
     @Test
     public void noCriteria() {
-        System.out.println(">>> " + url);
+        System.out.println("Using database URL " + url);
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
     }
