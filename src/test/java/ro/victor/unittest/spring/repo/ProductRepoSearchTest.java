@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import ro.victor.unittest.spring.WaitForDBInitializer;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
@@ -18,14 +20,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @ActiveProfiles({"db-mysql", "test"})
 @Category(IntegrationTest.class)
+@ContextConfiguration(initializers = WaitForDBInitializer.class)
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
-
-    @Value("${spring.datasource.url}")
-    String url;
 
     @After
     public void mamaMiaSpusSaCuratDupaMine() {
@@ -34,7 +34,6 @@ public class ProductRepoSearchTest {
 
     @Test
     public void noCriteria() {
-        System.out.println("Using database URL " + url);
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
     }

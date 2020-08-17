@@ -165,6 +165,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>4.0.3</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -231,25 +237,6 @@
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>down</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- dirty hack -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <configuration>
-                    <target>
-                        <sleep seconds="16"/>
-                    </target>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>sleep-for-a-while</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>run</goal>
                         </goals>
                     </execution>
                 </executions>
