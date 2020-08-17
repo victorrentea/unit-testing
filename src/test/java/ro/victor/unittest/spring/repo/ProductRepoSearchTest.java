@@ -1,15 +1,12 @@
 package ro.victor.unittest.spring.repo;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
@@ -18,7 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles({"db-mem", "test"})
+@ActiveProfiles({"db-mysql", "test"})
+@Category(IntegrationTest.class)
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;

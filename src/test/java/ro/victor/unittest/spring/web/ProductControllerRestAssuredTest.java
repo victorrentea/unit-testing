@@ -62,24 +62,24 @@ public class ProductControllerRestAssuredTest {
                 .body(Matchers.containsString("WireMock"));
     }
 
-    @Test
-    public void moreComplexByWireMockProgramatically() {
-        WireMock.stubFor(get(urlEqualTo("/other/thing"))
-                .withHeader("Accept", equalTo("text/xml")) // TODO uncomment to see mismatch
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "application/json")
-                        .withBody("[{\"id\":12, \"value\":\"WireMock\"}]")));
-        // validates the response from wiremock - obviously, just for demo purposes; no purpose in real-life
-        Response response = when().get("http://localhost:8089/other/thing");
-
-        response.then()
-//                .log().ifError()
-//                .log().body()
-                .time(Matchers.lessThan(1000L), TimeUnit.MILLISECONDS)
-                .statusCode(200)
-                .assertThat()
-                .body("[0].value", CoreMatchers.equalTo("WireMock"))
-        ;
-    }
+//    @Test
+//    public void moreComplexByWireMockProgramatically() {
+//        WireMock.stubFor(get(urlEqualTo("/other/thing"))
+//                .withHeader("Accept", equalTo("text/xml")) // TODO uncomment to see mismatch
+//                .willReturn(aResponse()
+//                        .withStatus(200)
+//                        .withHeader("Content-Type", "application/json")
+//                        .withBody("[{\"id\":12, \"value\":\"WireMock\"}]")));
+//        // validates the response from wiremock - obviously, just for demo purposes; no purpose in real-life
+//        Response response = when().get("http://localhost:8089/other/thing");
+//
+//        response.then()
+////                .log().ifError()
+////                .log().body()
+//                .time(Matchers.lessThan(1000L), TimeUnit.MILLISECONDS)
+//                .statusCode(200)
+//                .assertThat()
+//                .body("[0].value", CoreMatchers.equalTo("WireMock"))
+//        ;
+//    }
 }

@@ -18,7 +18,7 @@ import javax.persistence.EntityManager;
 @SpringBootTest
 @Transactional
 //@Commit //-- uncomment to let the test transaction be commited
-public class RepoBaseTest {
+public abstract class RepoTestBase {
     @Autowired
     protected EntityManager em;
 
