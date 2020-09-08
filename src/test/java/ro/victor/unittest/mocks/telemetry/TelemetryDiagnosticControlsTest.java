@@ -1,23 +1,15 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
-import ro.victor.unittest.time.rule.TestTimeRule;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.Date;
+import java.util.Random;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -32,29 +24,38 @@ public class TelemetryDiagnosticControlsTest {
     @InjectMocks
     private TelemetryDiagnosticControls controls;
 
+    @Before
+    public void initialize() {
+        when(client.getOnlineStatus()).thenReturn(true);
+    }
+
     @Test
     public void disconnects() throws Exception {
-        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission();
         verify(client).disconnect();
     }
+
     @Test(expected = IllegalStateException.class)
+//    @DisplayName("Expect ceva")
     public void throwsWhenNotOnline() throws Exception {
         when(client.getOnlineStatus()).thenReturn(false); // !!!!!!!
         controls.checkTransmission();
+//        int actual = 1;
+//        assertEquals(/*"Expect ceva", */1, actual);
     }
     @Test
     public void sendsDiagnosticInfo() throws Exception {
-        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission();
         verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
     }
     @Test
     public void receivesDiagnosticInfo() throws Exception {
-        when(client.getOnlineStatus()).thenReturn(true);
-        when(client.receive()).thenReturn("tataie");
+//        Random r = new Random(1);
+//        System.out.println(r.nextInt());
+//        System.out.println(r.nextInt());
+        when(client.receive()).thenReturn("received value");
         controls.checkTransmission();
-        verify(client).receive();
-        assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
+//        verify(client).receive();  //
+        assertThat(controls.getDiagnosticInfo()).isEqualTo("received value");
     }
 }

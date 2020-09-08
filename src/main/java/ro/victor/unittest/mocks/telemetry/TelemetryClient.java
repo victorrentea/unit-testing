@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 public class TelemetryClient {
-	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
-
+	 public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
     public static class ClientConfiguration {
 		enum AckMode {NORMAL, TIMEBOXED, FLOOD};
