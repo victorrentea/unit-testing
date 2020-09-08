@@ -11,6 +11,11 @@ public class TelemetryDiagnosticControls {
 
 	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
+	private ClientConfiguration config;
+
+	public ClientConfiguration getConfig() {
+		return config;
+	}
 
 	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
@@ -36,7 +41,7 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
+		config = new ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);

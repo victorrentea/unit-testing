@@ -4,9 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import java.util.Random;
 import java.util.UUID;
@@ -47,7 +51,7 @@ public class TelemetryDiagnosticControlsTest {
     public void sendsDiagnosticInfo() throws Exception {
         controls.checkTransmission();
         verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
-    }
+   }
     @Test
     public void receivesDiagnosticInfo() throws Exception {
 //        Random r = new Random(1);
@@ -57,5 +61,14 @@ public class TelemetryDiagnosticControlsTest {
         controls.checkTransmission();
 //        verify(client).receive();  //
         assertThat(controls.getDiagnosticInfo()).isEqualTo("received value");
+    }
+//    @Captor
+//    private ArgumentCaptor<ClientConfiguration> configCaptor;
+    @Test
+    public void configuresWithAckNormal() {
+        controls.checkTransmission();
+
+        ClientConfiguration config = controls.getConfig();
+        assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
     }
 }
