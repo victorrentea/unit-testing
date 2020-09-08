@@ -10,6 +10,10 @@ public class TennisScoreShould {
 
    private TennisScore tennisScore = new TennisScore();
 
+   public TennisScoreShould() {
+      System.out.println("Noua instanta");
+   }
+
    @Test
    public void returnsLoveLoveForNewGame() {
       String score = tennisScore.score();
