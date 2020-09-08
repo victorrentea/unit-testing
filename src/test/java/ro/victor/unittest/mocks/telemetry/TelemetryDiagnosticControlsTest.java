@@ -59,16 +59,22 @@ public class TelemetryDiagnosticControlsTest {
 //        System.out.println(r.nextInt());
         when(client.receive()).thenReturn("received value");
         controls.checkTransmission();
-//        verify(client).receive();  //
+
+        verify(client, times(1)).receive();  //
+        // veriy pe query doar daca vrei sa te
+        // asiguri ca nu face repetat o operatie SCUMPA (100ms)
+
         assertThat(controls.getDiagnosticInfo()).isEqualTo("received value");
     }
-//    @Captor
-//    private ArgumentCaptor<ClientConfiguration> configCaptor;
+    @Captor
+    private ArgumentCaptor<ClientConfiguration> configCaptor;
     @Test
     public void configuresWithAckNormal() {
         controls.checkTransmission();
 
-        ClientConfiguration config = controls.getConfig();
+        verify(client).configure(configCaptor.capture());
+
+        ClientConfiguration config = configCaptor.getValue();
         assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
     }
 }
