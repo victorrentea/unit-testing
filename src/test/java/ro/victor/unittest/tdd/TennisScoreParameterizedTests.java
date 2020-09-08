@@ -30,6 +30,10 @@ public class TennisScoreParameterizedTests {
           new Object[]{0,1,"Love-Fifteen"},
           new Object[]{5,5,"Deuce"}
           );
+
+      // Verificam o transformata de fisier (XSLT XML--->XML sau JSON--->XML)
+      // am facut test1.in.json, test1.out.xml, test2..... test3...
+      // Files.in folder---> construiam cazurile de test pe baza unor fisiere din src/test/resources
    }
 
    private String translateScore(int score1, int score2) {
