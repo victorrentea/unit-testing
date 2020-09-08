@@ -10,10 +10,12 @@ public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient;
+	private final UUIDGenerator uuidGenerator;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, UUIDGenerator uuidGenerator) {
 		this.telemetryClient = telemetryClient;
+		this.uuidGenerator = uuidGenerator;
 	}
 
 	public String getDiagnosticInfo() {
@@ -36,14 +38,25 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
 
+	ClientConfiguration createConfig(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(version + "-" + uuidGenerator.generateRandom());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
+	}
+
+}
+
+class UUIDGenerator {
+	public String generateRandom() {
+		return UUID.randomUUID().toString();
+	}
 }
