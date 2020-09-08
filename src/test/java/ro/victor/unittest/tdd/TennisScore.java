@@ -5,8 +5,16 @@ public class TennisScore {
    private int player2Score;
 
    public String score() {
-      if (player1Score >= 3 && player1Score == player2Score) {
-         return "Deuce";
+      if (player1Score >= 3 && player2Score >= 3) {
+         if (player1Score - player2Score == 1) {
+            return "Advantage Player1";
+         }
+         if (player1Score - player2Score == -1) {
+            return "Advantage Player2";
+         }
+         if (player1Score == player2Score) {
+            return "Deuce";
+         }
       }
       return translate(player1Score) + "-" + translate(player2Score);
    }

@@ -16,16 +16,48 @@ public class Customer {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public Customer setAddress(Address address) {
 		this.address = address;
+		return this;
+	}
+
+
+	//	{
+//		new Customer()
+//			.setAddress(new Address())
+//			.setName("John")
+//			.addLabel("label1");
+//		new CustomerBuilder().persist();
+//	}
+//
+//	class CustomerBuilder {
+//		Customer customer;
+//
+//	public CustomerBuilder withAddress(Address address) {
+//
+//	}
+//	public CustomerBuilder withAddress(AddressBuilder addressBuilder) {
+//
+//	}
+//		public Customer build() {
+//			return customer;
+//		}
+//		public void persist() {
+//			// TestEntityManager.getInstance().save(customer);
+//		}
+//	}
+
+	public void addLabel(String newLabel) {
+		labels.add(newLabel);
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Customer setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getPhone() {

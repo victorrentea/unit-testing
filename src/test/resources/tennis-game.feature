@@ -16,7 +16,12 @@ Feature: Tennis Score
     Then The score is "<expectedScore>"
 
     Examples:
-      | player1Points | player2Points | expectedScore |
-      | 0             | 0             | Love-Love     |
-      | 2             | 3             | Thirty-Forty  |
-      | 5             | 5             | Deuce         |
+      | player1Points | player2Points | expectedScore     |
+      | 0             | 0             | Love-Love         |
+      | 1             | 1             | Fifteen-Fifteen      |
+      | 2             | 3             | Thirty-Forty      |
+      | 5             | 5             | Deuce             |
+      | 4             | 3             | Advantage Player1 |
+      | 8             | 7             | Advantage Player1 |
+      | 4             | 5             | Advantage Player2 |
+#      | 10             | 2             | Advantage Player2 |
