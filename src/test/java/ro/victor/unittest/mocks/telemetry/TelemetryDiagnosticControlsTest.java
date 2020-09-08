@@ -32,12 +32,9 @@ public class TelemetryDiagnosticControlsTest {
     @InjectMocks
     private TelemetryDiagnosticControls controls;
 
-    @Before
-    public void initialize() {
-        when(client.getOnlineStatus()).thenReturn(true);
-    }
     @Test
     public void disconnects() throws Exception {
+        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission();
         verify(client).disconnect();
     }
@@ -48,11 +45,13 @@ public class TelemetryDiagnosticControlsTest {
     }
     @Test
     public void sendsDiagnosticInfo() throws Exception {
+        when(client.getOnlineStatus()).thenReturn(true);
         controls.checkTransmission();
         verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
     }
     @Test
     public void receivesDiagnosticInfo() throws Exception {
+        when(client.getOnlineStatus()).thenReturn(true);
         when(client.receive()).thenReturn("tataie");
         controls.checkTransmission();
         verify(client).receive();
