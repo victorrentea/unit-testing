@@ -10,12 +10,13 @@ public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient;
-	private final UUIDGenerator uuidGenerator;
+	private final ConfigFactory configFactory;
+
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, UUIDGenerator uuidGenerator) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ConfigFactory configFactory) {
 		this.telemetryClient = telemetryClient;
-		this.uuidGenerator = uuidGenerator;
+		this.configFactory = configFactory;
 	}
 
 	public String getDiagnosticInfo() {
@@ -38,16 +39,29 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = createConfig(telemetryClient.getVersion());
+		ClientConfiguration config = configFactory.createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfig(String version) {
+}
+
+class ConfigFactory {
+	private final UUIDGenerator uuidGenerator;
+
+	ConfigFactory(UUIDGenerator uuidGenerator) {
+		this.uuidGenerator = uuidGenerator;
+	}
+
+	public ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(version + "-" + uuidGenerator.generateRandom());
+		// Presupunem ca functia asta are 20-30 de linii in total de logica grea.
+		// ->7-8 teste pe ea
+		// Ca sa reusesti sa chemi aceasta functie, trebuie sa ii dai o carca
+		// de parametrii complecsi (date multe, sa nu fie nule ca crapa, etc)
+		config.setSessionId(version.toUpperCase() + "-" + uuidGenerator.generateRandom());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		return config;

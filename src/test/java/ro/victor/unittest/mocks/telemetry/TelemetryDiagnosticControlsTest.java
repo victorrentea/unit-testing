@@ -1,5 +1,6 @@
 package ro.victor.unittest.mocks.telemetry;
 
+import org.hibernate.service.spi.InjectService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +9,7 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.MockitoRule;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -22,13 +24,14 @@ public class TelemetryDiagnosticControlsTest {
    @Mock
    private TelemetryClient client;
    @Mock
-   private UUIDGenerator uuidGenerator;
+   private ConfigFactory configFactory;
    @InjectMocks
    private TelemetryDiagnosticControls controls;
 
    @Before
    public void initialize() {
       when(client.getOnlineStatus()).thenReturn(true);
+      when(client.getVersion()).thenReturn("UNUSED");
    }
 
    @Test
@@ -67,24 +70,13 @@ public class TelemetryDiagnosticControlsTest {
       assertThat(controls.getDiagnosticInfo()).isEqualTo("received value");
    }
 
-   @Captor
-   private ArgumentCaptor<ClientConfiguration> configCaptor;
-
    @Test
    public void configuresWithAckNormal() {
+      ClientConfiguration config = new ClientConfiguration();
+      when(client.getVersion()).thenReturn("VER");
+      when(configFactory.createConfig("VER")).thenReturn(config);
       controls.checkTransmission();
-
-      verify(client).configure(configCaptor.capture());
-
-      ClientConfiguration config = configCaptor.getValue();
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      verify(client).configure(config);
    }
 
-   @Test
-   public void createsConfig() {
-      when(uuidGenerator.generateRandom()).thenReturn("U");
-      ClientConfiguration config = controls.createConfig("VER");
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-      assertThat(config.getSessionId()).startsWith("VER-U");
-   }
 }
