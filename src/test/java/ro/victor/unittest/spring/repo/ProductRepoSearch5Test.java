@@ -17,15 +17,12 @@ import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-//@RunWith(SpringRunner.class)
 @ActiveProfiles({"db-mem", "test"})
-//@Category(IntegrationTest.class)
 public class ProductRepoSearch5Test {
     @Autowired
     private ProductRepo repo;
 
-    @Autowired
-    private EntityManager em;
+    // Favor Composition over Inheritance
     @RegisterExtension
     public CommonDataExtension extension = new CommonDataExtension();
 
@@ -33,6 +30,13 @@ public class ProductRepoSearch5Test {
 
     @Test
     public void noCriteria() {
+        repo.save(new Product());
+//        User user = extension.getUser();
+        assertThat(repo.search(criteria)).hasSize(1);
+    }
+
+    @Test
+    public void noCriteria2() {
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
     }
@@ -42,10 +46,17 @@ public class ProductRepoSearch5Test {
 
 
 class CommonDataExtension implements BeforeEachCallback {
+//    private User user;
+//
+//    public User getUser() {
+//        return user;
+//    }
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         EntityManager em = SpringExtension.getApplicationContext(context).getBean(EntityManager.class);
+//        user = new User().setUserName("test");
+//        em.save(user);
         System.out.println("******** Insert Common data via entity manager: " + em);
     }
 }
