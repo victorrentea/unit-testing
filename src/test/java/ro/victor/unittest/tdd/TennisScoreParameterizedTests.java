@@ -23,13 +23,15 @@ public class TennisScoreParameterizedTests {
       this.score2 = score2;
       this.expectedScore = expectedScore;
    }
+
    @Parameters(name = "Score for {0},{1} is {2}")
    public static List<Object[]> arguments() {
       return Arrays.asList(
-          new Object[]{0,0,"Love-Love"},
-          new Object[]{0,1,"Love-Fifteen"},
-          new Object[]{5,5,"Deuce"}
-          );
+          new Object[]{0, 0, "Love-Love"},
+          new Object[]{0, 1, "Love-Fifteen"},
+          new Object[]{0, 3, "Love-Forty"},
+          new Object[]{5, 5, "Deuce"}
+      );
 
       // Verificam o transformata de fisier (XSLT XML--->XML sau JSON--->XML)
       // am facut test1.in.json, test1.out.xml, test2..... test3...
@@ -41,12 +43,12 @@ public class TennisScoreParameterizedTests {
       setScoreForPlayer(score2, Player.TWO);
       return tennisScore.score();
    }
+
    private void setScoreForPlayer(int points, Player player) {
       for (int i = 0; i < points; i++) {
          tennisScore.pointWon(player);
       }
    }
-
 
 
    @Test
