@@ -1,30 +1,55 @@
 package ro.victor.unittest.mocks.telemetry;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
-import ro.victor.unittest.time.rule.TestTimeRule;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TelemetryDiagnosticControlsTest {
+   @Mock
+   private TelemetryClient client;
+   @InjectMocks
+   private TelemetryDiagnosticControls controls;
 
-    @Test
-    public void test() {
-        assertTrue(true);
-    }
+   @Test
+   public void disconnects() {
+      when(client.getOnlineStatus()).thenReturn(true);
+      controls.checkTransmission();
+      verify(client).disconnect();
+   }
 
+   @Test(expected = IllegalStateException.class)
+   public void throwsWhenNotOnline() {
+      when(client.getOnlineStatus()).thenReturn(false);
+      controls.checkTransmission();
+   }
+
+   @Test
+   public void sendsDiagnosticInfo() {
+      when(client.getOnlineStatus()).thenReturn(true);
+      controls.checkTransmission();
+      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+   }
+
+   @Test
+   public void receivesDiagnosticInfo() {
+      when(client.getOnlineStatus()).thenReturn(true);
+      when(client.receive()).thenReturn("tataie");
+      controls.checkTransmission();
+      verify(client).receive();
+      assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
+   }
+
+   @Test
+   public void configuresClient() throws Exception {
+      fail("TODO");
+   }
 }
