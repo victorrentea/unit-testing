@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -41,6 +41,7 @@ public class TelemetryDiagnosticControlsTest {
 
    @Test
    public void receivesDiagnosticInfo() {
+      // TODO inspect
       when(client.getOnlineStatus()).thenReturn(true);
       when(client.receive()).thenReturn("tataie");
       controls.checkTransmission();
@@ -50,6 +51,9 @@ public class TelemetryDiagnosticControlsTest {
 
    @Test
    public void configuresClient() throws Exception {
-      fail("TODO");
+      when(client.getOnlineStatus()).thenReturn(true);
+      controls.checkTransmission();
+      verify(client).configure(any());
+      // TODO check config.getAckMode is NORMAL
    }
 }
