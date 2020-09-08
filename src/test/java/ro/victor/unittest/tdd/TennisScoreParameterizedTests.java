@@ -8,6 +8,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,6 +33,16 @@ public class TennisScoreParameterizedTests {
           new Object[]{0, 3, "Love-Forty"},
           new Object[]{5, 5, "Deuce"}
       );
+
+//      Stream.of(Player.values());
+
+//      enum ErrorCode{
+//         GENERAL,
+//         USER_NOT_FOUND
+//      }
+      // messages.properties
+      // error.GENERAL=asadas
+      // error.USER_NOT_FOUND=asadas
 
       // Verificam o transformata de fisier (XSLT XML--->XML sau JSON--->XML)
       // am facut test1.in.json, test1.out.xml, test2..... test3...
