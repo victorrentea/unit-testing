@@ -3,12 +3,16 @@ package ro.victor.unittest.mocks.telemetry;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -48,6 +52,17 @@ public class TelemetryDiagnosticControlsTest {
       when(clientMock.receive()).thenReturn("tataie");
       controls.checkTransmission();
       assertEquals("tataie", controls.getDiagnosticInfo());
+   }
+
+   @Test
+   public void configuresClient() {
+      controls.checkTransmission();
+      ArgumentCaptor<ClientConfiguration> captor = forClass(ClientConfiguration.class);
+      verify(clientMock).configure(captor.capture());
+      ClientConfiguration config = captor.getValue(); // corect, dar urat
+
+//      ClientConfiguration config = controls.getConfig(); // greseala
+      assertEquals(AckMode.NORMAL, config.getAckMode());
    }
 
 }
