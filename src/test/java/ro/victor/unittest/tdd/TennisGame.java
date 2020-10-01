@@ -6,7 +6,7 @@ public class TennisGame {
    private int player2Score;
 
    public String score() {
-      return translateScore(player1Score) + " - Love";
+      return translateScore(player1Score) + " - " + translateScore(player2Score);
    }
    public String translateScore(int points) {
       if (points == 0) {

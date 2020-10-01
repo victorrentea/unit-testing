@@ -38,6 +38,5 @@ public class TennisGameTest {
       tennisGame.markPointFor(TennisGame.Players.TWO);
       String score = tennisGame.score();
       assertEquals("Love - Fifteen", score);
-
    }
 }
