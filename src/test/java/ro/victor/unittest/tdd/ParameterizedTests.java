@@ -7,6 +7,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import ro.victor.unittest.tdd.TennisGame.Player;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +17,11 @@ import static org.junit.Assert.assertEquals;
 public class ParameterizedTests {
    @Parameters(name = "Score for ({0},{1}) = {2}")
    public static List<Object> getTestData() {
+//      File folder;
+//      for (File file : folder.listFiles()) {
+//         // determine output file
+//         testData.add(new Object[]{inFile, outFile});
+//      }
       List<Object> testData = Arrays.asList(
           new Object[]{0, 0, "Love - Love"},
           new Object[]{1, 0, "Fifteen - Love"},
