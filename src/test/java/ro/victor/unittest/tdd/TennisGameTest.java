@@ -7,19 +7,19 @@ import static org.junit.Assert.assertEquals;
 
 public class TennisGameTest {
 
-   private TennisGame tennisGame = new TennisGame();
 
    public TennisGameTest() {
       System.out.println("Oare de cate ori se instantiaza clasa asta de test");
    }
 
    private String getScoreString(int player1Points, int player2Points) {
-      markPointsForPlayer(Player.ONE, player1Points);
-      markPointsForPlayer(Player.TWO, player2Points);
+      TennisGame tennisGame = new TennisGame();
+      markPointsForPlayer(Player.ONE, player1Points, tennisGame);
+      markPointsForPlayer(Player.TWO, player2Points, tennisGame);
       return tennisGame.score();
    }
 
-   private void markPointsForPlayer(Player player, int points) {
+   private void markPointsForPlayer(Player player, int points, TennisGame tennisGame) {
       for (int i = 0; i < points; i++) {
          tennisGame.markPointFor(player);
       }
@@ -28,15 +28,7 @@ public class TennisGameTest {
    @Test
    public void initialGame() {
       assertEquals("Love - Love", getScoreString(0,0));
-   }
-
-   @Test
-   public void player1Wins1Point() {
       assertEquals("Fifteen - Love", getScoreString(1,0));
-   }
-
-   @Test
-   public void player1Wins2Points() {
       assertEquals("Thirty - Love", getScoreString(2,0));
    }
 
