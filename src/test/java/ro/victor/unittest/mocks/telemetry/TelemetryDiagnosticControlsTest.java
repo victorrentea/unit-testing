@@ -5,10 +5,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -16,29 +16,38 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class TelemetryDiagnosticControlsTest {
    @Mock
-   private TelemetryClient client;
+   private TelemetryClient clientMock;
    @InjectMocks
    private TelemetryDiagnosticControls controls;
 
    @Before
    public void initialize() {
-      when(client.getOnlineStatus()).thenReturn(true);
+      when(clientMock.getOnlineStatus()).thenReturn(true);
    }
 
    @Test(expected = IllegalStateException.class)
    public void test() {
-      when(client.getOnlineStatus()).thenReturn(false);
+      when(clientMock.getOnlineStatus()).thenReturn(false);
       controls.checkTransmission();
    }
 
    @Test
    public void disconnects() {
       controls.checkTransmission();
-      verify(client).disconnect();
+      verify(clientMock).disconnect();
    }
    @Test
-   public void sends() {
+   public void sendsDiagnosticMessage() {
       controls.checkTransmission();
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+      verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+//      verify(client).send("AT#UD"); // Folositi DOAR atunci cand valoarea constantei VINE dintr-un sistem extern
    }
+
+   @Test
+   public void receives() {
+      when(clientMock.receive()).thenReturn("tataie");
+      controls.checkTransmission();
+      assertEquals("tataie", controls.getDiagnosticInfo());
+   }
+
 }
