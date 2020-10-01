@@ -182,8 +182,10 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <!--<source>8</source>
+                    <target>8</target>-->
+                    <release>15</release>
+
                 </configuration>
             </plugin>
 
