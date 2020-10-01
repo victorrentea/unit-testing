@@ -6,11 +6,12 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.quality.Strictness;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -65,6 +66,15 @@ public class TelemetryDiagnosticControlsTest {
       ClientConfiguration config = captor.getValue(); // corect, dar urat
 
       assertEquals(AckMode.NORMAL, config.getAckMode());
+   }
+
+    @Test
+   public void createConfig() {
+      ClientConfiguration config = controls.createConfig("xyz");
+      assertEquals(AckMode.NORMAL, config.getAckMode());
+      assertEquals(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS),
+          config.getSessionStart().truncatedTo(ChronoUnit.DAYS));
+      assertThat(config.getSessionId()).startsWith("XYZ-");
    }
 
 }
