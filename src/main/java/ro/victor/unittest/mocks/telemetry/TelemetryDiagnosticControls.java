@@ -11,7 +11,6 @@ public class TelemetryDiagnosticControls {
 
    private final TelemetryClient telemetryClient;
    private String diagnosticInfo = "";
-   private ClientConfiguration config;// greseala
 
    public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
       this.telemetryClient = telemetryClient;
@@ -23,10 +22,6 @@ public class TelemetryDiagnosticControls {
 
    public void setDiagnosticInfo(String diagnosticInfo) {
       this.diagnosticInfo = diagnosticInfo;
-   }
-
-   public ClientConfiguration getConfig() {
-      return config;
    }
 
    public void checkTransmission() {
@@ -44,7 +39,7 @@ public class TelemetryDiagnosticControls {
          throw new IllegalStateException("Unable to connect.");
       }
 
-      config = new ClientConfiguration();
+      ClientConfiguration config = new ClientConfiguration();
       config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
       config.setSessionStart(LocalDateTime.now());
       config.setAckMode(AckMode.NORMAL);

@@ -64,7 +64,6 @@ public class TelemetryDiagnosticControlsTest {
       verify(clientMock).configure(captor.capture());
       ClientConfiguration config = captor.getValue(); // corect, dar urat
 
-//      ClientConfiguration config = controls.getConfig(); // greseala
       assertEquals(AckMode.NORMAL, config.getAckMode());
    }
 
