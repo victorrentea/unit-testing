@@ -11,7 +11,18 @@ public class TelemetryDiagnosticControlsTest {
 
    @Test
    public void test() {
-      TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls(new TelemetryClient());
+      TelemetryDiagnosticControls controls =
+          new TelemetryDiagnosticControls(new TelemetryClient(){
+             @Override
+             public void disconnect() {
+                //nada
+             }
+
+             @Override
+             public boolean getOnlineStatus() {
+                return false;
+             }
+          });
       controls.checkTransmission();
    }
 }
