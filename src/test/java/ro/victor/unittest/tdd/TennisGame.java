@@ -22,10 +22,14 @@ public class TennisGame {
    }
 
    public void markPointFor(Players player) {
-      player1Score++;
+      if (player == Players.ONE) {
+         player1Score++;
+      } else {
+         player2Score++;
+      }
    }
 
    public enum Players {
-      ONE
+      TWO, ONE
    }
 }
