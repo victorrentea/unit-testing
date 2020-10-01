@@ -6,7 +6,7 @@ public class TestData {
    // dummy data for test
    public static Customer aValidCustomer() {
       return new Customer()
-         .setName("")
+         .setName("John")
          .setPhone("phone")
          .setAddress(aValidAddress());
    }
