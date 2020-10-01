@@ -23,6 +23,8 @@ import static org.mockito.Mockito.*;
 public class TelemetryDiagnosticControlsTest {
    @Mock
    private TelemetryClient clientMock;
+   @Mock
+   private ClientConfigurationFactory configurationFactoryMock;
    @InjectMocks
    private TelemetryDiagnosticControls controls;
 
@@ -58,23 +60,19 @@ public class TelemetryDiagnosticControlsTest {
       assertEquals("tataie", controls.getDiagnosticInfo());
    }
 
+//   @Test
+//   public void configuresClient() {
+//      ClientConfiguration config = new ClientConfiguration();
+//      when(configurationFactoryMock.createConfig(null)).thenReturn(config);
+//
+//      controls.checkTransmission();
+//
+//      verify(clientMock).configure(config);
+//   }
    @Test
    public void configuresClient() {
       controls.checkTransmission();
-      ArgumentCaptor<ClientConfiguration> captor = forClass(ClientConfiguration.class);
-      verify(clientMock).configure(captor.capture());
-      ClientConfiguration config = captor.getValue(); // corect, dar urat
-
-      assertEquals(AckMode.NORMAL, config.getAckMode());
-   }
-
-    @Test
-   public void createConfig() {
-      ClientConfiguration config = controls.createConfig("xyz");
-      assertEquals(AckMode.NORMAL, config.getAckMode());
-      assertEquals(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS),
-          config.getSessionStart().truncatedTo(ChronoUnit.DAYS));
-      assertThat(config.getSessionId()).startsWith("XYZ-");
+      verify(clientMock).configure(notNull());
    }
 
 }

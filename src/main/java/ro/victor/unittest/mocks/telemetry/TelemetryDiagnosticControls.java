@@ -10,10 +10,12 @@ public class TelemetryDiagnosticControls {
    public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
    private final TelemetryClient telemetryClient;
+   private final ClientConfigurationFactory configurationFactory;
    private String diagnosticInfo = "";
 
-   public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+   public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ClientConfigurationFactory configurationFactory) {
       this.telemetryClient = telemetryClient;
+      this.configurationFactory = configurationFactory;
    }
 
    public String getDiagnosticInfo() {
@@ -24,7 +26,7 @@ public class TelemetryDiagnosticControls {
       this.diagnosticInfo = diagnosticInfo;
    }
 
-   public void checkTransmission() {
+   public void checkTransmission() {// 8 teste intra pe aici
       // TODO extract reconnect()
 
       telemetryClient.disconnect();
@@ -39,7 +41,7 @@ public class TelemetryDiagnosticControls {
          throw new IllegalStateException("Unable to connect.");
       }
 
-      ClientConfiguration config = createConfig(telemetryClient.getVersion());
+      ClientConfiguration config = configurationFactory.createConfig(telemetryClient.getVersion());
       telemetryClient.configure(config);
 
 
@@ -47,6 +49,10 @@ public class TelemetryDiagnosticControls {
       diagnosticInfo = telemetryClient.receive();
    }
 
+
+}
+
+class ClientConfigurationFactory {
    public ClientConfiguration createConfig(String version) { // 10 teste intra pe aici
       ClientConfiguration config = new ClientConfiguration();
       config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
