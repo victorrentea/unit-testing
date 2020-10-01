@@ -6,7 +6,9 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.quality.Strictness;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import ro.victor.unittest.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -16,8 +18,7 @@ import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.StrictStubs.class)
 public class TelemetryDiagnosticControlsTest {
    @Mock
    private TelemetryClient clientMock;
@@ -40,6 +41,8 @@ public class TelemetryDiagnosticControlsTest {
       controls.checkTransmission();
       verify(clientMock).disconnect();
    }
+
+
    @Test
    public void sendsDiagnosticMessage() {
       controls.checkTransmission();
