@@ -6,30 +6,35 @@ public class TennisGame {
    private int player2Score;
 
    public String score() {
+      if (player1Score == player2Score && player1Score >= 3) {
+         return "Deuce";
+      }
       return translateScore(player1Score) + " - " + translateScore(player2Score);
    }
    public String translateScore(int points) {
-      if (points == 0) {
-         return "Love";
+      switch (points) {
+         case 0:
+            return "Love";
+         case 1:
+            return "Fifteen";
+         case 2:
+            return "Thirty";
+         case 3:
+            return "Forty";
+         default:
+            throw new IllegalArgumentException("Impossible to translate points " + points);
       }
-      if (points == 1) {
-         return "Fifteen";
-      }
-      if (points == 2) {
-         return "Thirty";
-      }
-      throw new IllegalArgumentException("Impossible to translate points " + points);
    }
 
-   public void markPointFor(Players player) {
-      if (player == Players.ONE) {
+   public void markPointFor(Player player) {
+      if (player == Player.ONE) {
          player1Score++;
       } else {
          player2Score++;
       }
    }
 
-   public enum Players {
+   public enum Player {
       TWO, ONE
    }
 }
