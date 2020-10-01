@@ -12,17 +12,6 @@ public class TelemetryDiagnosticControlsTest {
 
    @Test(expected = IllegalStateException.class)
    public void test() {
-//      TelemetryClient client = new TelemetryClient() {
-//         @Override
-//         public void disconnect() {
-//            //nada
-//         }
-//
-//         @Override
-//         public boolean getOnlineStatus() {
-//            return false;
-//         }
-//      };
       TelemetryClient client = Mockito.mock(TelemetryClient.class);
 
       Mockito.when(client.getOnlineStatus()).thenReturn(false);
@@ -30,5 +19,18 @@ public class TelemetryDiagnosticControlsTest {
       TelemetryDiagnosticControls controls =
           new TelemetryDiagnosticControls(client);
       controls.checkTransmission();
+   }
+
+   @Test
+   public void disconnects() {
+      TelemetryClient client = Mockito.mock(TelemetryClient.class);
+
+      Mockito.when(client.getOnlineStatus()).thenReturn(true);
+
+      TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls(client);
+
+      controls.checkTransmission();
+
+      Mockito.verify(client).disconnect();
    }
 }

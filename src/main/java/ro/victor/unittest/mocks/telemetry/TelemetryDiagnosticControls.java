@@ -24,7 +24,7 @@ public class TelemetryDiagnosticControls {
 	}
 
 	public void checkTransmission() {
-		telemetryClient.disconnect();
+		 telemetryClient.disconnect();
 
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
