@@ -10,10 +10,13 @@ public class CustomerValidator {
 		if (isBlank(customer.getName())) {
 			throw new IllegalArgumentException("Missing customer name");
 		}
+		if (isBlank(customer.getPhone())) {
+			throw new IllegalArgumentException("Missing customer phone");
+		}
 		validateAddress(customer.getAddress());
 		//etc
 	}
-	
+
 	private void validateAddress(Address address) {
 		if (address == null) {
 			throw new IllegalArgumentException("Missing customer address");
