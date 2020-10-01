@@ -11,7 +11,7 @@ public class TennisGame {
       }
       return translateScore(player1Score) + " - " + translateScore(player2Score);
    }
-   public String translateScore(int points) {
+   private String translateScore(int points) {
       switch (points) {
          case 0:
             return "Love";
