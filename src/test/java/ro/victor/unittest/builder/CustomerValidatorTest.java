@@ -15,35 +15,35 @@ public class CustomerValidatorTest {
 
 	// dummy data for test
 	private Customer aValidCustomer() {
-		Customer customer = new Customer();
-		customer.setName("John");
-		customer.setPhone("phone");
-		Address address = new Address();
-		address.setCity("Iasi");
-		customer.setAddress(address);
-		return customer;
+		return new Customer()
+			.setName("John")
+			.setPhone("phone")
+			.setAddress(aValidAddress());
+	}
+
+	private Address aValidAddress() {
+		return new Address()
+			.setCity("Iasi")
+			.setStreetName("Stefan")
+			.setStreetNumber(19);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 //	public void test2() {
 //	public void whenCustomerHasNoName_thenValidationFails() {
 	public void throwsForCustomerWithNoName() {
-		Customer customer = aValidCustomer();
-		customer.setName(null);
-		validator.validate(customer);
+		validator.validate(aValidCustomer().setName(null));
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForCustomerWithNoPhone() {
-		Customer customer = aValidCustomer();
-		customer.setPhone(null);
-		validator.validate(customer);
+		validator.validate(aValidCustomer().setPhone(null));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForCustomerWithAddressWithNoCity() {
-		Customer customer = aValidCustomer();
-		customer.getAddress().setCity(null);
-		validator.validate(customer);
+		validator.validate(aValidCustomer().setAddress(
+			aValidAddress()
+				.setCity(null)));
 	}
 
 }

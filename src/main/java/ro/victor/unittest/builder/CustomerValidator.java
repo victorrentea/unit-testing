@@ -24,5 +24,14 @@ public class CustomerValidator {
 		if (isBlank(address.getCity())) {
 			throw new IllegalArgumentException("Missing address xcity");
 		}
+		if (isBlank(address.getCity())) {
+			throw new IllegalArgumentException("Missing address xcity");
+		}
+		if (isBlank(address.getCity())) {
+			throw new IllegalArgumentException("Missing address xcity");
+		}
+		if (isBlank(address.getCity())) {
+			throw new IllegalArgumentException("Missing address xcity");
+		}
 	}
 }
