@@ -2,18 +2,27 @@ package ro.victor.unittest.tdd;
 
 public class TennisGame {
 
-   private String score = "Love - Love";
+   private int player1Score;
+   private int player2Score;
 
    public String score() {
-      return score;
+      return translateScore(player1Score) + " - Love";
+   }
+   public String translateScore(int points) {
+      if (points == 0) {
+         return "Love";
+      }
+      if (points == 1) {
+         return "Fifteen";
+      }
+      if (points == 2) {
+         return "Thirty";
+      }
+      throw new IllegalArgumentException("Impossible to translate points " + points);
    }
 
    public void markPointFor(Players player) {
-      if (score.equals("Fifteen - Love")) {
-         score = "Thirty - Love";
-      } else {
-         score = "Fifteen - Love";
-      }
+      player1Score++;
    }
 
    public enum Players {
