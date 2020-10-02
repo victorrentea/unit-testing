@@ -29,7 +29,7 @@ public class SafetyServiceClient {
             new ParameterizedTypeReference<List<SafetyReportDto>>() { },
             externalRef
             );
-
+// [{"category":"ceva", "safeToSell":"altceva"},{"category":"ceva", "safeToSell":"altceva"}]
         if (response.getBody() == null) {
             log.warn("No body received!?");
             return false;
