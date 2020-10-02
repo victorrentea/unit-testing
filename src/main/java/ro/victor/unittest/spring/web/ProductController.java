@@ -24,6 +24,11 @@ public class ProductController {
         return facade.searchProduct(criteria);
     }
 
+    @GetMapping("product/{id}")
+    public ProductDto getProduct(long productId) {
+        return facade.getProduct(productId);
+    }
+
     @GetMapping("unsecured")
     public int unsecured() {
         log.debug("Unsecured Endpoint");

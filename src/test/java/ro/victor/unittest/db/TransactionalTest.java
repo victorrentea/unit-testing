@@ -24,6 +24,7 @@ import ro.victor.unittest.db.prod.ReportingRepo;
 @WithCommonReferenceData // SOLUTION
 public class TransactionalTest {
 
+
 	@Autowired
 	private NotificationRepo notificationRepo;
 

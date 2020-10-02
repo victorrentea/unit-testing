@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,8 @@ public class ProductRepoSearchTest extends AbstractRepoTestBase {
 
     @Before
     public void checkTheresNoProductInDB() {
+        CacheManager cm;
+//        cm.getCache("").cl
         // in large projects: pre-assertion ca tabela ta e goala la INEPUTUL testului ( ca cine stie ce coleg...)
         assertThat(productRepo.findAll()).isEmpty();
 
