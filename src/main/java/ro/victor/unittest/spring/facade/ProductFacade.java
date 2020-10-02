@@ -36,6 +36,11 @@ public class ProductFacade {
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
         return productRepo.search(criteria);
     }
+
+    public void create(ProductDto productDto) {
+        Product product = new Product().setName(productDto.productName);
+        productRepo.save(product);
+    }
 }
 
 

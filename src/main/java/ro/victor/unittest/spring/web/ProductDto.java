@@ -6,6 +6,7 @@ public class ProductDto {
 	public String productName;
 	public String sampleDate;
 
+	public ProductDto() {}
 	public ProductDto(Product product) {
 		this(product.getName());
 	}

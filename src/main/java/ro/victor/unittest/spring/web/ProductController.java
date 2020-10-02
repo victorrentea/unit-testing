@@ -23,6 +23,10 @@ public class ProductController {
     public List<ProductSearchResult> search(@RequestBody ProductSearchCriteria criteria) {
         return facade.searchProduct(criteria);
     }
+    @PostMapping("product")
+    public void create(@RequestBody ProductDto productDto) {
+        facade.create(productDto);
+    }
 
     @GetMapping("product/{id}")
     public ProductDto getProduct(long productId) {

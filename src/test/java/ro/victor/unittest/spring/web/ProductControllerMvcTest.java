@@ -1,5 +1,6 @@
 package ro.victor.unittest.spring.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductFacade;
+import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 import ro.victor.unittest.spring.facade.ProductSearchResult;
 import ro.victor.unittest.spring.repo.ProductRepo;
 
@@ -43,10 +45,21 @@ public class ProductControllerMvcTest {
     private ProductRepo productRepo;
     @Test
     public void testSearch() throws Exception {
-        productRepo.save(new Product().setName("Tree"));
+//        productRepo.save(new Product().setName("Tree"));
+
+        mockMvc.perform(post("/product")
+            .content("{\"productName\": \"Tree\"}")
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+
+
+
+        ProductSearchCriteria criteria = new ProductSearchCriteria();
+        criteria.name = "Re";
+        String criteriaJson = new ObjectMapper().writeValueAsString(criteria);
 //        when(facade.searchProduct(any())).thenReturn(Arrays.asList(new ProductSearchResult(1L, "Tree")));
         mockMvc.perform(post("/product/search")
-                .content("{}")
+                .content(criteriaJson)
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isOk())
