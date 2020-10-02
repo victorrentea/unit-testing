@@ -16,6 +16,9 @@ import ro.victor.unittest.spring.infra.SafetyServiceClient;
 import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.web.ProductDto;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.*;
@@ -40,26 +43,34 @@ public class ProductFacadeTest {
 
    @Test
    public void throwsForInactiveSupplier() {
-
-      when(safetyClient.isSafe(anyString())).thenReturn(true);
       Product product = new Product()
+          .setExternalRef("exref")
           .setSupplier(new Supplier()
               .setActive(false));
+      when(safetyClient.isSafe("exref")).thenReturn(true);
       when(productRepo.findById(13L)).thenReturn(of(product));
       IllegalStateException ex = assertThrows(IllegalStateException.class, () ->
           facade.getProduct(13L));
 //      assertTrue(ex.getMessage().contains("supplier"));
       assertThat(ex.getMessage()).containsIgnoringCase("supplier");
    }
-//   @Test
-//   public void okTODODODODODODODODODODODODODODODODODODODODODODODODODOD() {
-//      when(safetyClient.isSafe(anyString())).thenReturn(true);
-//      Product product = new Product()
-//          .setName("product-name")
-//          .setSupplier(new Supplier()
-//              .setActive(true));
-//      when(productRepo.findById(13L)).thenReturn(of(product));
-//      ProductDto dto = facade.getProduct(13L);
-//      assertEquals("product-name", dto.productName);
-//   }
+   @Test
+   public void ok() {
+      Product product = new Product()
+          .setExternalRef("exref")
+          .setName("product-name")
+          .setSupplier(new Supplier()
+              .setActive(true));
+
+      when(safetyClient.isSafe("exref")).thenReturn(true);
+      when(productRepo.findById(13L)).thenReturn(of(product));
+
+      ProductDto dto = facade.getProduct(13L);
+
+      assertEquals("product-name", dto.productName);
+//      assertEquals("2020-10-02T16:00:00", dto.sampleDate);
+      String todayStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      assertThat(dto.sampleDate).startsWith(todayStr);
+
+   }
 }

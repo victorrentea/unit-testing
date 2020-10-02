@@ -30,9 +30,9 @@ public class ProductService {
 			throw new IllegalStateException("Product is not safe: " + productId);
 		}
 
-//		if (!product.getSupplier().isActive()) {
-//			throw new IllegalStateException("Supplier inactive. Product not listed.");
-//		}
+		if (!product.getSupplier().isActive()) {
+			throw new IllegalStateException("Supplier inactive. Product not listed.");
+		}
 
 		return product;
 	}
