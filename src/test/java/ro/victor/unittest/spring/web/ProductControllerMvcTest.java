@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductFacade;
 import ro.victor.unittest.spring.facade.ProductSearchResult;
@@ -25,19 +26,25 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest // Start up only web part. Requires @MockBean for deeper layers
+//@WebMvcTest // Start up only web part. Requires @MockBean for deeper layers
 //@WebMvcTest(value=ProductController.class) // - Even more fine-grained
-//@SpringBootTest @AutoConfigureMockMvc // deeper e2e tests
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles({"db-mem", "test"})
+@Transactional
 public class ProductControllerMvcTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private ProductFacade facade;
+//    @MockBean
+//    private ProductFacade facade;
 
+    @Autowired
+    private ProductRepo productRepo;
     @Test
     public void testSearch() throws Exception {
-        when(facade.searchProduct(any())).thenReturn(Arrays.asList(new ProductSearchResult(1L, "Tree")));
+        productRepo.save(new Product().setName("Tree"));
+//        when(facade.searchProduct(any())).thenReturn(Arrays.asList(new ProductSearchResult(1L, "Tree")));
         mockMvc.perform(post("/product/search")
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON)

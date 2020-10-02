@@ -202,7 +202,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <!-- skip the plugin as the only time we run from command line during the workshop is when we want docker to fire up -->
-                    <!--<skip>true</skip>-->
+                    <skip>true</skip>
                     <excludedGroups>ro.victor.unittest.spring.repo.IntegrationTest</excludedGroups>
                 </configuration>
             </plugin>
