@@ -23,16 +23,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@Category(IntegrationTest.class)
 //@ContextConfiguration(initializers = WaitForDBInitializer.class)
 @Transactional
-public class ProductRepoSearchTest {
+public class ProductRepoSearchTest extends AbstractRepoTestBase {
     @Autowired
     private ProductRepo productRepo;
-    @Autowired
-    private SupplierRepo supplierRepo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
     @Autowired
     private ProductService productService;
-    private Supplier supplier;
+
+
 
     @Before
     public void initialize() {
@@ -42,7 +41,6 @@ public class ProductRepoSearchTest {
         // .. sau daca codul testat foloseste REQUIRES_NEW si face noi
         // tranzactii pe care le comit esingur, independent de tranzactia de test!
     }
-
     @Test
     public void noCriteria() {
         //start TX
@@ -60,6 +58,7 @@ public class ProductRepoSearchTest {
         criteria.name = "x";
         assertThat(productRepo.search(criteria)).isEmpty();
     }
+
     @Test
     public void byCategory() {
         productRepo.save(new Product().setCategory(Category.HOME));
@@ -69,12 +68,6 @@ public class ProductRepoSearchTest {
 
         criteria.category = Category.ME;
         assertThat(productRepo.search(criteria)).isEmpty();
-    }
-
-    @Before
-    public void insertSupplier() {
-        supplier = supplierRepo.save(new Supplier().setName("IKEA"));
-        // dupa, the supplier entity was assigned an ID from the DB sequence
     }
     @Test
     public void bySupplier() {
