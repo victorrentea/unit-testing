@@ -32,6 +32,7 @@ public class ProductRepoSearchTest {
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
     @Autowired
     private ProductService productService;
+    private Supplier supplier;
 
     @Before
     public void initialize() {
@@ -69,11 +70,14 @@ public class ProductRepoSearchTest {
         criteria.category = Category.ME;
         assertThat(productRepo.search(criteria)).isEmpty();
     }
+
+    @Before
+    public void insertSupplier() {
+        supplier = supplierRepo.save(new Supplier().setName("IKEA"));
+        // dupa, the supplier entity was assigned an ID from the DB sequence
+    }
     @Test
     public void bySupplier() {
-        Supplier supplier = new Supplier();
-        supplierRepo.save(supplier); // dupa, the supplier entity was assigned an ID from the DB sequence
-
         productRepo.save(new Product().setSupplier(supplier));
 
         criteria.supplierId = supplier.getId();
@@ -82,7 +86,16 @@ public class ProductRepoSearchTest {
         criteria.supplierId = -1L;
         assertThat(productRepo.search(criteria)).isEmpty();
     }
+    @Test
+    public void bySupplier2() {
+        productRepo.save(new Product().setSupplier(supplier));
 
+        criteria.supplierId = supplier.getId();
+        assertThat(productRepo.search(criteria)).hasSize(1);
+
+        criteria.supplierId = -1L;
+        assertThat(productRepo.search(criteria)).isEmpty();
+    }
 
     // TODO continuat de testat TOT SEARCH CRITERIA
 }
