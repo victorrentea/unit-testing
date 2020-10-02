@@ -1,5 +1,7 @@
 package victor.testing.spring.repo;
 
+import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,8 @@ public class ProductRepoSearchTest {
     @Test
     public void noCriteria() {
         repo.save(new Product());
-        assertThat(repo.search(criteria)).hasSize(1);
+        Assert.assertEquals(1, repo.search(criteria).size());
+        Assertions.assertThat(repo.search(criteria)).hasSize(1);
     }
 
     // TODO finish
