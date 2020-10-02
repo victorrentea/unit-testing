@@ -3,6 +3,8 @@ package ro.victor.unittest.spring.domain;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.infra.SafetyServiceClient;
 import ro.victor.unittest.spring.repo.ProductRepo;
 
@@ -12,6 +14,11 @@ import ro.victor.unittest.spring.repo.ProductRepo;
 public class ProductService {
 	private final SafetyServiceClient safetyClient;
 	private final ProductRepo productRepo;
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public void saveProduct(Product product) {
+		productRepo.save(product);
+	}
 
 	public Product getProduct(long productId) {
 		Product product = productRepo.findById(productId)
