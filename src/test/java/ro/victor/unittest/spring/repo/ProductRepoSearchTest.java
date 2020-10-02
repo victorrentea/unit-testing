@@ -15,6 +15,7 @@ import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.WaitForDBInitializer;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
@@ -27,6 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // brutal, don't do it
 //@Category(IntegrationTest.class)
 //@ContextConfiguration(initializers = WaitForDBInitializer.class)
+@Transactional
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
@@ -35,17 +37,17 @@ public class ProductRepoSearchTest {
 
     @Before
     public void initialize() {
-        repo.deleteAll();// probleme pt ca tre sa stergi din tabele intr-o anumita ordine.
+//        repo.deleteAll();// probleme pt ca tre sa stergi din tabele intr-o anumita ordine.
         // (Dupa FK)
         // Singura solutie daca lucrezi fara spring.
-
-        //
     }
 
     @Test
     public void noCriteria() {
+        //start TX
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
+        // ROLLBACK
     }
     @Test
     public void noCriteria2() {
