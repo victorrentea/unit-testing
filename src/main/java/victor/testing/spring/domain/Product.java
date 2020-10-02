@@ -12,47 +12,42 @@ import java.util.Optional;
 //@Data NEVER
 @ToString
 public class Product {
+
     @Id
     @GeneratedValue
+    @Getter
     private Long id;
 
     @Getter @Setter
     private String name;
 
     @Getter @Setter
-    private Category category;
+    private ProductCategory category;
 
-    @Setter
-    private LocalDateTime sampleDate;
     @Getter @Setter
-    private String externalRef;
+    private String upc;
 
-    private LocalDateTime createDate = LocalDateTime.now();
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
     @Getter @Setter
+    @ManyToOne
     private Supplier supplier;
 
-    public enum Category {
-        WIFE, KIDS, ME, HOME
+    @Getter @Setter
+    private LocalDateTime createDate;
+    public Product(String name, String upc, ProductCategory category) {
+        this.name = name;
+        this.upc = upc;
+        this.category = category;
     }
+
     public Product(String name) {
         this.name = name;
     }
+
     public Product() {}
 
 
-    public Optional<LocalDateTime> getSampleDate() {
-        return Optional.ofNullable(sampleDate);
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public Product setId(Long id) {
-        this.id = id;
-        return this;
     }
 
 }

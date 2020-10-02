@@ -1,16 +1,15 @@
-package victor.testing.spring.facade;
+package victor.testing.spring.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProductSearchResult {
-    // Tip: final fields if using JPA
-    public Long id;
-    public String name;
+    private Long id;
+    private String name;
 
 
 }

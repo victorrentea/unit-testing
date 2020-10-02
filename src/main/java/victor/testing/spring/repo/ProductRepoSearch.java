@@ -1,7 +1,7 @@
 package victor.testing.spring.repo;
 
-import victor.testing.spring.facade.ProductSearchCriteria;
-import victor.testing.spring.facade.ProductSearchResult;
+import victor.testing.spring.web.dto.ProductSearchCriteria;
+import victor.testing.spring.web.dto.ProductSearchResult;
 
 import java.util.List;
 

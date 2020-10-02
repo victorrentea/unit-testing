@@ -1,6 +1,7 @@
 package victor.testing.spring.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,12 +14,10 @@ public class Supplier {
     @GeneratedValue
     @Getter
     private Long id;
-    @Getter
+    @Getter @Setter
     private String name;
-    @Getter
-    private String vatCode;
 
-    @Getter
+    @Getter @Setter
     private boolean active;
 
     public Supplier() {}
@@ -27,39 +26,4 @@ public class Supplier {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Supplier setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Supplier setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getVatCode() {
-        return vatCode;
-    }
-
-    public Supplier setVatCode(String vatCode) {
-        this.vatCode = vatCode;
-        return this;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public Supplier setActive(boolean active) {
-        this.active = active;
-        return this;
-    }
 }

@@ -1,9 +1,10 @@
 package victor.testing.spring.repo;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
-import victor.testing.spring.facade.ProductSearchResult;
-import victor.testing.spring.facade.ProductSearchCriteria;
+import victor.testing.spring.web.dto.ProductSearchResult;
+import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -11,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,12 +20,13 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
 
     @Override
     public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
-        String jpql = "SELECT new ro.victor.unittest.spring.facade.ProductSearchResult(p.id, p.name)" +
+        String jpql = "SELECT new victor.testing.spring.service.ProductSearchResult(p.id, p.name)" +
                 " FROM Product p " +
                 " WHERE 1=1 ";
 
         Map<String, Object> paramMap = new HashMap<>();
-        if (isNotEmpty(criteria.name)) {
+
+        if (StringUtils.isNotEmpty(criteria.name)) {
             jpql += "  AND p.name = :name   ";
             paramMap.put("name", criteria.name);
         }

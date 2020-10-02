@@ -11,14 +11,13 @@ import java.sql.DriverManager;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class WaitForDBInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public class WaitForDatabase implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
    @Override
    public void initialize(ConfigurableApplicationContext applicationContext) {
-      System.out.println("Before Anything " + applicationContext.getEnvironment().getProperty("spring.datasource.url"));
+      log.debug("Running Before Spring " + applicationContext.getEnvironment().getProperty("spring.datasource.url"));
       Awaitility.await()
-          .atLeast(10, TimeUnit.SECONDS)
-          .pollInterval(1, TimeUnit.SECONDS)
+          .pollInterval(2, TimeUnit.SECONDS)
           .atMost(1, TimeUnit.MINUTES)
           .until(() -> canConnectToDB(applicationContext.getEnvironment()));
    }
@@ -32,7 +31,7 @@ public class WaitForDBInitializer implements ApplicationContextInitializer<Confi
              env.getRequiredProperty("spring.datasource.username"),
              env.getRequiredProperty("spring.datasource.password"));
 
-         log.info("Connection Established Successful to {} database", connection.getMetaData().getDatabaseProductName());
+         log.info("Connection Established Successfully to {} database", connection.getMetaData().getDatabaseProductName());
          connection.close();
          return true;
       } catch (Exception e) {
