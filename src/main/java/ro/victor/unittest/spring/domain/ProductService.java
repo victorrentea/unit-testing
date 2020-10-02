@@ -15,7 +15,7 @@ public class ProductService {
 	private final SafetyServiceClient safetyClient;
 	private final ProductRepo productRepo;
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+//	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void saveProduct(Product product) {
 		productRepo.save(product);
 	}

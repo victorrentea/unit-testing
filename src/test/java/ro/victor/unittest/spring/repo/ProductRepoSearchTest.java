@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // brutal, don't do it
 //@Category(IntegrationTest.class)
 //@ContextConfiguration(initializers = WaitForDBInitializer.class)
-//@Transactional
+@Transactional
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
