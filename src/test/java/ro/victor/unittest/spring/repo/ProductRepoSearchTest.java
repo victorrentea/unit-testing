@@ -21,6 +21,10 @@ import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.ProductService;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -49,9 +53,16 @@ public class ProductRepoSearchTest {
 
     @Test
     public void noCriteria() {
-        //start TX
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+        EntityManager entityManager = emf.createEntityManager();
+entityManager.getTransaction().begin();
+        repo=new ProductRepoSearchImpl(entityManager);
         productService.saveProduct(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
+
+entityManager.getTransaction().rollback();
+
+        //start TX
         // ROLLBACK
     }
     @Test
@@ -60,6 +71,6 @@ public class ProductRepoSearchTest {
         assertThat(repo.search(criteria)).hasSize(1);
     }
 
-    // TODO
+    // TODO continuat de testat TOT SEARCH CRITERIA
 }
 
