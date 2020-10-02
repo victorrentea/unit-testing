@@ -8,7 +8,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.junit4.SpringRunner;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Supplier;
@@ -16,7 +19,10 @@ import ro.victor.unittest.spring.infra.SafetyServiceClient;
 import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.web.ProductDto;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import static java.util.Optional.of;
@@ -71,6 +77,17 @@ public class ProductFacadeTest {
 //      assertEquals("2020-10-02T16:00:00", dto.sampleDate);
       String todayStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
       assertThat(dto.sampleDate).startsWith(todayStr);
-
+//      assertThat(dto.sampleDate).isEqualTo("2020-01-01 07:59:55");
    }
+
+//   @TestConfiguration
+//   public static class TestConfig {
+//      @Bean
+//      @Primary
+//      public Clock testClock() {
+//         return Clock.fixed(Instant.from(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")
+//             .parse("2020-01-01 08:00:00")), ZoneId.systemDefault());
+//      }
+//   }
+
 }
