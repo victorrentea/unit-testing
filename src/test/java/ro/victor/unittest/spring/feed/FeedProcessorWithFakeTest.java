@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -14,6 +17,8 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) -- pt debugging! nu pui pe SVN asaceva, ca enervezi colegii:
+// tocmai ai adaugat 1 min la build time pe Jenkins!
 public class FeedProcessorWithFakeTest {
    @Autowired
    private FileRepoFakeForTests fileRepoFake;
