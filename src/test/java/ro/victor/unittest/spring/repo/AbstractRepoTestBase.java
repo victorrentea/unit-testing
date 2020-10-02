@@ -22,7 +22,7 @@ public class AbstractRepoTestBase {
    protected Supplier supplier;
 
    @Before
-   public void insertSupplier() {
+   public final void initialize() {
 
       supplier = supplierRepo.save(new Supplier().setName("IKEA"));
       // dupa, the supplier entity was assigned an ID from the DB sequence

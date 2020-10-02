@@ -27,7 +27,7 @@ public class ProductRepoSearchTest extends AbstractRepoTestBase {
 
 
     @Before
-    public void initialize() {
+    public void initialize2() {
         //repo.deleteAll();// probleme pt ca tre sa stergi din tabele intr-o anumita ordine.
         // (Dupa FK)
         // Singura solutie daca lucrezi fara spring.
