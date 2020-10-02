@@ -9,7 +9,7 @@ import ro.victor.unittest.spring.repo.ProductRepo;
 import java.util.stream.Stream;
 
 @Component
-@Profile("!test")
+@Profile("insertDummyData")
 public class DummyDataCreator implements CommandLineRunner {
    private final ProductRepo productRepo;
 

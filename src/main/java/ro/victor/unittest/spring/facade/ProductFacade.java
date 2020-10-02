@@ -4,14 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ro.victor.unittest.spring.domain.Product;
-import ro.victor.unittest.spring.domain.ProductService;
+import ro.victor.unittest.spring.service.ProductService;
 import ro.victor.unittest.spring.repo.ProductRepo;
 import ro.victor.unittest.spring.web.ProductDto;
 
 import java.time.Clock;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static java.time.temporal.ChronoUnit.SECONDS;

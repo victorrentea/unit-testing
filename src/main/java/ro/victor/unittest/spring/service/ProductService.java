@@ -1,8 +1,9 @@
-package ro.victor.unittest.spring.domain;
+package ro.victor.unittest.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.infra.SafetyServiceClient;
 import ro.victor.unittest.spring.repo.ProductRepo;
 
