@@ -16,13 +16,6 @@ import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-@ActiveProfiles({"db-mem", "test"})
-//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // brutal, don't do it
-//@Category(IntegrationTest.class)
-//@ContextConfiguration(initializers = WaitForDBInitializer.class)
-@Transactional
 public class ProductRepoSearchTest extends AbstractRepoTestBase {
     @Autowired
     private ProductRepo productRepo;
