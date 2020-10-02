@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.victor.unittest.spring.WaitForDBInitializer;
 import ro.victor.unittest.spring.domain.Product;
+import ro.victor.unittest.spring.domain.Product.Category;
 import ro.victor.unittest.spring.domain.ProductService;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
 
@@ -44,7 +44,7 @@ public class ProductRepoSearchTest {
 
     @Before
     public void initialize() {
-        repo.deleteAll();// probleme pt ca tre sa stergi din tabele intr-o anumita ordine.
+        //repo.deleteAll();// probleme pt ca tre sa stergi din tabele intr-o anumita ordine.
         // (Dupa FK)
         // Singura solutie daca lucrezi fara spring.
         // .. sau daca codul testat foloseste REQUIRES_NEW si face noi
@@ -59,9 +59,24 @@ public class ProductRepoSearchTest {
         // ROLLBACK
     }
     @Test
-    public void noCriteria2() {
-        repo.save(new Product());
+    public void byName() {
+        repo.save(new Product().setName("aB"));
+
+        criteria.name = "Ab";
         assertThat(repo.search(criteria)).hasSize(1);
+
+        criteria.name = "x";
+        assertThat(repo.search(criteria)).isEmpty();
+    }
+    @Test
+    public void byCategory() {
+        repo.save(new Product().setCategory(Category.HOME));
+
+        criteria.category = Category.HOME;
+        assertThat(repo.search(criteria)).hasSize(1);
+
+        criteria.category = Category.ME;
+        assertThat(repo.search(criteria)).isEmpty();
     }
 
     // TODO continuat de testat TOT SEARCH CRITERIA
