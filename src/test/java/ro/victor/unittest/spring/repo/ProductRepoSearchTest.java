@@ -53,16 +53,9 @@ public class ProductRepoSearchTest {
 
     @Test
     public void noCriteria() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
-        EntityManager entityManager = emf.createEntityManager();
-entityManager.getTransaction().begin();
-        repo=new ProductRepoSearchImpl(entityManager);
+        //start TX
         productService.saveProduct(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
-
-entityManager.getTransaction().rollback();
-
-        //start TX
         // ROLLBACK
     }
     @Test
