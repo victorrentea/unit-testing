@@ -57,10 +57,13 @@ public class TelemetryDiagnosticControlsTest {
    public void receives() {
       when(clientMock.receive()).thenReturn("tataie");
       controls.checkTransmission();
+//      verify(clientMock).receive();// INUTILA in 99% din cazuri. pt ca ar trebui
+      // sa verifici nu ca s-a chemat ci ca codul de prod pe care il testezi
+      // a facut ceva ANUME cu ceea ce ai programat sa intoarca metoda
       assertEquals("tataie", controls.getDiagnosticInfo());
    }
 
-//   @Test
+   //   @Test
 //   public void configuresClient() {
 //      ClientConfiguration config = new ClientConfiguration();
 //      when(configurationFactoryMock.createConfig(null)).thenReturn(config);

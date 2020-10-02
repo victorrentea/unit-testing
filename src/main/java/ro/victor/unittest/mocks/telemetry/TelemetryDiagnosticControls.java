@@ -49,7 +49,6 @@ public class TelemetryDiagnosticControls {
       diagnosticInfo = telemetryClient.receive();
    }
 
-
 }
 
 class ClientConfigurationFactory {
@@ -59,7 +58,10 @@ class ClientConfigurationFactory {
       config.setSessionStart(LocalDateTime.now());
       //20 de lini de logica grea
       config.setAckMode(AckMode.NORMAL);
+//      ejb.callStuff(xxxx);
       return config;
    }
+//   @EJB
+//   MyEJB ejb;
 
 }
