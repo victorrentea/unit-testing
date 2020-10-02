@@ -1,6 +1,7 @@
 package ro.victor.unittest.spring.repo;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -18,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles({"db-mem"})
+@ActiveProfiles({"db-mem", "test"})
 //@Category(IntegrationTest.class)
 //@ContextConfiguration(initializers = WaitForDBInitializer.class)
 public class ProductRepoSearchTest {
@@ -30,6 +31,7 @@ public class ProductRepoSearchTest {
     @Test
     public void noCriteria() {
         repo.save(new Product());
+//        Assert.assertEquals(1, repo.search(criteria).size());
         assertThat(repo.search(criteria)).hasSize(1);
     }
 
