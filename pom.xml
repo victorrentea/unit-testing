@@ -197,19 +197,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!-- skip the plugin as the only time we run from command line during the workshop is when we want docker to fire up -->
-                    <!--<skip>true</skip>-->
-                    <excludedGroups>IntegrationTest</excludedGroups>
+                    <!-- skip the plugin as the only time we run 'mvn verify' from command line during the workshop is when we want docker to fire up -->
+                    <skip>true</skip> <!-- NEVER HAVE THIS IN YOUR PROJ -->
+                    <excludedGroups>integration</excludedGroups>
                 </configuration>
             </plugin>
-
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
                     <includes>
                         <include>**/*</include>
                     </includes>
-                    <groups>IntegrationTest</groups>
+                    <groups>integration</groups>
                 </configuration>
                 <executions>
                     <execution>
@@ -220,6 +219,52 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.33.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>docker-demo</name>
+                            <build>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                                <dockerFile>Dockerfile</dockerFile>
+                                <assembly>
+                                    <name>/</name>
+                                    <mode>dir</mode>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>
+                                                    ${project.basedir}/target/unit-testing-${project.version}.jar
+                                                </source>
+                                                <outputDirectory>target/</outputDirectory>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>docker-build</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
             <plugin>
                 <groupId>com.dkanejs.maven.plugins</groupId>
                 <artifactId>docker-compose-maven-plugin</artifactId>
@@ -227,11 +272,12 @@
                 <configuration>
                     <composeFiles>
                         <composeFile>${project.basedir}/src/test/docker/docker-compose.yml</composeFile>
+                        <composeFile>${project.basedir}/src/test/docker/docker-compose.override.yml</composeFile>
                     </composeFiles>
                     <detachedMode>true</detachedMode>
-                    <removeImages>true</removeImages>
+                    <!--<removeImages>true</removeImages>
                     <removeImagesType>local</removeImagesType>
-                    <removeVolumes>true</removeVolumes>
+                    <removeVolumes>true</removeVolumes>-->
                     <build>true</build>
                 </configuration>
                 <executions>
@@ -242,13 +288,13 @@
                             <goal>up</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>shutdown-db-after-testing</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>down</goal>
-                        </goals>
-                    </execution>
+                    <!--   <execution>
+                           <id>shutdown-db-after-testing</id>
+                           <phase>post-integration-test</phase>
+                           <goals>
+                               <goal>down</goal>
+                           </goals>
+                       </execution>-->
                 </executions>
             </plugin>
         </plugins>

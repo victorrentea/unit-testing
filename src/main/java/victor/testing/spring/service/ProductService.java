@@ -33,6 +33,7 @@ public class ProductService {
         product.setCategory(productDto.category);
         product.setUpc(productDto.upc);
         product.setSupplier(supplierRepo.getOne(productDto.supplierId));
+        // TODO CR check that the supplier is active!
         product.setCreateDate(LocalDateTime.now());
         productRepo.save(product);
         return product.getId();
