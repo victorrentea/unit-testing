@@ -1,5 +1,6 @@
 package ro.victor.unittest.spring.facade;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import ro.victor.unittest.spring.web.ProductDto;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -59,6 +61,31 @@ public class ProductFacadeNoMocksTest extends AbstractRepoTestBase {
           .setName("product-name")
           .setSupplier(new Supplier()
               .setActive(true));
+
+//      when(safetyClient.isSafe("exref")).thenReturn(true);
+      productRepo.save(product);
+
+      ProductDto dto = facade.getProduct(product.getId());
+
+      assertEquals("product-name", dto.productName);
+      String todayStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      assertThat(dto.sampleDate).startsWith(todayStr);
+   }
+   @Test
+   public void programaticWireMockStubbing() {
+      Product product = new Product()
+          .setExternalRef("xyz")
+          .setName("product-name")
+          .setSupplier(new Supplier()
+              .setActive(true));
+
+
+      WireMock.stubFor(get(urlEqualTo("/product/xyz/safety"))
+          .willReturn(aResponse()
+              .withStatus(200)
+              .withHeader("Content-Type", "application/json")
+              .withBody("[{\"category\":\"DETERMINED\", \"safeToSell\":true}]")));
+
 
 //      when(safetyClient.isSafe("exref")).thenReturn(true);
       productRepo.save(product);
