@@ -14,7 +14,7 @@ import java.util.Set;
 @Service
 public class FeedProcessor {
    @Autowired
-   private IFileRepo fileRepo;
+   private FileRepo fileRepo;
    @Autowired
    private FeedScanner scanner;
 
@@ -23,8 +23,8 @@ public class FeedProcessor {
       log.debug("Found files: " + names);
       int count = 0;
       for (String fileName : names) {
-         try (Reader is = fileRepo.openFile(fileName)) {
-            List<String> lines = IOUtils.readLines(is);
+         try (Reader reader = fileRepo.openFile(fileName)) {
+            List<String> lines = IOUtils.readLines(reader);
             scanner.removeComments(lines);
             log.debug("Found {} lines in {}", lines.size(), fileName);
             count += lines.size();

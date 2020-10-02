@@ -7,9 +7,9 @@ import java.util.List;
 
 @Component
 public class FeedScanner {
-   @Transactional // 2 Assume some Spring juice around
+//   @Transactional // 2 Assume some Spring juice around
    public void removeComments(List<String> lines) {
       // 1 Assume smart logic here, further dependencies
-
+      lines.removeIf(line -> line.startsWith("#"));
    }
 }
