@@ -51,6 +51,9 @@ public class TelemetryDiagnosticControls {
 
 }
 
+
+
+
 class ClientConfigurationFactory {
    public ClientConfiguration createConfig(String version) { // 10 teste intra pe aici
       ClientConfiguration config = new ClientConfiguration();
