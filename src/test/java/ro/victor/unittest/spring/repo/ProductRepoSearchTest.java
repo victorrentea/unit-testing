@@ -1,29 +1,18 @@
 package ro.victor.unittest.spring.repo;
 
-import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ro.victor.unittest.spring.WaitForDBInitializer;
 import ro.victor.unittest.spring.domain.Product;
 import ro.victor.unittest.spring.domain.Product.Category;
 import ro.victor.unittest.spring.domain.ProductService;
+import ro.victor.unittest.spring.domain.Supplier;
 import ro.victor.unittest.spring.facade.ProductSearchCriteria;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,7 +25,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 public class ProductRepoSearchTest {
     @Autowired
-    private ProductRepo repo;
+    private ProductRepo productRepo;
+    @Autowired
+    private SupplierRepo supplierRepo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
     @Autowired
@@ -55,29 +46,43 @@ public class ProductRepoSearchTest {
     public void noCriteria() {
         //start TX
         productService.saveProduct(new Product());
-        assertThat(repo.search(criteria)).hasSize(1);
+        assertThat(productRepo.search(criteria)).hasSize(1);
         // ROLLBACK
     }
     @Test
     public void byName() {
-        repo.save(new Product().setName("aB"));
+        productRepo.save(new Product().setName("aB"));
 
         criteria.name = "Ab";
-        assertThat(repo.search(criteria)).hasSize(1);
+        assertThat(productRepo.search(criteria)).hasSize(1);
 
         criteria.name = "x";
-        assertThat(repo.search(criteria)).isEmpty();
+        assertThat(productRepo.search(criteria)).isEmpty();
     }
     @Test
     public void byCategory() {
-        repo.save(new Product().setCategory(Category.HOME));
+        productRepo.save(new Product().setCategory(Category.HOME));
 
         criteria.category = Category.HOME;
-        assertThat(repo.search(criteria)).hasSize(1);
+        assertThat(productRepo.search(criteria)).hasSize(1);
 
         criteria.category = Category.ME;
-        assertThat(repo.search(criteria)).isEmpty();
+        assertThat(productRepo.search(criteria)).isEmpty();
     }
+    @Test
+    public void bySupplier() {
+        Supplier supplier = new Supplier();
+        supplierRepo.save(supplier); // dupa, the supplier entity was assigned an ID from the DB sequence
+
+        productRepo.save(new Product().setSupplier(supplier));
+
+        criteria.supplierId = supplier.getId();
+        assertThat(productRepo.search(criteria)).hasSize(1);
+
+        criteria.supplierId = -1L;
+        assertThat(productRepo.search(criteria)).isEmpty();
+    }
+
 
     // TODO continuat de testat TOT SEARCH CRITERIA
 }
