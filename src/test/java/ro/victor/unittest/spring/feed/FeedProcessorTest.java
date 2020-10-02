@@ -51,4 +51,12 @@ public class FeedProcessorTest {
       int lineCount = feedProcessor.countPendingLines();
       assertEquals(2, lineCount);
    }
+   @Test
+   public void file1OneLine_file2TwoLines() throws IOException {
+      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt", "two.txt"));
+      when(fileRepoMock.openFile("one.txt")).thenReturn(new StringReader("lineA"));
+      when(fileRepoMock.openFile("two.txt")).thenReturn(new StringReader("lineB1\nLineB2"));
+      int lineCount = feedProcessor.countPendingLines();
+      assertEquals(3, lineCount);
+   }
 }
