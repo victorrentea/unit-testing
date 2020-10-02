@@ -76,6 +76,7 @@ public class TelemetryDiagnosticControlsTest {
    public void configuresClient() {
       controls.checkTransmission();
       verify(clientMock).configure(notNull());
+      verify(configurationFactoryMock).createConfig(anyString());
    }
 
 }

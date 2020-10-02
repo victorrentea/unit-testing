@@ -44,6 +44,7 @@ public class ProductControllerMvcTest {
     @Autowired
     private ProductRepo productRepo;
     @Test
+//    @WithMockUser(role="ADMIN")
     public void testSearch() throws Exception {
 //        productRepo.save(new Product().setName("Tree"));
 
