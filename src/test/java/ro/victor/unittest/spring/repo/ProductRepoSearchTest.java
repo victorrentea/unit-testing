@@ -27,7 +27,10 @@ public class ProductRepoSearchTest extends AbstractRepoTestBase {
 
 
     @Before
-    public void initialize2() {
+    public void checkTheresNoProductInDB() {
+        // in large projects: pre-assertion ca tabela ta e goala la INEPUTUL testului ( ca cine stie ce coleg...)
+        assertThat(productRepo.findAll()).isEmpty();
+
         //repo.deleteAll();// probleme pt ca tre sa stergi din tabele intr-o anumita ordine.
         // (Dupa FK)
         // Singura solutie daca lucrezi fara spring.
@@ -74,6 +77,11 @@ public class ProductRepoSearchTest extends AbstractRepoTestBase {
     }
     @Test
     public void bySupplier2() {
+//     cu mock:   when(repo.findById(id)).theReturn(ceva);
+
+//      fara mock:  repo.save(ceva); pe o in-mem db
+
+
         productRepo.save(new Product().setSupplier(supplier));
 
         criteria.supplierId = supplier.getId();
