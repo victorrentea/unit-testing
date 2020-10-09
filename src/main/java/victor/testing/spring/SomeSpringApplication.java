@@ -21,7 +21,10 @@ import java.time.Clock;
 @SpringBootApplication
 public class SomeSpringApplication implements WebMvcConfigurer {
     public static void main(String[] args) {
-        new SpringApplicationBuilder().initializers(new WaitForDatabase()).sources(SomeSpringApplication.class).run(args);
+        new SpringApplicationBuilder()
+            .profiles("insertDummyData")
+            .initializers(new WaitForDatabase())
+            .sources(SomeSpringApplication.class).run(args);
     }
 
     public void addInterceptors(InterceptorRegistry registry) {

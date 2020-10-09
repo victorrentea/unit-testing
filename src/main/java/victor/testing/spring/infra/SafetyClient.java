@@ -30,7 +30,7 @@ public class SafetyClient {
     }
 
     private boolean entryIsSafe(SafetyEntryDto report) {
-        return "SAF".equals(report.getCategory()); // BUG
+        return "SAFE".equals(report.getCategory()); // BUG
 
     }
 }
