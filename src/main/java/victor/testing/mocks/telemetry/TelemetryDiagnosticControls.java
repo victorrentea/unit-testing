@@ -37,7 +37,7 @@ public class TelemetryDiagnosticControls {
 
 		ClientConfiguration config = configurationFactory.createConfig(
 														telemetryClient.getVersion());
-		telemetryClient.configure(new ClientConfiguration());
+		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();  // 1sec
