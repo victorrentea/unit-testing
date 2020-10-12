@@ -4,6 +4,7 @@ package victor.testing.tdd;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import victor.testing.tdd.TennisGame.Player;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
 public class TennisGameParameterizedTest {
    public TennisGameParameterizedTest() {
@@ -30,13 +32,13 @@ public class TennisGameParameterizedTest {
       }
    }
 
-   private static Stream<Object[]> toateDatele() {
+   private static Stream<Arguments> toateDatele() {
       return Stream.of(
-          new Object[]{0, 0, "Love - Love"},
-          new Object[]{0, 1, "Love - Fifteen"},
-          new Object[]{1, 0, "Fifteen - Love"},
-          new Object[]{1, 1, "Fifteen - Fifteen"},
-          new Object[]{6, 6, "Deuce"}
+          of(0, 0, "Love - Love"),
+          of(0, 1, "Love - Fifteen"),
+          of(1, 0, "Fifteen - Love"),
+          of(1, 1, "Fifteen - Fifteen"),
+          of(6, 6, "Deuce")
       );
    }
 
