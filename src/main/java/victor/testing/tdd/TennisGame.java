@@ -26,18 +26,21 @@ public class TennisGame {
       return translate(player1Points) + " - " + translate(player2Points);
    }
 
+   private  static final String[] LABELS = {"Love", "Fifteen", "Thirty", "Forty"};
+
    private String translate(int points) {
-      switch (points) {
-         case 0:
-            return "Love";
-         case 1:
-            return "Fifteen";
-         case 2:
-            return "Thirty";
-         case 3:
-            return "Forty";
-         default:
-            throw new IllegalStateException("Unexpected value: " + points);
-      }
+      return LABELS[points];
+//      switch (points) {
+//         case 0:
+//            return "Love";
+//         case 1:
+//            return "Fifteen";
+//         case 2:
+//            return "Thirty";
+//         case 3:
+//            return "Forty";
+//         default:
+//            throw new IllegalStateException("Unexpected value: " + points);
+//      }
    }
 }
