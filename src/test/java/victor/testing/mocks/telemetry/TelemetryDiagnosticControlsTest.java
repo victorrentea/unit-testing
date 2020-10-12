@@ -18,14 +18,13 @@ import static org.mockito.Mockito.when;
 public class TelemetryDiagnosticControlsTest extends TestBase{
    @Mock
    private TelemetryClient client;
-//   @Mock
-//   private ConfigurationFactory configurationFactory;
-//   @InjectMocks
+   @Mock
+   private ConfigurationFactory configurationFactory;
+   @InjectMocks
    private TelemetryDiagnosticControls controls;
 
    @BeforeEach
    public void initialize2() {
-      controls = new TelemetryDiagnosticControls(new ConfigurationFactory(), client);
       System.out.println("initul meu");
       when(client.getOnlineStatus()).thenReturn(true);
    }
