@@ -43,13 +43,14 @@ public class TelemetryDiagnosticControlsTest {
       verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
    }
 
+   // TODO TEMA: ce linie din urm metoda poate fi stearsa
    @Test
    public void receivesDiagnosticInfo() {
       // TODO inspect
       when(client.getOnlineStatus()).thenReturn(true);
       when(client.receive()).thenReturn("tataie");
       controls.checkTransmission();
-      verify(client).receive();
+//      verify(client).receive(); // NU .verify() pe metode pe care .thenReturn()
       assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
    }
 
@@ -58,6 +59,6 @@ public class TelemetryDiagnosticControlsTest {
       when(client.getOnlineStatus()).thenReturn(true);
       controls.checkTransmission();
       verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
+      // TODO TEMA: check config.getAckMode is NORMAL (lina :42)
    }
 }
