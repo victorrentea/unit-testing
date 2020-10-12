@@ -22,16 +22,28 @@ import static org.mockito.Mockito.when;
 public class TelemetryDiagnosticControlsTest {
    @Mock
    private TelemetryClient client;
+   @Mock
+   private ConfigurationFactory configurationFactory;
    @InjectMocks
    private TelemetryDiagnosticControls controls;
 
    @BeforeEach
    public void initialize() {
-      when(client.getVersion()).thenReturn("ver");
+      when(client.getOnlineStatus()).thenReturn(true);
    }
    @Test
    public void disconnects() {
-      when(client.getOnlineStatus()).thenReturn(true);
+      // cod
+      // new chestii
+      // when
+      // persist in db in mem
+      // cod
+      // cod
+      // cod
+      // cod
+      // cod
+      // cod
+
       controls.checkTransmission();
       verify(client).disconnect();
    }
@@ -39,13 +51,12 @@ public class TelemetryDiagnosticControlsTest {
    @Test
    public void throwsWhenNotOnline() {
       when(client.getOnlineStatus()).thenReturn(false);
-      Assertions.assertThrows(IllegalArgumentException.class,
+      Assertions.assertThrows(IllegalStateException.class,
           () -> controls.checkTransmission());
    }
 
    @Test
    public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
       controls.checkTransmission();
       verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
    }
@@ -54,29 +65,17 @@ public class TelemetryDiagnosticControlsTest {
    @Test
    public void receivesDiagnosticInfo() {
       // TODO inspect
-      when(client.getOnlineStatus()).thenReturn(true);
       when(client.receive()).thenReturn("tataie");
       controls.checkTransmission();
       assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
    }
 
-   @Captor
-   private ArgumentCaptor<ClientConfiguration> configCaptor;
    @Test
-   public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
+   public void configuresClient() {
+      when(client.getVersion()).thenReturn("ver");
       controls.checkTransmission();
-
-
-      verify(client).configure(configCaptor.capture());
-      ClientConfiguration config = configCaptor.getValue();
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      verify(configurationFactory).createConfig("ver");
    }
 
-   @Test
-   public void createsCorrectConfig() {
-      ClientConfiguration config = controls.createConfig("ver");
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-
-   }
 }
+
