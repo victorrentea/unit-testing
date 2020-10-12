@@ -10,38 +10,35 @@ public class CustomerValidatorTest {
 
 	private CustomerValidator validator = new CustomerValidator();
 
-	@Test
-	public void passForValidCustomer() {
-
-		Customer customer = new Customer()
+	private Customer aValidCustomer() {
+		return new Customer()
 			.setName("John")
 			.addLabel("a","b")
-			.setAddress(new Address()
-				.setCity("Bucharest"));
-		validator.validate(customer);
+			.setAddress(aValidAddress());
+	}
+
+	private Address aValidAddress() {
+		return new Address()
+			.setCity("Bucharest")
+			.setCountry("Romania");
+	}
+
+	@Test
+	public void passForValidCustomer() {
+		validator.validate(aValidCustomer());
 	}
 
 	@Test
 //	public void whenCustomerHasNullName_throws() {
 	public void throwsForCustomerWithNullName() {
-		Customer customer = new Customer();
-		Address address = new Address();
-		address.setCity("Bucuresti");
-		customer.setAddress(address);
-
 		assertThrows(IllegalArgumentException.class,
-			() -> validator.validate(customer));
+			() -> validator.validate(aValidCustomer().setName(null)));
 	}
 
 	@Test
 	public void throwsForCustomerWithAddressWithNullCity() {
-		Customer customer = new Customer();
-		customer.setName("John");
-		Address address = new Address();
-		customer.setAddress(address);
-
 		assertThrows(IllegalArgumentException.class,
-			() -> validator.validate(customer));
+			() -> validator.validate(aValidCustomer().setAddress(aValidAddress().setCity(null))));
 	}
 
 }
