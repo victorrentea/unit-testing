@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import victor.testing.tdd.TennisGame.Player;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -33,6 +34,10 @@ public class TennisGameParameterizedTest {
    }
 
    private static Stream<Arguments> toateDatele() {
+//      File folder;
+//      Stream.of(folder.listFiles()) // culegi de pe disk fisiere de intrare si de iesire corespondente si le lansezi orbeste
+
+
       return Stream.of(
           of(0, 0, "Love - Love"),
           of(0, 1, "Love - Fifteen"),

@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 // Object Mother F.... (monoliti)
 class DummyData {
 
+//	"{name:'', labels:[], address:{}}"
 	public static Customer aValidCustomer() {
 		return new Customer()
 			.setName("John")
