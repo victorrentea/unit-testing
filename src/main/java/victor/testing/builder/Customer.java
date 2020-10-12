@@ -1,55 +1,35 @@
 package victor.testing.builder;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+ //@Data - niciodata pe entitat!!
+//@Entity
 public class Customer {
 
+	@Getter
+	@Setter
 	private String name;
+	@Getter
+	@Setter
 	private String phone;
 	private List<String> labels = new ArrayList<>();
+	@Getter
+	@Setter
 	private Address address;
+	@Getter
+	@Setter
 	private Date createDate;
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public List<String> getLabels() {
-		return labels;
-	}
-
-	public void setLabels(List<String> labels) {
-		this.labels = labels;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
+	//3-4 mici metode test-friend
+	 public Customer addLabel(String... label) {
+		 labels.addAll(Arrays.asList(label));
+		 return this;
+	 }
 }

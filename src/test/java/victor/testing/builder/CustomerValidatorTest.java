@@ -13,13 +13,11 @@ public class CustomerValidatorTest {
 	@Test
 	public void passForValidCustomer() {
 
-
-		Customer customer = new CustomerBuilder()
-			.withName("John")
-			.withAddress(new AddressBuilder()
-				.withCity("Bucuresti")
-				.build())
-			.build();
+		Customer customer = new Customer()
+			.setName("John")
+			.addLabel("a","b")
+			.setAddress(new Address()
+				.setCity("Bucharest"));
 		validator.validate(customer);
 	}
 
