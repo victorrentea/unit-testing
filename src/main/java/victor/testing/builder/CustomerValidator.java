@@ -13,11 +13,12 @@ public class CustomerValidator {
 	}
 	
 	private void validateAddress(Address address) {
+
 		if (address == null) {
 			throw new IllegalArgumentException("Missing customer address");
 		}
 		if (isBlank(address.getCity())) {
-			throw new IllegalArgumentException("Missing address xcity");
+			throw new IllegalArgumentException("The address of a customer must be set");
 		}
 	}
 }
