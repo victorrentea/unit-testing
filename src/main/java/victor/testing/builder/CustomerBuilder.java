@@ -12,4 +12,9 @@ public class CustomerBuilder {
 	public Customer build() {
 		return customer;
 	}
+
+	public CustomerBuilder withAddress(Address address) {
+		customer.setAddress(address);
+		return this;
+	}
 }
