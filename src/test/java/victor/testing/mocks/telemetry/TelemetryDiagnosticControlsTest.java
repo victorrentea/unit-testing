@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class TelemetryDiagnosticControlsTest {
+public class TelemetryDiagnosticControlsTest extends TestBase{
    @Mock
    private TelemetryClient client;
    @Mock
@@ -28,26 +28,10 @@ public class TelemetryDiagnosticControlsTest {
    private TelemetryDiagnosticControls controls;
 
    @BeforeEach
-   public void initialize() {
+   public void initialize2() {
+      System.out.println("initul meu");
       when(client.getOnlineStatus()).thenReturn(true);
    }
-   @Test
-   public void disconnects() {
-      // cod
-      // new chestii
-      // when
-      // persist in db in mem
-      // cod
-      // cod
-      // cod
-      // cod
-      // cod
-      // cod
-
-      controls.checkTransmission();
-      verify(client).disconnect();
-   }
-
    @Test
    public void throwsWhenNotOnline() {
       when(client.getOnlineStatus()).thenReturn(false);
@@ -57,16 +41,10 @@ public class TelemetryDiagnosticControlsTest {
 
    @Test
    public void sendsDiagnosticInfo() {
-      controls.checkTransmission();
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
-   }
-
-   // TODO TEMA: ce linie din urm metoda poate fi stearsa
-   @Test
-   public void receivesDiagnosticInfo() {
-      // TODO inspect
       when(client.receive()).thenReturn("tataie");
       controls.checkTransmission();
+      verify(client).disconnect();
+      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
       assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
    }
 
