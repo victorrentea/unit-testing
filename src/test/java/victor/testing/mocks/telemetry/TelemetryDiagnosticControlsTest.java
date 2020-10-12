@@ -40,9 +40,14 @@ public class TelemetryDiagnosticControlsTest extends TestBase{
    }
 
    @Test
-   public void sendsDiagnosticInfo() {
+   public void happy() {
+      // given
       when(client.receive()).thenReturn("tataie");
+
+      // when
       controls.checkTransmission();
+
+      //then
       verify(client).disconnect();
       verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
       assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
