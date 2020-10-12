@@ -1,13 +1,16 @@
 package victor.testing.mocks.telemetry;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -22,6 +25,10 @@ public class TelemetryDiagnosticControlsTest {
    @InjectMocks
    private TelemetryDiagnosticControls controls;
 
+   @BeforeEach
+   public void initialize() {
+      when(client.getVersion()).thenReturn("ver");
+   }
    @Test
    public void disconnects() {
       when(client.getOnlineStatus()).thenReturn(true);
@@ -50,15 +57,26 @@ public class TelemetryDiagnosticControlsTest {
       when(client.getOnlineStatus()).thenReturn(true);
       when(client.receive()).thenReturn("tataie");
       controls.checkTransmission();
-//      verify(client).receive(); // NU .verify() pe metode pe care .thenReturn()
       assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
    }
 
+   @Captor
+   private ArgumentCaptor<ClientConfiguration> configCaptor;
    @Test
    public void configuresClient() throws Exception {
       when(client.getOnlineStatus()).thenReturn(true);
       controls.checkTransmission();
-      verify(client).configure(any());
-      // TODO TEMA: check config.getAckMode is NORMAL (lina :42)
+
+
+      verify(client).configure(configCaptor.capture());
+      ClientConfiguration config = configCaptor.getValue();
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+   }
+
+   @Test
+   public void createsCorrectConfig() {
+      ClientConfiguration config = controls.createConfig("ver");
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+
    }
 }

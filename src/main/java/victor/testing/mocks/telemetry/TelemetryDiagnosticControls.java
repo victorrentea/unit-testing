@@ -36,14 +36,20 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion().toUpperCase() + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
-		telemetryClient.configure(config);
+		telemetryClient.configure(createConfig(telemetryClient.getVersion()));
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	// pure function: aceleasi inputuri aceleasi output, no side effects
+	public ClientConfiguration createConfig(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		// Imaginati 20 de linii de logica grea
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
 	}
 
 }
