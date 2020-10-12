@@ -3,6 +3,7 @@ package victor.testing.builder;
 
 
 import org.junit.Test;
+import victor.testing.builder.MyException.ErrorCode;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,9 +39,9 @@ public class CustomerValidatorTest {
 
 	@Test
 	public void throwsForCustomerWithAddressWithNullCity() {
-		IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+		MyException ex = assertThrows(MyException.class,
 			() -> validator.validate(aValidCustomer().setAddress(aValidAddress().setCity(null))));
-		assertEquals("Missing address city", ex.getMessage());
+		assertEquals(ErrorCode.NO_ADDRESS_CITY, ex.getCode());
 	}
 	@Test
 	public void throwsForCustomerWithAddressNull() {
