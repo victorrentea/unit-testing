@@ -4,13 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
-import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,7 +45,8 @@ public class TelemetryDiagnosticControlsTest extends TestBase{
 
       //then
       verify(client).disconnect();
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // 99% din cazuri
+//      verify(client).send("AT#UD"); //1% <- daca e f important mesajul - iese in exterior app mele. MAI ALES DACA VB CU HARDWARE
       assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
    }
 
