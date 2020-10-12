@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import com.sun.org.apache.xalan.internal.xsltc.trax.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +49,7 @@ public class TelemetryDiagnosticControlsTest extends TestBase{
 //      verify(client).send("AT#UD"); //1% <- daca e f important mesajul - iese in exterior app mele. MAI ALES DACA VB CU HARDWARE
       verify(client, times(1)).receive(); // doar daca e performance hit
       assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
+//      verifyNo
    }
 
    @Test
@@ -55,6 +57,7 @@ public class TelemetryDiagnosticControlsTest extends TestBase{
       when(client.getVersion()).thenReturn("ver");
       controls.checkTransmission();
       verify(configurationFactory).createConfig("ver");
+      verify(client).configure(notNull());
    }
 
 }
