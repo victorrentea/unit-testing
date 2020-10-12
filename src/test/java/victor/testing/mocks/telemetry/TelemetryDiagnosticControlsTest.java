@@ -10,8 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -47,6 +46,7 @@ public class TelemetryDiagnosticControlsTest extends TestBase{
       verify(client).disconnect();
       verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // 99% din cazuri
 //      verify(client).send("AT#UD"); //1% <- daca e f important mesajul - iese in exterior app mele. MAI ALES DACA VB CU HARDWARE
+      verify(client, times(1)).receive(); // doar daca e performance hit
       assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
    }
 
