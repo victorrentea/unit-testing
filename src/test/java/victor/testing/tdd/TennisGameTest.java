@@ -1,99 +1,80 @@
 package victor.testing.tdd;
 
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import victor.testing.tdd.TennisGame.Player;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TennisGameTest {
-    private TennisGame tennisGame = new TennisGame();
+   private final TennisGame tennisGame = new TennisGame();
+   public TennisGameTest() {
+//      System.out.println("O instanta noua per @Test!");
+   }
+   @Test
+   public void loveLove() {
+      String score = tennisGame.score();
+      assertThat(score).isEqualTo("Love - Love");
+   }
+   @Test
+   public void loveFifteen() {
+      tennisGame.markPoint(Player.TWO);
+      String score = tennisGame.score();
 
-    @Test
-    public void loveLove() {
-        setScore(0, 0);
-        String score = tennisGame.score();
-        assertEquals("Love-Love", score);
-    }
-
-    @Test
-    public void loveFifteen() {
-        setScore(0, 1);
-        String score = tennisGame.score();
-        assertEquals("Love-Fifteen", score);
-    }
-
-    @Test
-    public void fifteenLove() {
-        setScore(1, 0);
-        String score = tennisGame.score();
-        assertEquals("Fifteen-Love", score);
-    }
-
-    @Test
-    public void thirtyLove() {
-        setScore(2, 0);
-        String score = tennisGame.score();
-        assertEquals("Thirty-Love", score);
-    }
-
-    @Test
-    public void fortyLove() {
-        setScore(3, 0);
-        String score = tennisGame.score();
-        assertEquals("Forty-Love", score);
-    }
-
-    @Test
-    public void deuce() {
-        setScore(3, 3);
-        String score = tennisGame.score();
-        assertEquals("Deuce", score);
-    }
-
-    @Test
-    public void advantagePlayer1() {
-        setScore(7, 6);
-        String score = tennisGame.score();
-        assertEquals("Advantage Player1", score);
-    }
-
-    @Test
-    public void advantagePlayer2() {
-        setScore(3, 4);
-        String score = tennisGame.score();
-        assertEquals("Advantage Player2", score);
-    }
-
-    @Test
-    public void mar() {
-        setScore(4, 0);
-        String score = tennisGame.score();
-        assertEquals("Game won Player1", score);
-    }
-
-    @Test
-    public void mar2() {
-        setScore(7, 5);
-        String score = tennisGame.score();
-        assertEquals("Game won Player1", score);
-    }
-
-    @Test
-    public void player2Won() {
-        setScore(0, 4);
-        String score = tennisGame.score();
-        assertEquals("Game won Player2", score);
-    }
-
-
-
-    private void setScore(int player1Score, int player2Score) {
-        setPlayerScore(1, player1Score);
-        setPlayerScore(2, player2Score);
-    }
-
-    private void setPlayerScore(int playerNumber, int playerScore) {
-        for (int i = 0; i < playerScore; i++) {
-            tennisGame.addPoint(playerNumber);
-        }
-    }
+      assertThat(score).isEqualTo("Love - Fifteen");
+   }
+   @Test
+   public void fifteenLove() {
+      tennisGame.markPoint(Player.ONE);
+      String score = tennisGame.score();
+      assertThat(score).isEqualTo("Fifteen - Love");
+   }
+   @Test
+   public void loveThirty() {
+      tennisGame.markPoint(Player.TWO);
+      tennisGame.markPoint(Player.TWO);
+      String score = tennisGame.score();
+      assertThat(score).isEqualTo("Love - Thirty");
+   }
+   @Test // il las chiar daca e un pic overlapping, pentru ca e un caz de biz interesant:
+   // Faptul ca ambii pot castiga puncte
+   public void fifteenFifteen() {
+      tennisGame.markPoint(Player.ONE);
+      tennisGame.markPoint(Player.TWO);
+      String score = tennisGame.score();
+      assertThat(score).isEqualTo("Fifteen - Fifteen");
+   }
+   @Test
+   public void loveForty() {
+      tennisGame.markPoint(Player.TWO);
+      tennisGame.markPoint(Player.TWO);
+      tennisGame.markPoint(Player.TWO);
+      String score = tennisGame.score();
+      assertThat(score).isEqualTo("Love - Forty");
+   }
+   @Test
+   public void deuce() {
+      tennisGame.markPoint(Player.ONE);
+      tennisGame.markPoint(Player.ONE);
+      tennisGame.markPoint(Player.ONE);
+      tennisGame.markPoint(Player.TWO);
+      tennisGame.markPoint(Player.TWO);
+      tennisGame.markPoint(Player.TWO);
+      String score = tennisGame.score();
+      assertThat(score).isEqualTo("Deuce");
+   }
+   @Test
+   public void deuce4() {
+      tennisGame.markPoint(Player.ONE);
+      tennisGame.markPoint(Player.ONE);
+      tennisGame.markPoint(Player.ONE);
+      tennisGame.markPoint(Player.ONE);
+      tennisGame.markPoint(Player.TWO);
+      tennisGame.markPoint(Player.TWO);
+      tennisGame.markPoint(Player.TWO);
+      tennisGame.markPoint(Player.TWO);
+      String score = tennisGame.score();
+      assertThat(score).isEqualTo("Deuce");
+   }
 }
