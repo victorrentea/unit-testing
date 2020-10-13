@@ -1,6 +1,5 @@
 package victor.testing.spring.feed;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -27,38 +27,34 @@ public class FeedProcessorWithMockTest {
    @MockBean
    private FileRepo fileRepoMock;
 
-   @BeforeEach
-   public void initialize() {
-      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt", "two.txt")); // nu e al meu
-      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));// nu e al meu
-      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two")); // asta e al meu da il ratez
-   }
    @Test
    public void oneFileWithOneLine() {
       when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt"));
-//      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
       assertThat(feedProcessor.countPendingLines()).isEqualTo(1);
    }
 
    @Test
    public void oneFileWith2Lines() {
-      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("twox.txt"));
+      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("two.txt"));
+      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
       assertThat(feedProcessor.countPendingLines()).isEqualTo(2);
    }
 
    @Test
    public void twoFilesWith3Lines() {
-//      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt", "two.txt"));
-//      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
-//      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
+      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt", "two.txt"));
+      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two")); // << sau daca observi o legatura intre cum mockuiesti metodele unui obiect
+//      when(fileRepoMock.openFile("two.txt")).thenAnswer(call -> LocalDateTime.now());  << daca asta
       assertThat(feedProcessor.countPendingLines()).isEqualTo(3);
    }
    @Test
    public void twoFilesWith3Lines_1Commented() {
       // @MockBean chiar daca contextul in care sunt adaugate supravietuieste intre @Teste,
       // memoria @MockBean se .reset() intre @Teste
-//      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt", "two.txt"));
-//      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt", "two.txt"));
+      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
       when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","#two"));
       assertThat(feedProcessor.countPendingLines()).isEqualTo(2);
    }
