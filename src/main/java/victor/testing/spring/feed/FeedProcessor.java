@@ -2,6 +2,7 @@ package victor.testing.spring.feed;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -16,6 +17,7 @@ public class FeedProcessor {
    @Autowired
    private FileRepo fileRepo;
    @Autowired
+   @Qualifier("fileRepoInMemoryForTests") // va strica produl
    private FeedScanner scanner;
 
    public int countPendingLines() {
