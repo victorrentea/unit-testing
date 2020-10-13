@@ -33,10 +33,10 @@ public class ProductRepoSearchTest extends AbstractTestBase {
     }
 
 
-    @Test
-    public void asjdksadjksajs() {
-        service.cheamMetodaAparentInocenta();
-    }
+//    @Test
+//    public void asjdksadjksajs() {
+//        service.cheamMetodaAparentInocenta();
+//    }
 
     @Test
     public void noCriteria() {
