@@ -1,76 +1,74 @@
 package victor.testing.spring.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyClient;
-import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.tools.WireMockExtension;
 import victor.testing.spring.web.dto.ProductDto;
-import victor.testing.spring.web.dto.ProductSearchCriteria;
-import victor.testing.spring.web.dto.ProductSearchResult;
 
-import java.util.List;
+import java.util.Random;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@Sql
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+@ActiveProfiles("db-mem")
+@Transactional
+@AutoConfigureMockMvc // emuleaza requesturi HTTP **FARA** sa porneasca Tomcat.
 public class ProductRestTest {
-   @MockBean
-   private SafetyClient safetyClient;
-   @Autowired
-   private SupplierRepo supplierRepo;
-   @Autowired
-   private ProductRepo productRepo;
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private SupplierRepo supplierRepo;
 
-   @Autowired
-   private TestRestTemplate rest; // vs RestTemplate + base URL + .withBasicAuth("spring", "secret")
-//   private RestTemplate rest;
+    @RegisterExtension
+    public WireMockExtension wireMock = new WireMockExtension(9999);
 
-//   @Autowired
-//   public void initRestTemplate(@Value("http://localhost:${local.server.port}") String baseUri) {
-//      rest = new RestTemplate();
-//      rest.setUriTemplateHandler(new DefaultUriBuilderFactory(baseUri));
-//   }
+    @Test
+    public void testSearch() throws Exception {
+        // date de referinta
+        Long supplierId = supplierRepo.save(new Supplier()).getId();
+//        productRepo.save(new Product().setName("Tree"));
 
-   @BeforeEach
-   public void initialize() {
-      productRepo.deleteAll();
-      supplierRepo.deleteAll();
-   }
+        int r = new Random().nextInt(100);
+        ProductDto dto = new ProductDto("Tree"+r, "SAFE", supplierId, ProductCategory.ME);
+        String createJson = new ObjectMapper().writeValueAsString(dto);
+        mockMvc.perform(post("/product/create")
+            .content(createJson)
+            .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk());
+        // TODO extract ID from create response
 
-   @Test
-   public void testSearch() {
-      Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-      when(safetyClient.isSafe("UPC")).thenReturn(true);
+        mockMvc.perform(post("/product/search")
+            .content("{\n" +
+                     "  \"name\": \"E"+r+"\"\n" +
+                     "}")
+            .contentType(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(status().isOk())
+            .andExpect(header().string("Custom-Header", "true"))
+            .andExpect(jsonPath("$", hasSize(1)));
+//            .andExpect(jsonPath("$[0].name").value("Tree"));
 
-      ProductDto productDto = new ProductDto("Tree", "UPC", supplierId, ProductCategory.ME);
-
-      ResponseEntity<Void> createResult = rest.postForEntity("/product/create", productDto, Void.class);
-      assertEquals(HttpStatus.OK, createResult.getStatusCode());
-
-      ProductSearchCriteria searchCriteria = new ProductSearchCriteria("Tree", null, null);
-      ResponseEntity<List<ProductSearchResult>> searchResponse = rest.exchange(
-          "/product/search", HttpMethod.POST,
-          new HttpEntity<>(searchCriteria), new ParameterizedTypeReference<List<ProductSearchResult>>() {
-          });
-
-      assertEquals(HttpStatus.OK, searchResponse.getStatusCode());
-      assertThat(searchResponse.getBody()).hasSize(1);
-      assertThat(searchResponse.getBody()).allMatch(p -> "Tree".equals(p.getName()));
-   }
-
-
+        // TODO
+//        mockMvc.perform(delete("/product/"+idCreatMaiSus+"/delete")
+//            .content()
+//            .contentType(MediaType.APPLICATION_JSON)
+//        )
+    }
 }

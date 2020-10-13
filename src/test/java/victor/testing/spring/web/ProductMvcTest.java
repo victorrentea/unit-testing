@@ -1,11 +1,14 @@
 package victor.testing.spring.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -40,6 +43,14 @@ public class ProductMvcTest {
 
     @RegisterExtension
     public WireMockExtension wireMock = new WireMockExtension(9999);
+
+    @Autowired
+    private CacheManager cacheManager;
+    @BeforeEach
+    public void initialize() {
+        // cureti toate cacheuri pt cod de prod care folosete @Cacheable
+        cacheManager.getCacheNames().stream().map(cacheManager::getCache).forEach(Cache::clear);
+    }
 
     @Test
     public void testSearch() throws Exception {
