@@ -26,4 +26,7 @@ public class FileRepoInMemoryForTests implements FileRepo {
       fileLines.put(fileName, Arrays.asList(lines));
    }
 
+   public void clearFiles() {
+      fileLines.clear();
+   }
 }

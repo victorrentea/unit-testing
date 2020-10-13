@@ -1,9 +1,12 @@
 package victor.testing.spring.feed;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
@@ -15,6 +18,7 @@ import static org.mockito.Mockito.when;
 //@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @ActiveProfiles("fakeFileRepo")
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) -- nu comiti pe jenkins
 public class FeedProcessorWithFakeTest {
 
    @Autowired
@@ -22,6 +26,10 @@ public class FeedProcessorWithFakeTest {
    @Autowired
    private FileRepoInMemoryForTests fileRepoFake;
 
+   @BeforeEach
+   public void initialize() {
+       fileRepoFake.clearFiles();
+   }
 
    @Test
    public void oneFileWithOneLine() {
