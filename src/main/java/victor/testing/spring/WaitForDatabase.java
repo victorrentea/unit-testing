@@ -18,7 +18,7 @@ public class WaitForDatabase implements ApplicationContextInitializer<Configurab
       log.debug("Running Before Spring " + applicationContext.getEnvironment().getProperty("spring.datasource.url"));
       Awaitility.await()
           .pollInterval(2, TimeUnit.SECONDS)
-          .atMost(1, TimeUnit.MINUTES)
+          .atMost(2, TimeUnit.MINUTES)
           .until(() -> canConnectToDB(applicationContext.getEnvironment()));
    }
 
