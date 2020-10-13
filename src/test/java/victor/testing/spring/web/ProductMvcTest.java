@@ -20,7 +20,10 @@ import victor.testing.spring.web.dto.ProductDto;
 
 import javax.annotation.RegEx;
 
+import java.util.Random;
+
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -44,17 +47,18 @@ public class ProductMvcTest {
         Long supplierId = supplierRepo.save(new Supplier()).getId();
 //        productRepo.save(new Product().setName("Tree"));
 
-        ProductDto dto = new ProductDto("Tree", "SAFE", supplierId, ProductCategory.ME);
+        int r = new Random().nextInt(100);
+        ProductDto dto = new ProductDto("Tree"+r, "SAFE", supplierId, ProductCategory.ME);
         String createJson = new ObjectMapper().writeValueAsString(dto);
         mockMvc.perform(post("/product/create")
             .content(createJson)
             .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
-
+        // TODO extract ID from create response
 
         mockMvc.perform(post("/product/search")
             .content("{\n" +
-                     "  \"name\": \"R\"\n" +
+                     "  \"name\": \"E"+r+"\"\n" +
                      "}")
             .contentType(MediaType.APPLICATION_JSON)
         )
@@ -62,5 +66,11 @@ public class ProductMvcTest {
             .andExpect(header().string("Custom-Header", "true"))
             .andExpect(jsonPath("$", hasSize(1)));
 //            .andExpect(jsonPath("$[0].name").value("Tree"));
+
+        // TODO
+//        mockMvc.perform(delete("/product/"+idCreatMaiSus+"/delete")
+//            .content()
+//            .contentType(MediaType.APPLICATION_JSON)
+//        )
     }
 }
