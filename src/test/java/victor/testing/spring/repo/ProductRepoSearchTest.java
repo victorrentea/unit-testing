@@ -16,23 +16,12 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
-//@ClearAllTables
-@Transactional
-public class ProductRepoSearchTest {
+public class ProductRepoSearchTest extends AbstractTestBase {
     @Autowired
     private ProductRepo repo;
-    @Autowired
-    private SupplierRepo supplierRepo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
-    private Supplier supplier;
 
-    @BeforeEach
-    public void initialize() {
-        supplier = supplierRepo.save(new Supplier("IKEA"));
-    }
     @Test
     public void noCriteria() {
         repo.save(new Product());
