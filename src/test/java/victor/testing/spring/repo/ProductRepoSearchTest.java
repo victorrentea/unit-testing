@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
-//@ClearAllTables
+@ClearAllTables
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
@@ -24,14 +24,11 @@ public class ProductRepoSearchTest {
     @Test
     public void noCriteria() {
         repo.save(new Product());
-//        Assert.assertEquals(1, repo.search(criteria).size());
         Assertions.assertThat(repo.search(criteria)).hasSize(1);
-        assertThat("abcd").startsWith("bcd");
     }
     @Test
     public void noCriteria2() {
         repo.save(new Product());
-//        Assert.assertTrue(1=  repo.search(criteria).size());
         Assertions.assertThat(repo.search(criteria)).hasSize(1);
     }
 
