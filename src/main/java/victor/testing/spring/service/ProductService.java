@@ -31,7 +31,7 @@ public class ProductService {
         }
 
         Product product = new Product();
-        product.setName(productDto.name);
+        product.setName(productDto.name); // asta
         product.setCategory(productDto.category);
         product.setUpc(productDto.upc);
         product.setSupplier(supplierRepo.getOne(productDto.supplierId));
