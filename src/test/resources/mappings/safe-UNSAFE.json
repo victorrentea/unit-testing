@@ -1,8 +1,7 @@
 {
   "request": {
-    "method": "POST",
-    "url": "/product/UNSAFE/safety",
-    "body": "chestii"
+    "method": "GET",
+    "url": "/product/UNSAFE/safety"
   },
   "response": {
     "status": 200,
@@ -10,7 +9,6 @@
       "entries": [
         {
           "category": "UNCERTAIN",
-          "chestii": "CHESTII",
           "detailsUrl": "http://wikipedia.com"
         }
       ]

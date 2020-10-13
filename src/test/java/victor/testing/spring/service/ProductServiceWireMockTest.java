@@ -40,12 +40,12 @@ class ProductServiceWireMockTest {
    @Test
    public void createProduct() {
       Long supplierId = supplierRepo.save(new Supplier()).getId();
-      ProductDto dto = new ProductDto("Ceburashka", "1", supplierId, ProductCategory.HOME);
+      ProductDto dto = new ProductDto("Ceburashka", "SAFE", supplierId, ProductCategory.HOME);
       long productId = productService.createProduct(dto);
       Product product = productRepo.findById(productId).get();
       assertThat(product.getName()).isEqualTo("Ceburashka");
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-      assertThat(product.getUpc()).isEqualTo("1");
+      assertThat(product.getUpc()).isEqualTo("SAFE");
       assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCreateDate()).isNotNull(); // ingineresti
    }
