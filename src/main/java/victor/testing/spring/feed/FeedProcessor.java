@@ -17,7 +17,6 @@ public class FeedProcessor {
    @Autowired
    private FileRepo fileRepo;
    @Autowired
-   @Qualifier("fileRepoInMemoryForTests") // va strica produl
    private FeedScanner scanner;
 
    public int countPendingLines() {

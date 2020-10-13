@@ -1,11 +1,13 @@
 package victor.testing.spring.feed;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Stream;
 
 @Component
+@Profile("test")
 public class FileRepoInMemoryForTests implements FileRepo {
    private final Map<String, List<String>> fileLines = new HashMap<>();
    @Override
