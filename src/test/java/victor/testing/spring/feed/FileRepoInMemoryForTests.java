@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 @Component
 @Primary
+@Profile("fakeFileRepo")
 public class FileRepoInMemoryForTests implements FileRepo {
    private final Map<String, List<String>> fileLines = new HashMap<>();
    @Override
