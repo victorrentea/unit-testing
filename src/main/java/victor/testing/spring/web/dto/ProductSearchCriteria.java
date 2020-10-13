@@ -7,7 +7,7 @@ import victor.testing.spring.domain.ProductCategory;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductSearchCriteria { // smells like JSON
-    public String name;
-    public ProductCategory category;
-    public Long supplierId;
+    public String name;  // name: [________]
+    public ProductCategory category;// category: [________|v]
+    public Long supplierId; // supplier: [________|v]
 }

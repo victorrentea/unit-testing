@@ -22,11 +22,7 @@ import victor.testing.db.prod.ReportingRepo;
 @RunWith(SpringRunner.class)
 // SOLUTION (
 @WithCommonReferenceData
-@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD,
-	statements = {
-		"DELETE FROM ORDERS",
-		"DELETE FROM USERS"
-})
+
 // SOLUTION )
 public class NonTransactionalTest {
 
