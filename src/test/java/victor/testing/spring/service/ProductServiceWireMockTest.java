@@ -52,6 +52,6 @@ class ProductServiceWireMockTest {
    @Test
    public void createProductFailsNotSafe() {
       assertThrows(IllegalStateException.class,
-          () ->new ProductDto("Ceburashka", "UNSAFE", -1L, ProductCategory.HOME));
+          () ->productService.createProduct(new ProductDto("Ceburashka", "UNSAFE", -1L, ProductCategory.HOME)));
    }
 }

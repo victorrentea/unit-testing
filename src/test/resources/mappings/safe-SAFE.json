@@ -8,7 +8,7 @@
     "jsonBody": {
       "entries": [
         {
-          "categories": "SAFE",
+          "category": "SAFE",
           "detailsUrl": "http://wikipedia.com"
         }
       ]
