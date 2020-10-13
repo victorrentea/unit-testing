@@ -20,7 +20,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
 
     @Override
     public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
-        String jpql = "SELECT new victor.testing.spring.service.ProductSearchResult(p.id, p.name)" +
+        String jpql = "SELECT new victor.testing.spring.web.dto.ProductSearchResult(p.id, p.name)" +
                 " FROM Product p " +
                 " WHERE 1=1 ";
 
