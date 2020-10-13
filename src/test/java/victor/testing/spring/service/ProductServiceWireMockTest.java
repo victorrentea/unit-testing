@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest(properties = "safety.service.url.base=http://localhost:8080")
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @ActiveProfiles("db-mem")
 @Transactional
 class ProductServiceWireMockTest {
@@ -32,11 +34,11 @@ class ProductServiceWireMockTest {
    @Autowired
    private ProductRepo productRepo;
 
-//   @RegisterExtension
-//   public WireMockExtension wireMock = new WireMockExtension(9999);
+   @RegisterExtension
+   public WireMockExtension wireMock = new WireMockExtension(9999);
 
    @Test
-   void createProduct() {
+   public void createProduct() {
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("Ceburashka", "1", supplierId, ProductCategory.HOME);
       long productId = productService.createProduct(dto);
@@ -46,5 +48,10 @@ class ProductServiceWireMockTest {
       assertThat(product.getUpc()).isEqualTo("1");
       assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCreateDate()).isNotNull(); // ingineresti
+   }
+   @Test
+   public void createProductFailsNotSafe() {
+      assertThrows(IllegalStateException.class,
+          () ->new ProductDto("Ceburashka", "UNSAFE", -1L, ProductCategory.HOME));
    }
 }
