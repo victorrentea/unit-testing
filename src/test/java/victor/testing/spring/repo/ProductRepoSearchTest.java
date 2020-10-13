@@ -26,6 +26,13 @@ public class ProductRepoSearchTest extends AbstractTestBase {
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
+
+    @BeforeEach
+    public void checkNoProductInDB() { // uneori [in app f mari] e util sa scrii pre-assumptii.
+        assertThat(repo.findAll()).isEmpty();
+    }
+
+
     @Test
     public void asjdksadjksajs() {
         service.cheamMetodaAparentInocenta();
