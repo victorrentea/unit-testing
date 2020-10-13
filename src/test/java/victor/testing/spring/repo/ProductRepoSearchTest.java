@@ -26,15 +26,20 @@ public class ProductRepoSearchTest {
     @Test
     public void noCriteria() {
         repo.save(new Product());
-        Assertions.assertThat(repo.search(criteria)).hasSize(1);
+        assertThat(repo.search(criteria)).hasSize(1);
     }
     @Test
-    public void noCriteria2() {
-        repo.save(new Product());
-        Assertions.assertThat(repo.search(criteria)).hasSize(1);
+    public void byName() {
+        repo.save(new Product("GirAfa"));
+        criteria.name="Girafa";
+        assertThat(repo.search(criteria)).hasSize(1);
+        criteria.name="Caine";
+        assertThat(repo.search(criteria)).isEmpty();
+        criteria.name="girafa";
+        assertThat(repo.search(criteria)).hasSize(1);
+        criteria.name="iRa";
+        assertThat(repo.search(criteria)).hasSize(1);
     }
-
-    // TODO finish
 
     // TODO base test class persisting supplier
 
