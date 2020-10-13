@@ -42,7 +42,9 @@ public class FeedProcessorWithMockTest {
    @Test
    public void twoFilesWith3Lines() {
       // TODO
+
+      // TODO How to DRY the tests?
    }
 
-   // TODO IMAGINE EXTRA DEPENDENCY
+
 }
