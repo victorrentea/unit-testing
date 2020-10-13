@@ -2,6 +2,7 @@ package victor.testing.spring.repo;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,18 @@ public class ProductRepoSearchTest {
     private SupplierRepo supplierRepo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
+    private Supplier supplier;
 
+    @BeforeEach
+    public void initialize() {
+        supplier = supplierRepo.save(new Supplier("IKEA"));
+    }
     @Test
     public void noCriteria() {
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
     }
+
     @Test
     public void byName() {
         repo.save(new Product("GirAfa"));
@@ -55,7 +62,6 @@ public class ProductRepoSearchTest {
     }
     @Test
     public void bySupplier() {
-        Supplier supplier = supplierRepo.save(new Supplier());
         repo.save(new Product().setSupplier(supplier));
         criteria.supplierId = supplier.getId();
         assertThat(repo.search(criteria)).hasSize(1);
