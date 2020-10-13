@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,6 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
+    @Autowired
+    private SupplierRepo supplierRepo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
@@ -39,6 +43,24 @@ public class ProductRepoSearchTest {
         assertThat(repo.search(criteria)).hasSize(1);
         criteria.name="iRa";
         assertThat(repo.search(criteria)).hasSize(1);
+    }
+
+    @Test
+    public void byCategory() {
+        repo.save(new Product().setCategory(ProductCategory.WIFE));
+        criteria.category = ProductCategory.WIFE;
+        assertThat(repo.search(criteria)).hasSize(1);
+        criteria.category = ProductCategory.ME;
+        assertThat(repo.search(criteria)).isEmpty();
+    }
+    @Test
+    public void bySupplier() {
+        Supplier supplier = supplierRepo.save(new Supplier());
+        repo.save(new Product().setSupplier(supplier));
+        criteria.supplierId = supplier.getId();
+        assertThat(repo.search(criteria)).hasSize(1);
+        criteria.supplierId = -1L;
+        assertThat(repo.search(criteria)).isEmpty();
     }
 
     // TODO base test class persisting supplier
