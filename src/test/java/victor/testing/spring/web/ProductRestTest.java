@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(
     webEnvironment = WebEnvironment.RANDOM_PORT,
     properties = "safety.service.url.base=http://localhost:9999")
-@ActiveProfiles("db-real")
+@ActiveProfiles({"db-real", "insertDummyData"})
 public class ProductRestTest {
    @Autowired
    private TestRestTemplate rest;
@@ -55,10 +55,10 @@ public class ProductRestTest {
    @Test
    public void testSearch() throws Exception {
       // date de referinta
-      Long supplierId = supplierRepo.save(new Supplier()).getId(); // nu mai poate fi facut aici
+//      Long supplierId = supplierRepo.save(new Supplier()).getId(); // nu mai poate fi facut aici
 
       int r = new Random().nextInt(100);
-      ProductDto dto = new ProductDto("Tree" + r, "SAFE", supplierId, ProductCategory.ME);
+      ProductDto dto = new ProductDto("Tree" + r, "SAFE", 1L, ProductCategory.ME);
 
       RequestEntity<ProductDto> createRequest = RequestEntity.post(new URI("/product/create"))
           .contentType(MediaType.APPLICATION_JSON)
