@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.WaitForDatabase;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -17,7 +19,9 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("db-real")
+@ContextConfiguration(initializers = WaitForDatabase.class)
+@ActiveProfiles("db-mysql")
+@Tag("integration")
 public class ProductRepoSearchTest extends AbstractTestBase {
     @Autowired
     private ProductRepo repo;

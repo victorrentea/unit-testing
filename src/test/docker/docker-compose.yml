@@ -8,19 +8,19 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=ThePassword
       - MYSQL_DATABASE=dockerdemo
-    networks:
-      - mysql-net
-
-  docker-demo:
-    environment:
-      - MYSQL_HOST=mysql
-      - JAVA_OPTS=-Dsafety.service.url.base=http://host.docker.internal:8089 -Dspring.profiles.active=insertDummyData
-    ports:
-      - 8080:8080
-    networks:
-      - mysql-net
-    depends_on:
-      - mysql
+#    networks:
+#      - mysql-net
+#
+#  docker-demo:
+#    environment:
+#      - MYSQL_HOST=mysql
+#      - JAVA_OPTS=-Dsafety.service.url.base=http://host.docker.internal:8089 -Dspring.profiles.active=insertDummyData
+#    ports:
+#      - 8080:8080
+#    networks:
+#      - mysql-net
+#    depends_on:
+#      - mysql
 
 networks:
   mysql-net:

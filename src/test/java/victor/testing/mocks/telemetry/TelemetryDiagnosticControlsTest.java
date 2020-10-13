@@ -3,6 +3,7 @@ package victor.testing.mocks.telemetry;
 import com.sun.org.apache.xalan.internal.xsltc.trax.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,6 +16,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
+@Disabled
 public class TelemetryDiagnosticControlsTest extends TestBase{
    @Mock
    private TelemetryClient client;

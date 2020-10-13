@@ -225,7 +225,7 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
-                    <includes>k
+                    <includes>
                         <include>**/*</include>
                     </includes>
                     <groups>integration</groups>
@@ -295,9 +295,9 @@
                         <composeFile>${project.basedir}/src/test/docker/docker-compose.override.yml</composeFile>
                     </composeFiles>
                     <detachedMode>true</detachedMode>
-                    <!--<removeImages>true</removeImages>
+                    <removeImages>true</removeImages>
                     <removeImagesType>local</removeImagesType>
-                    <removeVolumes>true</removeVolumes>-->
+                    <removeVolumes>true</removeVolumes>
                     <build>true</build>
                 </configuration>
                 <executions>
@@ -308,13 +308,13 @@
                             <goal>up</goal>
                         </goals>
                     </execution>
-                    <!--   <execution>
+                       <execution>
                            <id>shutdown-db-after-testing</id>
                            <phase>post-integration-test</phase>
                            <goals>
                                <goal>down</goal>
                            </goals>
-                       </execution>-->
+                       </execution>
                 </executions>
             </plugin>
         </plugins>
