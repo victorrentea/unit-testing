@@ -215,6 +215,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!--<forkCount>3</forkCount>
+                    <reuseForks>true</reuseForks>-->
                     <!-- skip the plugin as the only time we run 'mvn verify' from command line during the workshop is when we want docker to fire up -->
                     <skip>true</skip> <!-- NEVER HAVE THIS IN YOUR PROJ -->
                     <excludedGroups>integration</excludedGroups>
@@ -223,7 +225,7 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
-                    <includes>
+                    <includes>k
                         <include>**/*</include>
                     </includes>
                     <groups>integration</groups>

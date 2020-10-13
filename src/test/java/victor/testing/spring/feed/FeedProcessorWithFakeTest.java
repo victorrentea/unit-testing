@@ -29,6 +29,7 @@ public class FeedProcessorWithFakeTest {
    @BeforeEach
    public void initialize() {
        fileRepoFake.clearFiles();
+
    }
 
    @Test
