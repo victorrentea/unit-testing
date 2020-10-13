@@ -3,6 +3,8 @@ package victor.testing.spring.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
@@ -41,5 +43,11 @@ public class ProductService {
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
         return productRepo.search(criteria);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+//    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void cheamMetodaAparentInocenta() {
+        productRepo.save(new Product());
     }
 }

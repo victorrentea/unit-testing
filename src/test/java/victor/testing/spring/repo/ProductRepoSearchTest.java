@@ -12,18 +12,28 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
+import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles("db-real")
 public class ProductRepoSearchTest extends AbstractTestBase {
     @Autowired
     private ProductRepo repo;
+    @Autowired
+    private ProductService service;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
     @Test
+    public void asjdksadjksajs() {
+        service.cheamMetodaAparentInocenta();
+    }
+
+    @Test
     public void noCriteria() {
+
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
     }
