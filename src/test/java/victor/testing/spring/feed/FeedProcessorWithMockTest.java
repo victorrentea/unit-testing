@@ -47,6 +47,15 @@ public class FeedProcessorWithMockTest {
       when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
       assertThat(feedProcessor.countPendingLines()).isEqualTo(3);
    }
+   @Test
+   public void twoFilesWith3Lines_1Commented() {
+      // @MockBean chiar daca contextul in care sunt adaugate supravietuieste intre @Teste,
+      // memoria @MockBean se .reset() intre @Teste
+      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt", "two.txt"));
+      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","#two"));
+      assertThat(feedProcessor.countPendingLines()).isEqualTo(2);
+   }
 
    // TODO IMAGINE EXTRA DEPENDENCY
 }
