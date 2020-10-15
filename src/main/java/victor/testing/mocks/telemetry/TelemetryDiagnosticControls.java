@@ -10,10 +10,16 @@ public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient;
+	private final ClientConfigurationFactory clientConfigurationFactory;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+	
+	
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient,
+			ClientConfigurationFactory clientConfigurationFactory) {
+		super();
 		this.telemetryClient = telemetryClient;
+		this.clientConfigurationFactory = clientConfigurationFactory;
 	}
 
 	public String getDiagnosticInfo() {
@@ -36,15 +42,19 @@ public class TelemetryDiagnosticControls {
 		if (!telemetryClient.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
-		ClientConfiguration config = createConfig(telemetryClient.getVersion());
-
+		String version = telemetryClient.getVersion();
+		ClientConfiguration config = clientConfigurationFactory.createConfig(version);
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfig(String version) {
+	
+}
+
+class ClientConfigurationFactory {
+	public ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		// 20 lines of freaking heavy business logic
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
@@ -52,5 +62,5 @@ public class TelemetryDiagnosticControls {
 		config.setAckMode(AckMode.NORMAL);
 		return config;
 	}
-
+	
 }

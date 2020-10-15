@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
-import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,13 +26,15 @@ import java.util.UUID;
 public class TelemetryDiagnosticControlsTest {
 	@Mock
 	private TelemetryClient client;
+	@Mock
+	private ClientConfigurationFactory factory;
 	@InjectMocks
 	private TelemetryDiagnosticControls controls;
 
 	@Before
 	public void before() {
 //		controls = new TelemetryDiagnosticControls(client, "STUFF");
-		lenient().when(client.getVersion()).thenReturn("i don't care");
+//		lenient().when(client.getVersion()).thenReturn("i don't care");
 		when(client.getOnlineStatus()).thenReturn(true);
 	}
 
@@ -71,21 +72,16 @@ public class TelemetryDiagnosticControlsTest {
 //		verify(client).receive(captor); // B) when you captor
 		assertThat(controls.getDiagnosticInfo()).isEqualTo("kalimera");
 	}
-
-	@Captor
-	private ArgumentCaptor<ClientConfiguration> configCaptor;
 	
+	// overtesting
 	@Test
-	public void configuresClient() throws Exception {
-		ClientConfiguration config = controls.createConfig("ver");
-		assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-		assertThat(config.getSessionId()).startsWith("VER-");
-		assertThat(config.getSessionStart()).isNotNull(); // engineering
+	public void configuresClient() {
+		when(client.getVersion()).thenReturn("ver");
+		ClientConfiguration config = new ClientConfiguration();
+		when(factory.createConfig("ver")).thenReturn(config);
+		controls.checkTransmission();
+//		verify(factory).createConfig("ver");
+		verify(client).configure(config);
 	}
-	
-	
-	// more strict engineers
-//		LocalDateTime expectedDay = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
-//		LocalDateTime actualDay = config.getSessionStart().truncatedTo(ChronoUnit.DAYS);
-//		assertThat(actualDay).isEqualTo(expectedDay);
+
 }
