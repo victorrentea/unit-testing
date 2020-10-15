@@ -13,12 +13,10 @@ public class TestTimeRule extends ExternalResource {
     public TestTimeRule() {
         this(LocalDateTime.now());
     }
-
     public TestTimeRule(LocalDateTime testTime) {
         this.testTime = testTime;
-        TimeProvider.setTestTime(testTime);
     }
-
+    
     public void setTestTime(LocalDateTime testTime) {
         this.testTime = testTime;
     }
@@ -30,6 +28,11 @@ public class TestTimeRule extends ExternalResource {
         return testTime;
     }
 
+    @Override
+    protected void before() throws Throwable {
+    	TimeProvider.setTestTime(testTime);
+    }
+    // in between runs each @Test
     @Override
     protected void after() {
         TimeProvider.clearTestTime();

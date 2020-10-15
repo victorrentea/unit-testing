@@ -15,6 +15,7 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMod
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,11 +30,14 @@ public class TelemetryDiagnosticControlsTest {
 	@InjectMocks
 	private TelemetryDiagnosticControls controls;
 
-//	@Before
-//	public void before() {
+	@Before
+	public void before() {
 //		controls = new TelemetryDiagnosticControls(client, "STUFF");
-//	}
+		lenient().when(client.getVersion()).thenReturn("i don't care");
+		when(client.getOnlineStatus()).thenReturn(true);
+	}
 
+	
 	
 	@Test(expected = IllegalStateException.class)
 	public void throwsWhenNotOnline() {
@@ -44,14 +48,12 @@ public class TelemetryDiagnosticControlsTest {
 	
 	@Test
 	public void disconnects() {
-		when(client.getOnlineStatus()).thenReturn(true);
 		controls.checkTransmission();
 		verify(client).disconnect();
 	}
 
 	@Test
 	public void sendsDiagnosticInfo() {
-		when(client.getOnlineStatus()).thenReturn(true);
 		controls.checkTransmission();
 		verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 	}
@@ -75,10 +77,9 @@ public class TelemetryDiagnosticControlsTest {
 	
 	@Test
 	public void configuresClient() throws Exception {
-		when(client.getVersion()).thenReturn("ver");
-		ClientConfiguration config = controls.createConfig();
+		ClientConfiguration config = controls.createConfig("ver");
 		assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-		assertThat(config.getSessionId()).startsWith("ver-");
+		assertThat(config.getSessionId()).startsWith("VER-");
 		assertThat(config.getSessionStart()).isNotNull(); // engineering
 	}
 	
