@@ -9,6 +9,9 @@ public class TennisGame {
 	}
 
 	public String score() {
+		if (player1Points >= 4/* && player1Points - player2Points >= 2 */) {
+			return "Game Won by Player 1";
+		}
 		return map(player1Points) + ":" + map(player2Points);
 	}
 	private final static String[] SCORE_LABELS = {"Love","Fifteen", "Thirty","Forty"};
