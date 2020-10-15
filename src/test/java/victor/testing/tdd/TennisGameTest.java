@@ -1,99 +1,101 @@
 package victor.testing.tdd;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import victor.testing.tdd.TennisGame.Player;
 
 public class TennisGameTest {
-    private TennisGame tennisGame = new TennisGame();
 
-    @Test
-    public void loveLove() {
-        setScore(0, 0);
-        String score = tennisGame.score();
-        assertEquals("Love-Love", score);
-    }
+	// The running score of each game is described in a manner peculiar to tennis:
+	// scores from zero to three points are described as "Love", "Fifteen",
+	// "Thirty", and "Forty" respectively.
+	
+	private TennisGame tennisGame = new TennisGame();
 
-    @Test
-    public void loveFifteen() {
-        setScore(0, 1);
-        String score = tennisGame.score();
-        assertEquals("Love-Fifteen", score);
-    }
-
-    @Test
-    public void fifteenLove() {
-        setScore(1, 0);
-        String score = tennisGame.score();
-        assertEquals("Fifteen-Love", score);
-    }
-
-    @Test
-    public void thirtyLove() {
-        setScore(2, 0);
-        String score = tennisGame.score();
-        assertEquals("Thirty-Love", score);
-    }
-
-    @Test
-    public void fortyLove() {
-        setScore(3, 0);
-        String score = tennisGame.score();
-        assertEquals("Forty-Love", score);
-    }
-
-    @Test
-    public void deuce() {
-        setScore(3, 3);
-        String score = tennisGame.score();
-        assertEquals("Deuce", score);
-    }
-
-    @Test
-    public void advantagePlayer1() {
-        setScore(7, 6);
-        String score = tennisGame.score();
-        assertEquals("Advantage Player1", score);
-    }
-
-    @Test
-    public void advantagePlayer2() {
-        setScore(3, 4);
-        String score = tennisGame.score();
-        assertEquals("Advantage Player2", score);
-    }
-
-    @Test
-    public void mar() {
-        setScore(4, 0);
-        String score = tennisGame.score();
-        assertEquals("Game won Player1", score);
-    }
-
-    @Test
-    public void mar2() {
-        setScore(7, 5);
-        String score = tennisGame.score();
-        assertEquals("Game won Player1", score);
-    }
-
-    @Test
-    public void player2Won() {
-        setScore(0, 4);
-        String score = tennisGame.score();
-        assertEquals("Game won Player2", score);
-    }
-
-
-
-    private void setScore(int player1Score, int player2Score) {
-        setPlayerScore(1, player1Score);
-        setPlayerScore(2, player2Score);
-    }
-
-    private void setPlayerScore(int playerNumber, int playerScore) {
-        for (int i = 0; i < playerScore; i++) {
-            tennisGame.addPoint(playerNumber);
-        }
-    }
+	@Test
+	public void loveLove() throws Exception {
+		String score = tennisGame.score();
+		assertEquals("Love:Love", score); 
+	}
+	@Test
+	public void loveFifteen() throws Exception {
+		tennisGame.playerScoresPoint(Player.TWO);
+		String score = tennisGame.score();
+		assertEquals("Love:Fifteen", score); 
+	}
+	@Test
+	public void fifteenLove() throws Exception {
+		tennisGame.playerScoresPoint(Player.ONE);
+		String score = tennisGame.score();
+		assertEquals("Fifteen:Love", score); 
+	}
+	
+	@Test
+	public void loveThirty() throws Exception {
+		tennisGame.playerScoresPoint(Player.TWO);
+		tennisGame.playerScoresPoint(Player.TWO);
+		String score = tennisGame.score();
+		assertEquals("Love:Thirty", score); 
+	}
+	
+	@Test // Although overlapping, I leave this is my tests
+	// because it's interesting. remakable. for specification purposes.
+	public void fifteenFifteen() throws Exception {
+		tennisGame.playerScoresPoint(Player.ONE);
+		tennisGame.playerScoresPoint(Player.TWO);
+		String score = tennisGame.score();
+		assertEquals("Fifteen:Fifteen", score); 
+	}
+	
+//	@Test // duplicated overlapping test. DELETE THIS
+//	public void fifteenThirty() throws Exception {
+//		tennisGame.playerScoresPoint(Player.ONE);
+//		tennisGame.playerScoresPoint(Player.TWO);
+//		tennisGame.playerScoresPoint(Player.TWO);
+//		String score = tennisGame.score();
+//		assertEquals("Fifteen:Thirty", score); 
+//	}
+	@Test
+	public void loveForty() throws Exception {
+		tennisGame.playerScoresPoint(Player.TWO);
+		tennisGame.playerScoresPoint(Player.TWO);
+		tennisGame.playerScoresPoint(Player.TWO);
+		String score = tennisGame.score();
+		assertEquals("Love:Forty", score); 
+	}
+	
+	@Test
+	public void player1Wins_4_0() throws Exception {
+	}
+	@Test
+	public void player1Wins_5_3() throws Exception {
+	}
+	@Test
+	public void player2Wins_0_4() throws Exception {
+	}	
+	@Test
+	public void player2Wins_13_15() throws Exception {
+	}
+	@Test
+	public void deuce_3_3() throws Exception {
+	}
+	@Test
+	public void deuce_4_4() throws Exception {
+	}
+	@Test
+	public void advantage1_4_3() throws Exception {
+	}
+	@Test
+	public void advantage2_3_4() throws Exception {
+	}
+	@Test
+	public void advantage1_15_14() throws Exception {
+	}
+	
+	
+	
+	
+	
 }

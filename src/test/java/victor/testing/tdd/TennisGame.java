@@ -1,39 +1,31 @@
 package victor.testing.tdd;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 public class TennisGame {
-    public static final String[] SCORES = {"Love", "Fifteen", "Thirty", "Forty"};
-    private int player1Score;
-    private int player2Score;
+	private int player1Points;
+	private int player2Points;
 
-    public String score() {
-        if (player1Score >= 4 && player1Score - player2Score >= 2) {
-            return "Game won Player1";
-        }
-        else if (player2Score >= 4 && player2Score - player1Score >= 2) {
-            return "Game won Player2";
-        }
-        if (player1Score >= 3 && player2Score >= 3) {
-            if (player1Score == player2Score) {
-                return "Deuce";
-            } else if (player1Score == player2Score + 1) {
-                return "Advantage Player1";
-            } else if (player2Score == player1Score + 1) {
-                return "Advantage Player2";
-            } else {
-                throw new NotImplementedException("...");
-            }
-        } else {
-            return SCORES[player1Score] + "-" + SCORES[player2Score];
-        }
-    }
+	enum Player {
+		ONE, TWO 
+	}
 
-    public void addPoint(int playerNumber) {
-        if (playerNumber == 1) {
-            player1Score++;
-        } else {
-            player2Score++;
-        }
-    }
+	public String score() {
+		return map(player1Points) + ":" + map(player2Points);
+	}
+	private final static String[] SCORE_LABELS = {"Love","Fifteen", "Thirty","Forty"};
+	
+	private String map(int points) {
+		// Other implem Ideas: switch; map.get(points);   ARRAY[points];  enum
+		return SCORE_LABELS[points];
+	}
+
+	public void playerScoresPoint(Player player) {
+		
+		if (player == Player.TWO) {
+			player2Points ++;
+		} else {
+			player1Points ++;
+		}
+		
+	}
+
 }
