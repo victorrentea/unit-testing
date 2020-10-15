@@ -1,7 +1,10 @@
 package victor.testing.mocks.telemetry;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
+
+
 
 public class TelemetryClient {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
@@ -107,5 +110,10 @@ public class TelemetryClient {
 
 	public void configure(ClientConfiguration config) {
 		 //TODO Configure the bank
+	}
+
+	public List<String> getList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
