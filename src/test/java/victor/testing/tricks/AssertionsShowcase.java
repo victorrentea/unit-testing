@@ -2,6 +2,7 @@ package victor.testing.tricks;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.Condition;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class AssertionsShowcase {
 
@@ -18,20 +21,25 @@ public class AssertionsShowcase {
       List<Integer> actual = asList(1, 2, 3);
 
       // I expect to only get one element
-      Assertions.assertThat(actual).hasSize(1);
+//      assertEquals(actual.toString(), 1, actual.size());
+      assertThat(actual).hasSize(1);
+//      assertThat(actual).allM
    }
 
    @Test
    public void string() {
       String actual = "abcdef";
 
-      Assertions.assertThat(actual);
+//      Assert.assertTrue(actual.startsWith("bcd"));
+      Assertions.assertThat(actual).startsWith("bcd");
    }
    @Test
    public void setContent() {
-      Set<Integer> actual = new HashSet<>(asList(100,200,300));
+      List<Integer> actual = asList(200,100,300);
 
-      Assertions.assertThat(actual);
+//      Assert.assertEquals(new HashSet<>(asList(100,200,300)), new HashSet<>(actual));
+//      Assert.assertEquals(new HashSet<>(), actual);
+      Assertions.assertThat(actual).containsExactlyInAnyOrder(100,200,300);
    }
 
 }

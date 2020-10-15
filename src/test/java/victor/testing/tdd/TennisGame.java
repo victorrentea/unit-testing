@@ -9,6 +9,10 @@ public class TennisGame {
 	}
 
 	public String score() {
+		if (player1Points >= 3 && player2Points >= 3 && 
+				player1Points == player2Points) {
+			return "Deuce";
+		}
 		if (player1Points >= 4/* && player1Points - player2Points >= 2 */) {
 			return "Game Won by Player 1";
 		}
@@ -22,7 +26,6 @@ public class TennisGame {
 	}
 
 	public void playerScoresPoint(Player player) {
-		
 		if (player == Player.TWO) {
 			player2Points ++;
 		} else {
