@@ -15,6 +15,7 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -33,7 +34,7 @@ public class TelemetryDiagnosticControlsTest {
 
 	@Before
 	public void before() {
-//		controls = new TelemetryDiagnosticControls(client, "STUFF");
+//		controls = new TelemetryDiagnosticControls(client, new ClientConfigurationFactory());
 //		lenient().when(client.getVersion()).thenReturn("i don't care");
 		when(client.getOnlineStatus()).thenReturn(true);
 	}
@@ -57,6 +58,7 @@ public class TelemetryDiagnosticControlsTest {
 	public void sendsDiagnosticInfo() {
 		controls.checkTransmission();
 		verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+//		Mockito.verifyNoMoreInteractions(client);
 	}
 
 	// HOMEWORK: what line in the test below is useless
@@ -73,7 +75,6 @@ public class TelemetryDiagnosticControlsTest {
 		assertThat(controls.getDiagnosticInfo()).isEqualTo("kalimera");
 	}
 	
-	// overtesting
 	@Test
 	public void configuresClient() {
 		when(client.getVersion()).thenReturn("ver");

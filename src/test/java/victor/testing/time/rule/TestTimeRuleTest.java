@@ -25,6 +25,7 @@ public class TestTimeRuleTest {
 
         @Test
         public void testWithHackedTime() {
+        	// I know this is the current time, because
             LocalDateTime testTime = LocalDateTime.of(2019, 01, 01, 0, 0);
             
             assertEquals(testTime, getTimeFromProd());
