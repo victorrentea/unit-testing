@@ -1,7 +1,10 @@
 package victor.testing.spring.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import lombok.SneakyThrows;
+import lombok.Value;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,8 +32,11 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
@@ -63,14 +69,28 @@ public class ProductServiceClientWireMockTest {
       });
    }
 
+   @Value
+   static class Entry {
+      String category;
+      String detailsUrl;
+   }
+   @Value
+   static class Entries {
+      List<Entry> entries;
+   }
+
    @Test
-   public void throwsForUnsafeProductProgrammaticWireMock() {
+   public void throwsForUnsafeProductProgrammaticWireMock() throws JsonProcessingException {
+
+      Entries entries = new Entries(asList(new Entry("DETERMINED", "http://wikipedia.com")));
+      String entriesJson = new ObjectMapper().writeValueAsString(entries);
+
       Assertions.assertThrows(IllegalStateException.class, () -> {
          WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
              .willReturn(aResponse()
                  .withStatus(200)
                  .withHeader("Content-Type", "application/json")
-                 .withBody("{\"entries\": [{\"category\": \"DETERMINED\",\"detailsUrl\": \"http://wikipedia.com\"}]}"))); // override
+                 .withBody(entriesJson))); // override
 
 
          productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
