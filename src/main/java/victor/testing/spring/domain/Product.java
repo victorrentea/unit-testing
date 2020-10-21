@@ -37,6 +37,7 @@ public class Product {
         this.name = name;
         this.upc = upc;
         this.category = category;
+//        createDate = TimeProvider.
     }
 
     public Product(String name) {

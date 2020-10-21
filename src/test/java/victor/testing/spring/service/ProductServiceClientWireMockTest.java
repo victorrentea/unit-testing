@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +40,9 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
+@SpringBootTest(properties = {
+    "safety.service.url.base=http://localhost:9999",
+    "spring.main.allow-bean-definition-overriding=true"})
 @ActiveProfiles("db-mem")
 public class ProductServiceClientWireMockTest {
    @Autowired
@@ -58,6 +61,7 @@ public class ProductServiceClientWireMockTest {
 
    @BeforeEach
    public void initialize() {
+//      wireMock.reset
       // Clear manually all caches
       cacheManager.getCacheNames().stream().map(cacheManager::getCache).forEach(Cache::clear);
    }
@@ -81,65 +85,61 @@ public class ProductServiceClientWireMockTest {
 
    @Test
    public void throwsForUnsafeProductProgrammaticWireMock() throws JsonProcessingException {
-
-      Entries entries = new Entries(asList(new Entry("DETERMINED", "http://wikipedia.com")));
-      String entriesJson = new ObjectMapper().writeValueAsString(entries);
-
       Assertions.assertThrows(IllegalStateException.class, () -> {
-         WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
-             .willReturn(aResponse()
-                 .withStatus(200)
-                 .withHeader("Content-Type", "application/json")
-                 .withBody(entriesJson))); // override
-
-
-         productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
+         productService.createProduct(new ProductDto("name", "UNSAFE", -1L, ProductCategory.HOME));
       });
    }
 
-   @Test
-   @SneakyThrows
-   public void throwsForUnsafeProductProgrammaticWireMockFromFileTemplatized() {
-      Assertions.assertThrows(IllegalStateException.class, () -> {
-         String template;
-         try (FileReader reader = new FileReader("C:\\workspace\\integration-testing-spring\\src\\test\\java\\victor\\testing\\spring\\facade\\inTemplate.json")) {
-            template = IOUtils.toString(reader);
-         }
-         template.replace("{{}}", "DYNAMIC STUFF");
-         WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
-             .willReturn(aResponse()
-                 .withStatus(200)
-                 .withHeader("Content-Type", "application/json")
-                 .withBody(template))); // override
-
-
-         productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
-      });
-   }
 
    @Test
    public void fullOk() {
       long supplierId = supplierRepo.save(new Supplier()).getId();
 
-      ProductDto dto = new ProductDto("name", "SAFE", supplierId, ProductCategory.HOME);
+      ProductDto dto = new ProductDto("name", "1", supplierId, ProductCategory.HOME);
+      LocalDateTime startTime = LocalDateTime.now();
       productService.createProduct(dto);
 
       Product product = productRepo.findAll().get(0);
-      LocalDateTime today = LocalDateTime.parse("2014-12-22T10:15:30.00");
+//      LocalDateTime today = LocalDateTime.parse("2014-12-22T10:15:30.00");
 
       assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getUpc()).isEqualTo("SAFE");
+      assertThat(product.getUpc()).isEqualTo("1");
       assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-      assertThat(product.getCreateDate()).isEqualTo(today);
+
+      // pica din cand in cand, dar doar pe Jenkins
+//      assertThat(product.getCreateDate()).isEqualTo(LocalDateTime.now());
+
+//      assertThat(product.getCreateDate()).isNotNull();
+
+      // inginerul siktirit
+      assertThat(product.getCreateDate()).isNotNull();
+
+      // ingineru mai cu carte
+      assertThat(product.getCreateDate()).isAfterOrEqualTo(startTime);
+
+   }
+
+//   @MockBean
+//   Clock clock;
+
+
+   @Test
+   public void test() {
+      // <<< fixez timpul in 2019
+      // create prin API public fara sa umbli in baza
+      // <<-- avansez timpul cu 1 an.
+      // search prin searchProduct
+      //     Asta e limitare
    }
 
    @TestConfiguration
    public static class TestConfig {
       @Bean
       @Primary
-      public Clock clockFixed() {
-         return Clock.fixed(Instant.parse("2014-12-22T10:15:30.00Z"), ZoneId.systemDefault());
+      public Clock clock() {
+         return Clock.fixed(Instant.parse("2014-12-22T10:15:30.00Z"),
+             ZoneId.systemDefault());
       }
    }
 

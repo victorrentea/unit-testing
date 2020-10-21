@@ -11,6 +11,7 @@ import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class ProductService {
     private final SafetyClient safetyClient;
     private final ProductRepo productRepo;
     private final SupplierRepo supplierRepo;
+    private final Clock clock;
 
     public long createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.upc);
@@ -34,12 +36,15 @@ public class ProductService {
         product.setUpc(productDto.upc);
         product.setSupplier(supplierRepo.getOne(productDto.supplierId));
         // TODO CR check that the supplier is active!
-        product.setCreateDate(LocalDateTime.now());
+        product.setCreateDate(LocalDateTime.now(clock));
         productRepo.save(product);
         return product.getId();
     }
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
+        // imaginam ca searhc nu tre sa intoarca produse mai vechi de 1 an;
+//        criteria.now = LocalDateTime.now(clock);
+
         return productRepo.search(criteria);
     }
 }
