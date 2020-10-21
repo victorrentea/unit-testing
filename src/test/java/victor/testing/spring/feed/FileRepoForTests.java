@@ -14,7 +14,7 @@ public class FileRepoForTests implements FileRepo{
    private final Map<String, List<String>> fileContents = new HashMap<>();
    @Override
    public Collection<String> getFileNames() {
-      return fileContents.keySet();
+         return fileContents.keySet();
    }
    @Override
    public Stream<String> openFile(String fileName) {

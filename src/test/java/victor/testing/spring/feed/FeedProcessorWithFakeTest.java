@@ -18,6 +18,7 @@ public class FeedProcessorWithFakeTest {
 
    @Test
    public void oneFileWithOneLine() {
+//      applicationContext.getBean(FileRepoForTests.class)
       fileRepo.addTestFile("a.txt", "one");
       assertThat(feedProcessor.countPendingLines()).isEqualTo(1);
    }
