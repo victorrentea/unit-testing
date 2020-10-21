@@ -1,25 +1,36 @@
 package victor.testing.spring.web;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.tools.WireMockExtension;
+import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
+import victor.testing.spring.web.dto.ProductSearchResult;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Transactional
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:8989")
 @AutoConfigureMockMvc
 @ActiveProfiles("db-mem")
 public class ProductMvcTest {
@@ -38,36 +49,71 @@ public class ProductMvcTest {
     // pe scurt toate proprietatile din application properties care contin "tomcat"
 
     @Autowired
-    private ProductRepo productRepo;
+    private ProductRepo productRepo; // date operationale.
+
+    @Autowired
+    private SupplierRepo supplierRepo; // reference data. nomenclatoare. dictionare. date statice.
 
     @Autowired
     private ProductController controller;
 
+    @RegisterExtension
+    public WireMockExtension wireMock = new WireMockExtension(8989);
+
+
+    // ca sa nu mai depind de Safety Service pot:
+    // 1) @MockBean
+    // 2) WireMock
     @Test
     public void testSearch() throws Exception {
-        productRepo.save(new Product().setName("Tree"));
+        Long supplierId = supplierRepo.save(new Supplier()).getId();
+
+        ProductDto productDto = aProductDto(supplierId);
+        createProduct(productDto);
+
 
         ProductSearchCriteria criteria = new ProductSearchCriteria();
         criteria.name="rE";
-        String criteriaJson = new ObjectMapper().writeValueAsString(criteria);
 
 
-//        controller.search()
+        List<ProductSearchResult> results = searchProduct(criteria);
+        assertThat(results).hasSize(1);
+        assertThat(results.get(0).getName()).isEqualTo("Tree");
+    }
+
+    private ProductDto aProductDto(Long supplierId) {
+        return new ProductDto("Tree", "1", supplierId, ProductCategory.HOME);
+    }
+
+    private List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
+        //        controller.search()
         // vs
         //: trece si prin filtre, prin tot ce porneste springul
         // acoperi: pathurile, status codes, JSON intors, content types, (headere) si @RestControllerAdvice
         // chestii care nu reprez biz logic, si 70% din ele sunt identice pt toare request
-        mockMvc.perform(post("/product/search") // NU face socket connect la nimeni
+        String criteriaJson = new ObjectMapper().writeValueAsString(criteria);
+        ResultActions asta = mockMvc.perform(post("/product/search") // NU face socket connect la nimeni
             .content(criteriaJson)
             .contentType(MediaType.APPLICATION_JSON)
-        )
+        );
+        asta
             .andExpect(status().isOk()) //200 OK
             .andExpect(header().string("Custom-Header", "true"))   // headere
             .andExpect(jsonPath("$", hasSize(1))); // ca jsonul intors ....
-
-//            .andExpect(jsonPath("$[0].name").value("Tree"));
+        String responseJson = asta.andReturn().getResponse().getContentAsString();
+//        new ObjectMapper().readValue(responseJson, List<ProductSearchResult>.class); // nu merge ca <> se sterge la javac
+        return new ObjectMapper().readValue(responseJson, new TypeReference<List<ProductSearchResult>>() {});
     }
 
+    private void createProduct(ProductDto productDto) throws Exception {
+        String productJson = new ObjectMapper().writeValueAsString(productDto);
+        mockMvc.perform(post("/product/create") // NU face socket connect la nimeni
+            .content(productJson)
+            .contentType(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(status().isOk()) //200 OK
+            .andExpect(header().string("Custom-Header", "true"));
+    }
 
 
 }
