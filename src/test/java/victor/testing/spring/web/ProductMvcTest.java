@@ -1,5 +1,6 @@
 package victor.testing.spring.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,6 +32,10 @@ public class ProductMvcTest {
     // se porneste tomcat, ii trimiti pe localhost:xxxx requestul tau
     // el delega requestul tau HTTP la un thread in worked pool-ul lui,
     // si NU mai ai cum sa opresti tranzactia de pe acel thread sa comita !
+
+    // ce fel de buguri poti prinde daca pornesti si tomcat-ul din teste ?
+    // HTTPS(ssl), max upload size, load test de worker thread exhaustion,
+    // pe scurt toate proprietatile din application properties care contin "tomcat"
 
     @Autowired
     private ProductRepo productRepo;
