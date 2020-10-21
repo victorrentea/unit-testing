@@ -53,14 +53,22 @@ public class ProductRepoSearchTest {
     // fine grained unit tests; teste de copac.
     @Test
     public void byName() {
-        repo.save(new Product("Copac"));
-        criteria.name = "Copac";
+        repo.save(new Product("CopAc"));
+        criteria.name = "CopAc";
         assertThat(repo.search(criteria)).hasSize(1);
-//    }
-//    @Test
-//    public void byNameMismatch() {
-//        repo.save(new Product("Copac"));
+        criteria.name = "Pa";
+        assertThat(repo.search(criteria)).hasSize(1);
         criteria.name = "Planta";
+        assertThat(repo.search(criteria)).isEmpty();
+    }
+    @Test
+    public void bySupplier() {
+        repo.save(new Product().setSupplier(supplier));
+
+        criteria.supplierId = supplier.getId();
+        assertThat(repo.search(criteria)).hasSize(1);
+
+        criteria.supplierId = -1L;
         assertThat(repo.search(criteria)).isEmpty();
     }
 
