@@ -73,6 +73,7 @@ public class ProductMvcTest {
    // 1) @MockBean
    // 2) WireMock
    @Test
+//   @WithMockUser(roles = "ADMIN")
    public void testSearch() throws Exception {
       createProduct(aProductDto());
 
@@ -90,6 +91,17 @@ public class ProductMvcTest {
 
       List<ProductSearchResult> results = searchProduct(criteria);
       assertOneResult(results, p -> p.getName().equals("Tree"));
+   }
+   @Test
+   public void testSearch2GlobaExHand() throws Exception {
+      ProductSearchCriteria criteria = new ProductSearchCriteria().setName("A");
+      String criteriaJson = new ObjectMapper().writeValueAsString(criteria);
+      ResultActions asta = mockMvc.perform(post("/product/search") // NU face socket connect la nimeni
+          .content(criteriaJson)
+          .contentType(MediaType.APPLICATION_JSON)
+      );
+      asta
+          .andExpect(status().isOk());
    }
 
    private void assertOneResult(List<ProductSearchResult> results, Predicate<? super ProductSearchResult> predicate) {

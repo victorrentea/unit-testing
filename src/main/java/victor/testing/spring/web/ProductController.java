@@ -6,15 +6,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.testing.spring.service.ProductService;
+import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
-import victor.testing.spring.web.dto.ProductDto;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+//@PreAuthorize("hasRole('ADMIN')")
 public class ProductController {
 
    private final ProductService facade;
@@ -26,6 +27,9 @@ public class ProductController {
 
    @PostMapping("product/search")
    public List<ProductSearchResult> search(@RequestBody ProductSearchCriteria criteria) {
+      if (criteria.name.equals("A")) {
+         throw new IllegalStateException();
+      }
       return facade.searchProduct(criteria);
    }
 
