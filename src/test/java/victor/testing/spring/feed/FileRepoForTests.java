@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @Primary
+@Profile("dummyFileRepo")
 @Component
 public class FileRepoForTests implements FileRepo{
    private final Map<String, List<String>> fileContents = new HashMap<>();
