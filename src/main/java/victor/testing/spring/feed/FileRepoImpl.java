@@ -13,7 +13,6 @@ import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 
 
-@Profile("!test")
 @Component
 public class FileRepoImpl implements FileRepo {
    @Value("${feed.in.folder}")
