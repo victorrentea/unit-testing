@@ -1,0 +1,20 @@
+{
+  "id" : "66595595-e47e-4dad-9a6d-377f76b12f44",
+  "name" : "product_customxx_safety",
+  "request" : {
+    "url" : "/product/customXX/safety",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"entries\": [{\"category\": \"UNCERTAIN\",\"detailsUrl\": \"http://wikipedia.com\"}]}",
+    "headers" : {
+      "Content-Type" : "application/json",
+      "Date" : "Wed, 21 Oct 2020 10:22:32 GMT",
+      "Keep-Alive" : "timeout=60"
+    }
+  },
+  "uuid" : "66595595-e47e-4dad-9a6d-377f76b12f44",
+  "persistent" : true,
+  "insertionIndex" : 3
+}

@@ -1,0 +1,20 @@
+{
+  "id" : "059c1425-6d9c-4c8b-8cfd-bf3c9a3840b7",
+  "name" : "product_safe_safety",
+  "request" : {
+    "url" : "/product/SAFE/safety",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"entries\": [{\"category\": \"UNCERTAIN\",\"detailsUrl\": \"http://wikipedia.com\"}]}",
+    "headers" : {
+      "Content-Type" : "application/json",
+      "Date" : "Wed, 21 Oct 2020 10:24:18 GMT",
+      "Keep-Alive" : "timeout=60"
+    }
+  },
+  "uuid" : "059c1425-6d9c-4c8b-8cfd-bf3c9a3840b7",
+  "persistent" : true,
+  "insertionIndex" : 6
+}

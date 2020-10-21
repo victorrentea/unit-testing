@@ -1,0 +1,20 @@
+{
+  "id" : "7328829f-9253-4d4b-95b8-b218160f35c0",
+  "name" : "product_unsafe_safety",
+  "request" : {
+    "url" : "/product/UNSAFE/safety",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"entries\": [{\"category\": \"UNCERTAIN\",\"detailsUrl\": \"http://wikipedia.com\"}]}",
+    "headers" : {
+      "Content-Type" : "application/json",
+      "Date" : "Wed, 21 Oct 2020 10:24:18 GMT",
+      "Keep-Alive" : "timeout=60"
+    }
+  },
+  "uuid" : "7328829f-9253-4d4b-95b8-b218160f35c0",
+  "persistent" : true,
+  "insertionIndex" : 5
+}
