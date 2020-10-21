@@ -32,6 +32,12 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
             paramMap.put("name", criteria.name);
         }
 
+        if (criteria.supplierId != null) {
+            jpql += "  AND p.supplier.id = :supplierId ";
+            paramMap.put("supplierId", criteria.supplierId);
+
+        }
+
         TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
         for (String paramName : paramMap.keySet()) {
             query.setParameter(paramName, paramMap.get(paramName));

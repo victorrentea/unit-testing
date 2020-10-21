@@ -16,9 +16,7 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional
+@InMemDBTest
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
