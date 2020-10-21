@@ -25,9 +25,6 @@ public class FeedProcessorWithMockTest {
    @MockBean
    private FileRepo fileRepoMock;
 
-   @MockBean
-   private FeedScanner scanner;
-
    @Test
    public void oneFileWithOneLine() {
       when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt"));
@@ -40,6 +37,14 @@ public class FeedProcessorWithMockTest {
       when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("two.txt"));
       when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
       assertThat(feedProcessor.countPendingLines()).isEqualTo(2);
+   }
+
+   @Test
+   public void twoFilesWith3LinesInTotal() {
+      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("two.txt", "one.txt"));
+      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
+      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+      assertThat(feedProcessor.countPendingLines()).isEqualTo(3);
    }
 
    @Test
