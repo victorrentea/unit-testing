@@ -8,6 +8,7 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,6 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
         for (String paramName : paramMap.keySet()) {
             query.setParameter(paramName, paramMap.get(paramName));
         }
-        return query.getResultList();
+        return query.getResultList().subList(0, 1);
     }
 }
