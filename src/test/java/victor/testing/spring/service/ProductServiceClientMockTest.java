@@ -7,6 +7,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -19,15 +24,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("db-mem")
+@Transactional
 public class ProductServiceClientMockTest {
-   @Mock
+   @MockBean
    public SafetyClient mockSafetyClient;
-   @Mock
+   @Autowired
    private ProductRepo productRepo;
-   @Mock
+   @Autowired
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test
@@ -41,20 +48,17 @@ public class ProductServiceClientMockTest {
    @Test
    public void fullOk() {
       Supplier supplier = new Supplier();
-      long supplierId = 13L;
-      when(supplierRepo.getOne(supplierId)).thenReturn(supplier);
+      long supplierId = supplierRepo.save(supplier).getId();
       when(mockSafetyClient.isSafe("upc")).thenReturn(true);
 
-      productService.createProduct(new ProductDto("name", "upc", 13L, ProductCategory.HOME));
+      ProductDto dto = new ProductDto("name", "upc", supplierId, ProductCategory.HOME);
+      long productId = productService.createProduct(dto);
 
-      // Yuck!
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+      Product product = productRepo.findById(productId).get();
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getUpc()).isEqualTo("upc");
-      assertThat(product.getSupplier()).isEqualTo(supplier);
+      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isNotNull();
    }

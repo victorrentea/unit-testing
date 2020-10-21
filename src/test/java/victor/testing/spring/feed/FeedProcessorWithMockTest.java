@@ -12,13 +12,13 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest//(classes = MockConfig.class)
+@SpringBootTest(classes = MockConfig.class)
 public class FeedProcessorWithMockTest extends BaseTest {
+   @Autowired
+   private FileRepo fileRepoMock;
 
    @Autowired
    private FeedProcessor feedProcessor;
-   @Autowired
-   private FileRepo fileRepoMock;
 
    @Test
    public void oneFileWithOneLine() {
