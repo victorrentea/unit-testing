@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -12,32 +13,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class FeedProcessorWithMockTest {
+@ActiveProfiles("test")
+public class FeedProcessorWithFakeTest {
 
    @Autowired
    private FeedProcessor feedProcessor;
-   @MockBean
-   private FileRepo fileRepoMock;
+   @Autowired
+   private FileRepoForTests fileRepo;
 
    @Test
    public void oneFileWithOneLine() {
-      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt"));
-      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+      fileRepo.addFile("a.txt", "one");
       assertThat(feedProcessor.countPendingLines()).isEqualTo(1);
    }
 
    @Test
    public void oneFileWith2Lines() {
-      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("two.txt"));
-      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
+      fileRepo.addFile("a.txt", "one", "two");
       assertThat(feedProcessor.countPendingLines()).isEqualTo(2);
    }
 
    @Test
    public void twoFilesWith3LinesInTotal() {
-      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("two.txt", "one.txt"));
-      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
-      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+      fileRepo.addFile("a.txt", "one");
+      fileRepo.addFile("b.txt", "one", "two");
       assertThat(feedProcessor.countPendingLines()).isEqualTo(3);
    }
 
