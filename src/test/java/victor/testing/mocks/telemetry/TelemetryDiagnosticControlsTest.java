@@ -31,8 +31,9 @@ public class TelemetryDiagnosticControlsTest {
 	@Before
 	public void initialize() {
 		when(clientMock.getOnlineStatus()).thenReturn(true);
+		when(clientMock.getVersion()).thenReturn("ceva nenull, mama masii! ca n-aveam nevoie de fapt de asta, da tre s-o pun ca chem functia aia naspa");
 	}
-	
+	 
 	@Test
 	public void disconnects() throws Exception {
 		controls.checkTransmission();
@@ -78,11 +79,11 @@ public class TelemetryDiagnosticControlsTest {
 		//
 	}
 	@Test
-	public void createsConfig() throws Exception {
+	public void createsConfig() throws Exception { // x 7 teste
 		ClientConfiguration config = controls.createConfig("ver");
 		
 		assertEquals(AckMode.NORMAL, config.getAckMode());
-		assertThat(config.getSessionId()).matches("ver-.+");
+		assertThat(config.getSessionId()).matches("VER-.+");
 	}
 	
 	
