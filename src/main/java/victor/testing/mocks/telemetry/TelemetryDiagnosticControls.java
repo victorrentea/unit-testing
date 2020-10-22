@@ -36,18 +36,19 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = createConfig();
+//		ClientConfiguration config = createConfig(telemetryClient.getVersion());
+		ClientConfiguration config = new ClientConfiguration();
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfig() {
+	ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		// ne inchipuim ca aici se gasesc + 20 de linii de biz logic criminal
 		// ne imaginam ca vei vrea sa pui pe met asta 7 teste
-		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL); // <---- ASTA !
 		return config;

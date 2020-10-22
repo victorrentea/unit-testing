@@ -69,6 +69,16 @@ public class TelemetryDiagnosticControlsTest {
 	
 	@Test
 	public void configuresClient() throws Exception {
+		controls.checkTransmission();
+		verify(clientMock).configure(Mockito.notNull()); // inginereste vorbind e suficient
+		
+		// cum pot verifica daca s-a chemat functia createConfig() 
+		// problema e ca functia e locala, in aceeasi clasa pecare o si stestez
+		// nu e pe un mock injectat si direct in clasa testata.
+		//
+	}
+	@Test
+	public void createsConfig() throws Exception {
 		ClientConfiguration config = controls.createConfig("ver");
 		
 		assertEquals(AckMode.NORMAL, config.getAckMode());
