@@ -22,9 +22,11 @@ public class TelemetryDiagnosticControls {
 	public void setDiagnosticInfo(String diagnosticInfo) {
 		this.diagnosticInfo = diagnosticInfo;
 	}
-
+ 
 	public void checkTransmission() {
 		telemetryClient.disconnect();
+		
+		System.out.println(telemetryClient.list());
 
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
