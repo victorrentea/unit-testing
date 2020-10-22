@@ -2,6 +2,7 @@ package victor.testing.spring.repo;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
@@ -35,7 +36,8 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
         if (criteria.supplierId != null) {
             jpql += "  AND p.supplier.id = :supplierId ";
             paramMap.put("supplierId", criteria.supplierId);
-
+//ApplicationContext spring;
+//spring.getEnvironment().get
         }
 
         TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
