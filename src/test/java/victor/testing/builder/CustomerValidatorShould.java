@@ -3,7 +3,9 @@ package victor.testing.builder;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test; 
+import org.junit.Test;
+
+import victor.testing.builder.MyException.ErrorCode;
 
 public class CustomerValidatorShould {
 
@@ -11,29 +13,40 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void yesSir() {
-		Customer customer = new Customer();
-		customer.setName("John");
-		Address address = new Address();
-		address.setCity("Bucuresti, Orasul Smogului");
-		customer.setAddress(address);
-		validator.validate(customer);
+		validator.validate(aValidCustomer());
+//		customer.getLabel===null
 	}
-	
+
+	private Customer aValidCustomer() {
+		return new Customer()
+				.setName("John")
+				.setAddress(aValidAddress());
+	}
+
+	private Address aValidAddress() {
+		return new Address()
+				.setCity("Bucuresti, Orasul Smogului");
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullName() {
-		Customer customer = new Customer();
-		Address address = new Address();
-		address.setCity("Bucuresti, Orasul Smogului");
-		customer.setAddress(address);
-		validator.validate(customer);
+		validator.validate(aValidCustomer().setName(null));
 	}
-	
+
 	@Test
 	public void throwsForNullAddress() {
-		Customer customer = new Customer();
-		customer.setAddress(null);
+		Customer customer = aValidCustomer().setAddress(null);
 		assertThatThrownBy(() -> validator.validate(customer))
-			.hasMessage("Missing customer address");
+				.matches(e -> ((MyException) e).getCode() == ErrorCode.NO_ADDRESS);
+	}
+
+	@Test
+	public void whenCustomerHasAddressWithNullCity_thenThrows() {
+//	public void throwsForAddressWithNullCity() {
+		Customer customer = aValidCustomer().setAddress(
+				aValidAddress().setCity(null));
+		assertThatThrownBy(() -> validator.validate(customer))
+				.matches(e -> ((MyException) e).getCode() == ErrorCode.NO_CITY);
 	}
 
 }

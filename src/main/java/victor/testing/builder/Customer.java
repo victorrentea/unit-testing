@@ -16,16 +16,18 @@ public class Customer {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public Customer setAddress(Address address) {
 		this.address = address;
+		return this;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Customer setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getPhone() {
