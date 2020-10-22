@@ -22,20 +22,20 @@ public class TelemetryDiagnosticControlsTest {
    @Test
    public void disconnects() {
       when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission();
-      verify(client).disconnect();
+      controls.checkTransmission(true);
+      verify(client).disconnect(true);
    }
 
    @Test(expected = IllegalStateException.class)
    public void throwsWhenNotOnline() {
       when(client.getOnlineStatus()).thenReturn(false);
-      controls.checkTransmission();
+      controls.checkTransmission(true);
    }
 
    @Test
    public void sendsDiagnosticInfo() {
       when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission();
+      controls.checkTransmission(true);
       verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
    }
 
@@ -44,7 +44,7 @@ public class TelemetryDiagnosticControlsTest {
       // TODO inspect
       when(client.getOnlineStatus()).thenReturn(true);
       when(client.receive()).thenReturn("tataie");
-      controls.checkTransmission();
+      controls.checkTransmission(true);
       verify(client).receive();
       assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
    }
@@ -52,7 +52,7 @@ public class TelemetryDiagnosticControlsTest {
    @Test
    public void configuresClient() throws Exception {
       when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission();
+      controls.checkTransmission(true);
       verify(client).configure(any());
       // TODO check config.getAckMode is NORMAL
    }

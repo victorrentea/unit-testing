@@ -23,8 +23,8 @@ public class TelemetryDiagnosticControls {
 		this.diagnosticInfo = diagnosticInfo;
 	}
 
-	public void checkTransmission() {
-		telemetryClient.disconnect();
+	public void checkTransmission(boolean force) {
+		telemetryClient.disconnect(force);
 
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {

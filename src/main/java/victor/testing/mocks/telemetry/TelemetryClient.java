@@ -59,7 +59,7 @@ public class TelemetryClient {
 		return "1.3";
 	}
 
-	public void disconnect() {
+	public void disconnect(boolean force) {
 		onlineStatus = false;
 		throw new IllegalStateException("Performs some external remote call impossible/not desirable to call from automated tests.");
 	}
