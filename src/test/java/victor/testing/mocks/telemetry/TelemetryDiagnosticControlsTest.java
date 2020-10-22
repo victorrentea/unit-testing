@@ -21,6 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.apache.kafka.common.protocol.types.Field.UUID;
+import org.assertj.core.api.Assertions;
 
 
 public class TelemetryDiagnosticControlsTest {
@@ -68,10 +69,10 @@ public class TelemetryDiagnosticControlsTest {
 	
 	@Test
 	public void configuresClient() throws Exception {
-
-		ClientConfiguration config = controls.createConfig();
+		ClientConfiguration config = controls.createConfig("ver");
 		
 		assertEquals(AckMode.NORMAL, config.getAckMode());
+		assertThat(config.getSessionId()).matches("ver-.+");
 	}
 	
 	
