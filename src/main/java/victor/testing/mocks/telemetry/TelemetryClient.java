@@ -44,9 +44,6 @@ public class TelemetryClient {
 		return onlineStatus;
 	}
 	
-	public java.util.List<String> list() {
-		return null;
-	}
 
 	public void connect(String telemetryServerConnectionString) {
 		if (telemetryServerConnectionString == null || "".equals(telemetryServerConnectionString)) {

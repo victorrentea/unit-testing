@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,30 +15,51 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.apache.kafka.common.protocol.types.Field.UUID;
+
 
 public class TelemetryDiagnosticControlsTest {
 	private TelemetryClient clientMock = mock(TelemetryClient.class);
 	private TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls(clientMock);
+
+	@Before
+	public void initialize() {
+		when(clientMock.getOnlineStatus()).thenReturn(true);
+	}
+	
 	@Test
 	public void disconnects() throws Exception {
-		when(clientMock.getOnlineStatus()).thenReturn(true);
-		
 		controls.checkTransmission();
 		
 		verify(clientMock).disconnect();
 	}
 	@Test(expected = IllegalStateException.class)
 	public void throwsWhenNotOnline() throws Exception {
-//		when(clientMock.getOnlineStatus()).thenReturn(false);
+		when(clientMock.getOnlineStatus()).thenReturn(false);
 		
 		controls.checkTransmission();
 	}
 	@Test
 	public void sendsDiagnosticMessage() throws Exception {
-		when(clientMock.getOnlineStatus()).thenReturn(true);
-		
 		controls.checkTransmission();
 		
+		// mai human friendly e contanta (are nume)
 		verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		
+		// CAND pui literalul?: 
+//		verify(clientMock).send("AT#UD"); // un protocol de comm cu un ext service (chiar HARDWARE)
 	}
+	@Test
+	public void receives() throws Exception {
+		when(clientMock.receive()).thenReturn("mamaie");
+
+		controls.checkTransmission();
+		
+		// e util sa .verify ceva ce ai when.then-uit DOAR daca iti pasa de cate ori cheama functia resp
+		// cand iti pasa?: performanta (timp)
+//		verify(clientMock).receive();
+		assertEquals("mamaie", controls.getDiagnosticInfo());
+	}
+	
+	
 }
