@@ -1,39 +1,32 @@
 package victor.testing.tdd;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 public class TennisGame {
-    public static final String[] SCORES = {"Love", "Fifteen", "Thirty", "Forty"};
-    private int player1Score;
-    private int player2Score;
+	private String score= "Love-Love";
 
-    public String score() {
-        if (player1Score >= 4 && player1Score - player2Score >= 2) {
-            return "Game won Player1";
-        }
-        else if (player2Score >= 4 && player2Score - player1Score >= 2) {
-            return "Game won Player2";
-        }
-        if (player1Score >= 3 && player2Score >= 3) {
-            if (player1Score == player2Score) {
-                return "Deuce";
-            } else if (player1Score == player2Score + 1) {
-                return "Advantage Player1";
-            } else if (player2Score == player1Score + 1) {
-                return "Advantage Player2";
-            } else {
-                throw new NotImplementedException("...");
-            }
-        } else {
-            return SCORES[player1Score] + "-" + SCORES[player2Score];
-        }
-    }
+	// TODO enum de scoruri
+	// TODO o clasa Player care sa aiba 2 chestii:: un enum de aia si un score
+	// fiecare score separat (enum, string, clasa separata cu un tostring, ) pentru fiecar player
+	// Map<cheie:playerType enum, score: int>  -- marian: "momentan nu-mi trebuie clasa separata. Dupa, daca e nevoie"
+	// si mai simplu: int[] - mereu cu size=2
+	// si mai simplu: doua int-uri 
 
-    public void addPoint(int playerNumber) {
-        if (playerNumber == 1) {
-            player1Score++;
-        } else {
-            player2Score++;
-        }
-    }
+	// Scopul TDD este sa-ti permita sa incerci TOATE cele de mai sus. Fara frica ca strici ceva. 
+	// Si sa decizi dupa care-i mai simpla dintre solutiile astea 
+	
+	enum Player {
+		ONE
+	}
+
+	public String score() {
+		return score;
+	}
+
+	public void scorePoint(Player player) {
+		if ("Fifteen-Love".equals(score)) {
+			score = "Thirty-Love";
+		} else {
+			score = "Fifteen-Love";
+		}
+	}
+
 }
