@@ -14,6 +14,7 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMod
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -68,12 +69,7 @@ public class TelemetryDiagnosticControlsTest {
 	@Test
 	public void configuresClient() throws Exception {
 
-		controls.checkTransmission();
-		
-		// plasa de pescuit
-		ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
-		verify(clientMock).configure(configCaptor.capture());
-		ClientConfiguration config = configCaptor.getValue();
+		ClientConfiguration config = controls.createConfig();
 		
 		assertEquals(AckMode.NORMAL, config.getAckMode());
 	}

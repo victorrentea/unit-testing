@@ -15,7 +15,7 @@ public class TelemetryDiagnosticControls {
 	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
 	}
-
+	
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
@@ -36,14 +36,21 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL); // <---- ASTA !
+		ClientConfiguration config = createConfig();
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	ClientConfiguration createConfig() {
+		ClientConfiguration config = new ClientConfiguration();
+		// ne inchipuim ca aici se gasesc + 20 de linii de biz logic criminal
+		// ne imaginam ca vei vrea sa pui pe met asta 7 teste
+		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL); // <---- ASTA !
+		return config;
 	}
 	
 
