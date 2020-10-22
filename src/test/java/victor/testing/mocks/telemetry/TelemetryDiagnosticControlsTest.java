@@ -8,6 +8,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -52,13 +54,25 @@ public class TelemetryDiagnosticControlsTest {
 	@Test
 	public void receives() throws Exception {
 		when(clientMock.receive()).thenReturn("mamaie");
-
+		
 		controls.checkTransmission();
 		
 		// e util sa .verify ceva ce ai when.then-uit DOAR daca iti pasa de cate ori cheama functia resp
 		// cand iti pasa?: performanta (timp)
 //		verify(clientMock).receive();
 		assertEquals("mamaie", controls.getDiagnosticInfo());
+	}
+	
+	@Test
+	public void configuresClient() throws Exception {
+
+		controls.checkTransmission();
+		
+		
+		ClientConfiguration config = controls.getConfig();
+		
+		
+//		verify(clientMock).receive();
 	}
 	
 	
