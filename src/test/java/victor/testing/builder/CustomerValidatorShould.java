@@ -1,5 +1,8 @@
 package victor.testing.builder;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import org.assertj.core.api.Assertions;
 import org.junit.Test; 
 
 public class CustomerValidatorShould {
@@ -23,6 +26,14 @@ public class CustomerValidatorShould {
 		address.setCity("Bucuresti, Orasul Smogului");
 		customer.setAddress(address);
 		validator.validate(customer);
+	}
+	
+	@Test
+	public void throwsForNullAddress() {
+		Customer customer = new Customer();
+		customer.setAddress(null);
+		assertThatThrownBy(() -> validator.validate(customer))
+			.hasMessage("Missing customer address");
 	}
 
 }
