@@ -3,12 +3,14 @@ package victor.testing.mocks.telemetry;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
@@ -68,12 +70,14 @@ public class TelemetryDiagnosticControlsTest {
 
 		controls.checkTransmission();
 		
+		// plasa de pescuit
+		ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
+		verify(clientMock).configure(configCaptor.capture());
+		ClientConfiguration config = configCaptor.getValue();
 		
-		ClientConfiguration config = controls.getConfig();
-		
-		
-//		verify(clientMock).receive();
+		assertEquals(AckMode.NORMAL, config.getAckMode());
 	}
+	
 	
 	
 }

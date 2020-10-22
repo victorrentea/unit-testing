@@ -36,7 +36,7 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		config = new ClientConfiguration();
+		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL); // <---- ASTA !
@@ -46,9 +46,5 @@ public class TelemetryDiagnosticControls {
 		diagnosticInfo = telemetryClient.receive();
 	}
 	
-	ClientConfiguration config; // CAMP
-	public ClientConfiguration getConfig() {
-		return config;
-	}
 
 }
