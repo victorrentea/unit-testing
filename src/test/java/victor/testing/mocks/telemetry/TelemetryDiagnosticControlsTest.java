@@ -1,37 +1,31 @@
 package victor.testing.mocks.telemetry;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
-import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import org.apache.kafka.common.protocol.types.Field.UUID;
-import org.assertj.core.api.Assertions;
-
-
+@RunWith(MockitoJUnitRunner.class)
 public class TelemetryDiagnosticControlsTest {
-	private TelemetryClient clientMock = mock(TelemetryClient.class);
-	private TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls(clientMock);
+	@Mock
+	private TelemetryClient clientMock;
+	@Mock
+	private ClientConfigurationFactory configFactoryMock;
+	@InjectMocks
+	private TelemetryDiagnosticControls controls;
 
 	@Before
 	public void initialize() {
 		when(clientMock.getOnlineStatus()).thenReturn(true);
-		when(clientMock.getVersion()).thenReturn("ceva nenull, mama masii! ca n-aveam nevoie de fapt de asta, da tre s-o pun ca chem functia aia naspa");
 	}
 	 
 	@Test
@@ -70,20 +64,16 @@ public class TelemetryDiagnosticControlsTest {
 	
 	@Test
 	public void configuresClient() throws Exception {
+		ClientConfiguration config = new ClientConfiguration();
+		when(clientMock.getVersion()).thenReturn("ver");
+		when(configFactoryMock.createConfig("ver")).thenReturn(config);
 		controls.checkTransmission();
-		verify(clientMock).configure(Mockito.notNull()); // inginereste vorbind e suficient
+		verify(clientMock).configure(config); // inginereste vorbind e suficient
 		
 		// cum pot verifica daca s-a chemat functia createConfig() 
 		// problema e ca functia e locala, in aceeasi clasa pecare o si stestez
 		// nu e pe un mock injectat si direct in clasa testata.
 		//
-	}
-	@Test
-	public void createsConfig() throws Exception { // x 7 teste
-		ClientConfiguration config = controls.createConfig("ver");
-		
-		assertEquals(AckMode.NORMAL, config.getAckMode());
-		assertThat(config.getSessionId()).matches("VER-.+");
 	}
 	
 	

@@ -10,14 +10,16 @@ public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient; 
+	private final ClientConfigurationFactory configFactory;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
-		this.telemetryClient = telemetryClient;
-	}
 	
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
+	}
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ClientConfigurationFactory configFactory) {
+		this.telemetryClient = telemetryClient;
+		this.configFactory = configFactory;
 	}
 	public void setDiagnosticInfo(String diagnosticInfo) {
 		this.diagnosticInfo = diagnosticInfo;
@@ -31,28 +33,18 @@ public class TelemetryDiagnosticControls {
 			telemetryClient.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
 			currentRetry ++;
 		}
-
+ 
 		if (! telemetryClient.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-//		ClientConfiguration config = createConfig(telemetryClient.getVersion());
-		ClientConfiguration config = new ClientConfiguration();
+		ClientConfiguration config = configFactory.createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfig(String version) {
-		ClientConfiguration config = new ClientConfiguration();
-		// ne inchipuim ca aici se gasesc + 20 de linii de biz logic criminal
-		// ne imaginam ca vei vrea sa pui pe met asta 7 teste
-		config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL); // <---- ASTA !
-		return config;
-	}
 	
 
 }
