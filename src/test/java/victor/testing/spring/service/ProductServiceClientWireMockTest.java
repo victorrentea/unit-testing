@@ -45,8 +45,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("db-mem")
 public class ProductServiceClientWireMockTest {
 	@Autowired
-	public SafetyClient mockSafetyClient;
-	@Autowired
 	private ProductRepo productRepo;
 	@Autowired
 	private SupplierRepo supplierRepo;
@@ -55,65 +53,57 @@ public class ProductServiceClientWireMockTest {
 
 	@Rule
 	public WireMockRule wireMock = new WireMockRule(8089);
-	@Autowired
-	private CacheManager cacheManager;
-
-	@Before
-	public void initialize() {
-		// Clear manually all caches
-		cacheManager.getCacheNames().stream().map(cacheManager::getCache).forEach(Cache::clear);
-	}
 
 	@Test(expected = IllegalStateException.class)
 	public void throwsForUnsafeProduct() {
-		productService.createProduct(new ProductDto("name", "UNSAFE", -1L, ProductCategory.HOME));
+		productService.createProduct(new ProductDto("name", "2", -1L, ProductCategory.HOME));
 	}
 
-	@Test(expected = IllegalStateException.class)
-	public void throwsForUnsafeProductProgrammaticWireMock() {
-		WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
-				.willReturn(aResponse()
-						.withStatus(200)
-						.withHeader("Content-Type", "application/json")
-						.withBody(
-								"{\"entries\": [{\"category\": \"DETERMINED\",\"detailsUrl\": \"http://wikipedia.com\"}]}"))); // override
-
-		productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void throwsForUnsafeProductProgrammaticWireMockFromFileTemplatized()
-			throws FileNotFoundException, IOException {
-		String template;
-		try (FileReader reader = new FileReader(
-				"C:\\workspace\\integration-testing-spring\\src\\test\\java\\victor\\testing\\spring\\facade\\inTemplate.json")) {
-			template = IOUtils.toString(reader);
-		}
-		template.replace("{{}}", "DYNAMIC STUFF");
-		WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
-				.willReturn(aResponse()
-						.withStatus(200)
-						.withHeader("Content-Type", "application/json")
-						.withBody(template))); // override
-
-		productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
-	}
+//	@Test(expected = IllegalStateException.class)
+//	public void throwsForUnsafeProductProgrammaticWireMock() {
+//		WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
+//				.willReturn(aResponse()
+//						.withStatus(200)
+//						.withHeader("Content-Type", "application/json")
+//						.withBody(
+//								"{\"entries\": [{\"category\": \"DETERMINED\",\"detailsUrl\": \"http://wikipedia.com\"}]}"))); // override
+//
+//		productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
+//	}
+//
+//	@Test(expected = IllegalStateException.class)
+//	public void throwsForUnsafeProductProgrammaticWireMockFromFileTemplatized()
+//			throws FileNotFoundException, IOException {
+//		String template;
+//		try (FileReader reader = new FileReader(
+//				"C:\\workspace\\integration-testing-spring\\src\\test\\java\\victor\\testing\\spring\\facade\\inTemplate.json")) {
+//			template = IOUtils.toString(reader);
+//		}
+//		template.replace("{{}}", "DYNAMIC STUFF");
+//		WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
+//				.willReturn(aResponse()
+//						.withStatus(200)
+//						.withHeader("Content-Type", "application/json")
+//						.withBody(template))); // override
+//
+//		productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
+//	}
 
 	@Test
 	public void fullOk() {
 		long supplierId = supplierRepo.save(new Supplier()).getId();
 
-		ProductDto dto = new ProductDto("name", "SAFE", supplierId, ProductCategory.HOME);
+		ProductDto dto = new ProductDto("name", "1", supplierId, ProductCategory.HOME);
 		productService.createProduct(dto);
 
 		Product product = productRepo.findAll().get(0);
-		LocalDateTime today = LocalDateTime.parse("2014-12-22T10:15:30.00");
+//		LocalDateTime today = LocalDateTime.parse("2014-12-22T10:15:30.00");
 
 		assertThat(product.getName()).isEqualTo("name");
-		assertThat(product.getUpc()).isEqualTo("SAFE");
+		assertThat(product.getUpc()).isEqualTo("1");
 		assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
 		assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-		assertThat(product.getCreateDate()).isEqualTo(today);
+//		assertThat(product.getCreateDate()).isEqualTo(today);
 	}
 
 	@TestConfiguration
