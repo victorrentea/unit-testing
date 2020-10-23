@@ -1,5 +1,6 @@
 package victor.testing.builder;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.assertj.core.api.Assertions;
@@ -45,6 +46,11 @@ public class CustomerValidatorShould {
 //	public void throwsForAddressWithNullCity() {
 		Customer customer = aValidCustomer().setAddress(
 				aValidAddress().setCity(null));
+		
+		assertThatExceptionOfType(MyException.class)
+			.isThrownBy(() ->validator.validate(customer))
+			.matches(e -> e.getCode() == ErrorCode.NO_CITY);
+		
 		assertThatThrownBy(() -> validator.validate(customer))
 				.matches(e -> ((MyException) e).getCode() == ErrorCode.NO_CITY);
 	}

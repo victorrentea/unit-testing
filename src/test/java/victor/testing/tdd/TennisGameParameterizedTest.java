@@ -44,8 +44,15 @@ public class TennisGameParameterizedTest {
 		assertEquals(expectedScore, getScore(player1Points,player2Points));
 	}
 	
+	// <xmlIntra> --XSLT--> <xmlCuOStructIdenticaCuEntityModel> --JAXB--> unmarshal in instante
+	
+	// sample1.in.xml / sample1.out.xml
+	
 	@Parameters(name = "When Player1 scores {0} points and Player2 scores {1} then score is {2}")
 	public static java.util.List<Object[]> m() {
+		
+//		File folder = new File();
+//	for (iFile : folder.list()) { gasesti out file dupa regula; rulezi transformata si verifici XML de out.
 		return asList(
 				new Object[] {1,1,"Fifteen-Fifteen"},
 				new Object[] {0,1,"Love-Fifteen"},
