@@ -18,14 +18,15 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 public class TelemetryDiagnosticControlsTest {
 	@Mock
 	private TelemetryClient clientMock;
-	@Mock
-	private ClientConfigurationFactory configFactoryMock;
-	@InjectMocks
+//	@Mock
+//	private ClientConfigurationFactory configFactoryMock;
+////	@InjectMocks
 	private TelemetryDiagnosticControls controls;
 
 	@Before
 	public void initialize() {
 		when(clientMock.getOnlineStatus()).thenReturn(true);
+		controls = new TelemetryDiagnosticControls(clientMock, new ClientConfigurationFactory());
 	}
 	 
 	@Test
