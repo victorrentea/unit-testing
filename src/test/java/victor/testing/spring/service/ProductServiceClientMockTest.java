@@ -38,8 +38,8 @@ public class ProductServiceClientMockTest {
 	private SupplierRepo supplierRepo;
 	@Autowired
 	private ProductService productService;
-	@Autowired
-	TestTimeProvider timeProvider;
+	@MockBean
+	private TimeProvider timeProvider;
 	
 	
 	@Test
@@ -57,12 +57,12 @@ public class ProductServiceClientMockTest {
 		Long supplierId = supplierRepo.save(new Supplier()).getId();
 		when(mockSafetyClient.isSafe("upc")).thenReturn(true);
 
-		timeProvider.setTestTime(LocalDateTime.now().minusYears(1).minusMinutes(1));
+		when(timeProvider.currentTime()).thenReturn(LocalDateTime.now().minusYears(1).minusMinutes(1));
 		ProductDto productDto = new ProductDto("name", "upc", supplierId, ProductCategory.HOME);
 		long productId = productService.createProduct(productDto);
 
 		// 	one year later...
-		timeProvider.clearTestTime();
+		when(timeProvider.currentTime()).thenReturn(LocalDateTime.now());
 		assertFalse(productService.isActive(productId));
 	}
 
