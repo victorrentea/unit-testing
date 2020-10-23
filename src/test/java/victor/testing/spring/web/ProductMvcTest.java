@@ -40,7 +40,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:8089",
+	webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("db-mem")
 @Transactional
