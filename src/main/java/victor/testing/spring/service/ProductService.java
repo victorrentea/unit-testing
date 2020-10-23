@@ -42,4 +42,10 @@ public class ProductService {
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
         return productRepo.search(criteria);
     }
+
+    public boolean isActive(long productId) {
+        LocalDateTime oneYearAgo = LocalDateTime.now().minusYears(1);
+        return productRepo.findById(productId).get()
+            .getCreateDate().isAfter(oneYearAgo);
+    }
 }
