@@ -7,6 +7,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -19,51 +24,51 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("db-mem")
 public class ProductServiceClientMockTest {
-   @Mock
-   public SafetyClient mockSafetyClient;
-   @Mock
-   private ProductRepo productRepo;
-   @Mock
-   private SupplierRepo supplierRepo;
-   @InjectMocks
-   private ProductService productService;
+	@MockBean
+	public SafetyClient mockSafetyClient;
+	@Autowired
+	private ProductRepo productRepo;
+	@Autowired
+	private SupplierRepo supplierRepo;
+	@Autowired
+	private ProductService productService;
 
-   @Test
-   public void throwsForUnsafeProduct() {
-      Assertions.assertThrows(IllegalStateException.class, () -> {
-         when(mockSafetyClient.isSafe("upc")).thenReturn(false);
-         productService.createProduct(new ProductDto("name", "upc",-1L, ProductCategory.HOME));
-      });
-   }
+	@Test
+	public void throwsForUnsafeProduct() {
+		Assertions.assertThrows(IllegalStateException.class, () -> {
+			when(mockSafetyClient.isSafe("upc")).thenReturn(false);
+			ProductDto productDto = new ProductDto();
+			productDto.setUpc("upc");
+			productService.createProduct(productDto);
+		});
+	}
 
-   @Test
-   public void fullOk() {
-      Supplier supplier = new Supplier();
-      long supplierId = 13L;
-      when(supplierRepo.getOne(supplierId)).thenReturn(supplier);
-      when(mockSafetyClient.isSafe("upc")).thenReturn(true);
+	@Test
+	public void fullOk() {
+		Long supplierId = supplierRepo.save(new Supplier()).getId();
+		when(mockSafetyClient.isSafe("upc")).thenReturn(true);
 
-      productService.createProduct(new ProductDto("name", "upc", 13L, ProductCategory.HOME));
+		ProductDto productDto = new ProductDto("name", "upc", supplierId, ProductCategory.HOME);
+		long productId = productService.createProduct(productDto);
 
-      // Yuck!
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+		Product product = productRepo.findById(productId).get();
 
-      assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getUpc()).isEqualTo("upc");
-      assertThat(product.getSupplier()).isEqualTo(supplier);
-      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-      assertThat(product.getCreateDate()).isNotNull();
-   }
+		assertThat(product.getName()).isEqualTo("name");
+		assertThat(product.getUpc()).isEqualTo("upc");
+		assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+		assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+		assertThat(product.getCreateDate()).isNotNull();
+	}
 
+	// TODO Fixed Time
+	// @TestConfiguration public static class ClockConfig { @Bean @Primary public
+	// Clock fixedClock() {}}
 
-   // TODO Fixed Time
-   // @TestConfiguration public static class ClockConfig {  @Bean  @Primary  public Clock fixedClock() {}}
-
-   // TODO Variable Time
-   // when(clock.instant()).thenAnswer(call -> currentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(currentTime)));
-   // when(clock.getZone()).thenReturn(ZoneId.systemDefault());
+	// TODO Variable Time
+	// when(clock.instant()).thenAnswer(call ->
+	// currentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(currentTime)));
+	// when(clock.getZone()).thenReturn(ZoneId.systemDefault());
 }
