@@ -2,6 +2,9 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.codehaus.plexus.component.annotations.Component;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.infra.SafetyClient;
@@ -11,7 +14,6 @@ import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -21,8 +23,8 @@ public class ProductService {
 	private final SafetyClient safetyClient;
 	private final ProductRepo productRepo;
 	private final SupplierRepo supplierRepo;
+	private final TimeProvider timeProvider;
 	
-
 	public long createProduct(ProductDto productDto) {
 		boolean safe = safetyClient.isSafe(productDto.upc);
 		if (!safe) {
@@ -35,7 +37,7 @@ public class ProductService {
 		product.setUpc(productDto.upc);
 		product.setSupplier(supplierRepo.getOne(productDto.supplierId));
 		// TODO CR check that the supplier is active!
-		product.setCreateDate(TimeProvider.currentTime());
+		product.setCreateDate(timeProvider.currentTime());
 		productRepo.save(product);
 		return product.getId();
 	}
@@ -47,25 +49,7 @@ public class ProductService {
 	// un prod este activ daca e creat in ultimul an
 	public boolean isActive(long productId) {
 		return productRepo.findById(productId).get().getCreateDate()
-				.isAfter(TimeProvider.currentTime().minusYears(1));
+				.isAfter(timeProvider.currentTime().minusYears(1));
 	}
 }
 
-class TimeProvider {
-	public static LocalDateTime ___OVERRIDE_TIME_ONLY_FOR_TESTS;
-
-	public static LocalDateTime currentTime() {
-		if (___OVERRIDE_TIME_ONLY_FOR_TESTS != null ) {
-			return ___OVERRIDE_TIME_ONLY_FOR_TESTS;
-		}
-		return LocalDateTime.now();
-	}
-	@Deprecated
-	public static void set___OVERRIDE_TIME_ONLY_FOR_TESTS(LocalDateTime testTime) {
-		TimeProvider.___OVERRIDE_TIME_ONLY_FOR_TESTS = testTime;
-	}
-	public static void clearTestTime() {
-		___OVERRIDE_TIME_ONLY_FOR_TESTS = null;
-	}
-
-}
