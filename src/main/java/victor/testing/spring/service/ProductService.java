@@ -42,4 +42,10 @@ public class ProductService {
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
         return productRepo.search(criteria);
     }
+    
+    // un prod este activ daca e creat in ultimul an
+    public boolean isActive(long productId) {
+    	return productRepo.findById(productId).get().getCreateDate()
+    			.isAfter(LocalDateTime.now().minusYears(1));
+    }
 }

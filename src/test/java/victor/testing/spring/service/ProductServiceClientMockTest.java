@@ -21,9 +21,12 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class ProductServiceClientMockTest {
@@ -35,6 +38,29 @@ public class ProductServiceClientMockTest {
 	private SupplierRepo supplierRepo;
 	@Autowired
 	private ProductService productService;
+	
+	
+	@Test
+	public void productJustCreatedIsActive() {
+		Long supplierId = supplierRepo.save(new Supplier()).getId();
+		when(mockSafetyClient.isSafe("upc")).thenReturn(true);
+		
+		ProductDto productDto = new ProductDto("name", "upc", supplierId, ProductCategory.HOME);
+		long productId = productService.createProduct(productDto);
+		
+		assertTrue(productService.isActive(productId));
+	}
+	@Test
+	public void oldProductIsInactive() {
+		Long supplierId = supplierRepo.save(new Supplier()).getId();
+		when(mockSafetyClient.isSafe("upc")).thenReturn(true);
+
+		ProductDto productDto = new ProductDto("name", "upc", supplierId, ProductCategory.HOME);
+		long productId = productService.createProduct(productDto);
+
+		// 	one year later...
+		assertFalse(productService.isActive(productId));
+	}
 
 	@Test
 	public void throwsForUnsafeProduct() {
@@ -51,6 +77,8 @@ public class ProductServiceClientMockTest {
 		Long supplierId = supplierRepo.save(new Supplier()).getId();
 		when(mockSafetyClient.isSafe("upc")).thenReturn(true);
 
+		LocalDateTime testStart = LocalDateTime.now();
+		
 		ProductDto productDto = new ProductDto("name", "upc", supplierId, ProductCategory.HOME);
 		long productId = productService.createProduct(productDto);
 
@@ -60,7 +88,16 @@ public class ProductServiceClientMockTest {
 		assertThat(product.getUpc()).isEqualTo("upc");
 		assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
 		assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-		assertThat(product.getCreateDate()).isNotNull();
+		
+//		assertThat(product.getCreateDate()).isEqualTo(java.time.LocalDateTime.now()); // ruleta ruseasca 
+		// dupa 2 luni : "Mai pica testele din cand e cand. e normal. Lasa-le" 
+//		(intre alea care mai pica, sunt si alte 2-3 teste care's buguri)
+		
+		assertThat(product.getCreateDate()).isNotNull(); // inginerie curata
+		
+		assertThat(product.getCreateDate()).isAfterOrEqualTo(testStart); // inginerie curata
+		
+		
 	}
 
 	// TODO Fixed Time
