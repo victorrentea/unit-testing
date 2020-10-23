@@ -18,34 +18,54 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    private final SafetyClient safetyClient;
-    private final ProductRepo productRepo;
-    private final SupplierRepo supplierRepo;
+	private final SafetyClient safetyClient;
+	private final ProductRepo productRepo;
+	private final SupplierRepo supplierRepo;
+	
 
-    public long createProduct(ProductDto productDto, LocalDateTime time) {
-        boolean safe = safetyClient.isSafe(productDto.upc);
-        if (!safe) {
-            throw new IllegalStateException("Product is not safe: " + productDto.upc);
-        }
+	public long createProduct(ProductDto productDto) {
+		boolean safe = safetyClient.isSafe(productDto.upc);
+		if (!safe) {
+			throw new IllegalStateException("Product is not safe: " + productDto.upc);
+		}
 
-        Product product = new Product();
-        product.setName(productDto.name);
-        product.setCategory(productDto.category);
-        product.setUpc(productDto.upc);
-        product.setSupplier(supplierRepo.getOne(productDto.supplierId));
-        // TODO CR check that the supplier is active!
-        product.setCreateDate(LocalDateTime.now());
-        productRepo.save(product);
-        return product.getId();
-    }
+		Product product = new Product();
+		product.setName(productDto.name);
+		product.setCategory(productDto.category);
+		product.setUpc(productDto.upc);
+		product.setSupplier(supplierRepo.getOne(productDto.supplierId));
+		// TODO CR check that the supplier is active!
+		product.setCreateDate(TimeProvider.currentTime());
+		productRepo.save(product);
+		return product.getId();
+	}
 
-    public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
-        return productRepo.search(criteria);
-    }
-    
-    // un prod este activ daca e creat in ultimul an
-    public boolean isActive(long productId, LocalDateTime time) {
-    	return productRepo.findById(productId).get().getCreateDate()
-    			.isAfter(LocalDateTime.now().minusYears(1));
-    }
+	public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
+		return productRepo.search(criteria);
+	}
+
+	// un prod este activ daca e creat in ultimul an
+	public boolean isActive(long productId) {
+		return productRepo.findById(productId).get().getCreateDate()
+				.isAfter(TimeProvider.currentTime().minusYears(1));
+	}
+}
+
+class TimeProvider {
+	public static LocalDateTime ___OVERRIDE_TIME_ONLY_FOR_TESTS;
+
+	public static LocalDateTime currentTime() {
+		if (___OVERRIDE_TIME_ONLY_FOR_TESTS != null ) {
+			return ___OVERRIDE_TIME_ONLY_FOR_TESTS;
+		}
+		return LocalDateTime.now();
+	}
+	@Deprecated
+	public static void set___OVERRIDE_TIME_ONLY_FOR_TESTS(LocalDateTime testTime) {
+		TimeProvider.___OVERRIDE_TIME_ONLY_FOR_TESTS = testTime;
+	}
+	public static void clearTestTime() {
+		___OVERRIDE_TIME_ONLY_FOR_TESTS = null;
+	}
+
 }
