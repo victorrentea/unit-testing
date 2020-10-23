@@ -22,7 +22,7 @@ public class ProductService {
     private final ProductRepo productRepo;
     private final SupplierRepo supplierRepo;
 
-    public long createProduct(ProductDto productDto) {
+    public long createProduct(ProductDto productDto, LocalDateTime time) {
         boolean safe = safetyClient.isSafe(productDto.upc);
         if (!safe) {
             throw new IllegalStateException("Product is not safe: " + productDto.upc);
@@ -44,7 +44,7 @@ public class ProductService {
     }
     
     // un prod este activ daca e creat in ultimul an
-    public boolean isActive(long productId) {
+    public boolean isActive(long productId, LocalDateTime time) {
     	return productRepo.findById(productId).get().getCreateDate()
     			.isAfter(LocalDateTime.now().minusYears(1));
     }
