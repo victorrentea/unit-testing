@@ -207,6 +207,7 @@
                     <!-- skip the plugin as the only time we run 'mvn verify' from command line during the workshop is when we want docker to fire up -->
                     <skip>true</skip> <!-- NEVER HAVE THIS IN YOUR PROJ -->
                     <excludedGroups>integration</excludedGroups>
+                    <!-- <forkMode></forkMode> -->
                 </configuration>
             </plugin>
             <plugin>
