@@ -2,9 +2,16 @@ package victor.testing.builder;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runners.MethodSorters;
 
 import victor.testing.builder.MyException.ErrorCode;
 
@@ -14,29 +21,18 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void yesSir() {
-		validator.validate(aValidCustomer());
+		validator.validate(TestData.aValidCustomer());
 //		customer.getLabel===null
 	}
-
-	private Customer aValidCustomer() {
-		return new Customer()
-				.setName("John")
-				.setAddress(aValidAddress());
-	}
-
-	private Address aValidAddress() {
-		return new Address()
-				.setCity("Bucuresti, Orasul Smogului");
-	}
-
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullName() {
-		validator.validate(aValidCustomer().setName(null));
+		validator.validate(TestData.aValidCustomer().setName(null));
 	}
 
 	@Test
 	public void throwsForNullAddress() {
-		Customer customer = aValidCustomer().setAddress(null);
+		Customer customer = TestData.aValidCustomer().setAddress(null);
 		assertThatThrownBy(() -> validator.validate(customer))
 				.matches(e -> ((MyException) e).getCode() == ErrorCode.NO_ADDRESS);
 	}
@@ -44,8 +40,9 @@ public class CustomerValidatorShould {
 	@Test
 	public void whenCustomerHasAddressWithNullCity_thenThrows() {
 //	public void throwsForAddressWithNullCity() {
-		Customer customer = aValidCustomer().setAddress(
-				aValidAddress().setCity(null));
+		Customer customer = TestData.aValidCustomer().setAddress(
+				TestData.aValidAddress().setCity(null));
+		
 		
 		assertThatExceptionOfType(MyException.class)
 			.isThrownBy(() ->validator.validate(customer))
@@ -53,6 +50,9 @@ public class CustomerValidatorShould {
 		
 		assertThatThrownBy(() -> validator.validate(customer))
 				.matches(e -> ((MyException) e).getCode() == ErrorCode.NO_CITY);
+		
+		MyException myException = assertThrows(MyException.class, () -> validator.validate(customer));
+		assertEquals(ErrorCode.NO_CITY, myException.getCode());
 	}
 
 }

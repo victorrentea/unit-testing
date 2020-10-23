@@ -1,14 +1,19 @@
 package victor.testing.mocks.telemetry;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.withSettings;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockSettings;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -55,12 +60,19 @@ public class TelemetryDiagnosticControlsTest {
 	public void receives() throws Exception {
 		when(clientMock.receive()).thenReturn("mamaie");
 		
+		
+//		mock(clientMock, withSettings()
+//				.
+//	                                 .defaultAnswer(RETURNS_SMART_NULLS)
+//                                 .name("cool mockie")
+//                             .extraInterfaces(Bar.class))
 		controls.checkTransmission();
 		
 		// e util sa .verify ceva ce ai when.then-uit DOAR daca iti pasa de cate ori cheama functia resp
 		// cand iti pasa?: performanta (timp)
 //		verify(clientMock).receive();
 		assertEquals("mamaie", controls.getDiagnosticInfo());
+//		verifyNoMoreInteractions(clientMock);
 	}
 	
 	@Test
