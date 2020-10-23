@@ -13,39 +13,89 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
+import victor.testing.spring.web.dto.ProductSearchResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+import java.util.List;
+
 @RunWith(SpringRunner.class)
-@ActiveProfiles("db-mem")
-@Transactional
-public class ProductRepoSearchTest {
-    @Autowired
-    private ProductRepo repo;
+
+public class ProductRepoSearchTest extends AltTestBase {
+	@Autowired
+	private ProductRepo repo;
+   
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-    @Before
-    public void cleanDatabase() {
-    	// delete din tabele car e te ForeignKeyaza pe tina
-//    	repo.deleteAll();
-    }
+	@Before
+	public void checkEmptyDB() {
+		// delete din tabele car e te ForeignKeyaza pe tina
+//	    	repo.deleteAll();
+		assertThat(repo.findAll()).isEmpty();
+	}
+    
     
     @Test
     public void noCriteria() {
     	repo.save(new Product("A"));
     	Assert.assertEquals(1, repo.search(criteria).size());
-    	Assertions.assertThat(repo.search(criteria)).hasSize(1);
+    	assertThat(repo.search(criteria)).hasSize(1);
     }
     
+    // o varianta: un test care testeaza si-si
+    // daca logica e simpla (ca la noi) e suficient 1 test.
     @Test
-    public void noCriteriaBis() {
-        repo.save(new Product("B"));
-//        Assert.assertEquals(1, repo.search(criteria).size());
-        Assertions.assertThat(repo.search(criteria)).hasSize(1);
+    public void byName() {
+    	repo.save(new Product("Copac"));
+    	repo.save(new Product("Pom"));
+    	criteria.name = "Opa";
+    	List<ProductSearchResult> results = repo.search(criteria);
+    	assertThat(results).hasSize(1);
+    	assertThat(results.get(0).getName()).isEqualTo("Copac");
     }
+
+    // varianta 2: doua teste separate pentur match si mismatch.
+    // Preferam asta daca logica testata este foarte complexa.
+    @Test
+    public void byNameMatch() {
+    	repo.save(new Product("Copac"));
+    	criteria.name = "Copac";
+    	Assertions.assertThat(repo.search(criteria)).hasSize(1);
+    }
+    @Test
+    public void byNameMismatch() {
+    	repo.save(new Product("Pom"));
+    	criteria.name = "Copac";
+    	List<ProductSearchResult> results = repo.search(criteria);
+    	assertThat(results).isEmpty();
+    }
+    
+    
+    @Test
+    public void bySupplier() {
+    	Product product = repo.save(new Product().setSupplier(supplier1));
+    	repo.save(new Product().setSupplier(supplier2));
+    	criteria.supplierId = supplier1.getId();
+    	List<ProductSearchResult> results = repo.search(criteria);
+    	assertThat(results).hasSize(1);
+    	assertThat(results.get(0).getId()).isEqualTo(product.getId());
+    }
+    
+    //sau, mai maniac, asa:
+    @Test
+    public void bySupplierGeek() {
+    	repo.save(new Product().setSupplier(supplier1));
+
+    	criteria.supplierId = supplier1.getId();
+    	assertThat(repo.search(criteria)).hasSize(1);
+
+    	criteria.supplierId = -1L;
+    	assertThat(repo.search(criteria)).isEmpty();
+    }
+
 
     // TODO finish
 

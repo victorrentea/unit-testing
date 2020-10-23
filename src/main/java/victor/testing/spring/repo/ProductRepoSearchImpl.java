@@ -27,8 +27,12 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
         Map<String, Object> paramMap = new HashMap<>();
 
         if (StringUtils.isNotEmpty(criteria.name)) {
-            jpql += "  AND p.name = :name   ";
-            paramMap.put("name", criteria.name);
+        	jpql += "  AND UPPER(p.name) LIKE UPPER('%' || :name || '%')   ";
+        	paramMap.put("name", criteria.name);
+        }
+        if (criteria.supplierId != null) {
+            jpql += "  AND p.supplier.id = :supplierId  ";
+            paramMap.put("supplierId", criteria.supplierId);
         }
 
         TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
