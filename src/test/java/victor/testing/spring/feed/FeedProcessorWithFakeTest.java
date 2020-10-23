@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class FeedProcessorWithFakeTest {
 
 	@Autowired
@@ -26,10 +26,10 @@ public class FeedProcessorWithFakeTest {
 	@Autowired
 	private FileRepoFakeForTests fileRepoFake;
 
-//	@Before
-//	public void initialize() {
-//		fileRepoFake.clearFiles();
-//	}
+	@Before
+	public void initialize() {
+		fileRepoFake.clearFiles();
+	}
 	@Test
 	public void oneFileWithOneLine() {
 		fileRepoFake.addFile("one.txt", "one");
