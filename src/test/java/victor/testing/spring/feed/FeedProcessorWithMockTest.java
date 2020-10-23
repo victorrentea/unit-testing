@@ -27,9 +27,9 @@ public class FeedProcessorWithMockTest {
 
 	@Autowired
 	private FeedProcessor feedProcessor;
-	@MockBean
+	@Autowired
 	private FileRepo fileRepoMock;
-	@MockBean
+	@Autowired
 	private FeedScanner feedScanner;
 
 	@Test

@@ -23,14 +23,12 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest//(properties = "hack=asdsa")
 @RunWith(SpringRunner.class)
-public class FeedProcessorWithMockTest2 {
+public class FeedProcessorWithMockTest2 {//extends OSuperCuToate20DeMockBean, AltaClasaCareFaceSiInsert {
 
 	@Autowired
 	private FeedProcessor feedProcessor;
-	@MockBean
+	@Autowired
 	private FileRepo fileRepoMock;
-	@MockBean
-	private FeedScanner feedScanner;
 
 	@Test
 	public void oneFileWithOneLine() {
