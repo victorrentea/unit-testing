@@ -43,7 +43,7 @@ import java.util.List;
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:8089",
 	webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@ActiveProfiles("db-mem")
+@ActiveProfiles({"db-mem", "insertDummyData"})
 @Transactional
 public class ProductMvcTest {
     @Autowired
@@ -55,13 +55,13 @@ public class ProductMvcTest {
     @Rule
     public WireMockRule wireMock = new WireMockRule(8089);
 
-	private Long supplierId;
+	private Long supplierId = 1L;
 	private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-    @Before
-    public void persistRefData() {
-    	supplierId = supplierRepo.save(new Supplier()).getId();
-    }
+//    @Before
+//    public void persistRefData() {
+//    	supplierId = supplierRepo.save(new Supplier()).getId();
+//    }
     
     @Test
     public void testSearch() throws Exception {
