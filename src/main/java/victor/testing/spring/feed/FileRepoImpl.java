@@ -13,32 +13,32 @@ import static java.util.stream.Collectors.toSet;
 
 @Component
 public class FileRepoImpl implements FileRepo {
-   @Value("${feed.in.folder}")
-   private File inFolder;
+	@Value("${feed.in.folder}")
+	private File inFolder;
 
-   @Override
-public Collection<String> getFileNames() {
-      File[] files = inFolder.listFiles();
-      if (files == null) {
-         return emptySet();
-      }
-      return Stream.of(files)
-          .filter(File::isFile)
-          .map(File::getName)
-          .collect(toSet());
-   }
+	@Override
+	public Collection<String> getFileNames() {
+		File[] files = inFolder.listFiles();
+		if (files == null) {
+			return emptySet();
+		}
+		return Stream.of(files)
+				.filter(File::isFile)
+				.map(File::getName)
+				.collect(toSet());
+	}
 
-   @Override
-public Stream<String> openFile(String fileName) {
-      File file = new File(inFolder, fileName);
-      if (!file.isFile()) {
-         throw new IllegalArgumentException("Not a file name: " + fileName);
-      }
-      try {
-         return Files.lines(file.toPath());
-      } catch (IOException e) {
-         throw new IllegalArgumentException(e);
-      }
-   }
+	@Override
+	public Stream<String> openFile(String fileName) {
+		File file = new File(inFolder, fileName);
+		if (!file.isFile()) {
+			throw new IllegalArgumentException("Not a file name: " + fileName);
+		}
+		try {
+			return Files.lines(file.toPath());
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
 
 }
