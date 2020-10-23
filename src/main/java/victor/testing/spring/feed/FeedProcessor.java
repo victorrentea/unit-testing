@@ -2,6 +2,7 @@ package victor.testing.spring.feed;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -25,7 +26,7 @@ public class FeedProcessor {
       for (String fileName : names) {
          try (Stream<String> linesStream = fileRepo.openFile(fileName)) {
             List<String> lines = linesStream.collect(toList());
-            // TODO imagine anothed dependency scanner.removeComments(lines);
+            scanner.removeComments(lines);
             log.debug("Found {} lines in {}", lines.size(), fileName);
             count += lines.size();
          }

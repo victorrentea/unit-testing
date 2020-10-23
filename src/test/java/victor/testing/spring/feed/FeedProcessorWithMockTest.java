@@ -29,6 +29,8 @@ public class FeedProcessorWithMockTest {
 	private FeedProcessor feedProcessor;
 	@MockBean
 	private FileRepo fileRepoMock;
+	@MockBean
+	private FeedScanner feedScanner;
 
 	@Test
 	public void oneFileWithOneLine() {
