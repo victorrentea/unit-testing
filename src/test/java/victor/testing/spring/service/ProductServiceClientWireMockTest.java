@@ -1,5 +1,7 @@
 package victor.testing.spring.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
@@ -23,6 +25,8 @@ import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.infra.SafetyEntryDto;
+import victor.testing.spring.infra.SafetyReportDto;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.tools.WireMockExtension;
@@ -36,6 +40,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,17 +64,25 @@ public class ProductServiceClientWireMockTest {
 		productService.createProduct(new ProductDto("name", "2", -1L, ProductCategory.HOME));
 	}
 
-//	@Test(expected = IllegalStateException.class)
-//	public void throwsForUnsafeProductProgrammaticWireMock() {
-//		WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
-//				.willReturn(aResponse()
-//						.withStatus(200)
-//						.withHeader("Content-Type", "application/json")
-//						.withBody(
-//								"{\"entries\": [{\"category\": \"DETERMINED\",\"detailsUrl\": \"http://wikipedia.com\"}]}"))); // override
-//
-//		productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
-//	}
+	@Test(expected = IllegalStateException.class)
+	public void throwsForUnsafeProductProgrammaticWireMock() throws JsonProcessingException {
+		SafetyReportDto safetyReportDto = new SafetyReportDto();
+		safetyReportDto.setEntries(new ArrayList<>());
+		SafetyEntryDto entry = new SafetyEntryDto();
+		entry.setCategory("DETERMINED");
+		entry.setDetailsUrl("http://bla");
+		safetyReportDto.getEntries().add(entry);
+		
+		String json = new ObjectMapper().writeValueAsString(safetyReportDto);
+		
+		WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
+				.willReturn(aResponse()
+						.withStatus(200)
+						.withHeader("Content-Type", "application/json")
+						.withBody(json))); // override
+		
+		productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
+	}
 //
 //	@Test(expected = IllegalStateException.class)
 //	public void throwsForUnsafeProductProgrammaticWireMockFromFileTemplatized()
