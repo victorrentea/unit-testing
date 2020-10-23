@@ -73,13 +73,17 @@ public class ProductRepoSearchTest extends AltTestBase {
     	assertThat(results).isEmpty();
     }
     
-    
     @Test
     public void bySupplier() {
+    	//Given: contextul (test fixture) = aici + @Before (ev mostenite)
     	Product product = repo.save(new Product().setSupplier(supplier1));
     	repo.save(new Product().setSupplier(supplier2));
     	criteria.supplierId = supplier1.getId();
+    	
+    	// When - ACT
     	List<ProductSearchResult> results = repo.search(criteria);
+    	
+    	// Then :asserturi
     	assertThat(results).hasSize(1);
     	assertThat(results.get(0).getId()).isEqualTo(product.getId());
     }
