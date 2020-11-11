@@ -15,27 +15,32 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
-@InMemDBTest
+@Transactional
+@SpringBootTest
 public class ProductRepoSearchTest {
     @Autowired
     private ProductRepo repo;
     @Autowired
     private SupplierRepo supplierRepo;
 
-    private ProductSearchCriteria criteria;
     private Supplier supplier;
+    private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
     @BeforeEach
     public void initialize() {
-        criteria = new ProductSearchCriteria();
+//        supplierRepo.deleteAll();
+//        repo.deleteAll();
+
+        assertEquals(0, repo.count());
         supplier = supplierRepo.save(new Supplier());
     }
 
     @Test
     public void noCriteria() {
         repo.save(new Product());
-        Assert.assertEquals(1, repo.search(criteria).size());
+        assertEquals(1, repo.search(criteria).size());
         assertThat(repo.search(criteria)).hasSize(1);
     }
 
