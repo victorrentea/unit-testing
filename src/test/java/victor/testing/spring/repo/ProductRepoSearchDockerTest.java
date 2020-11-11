@@ -15,6 +15,7 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+// https://github.com/mindit-io/docker-demo
 @Transactional
 @SpringBootTest
 @ActiveProfiles("db-mysql")
