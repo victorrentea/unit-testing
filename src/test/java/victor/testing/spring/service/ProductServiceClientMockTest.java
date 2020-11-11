@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
@@ -23,6 +24,11 @@ import victor.testing.spring.web.dto.ProductDto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+@Component
+class TestDataInserter {
+
+}
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
@@ -46,20 +52,21 @@ public class ProductServiceClientMockTest {
    }
 
    @Test
+   @WithStaticData
    public void fullOk() {
-      Supplier supplier = new Supplier();
-      long supplierId = supplierRepo.save(supplier).getId();
+      long supplierId = 1L;//supplierRepo.save(supplier).getId();
       when(mockSafetyClient.isSafe("upc")).thenReturn(true);
 
       ProductDto dto = new ProductDto("name", "upc", supplierId, ProductCategory.HOME);
-      long productId = productService.createProduct(dto);
+      long productId = productService.createProduct(dto); // prod call
 
       Product product = productRepo.findById(productId).get();
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getUpc()).isEqualTo("upc");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(1L);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+
       assertThat(product.getCreateDate()).isNotNull();
    }
 
