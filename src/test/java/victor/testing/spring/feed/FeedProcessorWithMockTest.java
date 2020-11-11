@@ -12,9 +12,10 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-//@SpringBootTest(classes = MockConfig.class)
-public class FeedProcessorWithMockTest extends BaseTest {
-   @Autowired
+
+@SpringBootTest
+public class FeedProcessorWithMockTest {
+   @MockBean
    private FileRepo fileRepoMock;
 
    @Autowired
