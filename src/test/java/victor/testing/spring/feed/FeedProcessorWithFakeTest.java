@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("dummyFileRepo")
-//@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class FeedProcessorWithFakeTest {
 
    @Autowired
@@ -20,10 +21,6 @@ public class FeedProcessorWithFakeTest {
    @Autowired
    private FileRepoForTests fileRepo;
 
-   @BeforeEach
-   public void initialize() {
-      fileRepo.clearFiles();
-   }
 
    @Test
    public void oneFileWithOneLine() {
