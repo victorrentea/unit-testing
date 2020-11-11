@@ -83,6 +83,8 @@ public class ProductMvcTest {
       assertOneResult(results, p -> p.getName().equals("Tree"));
    }
 
+
+   // NU FA D;ASTEA DECAT PE APIURILE EXPUSE CATRE ALTE PROIECTE/ECHIPE. NU PE APIURILE CATRE PROPRIA SPA./UI
    @Test
    public void testSearch2() throws Exception {
       createProduct(aProductDto());
