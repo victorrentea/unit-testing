@@ -2,3 +2,19 @@
 <dataset>
   <Notifications text="aaa"/>
 </dataset>
+<!--
+
+DBUNIT: date de inserat intr-un mod DB agnostic
+sau sa verifice continutul tabelei DUPA test
+
+<dataset>
+
+<CUSTOMER CUSTOMER_ID="1" ACCOUNT_ID="account1" FTI_LOGIN="ftilogin1"/>
+
+<CPE_TYPE CPE_TYPE_ID="1" LABEL="LIVEBOX" DESCRIPTION="Livebox"/>
+
+<CONF_TYPE CONF_TYPE_ID="1" LABEL="VOIP_SIP" LABEL_CPE="VSIP" DESCRIPTION="Livebox VoIP SIP Service Configuration Type"/>
+<CONF_TYPE CONF_TYPE_ID="2" LABEL="WIFI_COM" LABEL_CPE="WIFI" DESCRIPTION="Livebox WIFI COM Service Configuration Type"/>
+
+<CONF_STATUS CONF_STATUS_ID="1" LABEL="CONF_RECEIVED" DESCRIPTION="Received"/>
+-->
