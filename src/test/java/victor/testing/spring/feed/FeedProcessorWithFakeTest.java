@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("dummyFileRepo")
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class FeedProcessorWithFakeTest {
 
    @Autowired
@@ -21,6 +21,10 @@ public class FeedProcessorWithFakeTest {
    @Autowired
    private FileRepoForTests fileRepo;
 
+   @BeforeEach
+   public void initialize() {
+       fileRepo.clearFiles();
+   }
 
    @Test
    public void oneFileWithOneLine() {
