@@ -12,6 +12,34 @@
         <version>2.3.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <profiles>
+        <profile>
+            <id>including-flaky-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+
+            </build>
+
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -215,6 +243,9 @@
                     <includes>
                         <include>**/*</include>
                     </includes>
+                    <!--<excludes>
+                        <exclude>**/*Flaky</exclude>
+                    </excludes>-->
                     <groups>integration</groups>
                 </configuration>
                 <executions>
