@@ -16,7 +16,10 @@ public class DummyDataCreator implements CommandLineRunner {
 
    @Override
    public void run(String... args) throws Exception {
+      // existing shared database
       jdbcTemplate.update("INSERT INTO supplier(ID, NAME, ACTIVE) VALUES (1, 'Dummy', 1)");
+      jdbcTemplate.update("INSERT INTO PRODUCT(ID) VALUES (-1)");
+      jdbcTemplate.update("INSERT INTO PRODUCT(ID,name) VALUES (-2,'tree')");
 
       log.info("Inserted dummy data");
 

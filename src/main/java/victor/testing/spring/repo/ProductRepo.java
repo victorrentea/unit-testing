@@ -8,4 +8,5 @@ public interface ProductRepo extends ProductRepoSearch, JpaRepository<Product, L
    @Query("SELECT p FROM Product p where p.name = ?1")
    Product findByName(String name);
 
+   void deleteByName(String name);
 }
