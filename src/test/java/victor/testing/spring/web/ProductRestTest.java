@@ -53,8 +53,7 @@ public class ProductRestTest {
 
    @Test
    public void testSearch() {
-      Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-      when(safetyClient.isSafe("UPC")).thenReturn(true);
+      Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();when(safetyClient.isSafe("UPC")).thenReturn(true);
 
       ProductDto productDto = new ProductDto("Tree", "UPC", supplierId, ProductCategory.ME);
 
