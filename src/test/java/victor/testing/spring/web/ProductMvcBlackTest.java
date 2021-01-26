@@ -1,5 +1,6 @@
 package victor.testing.spring.web;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,66 +22,52 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ProductMvcBlackTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @MockBean
-    private SafetyClient safetyClient;
-    @Autowired
-    private SupplierRepo supplierRepo;
+   @Autowired
+   private MockMvc mockMvc;
+   @MockBean
+   private SafetyClient safetyClient;
+   @Autowired
+   private SupplierRepo supplierRepo;
 
-    @Test
-    public void testSearch() throws Exception {
-        // given
-        Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId(); // referance
-        when(safetyClient.isSafe("UPC")).thenReturn(true);
+   private Long supplierId;
 
-        // language=json
-        String createJson = String.format("{\"name\": \"Tree\", \"supplierId\": \"%d\", \"upc\": \"UPC\"}", supplierId);
+   @BeforeEach
+   public void persistStaticData() {
+      supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
 
-        // TODO create via REST CALL
-//        productRepo.save(new Product().setName("Tree"));
-        mockMvc.perform(post("/product/create")
-                .content(createJson)
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
+   }
 
+   @Test
+   public void testSearch() throws Exception {
+      when(safetyClient.isSafe("UPC")).thenReturn(true);
 
-        // TODO search via REST CALL
+      createProduct("Tree");
 
-        runSearch("{\"name\": \"rE\"}", 1);
-    }
+      runSearch("{\"name\": \"Tree\"}", 1);
+   }
 
-    private void runSearch(String searchCriteriaJson, int expectedSize) throws Exception {
-        mockMvc.perform(post("/product/search")
-            .content(searchCriteriaJson)
-            .contentType(MediaType.APPLICATION_JSON)
-        )
-            .andExpect(status().isOk())
-            .andExpect(header().string("Custom-Header", "true"))
-            .andExpect(jsonPath("$", hasSize(expectedSize)));
-    }
+   private void createProduct(String productName) throws Exception {
+      // ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.WIFE);
+      // String createJson = new ObjectMapper().writeValueAsString(dto);
 
-    @Test
-    public void testSearchMismatch() throws Exception {
-        // given
-        Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId(); // referance
-        when(safetyClient.isSafe("UPC")).thenReturn(true);
+      // language=json
+      String createJson = String.format("{\"name\": \"" + productName + "\", \"supplierId\": \"%d\", \"upc\": \"UPC\"}", this.supplierId);
 
-        // language=json
-        String createJson = String.format("{\"name\": \"Tree\", \"supplierId\": \"%d\", \"upc\": \"UPC\"}", supplierId);
+      mockMvc.perform(post("/product/create")
+          .content(createJson)
+          .contentType(MediaType.APPLICATION_JSON))
+          .andExpect(status().isOk());
+   }
 
-        // TODO create via REST CALL
-//        productRepo.save(new Product().setName("Tree"));
-        mockMvc.perform(post("/product/create")
-                .content(createJson)
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
-
-
-        // TODO search via REST CALL
-
-        runSearch("{\"name\": \"amazing session\"}", 0);
-    }
+   private void runSearch(String searchCriteriaJson, int expectedSize) throws Exception {
+      mockMvc.perform(post("/product/search")
+          .content(searchCriteriaJson)
+          .contentType(MediaType.APPLICATION_JSON)
+      )
+          .andExpect(status().isOk())
+          .andExpect(header().string("Custom-Header", "true"))
+          .andExpect(jsonPath("$", hasSize(expectedSize)));
+   }
 
 
 }

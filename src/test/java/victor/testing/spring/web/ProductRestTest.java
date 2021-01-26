@@ -1,11 +1,13 @@
 package victor.testing.spring.web;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -25,6 +27,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpStatus.OK;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProductRestTest {
@@ -37,7 +40,8 @@ public class ProductRestTest {
 
    @Autowired
    private TestRestTemplate rest; // vs RestTemplate + base URL + .withBasicAuth("spring", "secret")
-//   private RestTemplate rest;
+   private Long supplierId;
+   //   private RestTemplate rest;
 
 //   @Autowired
 //   public void initRestTemplate(@Value("http://localhost:${local.server.port}") String baseUri) {
@@ -49,25 +53,26 @@ public class ProductRestTest {
    public void initialize() {
       productRepo.deleteAll();
       supplierRepo.deleteAll();
+      supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
    }
 
    @Test
    public void testSearch() {
-      Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
       when(safetyClient.isSafe("UPC")).thenReturn(true);
 
       ProductDto productDto = new ProductDto("Tree", "UPC", supplierId, ProductCategory.ME);
 
-      ResponseEntity<Void> createResult = rest.postForEntity("/product/create", productDto, Void.class);
-      assertEquals(HttpStatus.OK, createResult.getStatusCode());
+      ResponseEntity<Void> createResponse = rest.postForEntity("/product/create", productDto, Void.class);
+      assertThat(createResponse.getStatusCode()).isEqualTo(OK);
 
       ProductSearchCriteria searchCriteria = new ProductSearchCriteria("Tree", null, null);
+
       ResponseEntity<List<ProductSearchResult>> searchResponse = rest.exchange(
           "/product/search", HttpMethod.POST,
           new HttpEntity<>(searchCriteria), new ParameterizedTypeReference<List<ProductSearchResult>>() {
           });
 
-      assertEquals(HttpStatus.OK, searchResponse.getStatusCode());
+      assertThat(searchResponse.getStatusCode()).isEqualTo(OK);
       assertThat(searchResponse.getBody()).hasSize(1);
       assertThat(searchResponse.getBody()).allMatch(p -> "Tree".equals(p.getName()));
    }

@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 
 @Slf4j
 @Tag("integration")
-public class ProductRestDockerTest {
+public class ProductDockerTest {
 
    @RegisterExtension
    public static WaitForSpringActuator waitExtension = new WaitForSpringActuator("http://localhost:8080");
