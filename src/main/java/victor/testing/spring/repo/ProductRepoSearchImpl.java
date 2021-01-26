@@ -35,7 +35,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
          jpql += "  AND p.name = :name   ";
          paramMap.put("name", criteria.name);
       }
-      anotherClass.method();
+//      anotherClass.method();
 
       TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
       for (String paramName : paramMap.keySet()) {

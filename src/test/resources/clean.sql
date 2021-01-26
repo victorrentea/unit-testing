@@ -1,0 +1,1 @@
+DELETE FROM PRODUCT WHERE name='You wedding ring'

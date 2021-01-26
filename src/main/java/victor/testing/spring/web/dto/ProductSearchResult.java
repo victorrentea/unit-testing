@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductSearchResult {
+public class ProductSearchResult { // smells like JSON
     private Long id;
     private String name;
 

@@ -26,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+// This test tells Spring to start up a Tomcat just for the tests, on a random port.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProductRestTest {
    @MockBean
@@ -35,7 +36,7 @@ public class ProductRestTest {
    @Autowired
    private ProductRepo productRepo;
 
-   @Autowired
+   @Autowired // this one points automatically to the port opened by Tomcat in tests
    private TestRestTemplate rest; // vs RestTemplate + base URL + .withBasicAuth("spring", "secret")
 //   private RestTemplate rest;
 
@@ -53,6 +54,7 @@ public class ProductRestTest {
 
    @Test
    public void testSearch() {
+//      rest.withBasicAuth("admin", "admin");
       Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();when(safetyClient.isSafe("UPC")).thenReturn(true);
 
       ProductDto productDto = new ProductDto("Tree", "UPC", supplierId, ProductCategory.ME);
