@@ -31,8 +31,8 @@ public class ProductRepoSearchTest {
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
     @BeforeEach
-    public void initialize() {
-//        repo.deleteAll();
+    public void checkDatabaseIsEmpty() {
+        assertThat(repo.findAll()).isEmpty();
     }
     @Test
     public void noCriteria() {
