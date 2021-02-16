@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.jupiter.api.Tag;
@@ -12,6 +13,7 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class ProductRepoSearchTest {
