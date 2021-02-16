@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import java.util.List;
@@ -20,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 // Daca esti pe Junit4 mai trebuie @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("db-real")
+@Transactional
 public class ProductRepoSearchTest {
     private static final Logger log = LoggerFactory.getLogger(ProductRepoSearchTest.class);
     @Autowired
@@ -29,7 +32,7 @@ public class ProductRepoSearchTest {
 
     @BeforeEach
     public void initialize() {
-        repo.deleteAll();
+//        repo.deleteAll();
     }
     @Test
     public void noCriteria() {
@@ -37,8 +40,14 @@ public class ProductRepoSearchTest {
         Assert.assertEquals(1, repo.search(criteria).size());
     }
     @Test
+    public void noCriteriaCa() {
+        repo.process();
+    }
+
+    @Test
     public void noCriteriaBis() {
-        repo.save(new Product().setName("B"));
+        repo.save(new Product().setName("B")
+            .setSupplier(new Supplier()));
 
         List<Product> results = repo.search(criteria);
 

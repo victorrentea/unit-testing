@@ -32,7 +32,7 @@ public class Product {
     private String upc;
 
     @Getter @Setter
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Supplier supplier;
 
     @Getter @Setter

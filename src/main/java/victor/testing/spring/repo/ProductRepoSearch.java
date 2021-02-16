@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ProductRepoSearch {
     List<Product> search(ProductSearchCriteria criteria);
+
+    void process();
 }

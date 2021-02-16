@@ -3,6 +3,8 @@ package victor.testing.spring.repo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
@@ -37,5 +39,11 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
             query.setParameter(paramName, paramMap.get(paramName));
         }
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void process() {
+        em.persist(new Product("Tzeapa, pe asta n-ai vazut-o!"));
     }
 }
