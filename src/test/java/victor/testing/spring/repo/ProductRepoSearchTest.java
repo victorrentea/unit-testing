@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -25,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("db-real")
 @Transactional
-@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // nu pui pe ghit
 public class ProductRepoSearchTest {
     private static final Logger log = LoggerFactory.getLogger(ProductRepoSearchTest.class);
     @Autowired
@@ -42,10 +43,12 @@ public class ProductRepoSearchTest {
         repo.save(new Product().setName("A"));
         Assert.assertEquals(1, repo.search(criteria).size());
     }
-    @Test
-    public void noCriteriaCa() {
-        repo.process();
-    }
+//    @Test
+//    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+//    public void noCriteriaCa() {
+//        repo.process();
+//        repo.deleteAll();
+//    }
 
     @Test
     public void noCriteriaBis() {
