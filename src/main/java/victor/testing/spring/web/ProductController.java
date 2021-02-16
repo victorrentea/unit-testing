@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import victor.testing.spring.domain.Product;
 import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
@@ -25,7 +26,7 @@ public class ProductController {
    }
 
    @PostMapping("product/search")
-   public List<ProductSearchResult> search(@RequestBody ProductSearchCriteria criteria) {
+   public List<Product> search(@RequestBody ProductSearchCriteria criteria) {
       return facade.searchProduct(criteria);
    }
 

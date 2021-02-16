@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Entity
 //@Data NEVER
@@ -18,8 +17,13 @@ public class Product {
     @Getter
     private Long id;
 
-    @Getter @Setter
+    @Getter
     private String name;
+
+    public Product setName(String name) {
+        this.name = name;
+        return this;
+    }
 
     @Getter @Setter
     private ProductCategory category;

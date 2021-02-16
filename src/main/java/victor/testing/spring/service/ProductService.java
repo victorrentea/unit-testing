@@ -39,7 +39,7 @@ public class ProductService {
         return product.getId();
     }
 
-    public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
+    public List<Product> searchProduct(ProductSearchCriteria criteria) {
         return productRepo.search(criteria);
     }
 
