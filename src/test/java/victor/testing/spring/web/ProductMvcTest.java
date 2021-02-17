@@ -15,6 +15,7 @@ import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,10 +34,26 @@ public class ProductMvcTest {
 
     @Test
     public void testSearch() throws Exception {
+
+
         productRepo.save(new Product().setName("Tree"));
 
+
+
+
+        ProductSearchCriteria criteria = new ProductSearchCriteria();
+        criteria.name="Copac";
+
+        search(criteria);
+    }
+
+
+
+
+    private void search(ProductSearchCriteria criteria) throws Exception {
+        String json = new ObjectMapper().writeValueAsString(criteria);
         mockMvc.perform(post("/product/search")
-            .content("{}")
+            .content(json)
             .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isOk())

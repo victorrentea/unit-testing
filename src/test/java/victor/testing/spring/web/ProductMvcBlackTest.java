@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
@@ -34,7 +35,6 @@ public class ProductMvcBlackTest {
    @BeforeEach
    public void persistStaticData() {
       supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-
    }
 
    @Test
@@ -45,6 +45,9 @@ public class ProductMvcBlackTest {
 
       runSearch("{\"name\": \"Tree\"}", 1);
    }
+
+
+   // mai jos este un test DSL (fluent api de testare a apiluiu rest)
 
    private void createProduct(String productName) throws Exception {
       // ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.WIFE);
