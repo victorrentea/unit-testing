@@ -39,12 +39,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@interface CleanUpAllOperationalTables {
 //}
 
+//@ActiveProfiles("db-mysql")
+//class ProductSearchTestPeMysql extends  ProductRepoSearchTest {
+//
+//}
+//@ActiveProfiles("db-mssql")
+//class ProductSearchTestPeMsSql extends  ProductRepoSearchTest {
+//
+//}
+
 //@SpringBootTest
 //@ActiveProfiles("db-real")
 //@Transactional
 @WithReferenceData
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // nu pui pe ghit
-public class ProductRepoSearchTest extends CuDeToateTestBase{
+public /*abstract */class ProductRepoSearchTest extends CuDeToateTestBase{
     private static final Logger log = LoggerFactory.getLogger(ProductRepoSearchTest.class);
     @Autowired
     private ProductRepo repo;

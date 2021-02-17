@@ -8,9 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Supplier;
 
 @SpringBootTest
-@ActiveProfiles("db-real")
 @Transactional
-
 public abstract class CuDeToateTestBase {
    protected Supplier supplier;
    @Autowired
