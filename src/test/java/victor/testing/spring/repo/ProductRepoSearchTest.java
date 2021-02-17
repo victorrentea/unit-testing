@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,26 +14,45 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 // Daca esti pe Junit4 mai trebuie @RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles("db-real")
-@Transactional
+
+@Sql(value = "classpath:/reference-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@interface WithReferenceData {
+}
+
+//@Sql(value = "classpath:/cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+//@Retention(RetentionPolicy.RUNTIME)
+//@interface CleanUpAllOperationalTables {
+//}
+
+//@SpringBootTest
+//@ActiveProfiles("db-real")
+//@Transactional
+@WithReferenceData
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // nu pui pe ghit
-public class ProductRepoSearchTest {
+public class ProductRepoSearchTest extends CuDeToateTestBase{
     private static final Logger log = LoggerFactory.getLogger(ProductRepoSearchTest.class);
     @Autowired
     private ProductRepo repo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
+
+    @RegisterExtension
+    public CommonDataExtension commonData = new CommonDataExtension();
 
     @BeforeEach
     public void checkDatabaseIsEmpty() {
@@ -52,13 +72,76 @@ public class ProductRepoSearchTest {
 
     @Test
     public void noCriteriaBis() {
-        repo.save(new Product().setName("B")
-            .setSupplier(new Supplier()));
+        repo.save(new Product().setName("B"));
 
         List<Product> results = repo.search(criteria);
 
         assertThat(results).hasSize(1);
 
+    }
+    @Test
+    public void matchesName() {
+        repo.save(new Product().setName("Tree"));
+        criteria.name = "tRee";
+        List<Product> results = repo.search(criteria);
+
+        assertThat(results).hasSize(1);
+    }
+    @Test
+    public void matchesNameLike() {
+        repo.save(new Product().setName("TrEe"));
+        criteria.name = "Re";
+        List<Product> results = repo.search(criteria);
+
+        assertThat(results).hasSize(1);
+    }
+    @Test
+    public void noMatchByName() {
+        repo.save(new Product().setName("Copac"));
+        criteria.name = "Tree";
+        List<Product> results = repo.search(criteria);
+
+        assertThat(results).isEmpty();
+    }
+    @Test
+    public void matchBySupplier() {
+
+
+
+        repo.save(new Product().setSupplier(supplier));
+
+        criteria.supplierId = supplier.getId();
+        assertThat(repo.search(criteria)).hasSize(1);
+
+        criteria.supplierId = -13L;
+        assertThat(repo.search(criteria)).isEmpty();
+    }
+    @Test
+    public void matchBySupplierWithExtension() {
+        Supplier supplierInsertedByExtension = commonData.getSupplier();
+
+        repo.save(new Product().setSupplier(supplierInsertedByExtension));
+
+        criteria.supplierId = supplierInsertedByExtension.getId();
+        assertThat(repo.search(criteria)).hasSize(1);
+
+        criteria.supplierId = -13L;
+        assertThat(repo.search(criteria)).isEmpty();
+    }
+    @Autowired
+    private SupplierRepo supplierRepo;
+
+    @Test
+
+    public void matchBySupplierBis() {
+
+        repo.save(new Product().setSupplier(supplierRepo.findById(-1L).get()));
+
+        criteria.supplierId = -1L;
+        assertThat(repo.search(criteria)).hasSize(1);
+
+        criteria.supplierId = -13L;
+        assertThat(repo.search(criteria)).isEmpty();
     }
 
     // TODO finish

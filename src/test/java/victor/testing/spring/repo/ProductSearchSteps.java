@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import victor.testing.spring.SomeSpringApplication;
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
@@ -98,5 +100,10 @@ public class ProductSearchSteps {
       } else {
          assertThat(results).isEmpty();
       }
+   }
+
+   @And("^That product has category \"([^\"]*)\"$")
+   public void thatProductHasCategory(ProductCategory category) throws Throwable {
+      product.setCategory(category);
    }
 }
