@@ -12,7 +12,11 @@ public class TennisGame {
 
 
    public String score() {
-      return translateScore(player1Score) + " - " + translateScore(player2Score);
+      if (player1Score >= 3 && player2Score == player1Score) {
+         return "Deuce";
+      }
+      return translateScore(player1Score) + " - " +
+             translateScore(player2Score);
    }
 
    private String translateScore(int score) {
@@ -22,7 +26,7 @@ public class TennisGame {
          case 1:
             return "Fifteen";
          case 2:
-            return "ThirtyX";
+            return "Thirty";
          default:
             return "Forty";
       }
