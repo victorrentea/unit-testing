@@ -50,14 +50,20 @@ public class CustomerValidatorTest {
 
    private Customer aValidCustomer() {
 
-
-      Customer customer = new CustomerBuilder()
-          .withName("John")
-          .withAddress(new AddressBuilder()
-              .withCity("Oras")
-              .withStreetName("Viorele")
+      Customer customer = Customer.builder()
+          .address(new Address.AddressBuilder()
+              .city("Oras")
               .build())
+          .name("John")
           .build();
+//
+//      Customer customer = new CustomerBuilder()
+//          .withName("John")
+//          .withAddress(new AddressBuilder()
+//              .withCity("Oras")
+//              .withStreetName("Viorele")
+//              .build())
+//          .build();
 
 
       return customer;

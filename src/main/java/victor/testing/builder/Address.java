@@ -1,5 +1,10 @@
 package victor.testing.builder;
 
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+@Builder
+@NoArgsConstructor
 public class Address {
 	private String streetName;
 	private Integer streetNumber;

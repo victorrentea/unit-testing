@@ -1,9 +1,13 @@
 package victor.testing.builder;
 
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@Builder
+@NoArgsConstructor
 public class Customer {
 
 	private String name;
