@@ -35,8 +35,11 @@ public class CustomerValidatorTest {
       Address address = new Address();
       customer.setAddress(address);
 
-      exception.expectMessage("city");// Draga JUnit, vezi ca testul asta o sa crape cu exceptie. E Ok. relax. Cata vreme ex cotnine "city"
+//      exception.expectMessage("city");// Draga JUnit, vezi ca testul asta o sa crape cu exceptie. E Ok. relax. Cata vreme ex cotnine "city"
+//      validator.validate(customer);
+      IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+          () -> validator.validate(customer));
 
-      validator.validate(customer);
+      assertTrue(ex.getMessage().contains("city"));
    }
 }
