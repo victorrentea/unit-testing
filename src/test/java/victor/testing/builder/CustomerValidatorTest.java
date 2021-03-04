@@ -5,34 +5,33 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
+import static victor.testing.builder.ObjectMother.aValidAddress;
+import static victor.testing.builder.ObjectMother.aValidCustomer;
 
 public class CustomerValidatorTest {
 
    @Rule
    public ExpectedException exception = ExpectedException.none();
+
    private CustomerValidator validator = new CustomerValidator();
 
    //   public void whenCustomerNameIsEmpty_throws() {
 //   public void emptyName() { // cam lene
    @Test(expected = IllegalArgumentException.class)
    public void throwsForMissingAddress() {
-      Customer customer = new Customer();
-      customer.setName("John");
-      validator.validate(customer);
+      validator.validate(aValidCustomer().setAddress(null));
    }
 
    @Test(expected = IllegalArgumentException.class)
    public void throwsForEmptyName() {
-      validator.validate(new Customer());
+      validator.validate(aValidCustomer().setName(null));
    }
 
    @Test
    public void throwsForEmptyCity() {
 
-      Customer customer = new Customer();
-      customer.setName("John");
-      Address address = new Address();
-      customer.setAddress(address);
+      Customer customer = aValidCustomer()
+         .setAddress(aValidAddress().setCity(null));
 
 //      exception.expectMessage("city");// Draga JUnit, vezi ca testul asta o sa crape cu exceptie. E Ok. relax. Cata vreme ex cotnine "city"
 //      validator.validate(customer);
@@ -44,35 +43,23 @@ public class CustomerValidatorTest {
 
    @Test
    public void valid() {
-      Customer customer = aValidCustomer();
-      validator.validate(customer);
+      validator.validate(ObjectMother.aValidCustomer());
    }
 
-   private Customer aValidCustomer() {
-
-//      Customer customer = Customer.builder()
-//          .address(new Address.AddressBuilder()
-//              .city("Oras")
-//              .build())
-//          .name("John")
-//          .build();
-//
-//      Customer customer = new CustomerBuilder()
-//          .withName("John")
-//          .withAddress(new AddressBuilder()
-//              .withCity("Oras")
-//              .withStreetName("Viorele")
-//              .build())
-//          .build();
-
-
+}
+// si alte teste vor vrea metodele astea. Atentie, daca pre amulti vor, Copy-Paste clasa la un moment dat (100+ teste)
+class ObjectMother {
+   public static Customer aValidCustomer() {
       return new Customer()
           .setName("John")
-          .setAddress(new Address()
-              .setCity("Oras"));
+          .setAddress(aValidAddress());
    }
-}
 
-class ObjectMother {
+   public static Address aValidAddress() {
+      return new Address()
+          .setCity("Oras")
+          .setStreetName("Dristor")
+          .setStreetNumber(12);
+   }
 
 }
