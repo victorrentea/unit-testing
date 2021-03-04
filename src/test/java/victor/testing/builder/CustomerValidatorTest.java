@@ -42,4 +42,28 @@ public class CustomerValidatorTest {
 
       assertTrue(ex.getMessage().contains("city"));
    }
+   @Test
+   public void valid() {
+      Customer customer = aValidCustomer();
+      validator.validate(customer);
+   }
+
+   private Customer aValidCustomer() {
+
+
+      Customer customer = new CustomerBuilder()
+          .withName("John")
+          .withAddress(new AddressBuilder()
+              .withCity("Oras")
+              .withStreetName("Viorele")
+              .build())
+          .build();
+
+
+      return customer;
+   }
+}
+
+class ObjectMother {
+
 }
