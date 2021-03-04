@@ -8,9 +8,11 @@ import static org.junit.Assert.*;
 
 public class CustomerValidatorTest {
 
+   @Rule
+   public ExpectedException exception = ExpectedException.none();
    private CustomerValidator validator = new CustomerValidator();
 
-//   public void whenCustomerNameIsEmpty_throws() {
+   //   public void whenCustomerNameIsEmpty_throws() {
 //   public void emptyName() { // cam lene
    @Test(expected = IllegalArgumentException.class)
    public void throwsForMissingAddress() {
@@ -23,9 +25,6 @@ public class CustomerValidatorTest {
    public void throwsForEmptyName() {
       validator.validate(new Customer());
    }
-
-   @Rule
-   public ExpectedException exception = ExpectedException.none();
 
    @Test
    public void throwsForEmptyCity() {
@@ -42,6 +41,7 @@ public class CustomerValidatorTest {
 
       assertTrue(ex.getMessage().contains("city"));
    }
+
    @Test
    public void valid() {
       Customer customer = aValidCustomer();
@@ -50,12 +50,12 @@ public class CustomerValidatorTest {
 
    private Customer aValidCustomer() {
 
-      Customer customer = Customer.builder()
-          .address(new Address.AddressBuilder()
-              .city("Oras")
-              .build())
-          .name("John")
-          .build();
+//      Customer customer = Customer.builder()
+//          .address(new Address.AddressBuilder()
+//              .city("Oras")
+//              .build())
+//          .name("John")
+//          .build();
 //
 //      Customer customer = new CustomerBuilder()
 //          .withName("John")
@@ -66,7 +66,10 @@ public class CustomerValidatorTest {
 //          .build();
 
 
-      return customer;
+      return new Customer()
+          .setName("John")
+          .setAddress(new Address()
+              .setCity("Oras"));
    }
 }
 
