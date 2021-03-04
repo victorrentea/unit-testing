@@ -1,5 +1,6 @@
 package victor.testing.tdd;
 
+import org.junit.Before;
 import org.junit.Test;
 import victor.testing.tdd.TennisGame.Player;
 
@@ -26,6 +27,26 @@ public class TennisGameTest {
       setScore(player1Score, player2Score);
       return tennisGame.score();
    }
+
+
+   @Before
+   public final void before() {
+       // insert user in db
+      // mockuieste pe alal
+      // creaza datele alrea
+      // pune fisierul acolo
+//      mockuiest si pa-al
+       // insert user in db
+      // mockuieste pe alal
+      // creaza datele alrea
+      // pune fisierul acolo
+//      mockuiest si pa-al
+
+   }
+
+   // 20-50 teste,
+
+
 
    @Test
    public void loveLove() {
