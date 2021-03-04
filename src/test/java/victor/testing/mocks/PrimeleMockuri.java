@@ -3,6 +3,7 @@ package victor.testing.mocks;
 import lombok.RequiredArgsConstructor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -26,6 +27,7 @@ public class PrimeleMockuri {
    public void test() {
       // arrange / given
       when(incomoda.cevaExtern()).thenReturn(2); // inveti ce sa returneze metode
+//      BDDMockito.given(incomoda.cevaExtern()).willReturn(2);
 
       // act / when
       int result = deTestat.deBiz(new Customer());
@@ -33,10 +35,12 @@ public class PrimeleMockuri {
       // assert / then
       assertEquals(3, result);
       verify(validator).validate(any()); // validezi ca s-a chemat {de cate ori?}
+//      BDDMockito.then(validator).should().validate(any());
    }
 
    @Test(expected = IllegalArgumentException.class)
    public void testEx() {
+
 //      when(validator.validate(any())).thenThrow(new IllegalArgumentException()); // nu compileaza pt ca functia pe care incerci sa o programezi intoarce void
       doThrow(new IllegalArgumentException()).when(validator).validate(any()); // sintaxa ciudata
 
