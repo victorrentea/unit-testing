@@ -1,12 +1,9 @@
 package victor.testing.mocks;
 
-import lombok.RequiredArgsConstructor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.builder.Customer;
 import victor.testing.builder.CustomerValidator;
@@ -23,14 +20,15 @@ public class PrimeleMockuri {
    private CustomerValidator validator;// = Mockito.mock(CustomerValidator.class);
    @InjectMocks
    private UserService deTestat;// = new UserService(incomoda);
+
    @Test
    public void test() {
       // arrange / given
-      when(incomoda.cevaExtern()).thenReturn(2); // inveti ce sa returneze metode
+      when(incomoda.cevaExtern(6)).thenReturn(2); // inveti ce sa returneze metode
 //      BDDMockito.given(incomoda.cevaExtern()).willReturn(2);
 
       // act / when
-      int result = deTestat.deBiz(new Customer());
+      int result = deTestat.deBiz(new Customer(), 5);
 
       // assert / then
       assertEquals(3, result);
@@ -45,7 +43,16 @@ public class PrimeleMockuri {
       doThrow(new IllegalArgumentException()).when(validator).validate(any()); // sintaxa ciudata
 
       // act / when
-      deTestat.deBiz(new Customer());
+      deTestat.deBiz(new Customer(), 5);
+   }
+
+   @Test
+   public void test2() {
+      when(incomoda.cu2ParamUnuDeNestat(eq(1), any())).thenReturn("OK");
+
+      assertEquals("OK", incomoda.cu2ParamUnuDeNestat(1, new Customer()));
+      verifyNoMoreInteractions(incomoda);
+      verify(incomoda, never()).getString();
    }
 }
 
