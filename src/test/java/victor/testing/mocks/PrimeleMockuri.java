@@ -1,5 +1,6 @@
 package victor.testing.mocks;
 
+import lombok.RequiredArgsConstructor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,39 +11,37 @@ import victor.testing.builder.Customer;
 import victor.testing.builder.CustomerValidator;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PrimeleMockuri {
-
    @Mock
    private Incomoda incomoda;// = Mockito.mock(Incomoda.class);
-//   @Mock
-//   private CustomerValidator validator;// = Mockito.mock(Incomoda.class);
+   @Mock
+   private CustomerValidator validator;// = Mockito.mock(CustomerValidator.class);
    @InjectMocks
    private UserService deTestat;// = new UserService(incomoda);
    @Test
    public void test() {
-      Mockito.when(incomoda.cevaExtern()).thenReturn(2);
-      assertEquals(3, deTestat.deBiz());;
-   }
-}
-class UserService {
-   private final Incomoda incomoda;
-   private final CustomerValidator validator;
+      // arrange / given
+      when(incomoda.cevaExtern()).thenReturn(2); // inveti ce sa returneze metode
 
-   UserService(Incomoda incomoda, CustomerValidator validator) {
-      System.out.println("val="+validator);
-      this.incomoda = incomoda;
-      this.validator = validator;
+      // act / when
+      int result = deTestat.deBiz(new Customer());
+
+      // assert / then
+      assertEquals(3, result);
+      verify(validator).validate(any()); // validezi ca s-a chemat {de cate ori?}
    }
-   public int deBiz() {
-      validator.validate(new Customer());
-       return incomoda.cevaExtern() + 1;
+
+   @Test(expected = IllegalArgumentException.class)
+   public void testEx() {
+//      when(validator.validate(any())).thenThrow(new IllegalArgumentException()); // nu compileaza pt ca functia pe care incerci sa o programezi intoarce void
+      doThrow(new IllegalArgumentException()).when(validator).validate(any()); // sintaxa ciudata
+
+      // act / when
+      deTestat.deBiz(new Customer());
    }
 }
 
-class Incomoda {
-   public int cevaExtern() {
-       throw new IllegalArgumentException(" nu pot fi chemat din teste");
-   }
-}
