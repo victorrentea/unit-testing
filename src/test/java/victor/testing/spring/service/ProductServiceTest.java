@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,27 +9,33 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.repo.RepoTestBase;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ProductServiceTest {
+public class ProductServiceTest extends RepoTestBase {
 
-   @InjectMocks
+   @Autowired
    private ProductService service;
-   @Mock
+   @MockBean
    private SafetyClient safetyClient;
-   @Mock
-   private SupplierRepo supplierRepo;
+   @Autowired
+   private ProductRepo productRepo;
 
    @Test(expected = IllegalStateException.class)
    public void unsafeProduct() {
@@ -46,17 +53,20 @@ public class ProductServiceTest {
 
    @Test
    public void createsCorrectEntity() {
-      Supplier aSupplier = new Supplier();
-      Mockito.when(supplierRepo.findById(15L)).thenReturn(Optional.of(aSupplier));
       ProductDto dto = new ProductDto()
           .setName("name")
           .setCategory(ProductCategory.KIDS)
           .setUpc("upc")
-          .setSupplierId(15L);
+          .setSupplierId(supplier.getId());
       Mockito.when(safetyClient.isSafe(any())).thenReturn(true);
 
-      service.createProduct(dto);
+      long id = service.createProduct(dto);
 
-   // TODO captor TEMA
+      Product product = productRepo.findById(id).get();
+
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getCategory()).isEqualTo(ProductCategory.KIDS);
+      assertThat(product.getUpc()).isEqualTo("UPC");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
    }
 }
