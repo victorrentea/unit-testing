@@ -34,7 +34,7 @@
         </dependency>
 
 
-        <dependency>
+      <!--  <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>oracle-xe</artifactId>
             <version>1.15.2</version>
@@ -43,9 +43,8 @@
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>21.1.0.0</version>
-        </dependency>
+        </dependency>-->
 
-<!--
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -56,7 +55,7 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
             <version>1.15.2</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>

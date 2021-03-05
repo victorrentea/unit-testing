@@ -1,6 +1,5 @@
 package victor.testing.spring.repo;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -12,7 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.TestPropertySourceUtils;
 import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.OracleContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.RepoTestBase.DockerDataSourceInitializer;
@@ -36,8 +35,9 @@ public abstract class RepoTestBase {
 //
 //  }
 
-//   public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:9.4");
-   public static OracleContainer container = new OracleContainer("oracle/database:18.4.0-xe");
+
+   public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:9.4");
+//   public static OracleContainer container = new OracleContainer("oracle/database:18.4.0-xe");
 
    static {
       container.start();
