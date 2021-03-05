@@ -2,6 +2,7 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.infra.SafetyClient;
@@ -13,6 +14,7 @@ import victor.testing.spring.web.dto.ProductSearchResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -29,13 +31,14 @@ public class ProductService {
             throw new IllegalStateException("Product is not safe: " + productDto.upc);
         }
 
+        if (StringUtils.isBlank(productDto.name)) {
+            throw new IllegalArgumentException();
+        }
         Product product = new Product();
         product.setName(productDto.name);
         product.setCategory(productDto.category);
-        product.setUpc(productDto.upc);
-        product.setSupplier(supplierRepo.getOne(productDto.supplierId));
-        // TODO CR check that the supplier is active!
-        product.setCreateDate(LocalDateTime.now());
+        product.setUpc(productDto.upc.toUpperCase());
+        product.setSupplier(supplierRepo.findById(productDto.supplierId).get());
         productRepo.save(product);
         return product.getId();
     }
