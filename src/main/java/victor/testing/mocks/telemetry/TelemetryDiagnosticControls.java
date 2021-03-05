@@ -54,6 +54,17 @@ class ClientConfigurationFactory {
       config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
       config.setSessionStart(LocalDateTime.now());
       //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
       config.setAckMode(AckMode.NORMAL);
       return config;
    }

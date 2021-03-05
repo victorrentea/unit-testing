@@ -3,6 +3,7 @@ package victor.testing.mocks.telemetry;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
@@ -23,15 +24,12 @@ public class TelemetryDiagnosticControlsTest {
 
    @Mock
    private TelemetryClient clientMock;
+   @Mock
+   private ClientConfigurationFactory configurationFactoryMock;
 
-//   @InjectMocks
+   @InjectMocks
    private TelemetryDiagnosticControls controls; // setter, ctor or private field injection
 
-   @Before
-   public final void before() {
-      controls = new TelemetryDiagnosticControls(clientMock, new ClientConfigurationFactory());
-      when(clientMock.getVersion()).thenReturn("cevaNuConteaza");
-   }
    @Test
    public void happyFlow() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
@@ -56,14 +54,31 @@ public class TelemetryDiagnosticControlsTest {
       controls.checkTransmission(true);
       verify(clientMock).connect(TelemetryDiagnosticControls.DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
    }
+
    @Test
    public void twoConnectAttempts() {
-      when(clientMock.getOnlineStatus()).thenReturn(false,false, true);
+      when(clientMock.getOnlineStatus()).thenReturn(false, false, true);
       controls.checkTransmission(true);
       verify(clientMock, times(2)).connect(TelemetryDiagnosticControls.DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
    }
 
+   @Test
+   public void passesTheCreatedConfigurationToTheClientConfigure() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+      when(clientMock.getVersion()).thenReturn("v");
+      ClientConfiguration aConfig = new ClientConfiguration();
+      when(configurationFactoryMock.configureClient("v"))
+          .thenReturn(aConfig);
 
+      controls.checkTransmission(true);
+
+      verify(clientMock).configure(aConfig);
+   }
+   
+}
+
+@RunWith(MockitoJUnitRunner.class)
+class ClientConfigurationFactoryTest {
 
    @Test
    public void configuresClient() throws FileNotFoundException {
@@ -78,8 +93,4 @@ public class TelemetryDiagnosticControlsTest {
       assertThat(configuDatDinProd.getSessionId())
           .startsWith("VER#-");
    }
-
-
-
-
 }
