@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,7 @@ public class ProductMvcTest {
     @Autowired
     private ProductRepo productRepo;
 
+    @WithMockUser(username = "gigi"/*,roles = "ADMIN"*/)
     @Test
     public void testSearch() throws Exception {
         productRepo.save(new Product().setName("Tree"));
