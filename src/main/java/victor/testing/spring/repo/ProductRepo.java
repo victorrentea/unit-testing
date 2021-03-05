@@ -10,9 +10,9 @@ public interface ProductRepo extends ProductRepoSearch, JpaRepository<Product, L
    @Query("SELECT p FROM Product p where p.name = ?1")
    Product findByName(String name);
 
-   @Query(nativeQuery = true, value = "SELECT p2.ID FROM PRODUCT p2\n" +
-                                      "                  inner join SUPPLIER S on S.ID = p2.SUPPLIER_ID\n" +
-                                      "    FETCH FIRST 10 ROWS WITH TIES")
-   List<Long> nativeq();
+//   @Query(nativeQuery = true, value = "SELECT p2.ID FROM PRODUCT p2\n" +
+//                                      "                  inner join SUPPLIER S on S.ID = p2.SUPPLIER_ID\n" +
+//                                      "    FETCH FIRST 10 ROWS WITH TIES")
+//   List<Long> nativeq();
 
 }
