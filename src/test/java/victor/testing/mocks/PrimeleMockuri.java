@@ -1,10 +1,13 @@
 package victor.testing.mocks;
 
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import victor.testing.builder.Customer;
 import victor.testing.builder.CustomerValidator;
 
@@ -13,6 +16,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
+@ExtendWith({MockitoExtension.class})
 public class PrimeleMockuri {
    @Mock
    private Incomoda incomoda;// = Mockito.mock(Incomoda.class);

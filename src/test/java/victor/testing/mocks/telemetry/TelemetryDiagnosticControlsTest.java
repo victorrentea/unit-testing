@@ -4,26 +4,53 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class TelemetryDiagnosticControlsTest {
+
    @Mock
    private TelemetryClient client;
+
    @InjectMocks
-   private TelemetryDiagnosticControls controls;
+   private TelemetryDiagnosticControls controls; // setter, ctor or private field injection
 
    @Test
    public void disconnects() {
       when(client.getOnlineStatus()).thenReturn(true);
       controls.checkTransmission(true);
       verify(client).disconnect(true);
+   }
+
+   @Test
+   public void sendsDiagnosticMessage() {
+      when(client.getOnlineStatus()).thenReturn(true);
+      controls.checkTransmission(true);
+
+//      verify(client).send(anyString()); // nu-mi pasa ce valoare imi da - riscanta
+
+      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // refolosesc orbeste constanta
+      // foloseste asta oricand constanta ta NU IESE din sistemul tau.
+
+      verify(client).send("AT#UD"); // validez ca literalul este cel care trebuie
+      // varianta asta o folosim doar daca : E UN PROTOCOL extern cu un sistem tertz (Seriala)
+   }
+
+   @Test
+   public void receivesDiagnosticInfo() {
+      when(client.getOnlineStatus()).thenReturn(true);
+      when(client.receive()).thenReturn("tataie");
+
+      controls.checkTransmission(true);
+
+//      verify(client).receive(); // inutila
+      assertEquals("tataie", controls.getDiagnosticInfo());
    }
 
    @Test(expected = IllegalStateException.class)
@@ -33,27 +60,20 @@ public class TelemetryDiagnosticControlsTest {
    }
 
    @Test
-   public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission(true);
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+   public void test() {
+//   LdapUserApiClient client = new LdapUserApiClient();
+      LdapUserApiClient client = new LdapUserApiClient(){
+         @Override
+         public String findUser(String a) {
+//            super.findUser() NU cheama metoda originala !!
+            return "ldapCica";
+         }
+      };// Mockito.mock(LdapUserApiClient.class);
+//      when(client.findUser("a")).thenReturn("ldapCica");
+      UserService service = new UserService(client);
+
+      String result = service.biz();
+      assertEquals("LDAPCICA", result);
    }
 
-   @Test
-   public void receivesDiagnosticInfo() {
-      // TODO inspect
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
-      controls.checkTransmission(true);
-      verify(client).receive();
-      assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
-   }
-
-   @Test
-   public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
-   }
 }
