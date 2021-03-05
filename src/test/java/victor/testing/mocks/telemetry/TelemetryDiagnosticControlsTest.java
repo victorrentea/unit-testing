@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -27,6 +28,10 @@ public class TelemetryDiagnosticControlsTest {
    @InjectMocks
    private TelemetryDiagnosticControls controls; // setter, ctor or private field injection
 
+   @Before
+   public final void before() {
+      when(client.getVersion()).thenReturn("cevaNuConteaza");
+   }
    @Test
    public void happyFlow() {
       when(client.getOnlineStatus()).thenReturn(true);
@@ -62,7 +67,7 @@ public class TelemetryDiagnosticControlsTest {
 
    @Test
    public void configuresClient() throws FileNotFoundException {
-      ClientConfiguration configuDatDinProd = controls.configureClient("VER#");
+      ClientConfiguration configuDatDinProd = controls.configureClient("ver#");
 
 //      assertEquals(now(), configuDatDinProd.getSessionStart()); // nu merge ca sunt cateva mili intre
       assertThat(configuDatDinProd.getAckMode()).isEqualTo(AckMode.NORMAL);

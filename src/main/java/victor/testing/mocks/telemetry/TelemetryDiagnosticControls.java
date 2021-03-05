@@ -47,7 +47,7 @@ public class TelemetryDiagnosticControls {
 
    ClientConfiguration configureClient(String version) {
       ClientConfiguration config = new ClientConfiguration();
-      config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+      config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
       config.setSessionStart(LocalDateTime.now());
       //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
       config.setAckMode(AckMode.NORMAL);
