@@ -29,9 +29,6 @@ public abstract class RepoTestBase {
    protected SupplierRepo supplierRepo;
    protected Supplier supplier;
 
-
-
-
    public static PostgreSQLContainer<?> postgreDBContainer = new PostgreSQLContainer<>("postgres:9.4");
 
    static {

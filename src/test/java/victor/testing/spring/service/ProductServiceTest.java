@@ -2,7 +2,7 @@ package victor.testing.spring.service;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
@@ -37,18 +37,20 @@ public class ProductServiceTest extends RepoTestBase {
    @Autowired
    private ProductRepo productRepo;
 
-   @Test(expected = IllegalStateException.class)
+   @Test//(expected = IllegalStateException.class)
    public void unsafeProduct() {
       ProductDto dto = new ProductDto().setUpc("upc");
       Mockito.when(safetyClient.isSafe("upc")).thenReturn(false);
-      service.createProduct(dto);
+      assertThrows(IllegalStateException.class,
+          () -> service.createProduct(dto));
    }
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test//(expected = IllegalArgumentException.class)
    public void throwsForEmptyName() {
       ProductDto dto = new ProductDto().setName(null);
       Mockito.when(safetyClient.isSafe(any())).thenReturn(true);
-      service.createProduct(dto);
+      assertThrows(IllegalArgumentException.class,
+      () -> service.createProduct(dto));
    }
 
    @Test
