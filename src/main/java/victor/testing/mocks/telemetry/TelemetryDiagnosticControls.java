@@ -51,7 +51,7 @@ public class TelemetryDiagnosticControls {
 }
 
 class LdapUserApiClient {
-   public String findUser(String a) {
+   public String getFullName(String a) {
       RestTemplate rest = new RestTemplate();
       return rest.getForObject("http://api.ldap.intra:9099/" + a, String.class);
    }
@@ -66,7 +66,7 @@ class UserService {
 
    public String biz() {
       //logicA
-      String userLdap = ldapUserApiClient.findUser("a");
+      String userLdap = ldapUserApiClient.getFullName("a");
       // logic
 
       return userLdap.toUpperCase();

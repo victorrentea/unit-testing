@@ -8,9 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TelemetryDiagnosticControlsTest {
@@ -59,21 +57,40 @@ public class TelemetryDiagnosticControlsTest {
       controls.checkTransmission(true);
    }
 
+//   @Test
+//   public void test() {
+////   LdapUserApiClient client = new LdapUserApiClient();
+//      LdapUserApiClient client = new LdapUserApiClient(){
+//         @Override
+//         public String getFullName(String username) {
+////            super.findUser() NU cheama metoda originala !!
+//            return "ldapCica";
+//         }
+//      };
+//
+//       Mockito.mock(LdapUserApiClient.class);
+//      when(client.getFullName("a")).thenReturn("ldapCica");
+//      UserService service = new UserService(client);
+//
+//      String result = service.biz();
+//      assertEquals("LDAPCICA", result);
+//   }
+   
+   
    @Test
-   public void test() {
-//   LdapUserApiClient client = new LdapUserApiClient();
-      LdapUserApiClient client = new LdapUserApiClient(){
-         @Override
-         public String findUser(String a) {
-//            super.findUser() NU cheama metoda originala !!
-            return "ldapCica";
-         }
-      };// Mockito.mock(LdapUserApiClient.class);
-//      when(client.findUser("a")).thenReturn("ldapCica");
-      UserService service = new UserService(client);
-
-      String result = service.biz();
-      assertEquals("LDAPCICA", result);
+   public void ifOfflineTriesToConnectOnce() {
+      when(client.getOnlineStatus()).thenReturn(false, true);
+      controls.checkTransmission(true);
+      verify(client).connect(TelemetryDiagnosticControls.DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
    }
+   @Test
+   public void twoConnectAttempts() {
+      when(client.getOnlineStatus()).thenReturn(false,false, true);
+      controls.checkTransmission(true);
+      verify(client, times(2)).connect(TelemetryDiagnosticControls.DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
+   }
+
+
+
 
 }
