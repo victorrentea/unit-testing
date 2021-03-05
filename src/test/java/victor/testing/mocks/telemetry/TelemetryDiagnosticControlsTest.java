@@ -3,7 +3,6 @@ package victor.testing.mocks.telemetry;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
@@ -23,51 +22,52 @@ import static org.mockito.Mockito.*;
 public class TelemetryDiagnosticControlsTest {
 
    @Mock
-   private TelemetryClient client;
+   private TelemetryClient clientMock;
 
-   @InjectMocks
+//   @InjectMocks
    private TelemetryDiagnosticControls controls; // setter, ctor or private field injection
 
    @Before
    public final void before() {
-      when(client.getVersion()).thenReturn("cevaNuConteaza");
+      controls = new TelemetryDiagnosticControls(clientMock, new ClientConfigurationFactory());
+      when(clientMock.getVersion()).thenReturn("cevaNuConteaza");
    }
    @Test
    public void happyFlow() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+      when(clientMock.receive()).thenReturn("tataie");
 
       controls.checkTransmission(true);
 
-      verify(client).disconnect(true);
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // refolosesc orbeste constanta
+      verify(clientMock).disconnect(true);
+      verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // refolosesc orbeste constanta
       assertEquals("tataie", controls.getDiagnosticInfo());
    }
 
    @Test(expected = IllegalStateException.class)
    public void throwsWhenNotOnline() {
-      when(client.getOnlineStatus()).thenReturn(false); // reprogrameaza mockul ignorand ce era in @Befor einvatat sa faca
+      when(clientMock.getOnlineStatus()).thenReturn(false); // reprogrameaza mockul ignorand ce era in @Befor einvatat sa faca
       controls.checkTransmission(true);
    }
 
    @Test
    public void ifOfflineTriesToConnectOnce() {
-      when(client.getOnlineStatus()).thenReturn(false, true);
+      when(clientMock.getOnlineStatus()).thenReturn(false, true);
       controls.checkTransmission(true);
-      verify(client).connect(TelemetryDiagnosticControls.DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
+      verify(clientMock).connect(TelemetryDiagnosticControls.DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
    }
    @Test
    public void twoConnectAttempts() {
-      when(client.getOnlineStatus()).thenReturn(false,false, true);
+      when(clientMock.getOnlineStatus()).thenReturn(false,false, true);
       controls.checkTransmission(true);
-      verify(client, times(2)).connect(TelemetryDiagnosticControls.DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
+      verify(clientMock, times(2)).connect(TelemetryDiagnosticControls.DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
    }
 
 
 
    @Test
    public void configuresClient() throws FileNotFoundException {
-      ClientConfiguration configuDatDinProd = controls.configureClient("ver#");
+      ClientConfiguration configuDatDinProd = new ClientConfigurationFactory().configureClient("ver#");
 
 //      assertEquals(now(), configuDatDinProd.getSessionStart()); // nu merge ca sunt cateva mili intre
       assertThat(configuDatDinProd.getAckMode()).isEqualTo(AckMode.NORMAL);

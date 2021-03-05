@@ -1,6 +1,5 @@
 package victor.testing.mocks.telemetry;
 
-import org.springframework.web.client.RestTemplate;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -10,11 +9,14 @@ import java.util.UUID;
 public class TelemetryDiagnosticControls {
    public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
+   private final ClientConfigurationFactory configurationFactory;
    private final TelemetryClient telemetryClient;
    private String diagnosticInfo = "";
 
-   public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+
+   public TelemetryDiagnosticControls(TelemetryClient telemetryClient, ClientConfigurationFactory configurationFactory) {
       this.telemetryClient = telemetryClient;
+      this.configurationFactory = configurationFactory;
    }
 
    public String getDiagnosticInfo() {
@@ -38,14 +40,16 @@ public class TelemetryDiagnosticControls {
          throw new IllegalStateException("Unable to connect.");
       }
 
-      ClientConfiguration config = configureClient(telemetryClient.getVersion());
+      ClientConfiguration config = configurationFactory.configureClient(telemetryClient.getVersion());
       telemetryClient.configure(config);
 
       telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
       diagnosticInfo = telemetryClient.receive();
    }
 
-   ClientConfiguration configureClient(String version) {
+}
+class ClientConfigurationFactory {
+   public ClientConfiguration configureClient(String version) {
       ClientConfiguration config = new ClientConfiguration();
       config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
       config.setSessionStart(LocalDateTime.now());
