@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,11 @@ public class ProductServiceTest extends RepoTestBase {
    private SafetyClient safetyClient;
    @Autowired
    private ProductRepo productRepo;
+
+//   @Before
+//   public final void before() {
+//   //altceva
+//   }
 
    @Test//(expected = IllegalStateException.class)
    public void unsafeProduct() {

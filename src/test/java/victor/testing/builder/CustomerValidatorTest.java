@@ -5,13 +5,19 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
-import static victor.testing.builder.ObjectMother.aValidAddress;
 import static victor.testing.builder.ObjectMother.aValidCustomer;
 
 public class CustomerValidatorTest {
 
    @Rule
    public ExpectedException exception = ExpectedException.none();
+
+//    private Customer customer = new Customer()
+//          .setName("John")
+//          .setAddress(new Address()
+//              .setCity("Oras")
+//              .setStreetName("Dristor")
+//              .setStreetNumber(12));
 
    private CustomerValidator validator = new CustomerValidator();
 
@@ -31,7 +37,10 @@ public class CustomerValidatorTest {
    public void throwsForEmptyCity() {
 
       Customer customer = aValidCustomer()
-         .setAddress(aValidAddress().setCity(null));
+         .setAddress(new Address()
+             .setCity("Oras")
+             .setStreetName("Dristor")
+             .setStreetNumber(12).setCity(null));
 
 //      exception.expectMessage("city");// Draga JUnit, vezi ca testul asta o sa crape cu exceptie. E Ok. relax. Cata vreme ex cotnine "city"
 //      validator.validate(customer);
