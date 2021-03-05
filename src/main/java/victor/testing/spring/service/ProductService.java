@@ -13,6 +13,7 @@ import victor.testing.spring.web.dto.ProductSearchResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -40,7 +41,8 @@ public class ProductService {
     }
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
-        return productRepo.search(criteria);
+        return productRepo.search(criteria).stream().map(ProductSearchResult::new).collect(Collectors.toList());
+
     }
 
     public boolean isActive(long productId) {

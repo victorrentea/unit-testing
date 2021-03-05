@@ -77,7 +77,7 @@ public class ProductSearchSteps {
    @Then("^That product is returned by search$")
    public void thatProductIsReturned() {
       productRepo.save(product);
-      List<ProductSearchResult> results = productRepo.search(criteria);
+      List<Product> results = productRepo.search(criteria);
       assertThat(results).hasSize(1);
       assertThat(results.get(0).getId()).isEqualTo(product.getId());
    }
@@ -85,14 +85,14 @@ public class ProductSearchSteps {
    @Then("^No products are returned by search$")
    public void noProductsAreReturnedBySearch() {
       productRepo.save(product);
-      List<ProductSearchResult> results = productRepo.search(criteria);
+      List<Product> results = productRepo.search(criteria);
       assertThat(results).isEmpty();
    }
 
    @Then("^That product is returned by search: \"([^\"]*)\"$")
    public void thatProductIsReturnedBySearch(boolean found) throws Throwable {
       productRepo.save(product);
-      List<ProductSearchResult> results = productRepo.search(criteria);
+      List<Product> results = productRepo.search(criteria);
       if (found) {
          assertThat(results).hasSize(1);
       } else {
