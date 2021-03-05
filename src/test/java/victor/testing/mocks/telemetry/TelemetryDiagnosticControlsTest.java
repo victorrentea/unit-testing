@@ -1,20 +1,14 @@
 package victor.testing.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
+import java.io.FileNotFoundException;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.*;
@@ -67,32 +61,17 @@ public class TelemetryDiagnosticControlsTest {
 
 
    @Test
-   public void configuresClient() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.getVersion()).thenReturn("VER#");
-      controls.checkTransmission(true);
-
-      ArgumentCaptor<ClientConfiguration> configCaptor =
-          ArgumentCaptor.forClass(ClientConfiguration.class); // capcana
-
-      verify(client).configure(configCaptor.capture());
-
-      ClientConfiguration configuDatDinProd = configCaptor.getValue();
+   public void configuresClient() throws FileNotFoundException {
+      ClientConfiguration configuDatDinProd = controls.configureClient("VER#");
 
 //      assertEquals(now(), configuDatDinProd.getSessionStart()); // nu merge ca sunt cateva mili intre
-
-
       assertThat(configuDatDinProd.getAckMode()).isEqualTo(AckMode.NORMAL);
       assertThat(configuDatDinProd.getSessionStart()).isNotNull(); // cel mai des
       assertThat(configuDatDinProd.getSessionStart()).isCloseTo(now(), within(1, MINUTES));
 
-//      assertTrue(  configuDatDinProd.getSessionId().startsWith("xVER#-")   );
-
+      //      assertTrue(  configuDatDinProd.getSessionId().startsWith("xVER#-")   );
       assertThat(configuDatDinProd.getSessionId())
-          .startsWith("VER#-") // un mesaj de failure FRUMOS
-//          .hasSize() // optional
-          ;
-
+          .startsWith("VER#-");
    }
 
 

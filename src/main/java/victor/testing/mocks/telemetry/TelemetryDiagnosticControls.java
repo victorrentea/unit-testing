@@ -38,37 +38,20 @@ public class TelemetryDiagnosticControls {
          throw new IllegalStateException("Unable to connect.");
       }
 
-      ClientConfiguration config = new ClientConfiguration();
-      config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-      config.setSessionStart(LocalDateTime.now());
-      config.setAckMode(AckMode.NORMAL);
+      ClientConfiguration config = configureClient(telemetryClient.getVersion());
       telemetryClient.configure(config);
 
       telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
       diagnosticInfo = telemetryClient.receive();
    }
 
-}
-
-class LdapUserApiClient {
-   public String getFullName(String a) {
-      RestTemplate rest = new RestTemplate();
-      return rest.getForObject("http://api.ldap.intra:9099/" + a, String.class);
-   }
-}
-
-class UserService {
-   private final LdapUserApiClient ldapUserApiClient;
-
-   UserService(LdapUserApiClient ldapUserApiClient) {
-      this.ldapUserApiClient = ldapUserApiClient;
+   ClientConfiguration configureClient(String version) {
+      ClientConfiguration config = new ClientConfiguration();
+      config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+      config.setSessionStart(LocalDateTime.now());
+      //  MULTA LOGICA GREA . 4 ifuri si un for si un try catch
+      config.setAckMode(AckMode.NORMAL);
+      return config;
    }
 
-   public String biz() {
-      //logicA
-      String userLdap = ldapUserApiClient.getFullName("a");
-      // logic
-
-      return userLdap.toUpperCase();
-   }
 }
