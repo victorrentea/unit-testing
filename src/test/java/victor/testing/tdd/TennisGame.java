@@ -38,8 +38,11 @@ public class TennisGame {
             return "Fifteen";
          case 2:
             return "Thirty";
-         default:
+         case 3:
             return "Forty";
+
+         default:
+            throw new IllegalStateException("Unexpected value: " + score);
       }
    }
 

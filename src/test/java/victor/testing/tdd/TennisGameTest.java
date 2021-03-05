@@ -141,9 +141,17 @@ public class TennisGameTest {
    public void advantagePlayer2_later() {
       String score = translateScore(6,7);
       assertEquals("Advantage Player 2", score);
+
+
+
+
+
    }
 
 
    // Mai tarziu: test de inputuri invalide: sa arunce exceptie daca strange mai mult de 3 puncte
-//   public void boundaryTest() { }
+//   @Test(expected = IllegalArgumentException.class)
+//   public void boundaryTest() {
+//      translateScore(5,0);
+//   }
 }

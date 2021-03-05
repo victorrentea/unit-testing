@@ -1,6 +1,5 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -62,19 +61,38 @@ public class TelemetryDiagnosticControlsTest {
       verify(clientMock, times(2)).connect(TelemetryDiagnosticControls.DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
    }
 
+   // = over-testing ; terror-driven testing
    @Test
    public void passesTheCreatedConfigurationToTheClientConfigure() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
       when(clientMock.getVersion()).thenReturn("v");
       ClientConfiguration aConfig = new ClientConfiguration();
-      when(configurationFactoryMock.configureClient("v"))
+      when(configurationFactoryMock.createConfiguration("v"))
           .thenReturn(aConfig);
 
       controls.checkTransmission(true);
 
       verify(clientMock).configure(aConfig);
    }
-   
+
+
+   @Test
+   public void doamneFereste() {
+      ClientConfiguration mockConfig = mock(ClientConfiguration.class);
+      when(mockConfig.getAckMode()).thenReturn(AckMode.FLOOD);
+
+      // in loc de mockConfig, instantiaza un obiect si umple-l cu date de test
+//      ClientConfiguration config = new ClientConfiguration();
+//      config.setAckMode(AckMode.FLOOD);
+
+      when(configurationFactoryMock.createConfiguration(any()))
+           .thenReturn(mockConfig);
+
+      assertEquals(AckMode.FLOOD, configurationFactoryMock
+          .createConfiguration("a").getAckMode());
+//      NICIODATA!!
+   }
+
 }
 
 @RunWith(MockitoJUnitRunner.class)
@@ -82,7 +100,7 @@ class ClientConfigurationFactoryTest {
 
    @Test
    public void configuresClient() throws FileNotFoundException {
-      ClientConfiguration configuDatDinProd = new ClientConfigurationFactory().configureClient("ver#");
+      ClientConfiguration configuDatDinProd = new ClientConfigurationFactory().createConfiguration("ver#");
 
 //      assertEquals(now(), configuDatDinProd.getSessionStart()); // nu merge ca sunt cateva mili intre
       assertThat(configuDatDinProd.getAckMode()).isEqualTo(AckMode.NORMAL);
