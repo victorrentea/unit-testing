@@ -18,28 +18,22 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional
 public class ProductRepoSearchTest extends RepoTestBase {
     @Autowired
     private ProductRepo repo;
-    @Autowired
-    private SupplierRepo supplierRepo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
-    private Supplier supplier;
 
-    @Before
-    public final void initDataInDB() {
-        supplier = supplierRepo.save(new Supplier());
+    @Test
+    public void prostgresspecific() {
+        repo.nativeq();
     }
     @Test
     public void noCriteria() {
         repo.save(new Product());
         assertThat(repo.search(criteria)).hasSize(1);
     }
+
     @Test
     public void byName() {
         repo.save(new Product("Pom"));
