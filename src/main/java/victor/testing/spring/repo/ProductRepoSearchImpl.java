@@ -30,6 +30,10 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
             jpql += "  AND UPPER(p.name) LIKE UPPER('%' || :name ||'%')   ";
             paramMap.put("name", criteria.name);
         }
+        if (criteria.supplierId !=null) {
+            jpql += "  AND p.supplier.id = :supplierId ";
+            paramMap.put("supplierId", criteria.supplierId);
+        }
 
         TypedQuery<Product> query = em.createQuery(jpql, Product.class);
         for (String paramName : paramMap.keySet()) {
