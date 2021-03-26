@@ -72,6 +72,9 @@ public class ProductRestTest {
           new HttpEntity<>(searchCriteria), new ParameterizedTypeReference<List<ProductSearchResult>>() {
           });
 
+
+      List<ProductSearchResult> body = searchResponse.getBody();
+
       assertThat(searchResponse.getStatusCode()).isEqualTo(OK);
       assertThat(searchResponse.getBody()).hasSize(1);
       assertThat(searchResponse.getBody()).allMatch(p -> "Tree".equals(p.getName()));

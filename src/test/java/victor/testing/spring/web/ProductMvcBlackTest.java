@@ -1,5 +1,6 @@
 package victor.testing.spring.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.web.dto.ProductDto;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
@@ -47,11 +50,11 @@ public class ProductMvcBlackTest {
    }
 
    private void createProduct(String productName) throws Exception {
-      // ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.WIFE);
-      // String createJson = new ObjectMapper().writeValueAsString(dto);
+       ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.WIFE);
+       String createJson = new ObjectMapper().writeValueAsString(dto);
 
       // language=json
-      String createJson = String.format("{\"name\": \"" + productName + "\", \"supplierId\": \"%d\", \"upc\": \"UPC\"}", this.supplierId);
+//      String createJson = String.format("{\"name\": \"" + productName + "\", \"supplierId\": \"%d\", \"upc\": \"UPC\"}", this.supplierId);
 
       mockMvc.perform(post("/product/create")
           .content(createJson)
