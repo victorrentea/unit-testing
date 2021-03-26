@@ -8,6 +8,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -20,22 +26,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-//@ExtendWith(MockitoExtension.class)
+@Transactional
+@SpringBootTest
+@ActiveProfiles("db-mem")
 public class ProductServiceClientMockTest {
-//   @Mock
-   public SafetyClient mockSafetyClient = Mockito.mock(SafetyClient.class);
-//   @Mock
-   private ProductRepo productRepo = Mockito.mock(ProductRepo.class);
-//   @Mock
-   private SupplierRepo supplierRepo = Mockito.mock(SupplierRepo.class);
-//   @InjectMocks
-   private ProductService productService = new ProductService(mockSafetyClient, productRepo, supplierRepo);
+   @MockBean
+   public SafetyClient mockSafetyClient;
+
+   @Autowired
+   private ProductRepo productRepo;
+   @Autowired
+   private SupplierRepo supplierRepo;
+   @Autowired
+   private ProductService productService;
 
    @Test
    public void throwsForUnsafeProduct() {
-      ;
+      when(mockSafetyClient.isSafe("upc")).thenReturn(false);
       Assertions.assertThrows(IllegalStateException.class, () -> {
-         when(mockSafetyClient.isSafe("upc")).thenReturn(false);
          productService.createProduct(new ProductDto("name", "upc",-1L, ProductCategory.HOME));
       });
    }
@@ -43,20 +51,16 @@ public class ProductServiceClientMockTest {
    @Test
    public void fullOk() {
       Supplier supplier = new Supplier();
-      long supplierId = 13L;
-      when(supplierRepo.getOne(supplierId)).thenReturn(supplier);
+      long supplierId = supplierRepo.save(supplier).getId();
       when(mockSafetyClient.isSafe("upc")).thenReturn(true);
 
-      productService.createProduct(new ProductDto("name", "upc", 13L, ProductCategory.HOME));
+      long productId = productService.createProduct(new ProductDto("name", "upc", supplierId, ProductCategory.HOME));
 
-      // Yuck!
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+      Product product = productRepo.findById(productId).get();
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getUpc()).isEqualTo("upc");
-      assertThat(product.getSupplier()).isEqualTo(supplier);
+      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isNotNull();
    }
