@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
@@ -19,19 +20,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
 public class ProductServiceClientMockTest {
-   @Mock
-   public SafetyClient mockSafetyClient;
-   @Mock
-   private ProductRepo productRepo;
-   @Mock
-   private SupplierRepo supplierRepo;
-   @InjectMocks
-   private ProductService productService;
+//   @Mock
+   public SafetyClient mockSafetyClient = Mockito.mock(SafetyClient.class);
+//   @Mock
+   private ProductRepo productRepo = Mockito.mock(ProductRepo.class);
+//   @Mock
+   private SupplierRepo supplierRepo = Mockito.mock(SupplierRepo.class);
+//   @InjectMocks
+   private ProductService productService = new ProductService(mockSafetyClient, productRepo, supplierRepo);
 
    @Test
    public void throwsForUnsafeProduct() {
+      ;
       Assertions.assertThrows(IllegalStateException.class, () -> {
          when(mockSafetyClient.isSafe("upc")).thenReturn(false);
          productService.createProduct(new ProductDto("name", "upc",-1L, ProductCategory.HOME));

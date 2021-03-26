@@ -2,7 +2,12 @@ package victor.testing.spring.repo;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
@@ -36,5 +41,15 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
             query.setParameter(paramName, paramMap.get(paramName));
         }
         return query.getResultList();
+    }
+}
+
+@RequiredArgsConstructor
+@Service
+class SomeService {
+    private final JdbcTemplate jdbc;
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void method() {
+//        jdbc.update("INSERT INTO ")
     }
 }
