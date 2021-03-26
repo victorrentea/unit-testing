@@ -3,6 +3,7 @@ package victor.testing.spring.service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,6 +21,7 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.tools.WireMockExtension;
 import victor.testing.spring.web.dto.ProductDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,12 +29,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @Transactional
-@SpringBootTest
-@ActiveProfiles("db-mem")
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+@ActiveProfiles({"db-mem"})
 public class ProductServiceClientMockTest {
-   @MockBean
-   public SafetyClient mockSafetyClient;
-
    @Autowired
    private ProductRepo productRepo;
    @Autowired
@@ -40,11 +39,13 @@ public class ProductServiceClientMockTest {
    @Autowired
    private ProductService productService;
 
+   @RegisterExtension
+   public WireMockExtension wireMockExtension = new WireMockExtension(9999);
+
    @Test
    public void throwsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("upc")).thenReturn(false);
       Assertions.assertThrows(IllegalStateException.class, () -> {
-         productService.createProduct(new ProductDto("name", "upc",-1L, ProductCategory.HOME));
+         productService.createProduct(new ProductDto("name", "unsafe",-1L, ProductCategory.HOME));
       });
    }
 
@@ -52,14 +53,13 @@ public class ProductServiceClientMockTest {
    public void fullOk() {
       Supplier supplier = new Supplier();
       long supplierId = supplierRepo.save(supplier).getId();
-      when(mockSafetyClient.isSafe("upc")).thenReturn(true);
 
-      long productId = productService.createProduct(new ProductDto("name", "upc", supplierId, ProductCategory.HOME));
+      long productId = productService.createProduct(new ProductDto("name", "safe", supplierId, ProductCategory.HOME));
 
       Product product = productRepo.findById(productId).get();
 
       assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getUpc()).isEqualTo("upc");
+      assertThat(product.getUpc()).isEqualTo("safe");
       assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isNotNull();

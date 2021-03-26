@@ -1,18 +1,18 @@
 {
   "request": {
     "method": "GET",
-    "url": "/product/unsafe/safety"
+    "url": "/product/safe/safety"
   },
   "response": {
     "status": 200,
-    "jsonBody":  {
+    "jsonBody": {
       "entries":
-      [
-        {
-          "category": "DETERMINED",
-          "safeToSell": false
-        }
-      ]},
+    [
+      {
+        "category": "SAFE",
+        "safeToSell": true
+      }
+    ]},
     "headers": {
       "Content-Type": "application/json"
     }
