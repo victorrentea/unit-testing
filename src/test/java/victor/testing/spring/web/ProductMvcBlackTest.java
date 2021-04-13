@@ -45,6 +45,14 @@ public class ProductMvcBlackTest {
 
       runSearch("{\"name\": \"Tree\"}", 1);
    }
+   @Test
+   public void testSearchLIKE() throws Exception {
+      when(safetyClient.isSafe("UPC")).thenReturn(true);
+
+      createProduct("Tree");
+
+      runSearch("{\"name\": \"re\"}", 1);
+   }
 
    private void createProduct(String productName) throws Exception {
       // ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.WIFE);
