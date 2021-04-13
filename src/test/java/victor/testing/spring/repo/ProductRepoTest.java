@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
-public class ProductRepoSearchTest {
+public class ProductRepoTest {
     @Autowired
     private ProductRepo repo;
 
