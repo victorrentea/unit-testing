@@ -41,6 +41,7 @@ public class ProductRestTest {
    @Autowired
    private TestRestTemplate rest; // vs RestTemplate + base URL + .withBasicAuth("spring", "secret")
    private Long supplierId;
+   private ProductSearchCriteria criteria = new ProductSearchCriteria();
    //   private RestTemplate rest;
 
 //   @Autowired
@@ -65,7 +66,7 @@ public class ProductRestTest {
       ResponseEntity<Void> createResponse = rest.postForEntity("/product/create", productDto, Void.class);
       assertThat(createResponse.getStatusCode()).isEqualTo(OK);
 
-      ProductSearchCriteria searchCriteria = new ProductSearchCriteria("Tree", null, null);
+      ProductSearchCriteria searchCriteria = criteria.setName("Tree");
 
       ResponseEntity<List<ProductSearchResult>> searchResponse = rest.exchange(
           "/product/search", HttpMethod.POST,
@@ -73,8 +74,7 @@ public class ProductRestTest {
           });
 
       assertThat(searchResponse.getStatusCode()).isEqualTo(OK);
-      assertThat(searchResponse.getBody()).hasSize(1);
-      assertThat(searchResponse.getBody()).allMatch(p -> "Tree".equals(p.getName()));
+      assertThat(searchResponse.getBody().stream().map(ProductSearchResult::getName)).containsExactly("Tree");
    }
 
 
