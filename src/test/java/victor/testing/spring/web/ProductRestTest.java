@@ -39,16 +39,9 @@ public class ProductRestTest {
    private ProductRepo productRepo;
 
    @Autowired
-   private TestRestTemplate rest; // vs RestTemplate + base URL + .withBasicAuth("spring", "secret")
+   private TestRestTemplate rest;
    private Long supplierId;
    private ProductSearchCriteria criteria = new ProductSearchCriteria();
-   //   private RestTemplate rest;
-
-//   @Autowired
-//   public void initRestTemplate(@Value("http://localhost:${local.server.port}") String baseUri) {
-//      rest = new RestTemplate();
-//      rest.setUriTemplateHandler(new DefaultUriBuilderFactory(baseUri));
-//   }
 
    @BeforeEach
    public void initialize() {
