@@ -16,6 +16,14 @@ public class TennisScore {
       return translate(homePlayerScore) + " - " + translate(awayPlayerScore);
    }
    public String translate(int score) {
+
+      Player someEnum = Player.HOME;
+
+      int v = switch (someEnum) {
+         case AWAY -> 1;
+         case HOME -> 2;
+      };
+
 //      return scoreMap.getOrget(score);
       return switch (score) {
          case 0 -> "Love";
