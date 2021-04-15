@@ -24,7 +24,6 @@ public class TennisScore {
       }
    }
 
-
    public void addPoint(Player player) {
       if (player == Player.AWAY) {
          awayPlayerScore ++;

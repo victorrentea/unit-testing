@@ -4,6 +4,8 @@ package victor.testing.tdd;
 // Map<playerNo:int/enum, String>
 // Player.getScore
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,21 +13,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class TennisScoreTest {
+
+   private TennisScore tennisScore = new TennisScore();
+
+
+   public TennisScoreTest() {
+      System.out.println("one new test instance per @Test");
+   }
+
+
    @Test
    public void initial() {
-      // init1
-      // init2
-      // init3
-      // init4
-      String actual = new TennisScore().getScore();
+      String actual = tennisScore.getScore();
       assertThat(actual).isEqualTo("Love - Love");
    }
 
-   // classic [Given]--When--Then style
-//   public void whenPlayer2WinsAPoint_scoreIsLoveFifteen() {
    @Test
    public void loveFifteen_whenAwayPlayerWinsAPoint() {
-      TennisScore tennisScore = new TennisScore();
       tennisScore.addPoint(Player.AWAY);
       String actual = tennisScore.getScore();
 
@@ -33,7 +37,6 @@ public class TennisScoreTest {
    }
    @Test
    public void loveFifteen_whenHomePlayerWinsAPoint() {
-      TennisScore tennisScore = new TennisScore();
       tennisScore.addPoint(Player.HOME);
       String actual = tennisScore.getScore();
 
@@ -41,7 +44,6 @@ public class TennisScoreTest {
    }
    @Test
    public void loveFifteen_whenHomePlayerWins2Points() {
-      TennisScore tennisScore = new TennisScore();
       tennisScore.addPoint(Player.HOME);
       tennisScore.addPoint(Player.HOME);
       String actual = tennisScore.getScore();
