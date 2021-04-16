@@ -12,7 +12,7 @@ public class ClientConfigurationFactory {
       ClientConfiguration config = new ClientConfiguration(); // Test-induced design damage
       config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
       config.setSessionStart(LocalDateTime.now());
-      // IMAGINE there's very complex logic at this line
+      // IMAGINE there's NO  complexity
       config.setAckMode(AckMode.NORMAL);
       return config;
    }
