@@ -34,7 +34,6 @@ public class ProductMvcBlackTest {
    @BeforeEach
    public void persistStaticData() {
       supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-
    }
 
    @Test
