@@ -1,15 +1,15 @@
 package victor.testing.tdd;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class TennisScore {
 
-   private int homePlayerScore;
-   private int awayPlayerScore;
+   private int homeScore;
+   private int awayScore;
 
    public String getScore() {
-      return translate(homePlayerScore) + " - " + translate(awayPlayerScore);
+      if (homeScore == awayScore && homeScore >= 3) {
+         return "Deuce";
+      }
+      return translate(homeScore) + " - " + translate(awayScore);
    }
    public String translate(int score) {
       switch (score) {
@@ -19,6 +19,8 @@ public class TennisScore {
             return "Fifteen";
          case 2:
             return "Thirty";
+         case 3:
+            return "Forty";
          default:
             throw new IllegalStateException("Unexpected value: " + score);
       }
@@ -26,9 +28,9 @@ public class TennisScore {
 
    public void addPoint(Player player) {
       if (player == Player.AWAY) {
-         awayPlayerScore ++;
+         awayScore++;
       } else {
-         homePlayerScore++;
+         homeScore++;
       }
    }
 }

@@ -1,59 +1,64 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
-
-@RunWith(MockitoJUnitRunner.class)
+//@ExtendWith(MockitoExtension.class)
+//public class TelemetryDiagnosticControlsWhenOfflineTest {
+@ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticControlsTest {
-   @Mock
-   private TelemetryClient client;
    @InjectMocks
    private TelemetryDiagnosticControls controls;
+   @Mock
+   private TelemetryClient telemetryClient;
+
+   @BeforeEach
+   public final void before() {
+      when(telemetryClient.getOnlineStatus()).thenReturn(true);
+   }
 
    @Test
    public void disconnects() {
-      when(client.getOnlineStatus()).thenReturn(true);
       controls.checkTransmission(true);
-      verify(client).disconnect(true);
+      verify(telemetryClient).disconnect(true);
    }
-
-   @Test(expected = IllegalStateException.class)
-   public void throwsWhenNotOnline() {
-      when(client.getOnlineStatus()).thenReturn(false);
-      controls.checkTransmission(true);
+   @Test
+   public void throwsExceptionWhenOffline() {
+      when(telemetryClient.getOnlineStatus()).thenReturn(false);
+      assertThrows(IllegalStateException.class, () ->
+          controls.checkTransmission(true)
+      );
    }
 
    @Test
-   public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
+   public void sendsDiagnosticMessage() {
       controls.checkTransmission(true);
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+
+      // more readable
+      verify(telemetryClient).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+
+      // Guards against changes of the constant value : use for literals that are PART OF AN EXTERNAL CONTRACT
+//      verify(telemetryClient).send("AT#UD");
+//
+//      verify(telemetryClient).send(anyString()); // lazyness
    }
 
    @Test
-   public void receivesDiagnosticInfo() {
-      // TODO inspect
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
+   public void receives() {
+      when(telemetryClient.receive()).thenReturn("deda");
       controls.checkTransmission(true);
-      verify(client).receive();
-      assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
+
+      assertEquals("deda", controls.getDiagnosticInfo());
+//      verify(telemetryClient).receive(); // dont verify() methods that you stub (when())
    }
 
-   @Test
-   public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
-   }
+
 }

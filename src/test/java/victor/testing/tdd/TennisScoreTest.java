@@ -4,6 +4,11 @@ package victor.testing.tdd;
 // Map<playerNo:int/enum, String>
 // Player.getScore
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.ToString;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,30 +34,74 @@ public class TennisScoreTest {
    }
 
    @Test
-   public void loveFifteen_whenAwayPlayerWinsAPoint() {
+   public void awayPlayerWinsAPoint() {
       tennisScore.addPoint(Player.AWAY);
       String actual = tennisScore.getScore();
 
       assertThat(actual).isEqualTo("Love - Fifteen");
    }
    @Test
-   public void loveFifteen_whenHomePlayerWinsAPoint() {
+   public void bothPlayersWinsAPoint() {
+      tennisScore.addPoint(Player.HOME);
+      tennisScore.addPoint(Player.AWAY);
+      String actual = tennisScore.getScore();
+
+      assertThat(actual).isEqualTo("Fifteen - Fifteen");
+   }
+
+   @Test
+   public void homePlayerWinsAPoint() {
       tennisScore.addPoint(Player.HOME);
       String actual = tennisScore.getScore();
 
       assertThat(actual).isEqualTo("Fifteen - Love");
    }
    @Test
-   public void loveFifteen_whenHomePlayerWins2Points() {
+   public void homePlayerWins2Points() {
       tennisScore.addPoint(Player.HOME);
       tennisScore.addPoint(Player.HOME);
       String actual = tennisScore.getScore();
 
       assertThat(actual).isEqualTo("Thirty - Love");
    }
-      //"Player1", new Player(), 2, "Away",
+   @Test
+   public void homePlayerWins3Points() {
+      tennisScore.addPoint(Player.HOME);
+      tennisScore.addPoint(Player.HOME);
+      tennisScore.addPoint(Player.HOME);
+      String actual = tennisScore.getScore();
 
-   // The running score of each game is described in a manner peculiar to tennis:
-   // scores from zero to three points
-   // are described as “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
+      assertThat(actual).isEqualTo("Forty - Love");
+   }
+   @Test
+   public void bothPlayerWins3Points() {
+      setPoints(3,3);
+
+      String actual = tennisScore.getScore();
+
+      assertThat(actual).isEqualTo("Deuce");
+   }
+   @Test
+   public void bothPlayerWins4Points() {
+      setPoints(4, 4);
+      String actual = tennisScore.getScore();
+
+      assertThat(actual).isEqualTo("Deuce");
+   }
+
+   //test helper functions (mini-testing framework)
+
+   public void setPoints(int homePoints, int awayPoints) {
+      addPoints(Player.HOME, homePoints);
+      addPoints(Player.AWAY, awayPoints);
+   }
+   public void addPoints(Player player, int points) {
+      for (int i = 0; i < points; i++) {
+         tennisScore.addPoint(player);
+      }
+   }
+
+   // If at least three points have been scored by each player, and the scores are equal,
+   // the score is “Deuce”.
+
 }
