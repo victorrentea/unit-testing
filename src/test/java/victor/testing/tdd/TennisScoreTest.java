@@ -42,7 +42,7 @@ public class TennisScoreTest {
    }
    @Test
    public void bothPlayersWinsAPoint() {
-      tennisScore.addPoint(Player.HOME);
+      tennisScore.addPoint(Player.HOME );
       tennisScore.addPoint(Player.AWAY);
       String actual = tennisScore.getScore();
 

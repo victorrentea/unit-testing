@@ -1,5 +1,6 @@
 package victor.testing.tdd;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -20,15 +21,22 @@ public class TennisGameFeatureSteps {
         assertEquals(expected, tennisGame.getScore());
     }
 
-    @When("^Player(\\d+) scores$")
-    public void playerScores(int playerNo) {
-        tennisGame.addPoint(playerNo);
-    }
-
-    @And("^Player(\\d+) scores (\\d+) points$")
-    public void playerScoresPoints(int playerNo, int points) {
+    @When("^Player \"([^\"]*)\" scores (\\d+) points$")
+    public void playerScoresPlayerPointsPoints(Player player, int points) throws Throwable {
         for (int i = 0; i < points; i++) {
-            tennisGame.addPoint(playerNo);
+            tennisGame.addPoint(player);
         }
     }
+//
+//    @When("^Player(\\d+) scores$")
+//    public void playerScores(int playerNo) {
+//        tennisGame.addPoint(playerNo);
+//    }
+
+//    @And("^Player(\\d+) scores (\\d+) points$")
+//    public void playerScoresPoints(int playerNo, int points) {
+//        for (int i = 0; i < points; i++) {
+//            tennisGame.addPoint(playerNo);
+//        }
+//    }
 }

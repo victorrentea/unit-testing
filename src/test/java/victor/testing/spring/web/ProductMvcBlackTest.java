@@ -24,8 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ProductMvcBlackTest {
    @Autowired
    private MockMvc mockMvc;
-   @MockBean
-   private SafetyClient safetyClient;
+//   @MockBean
+//   private SafetyClient safetyClient;
    @Autowired
    private SupplierRepo supplierRepo;
 
@@ -38,9 +38,17 @@ public class ProductMvcBlackTest {
 
    @Test
    public void testSearch() throws Exception {
-      when(safetyClient.isSafe("UPC")).thenReturn(true);
+//      when(safetyClient.isSafe("UPC")).thenReturn(true);
 
       createProduct("Tree");
+
+      runSearch("{\"name\": \"Tree\"}", 1);
+   }
+   @Test
+   public void testSearchLIKE() throws Exception {
+//      when(safetyClient.isSafe("UPC")).thenReturn(true);
+
+      createProduct("Green Tree");
 
       runSearch("{\"name\": \"Tree\"}", 1);
    }
