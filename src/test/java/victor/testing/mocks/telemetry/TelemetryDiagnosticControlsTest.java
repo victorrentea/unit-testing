@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -58,6 +59,12 @@ public class TelemetryDiagnosticControlsTest {
 
       assertEquals("deda", controls.getDiagnosticInfo());
 //      verify(telemetryClient).receive(); // dont verify() methods that you stub (when())
+   }
+   
+   @Test
+   public void configuresWithACKModeNormal() {
+       controls.checkTransmission(true);
+      assertEquals(AckMode.NORMAL, controls.getConfig().getAckMode());
    }
 
 
