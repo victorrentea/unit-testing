@@ -31,7 +31,7 @@ public class ProductServiceClientMockTest {
    private ProductService productService;
 
    @Test
-   public void throwsForUnsafeProduct() {
+   public void createThrowsForUnsafeProduct() {
       Assertions.assertThrows(IllegalStateException.class, () -> {
          when(mockSafetyClient.isSafe("upc")).thenReturn(false);
          productService.createProduct(new ProductDto("name", "upc",-1L, ProductCategory.HOME));
@@ -39,7 +39,7 @@ public class ProductServiceClientMockTest {
    }
 
    @Test
-   public void fullOk() {
+   public void createOk() {
       Supplier supplier = new Supplier();
       long supplierId = 13L;
       when(supplierRepo.getOne(supplierId)).thenReturn(supplier);
