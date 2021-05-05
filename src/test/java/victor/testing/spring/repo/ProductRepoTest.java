@@ -22,15 +22,14 @@ public class ProductRepoTest {
 
     @Test
     public void noCriteria() {
-        repo.save(new Product());
-        Assert.assertEquals(1, repo.search(criteria).size());
-        Assertions.assertThat(repo.search(criteria)).hasSize(1);
+        repo.save(new Product("A"));
+        Assertions.assertThat(repo.search(criteria)).hasSize(1); // org.assertj:assertj-core:3.16.1
+    }
+    @Test
+    public void noCriteriaBis() {
+        repo.save(new Product("B"));
+        Assertions.assertThat(repo.search(criteria)).hasSize(1); // org.assertj:assertj-core:3.16.1
     }
 
-    // TODO finish
-
-    // TODO base test class persisting supplier
-
-    // TODO replace with composition
 }
 

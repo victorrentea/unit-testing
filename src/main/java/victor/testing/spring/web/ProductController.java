@@ -20,8 +20,8 @@ public class ProductController {
    private final ProductService facade;
 
    @PostMapping("product/create")
-   public Long create(@RequestBody ProductDto productDto) {
-      return facade.createProduct(productDto);
+   public void create(@RequestBody ProductDto productDto) {
+      facade.createProduct(productDto);
    }
 
    @PostMapping("product/search")

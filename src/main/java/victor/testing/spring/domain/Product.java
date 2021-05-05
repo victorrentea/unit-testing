@@ -15,7 +15,7 @@ public class Product {
 
     @Id
     @GeneratedValue
-    @Getter
+    @Getter @Setter
     private Long id;
 
     @Getter @Setter
@@ -45,9 +45,5 @@ public class Product {
 
     public Product() {}
 
-
-    public Long getId() {
-        return id;
-    }
 
 }
