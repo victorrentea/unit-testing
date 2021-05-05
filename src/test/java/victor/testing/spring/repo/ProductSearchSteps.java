@@ -1,17 +1,29 @@
 package victor.testing.spring.repo;
 
+import cucumber.api.Scenario;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
+import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import victor.testing.spring.SomeSpringApplication;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
+import victor.testing.spring.repo.ProductSearchSteps.PostgresDBInitializer;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
 import wiremock.org.apache.commons.lang3.StringUtils;
@@ -25,9 +37,25 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @Slf4j
 @ContextConfiguration(
     classes = SomeSpringApplication.class,
-    loader = SpringBootContextLoader.class)
-@ActiveProfiles({"db-mem", "test"})
+    loader = SpringBootContextLoader.class,
+    initializers = PostgresDBInitializer.class)
 public class ProductSearchSteps {
+
+   // Can't use @DynamicPropertySource as this is not a @SpringBootTest
+   public static class PostgresDBInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+      @Override
+         public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+            TestPropertyValues.of(
+                "spring.datasource.url=" + ProductSearchFeature.postgres.getJdbcUrl(),
+                "spring.datasource.username=postgres",
+                "spring.datasource.password=password",
+                "spring.datasource.driver-class-name=org.postgresql.Driver"
+            ).applyTo(configurableApplicationContext.getEnvironment());
+         }
+   }
+
+
+
    @Autowired
    private ProductRepo productRepo;
    @Autowired
