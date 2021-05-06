@@ -1,8 +1,10 @@
 package victor.testing.spring.service;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,6 +20,7 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.tools.WireMockExtension;
 import victor.testing.spring.web.dto.ProductDto;
 
 import java.time.LocalDateTime;
@@ -30,11 +33,12 @@ import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @ActiveProfiles("db-mem")
 @Transactional
+
 public class ProductServiceTest {
-   @MockBean
+   @Autowired
    public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
@@ -43,10 +47,12 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
+   @RegisterExtension
+   public WireMockExtension wireMock = new WireMockExtension(9999);
    @Test
    public void createThrowsForUnsafeProduct() {
       Assertions.assertThrows(IllegalStateException.class, () -> {
-         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
          productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
       });
    }
@@ -55,7 +61,7 @@ public class ProductServiceTest {
    public void createOk() {
       Supplier supplier = new Supplier();
       supplierRepo.save(supplier);
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
 
