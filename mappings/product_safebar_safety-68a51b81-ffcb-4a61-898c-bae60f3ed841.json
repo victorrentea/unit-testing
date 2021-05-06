@@ -1,0 +1,20 @@
+{
+  "id" : "68a51b81-ffcb-4a61-898c-bae60f3ed841",
+  "name" : "product_safebar_safety",
+  "request" : {
+    "url" : "/product/safebar/safety",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"entries\": [{\"category\": \"SAFE\",\"detailsUrl\": \"http://wikipedia.com\"}]}",
+    "headers" : {
+      "Content-Type" : "application/json",
+      "Date" : "Thu, 06 May 2021 08:13:00 GMT",
+      "Keep-Alive" : "timeout=60"
+    }
+  },
+  "uuid" : "68a51b81-ffcb-4a61-898c-bae60f3ed841",
+  "persistent" : true,
+  "insertionIndex" : 2
+}
