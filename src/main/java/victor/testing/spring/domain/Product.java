@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Entity
 //@Data NEVER
@@ -25,7 +24,7 @@ public class Product {
     private ProductCategory category;
 
     @Getter @Setter
-    private String upc;
+    private String barcode;
 
     @Getter @Setter
     @ManyToOne
@@ -33,9 +32,9 @@ public class Product {
 
     @Getter @Setter
     private LocalDateTime createDate;
-    public Product(String name, String upc, ProductCategory category) {
+    public Product(String name, String barcode, ProductCategory category) {
         this.name = name;
-        this.upc = upc;
+        this.barcode = barcode;
         this.category = category;
     }
 

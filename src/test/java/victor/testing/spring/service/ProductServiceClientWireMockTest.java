@@ -91,7 +91,7 @@ public class ProductServiceClientWireMockTest {
       LocalDateTime testFixedTime = LocalDateTime.parse("2014-12-22T10:15:30.00");
 
       assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getUpc()).isEqualTo("1");
+      assertThat(product.getBarcode()).isEqualTo("1");
       assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
 

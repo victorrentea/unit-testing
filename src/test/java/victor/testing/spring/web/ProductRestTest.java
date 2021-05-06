@@ -52,9 +52,9 @@ public class ProductRestTest {
 
    @Test
    public void testSearch() {
-      when(safetyClient.isSafe("UPC")).thenReturn(true);
+      when(safetyClient.isSafe("safebar")).thenReturn(true);
 
-      ProductDto productDto = new ProductDto("Tree", "UPC", supplierId, ProductCategory.ME);
+      ProductDto productDto = new ProductDto("Tree", "safebar", supplierId, ProductCategory.ME);
 
       ResponseEntity<Void> createResponse = rest.postForEntity("/product/create", productDto, Void.class);
       assertThat(createResponse.getStatusCode()).isEqualTo(OK);

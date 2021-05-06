@@ -12,7 +12,7 @@ public class Supplier {
 
     @Id
     @GeneratedValue
-    @Getter
+    @Getter @Setter
     private Long id;
     @Getter @Setter
     private String name;

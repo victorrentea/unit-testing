@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class SafetyServiceApp {
+public class SafetyApp {
    public static void main(String[] args) {
-      SpringApplication.run(SafetyServiceApp.class, "--server.port=8090");
+      SpringApplication.run(SafetyApp.class, "--server.port=8090");
    }
 
    @GetMapping
@@ -24,7 +24,7 @@ public class SafetyServiceApp {
 
    @GetMapping(path = "product/{id}/safety", produces = "application/json")
    public String safety(@PathVariable String id) {
-      String category = "1".equals(id)?"SAFE":"UNCERTAIN";
+      String category = "safebar".equals(id)?"SAFE":"UNCERTAIN";
       return "{\"entries\": [{\"category\": \"" + category + "\",\"detailsUrl\": \"http://wikipedia.com\"}]}";
    }
 }

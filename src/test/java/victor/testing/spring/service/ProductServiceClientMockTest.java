@@ -15,7 +15,13 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -33,19 +39,18 @@ public class ProductServiceClientMockTest {
    @Test
    public void createThrowsForUnsafeProduct() {
       Assertions.assertThrows(IllegalStateException.class, () -> {
-         when(mockSafetyClient.isSafe("upc")).thenReturn(false);
-         productService.createProduct(new ProductDto("name", "upc",-1L, ProductCategory.HOME));
+         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+         productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
       });
    }
 
    @Test
    public void createOk() {
-      Supplier supplier = new Supplier();
-      long supplierId = 13L;
-      when(supplierRepo.getOne(supplierId)).thenReturn(supplier);
-      when(mockSafetyClient.isSafe("upc")).thenReturn(true);
+      Supplier supplier = new Supplier().setId(13L);
+      when(supplierRepo.getOne(supplier.getId())).thenReturn(supplier);
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
-      productService.createProduct(new ProductDto("name", "upc", 13L, ProductCategory.HOME));
+      productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
 
       // Yuck!
       ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
@@ -53,10 +58,11 @@ public class ProductServiceClientMockTest {
       Product product = productCaptor.getValue();
 
       assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getUpc()).isEqualTo("upc");
-      assertThat(product.getSupplier()).isEqualTo(supplier);
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isNotNull();
+      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
 
 

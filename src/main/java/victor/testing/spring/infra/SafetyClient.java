@@ -19,10 +19,10 @@ public class SafetyClient {
     @Value("${safety.service.url.base}")
     private URL baseUrl;
 
-    public boolean isSafe(String upc) {
+    public boolean isSafe(String barcode) {
         ResponseEntity<SafetyReportDto> response = rest.getForEntity(
-            baseUrl.toString() + "/product/{upc}/safety",
-            SafetyReportDto.class, upc);
+            baseUrl.toString() + "/product/{barcode}/safety",
+            SafetyReportDto.class, barcode);
 
         boolean safe = response.getBody().getEntries().stream().anyMatch(this::entryIsSafe);
         log.info("Product is safe: " + safe);

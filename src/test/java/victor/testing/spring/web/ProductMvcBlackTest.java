@@ -39,7 +39,7 @@ public class ProductMvcBlackTest {
 
    @Test
    public void testSearch() throws Exception {
-      when(safetyClient.isSafe("UPC")).thenReturn(true);
+      when(safetyClient.isSafe("safebar")).thenReturn(true);
 
       createProduct("Tree");
 
@@ -51,7 +51,7 @@ public class ProductMvcBlackTest {
       // String createJson = new ObjectMapper().writeValueAsString(dto);
 
       // language=json
-      String createJson = String.format("{\"name\": \"" + productName + "\", \"supplierId\": \"%d\", \"upc\": \"UPC\"}", this.supplierId);
+      String createJson = String.format("{\"name\": \"" + productName + "\", \"supplierId\": \"%d\", \"barcode\": \"safebar\"}", this.supplierId);
 
       mockMvc.perform(post("/product/create")
           .content(createJson)
