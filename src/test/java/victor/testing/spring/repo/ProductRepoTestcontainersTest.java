@@ -55,17 +55,23 @@ public class ProductRepoTestcontainersTest {
     }
 
     @Test
-//    @Commit // for letting the Test Tx commit so that you can debug it after
+    public void byNameNoMatch() {
+        criteria.name = "X";
+        repo.save(new Product().setName("name"));
+        assertThat(repo.search(criteria)).isEmpty();
+    }
+    @Test
+    public void byNameExactMatch() {
+        criteria.name = "naMe";
+        repo.save(new Product().setName("naMe"));
+        assertThat(repo.search(criteria)).hasSize(1);
+    }
+    // TODO
+    @Test
     public void byNameMatch() {
         criteria.name = "Am";
         repo.save(new Product().setName("naMe"));
         assertThat(repo.search(criteria)).hasSize(1);
-    }
-    @Test
-    public void byNameNoMatch() {
-        criteria.name = "nameXX";
-        repo.save(new Product().setName("name"));
-        assertThat(repo.search(criteria)).isEmpty();
     }
 
 //    @Test
