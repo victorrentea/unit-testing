@@ -27,7 +27,7 @@ public class Product {
     private String barcode;
 
     @Getter @Setter
-    @ManyToOne
+    @ManyToOne//(cascade = CascadeType.PERSIST)
     private Supplier supplier;
 
     @Getter @Setter

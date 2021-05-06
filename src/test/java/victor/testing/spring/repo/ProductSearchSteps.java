@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import cucumber.api.PendingException;
 import cucumber.api.Scenario;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
@@ -40,6 +41,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
     loader = SpringBootContextLoader.class,
     initializers = PostgresDBInitializer.class)
 public class ProductSearchSteps {
+
+   @When("^The search criteria name is \"([^\"]*)\"$")
+   public void theSearchCriteriaNameIs(String searchName) throws Throwable {
+      criteria.name = searchName;
+   }
+
+   @And("^The search criteria supplier is \"([^\"]*)\"$")
+   public void theSearchCriteriaSupplierIs(String supplierName) throws Throwable {
+      if (supplierName != null && !supplierName.isEmpty()) {
+         criteria.supplierId = supplierRepo.findByName(supplierName).getId();
+      }
+   }
 
    // Can't use @DynamicPropertySource as this is not a @SpringBootTest
    public static class PostgresDBInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
