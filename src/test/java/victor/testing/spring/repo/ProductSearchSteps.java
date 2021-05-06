@@ -89,19 +89,6 @@ public class ProductSearchSteps {
    }
 
 
-
-   @When("^The search criteria name is \"([^\"]*)\"$")
-   public void theSearchCriteriaNameIs(String productName) {
-      criteria.name = productName;
-   }
-
-   @And("^The search criteria supplier is \"([^\"]*)\"$")
-   public void theSearchCriteriaSupplierIs(String supplierName) {
-      if (StringUtils.isNotBlank(supplierName)) {
-         criteria.supplierId = supplierRepo.findByName(supplierName).getId();
-      }
-   }
-
    @Then("^That product is returned by search$")
    public void thatProductIsReturned() {
       productRepo.save(product);
