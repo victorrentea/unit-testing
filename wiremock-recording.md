@@ -4,6 +4,7 @@ Go here http://wiremock.org/docs/running-standalone/
 Download
 
 Run
+java -jar wiremock-standalone-2.27.2.jar 
 
 Go to http://localhost:8080/__admin/recorder/
 
