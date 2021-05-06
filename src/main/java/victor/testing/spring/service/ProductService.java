@@ -2,6 +2,8 @@ package victor.testing.spring.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
@@ -51,5 +53,10 @@ public class ProductService {
         LocalDateTime oneYearAgo = LocalDateTime.now().minusYears(1);
         return productRepo.findById(productId).get()
             .getCreateDate().isAfter(oneYearAgo);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void weirdMethod() {
+        productRepo.save(new Product());
     }
 }
