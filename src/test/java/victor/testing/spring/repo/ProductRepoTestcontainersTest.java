@@ -3,6 +3,7 @@ package victor.testing.spring.repo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,12 +11,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.WaitForDatabase;
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,12 +44,21 @@ public class ProductRepoTestcontainersTest {
 
     @Autowired
     private ProductRepo repo;
+    @Autowired
+    private SupplierRepo supplierRepo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
+    private final Supplier supplier = new Supplier();
+
 
     @BeforeEach
     public void initialize() {
         assertThat(repo.count()).isEqualTo(0); // good idea for larger projects
+    }
+
+    @BeforeEach
+    public void insertSupplier() {
+        supplierRepo.save(supplier);
     }
     @Test
     public void noCriteria() {
@@ -68,25 +80,25 @@ public class ProductRepoTestcontainersTest {
     }
     // TODO
     @Test
-    public void byNameMatch() {
+    public void byNameLikeMatch() {
         criteria.name = "Am";
         repo.save(new Product().setName("naMe"));
         assertThat(repo.search(criteria)).hasSize(1);
     }
 
-//    @Test
-//    public void bySupplierMatch() {
-//        repo.save(new Product().setSupplier(commonData.getSupplier()));
-//        criteria.supplierId = commonData.getSupplier().getId();
-//        assertThat(repo.search(criteria)).hasSize(1);
-//    }
-//
-//    @Test
-//    public void bySupplierNoMatch() {
-//        repo.save(new Product().setSupplier(commonData.getSupplier()));
-//        criteria.supplierId = -1L;
-//        assertThat(repo.search(criteria)).isEmpty();
-//    }
+    @Test
+    public void bySupplierMatch() {
+        repo.save(new Product().setSupplier(supplier));
+        criteria.supplierId = supplier.getId();
+        assertThat(repo.search(criteria)).hasSize(1);
+    }
+
+    @Test
+    public void bySupplierNoMatch() {
+        repo.save(new Product().setSupplier(supplier));
+        criteria.supplierId = -1L;
+        assertThat(repo.search(criteria)).isEmpty();
+    }
 
 
     // TODO base test class persisting supplier
