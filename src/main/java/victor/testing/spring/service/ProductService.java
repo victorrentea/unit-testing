@@ -26,6 +26,7 @@ public class ProductService {
         this.supplierRepo = supplierRepo;
     }
 
+//    @PreAuthorize("hasRole('ADMIN')")
     public void createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode);
         if (!safe) {
