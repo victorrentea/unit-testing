@@ -88,7 +88,6 @@ public class ProductServiceClientWireMockTest {
       productService.createProduct(dto);
 
       Product product = productRepo.findAll().get(0);
-      LocalDateTime testFixedTime = LocalDateTime.parse("2014-12-22T10:15:30.00");
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("1");
