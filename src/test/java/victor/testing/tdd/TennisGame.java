@@ -1,39 +1,39 @@
 package victor.testing.tdd;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 public class TennisGame {
-    public static final String[] SCORES = {"Love", "Fifteen", "Thirty", "Forty"};
-    private int player1Score;
-    private int player2Score;
 
-    public String score() {
-        if (player1Score >= 4 && player1Score - player2Score >= 2) {
-            return "Game won Player1";
-        }
-        else if (player2Score >= 4 && player2Score - player1Score >= 2) {
-            return "Game won Player2";
-        }
-        if (player1Score >= 3 && player2Score >= 3) {
-            if (player1Score == player2Score) {
-                return "Deuce";
-            } else if (player1Score == player2Score + 1) {
-                return "Advantage Player1";
-            } else if (player2Score == player1Score + 1) {
-                return "Advantage Player2";
-            } else {
-                throw new NotImplementedException("...");
-            }
-        } else {
-            return SCORES[player1Score] + "-" + SCORES[player2Score];
-        }
-    }
+   private int player1Points;
+   private int player2Points;
 
-    public void addPoint(int playerNumber) {
-        if (playerNumber == 1) {
-            player1Score++;
-        } else {
-            player2Score++;
-        }
-    }
+   public String getScore() {
+      if (player1Points >= 3 && player2Points >= 3 && player1Points == player2Points) {
+         return "Deuce";
+      }
+      if (player1Points >= 4 && player1Points - player2Points >= 2) {
+         return "Game Won by Player 1";
+      }
+      return translate(player1Points) + " - " + translate(player2Points);
+   }
+   private String translate(int points) {
+      switch (points) {
+         case 0:
+            return "Love";
+         case 1:
+            return "Fifteen";
+         case 2:
+            return "Thirty";
+         case 3:
+            return "Forty";
+         default:
+            throw new IllegalStateException("Unexpected value: " + points);
+      }
+   }
+
+   public void addPoint(TennisParty party) {
+      if (party == TennisParty.TWO) {
+         player2Points++;
+      } else {
+         player1Points++;
+      }
+   }
 }

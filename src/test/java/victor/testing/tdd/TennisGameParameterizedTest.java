@@ -1,58 +1,46 @@
 package victor.testing.tdd;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-@RunWith(Parameterized.class)
 public class TennisGameParameterizedTest {
 
-    private final int player1Score;
-    private final int player2Score;
-    private final String expectedScoreString;
+   private TennisGame tennisGame = new TennisGame();
 
-    @Parameterized.Parameters(name="Score for {0}-{1} is \"{2}\"")
-    public static List<Object[]> date() {
-        return Arrays.asList(
-                new Object[]{0, 0, "Love-Love"},
-                new Object[]{0, 1, "Love-Fifteen"},
-                new Object[]{0, 2, "Love-Thirty"},
-                new Object[]{0, 3, "Love-Forty"},
-                new Object[]{0, 4, "Game won Player2"},
-                new Object[]{4, 4, "Deuce"},
-                new Object[]{1, 1, "Fifteen-Fifteen"}
-        );
-    }
+   public TennisGameParameterizedTest() {
+      System.out.println("HOW MANY");
+   }
 
-    public TennisGameParameterizedTest(int player1Score, int player2Score, String expectedScoreString) {
-        this.player1Score = player1Score;
-        this.player2Score = player2Score;
-        this.expectedScoreString = expectedScoreString;
-    }
+   @ParameterizedTest(name = "Player ONE scores {0} and Player TWO scores {1} then score is {2}")
+   @MethodSource
+   public void theTest(int score1, int score2, String expectedScoreStr) {
+      setScore(score1, score2);
+      String score = tennisGame.getScore();
+      assertEquals(expectedScoreStr, score);
+   }
 
+   public static List<Object[]> theTest() {
+      return asList(
+          new Object[] {1,1,"Fifteen - Fifteen"},
+          new Object[] {4,4,"Deuce"}
+          );
 
-    @Test
-    public void theTest() {
-        assertEquals(expectedScoreString, getScore(player1Score, player2Score));
-    }
+   }
 
+   private void setScore(int player1Score, int player2Score) {
+      addPointsToParty(player1Score, TennisParty.ONE);
+      addPointsToParty(player2Score, TennisParty.TWO);
+   }
 
-    private String getScore(int player1Score, int player2Score) {
-        TennisGame tennisGame = new TennisGame();
-        setPlayerScore(1, player1Score, tennisGame);
-        setPlayerScore(2, player2Score, tennisGame);
-        return tennisGame.score();
-    }
-
-    private void setPlayerScore(int playerNumber, int playerScore, TennisGame tennisGame) {
-        for (int i = 0; i < playerScore; i++) {
-            tennisGame.addPoint(playerNumber);
-        }
-    }
+   private void addPointsToParty(int points, TennisParty party) {
+      for (int i = 0; i < points; i++) {
+         tennisGame.addPoint(party);
+      }
+   }
 }
