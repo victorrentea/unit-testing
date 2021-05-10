@@ -1,59 +1,61 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticControlsTest {
    @Mock
-   private TelemetryClient client;
+   private TelemetryClient clientMock;
    @InjectMocks
    private TelemetryDiagnosticControls controls;
 
    @Test
    public void disconnects() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission(true);
-      verify(client).disconnect(true);
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+
+      controls.checkTransmission(false);
+
+      verify(clientMock).disconnect(false);
    }
 
-   @Test(expected = IllegalStateException.class)
+   @Test
    public void throwsWhenNotOnline() {
-      when(client.getOnlineStatus()).thenReturn(false);
-      controls.checkTransmission(true);
+      when(clientMock.getOnlineStatus()).thenReturn(false);
+
+      assertThrows(IllegalStateException.class,
+          () -> controls.checkTransmission(false));
    }
 
    @Test
-   public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission(true);
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+   public void sendsDiagnosticMessage() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+
+      controls.checkTransmission(false);
+
+      verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // 99% default
+//      verify(clientMock).send("AT#UD"); //  if AT#UD is part of an extarnal Protocol (imagine SERIAL PORT)  smells like hardware over here<<<
    }
 
    @Test
-   public void receivesDiagnosticInfo() {
-      // TODO inspect
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
-      controls.checkTransmission(true);
-      verify(client).receive();
-      assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
-   }
+   public void receives() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+      when(clientMock.receive()).thenReturn("strange");
+//      when(clientMock.receive()).thenAnswer(r -> {
+//         return null;
+//      });
 
-   @Test
-   public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
+      controls.checkTransmission(false);
+
+//      verify(clientMock).receive();
+      assertEquals("strange", controls.getDiagnosticInfo());
    }
 }

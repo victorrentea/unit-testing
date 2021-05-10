@@ -4,37 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 public class TelemetryClient {
+
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
-
-
-    public static class ClientConfiguration {
-		enum AckMode {NORMAL, TIMEBOXED, FLOOD};
-		private String sessionId;
-		private LocalDateTime sessionStart;
-		private AckMode ackMode;
-		
-		public String getSessionId() {
-			return sessionId;
-		}
-		public void setSessionId(String sessionId) {
-			this.sessionId = sessionId;
-		}
-		public LocalDateTime getSessionStart() {
-			return sessionStart;
-		}
-		public void setSessionStart(LocalDateTime sessionStart) {
-			this.sessionStart = sessionStart;
-		}
-		public AckMode getAckMode() {
-			return ackMode;
-		}
-		public void setAckMode(AckMode ackMode) {
-			this.ackMode = ackMode;
-		}
-		
-		
-	}
-
 	private boolean onlineStatus;
 	private String diagnosticMessageResult = "";
 
@@ -53,6 +24,41 @@ public class TelemetryClient {
 		boolean success = connectionEventsSimulator.nextInt(10) <= 8;
 
 		onlineStatus = success;
+	}
+
+	public static class ClientConfiguration {
+		enum AckMode {NORMAL, TIMEBOXED, FLOOD}
+
+		;
+		private String sessionId;
+		private LocalDateTime sessionStart;
+		private AckMode ackMode;
+
+		public String getSessionId() {
+			return sessionId;
+		}
+
+		public void setSessionId(String sessionId) {
+			this.sessionId = sessionId;
+		}
+
+		public LocalDateTime getSessionStart() {
+			return sessionStart;
+		}
+
+		public void setSessionStart(LocalDateTime sessionStart) {
+			this.sessionStart = sessionStart;
+		}
+
+		public AckMode getAckMode() {
+			return ackMode;
+		}
+
+		public void setAckMode(AckMode ackMode) {
+			this.ackMode = ackMode;
+		}
+
+
 	}
 
 	public String getVersion() {
