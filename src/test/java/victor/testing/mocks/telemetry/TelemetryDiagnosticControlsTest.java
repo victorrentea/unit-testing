@@ -49,13 +49,10 @@ public class TelemetryDiagnosticControlsTest {
    public void receives() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
       when(clientMock.receive()).thenReturn("strange");
-//      when(clientMock.receive()).thenAnswer(r -> {
-//         return null;
-//      });
 
       controls.checkTransmission(false);
 
-//      verify(clientMock).receive();
+//      verify(clientMock).receive(); useless: don't need to verify() stubbed methods (when.thenReturn)
       assertEquals("strange", controls.getDiagnosticInfo());
    }
 }
