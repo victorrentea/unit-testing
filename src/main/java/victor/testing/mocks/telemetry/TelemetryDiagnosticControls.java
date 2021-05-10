@@ -16,6 +16,14 @@ public class TelemetryDiagnosticControls {
 	@Inject
 	private ClientConfigurationFactory factory;
 
+	public void setFactory(ClientConfigurationFactory factory) {
+		this.factory = factory;
+	}
+
+	public void setTelemetryClient(TelemetryClient telemetryClient) {
+		this.telemetryClient = telemetryClient;
+	}
+
 	private String diagnosticInfo = "";
 
 	public void setDiagnosticInfo(String diagnosticInfo) {
@@ -53,7 +61,7 @@ class ClientConfigurationFactory {
 
 	public ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
-		// imagine HEAVY LOGIC
+		// NO HEAVY LOGIC !! :)
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);

@@ -1,10 +1,9 @@
 package victor.testing.mocks.telemetry;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -13,19 +12,22 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMod
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticControlsTest {
-   @Mock
-   private TelemetryClient clientMock;
-   @Mock
-   private ClientConfigurationFactory clientConfigurationFactoryMock;
-   @InjectMocks
+   private TelemetryClient clientMock = mock(TelemetryClient.class);
+
+   private ClientConfigurationFactory clientConfigurationFactory = new ClientConfigurationFactory();
    private TelemetryDiagnosticControls controls;
 
+   @BeforeEach
+   public final void before() {
+      controls = new TelemetryDiagnosticControls();
+      controls.setFactory(clientConfigurationFactory);
+      controls.setTelemetryClient(clientMock);
+   }
    @Test
    public void throwsWhenNotOnline() {
       when(clientMock.getOnlineStatus()).thenReturn(false);
@@ -44,7 +46,7 @@ public class TelemetryDiagnosticControlsTest {
 
       controls.checkTransmission(false);
 
-      verify(clientConfigurationFactoryMock).createConfig("ver");
+//      verify(clientConfigurationFactory).createConfig("ver");
       verify(clientMock).disconnect(false);
       verify(clientMock).configure(any());
       verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // 99% default
