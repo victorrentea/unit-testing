@@ -13,6 +13,8 @@ public class TelemetryDiagnosticControls {
 
 	@Inject
 	private TelemetryClient telemetryClient;
+	@Inject
+	private ClientConfigurationFactory factory;
 
 	private String diagnosticInfo = "";
 
@@ -37,14 +39,19 @@ public class TelemetryDiagnosticControls {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = createConfig(telemetryClient.getVersion());
+		ClientConfiguration config = factory.createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfig(String version) {
+
+}
+
+class ClientConfigurationFactory {
+
+	public ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		// imagine HEAVY LOGIC
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
@@ -52,6 +59,5 @@ public class TelemetryDiagnosticControls {
 		config.setAckMode(AckMode.NORMAL);
 		return config;
 	}
-
 }
 

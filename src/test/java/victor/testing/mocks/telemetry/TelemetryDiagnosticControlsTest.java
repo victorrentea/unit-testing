@@ -21,6 +21,8 @@ import static org.mockito.Mockito.when;
 public class TelemetryDiagnosticControlsTest {
    @Mock
    private TelemetryClient clientMock;
+   @Mock
+   private ClientConfigurationFactory clientConfigurationFactoryMock;
    @InjectMocks
    private TelemetryDiagnosticControls controls;
 
@@ -36,39 +38,43 @@ public class TelemetryDiagnosticControlsTest {
    public void whenOnline() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
       when(clientMock.receive()).thenReturn("strange");
+      when(clientMock.getVersion()).thenReturn("ver");
+
       //mock the creatConfig method to NOT do anything . with a spy --> VERY BAD IDEA
 
       controls.checkTransmission(false);
 
+      verify(clientConfigurationFactoryMock).createConfig("ver");
       verify(clientMock).disconnect(false);
+      verify(clientMock).configure(any());
       verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // 99% default
       assertEquals("strange", controls.getDiagnosticInfo());
    }
 
-   @Test
-   public void configuresClient() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
-      when(clientMock.getVersion()).thenReturn("ver");
+//   @Test
+//   public void configuresClient() {
+//      when(clientMock.getOnlineStatus()).thenReturn(true);
+//      when(clientMock.getVersion()).thenReturn("ver");
+//
+//      controls.checkTransmission(false); // tsted code
+//
+//      verify(clientMock).configure(configCaptor.capture());
+//
+//      ClientConfiguration config = configCaptor.getValue();
+//
+//   }
+//   @Captor
+//   ArgumentCaptor<ClientConfiguration> configCaptor;
 
-      controls.checkTransmission(false); // tsted code
 
-      verify(clientMock).configure(configCaptor.capture());
+}
 
-      ClientConfiguration config = configCaptor.getValue();
-      assertEquals(AckMode.NORMAL, config.getAckMode());
-      assertNotNull(config.getSessionStart());
-      Assertions.assertThat(config.getSessionId()).startsWith("ver-");
-
-   }
-   @Captor
-   ArgumentCaptor<ClientConfiguration> configCaptor;
-
+class ClientConfigurationFactoryTest {
    @Test
    public void createConfigOk() {
-      ClientConfiguration config = controls.createConfig("ver");
+      ClientConfiguration config = new ClientConfigurationFactory().createConfig("ver");
       assertEquals(AckMode.NORMAL, config.getAckMode());
       assertNotNull(config.getSessionStart());
       Assertions.assertThat(config.getSessionId()).startsWith("VER-");
    }
-
 }
