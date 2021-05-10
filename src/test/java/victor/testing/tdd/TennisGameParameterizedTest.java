@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -26,11 +28,11 @@ public class TennisGameParameterizedTest {
    }
 
    public static List<Object[]> theTest() {
+//      Files.list(new File("test/in").toPath()).for
       return asList(
           new Object[] {1,1,"Fifteen - Fifteen"},
           new Object[] {4,4,"Deuce"}
           );
-
    }
 
    private void setScore(int player1Score, int player2Score) {

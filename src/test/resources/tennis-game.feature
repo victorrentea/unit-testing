@@ -7,25 +7,25 @@ Feature: Tennis Game
 
   Scenario: New Game
     Given A new tennis game
-    When Player1 scores
+    When Player "ONE" scores
     Then Score is "Fifteen-Love"
 
   Scenario: New Game
     Given A new tennis game
-    When Player1 scores
-    And Player2 scores
+    When Player "ONE" scores
+    And Player "TWO" scores
     Then Score is "Fifteen-Fifteen"
 
   Scenario: Deuce
     Given A new tennis game
-    When Player1 scores 3 points
-    And Player2 scores 3 points
+    When Player "ONE" scores 3 points
+    And Player "TWO" scores 3 points
     Then Score is "Deuce"
 
   Scenario Outline: Tabel, sa planga bizu
     Given A new tennis game
-    When Player1 scores <player1Points> points
-    And Player2 scores <player2Points> points
+    When Player "ONE" scores <player1Points> points
+    And Player "TWO" scores <player2Points> points
     Then Score is "<expectedScore>"
 
     Examples:
