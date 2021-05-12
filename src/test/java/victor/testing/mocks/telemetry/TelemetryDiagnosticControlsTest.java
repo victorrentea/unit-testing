@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.fixture.AbstractTestBase;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -16,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-public class TelemetryDiagnosticControlsTest {
+public class TelemetryDiagnosticControlsTest extends AbstractTestBase {
    private TelemetryClient clientMock = mock(TelemetryClient.class);
 
    private ClientConfigurationFactory clientConfigurationFactory = new ClientConfigurationFactory();
@@ -41,12 +42,12 @@ public class TelemetryDiagnosticControlsTest {
       when(clientMock.getOnlineStatus()).thenReturn(true);
       when(clientMock.receive()).thenReturn("strange");
       when(clientMock.getVersion()).thenReturn("ver");
-
       //mock the creatConfig method to NOT do anything . with a spy --> VERY BAD IDEA
 
       controls.checkTransmission(false);
 
 //      verify(clientConfigurationFactory).createConfig("ver");
+      verify(clientMock).disconnect(false);
       verify(clientMock).disconnect(false);
       verify(clientMock).configure(any());
       verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE); // 99% default
