@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.ToxiproxyContainer;
@@ -22,6 +23,7 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.tools.TestcontainersUtil.injectP6SPY;
+import static victor.testing.spring.tools.TestcontainersUtil.proxyJdbcUrl;
 
 @Transactional
 @SpringBootTest
@@ -56,22 +58,13 @@ public class ProductRepoTestcontainersTest {
       ToxiproxyContainer.ContainerProxy proxy = toxiproxy.getProxy(postgres, 5432);
       proxy.toxics().latency("latency", ToxicDirection.DOWNSTREAM, 10L);
 
-
-      registry = injectP6SPY(registry);
-      registry.add("spring.datasource.url", () -> getProxyedJdbcUrl(postgres.getJdbcUrl(), proxy));
+      System.out.println("PORT:" + postgres.getFirstMappedPort());
+      registry.add("spring.datasource.url", () -> injectP6SPY(proxyJdbcUrl(postgres, proxy)));
 //      registry.add("spring.datasource.url", () -> postgres.getJdbcUrl());
-      registry.add("spring.datasource.username", () -> "postgres");
-      registry.add("spring.datasource.password", () -> "password");
-      registry.add("spring.datasource.driver-class-name", () -> "org.postgresql.Driver");
-   }
-
-   @SneakyThrows
-   private static String getProxyedJdbcUrl(String originalJdbcUrl, ContainerProxy proxy) {
-      System.out.println("Original jdbc url = " + originalJdbcUrl);
-      String proxyHost = proxy.getContainerIpAddress() + ":" + proxy.getProxyPort();
-      String proxiedJdbcUrl = "jdbc:postgresql://" + proxyHost + "/prop?loggerLevel=OFF";
-      System.out.println("Proxied jdbc url = " + proxiedJdbcUrl);
-      return proxiedJdbcUrl;
+      registry.add("spring.datasource.username", postgres::getUsername);
+      registry.add("spring.datasource.password", postgres::getPassword);
+//      registry.add("spring.datasource.driver-class-name", postgres::getDriverClassName);
+      registry.add("spring.datasource.driver-class-name", ()-> "com.p6spy.engine.spy.P6SpyDriver");
    }
 
    @BeforeEach
