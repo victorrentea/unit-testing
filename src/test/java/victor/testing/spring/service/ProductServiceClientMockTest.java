@@ -3,18 +3,25 @@ package victor.testing.spring.service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.tools.WireMockExtension;
 import victor.testing.spring.web.dto.ProductDto;
 
 import java.time.LocalDateTime;
@@ -27,37 +34,40 @@ import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+@ActiveProfiles("db-mem")
+@Transactional
 public class ProductServiceClientMockTest {
-   @Mock
-   public SafetyClient mockSafetyClient;
-   @Mock
+//   @MockBean
+//   public SafetyClient mockSafetyClient;
+   @Autowired
    private ProductRepo productRepo;
-   @Mock
+   @Autowired
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
+
+   @RegisterExtension
+   public WireMockExtension wireMock = new WireMockExtension(9999);
 
    @Test
    public void createThrowsForUnsafeProduct() {
       Assertions.assertThrows(IllegalStateException.class, () -> {
-         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
          productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
       });
    }
 
    @Test
    public void createOk() {
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getOne(supplier.getId())).thenReturn(supplier);
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      Supplier supplier = new Supplier();
+      supplierRepo.save(supplier);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
 
-      // Yuck!
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+      Product product = productRepo.findAll().get(0);
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
