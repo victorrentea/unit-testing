@@ -32,11 +32,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>toxiproxy</artifactId>
-            <version>1.15.3</version>
-        </dependency>
+
 
         <!-- <dependency>
              <groupId>org.springframework.boot</groupId>
@@ -176,6 +172,11 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
             <version>1.15.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>toxiproxy</artifactId>
+            <version>1.15.3</version>
         </dependency>
 
         <!-- mock statics and other insane stuff -->

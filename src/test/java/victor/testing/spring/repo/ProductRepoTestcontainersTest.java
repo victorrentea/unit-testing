@@ -27,7 +27,6 @@ import static victor.testing.spring.tools.TestcontainersUtil.proxyJdbcUrl;
 
 @Transactional
 @SpringBootTest
-@ContextConfiguration//(initializers = PostgresDBInitializer.class)
 @Testcontainers
 public class ProductRepoTestcontainersTest {
    public static Network network = Network.newNetwork();
