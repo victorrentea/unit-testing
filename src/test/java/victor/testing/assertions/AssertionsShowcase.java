@@ -38,8 +38,8 @@ public class AssertionsShowcase {
       List<Integer> actual = asList(200, 100, 300);
 
       // check in any order
-      Assert.assertEquals(asList(100,200,300), actual);
-//      assertThat(actual);
+//      Assert.assertEquals(asList(100,200,300), actual);
+      assertThat(actual).containsExactlyInAnyOrder(100,200,300);
    }
 
 }
