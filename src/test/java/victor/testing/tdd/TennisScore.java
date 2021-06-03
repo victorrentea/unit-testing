@@ -1,11 +1,16 @@
 package victor.testing.tdd;
 
+import scala.reflect.internal.Trees.If;
+
 public class TennisScore {
 
    private int player1Points;
    private int player2Points;
 
    public String getDisplayScore() {
+      if ( player1Points >= 3 && player1Points == player2Points) {
+         return "Deuce";
+      }
       return translate(player1Points) + " - " + translate(player2Points);
    }
 

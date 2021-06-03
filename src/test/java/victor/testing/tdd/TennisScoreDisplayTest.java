@@ -3,6 +3,7 @@ package victor.testing.tdd;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TennisScoreDisplayTest {
@@ -52,6 +53,30 @@ public class TennisScoreDisplayTest {
 
       assertThat(actual).isEqualTo("Forty - Love");
    }
+   @Test
+   public void deuce() {
+      String actual = translateScore(3, 3);
+
+      assertThat(actual).isEqualTo("Deuce");
+   }
+   @Test
+   public void deuce4() {
+      String actual = translateScore(4, 4);
+
+      assertThat(actual).isEqualTo("Deuce");
+   }
+   @Test
+   public void player1Scores4Point() {
+      assertThatThrownBy(() -> translateScore(4, 0))
+         .isInstanceOf(IllegalArgumentException.class);
+   }
+   // overlapping:
+//   @Test
+//   public void player2Scores3Point() {
+//      String actual = translateScore(0, 3);
+//
+//      assertThat(actual).isEqualTo("Love - Forty");
+//   }
 
    private String translateScore(int player1Points, int player2Points) {
       addPoints(Players.ONE, player1Points);
