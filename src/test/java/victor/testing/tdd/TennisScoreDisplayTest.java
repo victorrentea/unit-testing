@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TennisScoreTest {
+public class TennisScoreDisplayTest {
 
    private TennisScore tennisScore = new TennisScore();
 
@@ -42,10 +42,31 @@ public class TennisScoreTest {
 
    @Test
    public void player1Scores2Point() {
-      tennisScore.scorePoint(Players.ONE);
-      tennisScore.scorePoint(Players.ONE);
-      String actual = tennisScore.getDisplayScore();
+      String actual = translateScore(2, 0);
 
       assertThat(actual).isEqualTo("Thirty - Love");
    }
+   @Test
+   public void player1Scores3Point() {
+      String actual = translateScore(3, 0);
+
+      assertThat(actual).isEqualTo("Forty - Love");
+   }
+
+   private String translateScore(int player1Points, int player2Points) {
+      addPoints(Players.ONE, player1Points);
+      addPoints(Players.TWO, player2Points);
+      return tennisScore.getDisplayScore();
+   }
+
+   private void addPoints(Players player, int points) {
+      for (int i = 0; i < points; i++) {
+         tennisScore.scorePoint(player);
+      }
+   }
+//   private void addPointsToPlayer(Players player, int points) {
+//      for (int i = 0; i < points; i++) {
+//         tennisScore.scorePoint(player);
+//      }
+//   }
 }
