@@ -2,19 +2,27 @@ package victor.testing.tdd;
 
 public class TennisScore {
 
-   private String score = "Love - Love";
-   private String player1Score = "Love";
-   private String player2Score = "Love";
+   private int player1Points;
+   private int player2Points;
 
-   public String getScore() {
-      return score;
+   public String getDisplayScore() {
+      return translate(player1Points) + " - " + translate(player2Points);
+   }
+
+   private String translate(int points) {
+      switch (points) {
+         case 0: return "Love";
+         case 1: return "Fifteen";
+         case 2: return "Thirty";
+         default: throw new IllegalArgumentException();
+      }
    }
 
    public void scorePoint(Players player) {
       if (player == Players.ONE) {
-         score = "Fifteen - Love";
+         player1Points ++;
       } else {
-         score = "Love - Fifteen";
+         player2Points++;
       }
    }
 }
