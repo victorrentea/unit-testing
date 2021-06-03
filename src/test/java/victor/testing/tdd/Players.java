@@ -1,5 +1,5 @@
 package victor.testing.tdd;
 
 public enum Players {
-   ONE
+   TWO, ONE
 }

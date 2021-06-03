@@ -8,6 +8,7 @@ public class CustomerValidatorTest {
 
    @Test
    public void yesSir() {
+
       validator.validate(new Customer()
           .setName("John")
           .setAddress(new Address()
