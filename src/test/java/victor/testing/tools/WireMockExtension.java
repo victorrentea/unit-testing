@@ -1,4 +1,4 @@
-package victor.testing.spring.tools;
+package victor.testing.tools;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.VerificationException;

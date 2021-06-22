@@ -1,7 +1,6 @@
 package victor.testing.spring.web;
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -14,8 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.tools.WaitForSpringActuator;
-import victor.testing.spring.tools.WireMockExtension;
+import victor.testing.tools.WaitForSpringActuator;
+import victor.testing.tools.WireMockExtension;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;

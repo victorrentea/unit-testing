@@ -1,4 +1,4 @@
-package victor.testing.spring.tools;
+package victor.testing.tools;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.test.context.TestContext;

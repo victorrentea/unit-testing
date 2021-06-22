@@ -1,7 +1,5 @@
 package victor.testing.spring.service;
 
-import com.github.tomakehurst.wiremock.client.WireMock;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,17 +19,13 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.spring.tools.WireMockExtension;
+import victor.testing.tools.WireMockExtension;
 import victor.testing.spring.web.dto.ProductDto;
-import wiremock.org.apache.commons.io.IOUtils;
 
-import java.io.FileReader;
 import java.time.Clock;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")

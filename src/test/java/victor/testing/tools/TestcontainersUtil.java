@@ -1,4 +1,4 @@
-package victor.testing.spring.tools;
+package victor.testing.tools;
 
 import lombok.SneakyThrows;
 import org.springframework.test.context.DynamicPropertyRegistry;
