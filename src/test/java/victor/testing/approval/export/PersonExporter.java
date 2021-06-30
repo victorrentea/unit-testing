@@ -1,10 +1,8 @@
-package victor.testing.approval;
+package victor.testing.approval.export;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 import static java.time.format.DateTimeFormatter.ofPattern;
 

@@ -1,5 +1,9 @@
 package victor.testing.approval;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import lombok.SneakyThrows;
 import lombok.Value;
 import org.springframework.core.io.Resource;
@@ -14,6 +18,11 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 
 public class FileBasedApprovalTestBase {
+   public static final ObjectMapper jackson = new ObjectMapper()
+       .registerModule(new JavaTimeModule())
+       .registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES)) // allows to even remove default private constructor!
+       ;
+
    protected static List<FileTestCase> scanForFileTestCases(String locationPattern, Function<String, String> outputFileNameProvider) throws IOException {
       Resource[] inResources = new PathMatchingResourcePatternResolver().getResources(locationPattern);
       return Stream.of(inResources)

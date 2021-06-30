@@ -1,4 +1,4 @@
-package victor.testing.approval;
+package victor.testing.approval.export;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

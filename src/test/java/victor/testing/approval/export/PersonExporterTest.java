@@ -1,17 +1,14 @@
-package victor.testing.approval;
+package victor.testing.approval.export;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.FileAssert;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.approval.FileBasedApprovalTestBase;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -19,18 +16,17 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.apache.commons.io.FileUtils.readFileToString;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-public class ExporterTest extends FileBasedApprovalTestBase {
-
+public class PersonExporterTest extends FileBasedApprovalTestBase {
    @Mock
    private PersonRepo personRepo;
 
    @InjectMocks
    private PersonExporter exporter;
-   public static final ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
 
    public static List<FileTestCase> convert() throws IOException {
       return scanForFileTestCases("classpath:/test-cases/export*.in.json",
@@ -49,7 +45,7 @@ public class ExporterTest extends FileBasedApprovalTestBase {
       exporter.export(sw);
 
       String expectedContents = readFileToString(test.getExpectedOutputFile());
-      Assertions.assertThat(sw.toString()).isEqualToNormalizingNewlines(expectedContents);
+      assertThat(sw.toString()).isEqualToNormalizingNewlines(expectedContents);
    }
 
    private void didacticLog(FileTestCase testCase) throws IOException {
