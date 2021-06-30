@@ -1,0 +1,14 @@
+{
+  "db_data": {
+    "customer": [
+      {
+        "customer_id": "1",
+        "lastName": "Doe",
+        "phoneList": [
+          "111",
+          "999"
+        ]
+      }
+    ]
+  }
+}
