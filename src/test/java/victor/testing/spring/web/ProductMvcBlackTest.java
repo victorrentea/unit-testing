@@ -47,9 +47,11 @@ public class ProductMvcBlackTest {
    }
 
    private void createProduct(String productName) throws Exception {
+      // Option 1: JSON serialization
       // ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.WIFE);
       // String createJson = new ObjectMapper().writeValueAsString(dto);
 
+      // Option 2: Manual JSON formatting (freezes the DTO)
       // language=json
       String createJson = String.format("{\"name\": \"" + productName + "\", \"supplierId\": \"%d\", \"barcode\": \"safebar\"}", this.supplierId);
 

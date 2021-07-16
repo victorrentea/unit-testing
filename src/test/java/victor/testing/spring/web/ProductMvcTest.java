@@ -36,10 +36,10 @@ public class ProductMvcTest {
         productRepo.save(new Product().setName("Tree"));
 
         mockMvc.perform(post("/product/search")
-            .content("{}")
             .contentType(MediaType.APPLICATION_JSON)
+            .content("{}") // empty criteria
         )
-            .andExpect(status().isOk())
+            .andExpect(status().isOk()) // 200
             .andExpect(header().string("Custom-Header", "true"))
             .andExpect(jsonPath("$", hasSize(1)));
 //            .andExpect(jsonPath("$[0].name").value("Tree"));
