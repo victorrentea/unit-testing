@@ -21,6 +21,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class PowerMocksStaticInitializers {
    @Test
    public void method() throws Exception {
+      Some.initStatics = false;
       PowerMockito.mockStatic(DataManager.class);
       PowerMockito.doNothing().when(DataManager.class,"init"); // is useless because DataManager.class already caused the init() to run
 
@@ -32,12 +33,18 @@ public class PowerMocksStaticInitializers {
    }
 }
 
+class Some {
+   public static boolean initStatics = true;
+}
 
 class DataManager{
    private static Map<String, String> dataStore = new HashMap<>();
 
    static {
-      init();
+
+      if (Some.initStatics) {
+         init();
+      }
    }
 
    public static void init() {
