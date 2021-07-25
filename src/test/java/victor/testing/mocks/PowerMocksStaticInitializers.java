@@ -1,10 +1,7 @@
 package victor.testing.mocks;
 
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
@@ -17,13 +14,13 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({DataManager.class})
-//@SuppressStaticInitializationFor("victor.testing.mocks.DataManager") // leaves dataStore = null;
+@SuppressStaticInitializationFor("victor.testing.mocks.DataManager") // leaves dataStore = null;
 public class PowerMocksStaticInitializers {
    @Test
    public void method() throws Exception {
-      Some.initStatics = false;
+      DataManager.initVariables();
       PowerMockito.mockStatic(DataManager.class);
-      PowerMockito.doNothing().when(DataManager.class,"init"); // is useless because DataManager.class already caused the init() to run
+//      PowerMockito.doNothing().when(DataManager.class,"init"); // is useless because DataManager.class already caused the init() to run
 
       DataManager manager = new DataManager();
       manager.setData("a","1");
@@ -33,22 +30,17 @@ public class PowerMocksStaticInitializers {
    }
 }
 
-class Some {
-   public static boolean initStatics = true;
-}
 
 class DataManager{
-   private static Map<String, String> dataStore = new HashMap<>();
+   private static Map<String, String> dataStore;
 
    static {
-
-      if (Some.initStatics) {
-         init();
-      }
+      initVariables();
+      System.out.println("Static init");
    }
 
-   public static void init() {
-      System.out.println("Static init");
+   public static void initVariables() {
+      dataStore = new HashMap<>();
    }
 
    public void setData(String key, String value){
