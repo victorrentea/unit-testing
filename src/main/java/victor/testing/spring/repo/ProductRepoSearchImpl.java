@@ -3,6 +3,8 @@ package victor.testing.spring.repo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
@@ -19,11 +21,13 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
     private final EntityManager em;
 
     @Override
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
         String jpql = "SELECT new victor.testing.spring.web.dto.ProductSearchResult(p.id, p.name)" +
                 " FROM Product p " +
                 " WHERE 1=1 ";
 
+//        throw new RuntimeException()
         Map<String, Object> paramMap = new HashMap<>();
 
         if (StringUtils.isNotEmpty(criteria.name)) {

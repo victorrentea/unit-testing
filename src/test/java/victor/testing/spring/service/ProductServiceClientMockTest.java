@@ -6,7 +6,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -25,15 +31,20 @@ import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+@ActiveProfiles("db-mem")
+@SpringBootTest(properties = "safety.service.url.base=http://myMockServer:port/")
+//@ExtendWith(MockitoExtension.class)
 public class ProductServiceClientMockTest {
-   @Mock
-   public SafetyClient mockSafetyClient;
-   @Mock
+   @MockBean
+   public SafetyClient mockSafetyClient/* = Mockito.mock(SafetyClient.class)*/;
+//   @Mock
+   @Autowired
    private ProductRepo productRepo;
-   @Mock
+//   @Mock
+   @Autowired
    private SupplierRepo supplierRepo;
-   @InjectMocks
+//   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test
@@ -42,24 +53,28 @@ public class ProductServiceClientMockTest {
          when(mockSafetyClient.isSafe("bar")).thenReturn(false);
          productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
       });
+      // option 1 (the most robust): using that mockServer : make it return a json stored in your src/test/resources
+      // option 2 (the most comfortable): replace the SafetyClient spring bean with a Mock:::
    }
 
    @Test
    public void createOk() {
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getOne(supplier.getId())).thenReturn(supplier);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+//      when(supplierRepo.getOne(supplier.getId())).thenReturn(supplier);
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
-      productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
+      productService.createProduct(new ProductDto("name", "safebar", supplierId, ProductCategory.HOME));
 
-      // Yuck!
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+      // Yuck! - capturing an argument given by prod  to a mock
+//      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+//      verify(productRepo).save(productCaptor.capture());
+//      Product product = productCaptor.getValue();
+
+      Product product = productRepo.findAll().get(0);
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isNotNull();
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
