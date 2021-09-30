@@ -9,12 +9,13 @@ import java.util.UUID;
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
 	}
+
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
@@ -42,7 +43,7 @@ public class TelemetryDiagnosticControls {
 		config.setAckMode(AckMode.NORMAL);
 		telemetryClient.configure(config);
 
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		telemetryClient.send("AT#UD");
 		diagnosticInfo = telemetryClient.receive();
 	}
 

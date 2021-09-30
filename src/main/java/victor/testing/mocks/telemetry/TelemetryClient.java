@@ -6,6 +6,11 @@ import java.util.Random;
 public class TelemetryClient {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
+//	static class X {
+//		public int method() {
+//			return 1;
+//		}
+//	}
 
     public static class ClientConfiguration {
 		enum AckMode {NORMAL, TIMEBOXED, FLOOD};

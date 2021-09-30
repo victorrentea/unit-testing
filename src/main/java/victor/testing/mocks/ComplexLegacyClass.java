@@ -29,3 +29,6 @@ public class ComplexLegacyClass {
       return list;
    }
 }
+
+//On my job we werent allowed to change private
+// methods to package protected when testing. So we had to use PowerMock. Would you recomment something like that?

@@ -13,6 +13,7 @@ public class MockStaticTest {
    @Test
    public void mockUtilMethod() {
       assertThat(SomeUtil.staticMethod(3)).isEqualTo(-1);
+
       try (MockedStatic<SomeUtil> b = Mockito.mockStatic(SomeUtil.class)) {
          b.when(() -> SomeUtil.staticMethod(3)).thenReturn(1);
          assertThat(new LegacyProdCode().prod()).isEqualTo(2);

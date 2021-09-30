@@ -19,13 +19,15 @@ public class SpyTest {
 
    @Test
    public void returnsEmptyForEmptyData() {
-      doReturn(Collections.emptyList()).when(target).privateComplex(13);
+      doReturn(Collections.emptyList())
+          .when(target.privateComplex(13));
       assertThat(target.publicComplex(13)).isEmpty();
    }
 
    @Test
    public void returnsFirstDataElement() {
-      doReturn(List.of("one","two")).when(target).privateComplex(13);
+      doReturn(List.of("one","two"))
+          .when(target.privateComplex(13));
       assertThat(target.publicComplex(13)).hasValue("one");
    }
    // TODO + 10 tests for Complex Code #1, #2
