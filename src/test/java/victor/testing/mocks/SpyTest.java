@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
-public class ComplexLegacyClassTest {
+public class SpyTest {
 
    @Spy
    private ComplexLegacyClass target;
