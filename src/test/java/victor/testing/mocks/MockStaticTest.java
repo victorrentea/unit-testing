@@ -1,6 +1,7 @@
 package victor.testing.mocks;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -9,11 +10,19 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//@ActiveProfiles("disableSecurity")
 public class MockStaticTest {
+//   @WithMockUser
+   @BeforeEach
+   public final void before() {
+
+   }
    @Test
    public void mockUtilMethod() {
-      assertThat(SomeUtil.staticMethod(3)).isEqualTo(-1);
+//      SecurityContextHolder.getContext();
 
+
+      assertThat(SomeUtil.staticMethod(3)).isEqualTo(-1);
       try (MockedStatic<SomeUtil> b = Mockito.mockStatic(SomeUtil.class)) {
          b.when(() -> SomeUtil.staticMethod(3)).thenReturn(1);
          assertThat(new LegacyProdCode().prod()).isEqualTo(2);

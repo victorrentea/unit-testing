@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -16,20 +16,22 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class TelemetryDiagnosticControlsTest {
-   @Mock
-   private TelemetryClient client;
-   @InjectMocks
-   private TelemetryDiagnosticControls controls;
+//   @Mock
+   private TelemetryClient client=mock(TelemetryClient.class);
+//   @InjectMocks
+   private TelemetryDiagnosticControls controls = new TelemetryDiagnosticControls(client, new FriendClasssDeeplyConnectedToMe());
 
 
    @BeforeEach
    public final void before() {
       when(client.getOnlineStatus()).thenReturn(true);
+      when(client.receive()).thenReturn("useless");
+
    }
 
    @Test
@@ -39,6 +41,7 @@ public class TelemetryDiagnosticControlsTest {
       assertThrows(IllegalStateException.class, () ->
           controls.checkTransmission(true));
    }
+
    @Test
    public void receiveThrows() {
       when(client.getOnlineStatus()).thenThrow(new RuntimeException());
@@ -66,8 +69,8 @@ public class TelemetryDiagnosticControlsTest {
       controls.checkTransmission(true);
 
       verify(client).configure(configCaptor.capture());
-      ClientConfiguration config = configCaptor.getValue();
 
+      ClientConfiguration config = configCaptor.getValue();
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
    }
 }

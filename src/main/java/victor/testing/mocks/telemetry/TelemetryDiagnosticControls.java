@@ -5,15 +5,19 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMod
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+class FriendClasssDeeplyConnectedToMe {
 
+}
 public class TelemetryDiagnosticControls {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient;
+	private final FriendClasssDeeplyConnectedToMe friendClasssDeeplyConnectedToMe;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnosticControls(TelemetryClient telemetryClient) {
+	public TelemetryDiagnosticControls(TelemetryClient telemetryClient, FriendClasssDeeplyConnectedToMe friendClasssDeeplyConnectedToMe) {
 		this.telemetryClient = telemetryClient;
+		this.friendClasssDeeplyConnectedToMe = friendClasssDeeplyConnectedToMe;
 	}
 
 
