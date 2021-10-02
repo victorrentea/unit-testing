@@ -13,29 +13,29 @@ import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class TelemetryDiagnosticControlsTest {
+public class TelemetryControllerTest {
    @Mock
    private TelemetryClient client;
    @InjectMocks
-   private TelemetryDiagnosticControls controls;
+   private TelemetryController target;
 
    @Test
    public void disconnects() {
       when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission(true);
+      target.checkTransmission(true);
       verify(client).disconnect(true);
    }
 
    @Test(expected = IllegalStateException.class)
    public void throwsWhenNotOnline() {
       when(client.getOnlineStatus()).thenReturn(false);
-      controls.checkTransmission(true);
+      target.checkTransmission(true);
    }
 
    @Test
    public void sendsDiagnosticInfo() {
       when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission(true);
+      target.checkTransmission(true);
       verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
    }
 
@@ -44,15 +44,15 @@ public class TelemetryDiagnosticControlsTest {
       // TODO inspect
       when(client.getOnlineStatus()).thenReturn(true);
       when(client.receive()).thenReturn("tataie");
-      controls.checkTransmission(true);
+      target.checkTransmission(true);
       verify(client).receive();
-      assertThat(controls.getDiagnosticInfo()).isEqualTo("tataie");
+      assertThat(target.getDiagnosticInfo()).isEqualTo("tataie");
    }
 
    @Test
    public void configuresClient() throws Exception {
       when(client.getOnlineStatus()).thenReturn(true);
-      controls.checkTransmission(true);
+      target.checkTransmission(true);
       verify(client).configure(any());
       // TODO check config.getAckMode is NORMAL
    }

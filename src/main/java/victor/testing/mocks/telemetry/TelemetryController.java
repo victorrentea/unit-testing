@@ -6,7 +6,7 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMod
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class TelemetryDiagnosticControls {
+public class TelemetryController {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private TelemetryClient telemetryClient;
