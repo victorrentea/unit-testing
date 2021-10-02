@@ -1,18 +1,13 @@
-package victor.testing.assertions;
+package victor.testing.assertj;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.core.api.Condition;
-import org.junit.Assert;
-import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import org.junit.jupiter.api.Test;
+
 import java.util.List;
-import java.util.Set;
 
 import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AssertionsShowcase {
 
@@ -29,7 +24,7 @@ public class AssertionsShowcase {
    public void string() {
       String actual = "abcdef";
 
-      Assert.assertTrue(actual.startsWith("bcd"));
+      assertTrue(actual.startsWith("bcd")); // see the failure message
 //      assertThat(actual);
    }
 
@@ -38,7 +33,7 @@ public class AssertionsShowcase {
       List<Integer> actual = asList(200, 100, 300);
 
       // check in any order
-      Assert.assertEquals(asList(100,200,300), actual);
+      assertEquals(asList(100,200,300), actual); // see the failure message
 //      assertThat(actual);
    }
 
