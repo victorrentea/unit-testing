@@ -4,6 +4,7 @@ package victor.testing.mocks;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +33,6 @@ public class MockStaticTest {
       LocalDateTime fixed = LocalDateTime.parse("2021-09-29T23:07:01");
       try (MockedStatic<LocalDateTime> mock = mockStatic(LocalDateTime.class)) {
          mock.when(LocalDateTime::now).thenReturn(fixed);
-
          System.out.println(LocalDateTime.now());
       }
    }
