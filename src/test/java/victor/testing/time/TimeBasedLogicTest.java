@@ -22,6 +22,7 @@ class TimeBasedLogicTest {
 
    @Test
    @Disabled("flaky, time-based")
+
    void isFrequentBuyer() {
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
           13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
