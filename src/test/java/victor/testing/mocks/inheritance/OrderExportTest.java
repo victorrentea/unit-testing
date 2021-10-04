@@ -21,7 +21,7 @@ class OrderExportTest {
    @Mock
    EmailSender emailSender;
    @Spy
- @InjectMocks
+   @InjectMocks
    OrderExport orderExport;
    @Captor
    ArgumentCaptor<List<Object>> listCaptor;

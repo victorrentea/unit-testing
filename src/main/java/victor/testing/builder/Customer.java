@@ -11,6 +11,7 @@ public class Customer {
 	private List<String> labels = new ArrayList<>();
 	private Address address;
 	private Date createDate;
+	private List<Coupon> coupons;
 
 	public Address getAddress() {
 		return address;
@@ -52,4 +53,12 @@ public class Customer {
 		this.createDate = createDate;
 	}
 
+	public List<Coupon> getCoupons() {
+		return coupons;
+	}
+
+	public Customer setCoupons(List<Coupon> coupons) {
+		this.coupons = coupons;
+		return this;
+	}
 }

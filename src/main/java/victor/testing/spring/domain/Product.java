@@ -8,29 +8,23 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-//@Data NEVER
+@Getter @Setter
 @ToString
 public class Product {
 
     @Id
     @GeneratedValue
-    @Getter @Setter
     private Long id;
 
-    @Getter @Setter
     private String name;
 
-    @Getter @Setter
     private ProductCategory category;
 
-    @Getter @Setter
     private String barcode;
 
-    @Getter @Setter
     @ManyToOne
     private Supplier supplier;
 
-    @Getter @Setter
     private LocalDateTime createDate;
     public Product(String name, String barcode, ProductCategory category) {
         this.name = name;

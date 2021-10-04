@@ -29,7 +29,7 @@ public abstract class AbstractFileExport {
          writeContent();
          log.info("Export completed in {} seconds ", (System.currentTimeMillis() - t0) / 1000);
       } catch (Exception e) {
-         sendErrorEmail(e);
+         emailSender.sendErrorEmail("Export orders", e);
          log.debug("Gotcha!", e); // TERROR-Driven Development
          throw e;
       } finally {
@@ -57,7 +57,5 @@ public abstract class AbstractFileExport {
 
    protected abstract void writeContent() throws IOException;
 
-   private void sendErrorEmail(Exception e) {
-      // imagine...
-   }
+
 }
