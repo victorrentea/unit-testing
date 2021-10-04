@@ -21,4 +21,5 @@ public class Order {
    private LocalDate createdOn;
    private Double totalAmount;
    private boolean genius;
+   private boolean active;
 }
