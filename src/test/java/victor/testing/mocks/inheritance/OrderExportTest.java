@@ -18,11 +18,14 @@ import static org.mockito.Mockito.*;
 class OrderExportTest {
    @Mock
    OrderRepo orderRepo;
+
    @Mock
-   EmailSender emailSender;
-   @Spy
+   EmailSender emailSender; // unused mock (aka 'dummy') = code smell
+
+   @Spy // partial mock = code smell => missing abstraction
    @InjectMocks
    OrderExport orderExport;
+
    @Captor
    ArgumentCaptor<List<Object>> listCaptor;
 
