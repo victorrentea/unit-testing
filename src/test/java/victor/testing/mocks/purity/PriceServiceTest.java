@@ -2,6 +2,8 @@ package victor.testing.mocks.purity;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,6 +31,8 @@ class PriceServiceTest {
    ProductRepo productRepo;
    @InjectMocks
    PriceService priceService;
+   @Captor
+   ArgumentCaptor<List<Coupon>> couponCaptor;
 
    @Test
    void computePrices() {
@@ -43,10 +47,12 @@ class PriceServiceTest {
 
       Map<Long, Double> result = priceService.computePrices(13L, List.of(1L, 2L), Map.of(1L, 10d));
 
-      couponRepo.markUsedCoupons(13L, List.of(coupon1));
+      verify(couponRepo).markUsedCoupons(eq(13L), couponCaptor.capture());
+      assertThat(couponCaptor.getValue()).containsExactly(coupon1);
 
       assertThat(result)
           .containsEntry(1L, 8d)
           .containsEntry(2L, 5d);
    }
+
 }
