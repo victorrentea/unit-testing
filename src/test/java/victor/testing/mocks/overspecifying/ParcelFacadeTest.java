@@ -6,6 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -19,6 +21,8 @@ class ParcelFacadeTest {
    Platform platform;
    @Mock
    TrackingService trackingService;
+   @Mock
+   TrackingProviderRepo trackingProviderRepo;
    @InjectMocks
    ParcelFacade target;
 
@@ -29,12 +33,14 @@ class ParcelFacadeTest {
           .setAwb("AWB")
           .setPartOfCompositeShipment(true);
       when(parcelRepo.findByBarcode("BAR")).thenReturn(parcel);
+      List<TrackingProvider> trackingProviders = List.of(new TrackingProvider());
+      when(trackingProviderRepo.findByAwb("AWB")).thenReturn(trackingProviders);
 
       target.processBarcode("BAR", 99);
 
       verify(display).displayAWB("AWB");
       verify(display).displayMultiParcelWarning();
       verify(platform).addParcel(parcel);
-      verify(trackingService).markDepartingWarehouse("AWB", 99);
+      verify(trackingService).markDepartingWarehouse("AWB", 99, trackingProviders);
    }
 }
