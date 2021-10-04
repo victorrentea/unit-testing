@@ -1,7 +1,6 @@
 package victor.testing.spring.feed;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -13,10 +12,11 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 @Service
 public class FeedProcessor {
-   @Autowired
-   private FileRepo fileRepo;
-   @Autowired
-   private FeedScanner scanner;
+   private final FileRepo fileRepo;
+
+   public FeedProcessor(FileRepo fileRepo) {
+      this.fileRepo = fileRepo;
+   }
 
    public int countPendingLines() {
       Collection<String> names = fileRepo.getFileNames();
@@ -25,7 +25,7 @@ public class FeedProcessor {
       for (String fileName : names) {
          try (Stream<String> linesStream = fileRepo.openFile(fileName)) {
             List<String> lines = linesStream.collect(toList());
-            // TODO imagine anothed dependency scanner.removeComments(lines);
+            lines.removeIf(line -> line.startsWith("#"));
             log.debug("Found {} lines in {}", lines.size(), fileName);
             count += lines.size();
          }
