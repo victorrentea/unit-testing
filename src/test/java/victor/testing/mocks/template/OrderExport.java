@@ -1,4 +1,4 @@
-package victor.testing.mocks.inheritance;
+package victor.testing.mocks.template;
 
 
 import victor.testing.time.Order;

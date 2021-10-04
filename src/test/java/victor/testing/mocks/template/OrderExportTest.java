@@ -1,4 +1,4 @@
-package victor.testing.mocks.inheritance;
+package victor.testing.mocks.template;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,6 +31,7 @@ class OrderExportTest {
 
    @Test
    void writeContent() {
+      // [[HARD LEVEL]]
       Order order = new Order().setId(13L).setCreatedOn(parse("2021-09-01"));
       when(orderRepo.findByActiveTrue()).thenReturn(List.of(order));
       doNothing().when(orderExport).writeLine(anyList());

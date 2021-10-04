@@ -1,4 +1,4 @@
-package victor.testing.mocks.inheritance;
+package victor.testing.mocks.template;
 
 import lombok.extern.slf4j.Slf4j;
 
