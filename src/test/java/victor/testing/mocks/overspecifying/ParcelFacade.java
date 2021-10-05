@@ -21,7 +21,9 @@ public class ParcelFacade {
       }
       platform.addParcel(parcel);
       List<TrackingProvider> trackingProviders = trackingProviderRepo.findByAwb(parcel.getAwb());
+      // TODO move findByAwb to trackingService ==> then notice bad encapsulation
       trackingService.markDepartingWarehouse(parcel.getAwb(), warehouseId, trackingProviders);
+
    }
 
 }
