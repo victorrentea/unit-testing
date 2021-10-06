@@ -3,10 +3,7 @@ package victor.testing.mocks.telemetry;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
@@ -19,12 +16,13 @@ import static org.mockito.Mockito.*;
 public class TelemetryControllerTest {
    @Mock
    private TelemetryClient client;
+   @Spy
    @InjectMocks
    private TelemetryController target;
 
    @Before
    public final void before() {
-      when(client.getVersion()).thenReturn("for nothing");
+      doReturn(new ClientConfiguration()).when(target).createConfig(any());
    }
 
    @Test
@@ -70,7 +68,7 @@ public class TelemetryControllerTest {
 
    @Test
    public void configurationCreatedOk() { // x20 tests
-      ClientConfiguration config = target.createConfig("ver");
+      ClientConfiguration config = new TelemetryController().createConfig("ver");
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       assertThat(config.getSessionId()).startsWith("VER-");
    }
