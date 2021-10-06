@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
@@ -17,8 +19,8 @@ import static org.mockito.Mockito.*;
 class TimeBasedLogicTest {
    @Mock
    OrderRepo orderRepo;
-   @Mock
-   ClockAdapter clock;
+//   @Mock
+//   ClockAdapter clock;
    @InjectMocks
    TimeBasedLogic target;
 
@@ -31,9 +33,14 @@ class TimeBasedLogicTest {
 
 //      when(clock.instant()).thenReturn(Instant.parse("2021-09-08T10:10:10Z"));
 //      when(clock.getZone()).thenReturn(ZoneId.systemDefault());
-      when(clock.today()).thenReturn(parse("2021-09-08"));
+//      when(clock.today()).thenReturn(parse("2021-09-08"));
 
-      assertThat(target.isFrequentBuyer(13)).isTrue();
+
+      final LocalDate today = parse("2021-09-08");
+      try(MockedStatic<LocalDate> mockDate = mockStatic(LocalDate.class, CALLS_REAL_METHODS)) {
+         mockDate.when(() -> LocalDate.now()).thenReturn(today);
+         assertThat(target.isFrequentBuyer(13)).isTrue();
+      }
 
 
       // 1: inject a Clock; Hint: you'll need ZoneId.systemDefault()
