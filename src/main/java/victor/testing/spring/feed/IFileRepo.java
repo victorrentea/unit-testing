@@ -7,4 +7,6 @@ public interface IFileRepo {
    Collection<String> getFileNames();
 
    Stream<String> openFile(String fileName);
+
+//   List<String> search(String pattern);
 }

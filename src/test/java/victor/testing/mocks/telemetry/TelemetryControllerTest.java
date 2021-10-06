@@ -8,8 +8,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -43,10 +42,12 @@ public class TelemetryControllerTest {
    public void receivesDiagnosticInfo() {
       // TODO inspect
       when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
+      when(client.receive()).thenReturn("tataieAD");
       target.checkTransmission(true);
-      verify(client).receive();
-      assertThat(target.getDiagnosticInfo()).isEqualTo("tataie");
+      verify(client).receive(); // the next line renders this one useless - DELETE IT
+      // verify on a when.then ONLY MAKES sense if that method also has some side effects
+      // >> CQS principle
+      assertThat(target.getDiagnosticInfo()).isEqualTo("tataieAD");
    }
 
    @Test

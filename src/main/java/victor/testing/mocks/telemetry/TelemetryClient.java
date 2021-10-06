@@ -89,6 +89,9 @@ public class TelemetryClient {
 	public String receive() {
 		String message;
 
+		System.out.println("CHARGE YOU $10");
+		System.out.println("INSERT");
+
 		if (diagnosticMessageResult == null || "".equals(diagnosticMessageResult)) {
 			// simulate a received message (just for illustration - not needed for this exercise)
 			message = "";
