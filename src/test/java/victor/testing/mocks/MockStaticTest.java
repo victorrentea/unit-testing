@@ -1,14 +1,17 @@
 package victor.testing.mocks;
 
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.*;
 
 public class MockStaticTest {
    @Test
@@ -34,6 +37,17 @@ public class MockStaticTest {
       try (MockedStatic<LocalDateTime> mock = mockStatic(LocalDateTime.class)) {
          mock.when(LocalDateTime::now).thenReturn(fixed);
          System.out.println(LocalDateTime.now());
+      }
+   }
+   @Test
+   @Disabled("doesn't work!")
+   public void mock_java_util_Date() throws ParseException {
+      long millis = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+          .parse("2021-09-29 23:07:01").getTime();
+
+      try (MockedStatic<System> mock = mockStatic(System.class)) {
+         mock.when(System::currentTimeMillis).thenReturn(millis);
+         System.out.println(new Date());
       }
    }
 }

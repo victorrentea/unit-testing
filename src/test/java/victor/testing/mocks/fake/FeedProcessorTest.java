@@ -1,29 +1,26 @@
-package victor.testing.spring.feed;
+package victor.testing.mocks.fake;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import victor.testing.spring.feed.FeedProcessor;
+import victor.testing.spring.feed.FileRepo;
 
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class FeedProcessorWithMockTest {
+public class FeedProcessorTest {
 
    @InjectMocks
-   private FeedProcessor feedProcessor;
+   FeedProcessor feedProcessor;
    @Mock
-   private FileRepo fileRepoMock;
+   FileRepo fileRepoMock;
 
    @Test
    public void oneFileWithOneLine() {
