@@ -1,7 +1,14 @@
 package victor.testing.mocks.overspecifying;
 
-public interface Display {
-   void displayAWB(String barcode);
+public class Display {
+   public void displayAWB(Parcel parcel) {
+      /// my stuff
+      if (parcel.isPartOfCompositeShipment()) {
+         displayMultiParcelWarning();
+      }
+   }
 
-   void displayMultiParcelWarning();
+   private void displayMultiParcelWarning() {
+
+   }
 }
