@@ -1,46 +1,34 @@
 package victor.testing.mocks.fake;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.spring.feed.FeedProcessor;
-import victor.testing.spring.feed.FileRepo;
-
-import java.util.Arrays;
-import java.util.stream.Stream;
+import victor.testing.spring.feed.FileRepoFake;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 public class FeedProcessorTest {
 
-   @InjectMocks
-   FeedProcessor feedProcessor;
-   @Mock
-   FileRepo fileRepoMock;
+   FileRepoFake fileRepoFake = new FileRepoFake();
+   FeedProcessor feedProcessor = new FeedProcessor(fileRepoFake);
+
 
    @Test
    public void oneFileWithOneLine() {
-      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt"));
-      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+      fileRepoFake.addFile("one.txt", "one");
       assertThat(feedProcessor.countPendingLines()).isEqualTo(1);
    }
 
    @Test
    public void oneFileWith2Lines() {
-      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("two.txt"));
-      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
+      fileRepoFake.addFile("one.txt", "one", "two");
       assertThat(feedProcessor.countPendingLines()).isEqualTo(2);
    }
 
    @Test
    public void twoFilesWith3Lines() {
-      // TODO
-
-      // TODO How to DRY the tests?
+      fileRepoFake.addFile("one.txt", "one");
+      fileRepoFake.addFile("two.txt", "one", "two");
+      assertThat(feedProcessor.countPendingLines()).isEqualTo(3);
    }
 
 
