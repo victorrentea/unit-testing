@@ -22,8 +22,6 @@ public class Product {
 
     private String barcode;
 
-    @ManyToOne
-    private Supplier supplier;
 
     private LocalDateTime createDate;
     public Product(String name, String barcode, ProductCategory category) {

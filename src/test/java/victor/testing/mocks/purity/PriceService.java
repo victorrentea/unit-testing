@@ -18,6 +18,9 @@ public class PriceService {
    private final CouponRepo couponRepo;
    private final ProductRepo productRepo;
 
+   // TODO Homework remove the need of mocks by subcutenous test
+   // move the dep calls (queries & commands) to another local method leaving the current one package protected opened for testing.
+   // Refactor test. victorrentea@gmail.com
    public Map<Long, Double> computePrices(long customerId, List<Long> productIds, Map<Long, Double> internalPrices) {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
