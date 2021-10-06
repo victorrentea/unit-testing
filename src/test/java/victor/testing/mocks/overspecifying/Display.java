@@ -1,7 +1,12 @@
 package victor.testing.mocks.overspecifying;
 
+import org.springframework.context.event.EventListener;
+
 public class Display {
-   public void displayAWB(Parcel parcel) {
+
+   @EventListener
+   public void displayAWB(BarcodeScannedEvent e) {
+      Parcel parcel = e.getParcel();
       /// my stuff
       if (parcel.isPartOfCompositeShipment()) {
          displayMultiParcelWarning();

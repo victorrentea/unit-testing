@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import static org.mockito.Mockito.*;
 
@@ -18,6 +19,8 @@ class ParcelFacadeTest {
    Platform platform;
    @Mock
    TrackingService trackingService;
+   @Mock
+   ApplicationEventPublisher eventPublisher;
    @InjectMocks
    ParcelFacade target;
 
@@ -31,8 +34,6 @@ class ParcelFacadeTest {
 
       target.processBarcode("BAR", 99);
 
-      verify(display).displayAWB(parcel);
-      verify(platform).addParcel(parcel);
-      verify(trackingService).markDepartingWarehouse("AWB", 99);
+      //verify(eventPublisher).sendEvent(event...)
    }
 }
