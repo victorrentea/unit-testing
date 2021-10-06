@@ -1,20 +1,22 @@
 package victor.testing.time;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
+
+import static java.time.LocalDate.now;
 
 @Service
 @RequiredArgsConstructor
 public class TimeBasedLogic {
    private final OrderRepo orderRepo;
-   private final Clock clock;
+   private final ClockAdapter clock;
 
    public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = LocalDate.now(clock);
+      LocalDate now = clock.today();
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
@@ -25,5 +27,12 @@ public class TimeBasedLogic {
       boolean anyGenius = recentOrders.stream().anyMatch(Order::isGenius);
 
       return totalAmount > 100 || anyGenius;
+   }
+}
+
+@Component
+class ClockAdapter {
+   public LocalDate today() {
+      return now(); // ugly library
    }
 }
