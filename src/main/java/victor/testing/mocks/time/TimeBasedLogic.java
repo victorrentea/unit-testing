@@ -1,4 +1,4 @@
-package victor.testing.time;
+package victor.testing.mocks.time;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

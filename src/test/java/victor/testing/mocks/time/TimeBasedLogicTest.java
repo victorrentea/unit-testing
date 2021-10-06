@@ -1,4 +1,4 @@
-package victor.testing.time;
+package victor.testing.mocks.time;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

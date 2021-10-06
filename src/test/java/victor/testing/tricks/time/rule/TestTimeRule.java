@@ -1,4 +1,4 @@
-package victor.testing.time.rule;
+package victor.testing.tricks.time.rule;
 
 import org.junit.rules.ExternalResource;
 

@@ -1,4 +1,4 @@
-package victor.testing.time;
+package victor.testing.mocks.time;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @RequiredArgsConstructor
 public class App implements CommandLineRunner {
-   private
    @Autowired
    TimeBasedLogic timeBasedLogic;
 
