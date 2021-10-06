@@ -7,24 +7,18 @@ import org.springframework.context.ApplicationEventPublisher;
 @RequiredArgsConstructor
 public class ParcelFacade {
    private final ParcelRepo parcelRepo;
-   private final Display display;
-   private final Platform platform;
-   private final TrackingService trackingService;
 
    private final ApplicationEventPublisher eventPublisher;
 
    public void processBarcode(String barcode, int warehouseId) {
       Parcel parcel = parcelRepo.findByBarcode(barcode);
 
-      eventPublisher.publishEvent(new BarcodeScannedEvent(parcel));
-
-//      display.displayAWB(parcel);
-//      platform.addParcel(parcel);
-//      trackingService.markDepartingWarehouse(parcel.getAwb(), warehouseId);
+      eventPublisher.publishEvent(new BarcodeScannedEvent(parcel, warehouseId));
    }
 
 }
 @Value
 class BarcodeScannedEvent {
    Parcel parcel;
+   int warehouseId;
 }

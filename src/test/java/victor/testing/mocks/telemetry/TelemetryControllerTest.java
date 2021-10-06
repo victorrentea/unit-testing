@@ -1,9 +1,9 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
@@ -16,14 +16,10 @@ import static org.mockito.Mockito.*;
 public class TelemetryControllerTest {
    @Mock
    private TelemetryClient client;
-   @Spy
+   @Mock
+   ConfigFactory configFactory;
    @InjectMocks
    private TelemetryController target;
-
-   @Before
-   public final void before() {
-      doReturn(new ClientConfiguration()).when(target).createConfig(any());
-   }
 
    @Test
    public void disconnects() {
@@ -60,19 +56,13 @@ public class TelemetryControllerTest {
    @Test
    public void configuresClient() throws Exception {
       when(client.getOnlineStatus()).thenReturn(true);
-
+      when(client.getVersion()).thenReturn("ver");
+      ClientConfiguration config = new ClientConfiguration();
+      when(configFactory.createConfig("ver")).thenReturn(config);
       target.checkTransmission(true);
-
-      verify(client).configure(notNull());
+      verify(client).configure(config);
    }
 
-   @Test
-   public void configurationCreatedOk() { // x20 tests
-      ClientConfiguration config = new TelemetryController().createConfig("ver");
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-      assertThat(config.getSessionId()).startsWith("VER-");
-   }
-
-   @Captor
-   ArgumentCaptor<ClientConfiguration> configCaptor;
 }
+
+

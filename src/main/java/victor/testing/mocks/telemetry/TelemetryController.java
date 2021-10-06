@@ -9,18 +9,17 @@ import java.util.UUID;
 public class TelemetryController {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient telemetryClient;
+	private final ConfigFactory configFactory;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(TelemetryClient telemetryClient) {
+	public TelemetryController(TelemetryClient telemetryClient, ConfigFactory configFactory) {
 		this.telemetryClient = telemetryClient;
+		this.configFactory = configFactory;
 	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
-	}
-	public void setDiagnosticInfo(String diagnosticInfo) {
-		this.diagnosticInfo = diagnosticInfo;
 	}
 
 	public void checkTransmission(boolean force) {
@@ -37,14 +36,21 @@ public class TelemetryController {
 		}
 
 		// GOAL
-		ClientConfiguration config = createConfig(telemetryClient.getVersion());
+		final String version = telemetryClient.getVersion();
+		ClientConfiguration config = configFactory.createConfig(version);
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfig(String version) {
+
+}
+
+
+class ConfigFactory {
+
+	public ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		//if
 		//if
