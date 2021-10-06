@@ -1,6 +1,5 @@
 package victor.testing.time;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,7 +21,6 @@ class TimeBasedLogicTest {
    TimeBasedLogic target;
 
    @Test
-   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
           13, parse("2021-09-01"), parse("2021-09-08")))

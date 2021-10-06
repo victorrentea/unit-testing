@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.context.ApplicationEventPublisher;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 
@@ -30,9 +31,9 @@ class ParcelFacadeTest  extends PriceTestBase{
       target.processBarcode("BAR", 99);
 
       verify(eventPublisher).publishEvent(eventCaptor.capture());
-      BarcodeScannedEvent event = eventCaptor.capture();
-//      assertEquals(parcel, event.getParcel());
-//      assertEquals(99, event.getWarehouseId());
+      BarcodeScannedEvent event = eventCaptor.getValue();
+      assertEquals(parcel, event.getParcel());
+      assertEquals(99, event.getWarehouseId());
 
       //verify(eventPublisher).sendEvent(event...)
    }

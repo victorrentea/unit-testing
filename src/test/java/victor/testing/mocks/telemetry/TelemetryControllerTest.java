@@ -1,11 +1,11 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -15,15 +15,15 @@ import static org.mockito.Mockito.*;
 public class TelemetryControllerTest {
    @Mock
    TelemetryClient client;
-//   @Mock
-//   ConfigFactory configFactory;
+   @Mock
+   ConfigFactory configFactory;
    @InjectMocks
    TelemetryController target;
 
-   @Before
-   public final void before() {
-      target = new TelemetryController(client, new ConfigFactory());
-   }
+//   @Before
+//   public final void before() {
+//      target = new TelemetryController(client, new ConfigFactory());
+//   }
 
    @Test
    public void disconnects() {
@@ -57,15 +57,15 @@ public class TelemetryControllerTest {
       assertThat(target.getDiagnosticInfo()).isEqualTo("tataieAD");
    }
 
-//   @Test
-//   public void configuresClient() throws Exception {
-//      when(client.getOnlineStatus()).thenReturn(true);
-//      when(client.getVersion()).thenReturn("ver");
-//      ClientConfiguration config = new ClientConfiguration();
-//      when(configFactory.createConfig("ver")).thenReturn(config);
-//      target.checkTransmission(true);
-//      verify(client).configure(config);
-//   }
+   @Test
+   public void configuresClient() throws Exception {
+      when(client.getOnlineStatus()).thenReturn(true);
+      when(client.getVersion()).thenReturn("ver");
+      ClientConfiguration config = new ClientConfiguration();
+      when(configFactory.createConfig("ver")).thenReturn(config);
+      target.checkTransmission(true);
+      verify(client).configure(config);
+   }
 
 }
 
