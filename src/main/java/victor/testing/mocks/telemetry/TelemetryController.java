@@ -52,11 +52,6 @@ class ConfigFactory {
 
 	public ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
-		//if
-		//if
-		//if
-		//if
-		//if
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);

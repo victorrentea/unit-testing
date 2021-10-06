@@ -1,6 +1,7 @@
 package victor.testing.time;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -40,8 +41,16 @@ class Interesting {
 }
 
 //@Component
-//class ClockAdapter {
+//class ClockAdapter { // indirection without abstraction (simplification)
 //   public LocalDate today() {
 //      return now(); // ugly library
 //   }
 //}
+
+/// NEVER MOCK THESE  when(aFullName.getFirstName()).thenReturn("John"); ::  instead instantiate them
+// new FullName("John", "DOE")
+@Value
+class FullName {
+   String firstName;
+   String lastName;
+}
