@@ -1,13 +1,17 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 
@@ -17,6 +21,11 @@ public class TelemetryControllerTest {
    private TelemetryClient client;
    @InjectMocks
    private TelemetryController target;
+
+   @Before
+   public final void before() {
+      when(client.getVersion()).thenReturn("for nothing");
+   }
 
    @Test
    public void disconnects() {
@@ -53,8 +62,19 @@ public class TelemetryControllerTest {
    @Test
    public void configuresClient() throws Exception {
       when(client.getOnlineStatus()).thenReturn(true);
+
       target.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
+
+      verify(client).configure(notNull());
    }
+
+   @Test
+   public void configurationCreatedOk() { // x20 tests
+      ClientConfiguration config = target.createConfig("ver");
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      assertThat(config.getSessionId()).startsWith("VER-");
+   }
+
+   @Captor
+   ArgumentCaptor<ClientConfiguration> configCaptor;
 }
