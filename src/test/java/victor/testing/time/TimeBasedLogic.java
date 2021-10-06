@@ -15,7 +15,9 @@ public class TimeBasedLogic {
 //   private final ClockAdapter clock;
 
    public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = now();
+      return isFrequentBuyerAsOfTime(customerId, now());
+   }
+   boolean isFrequentBuyerAsOfTime(int customerId, LocalDate now) {
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
@@ -26,6 +28,14 @@ public class TimeBasedLogic {
       boolean anyGenius = recentOrders.stream().anyMatch(Order::isGenius);
 
       return totalAmount > 100 || anyGenius;
+   }
+
+ 
+}
+class Interesting {
+   TimeBasedLogic me;
+   public void client() {
+      me.isFrequentBuyer(1);
    }
 }
 

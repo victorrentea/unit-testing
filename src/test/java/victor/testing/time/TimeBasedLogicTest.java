@@ -5,14 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,11 +33,19 @@ class TimeBasedLogicTest {
 //      when(clock.today()).thenReturn(parse("2021-09-08"));
 
 
-      final LocalDate today = parse("2021-09-08");
-      try(MockedStatic<LocalDate> mockDate = mockStatic(LocalDate.class, CALLS_REAL_METHODS)) {
-         mockDate.when(() -> LocalDate.now()).thenReturn(today);
-         assertThat(target.isFrequentBuyer(13)).isTrue();
-      }
+//      final LocalDate today = parse("2021-09-08");
+//      try(MockedStatic<LocalDate> mockDate = mockStatic(LocalDate.class, CALLS_REAL_METHODS)) {
+//         mockDate.when(() -> LocalDate.now()).thenReturn(today);
+//         assertThat(target.isFrequentBuyer(13)).isTrue();
+//      }
+
+//      final LocalDate today = parse("2021-09-08");
+//      try(MockedStatic<LocalDate> mockDate = mockStatic(LocalDate.class, CALLS_REAL_METHODS)) {
+//         mockDate.when(() -> LocalDate.now()).thenReturn(today);
+//         assertThat(target.isFrequentBuyer(13)).isTrue();
+//      }
+
+      target.isFrequentBuyerAsOfTime(13, parse("2021-09-08"));
 
 
       // 1: inject a Clock; Hint: you'll need ZoneId.systemDefault()
