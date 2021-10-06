@@ -1,4 +1,4 @@
-package victor.testing.mocks.overspecifying;
+package victor.testing.mocks.overspecifying.model;
 
 import lombok.Data;
 

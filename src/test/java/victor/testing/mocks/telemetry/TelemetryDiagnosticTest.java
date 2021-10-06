@@ -1,23 +1,23 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
-@RunWith(MockitoJUnitRunner.class)
-public class TelemetryControllerTest {
+@ExtendWith(MockitoExtension.class)
+public class TelemetryDiagnosticTest {
    @Mock
    private TelemetryClient client;
    @InjectMocks
-   private TelemetryController target;
+   private TelemetryDiagnostic target;
 
    @Test
    public void disconnects() {
@@ -26,10 +26,11 @@ public class TelemetryControllerTest {
       verify(client).disconnect(true);
    }
 
-   @Test(expected = IllegalStateException.class)
+   @Test
    public void throwsWhenNotOnline() {
       when(client.getOnlineStatus()).thenReturn(false);
-      target.checkTransmission(true);
+      Assertions.assertThrows(IllegalStateException.class, () ->
+          target.checkTransmission(true));
    }
 
    @Test

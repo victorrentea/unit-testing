@@ -5,6 +5,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.overspecifying.repo.ParcelRepo;
+import victor.testing.mocks.overspecifying.repo.TrackingProviderRepo;
+import victor.testing.mocks.overspecifying.service.DisplayService;
+import victor.testing.mocks.overspecifying.model.Parcel;
+import victor.testing.mocks.overspecifying.service.ParcelFacade;
+import victor.testing.mocks.overspecifying.service.PlatformService;
+import victor.testing.mocks.overspecifying.model.TrackingProvider;
+import victor.testing.mocks.overspecifying.service.TrackingService;
 
 import java.util.List;
 
@@ -16,9 +24,9 @@ class ParcelFacadeTest {
    @Mock
    ParcelRepo parcelRepo;
    @Mock
-   Display display;
+   DisplayService displayService;
    @Mock
-   Platform platform;
+   PlatformService platformService;
    @Mock
    TrackingService trackingService;
    @Mock
@@ -38,9 +46,9 @@ class ParcelFacadeTest {
 
       target.processBarcode("BAR", 99);
 
-      verify(display).displayAWB("AWB");
-      verify(display).displayMultiParcelWarning();
-      verify(platform).addParcel(parcel);
+      verify(displayService).displayAWB("AWB");
+      verify(displayService).displayMultiParcelWarning();
+      verify(platformService).addParcel(parcel);
       verify(trackingService).markDepartingWarehouse("AWB", 99, trackingProviders);
    }
 }

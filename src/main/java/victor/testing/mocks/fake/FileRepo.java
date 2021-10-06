@@ -1,4 +1,4 @@
-package victor.testing.spring.feed;
+package victor.testing.mocks.fake;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
