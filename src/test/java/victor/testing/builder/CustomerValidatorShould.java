@@ -17,28 +17,30 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void yesSir() {
-		//@Builder de lobmok
-//		Customer customer = new Customer.CustomerBuilder()
-//			.name("nume")
-//			.address(new Address.AddressBuilder()
-//				.city("oras")
-//				.build())
-//			.build();
-		// setteri fluenti generati de Lombok cu lombok.accessors.chain=true
-		Customer customer = new Customer()
-			.setName("nume")
-			.setAddress(new Address()
-				.setCity("oras"));
+		Customer customer = aCustomer();
 
 		validator.validate(customer);
 	}
 
+	private Customer aCustomer() {
+		// setteri fluenti generati de Lombok cu lombok.accessors.chain=true
+		return new Customer()
+			.setName("nume")
+			.setAddress(new Address()
+				.setCity("oras"));
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullName() {
+
+		// mod 1 trec tot MAI PUTIN campul cheie (name)
 		Customer customer = new Customer();
 		Address address = new Address();
 		address.setCity("oras");
 		customer.setAddress(address);
+		// mod 2 stergi ce nu iti trebuie:
+		// in general: pleci de la o instanta "standard" si o modifici
+		customer = aCustomer().setName(null);
 
 		validator.validate(customer);
 	}
