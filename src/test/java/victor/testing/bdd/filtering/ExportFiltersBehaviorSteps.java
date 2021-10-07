@@ -1,22 +1,17 @@
 package victor.testing.bdd.filtering;
 
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.junit.Assert.assertEquals;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import victor.testing.bdd.filtering.entity.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import victor.testing.bdd.filtering.entity.Description3;
-import victor.testing.bdd.filtering.entity.PEPOccupationCategory;
-import victor.testing.bdd.filtering.entity.Record;
-import victor.testing.bdd.filtering.entity.RecordCategory;
-import victor.testing.bdd.filtering.entity.SanctionType;
-import victor.testing.bdd.filtering.entity.WatchlistFilter;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.junit.Assert.assertEquals;
+import static org.junit.platform.commons.util.StringUtils.isNotBlank;
 
 public class ExportFiltersBehaviorSteps {
 

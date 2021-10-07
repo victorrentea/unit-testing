@@ -1,8 +1,8 @@
 package victor.testing.tdd.bowling;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 
 import java.util.List;
@@ -14,7 +14,8 @@ public class BowlingGameSteps {
 
     private int actualScore;
 
-    @When("^The sequence of rolls is \"([^\"]*)\"$")
+    @When("The sequence of rolls is {string}")
+//    @When("^The sequence of rolls is \"([^\"]*)\"$")
     public void the_row_is(String rowStr) throws Throwable {
 
         List<Integer> ints = Stream.of(rowStr.split(" "))
@@ -24,12 +25,13 @@ public class BowlingGameSteps {
         actualScore = BowlingGame.calculateScore(ints);
     }
 
-    @Then("^The score is (\\d+)$")
+    @Then("The score is {string}")
+//    @Then("^The score is (\\d+)$")
     public void the_score_is(int expectedScore) throws Throwable {
         Assertions.assertThat(actualScore).isEqualTo(expectedScore);
     }
 
-    @And("^Means a \"([^\"]*)\"$")
+    @And("Means a {string}")
     public void meansA(String arg0) throws Throwable {
     }
 }
