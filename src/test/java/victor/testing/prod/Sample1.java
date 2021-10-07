@@ -4,14 +4,16 @@ import org.apache.kafka.common.errors.ApiException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class Sample1 {
-
 
    // in prod code
    private static final String ENTITY_NOT_EXISTS = "Entity %s does not exist with id = %d";
@@ -28,24 +30,33 @@ public class Sample1 {
    public void convertToEntity_shouldThrowApiException_ifCategoryIsNotValid() {
       //Given
       expectedException.expect(ApiException.class);
-      expectedException.expectMessage(String.format(ENTITY_NOT_EXISTS, "Category", "iabId", ID));
+      expectedException.expectMessage("::message::");
       AdBreakPolicyDto adBreakPolicyDto = createAdBreakPolicyDto("policy");
-      when(contentRestrictionConfiguration.filterCategory(createValidCategoriesDto().get(0))).thenThrow
-          (new ApiException(String.format(ENTITY_NOT_EXISTS, "Category", "iabId", ID)));
+
+      CategoriesDto mister = createValidCategoriesDto().get(0);
+      when(contentRestrictionConfiguration.filterCategory(mister)).thenThrow(new ApiException("::message::"));
 
       //When
-      convertToEntity(adBreakPolicyDto);
-
-      //Then
-      verify(contentRestrictionConfiguration, times(0)).filterParentalRating(any());
+      try {
+         convertToEntity(adBreakPolicyDto);
+      } finally {
+         //Then
+         verify(contentRestrictionConfiguration, never()).filterParentalRating(any());
+      }
    }
 
+   /// codu de prod
    private AdBreakPolicy convertToEntity(AdBreakPolicyDto adBreakPolicyDto) {
-    return null;
+
+      contentRestrictionConfiguration.filterParentalRating(""); // costa 10$  , dureaza 1 s
+      contentRestrictionConfiguration.filterCategory( createValidCategoriesDto().get(0)); //      throw new ApiException("::message::");
+
+
+      return null;
    }
 
    private List<CategoriesDto> createValidCategoriesDto() {
-      return null;
+      return List.of(new CategoriesDto());
    }
 
    public static AdBreakPolicyDto createAdBreakPolicyDto(String policy) {
