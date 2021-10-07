@@ -10,6 +10,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,28 +31,27 @@ public class Sample1 {
    @Test
    public void convertToEntity_shouldThrowApiException_ifCategoryIsNotValid() {
       //Given
-      expectedException.expect(ApiException.class);
-      expectedException.expectMessage("::message::");
+//      expectedException.expect(ApiException.class);
+//      expectedException.expectMessage("::message::");
       AdBreakPolicyDto adBreakPolicyDto = createAdBreakPolicyDto("policy");
 
       CategoriesDto mister = createValidCategoriesDto().get(0);
       when(contentRestrictionConfiguration.filterCategory(mister)).thenThrow(new ApiException("::message::"));
 
       //When
-      try {
-         convertToEntity(adBreakPolicyDto);
-      } finally {
-         //Then
-         verify(contentRestrictionConfiguration, never()).filterParentalRating(any());
-      }
+      ApiException e = assertThrows(ApiException.class, () -> convertToEntity(adBreakPolicyDto));
+      assertThat(e.getMessage()).isEqualTo("::message::");
+
+      //Then
+      verify(contentRestrictionConfiguration, never()).filterParentalRating(any());
    }
 
    /// codu de prod
    private AdBreakPolicy convertToEntity(AdBreakPolicyDto adBreakPolicyDto) {
 
-      contentRestrictionConfiguration.filterParentalRating(""); // costa 10$  , dureaza 1 s
       contentRestrictionConfiguration.filterCategory( createValidCategoriesDto().get(0)); //      throw new ApiException("::message::");
 
+      contentRestrictionConfiguration.filterParentalRating(""); // costa 10$  , dureaza 1 s
 
       return null;
    }
