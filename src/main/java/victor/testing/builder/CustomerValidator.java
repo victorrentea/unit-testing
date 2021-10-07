@@ -16,8 +16,12 @@ public class CustomerValidator {
 		if (address == null) {
 			throw new IllegalArgumentException("Missing customer address");
 		}
+		if (address.getCity() != null) {
+			System.out.println("Declansez razboi cu " + address.getCity());
+		}
+
 		if (isBlank(address.getCity())) {
-			throw new IllegalArgumentException("Missing address xcity");
+			throw new IllegalArgumentException("Missing address City");
 		}
 	}
 }

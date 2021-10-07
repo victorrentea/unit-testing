@@ -2,6 +2,7 @@ package victor.testing.tdd;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TennisGameTest {
@@ -46,6 +47,7 @@ public class TennisGameTest {
       String actual = game.getScore();
 
       assertEquals("Love Forty", actual);
+      assertThat(actual).isEqualTo("Love Forty");
    }
    @Test
    void returns_deuce_when_both_players_score_3_points() {
