@@ -17,30 +17,14 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void yesSir() {
-		Customer customer = aCustomer();
+		Customer customer = TestData.aCustomer();
 
 		validator.validate(customer);
 	}
 
-	private Customer aCustomer() {
-		// setteri fluenti generati de Lombok cu lombok.accessors.chain=true
-		return new Customer()
-			.setName("nume")
-			.setAddress(new Address()
-				.setCity("oras"));
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullName() {
-
-		// mod 1 trec tot MAI PUTIN campul cheie (name)
-		Customer customer = new Customer();
-		Address address = new Address();
-		address.setCity("oras");
-		customer.setAddress(address);
-		// mod 2 stergi ce nu iti trebuie:
-		// in general: pleci de la o instanta "standard" si o modifici
-		customer = aCustomer().setName(null);
+		Customer customer = TestData.aCustomer().setName(null);
 
 		validator.validate(customer);
 	}
@@ -50,30 +34,33 @@ public class CustomerValidatorShould {
 	public void throwsForNullCity() {
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("address city");
-		Customer customer = new Customer();
-		customer.setName("ceva nenull");
-		Address address = new Address();
-		customer.setAddress(address);
+		Customer customer = TestData.aCustomer();
+		customer.getAddress().setCity(null);
 
 		validator.validate(customer);
 	}
 
 	@Test
 	public void throwsForNullCityNewAgeStyle() {
-		Customer customer = new Customer();
-		customer.setName("ceva nenull");
-		Address address = new Address();
-		customer.setAddress(address);
+		Customer customer = TestData.aCustomer();
+		customer.getAddress().setCity(null);
 
 		IllegalArgumentException ex = assertThrows(
 			IllegalArgumentException.class,
 			() -> validator.validate(customer));
 
-//		assertEquals("Missing address city", ex.getMessage());
-		String message = ex.getMessage();
-//		Assert.assertTrue(message.contains("city"));
-
 		assertThat(ex.getMessage()).contains("city");
+	}
+
+	@Test
+	public void throwsForNullAddress() {
+		Customer customer = TestData.aCustomer().setAddress(null);
+
+		IllegalArgumentException ex = assertThrows(
+			IllegalArgumentException.class,
+			() -> validator.validate(customer));
+
+		assertThat(ex.getMessage()).contains("address");
 	}
 
 
