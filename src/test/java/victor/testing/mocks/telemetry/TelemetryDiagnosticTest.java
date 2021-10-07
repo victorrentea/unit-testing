@@ -1,21 +1,24 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.mockito.Mockito.*;
 
+//@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class TelemetryDiagnosticTest {
 
-   private TelemetryDiagnostic diagnostic;
+   @MockBean
    private TelemetryClient clientMock;
+   @Autowired
+   private TelemetryDiagnostic diagnostic;
 
-   @Before
-   public final void before() {
-      diagnostic = new TelemetryDiagnostic();
-      clientMock = mock(TelemetryClient.class);
-      diagnostic.setTelemetryClient(clientMock);
-   }
    @Test
    public void disconnects() {
       when(clientMock.getOnlineStatus()).thenReturn(true);

@@ -1,8 +1,11 @@
 package victor.testing.mocks.telemetry;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 import java.util.Random;
 
+@Component
 public class TelemetryClient {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 

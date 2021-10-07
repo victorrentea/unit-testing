@@ -1,20 +1,21 @@
 package victor.testing.mocks.telemetry;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Service
+@RequiredArgsConstructor
 public class TelemetryDiagnostic {
+	private final TelemetryClient telemetryClient;
+
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
-
-	public void setTelemetryClient(TelemetryClient telemetryClient) {
-		this.telemetryClient = telemetryClient;
-	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
