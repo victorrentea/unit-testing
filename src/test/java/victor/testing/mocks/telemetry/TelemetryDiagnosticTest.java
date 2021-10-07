@@ -1,20 +1,34 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
 public class TelemetryDiagnosticTest {
+
+   private TelemetryDiagnostic diagnostic;
+   private TelemetryClient clientMock;
+
+   @Before
+   public final void before() {
+      diagnostic = new TelemetryDiagnostic();
+      clientMock = mock(TelemetryClient.class);
+      diagnostic.setTelemetryClient(clientMock);
+   }
    @Test
    public void disconnects() {
-      TelemetryDiagnostic diagnostic = new TelemetryDiagnostic();
-      TelemetryClient clientMock = mock(TelemetryClient.class);
       when(clientMock.getOnlineStatus()).thenReturn(true);
-      diagnostic.setTelemetryClient(clientMock);
 
       diagnostic.checkTransmission(true);
 
       verify(clientMock).disconnect(true);
+   }
+   @Test(expected = IllegalStateException.class)
+   public void throwsWhenNotOnline() {
+      when(clientMock.getOnlineStatus()).thenReturn(false);
+
+      diagnostic.checkTransmission(true);
    }
 }
 
