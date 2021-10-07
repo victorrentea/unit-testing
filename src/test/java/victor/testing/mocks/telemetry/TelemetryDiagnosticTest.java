@@ -1,60 +1,44 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-
-@ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticTest {
-   @Mock
-   private TelemetryClient client;
-   @InjectMocks
-   private TelemetryDiagnostic target;
-
    @Test
    public void disconnects() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).disconnect(true);
-   }
+      TelemetryDiagnostic diagnostic = new TelemetryDiagnostic();
+      TelemetryClient clientMock = mock(TelemetryClient.class);
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+      diagnostic.setTelemetryClient(clientMock);
 
-   @Test
-   public void throwsWhenNotOnline() {
-      when(client.getOnlineStatus()).thenReturn(false);
-      Assertions.assertThrows(IllegalStateException.class, () ->
-          target.checkTransmission(true));
-   }
+      diagnostic.checkTransmission(true);
 
-   @Test
-   public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+      verify(clientMock).disconnect(true);
    }
+}
 
-   @Test
-   public void receivesDiagnosticInfo() {
-      // TODO inspect
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
-      target.checkTransmission(true);
-      verify(client).receive();
-      assertThat(target.getDiagnosticInfo()).isEqualTo("tataie");
+/// X x = new X
+
+/// --------asa merg mockurile: generand la runtime o subclasa a clasei "Victima" cu lib CGLIB
+class X {
+   public void method() {
+      throw new IllegalArgumentException("rau");
    }
-
-   @Test
-   public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
+}
+class XSublcasa extends X {
+   @Override
+   public void method() {
+      // nimic aici :) totu bun!
+   }
+}
+class Client {
+   {
+      X x1 = new X() {
+         @Override
+         public void method() {
+            // bun
+         }
+      };
    }
 }
