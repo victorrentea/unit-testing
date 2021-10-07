@@ -28,12 +28,13 @@ public class Sample1 {
    @Mock
    private ContentRestrictionConfiguration contentRestrictionConfiguration;
 
+
    @Test
    public void convertToEntity_shouldThrowApiException_ifCategoryIsNotValid() {
       //Given
 //      expectedException.expect(ApiException.class);
 //      expectedException.expectMessage("::message::");
-      AdBreakPolicyDto adBreakPolicyDto = createAdBreakPolicyDto("policy");
+      AdBreakPolicyDto adBreakPolicyDto = createAdBreakPolicyDto();
 
       CategoriesDto mister = createValidCategoriesDto().get(0);
       when(contentRestrictionConfiguration.filterCategory(mister)).thenThrow(new ApiException("::message::"));
@@ -60,8 +61,9 @@ public class Sample1 {
       return List.of(new CategoriesDto());
    }
 
-   public static AdBreakPolicyDto createAdBreakPolicyDto(String policy) {
-      return new AdBreakPolicyDto();
+   public static AdBreakPolicyDto createAdBreakPolicyDto() {
+
+      return new AdBreakPolicyDto().setName("::policy::");
    }
 
 }
