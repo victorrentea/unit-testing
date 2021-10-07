@@ -21,7 +21,11 @@ public class PersonExporter {
          writer.write(";");
          writer.write(String.join(",", person.getPhoneList()));
          writer.write(";");
-         writer.write(person.getBirthDate().format(BIRTH_DATE_FORMAT));
+         if (person.getBirthDate() != null) {
+            writer.write(person.getBirthDate().format(BIRTH_DATE_FORMAT));
+         } else {
+            writer.write("");
+         }
          writer.write("\n");
       }
    }

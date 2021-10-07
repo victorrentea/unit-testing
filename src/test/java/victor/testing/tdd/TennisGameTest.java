@@ -20,14 +20,14 @@ public class TennisGameTest {
 
    @Test
    void returns_love_fifteen_when_player2_scores_1_point() {
-      game.playerScores(2);
+      setScore(0, 1);
       String actual = game.getScore();
 
       assertEquals("Love Fifteen", actual);
    }
    @Test
    void returns_fifteen_love_when_player1_scores_1_point() {
-      game.playerScores(1);
+      setScore(1, 0);
       String actual = game.getScore();
 
       assertEquals("Fifteen Love", actual);
@@ -35,41 +35,38 @@ public class TennisGameTest {
 
    @Test
    void returns_love_thirty_when_player2_scores_2_point() {
-      game.playerScores(2);
-      game.playerScores(2);
+      setScore(0, 2);
       String actual = game.getScore();
 
       assertEquals("Love Thirty", actual);
    }
    @Test
    void returns_love_forty_when_player2_scores_3_point() {
-      game.playerScores(2);
-      game.playerScores(2);
-      game.playerScores(2);
+      setScore(0, 3);
       String actual = game.getScore();
 
       assertEquals("Love Forty", actual);
    }
    @Test
    void returns_deuce_when_both_players_score_3_points() {
-      addPointsToBoth(game, 3, 3);
+      setScore(3, 3);
       String actual = game.getScore();
 
       assertEquals("Deuce", actual);
    }
    @Test
    void returns_deuce_when_both_players_score_4_points() {
-      addPointsToBoth(game, 4, 4);
+      setScore(4, 4);
       String actual = game.getScore();
       assertEquals("Deuce", actual);
    }
 
-   private void addPointsToBoth(TennisGame game, int points1, int points2) {
-      addPointsToPlayer(game, 1, points1);
-      addPointsToPlayer(game, 2, points2);
+   private void setScore(int points1, int points2) {
+      addPointsToPlayer(1, points1);
+      addPointsToPlayer(2, points2);
    }
 
-   private void addPointsToPlayer(TennisGame game, int playerNumber, int points) {
+   private void addPointsToPlayer(int playerNumber, int points) {
       for (int i = 0; i < points; i++) {
          game.playerScores(playerNumber);
       }
