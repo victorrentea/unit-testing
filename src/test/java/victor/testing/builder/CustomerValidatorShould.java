@@ -4,6 +4,7 @@ package victor.testing.builder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import victor.testing.builder.MyException.ErrorCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
@@ -32,8 +33,8 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void throwsForNullCity() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("address city");
+		expectedException.expect(MyException.class);
+//		expectedException.expectMessage("address city");
 		Customer customer = TestData.aCustomer();
 		customer.getAddress().setCity(null);
 
@@ -45,11 +46,11 @@ public class CustomerValidatorShould {
 		Customer customer = TestData.aCustomer();
 		customer.getAddress().setCity(null);
 
-		IllegalArgumentException ex = assertThrows(
-			IllegalArgumentException.class,
+		MyException ex = assertThrows(
+			MyException.class,
 			() -> validator.validate(customer));
 
-		assertThat(ex.getMessage()).contains("city");
+		assertThat(ex.getCode()).isEqualTo(ErrorCode.INVALID_CUSTOMER_ADDRESS_CITY);
 	}
 
 	@Test
@@ -60,7 +61,7 @@ public class CustomerValidatorShould {
 			IllegalArgumentException.class,
 			() -> validator.validate(customer));
 
-		assertThat(ex.getMessage()).contains("address");
+		assertThat(ex.getMessage()).contains("Missing customer address");
 	}
 
 
