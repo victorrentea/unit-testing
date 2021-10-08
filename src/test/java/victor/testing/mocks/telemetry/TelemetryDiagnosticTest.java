@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
@@ -58,14 +57,15 @@ public class TelemetryDiagnosticTest {
 //      assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());
 
       LocalDateTime testTime = LocalDateTime.parse("2021-10-09T13:50:03");
-      ClientConfiguration config;
-      try (MockedStatic<LocalDateTime> mockStatic = mockStatic(LocalDateTime.class)) {
-         mockStatic.when(() -> LocalDateTime.now()).thenReturn(testTime);
-         config = diagnostic.createConfig();
-      }
+
+      when(mockClock.getNow()).thenReturn(testTime);
+
+      ClientConfiguration config = diagnostic.createConfig();
+
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       assertThat(config.getSessionStart()).isEqualTo(testTime);
-
-
    }
+
+   @Mock
+   MyClock mockClock;
 }

@@ -1,6 +1,7 @@
 package victor.testing.mocks.telemetry;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
@@ -48,12 +49,16 @@ public class TelemetryDiagnostic {
    ClientConfiguration createConfig() {
       ClientConfiguration config = new ClientConfiguration();
       config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-      config.setSessionStart(LocalDateTime.now());
+      config.setSessionStart(myClock.getNow());
       config.setAckMode(AckMode.NORMAL); // ASTA
       return config;
    }
-
+private final MyClock myClock;
 }
 
-
-//class MyClock
+@Component
+class MyClock {
+   public LocalDateTime getNow() {
+      return LocalDateTime.now();
+   }
+}
