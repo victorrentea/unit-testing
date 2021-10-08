@@ -15,19 +15,17 @@ public class CustomerValidatorShould {
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
+	private Customer customer = TestData.aCustomer();
 
 	@Test
 	public void yesSir() {
-		Customer customer = TestData.aCustomer();
 
 		validator.validate(customer);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsForNullName() {
-		Customer customer = TestData.aCustomer().setName(null);
-
-		validator.validate(customer);
+		validator.validate(customer.setName(null));
 	}
 
 
@@ -35,7 +33,6 @@ public class CustomerValidatorShould {
 	public void throwsForNullCity() {
 		expectedException.expect(MyException.class);
 //		expectedException.expectMessage("address city");
-		Customer customer = TestData.aCustomer();
 		customer.getAddress().setCity(null);
 
 		validator.validate(customer);
@@ -43,7 +40,6 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void throwsForNullCityNewAgeStyle() {
-		Customer customer = TestData.aCustomer();
 		customer.getAddress().setCity(null);
 
 		MyException ex = assertThrows(
@@ -55,11 +51,10 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void throwsForNullAddress() {
-		Customer customer = TestData.aCustomer().setAddress(null);
 
 		IllegalArgumentException ex = assertThrows(
 			IllegalArgumentException.class,
-			() -> validator.validate(customer));
+			() -> validator.validate(customer.setAddress(null)));
 
 		assertThat(ex.getMessage()).contains("Missing customer address");
 	}
