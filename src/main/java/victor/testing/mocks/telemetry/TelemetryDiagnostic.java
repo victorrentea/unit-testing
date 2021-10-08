@@ -1,7 +1,6 @@
 package victor.testing.mocks.telemetry;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
@@ -39,26 +38,31 @@ public class TelemetryDiagnostic {
          throw new IllegalStateException("Unable to connect.");
       }
 
-      ClientConfiguration config = createConfig();
+      ClientConfiguration config = createConfig(telemetryClient.getVersion());
       telemetryClient.configure(config);
 
       telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
       diagnosticInfo = telemetryClient.receive();
    }
 
-   ClientConfiguration createConfig() {
+   ClientConfiguration createConfig(String version) {
       ClientConfiguration config = new ClientConfiguration();
-      config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-      config.setSessionStart(myClock.getNow());
+      // multa logica
+      // multa logica
+      // multa logica
+      // multa logica
+      // multa logica
+      config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID());
+      config.setSessionStart(LocalDateTime.now());
       config.setAckMode(AckMode.NORMAL); // ASTA
       return config;
    }
-private final MyClock myClock;
+//private final MyClock myClock;
 }
 
-@Component
-class MyClock {
-   public LocalDateTime getNow() {
-      return LocalDateTime.now();
-   }
-}
+//@Component
+//class MyClock {
+//   public LocalDateTime getNow() {
+//      return LocalDateTime.now();
+//   }
+//}

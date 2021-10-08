@@ -9,9 +9,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
-import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
+import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -52,20 +54,13 @@ public class TelemetryDiagnosticTest {
 
    @Test
    public void configuresClientCorrectly() {
-
-
-//      assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());
-
-      LocalDateTime testTime = LocalDateTime.parse("2021-10-09T13:50:03");
-
-      when(mockClock.getNow()).thenReturn(testTime);
-
-      ClientConfiguration config = diagnostic.createConfig();
+      ClientConfiguration config = diagnostic.createConfig("ver");
 
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-      assertThat(config.getSessionStart()).isEqualTo(testTime);
+      assertThat(config.getSessionStart()).isCloseTo(now(), within(1, ChronoUnit.MINUTES));
+      assertThat(config.getSessionId()).startsWith("ver-");
    }
 
-   @Mock
-   MyClock mockClock;
+//   @Mock
+//   MyClock mockClock;
 }
