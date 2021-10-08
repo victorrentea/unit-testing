@@ -6,7 +6,7 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
 @Service
 @RequiredArgsConstructor
-public class TelemetryDiagnostic {
+public class TelemetryDiagnostic implements ITelemetryDiagnostic {
    private final TelemetryClient telemetryClient;
    private final ConfigFactory configFactory;
 
@@ -14,6 +14,7 @@ public class TelemetryDiagnostic {
 
    private String diagnosticInfo = "";
 
+   @Override
    public String getDiagnosticInfo() {
       return diagnosticInfo;
    }
@@ -22,6 +23,7 @@ public class TelemetryDiagnostic {
       this.diagnosticInfo = diagnosticInfo;
    }
 
+   @Override
    public void checkTransmission(boolean force) {
       telemetryClient.disconnect(force);
 

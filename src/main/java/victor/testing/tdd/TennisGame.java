@@ -40,3 +40,18 @@ public class TennisGame {
    }
 }
 
+class TennisGameItnerce {
+   TennisGame delegate;
+   public void playerScores(int playerNumber) {
+      delegate.playerScores(playerNumber);
+   }
+
+   public String getScore() {
+
+      String output = delegate.getScore();
+      // output il salvez undeva SAU il compar cu outputul unei variante rescrise a acestui cod.
+      return output;
+   }
+
+
+}
