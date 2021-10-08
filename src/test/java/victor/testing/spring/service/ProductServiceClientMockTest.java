@@ -1,69 +1,28 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.spring.domain.Product;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyClient;
-import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
-import static java.time.LocalDateTime.now;
-import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.byLessThan;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class ProductServiceClientMockTest {
-   @Mock
-   public SafetyClient mockSafetyClient;
-   @Mock
-   private ProductRepo productRepo;
-   @Mock
-   private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test
-   public void createThrowsForUnsafeProduct() {
-      Assertions.assertThrows(IllegalStateException.class, () -> {
-         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-         productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
-      });
+   public void test() {
+      ProductDto dto = new ProductDto("copac", "::barcode::", 13L, ProductCategory.KIDS);
+
+      productService.createProduct(dto);
    }
 
-   @Test
-   public void createOk() {
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getOne(supplier.getId())).thenReturn(supplier);
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
-      productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
 
-      // Yuck!
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
-
-      assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
-      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-      assertThat(product.getCreateDate()).isNotNull();
-      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
-   }
 
 
    // TODO Fixed Time
