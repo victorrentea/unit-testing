@@ -3,7 +3,6 @@ package victor.testing.spring.infra;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -24,13 +23,14 @@ public class SafetyClient {
             baseUrl.toString() + "/product/{barcode}/safety",
             SafetyReportDto.class, barcode);
 
-        boolean safe = response.getBody().getEntries().stream().anyMatch(this::entryIsSafe);
+        boolean safe = response.getBody().getEntries()
+            .stream().anyMatch(this::entryIsSafe);
         log.info("Product is safe: " + safe);
         return safe;
     }
 
-    private boolean entryIsSafe(SafetyEntryDto report) {
-        return "SAFE".equals(report.getCategory());
+    private boolean entryIsSafe(SafetyEntryDto report) { // mereu false
+        return "SAFE".equals(report.getSafety());
 
     }
 }

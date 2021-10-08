@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class SafetyEntryDto {
-   private String category;
+   private String safety;
    private String detailsUrl;
 }

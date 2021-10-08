@@ -1,18 +1,18 @@
 {
   "request": {
     "method": "GET",
-    "url": "/product/safebar/safety"
+    "url": "/product/::safeBarcode::/safety"
   },
   "response": {
     "status": 200,
     "jsonBody": {
       "entries": [
         {
-          "category": "SAFE",
+          "safety": "SAFE",
           "detailsUrl": "http://details.url/a/b"
         }
       ]
-    },
+      },
     "headers": {
       "Content-Type": "application/json"
     }

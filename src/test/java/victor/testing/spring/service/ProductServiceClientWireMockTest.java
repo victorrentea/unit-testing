@@ -1,106 +1,77 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.junit4.SpringRunner;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.tools.WireMockExtension;
 import victor.testing.spring.web.dto.ProductDto;
 
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
+import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.KIDS;
 
-@SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
+//@DataMongoTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @ActiveProfiles("db-mem")
-@Transactional
 public class ProductServiceClientWireMockTest {
    @Autowired
-   public SafetyClient mockSafetyClient;
-   @Autowired
-   private ProductRepo productRepo;
-   @Autowired
-   private SupplierRepo supplierRepo;
-   @Autowired
    private ProductService productService;
-
-   @RegisterExtension
-   public WireMockExtension wireMock = new WireMockExtension(8089);
    @Autowired
-   private CacheManager cacheManager;
+   ProductRepo productRepo;
 
-   @BeforeEach
-   public void initialize() {
-      // Clear manually all caches
-      cacheManager.getCacheNames().stream().map(cacheManager::getCache).forEach(Cache::clear);
+   private ProductDto dto = new ProductDto("::productName::",
+       "::safeBarcode::", 13L, KIDS);
+
+   @Rule
+   public WireMockRule wireMock = new WireMockRule(9999);
+
+   @Before
+   public final void before() {
+      productRepo.deleteAll();
    }
 
    @Test
    public void throwsForUnsafeProduct() {
-      Assertions.assertThrows(IllegalStateException.class, () -> {
-         productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME));
-      });
+      dto.barcode = "::unsafeBarcode::";
+
+      IllegalStateException e = assertThrows(IllegalStateException.class,
+          () -> productService.createProduct(dto));
+      assertThat(e.getMessage())
+          .contains("::unsafeBarcode::")
+          .containsIgnoringCase("not safe");
    }
-
    @Test
-   public void throwsForUnsafeProductProgrammaticWireMock() {
-//      Assertions.assertThrows(IllegalStateException.class, () -> {
-//         String template;
-//         try (FileReader reader = new FileReader("C:\\workspace\\integration-testing-spring\\src\\test\\java\\victor\\testing\\spring\\facade\\inTemplate.json")) {
-//            template = IOUtils.toString(reader);
-//         }
-//         WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
-//             .willReturn(aResponse()
-//                 .withStatus(200)
-//                 .withHeader("Content-Type", "application/json")
-//                 .withBody("{\"entries\": [{\"category\": \"DETERMINED\",\"detailsUrl\": \"http://wikipedia.com\"}]}"))); // override
-//
-//         productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME));
-//      });
-   }
+   public void persistSafeProduct() {
 
-   @Test
-   public void fullOk() {
-      long supplierId = supplierRepo.save(new Supplier()).getId();
-
-      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
       productService.createProduct(dto);
 
+      assertThat(productRepo.count()).isEqualTo(1);
       Product product = productRepo.findAll().get(0);
+      assertThat(product.getName()).isEqualTo("::productName::");
+      assertThat(product.getBarcode()).isEqualTo("::safeBarcode::");
+      assertThat(product.getCategory()).isEqualTo(KIDS);
+   }
+   @Test
+   public void persistsHOME_whenCategoryIsNull() {
+      dto.category = null;
 
-      assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
-      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+      productService.createProduct(dto);
 
-      assertThat(product.getCreateDate()); // TODO test time
+      assertThat(productRepo.count()).isEqualTo(1);
+      assertThat(productRepo.findAll().get(0).getCategory()).isEqualTo(HOME);
    }
 
-   @TestConfiguration
-   public static class TestConfig {
-      @Bean
-      @Primary
-      public Clock clockFixed() {
-         return Clock.fixed(Instant.parse("2014-12-22T10:15:30.00Z"), ZoneId.systemDefault());
-      }
-   }
+
+
 
 
    // TODO Fixed Time
