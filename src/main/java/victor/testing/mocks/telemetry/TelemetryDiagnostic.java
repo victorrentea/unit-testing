@@ -44,6 +44,14 @@ public class TelemetryDiagnostic {
       telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
       diagnosticInfo = telemetryClient.receive();
    }
+   // SE PARE CA:
+   // daca ai o functie complexa, testata separat, simpla ei chemare
+   // din codul de sus produce NPE daca nu fac when then return pe versiune
+   // POLUANDU-MI testele pentru metoda de sus
+
+   // CUM pot sa opresc asta ?
+   // Adica in testele lansate pe met de sus,
+   // sa NU se mai invoce metoda de jos:
 
    ClientConfiguration createConfig(String version) {
       ClientConfiguration config = new ClientConfiguration();
@@ -52,7 +60,7 @@ public class TelemetryDiagnostic {
       // multa logica
       // multa logica
       // multa logica
-      config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID());
+      config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
       config.setSessionStart(LocalDateTime.now());
       config.setAckMode(AckMode.NORMAL); // ASTA
       return config;

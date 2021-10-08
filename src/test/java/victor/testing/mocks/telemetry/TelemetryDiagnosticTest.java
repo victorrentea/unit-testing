@@ -27,6 +27,7 @@ public class TelemetryDiagnosticTest {
    @Before
    public final void before() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
+      when(clientMock.getVersion()).thenReturn("de mama e nevoie sa pun asta aici");
    }
 
    @Test
@@ -58,7 +59,7 @@ public class TelemetryDiagnosticTest {
 
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       assertThat(config.getSessionStart()).isCloseTo(now(), within(1, ChronoUnit.MINUTES));
-      assertThat(config.getSessionId()).startsWith("ver-");
+      assertThat(config.getSessionId()).startsWith("VER-");
    }
 
 //   @Mock
