@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
@@ -16,15 +15,16 @@ public class TelemetryDiagnosticTest {
 
    @Mock
    private TelemetryClient clientMock;
+   @Mock
+   private ConfigFactory configFactoryMock;
    @InjectMocks
-   @Spy
    private TelemetryDiagnostic diagnostic;
 
    @Before
    public final void before() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
 //      when(clientMock.getVersion()).thenReturn("de mama e nevoie sa pun asta aici");
-      doReturn(new ClientConfiguration()).when(diagnostic).createConfig(any());
+      when(configFactoryMock.createConfig(any())).thenReturn(new ClientConfiguration());
    }
 
 
@@ -51,14 +51,6 @@ public class TelemetryDiagnosticTest {
       verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
    }
 
-//   @Test
-//   public void configuresClientCorrectly() {
-//      ClientConfiguration config = diagnostic.createConfig("ver");
-//
-//      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-//      assertThat(config.getSessionStart()).isCloseTo(now(), within(1, ChronoUnit.MINUTES));
-//      assertThat(config.getSessionId()).startsWith("VER-");
-//   }
 
 //   @Mock
 //   MyClock mockClock;
