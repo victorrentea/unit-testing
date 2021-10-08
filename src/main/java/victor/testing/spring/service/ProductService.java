@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
@@ -15,31 +16,26 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ProductService {
     private final SafetyClient safetyClient;
     private final ProductRepo productRepo;
     private final SupplierRepo supplierRepo;
 
-    public ProductService(SafetyClient safetyClient, ProductRepo productRepo, SupplierRepo supplierRepo) {
-        this.safetyClient = safetyClient;
-        this.productRepo = productRepo;
-        this.supplierRepo = supplierRepo;
-    }
-
-    public void createProduct(ProductDto productDto) {
+    public Long createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode);
         if (!safe) {
             throw new IllegalStateException("Product is not safe: " + productDto.barcode);
         }
 
         Product product = new Product();
-        product.setName(productDto.name);
+        product.setName(productDto.name+"oups");
         product.setCategory(productDto.category);
         product.setBarcode(productDto.barcode);
         product.setSupplier(supplierRepo.getOne(productDto.supplierId));
         // TODO CR check that the supplier is active!
         product.setCreateDate(LocalDateTime.now());
-        productRepo.save(product);
+        return productRepo.save(product).getId();
     }
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
