@@ -3,15 +3,16 @@ package victor.testing.mocks.telemetry;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -52,41 +53,19 @@ public class TelemetryDiagnosticTest {
 
    @Test
    public void configuresClientCorrectly() {
-      // when
-      diagnostic.checkTransmission(true);
 
 
-      // then
-      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
-      verify(clientMock).configure(configCaptor.capture());
+//      assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());
 
-      ClientConfiguration config = configCaptor.getValue();
-      // cum mama masii iau instanta de config din metoda de prod :40??!
+      LocalDateTime testTime = LocalDateTime.parse("2021-10-09T13:50:03");
+      ClientConfiguration config;
+      try (MockedStatic<LocalDateTime> mockStatic = mockStatic(LocalDateTime.class)) {
+         mockStatic.when(() -> LocalDateTime.now()).thenReturn(testTime);
+         config = diagnostic.createConfig();
+      }
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-   }
-}
+      assertThat(config.getSessionStart()).isEqualTo(testTime);
 
-/// X x = new X
 
-/// --------asa merg mockurile: generand la runtime o subclasa a clasei "Victima" cu lib CGLIB
-class X {
-   public void method() {
-      throw new IllegalArgumentException("rau");
-   }
-}
-class XSublcasa extends X {
-   @Override
-   public void method() {
-      // nimic aici :) totu bun!
-   }
-}
-class Client {
-   {
-      X x1 = new X() {
-         @Override
-         public void method() {
-            // bun
-         }
-      };
    }
 }
