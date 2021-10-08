@@ -54,6 +54,9 @@ public class TelemetryDiagnostic {
    // sa NU se mai invoce metoda de jos:
 
    ClientConfiguration createConfig(String version) {
+      if (true) {
+         throw new RuntimeException("Ia-o p'asta!");
+      }
       ClientConfiguration config = new ClientConfiguration();
       // multa logica
       // multa logica
