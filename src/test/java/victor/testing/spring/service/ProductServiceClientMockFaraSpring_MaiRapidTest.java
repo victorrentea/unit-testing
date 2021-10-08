@@ -3,11 +3,11 @@ package victor.testing.spring.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
@@ -19,28 +19,24 @@ import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.KIDS;
 
-//@DataMongoTest
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles("db-mem")
-public class ProductServiceClientMockTest {
-   @Autowired
-   private ProductService productService;
-   @MockBean
-   private SafetyClient safetyClient;
-   @Autowired
+@RunWith(MockitoJUnitRunner.class)
+public class ProductServiceClientMockFaraSpring_MaiRapidTest {
+   @Mock
+   SafetyClient safetyClient;
+   @Mock
    ProductRepo productRepo;
+   @InjectMocks
+   ProductService productService;
+   @Captor
+   ArgumentCaptor<Product> productCaptor;
 
    private ProductDto dto = new ProductDto("::productName::", "::barcode::", 13L, KIDS);
 
    @Before
    public final void before() {
+      productService.cevaDinProps = "a";
       when(safetyClient.isSafe("::barcode::")).thenReturn(true);
-      productRepo.deleteAll(); // baza ar trebui sa fie rezervata  privata doar pentru teste
-      // solutia 1: o legi al docker (+ 16 GB ceri de la sefu)
-      // solutia 2: pornesti un mongo embedded in test
    }
-
    @Test
    public void throwsForUnsafeProduct() {
       when(safetyClient.isSafe("::barcode::")).thenReturn(false);
@@ -56,22 +52,22 @@ public class ProductServiceClientMockTest {
 
       productService.createProduct(dto);
 
-      assertThat(productRepo.count()).isEqualTo(1);
-      Product product = productRepo.findAll().get(0);
+      verify(productRepo).save(productCaptor.capture());
+      Product product = productCaptor.getValue();
+
       assertThat(product.getName()).isEqualTo("::productName::");
       assertThat(product.getBarcode()).isEqualTo("::barcode::");
       assertThat(product.getCategory()).isEqualTo(KIDS);
    }
+
    @Test
-//   public void givenSafeProduct_whenCategoryNull_thenPersistsHOME() {
-//   public void whenCategoryNull_thenPersistsHOME() {
    public void persistsHOME_whenCategoryIsNull() {
       dto.category = null;
 
       productService.createProduct(dto);
 
-      assertThat(productRepo.count()).isEqualTo(1);
-      assertThat(productRepo.findAll().get(0).getCategory()).isEqualTo(HOME);
+      verify(productRepo).save(productCaptor.capture());
+      assertThat(productCaptor.getValue().getCategory()).isEqualTo(HOME);
    }
 
 

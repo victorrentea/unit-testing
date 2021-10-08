@@ -2,12 +2,12 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
@@ -21,7 +21,8 @@ import java.util.List;
 public class ProductService {
     private final SafetyClient safetyClient;
     private final ProductRepo productRepo;
-    private final SupplierRepo supplierRepo;
+    @Value("${ceva.prop}")
+    String cevaDinProps;
 
     public void createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode);
