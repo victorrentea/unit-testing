@@ -1,48 +1,58 @@
 package victor.testing.mocks;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.atMost;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatcher;
+import org.mockito.MockedStatic;
 
-import java.util.Arrays;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
-@SuppressWarnings("unchecked")
-@RunWith(MockitoJUnitRunner.class)
+/**
+ * Dear developer,
+ *
+ * Please read this file carefully test by test and make sure you understand 100% of it,
+ * as it covers the most used mocking framework in the world (as of 2021).
+ *
+ * Estimated reading time: less than 30 minutes.
+ *
+ * Please feel free to edit any test to explore what happens.
+ * At the beginning of the Unit Testing training you are expected to know everything in this file.
+ *
+ * Victor
+ */
+
 public class MockitoShowcaseTest {
 	public interface Dependency { // or concrete class
-		public String someMethod(String string);
+		String someMethod(String string);
+		void sideEffecting(ObjectWithoutEquals object);
+	}
+	static class ObjectWithoutEquals{
+		private final int x;
+		ObjectWithoutEquals(int x) {
+			this.x = x;
+		}
+		public int getX() {
+			return x;
+		}
 	}
 
-	@Mock
-	private Dependency someMock;
-	
-	@Mock
-	private List<String> mockedList;
+	private final Dependency mock = mock(Dependency.class);
+
+	private final List<String> mockedList = mock(List.class);
 
 	@Test
 	public void verifySomeBehaviour() {
 		
-		System.out.println(mockedList.getClass());
+		System.out.println("The mocked class is proxied using CGLIB. Check the class name: " + mockedList.getClass());
 		{
 			// using mock object
 			mockedList.add("one");
@@ -69,56 +79,44 @@ public class MockitoShowcaseTest {
 			// following prints "null" because get(999) was not stubbed
 			System.out.println(mock.get(999));
 		}
+		// - By default, for all methods that return value, mock returns null, an
+		// empty collection or appropriate primitive/primitive wrapper value (e.g:
+		// 0, false, ... for int/Integer, boolean/Boolean, ...).
 
-		// Although it is possible to verify a stubbed invocation, usually it's just redundant
-		// If your code cares what get(0) returns then something else would break anyway
-		// If your code doesn't care what get(0) returns then it should not be stubbed.
-		verify(mock).get(0);
+		// - Stubbing can be overridden: for example common stubbing can go to
+		// @Before setup but the test methods can override it. Please note that
+		// overridding stubbing is a potential code smell that points out too much
+		// stubbing
+
+		// - Once stubbed, the method will always return stubbed value regardless of
+		// how many times it is called.
 	}
 
-	// - By default, for all methods that return value, mock returns null, an
-	// empty collection or appropriate primitive/primitive wrapper value (e.g:
-	// 0, false, ... for int/Integer, boolean/Boolean, ...).
-
-	// - Stubbing can be overridden: for example common stubbing can go to
-	// fixture setup but the test methods can override it. Please note that
-	// overridding stubbing is a potential code smell that points out too much
-	// stubbing
-
-	// - Once stubbed, the method will always return stubbed value regardless of
-	// how many times it is called.
-
-	// - Last stubbing takes precedence - when you stubbed the same method with
-	// the same arguments many times.
 
 	// expect an exception to be thrown by the test
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void someStubbingToThrowError() {
 		// mock created as a test field by the JUnit Runner
 
 		// stubbing
 		when(mockedList.get(anyInt())).thenThrow(new RuntimeException());
 
-		{
-			// following throws runtime exception
-			System.out.println(mockedList.get(2));
-		}
-		
-		//		Read more about other methods:
-		//			doThrow(Throwable)
-		//			doAnswer(Answer)
-		//			doNothing()
-		//			doReturn(Object) 
+		assertThrows(RuntimeException.class,
+			() -> System.out.println(mockedList.get(2)));
 	}
 
-	// !! for automatic static import, add org.mockito.Matchers to your Preferences>Java>Editor>Content Assist>Favorites !! 
+	@Test
+	public void voidMethodToThrowException() {
+		doThrow(new RuntimeException()).when(mockedList).clear();
+
+		assertThrows(RuntimeException.class,
+			() -> mockedList.clear());
+	}
+
 	@Test
 	public void argumentMatchers() {
 		// stubbing using built-in anyInt() argument matcher
 		when(mockedList.get(anyInt())).thenReturn("element");
-
-		// (advanced) stubbing using Hamcrest
-//		when(mockedList.contains(argThat(new IsEqual<String>("111")))).thenReturn(true);
 
 		System.out.println(mockedList.get(999)); // print "element"
 		System.out.println("" + mockedList.contains("111")); // print "true"
@@ -135,237 +133,147 @@ public class MockitoShowcaseTest {
 
 		//- verify(mock).someMethod(anyInt(), anyString(), "third argument");
 		// above is incorrect - exception will be thrown because third argument is given without an argument matcher.
-			  
 	}
 
 	@Test
-	public void verifyNumberOfInvocations() {
+	public void verifyNumberOfInvocations_exact() {
 		 mockedList.add("once");
-		 
-		 mockedList.add("twice");
-		 mockedList.add("twice");
-		 
-		 mockedList.add("three times");
-		 mockedList.add("three times");
-		 mockedList.add("three times");
 		 
 		 //following two verifications work exactly the same - times(1) is used by default
 		 verify(mockedList).add("once");
 		 verify(mockedList, times(1)).add("once");
 		 
-		 //exact number of invocations verification
-		 verify(mockedList, times(2)).add("twice");
-		 verify(mockedList, times(3)).add("three times");
-		 
 		 //verification using never(). never() is an alias to times(0)
 		 verify(mockedList, never()).add("never happened");
-		 
-		 //verification using atLeast()/atMost()
+	}
+
+	@Test
+	public void verifyNumberOfInvocations_multiple() {
+		 mockedList.add("three times");
+		 mockedList.add("three times");
+		 mockedList.add("three times");
+
 		 verify(mockedList, atLeastOnce()).add("three times");
 		 verify(mockedList, atLeast(2)).add("three times");
 		 verify(mockedList, atMost(5)).add("three times");
-		 
-		 // times(1) is the default. Therefore using times(1) explicitly can be omitted. 
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void voidMethodToThrowException() {
-		doThrow(new RuntimeException()).when(mockedList).clear();
-
-		// following throws RuntimeException:
-		mockedList.clear();
-	}
 
 	@Test
 	public void stubbingConsecutiveCalls() {
 		// Sometimes we need to stub with different return value/exception for
 		// the same method call. Typical use case could be mocking iterators.
-		// Original version of Mockito did not have this feature to promote
-		// simple mocking. For example, instead of iterators one could use
-		// Iterable or simply collections. Those offer natural ways of stubbing
-		// (e.g. using real collections). In rare scenarios stubbing consecutive
-		// calls could be useful, though:
-
-		when(someMock.someMethod("some arg"))
+		when(mock.someMethod("some arg"))
 			.thenThrow(new RuntimeException())
 			.thenReturn("foo");
 
 		// First call: throws runtime exception:
-		try {
-			someMock.someMethod("some arg");
-			fail();
-		} catch (RuntimeException e) {
-			// expected
-		}
+		assertThrows(RuntimeException.class, () -> mock.someMethod("some arg"));
 
 		// Second call: prints "foo"
-		System.out.println(someMock.someMethod("some arg"));
+		assertEquals("foo", mock.someMethod("some arg"));
 
-		// Any consecutive call: prints "foo" as well (last stubbing wins).
-		System.out.println(someMock.someMethod("some arg"));
-
-		// Alternative, shorter version of consecutive stubbing:
-		when(someMock.someMethod("some arg"))
-			.thenReturn("one", "two", "three");
+		// Any consecutive call: prints "foo" as well (last stubbing prevails).
+		assertEquals("foo", mock.someMethod("some arg"));
+		System.out.println(mock.someMethod("some arg"));
 	}
-	
+
+	@Test
+	public void stubbingConsecutiveCalls_shorter() {
+		when(mock.someMethod("some arg"))
+			.thenReturn("one", "two", "three");
+
+		assertEquals("one", mock.someMethod("some arg")); // first call
+		assertEquals("two", mock.someMethod("some arg")); // second call
+		assertEquals("three", mock.someMethod("some arg")); // third call
+
+		// Last stubbing prevails
+		assertEquals("three", mock.someMethod("some arg"));
+	}
+
 	@Test
 	public void stubbingWithCallbacks() {
-		 when(someMock.someMethod(anyString())).thenAnswer(invocation -> {
-		         Object[] args = invocation.getArguments();
-		         Object mock = invocation.getMock();
-		         return "called with arguments: " + Arrays.toString(args);// + Math.random();
+		 when(mock.someMethod(anyString())).thenAnswer(invocation -> {
+				Object[] args = invocation.getArguments();
+				return "called with arguments: " + args[0];// + Math.random();
 		 });
 		 
-		 //Following prints "called with arguments: foo"
-		 System.out.println(someMock.someMethod("foo"));
+		String result = mock.someMethod("foo");
+	 	assertEquals("called with arguments: foo", result);
+		System.out.println(result);
 	}
 	
 	@Test
 	public void capturingArgumentsForFurtherAssertions() {
-		// Mockito verifies argument values in natural java style: by using an
-		// equals() method. This is also the recommended way of matching
-		// arguments because it makes tests clean & simple. In some situations
-		// though, it is helpful to assert on certain arguments after the actual
-		// verification. For example:
+		// Mockito verifies argument values in natural java style: by using equals() method.
+		// This is the recommended way of matching arguments because it makes tests clean & simple.
 
-		someMock.someMethod("John");
-		
-		ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
-		verify(someMock).someMethod(argument.capture());
-		assertEquals("John", argument.getValue());
-			 
+		// In some situations though, it is helpful to assert on certain arguments after the actual verification.
+		// For example:
 
-		// Warning: it is recommended to use ArgumentCaptor with verification
-		// but not with stubbing. Using ArgumentCaptor with stubbing may
-		// decrease test readability because captor is created outside of assert
-		// (aka verify or 'then') block. Also it may reduce defect localization
-		// because if stubbed method was not called then no argument is
-		// captured.
+		{	// prod code
+			ObjectWithoutEquals object = new ObjectWithoutEquals(13);
+			mock.sideEffecting(object);
+		}
 
-		// In a way ArgumentCaptor is related to custom argument matchers (see
-		// javadoc for ArgumentMatcher class). Both techniques can be used for
-		// making sure certain arguments where passed to mocks. However,
-		// ArgumentCaptor may be a better fit if:
-		// - custom argument matcher is not likely to be reused
-		// - you just need it to assert on argument values to complete verification
+		// or use @Captor annotation on a field
+		ArgumentCaptor<ObjectWithoutEquals> argument = ArgumentCaptor.forClass(ObjectWithoutEquals.class);
+		verify(mock).sideEffecting(argument.capture());
+		// if there is no other way to get the object instance out from tested code
+		ObjectWithoutEquals actualArgument = argument.getValue();
+		assertEquals(13, actualArgument.getX());
 
-		// Custom argument matchers via ArgumentMatcher are usually better for stubbing. 
+		// Hint: Sometimes the tested code can be refactored to return the object to assert directly
+
+		// Using an ArgumentMatcher can make your tests smaller and more readable
+		verify(mock).sideEffecting(argThat(obj -> obj.getX() == 13));
+		// + reusable
+		verify(mock).sideEffecting(argThat(hasXEqualTo(13)));
 	}
-	
-	
-	// ------------------ advaced / dangerous features ------------------------
+
+	// reusable throughout project
+	public static ArgumentMatcher<ObjectWithoutEquals> hasXEqualTo(int x) {
+		return obj -> obj.getX() == x;
+	}
+
 	@Test
-	public void restMocks() {
-		// Smart Mockito users hardly use this feature because they know it
-		// could be a sign of poor tests. Normally, you don't need to reset your
-		// mocks, just create new mocks for each test method.
+	public void mockLibraryMethod() {
+		// prove the original behavior
+		assertThrows(RuntimeException.class, () -> SomeLibrary.heavyMethod("x"));
 
-		// Instead of reset() please consider writing simple, small and focused
-		// test methods over lengthy, over-specified tests. First potential code
-		// smell is reset() in the middle of the test method. This probably
-		// means you're testing too much. Follow the whisper of your test
-		// methods: "Please keep us small & focused on single behavior". There
-		// are several threads about it on mockito mailing list.
+		try (MockedStatic<SomeLibrary> mock = mockStatic(SomeLibrary.class)) {
+			// All the calls to static methods of SomeLibrary for this thread are now mocked until the end of try }
+			mock.when(() -> SomeLibrary.heavyMethod("x")).thenReturn(2);
 
-		// The only reason we added reset() method is to make it possible to
-		// work with container-injected mocks. See issue 55 (here) or FAQ
-		// (here).
+			// tested code
+			int actual = SomeLibrary.heavyMethod("x") + 5;
 
-		// Don't harm yourself. reset() in the middle of the test method is a code smell (you're probably testing too much). 
-		List<String> mock = mock(List.class);
-		when(mock.size()).thenReturn(10);
-		mock.add("1");
-
-		reset(mock);
-		// at this point the mock forgot any interactions & stubbing
+			// back in tests
+			assertEquals(7, actual);
+		}
 	}
-	
+
+	public static class SomeLibrary {
+		public static int heavyMethod(String x) {
+			throw new RuntimeException("Incomplete data, network, files, config, or another weird reason");
+		}
+	}
+
+
 	@Test
-	public void spyingRealObjects() {
-		// You can create spies of real objects. When you use the spy then the
-		// real methods are called (unless a method was stubbed).
+	public void mockStaticTime() {
+		LocalDateTime fixed = LocalDateTime.parse("2021-09-29T23:07:01");
+		try (MockedStatic<LocalDateTime> mock = mockStatic(LocalDateTime.class)) {
+			mock.when(LocalDateTime::now).thenReturn(fixed);
 
-		// Real spies should be used carefully and occasionally, for example
-		// when dealing with legacy code.
+			// tested code
+			LocalDateTime nowFromTestedCode = LocalDateTime.now();
 
-		// Spying on real objects can be associated with "partial mocking"
-		// concept. Before the release 1.8, Mockito spies were not real partial
-		// mocks. The reason was we thought partial mock is a code smell. At
-		// some point we found legitimate use cases for partial mocks (3rd party
-		// interfaces, interim refactoring of legacy code, the full article is
-		// here)
-
-		List<String> list = new LinkedList<String>();
-		List<String> spy = Mockito.spy(list);
-
-		// optionally, you can stub out some methods:
-		when(spy.size()).thenReturn(100);
-
-		// using the spy calls real methods
-		spy.add("one");
-		spy.add("two");
-
-		// prints "one" - the first element of a list
-		System.out.println(spy.get(0));
-
-		// size() method was stubbed - 100 is printed
-		System.out.println(""  + spy.size());
-
-		// optionally, you can verify
-		verify(spy).add("one");
-		verify(spy).add("two");
-
-		// Important gotcha on spying real objects!
-		// 1. Sometimes it's impossible to use when(Object) for stubbing spies.
-		// Example:
-
-		// List list = new LinkedList();
-		// List spy = spy(list);
-		//
-		// //Impossible: real method is called so spy.get(0) throws
-		// IndexOutOfBoundsException (the list is yet empty)
-		// when(spy.get(0)).thenReturn("foo");
-		//
-		// //You have to use doReturn() for stubbing
-		// doReturn("foo").when(spy).get(0);
-
-		// 2. Watch out for final methods. Mockito doesn't mock final methods so
-		// the bottom line is: when you spy on real objects + you try to stub a
-		// final method = trouble. What will happen is the real method will be
-		// called *on mock* but *not on the real instance* you passed to the
-		// spy() method. Typically you may get a NullPointerException because
-		// mock instances don't have fields initiated.
+			// back in tests
+			System.out.println(nowFromTestedCode);
+			assertThat(nowFromTestedCode.getYear()).isLessThan(2021);
+		}
+		// Note: you CANNOT use this technique to mock System.currentTimeMillis() used internally by `new Date()`
 	}
-	
-	@Test
-	public void partialMocks() {
-		// Finally, after many internal debates & discussions on the mailing
-		// list, partial mock support was added to Mockito. Previously we
-		// considered partial mocks as code smells. However, we found a
-		// legitimate use case for partial mocks - more reading: here
 
-		// Before release 1.8 spy() was not producing real partial mocks and it
-		// was confusing for some users. Read more about spying: here or in
-		// javadoc for spy(Object) method.
-
-		// you can enable partial mock capabilities selectively on mocks:
-		LinkedList<String> mock = mock(LinkedList.class);
-		
-		// Be sure the real implementation is 'safe'.
-		// If real implementation throws exceptions or depends on specific state
-		// of the object then you're in trouble.
-		when(mock.size()).thenCallRealMethod();
-
-		// As usual you are going to read the partial mock warning: Object
-		// oriented programming is more less tackling complexity by dividing the
-		// complexity into separate, specific, SRPy objects. How does partial
-		// mock fit into this paradigm? Well, it just doesn't... Partial mock
-		// usually means that the complexity has been moved to a different
-		// method on the same object. In most cases, this is not the way you
-		// want to design your application.
-
-		// However, there are rare cases when partial mocks come handy: dealing with code you cannot change easily (3rd party interfaces, interim refactoring of legacy code etc.) However, I wouldn't use partial mocks for new, test-driven & well-designed code. 
-	}
-	
 }
