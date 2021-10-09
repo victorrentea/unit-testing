@@ -1,6 +1,6 @@
-package victor.testing.mocks;
+package victor.testing.kata.demo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.MockedStatic;
@@ -51,7 +51,7 @@ public class MockitoShowcaseTest {
 
 	@Test
 	public void verifySomeBehaviour() {
-		
+
 		System.out.println("The mocked class is proxied using CGLIB. Check the class name: " + mockedList.getClass());
 		{
 			// using mock object
@@ -123,7 +123,7 @@ public class MockitoShowcaseTest {
 
 		// you can also verify using an argument matcher
 		verify(mockedList).get(anyInt());
-		
+
 		// Warning on argument matchers:
 		// !!! If you are using argument matchers, all arguments have to be provided by matchers.
 		// E.g: (example shows verification but the same applies to stubbing):
@@ -137,25 +137,25 @@ public class MockitoShowcaseTest {
 
 	@Test
 	public void verifyNumberOfInvocations_exact() {
-		 mockedList.add("once");
-		 
-		 //following two verifications work exactly the same - times(1) is used by default
-		 verify(mockedList).add("once");
-		 verify(mockedList, times(1)).add("once");
-		 
-		 //verification using never(). never() is an alias to times(0)
-		 verify(mockedList, never()).add("never happened");
+		mockedList.add("once");
+
+		//following two verifications work exactly the same - times(1) is used by default
+		verify(mockedList).add("once");
+		verify(mockedList, times(1)).add("once");
+
+		//verification using never(). never() is an alias to times(0)
+		verify(mockedList, never()).add("never happened");
 	}
 
 	@Test
 	public void verifyNumberOfInvocations_multiple() {
-		 mockedList.add("three times");
-		 mockedList.add("three times");
-		 mockedList.add("three times");
+		mockedList.add("three times");
+		mockedList.add("three times");
+		mockedList.add("three times");
 
-		 verify(mockedList, atLeastOnce()).add("three times");
-		 verify(mockedList, atLeast(2)).add("three times");
-		 verify(mockedList, atMost(5)).add("three times");
+		verify(mockedList, atLeastOnce()).add("three times");
+		verify(mockedList, atLeast(2)).add("three times");
+		verify(mockedList, atMost(5)).add("three times");
 	}
 
 
@@ -193,16 +193,16 @@ public class MockitoShowcaseTest {
 
 	@Test
 	public void stubbingWithCallbacks() {
-		 when(mock.someMethod(anyString())).thenAnswer(invocation -> {
-				Object[] args = invocation.getArguments();
-				return "called with arguments: " + args[0];// + Math.random();
-		 });
-		 
+		when(mock.someMethod(anyString())).thenAnswer(invocation -> {
+			Object[] args = invocation.getArguments();
+			return "called with arguments: " + args[0];// + Math.random();
+		});
+
 		String result = mock.someMethod("foo");
-	 	assertEquals("called with arguments: foo", result);
+		assertEquals("called with arguments: foo", result);
 		System.out.println(result);
 	}
-	
+
 	@Test
 	public void capturingArgumentsForFurtherAssertions() {
 		// Mockito verifies argument values in natural java style: by using equals() method.
@@ -262,17 +262,17 @@ public class MockitoShowcaseTest {
 
 	@Test
 	public void mockStaticTime() {
-		LocalDateTime fixed = LocalDateTime.parse("2021-09-29T23:07:01");
+		LocalDateTime fixed = LocalDateTime.parse("2019-09-29T23:07:01");
+		LocalDateTime nowFromTestedCode;
 		try (MockedStatic<LocalDateTime> mock = mockStatic(LocalDateTime.class)) {
 			mock.when(LocalDateTime::now).thenReturn(fixed);
 
 			// tested code
-			LocalDateTime nowFromTestedCode = LocalDateTime.now();
-
-			// back in tests
-			System.out.println(nowFromTestedCode);
-			assertThat(nowFromTestedCode.getYear()).isLessThan(2021);
+			nowFromTestedCode = LocalDateTime.now();
 		}
+		// back in tests
+		System.out.println(nowFromTestedCode);
+		assertThat(nowFromTestedCode.getYear()).isLessThan(2021);
 		// Note: you CANNOT use this technique to mock System.currentTimeMillis() used internally by `new Date()`
 	}
 
