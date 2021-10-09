@@ -1,11 +1,8 @@
 package victor.testing.builder;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
 public class CustomerValidator {
-
 	public void validate(Customer customer) {
-		if (isBlank(customer.getName())) {
+		if (customer.getName() == null) {
 			throw new IllegalArgumentException("Missing customer name");
 		}
 		validateAddress(customer.getAddress());
@@ -16,8 +13,9 @@ public class CustomerValidator {
 		if (address == null) {
 			throw new IllegalArgumentException("Missing customer address");
 		}
-		if (isBlank(address.getCity())) {
-			throw new IllegalArgumentException("Missing address xcity");
+		if (address.getCity() == null) {
+			throw new IllegalArgumentException("Missing address city");
 		}
+		address.setCity(address.getCity().trim()); // mutate this
 	}
 }
