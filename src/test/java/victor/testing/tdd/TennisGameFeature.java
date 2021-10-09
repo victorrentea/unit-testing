@@ -1,10 +1,10 @@
 package victor.testing.tdd;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:tennis-game.feature", glue = "ro.victor.unittest.tdd")
+@CucumberOptions(features = "classpath:tennis-game.feature", glue = "victor.testing.tdd")
 public class TennisGameFeature {
 }

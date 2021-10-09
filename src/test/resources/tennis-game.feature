@@ -41,6 +41,6 @@ Feature: Tennis Game
       | 8             | 8             | Deuce             |
       | 4             | 3             | Advantage Player1 |
       | 5             | 6             | Advantage Player2 |
-      | 8             | 6             | Game Won Player1  |
-      | 0             | 4             | Game Won Player2  |
-      | 1             | 4             | Game Won Player2  |
+      | 8             | 6             | Game won Player1  |
+      | 0             | 4             | Game won Player2  |
+      | 1             | 4             | Game won Player2  |
