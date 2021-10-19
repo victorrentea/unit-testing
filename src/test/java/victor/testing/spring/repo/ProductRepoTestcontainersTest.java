@@ -20,7 +20,7 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.tools.TestcontainersUtil.injectP6SPY;
-import static victor.testing.tools.TestcontainersUtil.proxyJdbcUrl;
+import static victor.testing.tools.TestcontainersUtil.toxifyJdbcUrl;
 
 @Transactional
 @SpringBootTest
@@ -55,7 +55,11 @@ public class ProductRepoTestcontainersTest {
       proxy.toxics().latency("latency", ToxicDirection.DOWNSTREAM, 10L);
 
       System.out.println("PORT:" + postgres.getFirstMappedPort());
-      registry.add("spring.datasource.url", () -> injectP6SPY(proxyJdbcUrl(postgres, proxy)));
+
+      // without toxiproxy
+      registry.add("spring.datasource.url", () -> injectP6SPY(postgres.getJdbcUrl()));
+      // with toxiproxy (addind artificial network latency)
+//      registry.add("spring.datasource.url", () -> injectP6SPY(toxifyJdbcUrl(postgres, proxy)));
 //      registry.add("spring.datasource.url", () -> postgres.getJdbcUrl());
       registry.add("spring.datasource.username", postgres::getUsername);
       registry.add("spring.datasource.password", postgres::getPassword);

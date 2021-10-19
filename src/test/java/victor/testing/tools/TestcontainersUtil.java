@@ -1,7 +1,6 @@
 package victor.testing.tools;
 
 import lombok.SneakyThrows;
-import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.ToxiproxyContainer.ContainerProxy;
 
@@ -15,7 +14,7 @@ public class TestcontainersUtil {
    }
 
    @SneakyThrows
-   public static String proxyJdbcUrl(JdbcDatabaseContainer<?> jdbcContainer, ContainerProxy proxy) {
+   public static String toxifyJdbcUrl(JdbcDatabaseContainer<?> jdbcContainer, ContainerProxy proxy) {
       String originalJdbcUrl = jdbcContainer.getJdbcUrl();
       System.out.println("Original jdbc url = " + originalJdbcUrl);
 
