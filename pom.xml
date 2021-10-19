@@ -288,6 +288,8 @@
                         <phase>test</phase>
                         <goals>
                             <goal>mutationCoverage</goal>
+                            <!-- mvn org.pitest:pitest-maven:scmMutationCoverage -Dinclude=ADDED,UNKNOWN -DmutationThreshold=85 -DoriginalBranch & -DdestinationBranch-->
+                            <!--https://twitter.com/_HamzaBlm/status/1449529008501272579?s=20 -->
                         </goals>
                     </execution>
                 </executions>
