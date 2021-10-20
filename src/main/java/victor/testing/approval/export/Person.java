@@ -22,7 +22,7 @@ public class Person {
    @ElementCollection
    private List<String> phoneList;
 
-//   private Person() {} // hibernate and jackson will use this
+   private Person() {} // hibernate and jackson will use this
    public Person(Long id, String firstName, String lastName, LocalDate birthDate, List<String> phoneList) {
       this.id = id;
       this.firstName = firstName;
