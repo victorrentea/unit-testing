@@ -1,7 +1,6 @@
 package victor.testing.approval.export;
 
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -28,12 +27,12 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    @InjectMocks
    private PersonExporter exporter;
 
-   public static List<FileTestCase> convert() throws IOException {
+   public static List<FileTestCase> testData() throws IOException {
       return scanForFileTestCases("classpath:/test-cases/export*.in.json",
           inputFileName -> inputFileName.replace(".in.json", ".out.csv"));
    }
    @ParameterizedTest
-   @MethodSource // default: call a static method with the same name
+   @MethodSource("testData")
    public void convert(FileTestCase test) throws IOException {
       log.info("Running {}", test);
       didacticLog(test);
