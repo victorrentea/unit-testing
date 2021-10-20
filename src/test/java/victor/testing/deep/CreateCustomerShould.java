@@ -25,6 +25,7 @@ import static org.mockito.Mockito.*;
 /**
  * Disclaimer: Please do NOT take this example ad literam and replicate this level of granularity
  * unless you plan to get formal approval on its reading.
+ * Could be a replacement for a .feature file?
  */
 @ExtendWith(MockitoExtension.class)
 @DisplayNameGeneration(ReplaceCamelCase.class)
@@ -52,25 +53,25 @@ class CreateCustomerShould {
    class GivenAnInvalidCustomer {
 
       @Test
-      void throwForNullName() {
+      void failForMissingName() {
          aValidCustomer.setName(null);
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
              .isInstanceOf(IllegalArgumentException.class);
       }
       @Test
-      void throwForNullEmail() {
+      void failForMissingEmail() {
          aValidCustomer.setEmail(null);
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
              .isInstanceOf(IllegalArgumentException.class);
       }
       @Test
-      void throwForNullCity() {
+      void failForMissingCity() {
          aValidCustomer.getAddress().setCity(null);
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
              .isInstanceOf(IllegalArgumentException.class);
       }
       @Test
-      void throwForNullCountry() {
+      void failForMissingCountry() {
          aValidCustomer.getAddress().setCountry(null);
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
              .isInstanceOf(IllegalArgumentException.class);
@@ -84,7 +85,7 @@ class CreateCustomerShould {
          when(customerRepo.countByEmail("::email::")).thenReturn(0);
       }
       @Test
-      void throwForDuplicatedEmail() {
+      void failIfAnotherCustomerWithTheSameEmailExists() {
          when(customerRepo.countByEmail("::email::")).thenReturn(1);
 
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
@@ -92,7 +93,7 @@ class CreateCustomerShould {
       }
 
       @Test
-      void sendsWelcomeEmailAndIsSaved() {
+      void sendAWelcomeEmailAndBeSaveTheCustomer() {
          when(customerRepo.save(aValidCustomer)).thenReturn(13L);
 
          Long id = customerFacade.createCustomer(aValidCustomer);
@@ -111,7 +112,7 @@ class CreateCustomerShould {
                 .contains(new Coupon(category, 10));
          }
          @Test
-         void isSentAnEmail() {
+         void isSentAnEmailAboutTheCoupon() {
             customerFacade.createCustomer(aValidCustomer);
             verify(emailClient).sendNewCouponEmail(aValidCustomer);
          }
