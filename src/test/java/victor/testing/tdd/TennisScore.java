@@ -11,6 +11,20 @@ public class TennisScore {
 
 
    public String getScore() {
+      if (player1Points >= 4 && player1Points - player2Points >= 2) {
+         return "Game won Player 1";
+      }
+      if (player1Points >= 3 && player2Points >= 3) {
+         if (player1Points == player2Points) {
+            return "Deuce";
+         }
+         if (player2Points - player1Points == 1) {
+            return "Advantage Player 2";
+         }
+         if (player1Points - player2Points == 1) {
+            return "Advantage Player 1";
+         }
+      }
       return getScore(player1Points) + "-" + getScore(player2Points);
    }
 
@@ -28,8 +42,12 @@ public class TennisScore {
             return "Love";
          case 1:
             return "Fifteen";
-         default:
+         case 2:
             return "Thirty";
+         case 3:
+            return "Forty";
+         default:
+            throw new IllegalStateException("Unexpected value: " + points);
       }
    }
 

@@ -66,4 +66,6 @@ public class ClientSearchBehaviorSteps {
     public void searchCriteriaNationalityIso(String isoCsv) throws Throwable {
         criteria.setNationalityIsoList(Arrays.asList(isoCsv.split(",")));
     }
+
+
 }

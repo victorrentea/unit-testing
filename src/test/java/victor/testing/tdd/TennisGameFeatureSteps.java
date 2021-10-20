@@ -1,35 +1,31 @@
 package victor.testing.tdd;
 
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.assertj.core.api.Assertions;
+import victor.testing.tdd.TennisScore.Player;
 
 public class TennisGameFeatureSteps {
-    private TennisScore tennisGame;
 
-    @Given("A new tennis game")
-    public void a_new_tennis_game() throws Throwable {
-        tennisGame = new TennisScore();
-    }
-    // @Then("^Score is \"([^\"]*)\"$") // cucumber < 6
-    @Then("Score is {string}")
-    public void score_is(String expected) throws Throwable {
-//        assertEquals(expected, tennisGame.score());
-    }
+   private TennisScore tennisScore;
 
-    @When("Player{int} scores")
-    public void playerScores(int playerNo) {
-       System.out.println("smoke " + playerNo);
-//        tennisGame.addPoint(playerNo);
-    }
+   @Given("A new tennis game")
+   public void aNewTennisGame() {
+      tennisScore = new TennisScore();
+   }
 
-//    @And("^Player(\\d+) scores (\\d+) points$") // cucumber < 6
-    @And("Player{int} scores {int} points") // cucumber < 6
-    public void playerScoresPoints(int playerNo, int points) {
-//        for (int i = 0; i < points; i++) {
-//            tennisGame.addPoint(playerNo);
-//        }
-    }
+   @Then("Score is {string}")
+   public void scoreIs(String expectedScore) {
+      Assertions.assertThat(tennisScore.getScore()).isEqualTo(expectedScore);
+   }
+
+   @When("Player {string} scores {int} point")
+   public void playerONEScoresPoint(String playerStr, int points) {
+      Player player = Player.valueOf(playerStr);
+      for (int i = 0; i < points; i++) {
+         tennisScore.winsPoint(player);
+      }
+   }
 }
