@@ -28,12 +28,12 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    @InjectMocks
    private PersonExporter exporter;
 
-   public static List<FileTestCase> convert() throws IOException {
+   public static List<FileTestCase> testData() throws IOException {
       return scanForFileTestCases("classpath:/test-cases/export*.in.json",
           inputFileName -> inputFileName.replace(".in.json", ".out.csv"));
    }
    @ParameterizedTest
-   @MethodSource // default: call a static method with the same name
+   @MethodSource("testData") // default: call a static method with the same name
    public void convert(FileTestCase test) throws IOException {
       log.info("Running {}", test);
       didacticLog(test);
