@@ -25,18 +25,12 @@ public class TennisScore {
             return "Advantage Player 1";
          }
       }
+      if (player1Points == player2Points ) {
+         return getScore(player1Points) + "-All";
+      }
       return getScore(player1Points) + "-" + getScore(player2Points);
    }
-
-//   private static final Map<Integer, String> SCORE_STRINGS = Map.of(
-//       0, "Love",
-//       1, "Fifteen",
-//       2, "Thirty"
-//   );
-   private static final String[] SCORE_STRINGS = {"Love", "Fifteen", "Thirty"};
-
    private String getScore(int points) {
-//      return SCORE_STRINGS[points];
       switch (points) {
          case 0:
             return "Love";

@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 import victor.testing.tdd.TennisScore.Player;
 
+//@SpringBootTest
 public class TennisGameFeatureSteps {
 
    private TennisScore tennisScore;
@@ -15,6 +16,15 @@ public class TennisGameFeatureSteps {
    public void aNewTennisGame() {
       tennisScore = new TennisScore();
    }
+//   @Given("User microservice returns user is active")
+//   public void mock() {
+//   wiremock.when(get()).thenreturn()
+////      when(userServiceMock.checkUserActive(any)).thenReturn(true)
+//   }
+//   @Given("Supplier id 3 is in database")
+//   public void ock() {
+//supplierRepo.save()
+//   }
 
    @Then("Score is {string}")
    public void scoreIs(String expectedScore) {
