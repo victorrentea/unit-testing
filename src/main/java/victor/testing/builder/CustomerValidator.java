@@ -5,6 +5,7 @@ public class CustomerValidator {
 		if (customer.getName() == null) {
 			throw new IllegalArgumentException("Missing customer name");
 		}
+		customer.setName("BUBA");
 		validateAddress(customer.getAddress());
 		//etc
 	}
@@ -16,6 +17,7 @@ public class CustomerValidator {
 		if (address.getCity() == null) {
 			throw new IllegalArgumentException("Missing address city");
 		}
+
 		address.setCity(address.getCity().trim()); // mutate this
 	}
 }

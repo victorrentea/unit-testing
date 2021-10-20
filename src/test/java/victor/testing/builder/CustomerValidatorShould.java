@@ -9,6 +9,14 @@ public class CustomerValidatorShould {
 
 	@Test
 	public void yesSir() {
+		Customer customer = new Customer();
+		customer
+			.setName("with")
+			.setAddress(new Address()
+				.setCity("Iasi"));
+
+		validator.validate(customer);
 	}
 
+	// TODO maine exceptiile
 }
