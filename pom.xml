@@ -12,7 +12,7 @@
         <version>2.5.5</version>
     </parent>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -137,12 +137,12 @@
             <version>7.0.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
             <version>7.0.0</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
