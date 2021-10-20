@@ -4,7 +4,7 @@ public class Address {
 	private String streetName;
 	private Integer streetNumber;
 	private String city;
-	private String country;
+	private Country country;
 
 	public String getStreetName() {
 		return streetName;
@@ -22,11 +22,11 @@ public class Address {
 		this.city = city;
 	}
 
-	public String getCountry() {
+	public Country getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 

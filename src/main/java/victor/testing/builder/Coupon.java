@@ -1,8 +1,10 @@
 package victor.testing.builder;
 
+import lombok.EqualsAndHashCode;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 
+@EqualsAndHashCode
 public class Coupon {
    private final ProductCategory category;
    private final int discountAmount;

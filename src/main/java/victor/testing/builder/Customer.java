@@ -7,11 +7,20 @@ import java.util.List;
 public class Customer {
 
 	private String name;
-	private String phone;
+	private String email;
 	private List<String> labels = new ArrayList<>();
-	private Address address;
+	private Address address = new Address();
 	private Date createDate;
-	private List<Coupon> coupons;
+	private List<Coupon> coupons = new ArrayList<>();
+
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public Address getAddress() {
 		return address;
@@ -29,13 +38,6 @@ public class Customer {
 		this.name = name;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
 
 	public List<String> getLabels() {
 		return labels;
