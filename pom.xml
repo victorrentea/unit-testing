@@ -137,12 +137,13 @@
             <version>7.0.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!-- requires in every glue code path to include a package containing a class with @CucumberContextConfiguration -->
+        <!--<dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
             <version>7.0.0</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>

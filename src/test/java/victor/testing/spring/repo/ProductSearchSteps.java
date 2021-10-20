@@ -4,7 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.spring.CucumberContextConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
@@ -24,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Slf4j
-@CucumberContextConfiguration
+//@CucumberContextConfiguration // from io.cucumber:cucumber-spring:7.0.0
 @ActiveProfiles("db-mem")
 @ContextConfiguration(
     classes = SomeSpringApplication.class,
