@@ -1,0 +1,6 @@
+{
+  "firstName": "John",
+  "lastName" : "  doe ",
+  "birthDate" : "1985-11-24",
+  "phoneList" : ["111"]
+}

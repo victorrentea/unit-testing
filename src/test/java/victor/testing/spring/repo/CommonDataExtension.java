@@ -7,6 +7,7 @@ import victor.testing.spring.domain.Supplier;
 
 public class CommonDataExtension implements BeforeEachCallback {
     private final Supplier supplier = new Supplier();
+    private String status;
 
     public Supplier getSupplier() {
         return supplier;
@@ -18,4 +19,18 @@ public class CommonDataExtension implements BeforeEachCallback {
         System.out.println("******** Insert Common data via entity manager: " + repo);
         repo.save(supplier);
     }
+
+//    @Test
+//    void test() {
+//        String status = bizMethod();
+//
+//        Assertions.assertThat(status).isNotEqualTo("Completed");
+//
+//    }
+//    public String bizMethod() {
+//        status = "started";
+//        if (true) throw new IllegalArgumentException("Intentionat");
+//        status = "Completed";
+//        return status;
+//    }
 }

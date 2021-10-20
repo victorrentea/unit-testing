@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import lombok.SneakyThrows;
 import lombok.Value;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -40,7 +41,6 @@ public class FileBasedApprovalTestBase {
       }
       return new FileTestCase(inResource.getFile(), outResource.getFile());
    }
-
    @Value
    protected static class FileTestCase {
       File inputFile;
