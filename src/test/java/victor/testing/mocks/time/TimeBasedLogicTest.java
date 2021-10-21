@@ -6,13 +6,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static java.time.LocalDate.now;
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -20,16 +20,25 @@ class TimeBasedLogicTest {
    @Mock
    OrderRepo orderRepo;
    @Mock
-   Clock clock;
+   TimeProvider timeProvider;
 
    @InjectMocks
    TimeBasedLogic target;
 
+
+   @Test
+   void test() {
+      // e perfect testul asta :
+      Order order = target.celeMaiMulteMetode();
+      assertThat(order.getCreatedOn()).isNotNull();
+      assertThat(order.getCreatedOn()).isCloseTo(now(), byLessThan(1, ChronoUnit.MINUTES));
+   }
+
    @Test
 //   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
-      when(clock.instant()).thenReturn(Instant.parse("2021-09-08T10:15:30.00Z"));
-      when(clock.getZone()).thenReturn(ZoneId.systemDefault());
+//      when(timeProvider.today()).thenReturn(parse("2021-09-08"));
+      target.doarPtTeste = () -> parse("2021-09-08");
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
           13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
