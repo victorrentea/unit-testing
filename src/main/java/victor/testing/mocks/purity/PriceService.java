@@ -18,9 +18,17 @@ public class PriceService {
    private final CouponRepo couponRepo;
    private final ProductRepo productRepo;
 
-   public Map<Long, Double> computePrices(long customerId, List<Long> productIds, Map<Long, Double> internalPrices) {
+   public Map<Long, Double> computePrices(long customerId,
+                                          List<Long> productIds,
+                                          Map<Long, Double> internalPrices) {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
+      return doComputePrices(customer, products, internalPrices);
+   }
+
+   Map<Long, Double> doComputePrices(Customer customer,
+                                             List<Product> products,
+                                             Map<Long, Double> internalPrices) {
       List<Coupon> usedCoupons = new ArrayList<>();
       Map<Long, Double> finalPrices = new HashMap<>();
       for (Product product : products) {
@@ -36,7 +44,7 @@ public class PriceService {
          }
          finalPrices.put(product.getId(), price);
       }
-      couponRepo.markUsedCoupons(customerId, usedCoupons);
+      couponRepo.markUsedCoupons(customer.getId(), usedCoupons);
       return finalPrices;
    }
 
