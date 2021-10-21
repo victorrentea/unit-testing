@@ -51,5 +51,9 @@ public class TelemetryDiagnostic {
 		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
 		return config;
 	}
+}
+
+
+class ConfigurationFactory {
 
 }

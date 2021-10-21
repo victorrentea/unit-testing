@@ -3,10 +3,7 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -24,17 +21,19 @@ public class TelemetryDiagnosticTest {
 
    @Mock
    TelemetryClient client; /* = Mockito.mock(TelemetryClient.class)*/
-   @InjectMocks
+   @Spy
+    @InjectMocks
    TelemetryDiagnostic target;
 
    @BeforeEach
    final void before() {
       when(client.getOnlineStatus()).thenReturn(true);
-      when(client.getVersion()).thenReturn("cevanenulcarenu-mitrebuiedefapt"); // degeaba
+      doReturn(new ClientConfiguration()).when(target).createConfigComplexa(any());
    }
 
    @Test
    void disconnects() {
+
       target.checkTransmission(true);
 
       verify(client).disconnect(true); // mocking = verify
