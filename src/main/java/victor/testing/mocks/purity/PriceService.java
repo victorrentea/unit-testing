@@ -24,12 +24,18 @@ public class PriceService {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
       Map<Long, Double> prices = resolvePrices(products, internalPrices);
-      return doComputePrices(customer, products, prices);
+
+      PriceComputationResult result = doComputePrices(customer, products, prices);
+
+      couponRepo.markUsedCoupons(customer.getId(), result.usedCoupons());
+      return result.finalPrices();
+   }
+   record PriceComputationResult(Map<Long, Double> finalPrices, List<Coupon> usedCoupons) {
    }
 
-   Map<Long, Double> doComputePrices(Customer customer,
-                                             List<Product> products,
-                                             Map<Long, Double> prices) {
+   PriceComputationResult doComputePrices(Customer customer,
+                                          List<Product> products,
+                                          Map<Long, Double> prices) {
       List<Coupon> usedCoupons = new ArrayList<>();
       Map<Long, Double> finalPrices = new HashMap<>();
       for (Product product : products) {
@@ -43,8 +49,7 @@ public class PriceService {
          }
          finalPrices.put(product.getId(), price);
       }
-      couponRepo.markUsedCoupons(customer.getId(), usedCoupons);
-      return finalPrices;
+      return new PriceComputationResult(finalPrices, usedCoupons);
    }
 
    private Map<Long, Double> resolvePrices(List<Product> products, Map<Long, Double> internalPrices) {
