@@ -86,7 +86,11 @@ public class TelemetryDiagnosticTest {
       ClientConfiguration config = target.createConfigComplexa("ver");
 
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-      assertThat(config.getSessionId()).startsWith("ver-")
+
+//      assertTrue(config.getSessionId().contains("VER-")); // junit 5 sucks here at failure message
+
+      assertThat(config.getSessionId())
+          .startsWith("VER-") //assert4j rocks!
           .hasSizeGreaterThan(20);
    }
 

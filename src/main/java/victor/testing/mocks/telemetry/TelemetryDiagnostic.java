@@ -45,7 +45,7 @@ public class TelemetryDiagnostic {
 
 	ClientConfiguration createConfigComplexa(String version) {
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		// logica complexa cu cyclomatic complexity =20 ~= 20 de teste trebe aci
 		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
