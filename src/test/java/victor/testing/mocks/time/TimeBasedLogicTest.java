@@ -38,11 +38,12 @@ class TimeBasedLogicTest {
 //   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
 //      when(timeProvider.today()).thenReturn(parse("2021-09-08"));
-      target.doarPtTeste = () -> parse("2021-09-08");
+//      target.doarPtTeste = () -> parse("2021-09-08");
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
           13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
-      boolean result = target.isFrequentBuyer(13);
+//      boolean result = target.isFrequentBuyer(13);
+      boolean result = target.isFrequentBuyer(13, parse("2021-09-08"));
 
       assertThat(result).isTrue();
 

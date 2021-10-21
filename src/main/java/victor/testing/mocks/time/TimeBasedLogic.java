@@ -24,8 +24,11 @@ public class TimeBasedLogic {
 
 
    public boolean isFrequentBuyer(int customerId) {
+      return isFrequentBuyer(customerId, LocalDate.now());
+   }
+   boolean isFrequentBuyer(int customerId, LocalDate now) {
 //      LocalDate now = timeProvider.today();
-      LocalDate now = doarPtTeste.get();
+//      LocalDate now = doarPtTeste.get();
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
