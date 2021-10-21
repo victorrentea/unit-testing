@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Customer {
-
+	private Long id;
 	private String name;
 	private String email;
 	private List<String> labels = new ArrayList<>();
@@ -13,6 +13,13 @@ public class Customer {
 	private Date createDate;
 	private List<Coupon> coupons = new ArrayList<>();
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getEmail() {
 		return email;
