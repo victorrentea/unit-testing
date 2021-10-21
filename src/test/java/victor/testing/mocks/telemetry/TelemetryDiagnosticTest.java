@@ -1,18 +1,25 @@
 package victor.testing.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 //@RunWith(MockitoJUnitRunner.class) // junit 4
+@MockitoSettings(strictness = Strictness.LENIENT) // in general fara
 public class TelemetryDiagnosticTest {
 
    @Mock
@@ -24,6 +31,7 @@ public class TelemetryDiagnosticTest {
    final void before() {
       when(client.getOnlineStatus()).thenReturn(true);
    }
+
    @Test
    void disconnects() {
       target.checkTransmission(true);
@@ -56,6 +64,37 @@ public class TelemetryDiagnosticTest {
 
 //      verify(client).receive(); // useless in afara cazului cand  costa bani sau timp
       String actual = target.getDiagnosticInfo();
-      Assertions.assertThat(actual).isEqualTo("::tataie::");
+      assertThat(actual).isEqualTo("::tataie::");
    }
+
+   @Test
+   void configuresClient() {
+      target.checkTransmission(true);
+
+      verify(client).configure(configCaptor.capture());
+      ClientConfiguration config = configCaptor.getValue();
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      // imi inchipui ca am de scris multe teste care vor sa
+      // asserteze campul AckMode din Client Configuration
+
+      verify(client).configure(argThat(c -> c.getAckMode() == AckMode.NORMAL));
+      verify(client).configure(configWithAckMode(AckMode.NORMAL));
+   }
+
+   @Test
+   void createConfigDirectCall() {
+      ClientConfiguration config = target.createConfigComplexa("ver");
+
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      assertThat(config.getSessionId()).startsWith("ver-")
+          .hasSizeGreaterThan(20);
+   }
+
+   private ClientConfiguration configWithAckMode(AckMode normal) {
+      return argThat(c -> c.getAckMode() == normal);
+   }
+
+   @Captor
+   ArgumentCaptor<ClientConfiguration> configCaptor;
+
 }

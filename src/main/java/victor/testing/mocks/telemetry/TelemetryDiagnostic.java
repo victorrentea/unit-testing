@@ -36,14 +36,20 @@ public class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
+		ClientConfiguration config = createConfigComplexa(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE, LocalDateTime.now()); // asta
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	ClientConfiguration createConfigComplexa(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		// logica complexa cu cyclomatic complexity =20 ~= 20 de teste trebe aci
+		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
+		return config;
 	}
 
 }
