@@ -27,8 +27,19 @@ class PriceServiceTest {
 
    @Test
    void computePrices() {
-      Customer customer = this.customer
-          .setCoupons(List.of(home2coupon, electronics4coupon));
+      customer.setCoupons(List.of(home2coupon, electronics4coupon));
+
+      // NICIODATA
+//      PriceComputationResult r = mock(PriceComputationResult.class);
+//      when(r.finalPrices()).thenReturn(Map.of());
+//
+//      r = new PriceComputationResult(Map.of());
+
+      // niciodata nu faci mock de obiect cu date decat daca ai
+      // Aggregate + Domain Events heavily used
+//      Customer customerMock_anathemaInAfaraDeDDD = Mockito.mock(Customer.class);
+
+
       Map<Long, Double> internalPrices = Map.of(
           homeProduct.getId(), 10d,
           kidsProduct.getId(), 5d);

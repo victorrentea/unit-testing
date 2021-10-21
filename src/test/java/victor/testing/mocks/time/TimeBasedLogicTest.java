@@ -4,8 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -15,7 +17,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+
+@ExtendWith({MockitoExtension.class, ClearLocalDate.class})
+//@HackuimByecodeulClaseiLocalDate.class)
 class TimeBasedLogicTest {
    @Mock
    OrderRepo orderRepo;
@@ -34,6 +38,7 @@ class TimeBasedLogicTest {
       assertThat(order.getCreatedOn()).isCloseTo(now(), byLessThan(1, ChronoUnit.MINUTES));
    }
 
+   @org.junit.jupiter.api.Order(1)
    @Test
 //   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
@@ -43,9 +48,25 @@ class TimeBasedLogicTest {
           13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
 //      boolean result = target.isFrequentBuyer(13);
-      boolean result = target.isFrequentBuyer(13, parse("2021-09-08"));
+      LocalDate testTime = parse("2021-09-08");
 
-      assertThat(result).isTrue();
+//      try (
+          MockedStatic<LocalDate> mockStatic = mockStatic(LocalDate.class);
+//      ) {
+         mockStatic.when(LocalDate::now).thenReturn(testTime);
+         boolean result = target.isFrequentBuyer(13, null);
+
+         System.out.println("in try{} " + now());
+         assertThat(result).isTrue();
+//      }
+      System.out.println("Dupa: " + now());
+   }
+   @org.junit.jupiter.api.Order(2)
+   @Test
+   void xxxxaltTest() {
+
+      System.out.println("Dupa: " + now());
+
 
       // 1: inject a Clock; Hint: you'll need ZoneId.systemDefault()
       // 2: interface for Clock retrival [general solution] -> **indirection without abstraction**

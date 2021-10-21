@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
+
 public class TimeBasedLogic {
    private final OrderRepo orderRepo;
    private final TimeProvider timeProvider;
@@ -29,6 +30,8 @@ public class TimeBasedLogic {
    boolean isFrequentBuyer(int customerId, LocalDate now) {
 //      LocalDate now = timeProvider.today();
 //      LocalDate now = doarPtTeste.get();
+
+      now = LocalDate.now(); // apel static
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
