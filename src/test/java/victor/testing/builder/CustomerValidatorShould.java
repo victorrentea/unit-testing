@@ -4,6 +4,8 @@ package victor.testing.builder;
 import org.junit.jupiter.api.Test;
 import victor.testing.builder.MyException.ErrorCode;
 
+import javax.inject.Inject;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -61,4 +63,30 @@ public class CustomerValidatorShould {
 
 
 
+}
+
+
+ // TODO
+class Controller1 {
+
+	 @Inject // Google guice
+	 Service1 service1;// = new Service1();  // = mock()
+
+
+	 public void method() {
+		Service1.method(); // mai simplu de rupt dep asta decat
+
+		 service1.methodDeInstanta(); // mai simplu de rupt dep asta decat
+
+	}
+
+ }
+
+class Service1 {
+	public static void method() {
+
+	}
+	public void methodDeInstanta() {
+
+	}
 }
