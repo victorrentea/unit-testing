@@ -30,6 +30,7 @@ public class TelemetryDiagnosticTest {
    @BeforeEach
    final void before() {
       when(client.getOnlineStatus()).thenReturn(true);
+      when(client.getVersion()).thenReturn("cevanenulcarenu-mitrebuiedefapt"); // degeaba
    }
 
    @Test
