@@ -1,60 +1,61 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-
 @ExtendWith(MockitoExtension.class)
+//@RunWith(MockitoJUnitRunner.class) // junit 4
 public class TelemetryDiagnosticTest {
+
    @Mock
-   private TelemetryClient client;
+   TelemetryClient client; /* = Mockito.mock(TelemetryClient.class)*/
    @InjectMocks
-   private TelemetryDiagnostic target;
+   TelemetryDiagnostic target;
 
-   @Test
-   public void disconnects() {
+   @BeforeEach
+   final void before() {
       when(client.getOnlineStatus()).thenReturn(true);
+   }
+   @Test
+   void disconnects() {
       target.checkTransmission(true);
-      verify(client).disconnect(true);
+
+      verify(client).disconnect(true); // mocking = verify
    }
 
    @Test
-   public void throwsWhenNotOnline() {
-      when(client.getOnlineStatus()).thenReturn(false);
-      Assertions.assertThrows(IllegalStateException.class, () ->
-          target.checkTransmission(true));
+   void throwsWhenNotOnline() {
+      when(client.getOnlineStatus()).thenReturn(false); // mai expresiv ce ANUM e interesant
+
+      assertThrows(IllegalStateException.class, () -> target.checkTransmission(true));
    }
 
    @Test
-   public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
+   void sendsDiagnostic() {
       target.checkTransmission(true);
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+
+      verify(client).send(any(), any());// cam lax
+      verify(client).send(anyString(), any());// cam lax
+      verify(client).send(eq(TelemetryClient.DIAGNOSTIC_MESSAGE), any()); // reuse de const din prod 80%-95%
+      verify(client).send(eq("AT#UD"), any()); // repet constanta DOAR daca este cunoscuta si in afara codebaseului meu (ex DB, alte API, FIsiere, MQ)
    }
 
    @Test
-   public void receivesDiagnosticInfo() {
-      // TODO inspect
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
-      target.checkTransmission(true);
-      verify(client).receive();
-      assertThat(target.getDiagnosticInfo()).isEqualTo("tataie");
-   }
+   void receives() {
+      when(client.receive()).thenReturn("::tataie::");
 
-   @Test
-   public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
       target.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
+
+//      verify(client).receive(); // useless in afara cazului cand  costa bani sau timp
+      String actual = target.getDiagnosticInfo();
+      Assertions.assertThat(actual).isEqualTo("::tataie::");
    }
 }
