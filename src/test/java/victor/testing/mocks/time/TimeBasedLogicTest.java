@@ -1,32 +1,41 @@
 package victor.testing.mocks.time;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TimeBasedLogicTest {
    @Mock
    OrderRepo orderRepo;
+   @Mock
+   Clock clock;
+
    @InjectMocks
    TimeBasedLogic target;
 
    @Test
-   @Disabled("flaky, time-based")
+//   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
+      when(clock.instant()).thenReturn(Instant.parse("2021-09-08T10:15:30.00Z"));
+      when(clock.getZone()).thenReturn(ZoneId.systemDefault());
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
           13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
-      assertThat(target.isFrequentBuyer(13)).isTrue();
+      boolean result = target.isFrequentBuyer(13);
+
+      assertThat(result).isTrue();
 
       // 1: inject a Clock; Hint: you'll need ZoneId.systemDefault()
       // 2: interface for Clock retrival [general solution] -> **indirection without abstraction**
