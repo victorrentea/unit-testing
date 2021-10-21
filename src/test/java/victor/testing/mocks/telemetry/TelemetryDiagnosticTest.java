@@ -20,20 +20,19 @@ import static org.mockito.Mockito.*;
 public class TelemetryDiagnosticTest {
 
    @Mock
+   ConfigurationFactory configurationFactory;
+   @Mock
    TelemetryClient client; /* = Mockito.mock(TelemetryClient.class)*/
-   @Spy
     @InjectMocks
    TelemetryDiagnostic target;
 
    @BeforeEach
    final void before() {
       when(client.getOnlineStatus()).thenReturn(true);
-      doReturn(new ClientConfiguration()).when(target).createConfigComplexa(any());
    }
 
    @Test
    void disconnects() {
-
       target.checkTransmission(true);
 
       verify(client).disconnect(true); // mocking = verify
@@ -71,15 +70,33 @@ public class TelemetryDiagnosticTest {
    void configuresClient() {
       target.checkTransmission(true);
 
-      verify(client).configure(configCaptor.capture());
-      ClientConfiguration config = configCaptor.getValue();
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-      // imi inchipui ca am de scris multe teste care vor sa
-      // asserteze campul AckMode din Client Configuration
-
-      verify(client).configure(argThat(c -> c.getAckMode() == AckMode.NORMAL));
-      verify(client).configure(configWithAckMode(AckMode.NORMAL));
+      verify(client).configure(any());
    }
+//   @Test
+//   void configuresClient() {
+//      target.checkTransmission(true);
+//
+//      verify(client).configure(configCaptor.capture());
+//      ClientConfiguration config = configCaptor.getValue();
+//      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+//      // imi inchipui ca am de scris multe teste care vor sa
+//      // asserteze campul AckMode din Client Configuration
+//
+//      verify(client).configure(argThat(c -> c.getAckMode() == AckMode.NORMAL));
+//      verify(client).configure(configWithAckMode(AckMode.NORMAL));
+//   }
+//
+//   private ClientConfiguration configWithAckMode(AckMode normal) {
+//      return argThat(c -> c.getAckMode() == normal);
+//   }
+
+   @Captor
+   ArgumentCaptor<ClientConfiguration> configCaptor;
+
+}
+
+class ConfigurationFactoryTest {
+   ConfigurationFactory target = new ConfigurationFactory();
 
    @Test
    void createConfigDirectCall() {
@@ -93,12 +110,5 @@ public class TelemetryDiagnosticTest {
           .startsWith("VER-") //assert4j rocks!
           .hasSizeGreaterThan(20);
    }
-
-   private ClientConfiguration configWithAckMode(AckMode normal) {
-      return argThat(c -> c.getAckMode() == normal);
-   }
-
-   @Captor
-   ArgumentCaptor<ClientConfiguration> configCaptor;
 
 }

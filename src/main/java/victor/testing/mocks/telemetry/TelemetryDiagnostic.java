@@ -9,11 +9,13 @@ import java.util.UUID;
 public class TelemetryDiagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient telemetryClient;
+	private final ConfigurationFactory configurationFactory;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(TelemetryClient telemetryClient) {
+	public TelemetryDiagnostic(TelemetryClient telemetryClient, ConfigurationFactory configurationFactory) {
 		this.telemetryClient = telemetryClient;
+		this.configurationFactory = configurationFactory;
 	}
 
 	public String getDiagnosticInfo() {
@@ -36,14 +38,18 @@ public class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = createConfigComplexa(telemetryClient.getVersion());
+		ClientConfiguration config = configurationFactory.createConfigComplexa(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE, LocalDateTime.now()); // asta
 		diagnosticInfo = telemetryClient.receive();
 	}
 
-	ClientConfiguration createConfigComplexa(String version) {
+}
+
+
+class ConfigurationFactory {
+	public ClientConfiguration createConfigComplexa(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
@@ -51,9 +57,5 @@ public class TelemetryDiagnostic {
 		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
 		return config;
 	}
-}
-
-
-class ConfigurationFactory {
 
 }
