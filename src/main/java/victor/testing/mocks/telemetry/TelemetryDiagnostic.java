@@ -25,6 +25,10 @@ public class TelemetryDiagnostic {
 		this.diagnosticInfo = diagnosticInfo;
 	}
 
+	// ai adaugat stare long-lived DOAR PENTRU TESTE
+	// = test-induced design damage.
+//	ClientConfiguration config; // CAMP NU!
+
 	public void checkTransmission(boolean force) {
 		telemetryClient.disconnect(force);
 

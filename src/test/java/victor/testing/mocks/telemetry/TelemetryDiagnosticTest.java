@@ -73,8 +73,10 @@ public class TelemetryDiagnosticTest {
       verify(client).configure(any());
    }
 //   @Test
-//   void configuresClient() {
+//   void configuresClient___() {
 //      target.checkTransmission(true);
+//
+////      ClientConfiguration config1 = target.config; // ASA NU!
 //
 //      verify(client).configure(configCaptor.capture());
 //      ClientConfiguration config = configCaptor.getValue();
@@ -82,8 +84,8 @@ public class TelemetryDiagnosticTest {
 //      // imi inchipui ca am de scris multe teste care vor sa
 //      // asserteze campul AckMode din Client Configuration
 //
-//      verify(client).configure(argThat(c -> c.getAckMode() == AckMode.NORMAL));
-//      verify(client).configure(configWithAckMode(AckMode.NORMAL));
+////      verify(client).configure(argThat(c -> c.getAckMode() == AckMode.NORMAL));
+////      verify(client).configure(configWithAckMode(AckMode.NORMAL));
 //   }
 //
 //   private ClientConfiguration configWithAckMode(AckMode normal) {
