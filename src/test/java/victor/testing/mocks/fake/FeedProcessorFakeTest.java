@@ -1,9 +1,14 @@
 package victor.testing.mocks.fake;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
+@SpringBootTest
+@ActiveProfiles("file-repo-fake")
 public class FeedProcessorFakeTest {
 
    FileRepoFake fileRepoFake = new FileRepoFake();
