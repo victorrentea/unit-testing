@@ -1,11 +1,9 @@
 package victor.testing.mocks.fake;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,14 +11,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles({"file-repo-fake", "db-mem"})
-@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // iNTERSZIS sa comiti pe jenkins (alex de reject)
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // iNTERSZIS sa comiti pe jenkins (alex de reject)
 public class FeedProcessorFakeTest {
 
    @Autowired
    FileRepoFake fileRepoFake;
    @Autowired
+
    FeedProcessor feedProcessor;
 
+   @AfterEach
+   final void after() {
+       fileRepoFake.clearData();
+   }
    @Test
    public void oneFileWithOneLine() {
       fileRepoFake.addFile("one.txt", "one");

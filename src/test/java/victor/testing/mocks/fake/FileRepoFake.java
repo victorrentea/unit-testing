@@ -28,4 +28,8 @@ public class FileRepoFake implements IFileRepo {
    public void addFile(String fileName, String... line1) {
       fileLines.put(fileName, List.of(line1));
    }
+
+   public void clearData() {
+      fileLines.clear();
+   }
 }
