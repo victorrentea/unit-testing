@@ -1,5 +1,6 @@
 package victor.testing.mocks.fake;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,10 @@ public class AltTest {
    @Autowired
    FeedProcessor feedProcessor;
 
+   @BeforeEach
+   final void before() {
+      fileRepoFake.clearData();
+   }
    @Test
    public void oneFileWithOneLine() {
       fileRepoFake.addFile("3.txt", "one");
