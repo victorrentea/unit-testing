@@ -1,18 +1,25 @@
 package victor.testing.mocks.fake;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest
-@ActiveProfiles("file-repo-fake")
+@ActiveProfiles({"file-repo-fake", "db-mem"})
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // iNTERSZIS sa comiti pe jenkins (alex de reject)
 public class FeedProcessorFakeTest {
 
-   FileRepoFake fileRepoFake = new FileRepoFake();
-   FeedProcessor feedProcessor = new FeedProcessor(fileRepoFake);
+   @Autowired
+   FileRepoFake fileRepoFake;
+   @Autowired
+   FeedProcessor feedProcessor;
 
    @Test
    public void oneFileWithOneLine() {
