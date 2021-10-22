@@ -1,6 +1,5 @@
 package victor.testing.spring.repo;
 
-import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ public class ProductRepoTestscontainersTest {
         .withPassword("password");
 
 
-    @SneakyThrows
     @DynamicPropertySource
     public static void registerPgProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", () -> injectP6SPY(postgres.getJdbcUrl()));
