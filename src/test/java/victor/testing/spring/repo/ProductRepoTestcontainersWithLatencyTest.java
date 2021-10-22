@@ -25,7 +25,7 @@ import static victor.testing.tools.TestcontainersUtil.toxifyJdbcUrl;
 @Transactional
 @SpringBootTest
 @Testcontainers
-public class ProductRepoTestcontainersTest {
+public class ProductRepoTestcontainersWithLatencyTest {
    public static Network network = Network.newNetwork();
    @Container
    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")

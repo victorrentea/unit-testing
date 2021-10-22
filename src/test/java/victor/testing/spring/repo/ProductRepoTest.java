@@ -19,6 +19,10 @@ public class ProductRepoTest {
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
+    // limitari:
+    // - SQL native cu featureuri specifice bazei tale (ex hituri, CONNECT BY, fct SQL native ale PG
+    // - incremental script: alter table cu sintaxa pe care nu o stie h2
+    // ==> Testcontainers .
 
 //    @BeforeEach
 //    final void before() { // doar daca ai REQUIRES_NEW/NOT_SUPPORTED in codul testat altfel NU
