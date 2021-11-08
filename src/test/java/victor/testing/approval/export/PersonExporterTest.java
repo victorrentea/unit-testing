@@ -1,7 +1,6 @@
 package victor.testing.approval.export;
 
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -37,7 +36,6 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    public void convert(FileTestCase test) throws IOException {
       log.info("Running {}", test);
       didacticLog(test);
-
       Person inputPerson = jackson.readValue(test.getInputFile(), Person.class);
       when(personRepo.findAll()).thenReturn(asList(inputPerson));
 

@@ -30,8 +30,8 @@ Feature: Tennis Game
       | 0             | 3             | Love-Forty         |
       | 3             | 3             | Deuce              |
       | 4             | 4             | Deuce              |
-      | 3             | 4             | Advantage Player 2 |
-      | 4             | 3             | Advantage Player 1 |
-      | 4             | 2             | Game won Player 1  |
-      | 4             | 1             | Game won Player 1  |
-      | 5             | 3             | Game won Player 1  |
+      | 3             | 4             | Advantage Player2 |
+      | 4             | 3             | Advantage Player1 |
+      | 4             | 2             | Game won Player1  |
+      | 4             | 1             | Game won Player1  |
+      | 5             | 3             | Game won Player1  |

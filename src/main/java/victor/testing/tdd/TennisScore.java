@@ -9,6 +9,9 @@ public class TennisScore {
       if (scorePlayer1 >= 4 && scorePlayer1 - scorePlayer2 == 1) {
          return "Advantage Player1";
       }
+      if (scorePlayer2 >= 4 && scorePlayer2 - scorePlayer1 == 1) {
+         return "Advantage Player2";
+      }
       if (scorePlayer1 == scorePlayer2 && scorePlayer1 >= 3) {
          return "Deuce";
       }
