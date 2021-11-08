@@ -1,36 +1,20 @@
 package victor.testing.tdd;
 
+
 public class TennisScore {
-
-   private int player1Points = 0;
-   private int player2Points = 0;
-
-   enum Player {
-      ONE, TWO;
-   }
-
+   private int scorePlayer1;
+   private int scorePlayer2;
 
    public String getScore() {
-      if (player1Points >= 4 && player1Points - player2Points >= 2) {
-         return "Game won Player 1";
+      if (scorePlayer1 == scorePlayer2 && scorePlayer1 >= 3) {
+         return "Deuce";
       }
-      if (player1Points >= 3 && player2Points >= 3) {
-         if (player1Points == player2Points) {
-            return "Deuce";
-         }
-         if (player2Points - player1Points == 1) {
-            return "Advantage Player 2";
-         }
-         if (player1Points - player2Points == 1) {
-            return "Advantage Player 1";
-         }
-      }
-      if (player1Points == player2Points ) {
-         return getScore(player1Points) + "-All";
-      }
-      return getScore(player1Points) + "-" + getScore(player2Points);
+      String score1 = translatePoints(scorePlayer1);
+      String score2 = translatePoints(scorePlayer2);
+      return score1 + "-" + score2;
    }
-   private String getScore(int points) {
+
+   private String translatePoints(int points) {
       switch (points) {
          case 0:
             return "Love";
@@ -40,16 +24,22 @@ public class TennisScore {
             return "Thirty";
          case 3:
             return "Forty";
-         default:
-            throw new IllegalStateException("Unexpected value: " + points);
       }
+      throw new IllegalArgumentException("Nu stiu");
    }
 
    public void winsPoint(Player player) {
       if (player == Player.ONE) {
-         player1Points++;
+         scorePlayer1++;
       } else {
-         player2Points++;
+         scorePlayer2++;
+      }
+   }
+
+   // METODA PUSA IN PROD DOAR PENTRU TESTARE
+   public void setPoints(Player player, int points) {
+      for (int i = 0; i < points; i++) {
+         winsPoint(player);
       }
    }
 }
