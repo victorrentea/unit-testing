@@ -18,4 +18,9 @@ public class Customer {
 	private Date createDate;
 	private List<Coupon> coupons;
 
+
+	public Customer setName(String name) {
+		this.name = name;
+		return this;
 	}
+}

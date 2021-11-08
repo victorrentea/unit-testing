@@ -1,5 +1,7 @@
 package victor.testing.builder;
 
+import victor.testing.builder.MyException.ErrorCode;
+
 import java.util.function.Predicate;
 
 public class CustomerValidator {
@@ -8,24 +10,26 @@ public class CustomerValidator {
 			throw new IllegalArgumentException("Missing customer name");
 		}
 		if (customer.getEmail() == null) {
-			throw new IllegalArgumentException("Missing customer email");
+			 throw new IllegalArgumentException("Missing customer email");
 		}
 		validateAddress(customer.getAddress());
 	}
 	
 	private void validateAddress(Address address) {
-		if (address == null) {
-			throw new IllegalArgumentException("error.customer.address.missing");
-		}
 		if (address.getCity() == null) {
-			throw new IllegalArgumentException("Missing address city");
+//			throw new IllegalArgumentException("Missing address city");
+			throw new NoAddressCity();
 		}
-		if (address.getCity().length() < 3) {
-			throw new IllegalArgumentException("Missing address city");
-		}
-
 		address.setCity(address.getCity().trim()); // mutate this
+		if (address.getCity().length() < 5) {
+//			throw new IllegalArgumentException("City name too short");
+			throw new MyException(ErrorCode.CUSTOMER_CITY_TOO_SHORT);
+		}
 	}
+}
+
+class NoAddressCity extends RuntimeException{ // cu miile -- nu e o idee buna
+
 }
 
 class MyException extends RuntimeException {
