@@ -203,7 +203,7 @@
     <build>
         <plugins>
 
-            <!-- docker db -->
+            <!-- Typically: runs after every commit, takes 10-20 minutes, runs mockito-only, in-memory tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -213,6 +213,7 @@
                     <excludedGroups>integration</excludedGroups>
                 </configuration>
             </plugin>
+            <!-- Typically: runs during nighly build, takes 10-2000 minutes. Typically startup Spring, Databases, Dockers, Wiremocks -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>

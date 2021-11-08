@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import victor.testing.bdd.filtering.entity.*;
+import victor.testing.bdd.filtering.entity.Record;
 
 import java.util.HashMap;
 import java.util.List;
