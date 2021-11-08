@@ -208,8 +208,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!-- skip the plugin as the only time we run 'mvn verify' from command line during the workshop is when we want docker to fire up -->
-                    <skip>true</skip> <!-- NEVER HAVE THIS IN YOUR PROJ -->
+                    <excludes>
+                        <exclude>**/spring/**</exclude>
+                    </excludes>
                     <excludedGroups>integration</excludedGroups>
                 </configuration>
             </plugin>
@@ -221,7 +222,9 @@
                     <includes>
                         <include>**/*</include>
                     </includes>
-                    <groups>integration</groups>
+                    <environmentVariables>
+                        <TESTCONTAINERS_RYUK_DISABLED>true</TESTCONTAINERS_RYUK_DISABLED>
+                    </environmentVariables>
                 </configuration>
                 <executions>
                     <execution>
@@ -232,51 +235,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.33.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <images>
-                        <image>
-                            <name>docker-demo</name>
-                            <build>
-                                <tags>
-                                    <tag>${project.version}</tag>
-                                </tags>
-                                <dockerFile>Dockerfile</dockerFile>
-                                <assembly>
-                                    <name>/</name>
-                                    <mode>dir</mode>
-                                    <inline>
-                                        <files>
-                                            <file>
-                                                <source>
-                                                    ${project.basedir}/target/unit-testing-${project.version}.jar
-                                                </source>
-                                                <outputDirectory>target/</outputDirectory>
-                                            </file>
-                                        </files>
-                                    </inline>
-                                </assembly>
-                            </build>
-                        </image>
-                    </images>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>docker-build</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
 
             <plugin>
                 <groupId>org.pitest</groupId>
