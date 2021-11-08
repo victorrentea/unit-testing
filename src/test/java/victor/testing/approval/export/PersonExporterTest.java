@@ -12,6 +12,7 @@ import victor.testing.approval.FileBasedApprovalTestBase;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.function.Function;
 
 import static java.util.Arrays.asList;
 import static org.apache.commons.io.FileUtils.readFileToString;
@@ -28,8 +29,8 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    private PersonExporter exporter;
 
    public static List<FileTestCase> testData() throws IOException {
-      return scanForFileTestCases("classpath:/test-cases/export*.in.json",
-          inputFileName -> inputFileName.replace(".in.json", ".out.csv"));
+      Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.csv");
+      return scanForFileTestCases("classpath:/test-cases/export*.in.json", inToOutFileName);
    }
    @ParameterizedTest
    @MethodSource("testData")

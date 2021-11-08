@@ -13,12 +13,29 @@ public class CustomerValidator {
 	}
 	
 	private void validateAddress(Address address) {
-		if (address.getCountry() == null) {
-			throw new IllegalArgumentException("Missing address country");
-		}
-		address.setCity(address.getCity().trim()); // mutate this
 		if (address.getCity() == null) {
 			throw new IllegalArgumentException("Missing address city");
 		}
+		address.setCity(address.getCity().trim()); // mutate this
+		if (address.getCity().length() < 3) {
+			throw new IllegalArgumentException("Address city too short");
+		}
 	}
+}
+
+
+class MyException extends RuntimeException {
+	MyException(ErrorCode errorCode) {
+		this.errorCode = errorCode;
+	}
+	// + other 12 overloads, taking a message string, a cause exception, and combinations
+
+	public enum ErrorCode {
+		CUSTOMER_MISSING_CITY,
+		CUSTOMER_TOO_SHORT_CITY,
+		GENERAL
+	}
+	private final ErrorCode errorCode;
+
+
 }
