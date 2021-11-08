@@ -47,7 +47,7 @@ public class TennisScoreTest {
 
    @Test
    void ThirtyLove_whenFirstPlayerWinsTwoPoints() {
-      setPoints(2,0);
+      setPoints(2, 0);
 
       String actual = tennisScore.getScore();
 
@@ -125,6 +125,8 @@ public class TennisScoreTest {
 
       assertThat(actual).isEqualTo("Advantage Player1");
    }
+
+
 
 
 }
