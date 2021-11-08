@@ -17,7 +17,9 @@ public class PersonExporter {
       writer.write("full_name;phones;birth_date\n");
       for (Person person : personRepo.findAll()) {
          List<String> phoneList = person.getPhoneList();
-         if (phoneList.isEmpty()) phoneList = Collections.singletonList("");
+         if (phoneList.isEmpty()) {
+            phoneList = Collections.singletonList("");
+         }
          for (String phone : phoneList) {
             writer.write(person.getFirstName() + " " + person.getLastName().trim().toUpperCase());
             writer.write(";");

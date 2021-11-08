@@ -1,7 +1,5 @@
 package victor.testing.builder;
 
-import victor.testing.builder.MyException.ErrorCode;
-
 import java.util.function.Predicate;
 
 public class CustomerValidator {
@@ -23,7 +21,7 @@ public class CustomerValidator {
 			throw new IllegalArgumentException("Missing address city");
 		}
 		if (address.getCity().length() < 3) {
-			throw new MyException(ErrorCode.CUSTOMER_CITY_TOO_SHORT);
+			throw new IllegalArgumentException("Missing address city");
 		}
 
 		address.setCity(address.getCity().trim()); // mutate this
