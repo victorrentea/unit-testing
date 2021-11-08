@@ -1,6 +1,7 @@
 package victor.testing.spring.web;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 
 @Slf4j
 @Tag("integration")
+@Ignore("Out of scope")
 public class ProductDockerTest {
 
    @RegisterExtension
