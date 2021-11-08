@@ -312,6 +312,9 @@
                     <targetTests>
                         <param>victor.testing.builder.*</param>
                     </targetTests>
+                    <mutators>
+                        <mutator>NON_VOID_METHOD_CALLS</mutator>
+                    </mutators>
                 </configuration>
             </plugin>
         </plugins>

@@ -13,12 +13,12 @@ public class CustomerValidator {
 	}
 	
 	private void validateAddress(Address address) {
-		if (address.getCity() == null) {
-			throw new IllegalArgumentException("Missing address city");
-		}
 		if (address.getCountry() == null) {
 			throw new IllegalArgumentException("Missing address country");
 		}
 		address.setCity(address.getCity().trim()); // mutate this
+		if (address.getCity() == null) {
+			throw new IllegalArgumentException("Missing address city");
+		}
 	}
 }
