@@ -13,6 +13,19 @@ public class TennisScoreTest {
       System.out.println("De cate ori se instantiaza clasa de test?");
    }
 
+
+   private void setPoints(int points1, int points2) {
+      setPointsForPlayer(Player.ONE, points1);
+      setPointsForPlayer(Player.TWO, points2);
+   }
+
+   // test-helper methods : inevitabile daca testezi MULT cod sau cu API ne prietenos
+   private void setPointsForPlayer(Player player, int points) {
+      for (int i = 0; i < points; i++) {
+         tennisScore.winsPoint(player);
+      }
+   }
+
    @Test
    void LoveLove_forNewGame() {
       String actual = tennisScore.getScore();
@@ -23,7 +36,7 @@ public class TennisScoreTest {
    @Test
    void FifteenLove_whenFirstPlayerWinsAPoint() {
       // given = contextul (ce s-a intamplat in trecut) : mock, DB isnert, wiremock,
-      tennisScore.winsPoint(Player.ONE);
+      setPoints(1, 0);
 
       // when = call de prod (codul testat)
       String actual = tennisScore.getScore();
@@ -34,8 +47,7 @@ public class TennisScoreTest {
 
    @Test
    void ThirtyLove_whenFirstPlayerWinsTwoPoints() {
-      tennisScore.winsPoint(Player.ONE);
-      tennisScore.winsPoint(Player.ONE);
+      setPoints(2,0);
 
       String actual = tennisScore.getScore();
 
@@ -44,20 +56,21 @@ public class TennisScoreTest {
 
    @Test
    void LoveFifteen_whenSecondPlayerWinsAPoint() {
-      tennisScore.winsPoint(Player.TWO);
+      setPoints(0, 1);
 
       String actual = tennisScore.getScore();
 
       assertThat(actual).isEqualTo("Love-Fifteen");
    }
-   @Test // A fost gata verde=> !!
-   // 1) este corect (eg are asserts?) DA
-   // 2) este overlapping : testeaza ceva ce deja e testat si implem?
-   // o sa-l las pt ca e remarcabil
-   // mai il lasam daca era test copy-paste din requirements.
+
+   @Test
+      // A fost gata verde=> !!
+      // 1) este corect (eg are asserts?) DA
+      // 2) este overlapping : testeaza ceva ce deja e testat si implem?
+      // o sa-l las pt ca e remarcabil
+      // mai il lasam daca era test copy-paste din requirements.
    void FifteenFifteen_whenBothPlayersWinAPoint() {
-      tennisScore.winsPoint(Player.ONE);
-      tennisScore.winsPoint(Player.TWO);
+      setPoints(1, 1);
 
       String actual = tennisScore.getScore();
 
@@ -66,9 +79,7 @@ public class TennisScoreTest {
 
    @Test
    void FortyLove_whenFirstPlayerWinsThreePoints() {
-      tennisScore.winsPoint(Player.ONE);
-      tennisScore.winsPoint(Player.ONE);
-      tennisScore.winsPoint(Player.ONE);
+      setPoints(3, 0);
 
       String actual = tennisScore.getScore();
 
@@ -77,36 +88,43 @@ public class TennisScoreTest {
 
    @Test
    void deuce_whenBothPlayersScore3Points() {
-      tennisScore.winsPoint(Player.ONE);
-      tennisScore.winsPoint(Player.ONE);
-      tennisScore.winsPoint(Player.ONE);
-      tennisScore.winsPoint(Player.TWO);
-      tennisScore.winsPoint(Player.TWO);
-      tennisScore.winsPoint(Player.TWO);
+      setPoints(3, 3);
 
       String actual = tennisScore.getScore();
 
       assertThat(actual).isEqualTo("Deuce");
    }
+
    @Test
    void deuce_whenBothPlayersScore4Points() {
-      // O GRESEALA AICI PT CA NU ARE SENS O ASA FUNCTIE IN COD DEPROD
-      // INCALCA INCAPSULAREA
-      tennisScore.setPoints(Player.ONE, 4);
-      tennisScore.setPoints(Player.TWO, 4);
-
-//      tennisScore.winsPoint(Player.ONE);
-//      tennisScore.winsPoint(Player.ONE);
-//      tennisScore.winsPoint(Player.ONE);
-//      tennisScore.winsPoint(Player.ONE);
-//      tennisScore.winsPoint(Player.TWO);
-//      tennisScore.winsPoint(Player.TWO);
-//      tennisScore.winsPoint(Player.TWO);
-//      tennisScore.winsPoint(Player.TWO);
+      setPoints(4, 4);
 
       String actual = tennisScore.getScore();
 
       assertThat(actual).isEqualTo("Deuce");
    }
+
+
+   // If at least three points have been scored by each side and
+   // a player has one more point than his opponent,
+   // the score of the game is “Advantage” for the player in the lead.
+   @Test
+   void advantagePlayer1_whenPlayer1Scores4Points_andPlayer2Scores3Points() {
+      setPoints(4, 3);
+
+      String actual = tennisScore.getScore();
+
+      assertThat(actual).isEqualTo("Advantage Player1");
+   }
+
+   @Test
+   void advantagePlayer1_whenPlayer1Scores5Points_andPlayer2Scores4Points() {
+      setPoints(5, 4);
+
+      String actual = tennisScore.getScore();
+
+      assertThat(actual).isEqualTo("Advantage Player1");
+   }
+
 
 }

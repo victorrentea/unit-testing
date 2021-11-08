@@ -6,6 +6,9 @@ public class TennisScore {
    private int scorePlayer2;
 
    public String getScore() {
+      if (scorePlayer1 >= 4 && scorePlayer1 - scorePlayer2 == 1) {
+         return "Advantage Player1";
+      }
       if (scorePlayer1 == scorePlayer2 && scorePlayer1 >= 3) {
          return "Deuce";
       }
@@ -36,10 +39,4 @@ public class TennisScore {
       }
    }
 
-   // METODA PUSA IN PROD DOAR PENTRU TESTARE
-   public void setPoints(Player player, int points) {
-      for (int i = 0; i < points; i++) {
-         winsPoint(player);
-      }
-   }
 }
