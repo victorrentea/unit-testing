@@ -10,12 +10,10 @@ public class TelemetryDiagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient;
-	private final ConfigurationFactory configurationFactory;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnostic(TelemetryClient telemetryClient, ConfigurationFactory configurationFactory) {
+	public TelemetryDiagnostic(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
-		this.configurationFactory = configurationFactory;
 	}
 
 	public String getDiagnosticInfo() {
@@ -25,10 +23,7 @@ public class TelemetryDiagnostic {
 		this.diagnosticInfo = diagnosticInfo;
 	}
 
-	// ai adaugat stare long-lived DOAR PENTRU TESTE
-	// = test-induced design damage.
-//	ClientConfiguration config; // CAMP NU!
-
+	// XXX: ASTA O TESTEZ
 	public void checkTransmission(boolean force) {
 		telemetryClient.disconnect(force);
 
@@ -42,24 +37,20 @@ public class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = configurationFactory.createConfigComplexa(telemetryClient.getVersion());
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		// logica complexa cu cyclomatic complexity =20 ~= 20 de teste trebe aci
+		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE, LocalDateTime.now()); // asta
 		diagnosticInfo = telemetryClient.receive();
 	}
-
-}
-
-
-class ConfigurationFactory {
-	public ClientConfiguration createConfigComplexa(String version) {
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		// logica complexa cu cyclomatic complexity =20 ~= 20 de teste trebe aci
-		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
-		return config;
-	}
-
+	// DAMAGE de design : ai incarcat cu state obiectul asta DOAR PT TESTE
+	// cu pbolemele de rigoare: cureti starea, multi threading, memory
+//	private String p;
+//	public String getP() {
+//		return p;
+//	}
 }
