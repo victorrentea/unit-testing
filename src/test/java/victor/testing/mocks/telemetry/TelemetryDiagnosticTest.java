@@ -29,8 +29,9 @@ public class TelemetryDiagnosticTest {
 
    @BeforeEach
    final void before() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
+//      when(clientMock.getOnlineStatus()).thenReturn(true);
    }
+
 
    @Test
    public void multiAssertPerTest() {
@@ -87,6 +88,19 @@ public class TelemetryDiagnosticTest {
       ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
       verify(clientMock).configure(configCaptor.capture());
       ClientConfiguration config = configCaptor.getValue();
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      Assertions.assertThat(config.getSessionStart()).isNotNull();
+      Assertions.assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(5, SECONDS));
+      assertThat(config.getSessionId())
+          .startsWith("ver-")
+          .hasSizeGreaterThan(10);
+   }
+
+
+   @Test
+   void configuresClientDirectCall() {
+      ClientConfiguration config = target.createConfig("ver");
+
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       Assertions.assertThat(config.getSessionStart()).isNotNull();
       Assertions.assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(5, SECONDS));

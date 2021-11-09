@@ -23,6 +23,7 @@ public class TelemetryDiagnostic {
 		this.diagnosticInfo = diagnosticInfo;
 	}
 
+
 	// XXX: ASTA O TESTEZ
 	public void checkTransmission(boolean force) {
 		telemetryClient.disconnect(force);
@@ -37,20 +38,20 @@ public class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID());
-		config.setSessionStart(LocalDateTime.now());
-		/* logica complexa cu cyclomatic complexity =20 ~= 20 de teste trebe aci */
-		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
+		ClientConfiguration config = createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE, LocalDateTime.now()); // asta
 		diagnosticInfo = telemetryClient.receive();
 	}
-	// DAMAGE de design : ai incarcat cu state obiectul asta DOAR PT TESTE
-	// cu pbolemele de rigoare: cureti starea, multi threading, memory
-//	private String p;
-//	public String getP() {
-//		return p;
-//	}
+
+	ClientConfiguration createConfig(String version) { // package protected
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(version + "-" + UUID.randomUUID());
+		config.setSessionStart(LocalDateTime.now());
+		/* logica COMPLEXA cu cyclomatic complexity =20 ~= 20 de teste trebe aci */
+		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
+		return config;
+	}
+
 }
