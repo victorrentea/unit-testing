@@ -65,6 +65,8 @@ class CreateCustomerShould {
              .isInstanceOf(IllegalArgumentException.class);
       }
 
+
+
       @Test
       void failForMissingCity() {
          aValidCustomer.getAddress().setCity(null);
