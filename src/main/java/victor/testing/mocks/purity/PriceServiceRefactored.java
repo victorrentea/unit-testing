@@ -1,6 +1,7 @@
 package victor.testing.mocks.purity;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import victor.testing.builder.Coupon;
 import victor.testing.builder.Customer;
 import victor.testing.spring.domain.Product;
@@ -25,15 +26,19 @@ public class PriceServiceRefactored {
       List<Product> products = productRepo.findAllById(productIds);
       Map<Long, Double> prices = resolvePrices(products, internalPrices);
 
-      PriceService.PriceComputationResult result = doComputePrices(customer, products, prices);
+      PriceComputationResult result = doComputePrices(customer, products, prices);
 
-      couponRepo.markUsedCoupons(customer.getId(), result.usedCoupons());
-      return result.finalPrices();
-   }
-   record PriceComputationResult(Map<Long, Double> finalPrices, List<Coupon> usedCoupons) {
+      couponRepo.markUsedCoupons(customer.getId(), result.getUsedCoupons());
+      return result.getFinalPrices();
    }
 
-   PriceService.PriceComputationResult doComputePrices(Customer customer,
+   @Value
+   class PriceComputationResult {
+      Map<Long, Double> finalPrices;
+      List<Coupon> usedCoupons;
+   }
+
+   PriceComputationResult doComputePrices(Customer customer,
                                                        List<Product> products,
                                                        Map<Long, Double> prices) {
       List<Coupon> usedCoupons = new ArrayList<>();
@@ -49,7 +54,7 @@ public class PriceServiceRefactored {
          }
          finalPrices.put(product.getId(), price);
       }
-      return new PriceService.PriceComputationResult(finalPrices, usedCoupons);
+      return new PriceComputationResult(finalPrices, usedCoupons);
    }
 
    private Map<Long, Double> resolvePrices(List<Product> products, Map<Long, Double> internalPrices) {
