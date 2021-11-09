@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 @Slf4j
@@ -18,6 +19,9 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 // 2) DB
 // 3) state pe singletoane
 // 4) register la cozi
+
+
+// doar ora are CONNECT BY,   /*+ hint */
 
 @Transactional
 
