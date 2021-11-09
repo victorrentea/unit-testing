@@ -4,34 +4,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 @Slf4j
-@SpringBootTest
-@ActiveProfiles("db-real")
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // distruge contextul de spring: rupe jenkinsul in doua. NU COMITI Pe GIT ci folosesti doar pentru a investiga cuplari prin spring:
 // exemple
 // 1) cache
 // 2) DB
 // 3) state pe singletoane
 // 4) register la cozi
-
-
-// doar ora are CONNECT BY,   /*+ hint */
-
-@Transactional
-
 //@Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class ProductRepoTest {
+public class ProductRepoTest extends RepoTestBase {
    @Autowired
    private ProductRepo repo;
-   @Autowired
-   private SupplierRepo supplierRepo;
 
    private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
@@ -58,7 +44,7 @@ public class ProductRepoTest {
    @Test
    public void asdsabySupplier() {
       Product product = new Product("B")
-          .setSupplier(new Supplier());
+          .setSupplier(supplier);
       repo.save(product);
       Assertions.assertThat(repo.search(criteria)).hasSize(1);
    }
