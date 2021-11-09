@@ -25,6 +25,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This test is supposed to test a fully packaged docker image built and deployed at test time.
+ */
 @Slf4j
 @Tag("integration")
 @Ignore("Out of scope")
