@@ -38,6 +38,8 @@ public class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
+		/* logica COMPLEXA cu cyclomatic complexity =7 teste necesare */
+
 		ClientConfiguration config = createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
@@ -48,7 +50,7 @@ public class TelemetryDiagnostic {
 
 	ClientConfiguration createConfig(String version) { // package protected
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(version + "-" + UUID.randomUUID());
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());
 		/* logica COMPLEXA cu cyclomatic complexity =20 ~= 20 de teste trebe aci */
 		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza

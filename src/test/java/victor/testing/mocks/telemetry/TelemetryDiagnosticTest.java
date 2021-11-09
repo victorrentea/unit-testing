@@ -5,9 +5,9 @@ import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -19,7 +19,6 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +27,7 @@ public class TelemetryDiagnosticTest {
    @Mock
    TelemetryClient clientMock;
    @InjectMocks
+       @Spy
    TelemetryDiagnostic target;
 
    @BeforeEach
@@ -50,6 +50,8 @@ public class TelemetryDiagnosticTest {
 
    @Test
    public void disconnects() {
+      doReturn(new ClientConfiguration()).when(target).createConfig(any());
+//      when(clientMock.getVersion()).thenReturn("cevaNeNull_de_ce_mio_Trebui?!");
       target.checkTransmission(true);
 
       verify(clientMock).disconnect(true);
@@ -82,22 +84,22 @@ public class TelemetryDiagnosticTest {
           () -> target.checkTransmission(true));
    }
 
-   @Test
-   void configuresClient() {
-      when(clientMock.getVersion()).thenReturn("ver");
-
-      target.checkTransmission(true);
-
-      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
-      verify(clientMock).configure(configCaptor.capture());
-      ClientConfiguration config = configCaptor.getValue();
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-      Assertions.assertThat(config.getSessionStart()).isNotNull();
-      Assertions.assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(5, SECONDS));
-      assertThat(config.getSessionId())
-          .startsWith("ver-")
-          .hasSizeGreaterThan(10);
-   }
+//   @Test
+//   void configuresClient() {
+//      when(clientMock.getVersion()).thenReturn("ver");
+//
+//      target.checkTransmission(true);
+//
+//      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
+//      verify(clientMock).configure(configCaptor.capture());
+//      ClientConfiguration config = configCaptor.getValue();
+//      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+//      Assertions.assertThat(config.getSessionStart()).isNotNull();
+//      Assertions.assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(5, SECONDS));
+//      assertThat(config.getSessionId())
+//          .startsWith("ver-")
+//          .hasSizeGreaterThan(10);
+//   }
 
 
    @Test
@@ -108,7 +110,7 @@ public class TelemetryDiagnosticTest {
       Assertions.assertThat(config.getSessionStart()).isNotNull();
       Assertions.assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(5, SECONDS));
       assertThat(config.getSessionId())
-          .startsWith("ver-")
+          .startsWith("VER-")
           .hasSizeGreaterThan(10);
 
    }
