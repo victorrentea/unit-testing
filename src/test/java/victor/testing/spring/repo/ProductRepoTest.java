@@ -13,7 +13,7 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 @Slf4j
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("db-real")
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // distruge contextul de spring: rupe jenkinsul in doua. NU COMITI Pe GIT ci folosesti doar pentru a investiga cuplari prin spring:
 // exemple
 // 1) cache
@@ -28,35 +28,40 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 //@Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public class ProductRepoTest {
-    @Autowired
-    private ProductRepo repo;
-    @Autowired
-    private SupplierRepo supplierRepo;
+   @Autowired
+   private ProductRepo repo;
+   @Autowired
+   private SupplierRepo supplierRepo;
 
-    private ProductSearchCriteria criteria = new ProductSearchCriteria();
+   private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-    // anti pattern in DB relational: se fol doar pt resurse non-tranzactionate: fisiere, nosql DBs, cache-uri
-    //    @BeforeEach
-//    final void before() {
-//        log.info("Clean db");
-//        supplierRepo.deleteAll();
-//        repo.deleteAll();
-//    }
-    @Test
-    public void noCriteria() {
-        repo.save(new Product("A"));
-        Assertions.assertThat(repo.search(criteria)).hasSize(1);
-    }
-    @Test
-    public void noCriteriaBis() {
-        repo.save(new Product("B"));
-        Assertions.assertThat(repo.search(criteria)).hasSize(1);
-    }
-    @Test
-    public void asdsabySupplier() {
-        repo.save(new Product("B")).setSupplier(new Supplier());
-        Assertions.assertThat(repo.search(criteria)).hasSize(1);
-    }
+   // anti pattern in DB relational: se fol doar pt resurse non-tranzactionate: fisiere, nosql DBs, cache-uri
+//   @BeforeEach
+//   final void before() {
+//      log.info("Clean db");
+//      supplierRepo.deleteAll();
+//      repo.deleteAll();
+//   }
+
+   @Test
+   public void noCriteria() {
+      repo.save(new Product("A"));
+      Assertions.assertThat(repo.search(criteria)).hasSize(1);
+   }
+
+   @Test
+   public void noCriteriaBis() {
+      repo.save(new Product("B"));
+      Assertions.assertThat(repo.search(criteria)).hasSize(1);
+   }
+
+   @Test
+   public void asdsabySupplier() {
+      Product product = new Product("B")
+          .setSupplier(new Supplier());
+      repo.save(product);
+      Assertions.assertThat(repo.search(criteria)).hasSize(1);
+   }
 
 }
 
