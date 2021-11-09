@@ -38,9 +38,9 @@ public class TelemetryDiagnostic {
 		}
 
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID().toString());
+		config.setSessionId(telemetryClient.getVersion() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());
-		// logica complexa cu cyclomatic complexity =20 ~= 20 de teste trebe aci
+		/* logica complexa cu cyclomatic complexity =20 ~= 20 de teste trebe aci */
 		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
 		telemetryClient.configure(config);
 
