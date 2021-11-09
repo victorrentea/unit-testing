@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -37,7 +39,7 @@ public class TelemetryDiagnosticTest {
    public void sendsDiagnosticInfo() {
       when(client.getOnlineStatus()).thenReturn(true);
       target.checkTransmission(true);
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE, LocalDateTime.now());
    }
 
    @Test

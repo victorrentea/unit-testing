@@ -9,41 +9,79 @@ import java.util.UUID;
 public class TelemetryDiagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient telemetryClient;
+	private final ClientConfigFactory clientConfigFactory;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(TelemetryClient telemetryClient) {
+	public TelemetryDiagnostic(TelemetryClient telemetryClient, ClientConfigFactory clientConfigFactory) {
 		this.telemetryClient = telemetryClient;
+		this.clientConfigFactory = clientConfigFactory;
 	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
+
 	public void setDiagnosticInfo(String diagnosticInfo) {
 		this.diagnosticInfo = diagnosticInfo;
 	}
 
+
+	// XXX: ASTA O TESTEZ
 	public void checkTransmission(boolean force) {
 		telemetryClient.disconnect(force);
 
 		int currentRetry = 1;
-		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
+		while (!telemetryClient.getOnlineStatus() && currentRetry <= 3) {
 			telemetryClient.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
-			currentRetry ++;
+			currentRetry++;
 		}
 
-		if (! telemetryClient.getOnlineStatus()) {
+		if (!telemetryClient.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		/* logica COMPLEXA cu cyclomatic complexity =7 teste necesare */
+
+		ClientConfiguration config = clientConfigFactory.createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE, LocalDateTime.now()); // asta
 		diagnosticInfo = telemetryClient.receive();
+	}
+}
+class ClientConfigFactory {
+
+	public ClientConfiguration createConfig(String version) { // package protected
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
+		config.setSessionStart(LocalDateTime.now());
+		/* logica COMPLEXA cu cyclomatic complexity =20 ~= 20 de teste trebe aci */
+		config.setAckMode(AckMode.NORMAL); // ASTA testam dupa pauza
+		return config;
 	}
 
 }
+
+
+//class UnServiciu {
+////	@EJB/@Autowired
+//	private SomeRepo repo;
+//	private SomeRepo repo;
+//	private SomeRepo repo;
+//	private SomeRepo repo;
+//	private SomeRepo repo;
+//
+//	public void method() {
+//		repo.findAll();
+//		repo.findById();
+//
+//		order =  metodaDeTestatDirect(user, products);
+//
+//		repo.save(order);
+//	}
+//
+//	void metodaDeTestatDirect() {
+//		// 7
+//	}
+//}
