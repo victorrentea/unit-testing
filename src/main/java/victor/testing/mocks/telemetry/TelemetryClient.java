@@ -64,7 +64,7 @@ public class TelemetryClient {
 		throw new IllegalStateException("Performs some external remote call impossible/not desirable to call from automated tests.");
 	}
 
-	public void send(String message, LocalDateTime currentTime) {
+	public void send(String message) {
 		if (message == null || "".equals(message)) {
 			throw new IllegalArgumentException();
 		}

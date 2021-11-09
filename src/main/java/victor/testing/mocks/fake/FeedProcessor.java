@@ -1,6 +1,5 @@
 package victor.testing.mocks.fake;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +10,13 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 
 @Slf4j
-@Service @RequiredArgsConstructor
+@Service
 public class FeedProcessor {
-   private final IFileRepo fileRepo;
+   private final FileRepo fileRepo;
 
+   public FeedProcessor(FileRepo fileRepo) {
+      this.fileRepo = fileRepo;
+   }
 
    public int countPendingLines() {
       Collection<String> names = fileRepo.getFileNames();
