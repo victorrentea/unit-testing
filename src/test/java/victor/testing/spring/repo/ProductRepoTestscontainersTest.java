@@ -33,9 +33,9 @@ public class ProductRepoTestscontainersTest {
     @DynamicPropertySource
     public static void registerPgProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", () -> injectP6SPY(postgres.getJdbcUrl()));
+        registry.add("spring.datasource.driver-class-name", ()-> "com.p6spy.engine.spy.P6SpyDriver");
         registry.add("spring.datasource.username", postgres::getUsername);
         registry.add("spring.datasource.password", postgres::getPassword);
-        registry.add("spring.datasource.driver-class-name", ()-> "com.p6spy.engine.spy.P6SpyDriver");
     }
 
 

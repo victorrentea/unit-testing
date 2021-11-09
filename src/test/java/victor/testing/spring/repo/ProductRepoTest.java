@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 @Slf4j
