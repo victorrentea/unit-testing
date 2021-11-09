@@ -1,0 +1,20 @@
+{
+  "id" : "bea2fee4-a96a-44bc-abf4-a02fae6154f6",
+  "name" : "product_bar_safety",
+  "request" : {
+    "url" : "/product/bar/safety",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"entries\": [{\"category\": \"UNCERTAIN\",\"detailsUrl\": \"http://wikipedia.com\"}]}",
+    "headers" : {
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 09 Nov 2021 14:26:44 GMT",
+      "Keep-Alive" : "timeout=60"
+    }
+  },
+  "uuid" : "bea2fee4-a96a-44bc-abf4-a02fae6154f6",
+  "persistent" : true,
+  "insertionIndex" : 1
+}
