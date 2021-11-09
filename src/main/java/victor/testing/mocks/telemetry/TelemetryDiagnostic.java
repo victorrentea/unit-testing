@@ -45,6 +45,7 @@ public class TelemetryDiagnostic {
 		diagnosticInfo = telemetryClient.receive();
 	}
 
+
 	ClientConfiguration createConfig(String version) { // package protected
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(version + "-" + UUID.randomUUID());
@@ -55,3 +56,26 @@ public class TelemetryDiagnostic {
 	}
 
 }
+
+
+//class UnServiciu {
+////	@EJB/@Autowired
+//	private SomeRepo repo;
+//	private SomeRepo repo;
+//	private SomeRepo repo;
+//	private SomeRepo repo;
+//	private SomeRepo repo;
+//
+//	public void method() {
+//		repo.findAll();
+//		repo.findById();
+//
+//		order =  metodaDeTestatDirect(user, products);
+//
+//		repo.save(order);
+//	}
+//
+//	void metodaDeTestatDirect() {
+//		// 7
+//	}
+//}
