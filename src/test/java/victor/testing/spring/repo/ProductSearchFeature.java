@@ -5,7 +5,7 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:product-search.feature",
+@CucumberOptions(features = "classpath:features/product-search.feature",
         glue = {"victor.testing.spring.repo","victor.testing.tools"})
 public class ProductSearchFeature {
 

@@ -1,9 +1,5 @@
 package victor.testing.db;
 
-import static java.util.Collections.singletonList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +9,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import victor.testing.db.prod.NotificationRepo;
 import victor.testing.db.prod.ReportingRepo;
+
+import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("realdb") // result is preserved in a read DB (stored on disk)
@@ -59,7 +58,7 @@ public class NonTransactionalTest {
 	}
 
 	// !! NOTE: Placing .sql files next to JUnit tests is possible only if in pom.xml you have <testResources> src/test/java
-	@Sql("/common-reference-data.sql")// SOLUTION
+	@Sql("/sql/common-reference-data.sql")// SOLUTION
 	@Sql// SOLUTION
 	// @CleanupSql // TODO
 	@Test

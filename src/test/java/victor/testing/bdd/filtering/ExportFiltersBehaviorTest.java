@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = {"classpath:export-filters.feature"}, glue={"ro.victor.unittest.bdd.filtering"})
+@CucumberOptions(features = {"classpath:features/export-filters.feature"}, glue={"ro.victor.unittest.bdd.filtering"})
 public class ExportFiltersBehaviorTest {
 
 }
