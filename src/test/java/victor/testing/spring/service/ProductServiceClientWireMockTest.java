@@ -34,13 +34,12 @@ public class ProductServiceClientWireMockTest {
    @Autowired
    private ProductService productService;
 
+   // @Rule WireMockRule 9999 // junit 4
    @RegisterExtension
    public WireMockExtension wireMock = new WireMockExtension(9999);
 
    @Test
    public void createThrowsForUnsafeProduct() {
-//      wireMock.stubFor(WireMock.get("http://"))
-
       Assertions.assertThrows(IllegalStateException.class, () -> {
          productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
       });
