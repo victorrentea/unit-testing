@@ -1,6 +1,5 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -15,15 +14,14 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceClientMockTest {
@@ -38,17 +36,19 @@ public class ProductServiceClientMockTest {
 
    @Test
    public void createThrowsForUnsafeProduct() {
-      Assertions.assertThrows(IllegalStateException.class, () -> {
-         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-         productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
+      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+
+      assertThrows(IllegalStateException.class, () -> {
+         productService.createProduct(new ProductDto(
+             "name", "bar",-1L, ProductCategory.HOME));
       });
    }
 
    @Test
    public void createOk() {
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getOne(supplier.getId())).thenReturn(supplier);
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      Supplier supplier = new Supplier().setId(13L);
+      when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
 
       productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
 
