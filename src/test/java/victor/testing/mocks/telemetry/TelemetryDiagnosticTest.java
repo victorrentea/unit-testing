@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,19 +18,18 @@ public class TelemetryDiagnosticTest {
    @InjectMocks
    TelemetryDiagnostic target;
 
+   @BeforeEach
+   final void before() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+   }
    @Test
    public void disconnects() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
-
       target.checkTransmission(true);
 
       verify(clientMock).disconnect(true);
    }
-
    @Test
    public void sendsDiagnosticMessage() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
-
       target.checkTransmission(true);
 
       verify(clientMock).send(
@@ -39,7 +39,6 @@ public class TelemetryDiagnosticTest {
 
    @Test
    public void receivesDiagnosticInfo() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
       when(clientMock.receive()).thenReturn("::tataie::"); // stubbing pe receive
 
       target.checkTransmission(true);
@@ -49,11 +48,9 @@ public class TelemetryDiagnosticTest {
       // care-i aia <1%? pe api externe
    }
 
-
-
    @Test
    public void throwsWhenNotOnline() {
-      when(clientMock.getOnlineStatus()).thenReturn(false);
+      when(clientMock.getOnlineStatus()).thenReturn(false); // reprogramam mockul
 
       assertThrows(IllegalStateException.class,
           () -> target.checkTransmission(true));
