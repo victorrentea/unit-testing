@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -26,8 +25,9 @@ import static org.mockito.Mockito.*;
 public class TelemetryDiagnosticTest {
    @Mock
    TelemetryClient clientMock;
+   @Mock
+   ClientConfigFactory clientConfigFactoryMock;
    @InjectMocks
-       @Spy
    TelemetryDiagnostic target;
 
    @BeforeEach
@@ -50,12 +50,11 @@ public class TelemetryDiagnosticTest {
 
    @Test
    public void disconnects() {
-      doReturn(new ClientConfiguration()).when(target).createConfig(any());
-//      when(clientMock.getVersion()).thenReturn("cevaNeNull_de_ce_mio_Trebui?!");
       target.checkTransmission(true);
 
       verify(clientMock).disconnect(true);
    }
+
    @Test
    public void sendsDiagnosticMessage() {
       target.checkTransmission(true);
@@ -84,6 +83,18 @@ public class TelemetryDiagnosticTest {
           () -> target.checkTransmission(true));
    }
 
+   @Test // in practica... asta.... daca e timp...
+   void configuresClientWithConfigFromFactory() {
+      ClientConfiguration config = new ClientConfiguration();
+      when(clientConfigFactoryMock.createConfig("ver")).thenReturn(config);
+      when(clientMock.getVersion()).thenReturn("ver");
+
+      target.checkTransmission(true);
+
+      verify(clientMock).configure(config); // == acelasi
+
+   }
+
 //   @Test
 //   void configuresClient() {
 //      when(clientMock.getVersion()).thenReturn("ver");
@@ -101,7 +112,9 @@ public class TelemetryDiagnosticTest {
 //          .hasSizeGreaterThan(10);
 //   }
 
-
+}
+class ClientConfigFactoryTest {
+   ClientConfigFactory target = new ClientConfigFactory();
    @Test
    void configuresClientDirectCall() {
       ClientConfiguration config = target.createConfig("ver");

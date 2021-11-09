@@ -10,15 +10,18 @@ public class TelemetryDiagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final TelemetryClient telemetryClient;
+	private final ClientConfigFactory clientConfigFactory;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnostic(TelemetryClient telemetryClient) {
+	public TelemetryDiagnostic(TelemetryClient telemetryClient, ClientConfigFactory clientConfigFactory) {
 		this.telemetryClient = telemetryClient;
+		this.clientConfigFactory = clientConfigFactory;
 	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
+
 	public void setDiagnosticInfo(String diagnosticInfo) {
 		this.diagnosticInfo = diagnosticInfo;
 	}
@@ -29,26 +32,27 @@ public class TelemetryDiagnostic {
 		telemetryClient.disconnect(force);
 
 		int currentRetry = 1;
-		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
+		while (!telemetryClient.getOnlineStatus() && currentRetry <= 3) {
 			telemetryClient.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
-			currentRetry ++;
+			currentRetry++;
 		}
 
-		if (! telemetryClient.getOnlineStatus()) {
+		if (!telemetryClient.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
 		/* logica COMPLEXA cu cyclomatic complexity =7 teste necesare */
 
-		ClientConfiguration config = createConfig(telemetryClient.getVersion());
+		ClientConfiguration config = clientConfigFactory.createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE, LocalDateTime.now()); // asta
 		diagnosticInfo = telemetryClient.receive();
 	}
+}
+class ClientConfigFactory {
 
-
-	ClientConfiguration createConfig(String version) { // package protected
+	public ClientConfiguration createConfig(String version) { // package protected
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());
