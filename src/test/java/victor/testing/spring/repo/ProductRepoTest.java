@@ -6,14 +6,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
+
 @Slf4j
 @SpringBootTest
 @ActiveProfiles("db-mem")
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // distruge contextul de spring: rupe jenkinsul in doua. NU COMITI Pe GIT ci folosesti doar pentru a investiga cuplari prin spring:
+// exemple
+// 1) cache
+// 2) DB
+// 3) state pe singletoane
+// 4) register la cozi
+
 @Transactional
+
 //@Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public class ProductRepoTest {
     @Autowired
