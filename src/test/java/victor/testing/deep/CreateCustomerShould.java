@@ -64,6 +64,7 @@ class CreateCustomerShould {
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
              .isInstanceOf(IllegalArgumentException.class);
       }
+
       @Test
       void failForMissingCity() {
          aValidCustomer.getAddress().setCity(null);
