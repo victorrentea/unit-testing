@@ -1,8 +1,6 @@
 package victor.testing.spring.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,34 +9,45 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.web.dto.ProductDto;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Transactional
 @SpringBootTest
-@AutoConfigureMockMvc
 @ActiveProfiles("db-mem")
+@Transactional
+@AutoConfigureMockMvc
 public class ProductMvcTest {
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc; // nu se porneste nici un Tomcat pe sub
 
     @Autowired
     private ProductRepo productRepo;
 
+//    @TestConfiguration
+//    static class TestConfig {
+//        @Bean
+//        public void method() {
+//
+//        }
+//    }
+    
     @Test
     public void testSearch() throws Exception {
         productRepo.save(new Product().setName("Tree"));
 
         mockMvc.perform(post("/product/search")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{}") // empty criteria
-        )
+            .content("""
+                     {  
+                        "name": "Tree"
+                     }
+                   """) // empty criteria
+        ) // ramai in acelasi thread cu testul si cu procesarea requestului
+            // care permite sa mearga @Transactional;.
+
             .andExpect(status().isOk()) // 200
             .andExpect(header().string("Custom-Header", "true"))
             .andExpect(jsonPath("$", hasSize(1)));

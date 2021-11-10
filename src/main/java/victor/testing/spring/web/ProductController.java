@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.testing.spring.service.ProductService;
+import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
-import victor.testing.spring.web.dto.ProductDto;
 
 import java.util.List;
 
