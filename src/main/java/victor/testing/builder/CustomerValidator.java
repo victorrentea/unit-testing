@@ -1,5 +1,7 @@
 package victor.testing.builder;
 
+import java.util.function.Predicate;
+
 public class CustomerValidator {
 	public void validate(Customer customer) {
 		if (customer.getName() == null) {
@@ -37,5 +39,8 @@ class MyException extends RuntimeException {
 	}
 	private final ErrorCode errorCode;
 
-
+	// to use in tests:
+	public static <T extends Throwable> Predicate<T> hasCode(ErrorCode errorCode) {
+		return e -> (e instanceof MyException && ((MyException) e).errorCode == errorCode);
+	}
 }
