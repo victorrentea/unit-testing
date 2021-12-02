@@ -15,7 +15,6 @@ import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static victor.testing.tools.TestcontainersUtil.injectP6SPY;
 
 @Transactional
 @SpringBootTest
@@ -31,7 +30,13 @@ public class ProductRepoTestcontainersTest {
 
    private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
- // FIME
+   public static String injectP6SPY(String originalJdbcUrl) {
+      String remainingUrl = originalJdbcUrl.substring("jdbc:".length());
+      String p6spyUrl = "jdbc:p6spy:" + remainingUrl;
+      System.out.println("Injected p6spy into jdbc url:" + p6spyUrl + "; ORIGINAL=" + originalJdbcUrl);
+      return p6spyUrl;
+   }
+
    @SneakyThrows
    @DynamicPropertySource
    public static void registerPgProperties(DynamicPropertyRegistry registry) {
