@@ -9,12 +9,17 @@ import java.util.UUID;
 public class TelemetryDiagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient client;
 	private String diagnosticInfo = "";
+//	private ClientConfiguration config; // BAD = design damage: add mutable state NEVER!!🩸 + break encapsulation just for tests
+//	ClientConfiguration getConfig() {
+//		return config;
+//	}
 
-	public void setTelemetryClient(TelemetryClient telemetryClient) {
-		this.telemetryClient = telemetryClient;
+	public TelemetryDiagnostic(TelemetryClient telemetryClient) {
+		this.client = telemetryClient;
 	}
+
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
@@ -24,26 +29,26 @@ public class TelemetryDiagnostic {
 	}
 
 	public void checkTransmission(boolean force) {
-		telemetryClient.disconnect(force);
+		client.disconnect(force);
 
 		int currentRetry = 1;
-		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
-			telemetryClient.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
+		while (! client.getOnlineStatus() && currentRetry <= 3) {
+			client.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
 			currentRetry ++;
 		}
 
-		if (! telemetryClient.getOnlineStatus()) {
+		if (! client.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
-		telemetryClient.configure(config);
+		client.configure(config);
 
-		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
-		diagnosticInfo = telemetryClient.receive();
+		client.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		diagnosticInfo = client.receive();
 	}
 
 }
