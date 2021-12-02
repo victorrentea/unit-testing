@@ -2,7 +2,7 @@ package victor.testing.tdd.outsidein;
 
 public class TennisGame {
 
-   private static String score = "Love:Love";
+   private String score = "Love:Love";
 
    enum Player {
       ONE,
@@ -10,10 +10,10 @@ public class TennisGame {
    }
 
 
-   public static String getScore() {
+   public String getScore() {
       return score;
    }
-   public static void playerWonPoint(Player player) {
+   public void playerWonPoint(Player player) {
       if (player == Player.ONE) {
          score = "Fifteen:Love" ;
       }else {

@@ -10,35 +10,31 @@ public class TennisGameTest {
       // scores from zero to three points are described as “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
    @Test
    void loveLove_givenANewGame() {
+      String actual = new TennisGame().getScore();
 
-      // when
-      String actual = TennisGame.getScore();
-
-      // then
       assertThat(actual).isEqualTo("Love:Love"); // 💗 AssertJ library
    }
 
    @Test
    void fifteenLove_givenPlayer1Scores() {
       // given
-      TennisGame.playerWonPoint(Player.ONE);
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.playerWonPoint(Player.ONE);
 
       // when
-      String actual = TennisGame.getScore();
+      String actual = tennisGame.getScore();
 
       // then
       assertThat(actual).isEqualTo("Fifteen:Love");
    }
 
    @Test
-   void loveFiftee_givenPlayer2Scores() {
-      // given
-      TennisGame.playerWonPoint(Player.TWO);
+   void loveFifteen_givenPlayer2Scores() {
+      TennisGame tennisGame = new TennisGame();
+      tennisGame.playerWonPoint(Player.TWO);
 
-      // when
-      String actual = TennisGame.getScore();
+      String actual = tennisGame.getScore();
 
-      // then
       assertThat(actual).isEqualTo("Love:Fifteen");
    }
 
