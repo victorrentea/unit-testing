@@ -1,7 +1,7 @@
-package victor.testing.tdd.outsidein;
+package victor.testing.tdd;
 
 import org.junit.jupiter.api.Test;
-import victor.testing.tdd.outsidein.TennisGame.Player;
+import victor.testing.tdd.TennisGame.Player;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

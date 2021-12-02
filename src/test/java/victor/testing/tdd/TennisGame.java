@@ -1,4 +1,4 @@
-package victor.testing.tdd.outsidein;
+package victor.testing.tdd;
 
 import static java.util.Objects.requireNonNull;
 

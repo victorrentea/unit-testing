@@ -1,10 +1,10 @@
-package victor.testing.tdd.outsidein;
+package victor.testing.tdd;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import victor.testing.tdd.outsidein.TennisGame.Player;
+import victor.testing.tdd.TennisGame.Player;
 
 import java.util.stream.Stream;
 
