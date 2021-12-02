@@ -4,7 +4,8 @@ import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.Test;
 
 public class SoftAssertions {
-   
+
+
    
 //   @Test
 //   void test() {

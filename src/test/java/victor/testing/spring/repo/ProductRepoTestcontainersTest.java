@@ -15,7 +15,7 @@ import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static victor.testing.tools.TestcontainersUtil.injectP6SPY;
+//import static victor.testing.tools.TestcontainersUtil.injectP6SPY;
 
 @Transactional
 @SpringBootTest
@@ -35,7 +35,7 @@ public class ProductRepoTestcontainersTest {
    @SneakyThrows
    @DynamicPropertySource
    public static void registerPgProperties(DynamicPropertyRegistry registry) {
-      registry.add("spring.datasource.url", () -> injectP6SPY(postgres.getJdbcUrl()));
+      registry.add("spring.datasource.url", () -> /*injectP6SPY*/(postgres.getJdbcUrl()));
       registry.add("spring.datasource.driver-class-name", ()-> "com.p6spy.engine.spy.P6SpyDriver");
 
 //      registry.add("spring.datasource.url", () -> postgres.getJdbcUrl());
