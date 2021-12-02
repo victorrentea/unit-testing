@@ -15,4 +15,5 @@ public class Customer {
 	private Address address = new Address();
 	private Date createDate;
 	private List<Coupon> coupons = new ArrayList<>();
+
 }

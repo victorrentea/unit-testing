@@ -1,5 +1,7 @@
 package victor.testing.builder;
 
+import victor.testing.builder.MyException.ErrorCode;
+
 import java.util.function.Predicate;
 
 public class CustomerValidator {
@@ -16,12 +18,10 @@ public class CustomerValidator {
 	
 	private void validateAddress(Address address) {
 		if (address.getCity() == null) {
-			throw new IllegalArgumentException("Missing address city");
+//			throw new IllegalArgumentException("Missing address city");
+			throw new MyException(ErrorCode.CUSTOMER_MISSING_CITY);
 		}
 		address.setCity(address.getCity().trim()); // mutate this
-		if (address.getCity().length() < 3) {
-			throw new IllegalArgumentException("Address city too short");
-		}
 	}
 }
 
