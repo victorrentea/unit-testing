@@ -18,43 +18,4 @@ public class TelemetryDiagnosticTest {
    private TelemetryClient client;
    @InjectMocks
    private TelemetryDiagnostic target;
-
-   @Test
-   public void disconnects() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).disconnect(true);
-   }
-
-   @Test
-   public void throwsWhenNotOnline() {
-      when(client.getOnlineStatus()).thenReturn(false);
-      Assertions.assertThrows(IllegalStateException.class, () ->
-          target.checkTransmission(true));
-   }
-
-   @Test
-   public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
-   }
-
-   @Test
-   public void receivesDiagnosticInfo() {
-      // TODO inspect
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
-      target.checkTransmission(true);
-      verify(client).receive();
-      assertThat(target.getDiagnosticInfo()).isEqualTo("tataie");
-   }
-
-   @Test
-   public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
-   }
 }
