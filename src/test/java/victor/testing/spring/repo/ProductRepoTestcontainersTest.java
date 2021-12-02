@@ -31,7 +31,7 @@ public class ProductRepoTestcontainersTest {
 
    private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-
+ // FIME
    @SneakyThrows
    @DynamicPropertySource
    public static void registerPgProperties(DynamicPropertyRegistry registry) {

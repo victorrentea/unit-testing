@@ -1,4 +1,4 @@
-package victor.testing.tdd;
+package victor.testing.tdd.classic;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(Parameterized.class)
-public class TennisGameParameterizedTest {
+public class TennisGameParameterized4Test {
 
     private final int player1Score;
     private final int player2Score;
@@ -30,7 +30,7 @@ public class TennisGameParameterizedTest {
         );
     }
 
-    public TennisGameParameterizedTest(int player1Score, int player2Score, String expectedScoreString) {
+    public TennisGameParameterized4Test(int player1Score, int player2Score, String expectedScoreString) {
         this.player1Score = player1Score;
         this.player2Score = player2Score;
         this.expectedScoreString = expectedScoreString;

@@ -1,4 +1,4 @@
-package victor.testing.tdd;
+package victor.testing.tdd.classic;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;

@@ -1,4 +1,4 @@
-package victor.testing.tdd;
+package victor.testing.tdd.classic;
 
 import org.apache.commons.lang3.NotImplementedException;
 
