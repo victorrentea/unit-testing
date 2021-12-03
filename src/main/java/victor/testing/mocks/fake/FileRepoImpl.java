@@ -1,9 +1,11 @@
 package victor.testing.mocks.fake;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -12,7 +14,8 @@ import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 
 @Component
-public class FileRepo implements IFileRepo {
+//@Profile("!test")
+public class FileRepoImpl implements IFileRepo {
    @Value("${feed.in.folder}")
    private File inFolder;
 

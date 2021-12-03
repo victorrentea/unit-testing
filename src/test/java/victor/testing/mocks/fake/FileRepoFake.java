@@ -1,11 +1,17 @@
 package victor.testing.mocks.fake;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@Component
+@Primary
+//@Profile("test")
 public class FileRepoFake implements IFileRepo{
    private final Map<String, List<String>> data = new HashMap<>();
 
@@ -21,5 +27,9 @@ public class FileRepoFake implements IFileRepo{
 
    public void addFile(String fileName, String... lines) {
       data.put(fileName, List.of(lines));
+   }
+
+   public void clear() {
+      data.clear();
    }
 }
