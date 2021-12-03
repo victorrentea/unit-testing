@@ -104,8 +104,10 @@ public class TelemetryDiagnosticTest {
       assertThat(config.getSessionStart()).isNotNull();
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // 5% best developers
       assertThat(config.getSessionId())
-          .startsWith("ver-")
+          .startsWith("VER-")
           .hasSizeGreaterThan(10);
    }
 
+
+   // CR-1424 : the client version in session id should be only in uppercase
 }

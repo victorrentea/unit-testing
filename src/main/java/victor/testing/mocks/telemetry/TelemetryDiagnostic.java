@@ -53,7 +53,7 @@ public class TelemetryDiagnostic {
    @VisibleForTesting
    ClientConfiguration createConfig() {
       ClientConfiguration config = new ClientConfiguration();
-      config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID());
+      config.setSessionId(client.getVersion().toUpperCase() + "-" + UUID.randomUUID());
       config.setSessionStart(LocalDateTime.now());
       // HARD-CORE 20 lines of logic, we need 8 tests to pass through this logic
       config.setAckMode(AckMode.NORMAL);
