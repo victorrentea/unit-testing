@@ -3,10 +3,7 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -27,18 +24,20 @@ public class TelemetryDiagnosticTest {
    private TelemetryClient clientMock;// = Mockito.mock(TelemetryClient.class);
 
    @InjectMocks
+   @Spy
    private TelemetryDiagnostic target;
 
    @BeforeEach
    final void before() {
       when(clientMock.getOnlineStatus()).thenReturn(true); // useful for the majority of @Test below
-      when(clientMock.getVersion()).thenReturn("wtf do i need this?!@&$&&*&*@");
+//      when(clientMock.getVersion()).thenReturn("wtf do i need this?!@&$&&*&*@");
    }
    
    @Test
    void disconnects() {
 //      Mockito.doReturn("aaa").when(clientMock.getOnlineStatus());  // NEVER use this
       // doReturn is only used when using @Spy (partial mocks) which are ANTI-PATTERNS
+      doReturn(new ClientConfiguration()).when(target).createConfig();
 
       target.checkTransmission(true);
 
@@ -48,6 +47,8 @@ public class TelemetryDiagnosticTest {
    @Test
    void throwsWhenNotOnline() {
       // given
+      doReturn(new ClientConfiguration()).when(target).createConfig();
+
       when(clientMock.getOnlineStatus()).thenReturn(false); // overrides the stubbed behavior from beforeEach
 
       //when
@@ -56,6 +57,7 @@ public class TelemetryDiagnosticTest {
 
    @Test
    void send() {
+      doReturn(new ClientConfiguration()).when(target).createConfig();
 
       target.checkTransmission(true);
 
@@ -68,6 +70,7 @@ public class TelemetryDiagnosticTest {
    void receives() {
       // given
       when(clientMock.receive()).thenReturn("::receivedData::");
+      doReturn(new ClientConfiguration()).when(target).createConfig();
 
       // when
       target.checkTransmission(true);
