@@ -1,6 +1,5 @@
 package victor.testing.mocks.telemetry;
 
-import com.google.common.annotations.VisibleForTesting;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -11,14 +10,16 @@ public class TelemetryDiagnostic {
    public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
    private final TelemetryClient client;
+   private final ClientConfigurationFactory configurationFactory;
    private String diagnosticInfo = "";
 //	private ClientConfiguration config; // BAD = design damage: add mutable state NEVER!!🩸 + break encapsulation just for tests
 //	ClientConfiguration getConfig() {
 //		return config;
 //	}
 
-   public TelemetryDiagnostic(TelemetryClient telemetryClient) {
+   public TelemetryDiagnostic(TelemetryClient telemetryClient, ClientConfigurationFactory configurationFactory) {
       this.client = telemetryClient;
+      this.configurationFactory = configurationFactory;
    }
 
 
@@ -43,15 +44,18 @@ public class TelemetryDiagnostic {
          throw new IllegalStateException("Unable to connect.");
       }
 
-      ClientConfiguration config = createConfig(client.getVersion());
+      ClientConfiguration config = configurationFactory.createConfig(client.getVersion());
       client.configure(config);
 
       client.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
       diagnosticInfo = client.receive();
    }
 
-   @VisibleForTesting
-   ClientConfiguration createConfig(String version) {
+}
+
+class ClientConfigurationFactory {
+
+   public ClientConfiguration createConfig(String version) {
       ClientConfiguration config = new ClientConfiguration();
       config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
       config.setSessionStart(LocalDateTime.now());
@@ -59,8 +63,4 @@ public class TelemetryDiagnostic {
       config.setAckMode(AckMode.NORMAL);
       return config;
    }
-}
-
-class ClientConfigurationFactory {
-
 }

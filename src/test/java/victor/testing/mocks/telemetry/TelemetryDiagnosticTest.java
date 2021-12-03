@@ -3,7 +3,8 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -19,9 +20,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class) // @RunWith(MockitoJUnitRunner)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class TelemetryDiagnosticTest {
-//   private TelemetryClient clientMock;
+   //   private TelemetryClient clientMock;
    @Mock
    private TelemetryClient clientMock;// = Mockito.mock(TelemetryClient.class);
+   @Mock
+   private ClientConfigurationFactory configurationFactoryMock;// = Mockito.mock(TelemetryClient.class);
 
    @InjectMocks
    private TelemetryDiagnostic target;
@@ -31,7 +34,7 @@ public class TelemetryDiagnosticTest {
       when(clientMock.getOnlineStatus()).thenReturn(true); // useful for the majority of @Test below
 //      when(clientMock.getVersion()).thenReturn("wtf do i need this?!@&$&&*&*@");
    }
-   
+
    @Test
    void disconnects() {
 //      Mockito.doReturn("aaa").when(clientMock.getOnlineStatus());  // NEVER use this
@@ -61,7 +64,7 @@ public class TelemetryDiagnosticTest {
       verify(clientMock).send("AT#UD"); // prefer this when the data goes to an external system (is part of a protocl)
       verify(clientMock).send(anyString()); // weakest
    }
-   
+
    @Test
    void receives() {
       // given
@@ -80,15 +83,32 @@ public class TelemetryDiagnosticTest {
    }
 //      verify(clientMock, never()).paidCall(); // $
 //      verify(clientMock, never()).reportBadLoanPayer(customerId); // critical damaging side effect
-
-   @Captor
-   ArgumentCaptor<ClientConfiguration> captor;
+//
+//   @Captor
+//   ArgumentCaptor<ClientConfiguration> captor;
 
 // alternative to captors:   verify(clientMock).configure(argThat(config -> config.getAckMode().equals(AckMode.NORMAL)));
 
-      // in case the class you are testing is part of a public API of a library,
-      // used by unknown devs
-      //      TelemetryDiagnostic.class.getDeclaredMethod("createConfig");
+   // in case the class you are testing is part of a public API of a library,
+   // used by unknown devs
+   //      TelemetryDiagnostic.class.getDeclaredMethod("createConfig");
+
+
+   @Test
+   void configuresClient() { // low value test
+      ClientConfiguration config = new ClientConfiguration();
+      when(clientMock.getVersion()).thenReturn("ver");
+      when(configurationFactoryMock.createConfig("ver")).thenReturn(config);
+
+      target.checkTransmission(true);
+
+      verify(clientMock).configure(config);
+   }
+}
+
+class ClientConfigurationFactoryTest {
+   ClientConfigurationFactory target = new ClientConfigurationFactory();
+
    @Test
    void createConfigOk() {
       //when - prod call
@@ -104,6 +124,4 @@ public class TelemetryDiagnosticTest {
           .hasSizeGreaterThan(10);
    }
 
-
-   // CR-1424 : the client version in session id should be only in uppercase
 }
