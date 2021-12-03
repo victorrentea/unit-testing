@@ -32,6 +32,7 @@ public class TelemetryDiagnosticTest {
    @BeforeEach
    final void before() {
       when(clientMock.getOnlineStatus()).thenReturn(true); // useful for the majority of @Test below
+      when(clientMock.getVersion()).thenReturn("wtf do i need this?!@&$&&*&*@");
    }
    
    @Test
