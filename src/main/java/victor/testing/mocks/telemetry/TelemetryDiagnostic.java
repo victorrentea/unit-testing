@@ -43,7 +43,7 @@ public class TelemetryDiagnostic {
          throw new IllegalStateException("Unable to connect.");
       }
 
-      ClientConfiguration config = createConfig();
+      ClientConfiguration config = createConfig(client.getVersion());
       client.configure(config);
 
       client.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
@@ -51,14 +51,16 @@ public class TelemetryDiagnostic {
    }
 
    @VisibleForTesting
-   ClientConfiguration createConfig() {
+   ClientConfiguration createConfig(String version) {
       ClientConfiguration config = new ClientConfiguration();
-      config.setSessionId(client.getVersion().toUpperCase() + "-" + UUID.randomUUID());
+      config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
       config.setSessionStart(LocalDateTime.now());
       // HARD-CORE 20 lines of logic, we need 8 tests to pass through this logic
       config.setAckMode(AckMode.NORMAL);
       return config;
    }
+}
 
+class ClientConfigurationFactory {
 
 }

@@ -24,7 +24,6 @@ public class TelemetryDiagnosticTest {
    private TelemetryClient clientMock;// = Mockito.mock(TelemetryClient.class);
 
    @InjectMocks
-   @Spy
    private TelemetryDiagnostic target;
 
    @BeforeEach
@@ -37,7 +36,6 @@ public class TelemetryDiagnosticTest {
    void disconnects() {
 //      Mockito.doReturn("aaa").when(clientMock.getOnlineStatus());  // NEVER use this
       // doReturn is only used when using @Spy (partial mocks) which are ANTI-PATTERNS
-      doReturn(new ClientConfiguration()).when(target).createConfig();
 
       target.checkTransmission(true);
 
@@ -47,7 +45,6 @@ public class TelemetryDiagnosticTest {
    @Test
    void throwsWhenNotOnline() {
       // given
-      doReturn(new ClientConfiguration()).when(target).createConfig();
 
       when(clientMock.getOnlineStatus()).thenReturn(false); // overrides the stubbed behavior from beforeEach
 
@@ -57,7 +54,6 @@ public class TelemetryDiagnosticTest {
 
    @Test
    void send() {
-      doReturn(new ClientConfiguration()).when(target).createConfig();
 
       target.checkTransmission(true);
 
@@ -70,7 +66,6 @@ public class TelemetryDiagnosticTest {
    void receives() {
       // given
       when(clientMock.receive()).thenReturn("::receivedData::");
-      doReturn(new ClientConfiguration()).when(target).createConfig();
 
       // when
       target.checkTransmission(true);
@@ -96,11 +91,8 @@ public class TelemetryDiagnosticTest {
       //      TelemetryDiagnostic.class.getDeclaredMethod("createConfig");
    @Test
    void createConfigOk() {
-      //given
-      when(clientMock.getVersion()).thenReturn("ver");
-
       //when - prod call
-      ClientConfiguration config = target.createConfig();
+      ClientConfiguration config = target.createConfig("ver");
 
       // then
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
