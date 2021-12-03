@@ -31,7 +31,7 @@ public class ProductServiceClientWireMockTest {
    @Autowired
    private ProductService productService;
    @RegisterExtension
-   public  WireMockExtension wireMock = new WireMockExtension(9999);
+   public WireMockExtension wireMock = new WireMockExtension(9999);
 
    @Test
    public void createThrowsForUnsafeProduct() {
