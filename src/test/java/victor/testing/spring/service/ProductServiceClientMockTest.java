@@ -1,12 +1,12 @@
 package victor.testing.spring.service;
 
+import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -15,25 +15,21 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("db-mem")
 public class ProductServiceClientMockTest {
-   @Mock
+   @MockBean
    public SafetyClient mockSafetyClient;
-   @Mock
+   @Autowired
    private ProductRepo productRepo;
-   @Mock
+   @Autowired
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test
@@ -46,23 +42,23 @@ public class ProductServiceClientMockTest {
 
    @Test
    public void createOk() {
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getOne(supplier.getId())).thenReturn(supplier);
+      Supplier supplier = supplierRepo.save(new Supplier());
+
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
 
-      // Yuck!
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+      org.assertj.core.api.Assertions.assertThat(productRepo.count()).isEqualTo(1);
+      Product product = productRepo.findAll().get(0);
 
-      assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
-      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-      assertThat(product.getCreateDate()).isNotNull();
-      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+      try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
+         softly.assertThat(product.getName()).isEqualTo("name");
+         softly.assertThat(product.getBarcode()).isEqualTo("safebar");
+         softly.assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+         softly.assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+         softly.assertThat(product.getCreateDate()).isNotNull();
+         softly.assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(5, SECONDS));
+      }
    }
 
 
