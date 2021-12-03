@@ -99,6 +99,8 @@ public class TelemetryDiagnosticTest {
       ClientConfiguration config = new ClientConfiguration();
       when(clientMock.getVersion()).thenReturn("ver");
       when(configurationFactoryMock.createConfig("ver")).thenReturn(config);
+      // if you comment the two lines above and uncomment the next line, you'll get a hard to trace test bug
+      // when(configurationFactoryMock.createConfig(anyString())).thenReturn(config);
 
       target.checkTransmission(true);
 
