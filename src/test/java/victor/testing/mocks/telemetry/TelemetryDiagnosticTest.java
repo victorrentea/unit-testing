@@ -4,19 +4,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentCaptor.forClass;
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class) // @RunWith(MockitoJUnitRunner)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class TelemetryDiagnosticTest {
 //   private TelemetryClient clientMock;
    @Mock
@@ -78,18 +82,30 @@ public class TelemetryDiagnosticTest {
 //      verify(clientMock, never()).paidCall(); // $
 //      verify(clientMock, never()).reportBadLoanPayer(customerId); // critical damaging side effect
 
+   @Captor
+   ArgumentCaptor<ClientConfiguration> captor;
+
+// alternative to captors:   verify(clientMock).configure(argThat(config -> config.getAckMode().equals(AckMode.NORMAL)));
+
+      // in case the class you are testing is part of a public API of a library,
+      // used by unknown devs
+      //      TelemetryDiagnostic.class.getDeclaredMethod("createConfig");
    @Test
-   void test() {
-      // given
-      ArgumentCaptor<ClientConfiguration> captor = forClass(ClientConfiguration.class);
+   void createConfigOk() {
+      //given
+      when(clientMock.getVersion()).thenReturn("ver");
 
       //when - prod call
-      target.checkTransmission(true);
+      ClientConfiguration config = target.createConfig();
 
       // then
-      verify(clientMock).configure(captor.capture());
-      ClientConfiguration config = captor.getValue();
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+//      assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now()); // don't
+      assertThat(config.getSessionStart()).isNotNull();
+      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // 5% best developers
+      assertThat(config.getSessionId())
+          .startsWith("ver-")
+          .hasSizeGreaterThan(10);
    }
 
 }
