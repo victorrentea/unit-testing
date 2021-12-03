@@ -3,6 +3,10 @@ package victor.testing.spring.repo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 
@@ -36,10 +40,23 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
             paramMap.put("supplierId", criteria.supplierId);
         }
 
+//        s.method();
         TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
         for (String paramName : paramMap.keySet()) {
             query.setParameter(paramName, paramMap.get(paramName));
         }
         return query.getResultList();
+    }
+//    private final SomeService s;
+}
+
+@RequiredArgsConstructor
+@Service
+class SomeService {
+    private final ProductRepo repo;
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void method() {
+        repo.save(new Product());
     }
 }

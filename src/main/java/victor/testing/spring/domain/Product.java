@@ -22,7 +22,7 @@ public class Product {
 
     private String barcode;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Supplier supplier;
 
     private LocalDateTime createDate;
