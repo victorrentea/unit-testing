@@ -18,10 +18,13 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class) // @RunWith(MockitoJUnitRunner)
 public class TelemetryDiagnosticTest {
+//   private TelemetryClient clientMock;
    @Mock
-   private TelemetryClient clientMock;
+   private TelemetryClient clientMock;// = Mockito.mock(TelemetryClient.class);
+
    @InjectMocks
    private TelemetryDiagnostic target;
+
    @BeforeEach
    final void before() {
       when(clientMock.getOnlineStatus()).thenReturn(true); // useful for the majority of @Test below

@@ -6,7 +6,7 @@ import victor.testing.tdd.TennisGame.Player;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class TennisGameTest {
+public class TennisGameTest{
 
    // The running score of each game is described in a manner peculiar to tennis:
    // scores from zero to three points are described as “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.

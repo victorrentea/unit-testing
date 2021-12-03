@@ -1,22 +1,17 @@
 package victor.testing.mocks.fake;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
-
+@RequiredArgsConstructor
 @Slf4j
 @Service
 public class FeedProcessor {
-   private final FileRepo fileRepo;
-
-   public FeedProcessor(FileRepo fileRepo) {
-      this.fileRepo = fileRepo;
-   }
+   private final IFileRepo fileRepo;
 
    public int countPendingLines() {
       Collection<String> names = fileRepo.getFileNames();
@@ -24,10 +19,11 @@ public class FeedProcessor {
       int count = 0;
       for (String fileName : names) {
          try (Stream<String> linesStream = fileRepo.openFile(fileName)) {
-            List<String> lines = linesStream.collect(toList());
-            lines.removeIf(line -> line.startsWith("#"));
-            log.debug("Found {} lines in {}", lines.size(), fileName);
-            count += lines.size();
+            long newCount = linesStream
+                .filter(line -> !line.startsWith("#"))
+                .count();
+            log.debug("Found {} lines in {}", newCount, fileName);
+            count+= newCount;
          }
       }
       return count;

@@ -3,6 +3,7 @@ package victor.testing.builder;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static victor.testing.builder.MyException.ErrorCode.CUSTOMER_MISSING_CITY;
 
@@ -61,14 +62,14 @@ public class CustomerValidatorTest {
 //
 //      Mockito.verify(addressMock).setCity("ab");
 //   }
-//   @Test
-//   void correctWayToTestSideEffectsOnInMemoryState() {
-//      customer.getAddress().setCity(" ab ");
-//
-//      validator.validate(customer);
-//
-//      assertThat(customer.getAddress().getCity()).isEqualTo("ab");
-//   }
+   @Test
+   void correctWayToTestSideEffectsOnInMemoryState() {
+      customer.getAddress().setCity(" ab ");
+
+      validator.validate(customer);
+
+      assertThat(customer.getAddress().getCity()).isEqualTo("ab");
+   }
 
 
 
