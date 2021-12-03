@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("db-mem") // CONNECT BY  ;  /*+ hints in some SQL */  DBMS.STD_FCT_FROM_ORACLE
 public class ProductServiceClientMockTest {
    @MockBean
    public SafetyClient mockSafetyClient;
