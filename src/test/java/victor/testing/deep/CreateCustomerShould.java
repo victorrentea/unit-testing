@@ -94,7 +94,7 @@ class CreateCustomerShould {
       }
 
       @Test
-      void sendAWelcomeEmailAndBeSaveTheCustomer() {
+      void sendAWelcomeEmailAndSaveTheCustomer() {
          when(customerRepo.save(aValidCustomer)).thenReturn(13L);
 
          Long id = customerFacade.createCustomer(aValidCustomer);

@@ -36,7 +36,6 @@ public class ProductServiceClientWireMockTest {
    @Test
    public void createThrowsForUnsafeProduct() {
       Assertions.assertThrows(IllegalStateException.class, () -> {
-//         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
          productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
       });
    }

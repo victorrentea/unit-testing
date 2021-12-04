@@ -44,11 +44,14 @@ public class ProductRepoTest extends RepoTestBase {
         assertThat(repo.search(criteria)).hasSize(1);
     }
     @Test
-    public void noCriteriaBis() {
-        supplierRepo.save(new Supplier());
-        repo.save(new Product("B"));
+    public void byName() {
+        repo.save(new Product("name"));
 
+        criteria.name = "name";
         assertThat(repo.search(criteria)).hasSize(1);
+
+        criteria.name = "FOUND";
+        assertThat(repo.search(criteria)).hasSize(0);
     }
 
 }
