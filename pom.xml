@@ -203,9 +203,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!-- folder pattern -->
                     <excludes>
                         <exclude>**/spring/**</exclude>
                     </excludes>
+                    <!-- or: -->
                     <excludedGroups>integration</excludedGroups>
                 </configuration>
             </plugin>
@@ -215,20 +217,12 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
                     <includes>
+                        <!-- by default the test class names must end in IT -->
                         <include>**/*</include>
                     </includes>
-                    <environmentVariables>
-                        <TESTCONTAINERS_RYUK_DISABLED>true</TESTCONTAINERS_RYUK_DISABLED>
-                    </environmentVariables>
+                    <!-- or -->
+                    <groups>integration</groups>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
