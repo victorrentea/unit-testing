@@ -1,38 +1,46 @@
 package victor.testing.spring.repo;
 
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
+import victor.testing.spring.web.dto.ProductSearchResult;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
 @SpringBootTest
-@ActiveProfiles("db-mem") // remove me
+@ActiveProfiles("db-mem")
 public class ProductRepoTest {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(ProductRepoTest.class);
+
     @Autowired
     private ProductRepo repo;
 
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-    @Test
-    public void noCriteria() throws InterruptedException {
-        log.debug("Started test");
-        repo.save(new Product("A"));
-        Thread.sleep(10_000);
-        assertThat(repo.search(criteria)).hasSize(1);
-        log.debug("END test");
+    @BeforeEach
+    final void before() {
+        repo.deleteAll(); // solutie foarte ok pt a curata orice resurse ramane murdare
+        // (mai putin baze relationale , pt care avem o solutie mult mai buna)
     }
     @Test
-    @Disabled("TODO enable")
+    public void noCriteria() throws InterruptedException {
+        repo.save(new Product("A"));
+        List<ProductSearchResult> results = repo.search(criteria);
+        assertThat(results).hasSize(1);
+    }
+    @Test
     public void noCriteriaBis() {
         repo.save(new Product("B"));
-        assertThat(repo.search(criteria)).hasSize(1);
+        List<ProductSearchResult> results = repo.search(criteria);
+        assertThat(results).hasSize(1);
     }
 
 }
