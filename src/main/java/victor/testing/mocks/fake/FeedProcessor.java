@@ -12,6 +12,7 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 @Service
 public class FeedProcessor {
+//   @Qualifier("fileRepoImpl")
    private final FileRepo fileRepo;
 
    public FeedProcessor(FileRepo fileRepo) {
