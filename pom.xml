@@ -9,7 +9,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.5</version>
+        <version>2.6.1</version>
     </parent>
     <properties>
         <java.version>11</java.version>
@@ -134,20 +134,20 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>7.0.0</version>
+            <version>6.11.0</version>
             <scope>test</scope>
         </dependency>
         <!-- requires in every glue code path to include a package containing a class with @CucumberContextConfiguration -->
         <!--<dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
-            <version>7.0.0</version>
+            <version>6.11.0</version>
             <scope>test</scope>
         </dependency>-->
         <dependency>
             <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>7.0.0</version>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>6.11.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -196,6 +196,13 @@
         </dependency>
     </dependencies>
     <build>
+        <testResources>
+            <testResource>
+                <includes>
+                    <include>**/*.feature</include>
+                </includes>
+            </testResource>
+        </testResources>
         <plugins>
 
             <!-- Typically: runs after every commit, takes 10-20 minutes, runs mockito-only, in-memory tests -->

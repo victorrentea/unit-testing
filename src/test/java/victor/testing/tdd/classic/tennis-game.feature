@@ -1,16 +1,15 @@
 Feature: Tennis Game
 
-  Scenario: New Game
+  Scenario: Love-Love
     Given A new tennis game
     Then Score is "Love-Love"
 
-
-  Scenario: New Game
+  Scenario: Fifteen-Love
     Given A new tennis game
     When Player1 scores
     Then Score is "Fifteen-Love"
 
-  Scenario: New Game
+  Scenario: Fifteen-Fifteen
     Given A new tennis game
     When Player1 scores
     And Player2 scores
@@ -22,7 +21,7 @@ Feature: Tennis Game
     And Player2 scores 3 points
     Then Score is "Deuce"
 
-  Scenario Outline: Tabel, sa planga bizu
+  Scenario Outline: All Data Table
     Given A new tennis game
     When Player1 scores <player1Points> points
     And Player2 scores <player2Points> points

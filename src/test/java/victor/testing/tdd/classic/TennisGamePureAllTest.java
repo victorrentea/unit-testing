@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TennisGamePureTest {
 
+public class TennisGamePureAllTest {
 
     @Test
     public void loveLove() {
@@ -65,15 +65,16 @@ public class TennisGamePureTest {
 
 
     private String getScore(int player1Score, int player2Score) {
-        TennisGame tennisGame = new TennisGame();
-        setPlayerScore(1, player1Score, tennisGame);
-        setPlayerScore(2, player2Score, tennisGame);
-        return tennisGame.score();
+//        TennisGame tennisGame = new TennisGame();
+//        setPlayerScore(1, player1Score, tennisGame);
+//        setPlayerScore(2, player2Score, tennisGame);
+//        return tennisGame.score();
+        return null;
     }
 
     private void setPlayerScore(int playerNumber, int playerScore, TennisGame tennisGame) {
-        for (int i = 0; i < playerScore; i++) {
-            tennisGame.addPoint(playerNumber);
-        }
+//        for (int i = 0; i < playerScore; i++) {
+//            tennisGame.addPoint(playerNumber);
+//        }
     }
 }

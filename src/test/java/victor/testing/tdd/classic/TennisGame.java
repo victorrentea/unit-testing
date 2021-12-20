@@ -1,7 +1,5 @@
 package victor.testing.tdd.classic;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 public class TennisGame {
     public static final String[] SCORES = {"Love", "Fifteen", "Thirty", "Forty"};
     private int player1Score;
@@ -22,7 +20,7 @@ public class TennisGame {
             } else if (player2Score == player1Score + 1) {
                 return "Advantage Player2";
             } else {
-                throw new NotImplementedException("...");
+                throw new RuntimeException("Impossible!");
             }
         } else {
             return SCORES[player1Score] + "-" + SCORES[player2Score];
