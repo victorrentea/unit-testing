@@ -21,7 +21,9 @@ public class ReplaceCamelCase extends DisplayNameGenerator.Standard {
     }
 
     private String replaceCapitals(String name) {
-        name = name.replaceAll("([A-Z])", " $1").toLowerCase();
+        name = name.replaceAll("([A-Z])", " $1")
+            .replaceAll("_", " ")
+            .toLowerCase();
         return name;
     }
 }
