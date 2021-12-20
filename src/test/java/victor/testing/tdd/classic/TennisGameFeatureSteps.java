@@ -35,4 +35,15 @@ public class TennisGameFeatureSteps {
         }
     }
 
+   @Given("Alice has an account")
+   public void aliceHasAnAccount() {
+   }
+
+   @And("Bob has an account")
+   public void bobHasAnAccount() {
+   }
+
+   @And("Bob is logged in")
+   public void bobIsLoggedIn() {
+   }
 }
