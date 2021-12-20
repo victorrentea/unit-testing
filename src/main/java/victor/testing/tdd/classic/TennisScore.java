@@ -4,8 +4,14 @@ public class TennisScore {
 
    private int player1Score;
    private int player2Score;
+   public enum Player {
+      ONE, TWO
+   }
 
    public String currentScore() {
+      if (player1Score == player2Score && player1Score>= 3) {
+         return "Deuce";
+      }
       return translate(player1Score) + "-" + translate(player2Score);
    }
 
@@ -24,11 +30,12 @@ public class TennisScore {
       }
    }
 
-   public void winsPointByPlayer1() {
-      player1Score++;
+   public void winsPointByPlayer(Player player) {
+      if (player == Player.ONE) {
+         player1Score++;
+      } else {
+         player2Score++;
+      }
    }
 
-   public void winsPointByPlayer2() {
-      player2Score++;
-   }
 }
