@@ -92,6 +92,15 @@ public class TennisScoreTest {
       assertThat(actual).isEqualTo("Thirty-Thirty");
    }
    @Test
+   void deuce7() {
+      playerWinsPoints(Player.ONE, 7);
+      playerWinsPoints(Player.TWO, 7);
+
+      String actual = tennisScore.currentScore();
+
+      assertThat(actual).isEqualTo("Thirty-Thirty");
+   }
+   @Test
    void deuce3() {
       playerWinsPoints(Player.ONE, 3);
       playerWinsPoints(Player.TWO, 3);
