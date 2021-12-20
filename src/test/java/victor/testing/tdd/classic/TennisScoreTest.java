@@ -59,4 +59,23 @@ public class TennisScoreTest {
 
       assertThat(actual).isEqualTo("Thirty-Love");
    }
+
+   @Test
+   void givenPlayer1Scores3Points_returnsFortyLove() {
+      // idea : for() in  tests as a helper method. << the cost of helper methods (mini testing frameworks) :
+      //testing framework ROI is high if the logic you are testing requires maaany tests 20+
+
+      // because the test names don't help much, >>> ParamterizedTests (excel-driven tests)
+      player1WinsMultiplePoints(3);
+
+      String actual = tennisScore.currentScore();
+
+      assertThat(actual).isEqualTo("Forty-Love");
+   }
+
+   private void player1WinsMultiplePoints(int points) {
+      for (int i = 0; i < points; i++) {
+         tennisScore.winsPointByPlayer1();
+      }
+   }
 }

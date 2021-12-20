@@ -33,3 +33,12 @@ Feature: Search for product
       | Tree       | X        | Tree       | X              | true  |
       | Tree       | X        | Tree       | Y              | false |
       | Zorro Mask |          | Mask       |                | true  |
+
+#  Scenario:
+#    Given One product exists
+#    And That product has name "Tree"
+#    And That product has supplier "X"
+#    When The search criteria name is "Tree"
+#    And It's Christmas
+#    And The search criteria supplier is "X"
+#    Then That product is returned by search: "<found>"
