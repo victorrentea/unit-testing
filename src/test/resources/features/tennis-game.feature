@@ -22,7 +22,13 @@ Feature: Tennis Game
     And Player2 scores 3 points
     Then Score is "Deuce"
 
-  Scenario Outline: Tabel, sa planga bizu
+  Scenario: Deuce4
+    Given A new tennis game
+    When Player1 scores 4 points
+    And Player2 scores 4 points
+    Then Score is "Deuce"
+
+  Scenario Outline: All cases
     Given A new tennis game
     When Player1 scores <player1Points> points
     And Player2 scores <player2Points> points

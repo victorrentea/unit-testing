@@ -17,7 +17,11 @@ public class PersonExporter {
          writer.write(";");
          writer.write(String.join(",", person.getPhoneList())); // TODO change delimiter
          writer.write(";");
-         writer.write(person.getBirthDate().toString()); // TODO change format to 12 Nov 2021
+         if (person.getBirthDate()!=null) {
+            writer.write(person.getBirthDate().toString()); // TODO change format to 12 Nov 2021
+         } else {
+            writer.write("N/A");
+         }
          writer.write("\n");
       }
    }

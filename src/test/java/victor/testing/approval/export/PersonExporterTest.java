@@ -57,4 +57,40 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//   @Test
+//   void test() {
+//
+//      when(personRepo.findAll()).thenReturn(List.of(user))
+//      ///
+//
+//      export()
+//
+//      expected String = read expected file ("case3.csv")
+//          assert (actual = expected)
+//   }
+//
+//
+
+
+
+
+
+
 }
