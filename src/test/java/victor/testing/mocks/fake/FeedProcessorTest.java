@@ -7,10 +7,25 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
+
+//class MyInMemoryFileRepo implements IFileRepo {
+//   Map<>
+//   @Override
+//   public Collection<String> getFileNames() {
+//      return null;
+//   }
+//
+//   @Override
+//   public Stream<String> openFile(String fileName) {
+//      return null;
+//   }
+//}
+
 
 @ExtendWith(MockitoExtension.class)
 public class FeedProcessorTest {

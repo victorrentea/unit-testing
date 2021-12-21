@@ -12,10 +12,11 @@ import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 
 @Component
-public class FileRepo{
+public class FileRepo implements IFileRepo {
    @Value("${feed.in.folder}")
    private File inFolder;
 
+   @Override
    public Collection<String> getFileNames() {
       File[] files = inFolder.listFiles();
       if (files == null) {
@@ -27,6 +28,7 @@ public class FileRepo{
           .collect(toSet());
    }
 
+   @Override
    public Stream<String> openFile(String fileName) {
       File file = new File(inFolder, fileName);
       if (!file.isFile()) {

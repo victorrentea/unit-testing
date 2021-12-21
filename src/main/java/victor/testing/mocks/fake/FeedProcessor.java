@@ -13,9 +13,9 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class FeedProcessor {
 //   @Qualifier("fileRepoImpl")
-   private final FileRepo fileRepo;
+   private final IFileRepo fileRepo;
 
-   public FeedProcessor(FileRepo fileRepo) {
+   public FeedProcessor(IFileRepo fileRepo) {
       this.fileRepo = fileRepo;
    }
 
