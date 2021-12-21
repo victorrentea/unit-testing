@@ -28,12 +28,13 @@ public class TelemetryDiagnosticCheckTransmissionTest {
       }
    };*/
    @InjectMocks
+   @Spy
    private TelemetryDiagnostic target;
 
    @BeforeEach
    final void before() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
-      when(clientMock.getVersion()).thenReturn("why the hack do i need this heer ?");
+//      when(clientMock.getVersion()).thenReturn("why the hack do i need this heer ?");
 
    }
 
@@ -50,6 +51,7 @@ public class TelemetryDiagnosticCheckTransmissionTest {
    void ok() {
       // dynamic params
       when(clientMock.receive()).thenReturn("::message::");
+      doReturn(new ClientConfiguration()).when(target).createConfig(any());
 
       target.checkTransmission(true);
 
