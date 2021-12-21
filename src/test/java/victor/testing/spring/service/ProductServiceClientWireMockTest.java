@@ -44,6 +44,7 @@ public class ProductServiceClientWireMockTest {
    @RegisterExtension
    public WireMockExtension wireMock = new WireMockExtension(8089);
    @Autowired
+
    private CacheManager cacheManager;
 
    @BeforeEach

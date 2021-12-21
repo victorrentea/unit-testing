@@ -20,6 +20,7 @@ public class Product {
 
     private ProductCategory category;
 
+//    @Column(nullable = false)
     private String barcode;
 
     @ManyToOne

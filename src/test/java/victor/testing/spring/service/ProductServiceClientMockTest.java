@@ -1,14 +1,11 @@
 package victor.testing.spring.service;
 
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -24,40 +21,35 @@ import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles({"insertDummyData", "siMama", "siTata", "db-mem"})
+@ActiveProfiles({"db-mem"})
 public class ProductServiceClientMockTest {
    @MockBean
    public SafetyClient mockSafetyClient;
-   @MockBean
+   @Autowired
    private ProductRepo productRepo;
-   @MockBean
+   @Autowired
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
 
-//   @Sql("/sql/common-reference-data.sql")
    @Test
    public void createThrowsForUnsafeProduct() {
-      Assertions.assertThrows(IllegalStateException.class, () -> {
+      Assertions.assertThatThrownBy(() -> {
          when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-         productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
+         productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME));
       });
    }
 
    @Test
    public void createOk() {
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getOne(supplier.getId())).thenReturn(supplier);
+      Supplier supplier = supplierRepo.save(new Supplier());
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
 
-      // Yuck!
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+      assertThat(productRepo.count()).isEqualTo(1);
+      Product product = productRepo.findAll().get(0);
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
