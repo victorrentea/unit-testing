@@ -36,14 +36,20 @@ public class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	ClientConfiguration createConfig(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		// 8 branches to check
+		config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
 	}
 
 }

@@ -10,14 +10,22 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticTest {
    @Mock
-   private TelemetryClient clientMock;
+   private TelemetryClient clientMock; /*=  new TelemetryClient() {
+      @Override
+      public boolean getOnlineStatus() {
+         return true;
+      }
+   };*/
    @InjectMocks
    private TelemetryDiagnostic target;
 
@@ -54,14 +62,30 @@ public class TelemetryDiagnosticTest {
    @Test
    void captors() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
-      when(clientMock.receive()).thenReturn("::message::");
+      when(clientMock.getVersion()).thenReturn("ver");
 
       target.checkTransmission(true);
 
-
-//      ArgumentCaptor<ClientConfiguration> captor = ArgumentCaptor.forClass(ClientConfiguration.class);
       verify(clientMock).configure(captor.capture());
       ClientConfiguration config = captor.getValue();
+
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+//      assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now()); //flaky
+      assertThat(config.getSessionStart()).isNotNull(); // 95% asserting time
+      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, MINUTES)); // scinece guy
+      assertThat(config.getSessionId())
+          .startsWith("ver-")
+          .hasSizeGreaterThan(10);
+   }
+   @Test
+   void testingPureFunctionsIsEasier() {
+     ClientConfiguration config = target.createConfig("ver");
+
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, MINUTES)); // scinece guy
+      assertThat(config.getSessionId())
+          .startsWith("ver-")
+          .hasSizeGreaterThan(10);
+
    }
 }
