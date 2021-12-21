@@ -35,11 +35,12 @@ class CustomerValidatorShould2 {
 
 class TestData {
 
+   /** realistic data */
    public static Customer aValidCustomer() {
       return new Customer()
-          .setName("::name::")
-          .setEmail("::email::")
+          .setName("John Doe")
+          .setEmail("a@b.com")
           .setAddress(new Address()
-              .setCity("::city::"));
+              .setCity("Paris"));
    }
 }

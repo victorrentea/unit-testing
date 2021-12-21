@@ -1,11 +1,14 @@
 package victor.testing.mocks.telemetry;
 
-import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -40,11 +43,25 @@ public class TelemetryDiagnosticTest {
       verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
       verify(clientMock).receive(); // do not verify stubbing  -redundant
 
-
-
       // CQS prinicple
- // why more than 3-4 asserions/ test are bad : SRP ?
 
        // TODO ...
+   }
+
+   @Captor
+   ArgumentCaptor<ClientConfiguration> captor;
+
+   @Test
+   void captors() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+      when(clientMock.receive()).thenReturn("::message::");
+
+      target.checkTransmission(true);
+
+
+//      ArgumentCaptor<ClientConfiguration> captor = ArgumentCaptor.forClass(ClientConfiguration.class);
+      verify(clientMock).configure(captor.capture());
+      ClientConfiguration config = captor.getValue();
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
    }
 }

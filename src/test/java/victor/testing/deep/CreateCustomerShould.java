@@ -79,6 +79,30 @@ class CreateCustomerShould {
       }
    }
 
+
+//   @Nested
+//   class Better {
+//
+//      @BeforeEach
+//      final void before() {
+//         when(clientMock.getOnlineStatus()).thenReturn(true);
+//         // dynamic params
+//         when(clientMock.receive()).thenReturn("::message::");
+//
+//
+//      }
+//      @Test
+//      void test() {
+//         target.checkTransmission(true);
+//         softly.assertThat(target.getDiagnosticInfo()).isEqualTo("::message::");
+//      }
+//      @Test
+//      void test() {
+//         target.checkTransmission(true);
+//         softly.assertThat(target.getDiagnosticInfo()).isEqualTo("::message::");
+//      }
+//   }
+
    @Nested
    class GivenAValidCustomer {
       @BeforeEach
