@@ -38,7 +38,7 @@ public class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = configurationFactory.createConfig(telemetryClient.getVersion());
+		ClientConfiguration config = configurationFactory.createConfig(telemetryClient.getVersion(), new ClientConfiguration());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
@@ -48,8 +48,8 @@ public class TelemetryDiagnostic {
 }
 
 class ClientConfigurationFactory {
-	public ClientConfiguration createConfig(String version) {
-		ClientConfiguration config = new ClientConfiguration();
+	public ClientConfiguration createConfig(String version, ClientConfiguration config1) {
+		ClientConfiguration config = config1;
 		// 8 branches to check
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());

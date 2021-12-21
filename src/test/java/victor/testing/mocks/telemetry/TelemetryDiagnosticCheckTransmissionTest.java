@@ -3,8 +3,6 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
@@ -19,22 +17,18 @@ import static org.mockito.Mockito.*;
 //@MockitoSettings(strictness = Strictness.LENIENT) // avoid at class level
 // consider Mockito.lenient().when....
 public class TelemetryDiagnosticCheckTransmissionTest {
-   @Mock
-   private TelemetryClient clientMock; /*=  new TelemetryClient() {
+   private TelemetryClient clientMock = mock(TelemetryClient.class); /*=  new TelemetryClient() {
       @Override
       public boolean getOnlineStatus() {
          return true;
       }
    };*/
-   @Mock
-   ClientConfigurationFactory factoryMock;//  = new ClientConfigurationFactory();
+   ClientConfigurationFactory factoryMock = new ClientConfigurationFactory();
 
-   @InjectMocks
-   private TelemetryDiagnostic target;
+   TelemetryDiagnostic target = new TelemetryDiagnostic(clientMock, factoryMock);
 
    @BeforeEach
    final void before() {
-
 
       when(clientMock.getOnlineStatus()).thenReturn(true);
 //      when(clientMock.getVersion()).thenReturn("why the hack do i need this heer ?");
@@ -75,13 +69,27 @@ class TelemetryDiagnosticCreateConfigTest {
 
    @Test
    void testingPureFunctionsIsEasier() { // TODO +7 more test
-      ClientConfiguration config = target.createConfig("ver");
+      ClientConfiguration config = target.createConfig("ver", new ClientConfiguration());
 
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, MINUTES)); // scinece guy
       assertThat(config.getSessionId())
           .startsWith("VER-")
           .hasSizeGreaterThan(10);
+   }
+   @Test
+   void never() {
+      ClientConfiguration never = mock(ClientConfiguration.class);
+      target.createConfig("ver", never);
+
+      verify(never).setAckMode(AckMode.NORMAL);
+   }
+   @Test
+   void aaaaaaaa() {
+      ClientConfiguration never = mock(ClientConfiguration.class);
+      target.createConfig("ver", never);
+
+      verify(never).setAckMode(AckMode.NORMAL);
    }
 
 }
