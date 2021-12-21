@@ -46,10 +46,9 @@ public class TelemetryDiagnostic {
 	ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		// 8 branches to check
-		config.setSessionId(version/*.toUpperCase()*/ + "-" + UUID.randomUUID());
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		return config;
 	}
-
 }
