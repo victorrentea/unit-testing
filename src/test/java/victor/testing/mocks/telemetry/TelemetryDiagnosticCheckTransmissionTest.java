@@ -3,10 +3,9 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -17,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT) // avoid at class level
+//@MockitoSettings(strictness = Strictness.LENIENT) // avoid at class level
 // consider Mockito.lenient().when....
 public class TelemetryDiagnosticCheckTransmissionTest {
    @Mock
@@ -27,15 +26,18 @@ public class TelemetryDiagnosticCheckTransmissionTest {
          return true;
       }
    };*/
+   @Mock
+   ClientConfigurationFactory factoryMock;//  = new ClientConfigurationFactory();
+
    @InjectMocks
-   @Spy
    private TelemetryDiagnostic target;
 
    @BeforeEach
    final void before() {
+
+
       when(clientMock.getOnlineStatus()).thenReturn(true);
 //      when(clientMock.getVersion()).thenReturn("why the hack do i need this heer ?");
-
    }
 
    @Test
@@ -51,7 +53,7 @@ public class TelemetryDiagnosticCheckTransmissionTest {
    void ok() {
       // dynamic params
       when(clientMock.receive()).thenReturn("::message::");
-      doReturn(new ClientConfiguration()).when(target).createConfig(any());
+//      doReturn(new ClientConfiguration()).when(target).createConfig(any());
 
       target.checkTransmission(true);
 
@@ -65,26 +67,12 @@ public class TelemetryDiagnosticCheckTransmissionTest {
       // 3 TAKES TIME
    }
 
-   @Captor
-   ArgumentCaptor<ClientConfiguration> captor;
+}
 
-   @Test
-   void captors() {
-      when(clientMock.getVersion()).thenReturn("ver");
+class TelemetryDiagnosticCreateConfigTest {
 
-      target.checkTransmission(true);
+   ClientConfigurationFactory target = new ClientConfigurationFactory();
 
-      verify(clientMock).configure(captor.capture());
-      ClientConfiguration config = captor.getValue();
-
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-//      assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now()); //flaky
-      assertThat(config.getSessionStart()).isNotNull(); // 95% asserting time
-      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, MINUTES)); // scinece guy
-      assertThat(config.getSessionId())
-          .startsWith("VER-")
-          .hasSizeGreaterThan(10);
-   }
    @Test
    void testingPureFunctionsIsEasier() { // TODO +7 more test
       ClientConfiguration config = target.createConfig("ver");
@@ -95,11 +83,5 @@ public class TelemetryDiagnosticCheckTransmissionTest {
           .startsWith("VER-")
           .hasSizeGreaterThan(10);
    }
-}
-
-class TelemetryDiagnosticCreateConfigTest {
-
-   TelemetryDiagnostic target = new TelemetryDiagnostic(null);
-
 
 }
