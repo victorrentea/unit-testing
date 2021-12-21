@@ -1,10 +1,9 @@
 package victor.testing.spring.repo;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
-import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
+import victor.testing.spring.web.dto.ProductSearchResult;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -26,9 +25,9 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
 
         Map<String, Object> paramMap = new HashMap<>();
 
-        if (StringUtils.isNotEmpty(criteria.name)) {
-            jpql += "  AND p.name = :name   ";
-            paramMap.put("name", criteria.name);
+        if (criteria.name != null) {
+            jpql += "  AND  p.name LIKE :name   ";
+            paramMap.put("name", "%" + criteria.name +"%");
         }
 
         if (criteria.supplierId != null) {
