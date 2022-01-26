@@ -1,11 +1,10 @@
-package victor.testing.spring.repo;
+package victor.testing.spring.repo.sub;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
 
@@ -13,13 +12,15 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional
+@DataJpaTest(properties = "prop=change")
+//@SpringBootTest
+//@ActiveProfiles("db-mem")
+//@Transactional
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // waste of Jenkins time. Never push on git, only gfor debugging or when the context has some state @Conditiona, stateful singletons having fields (eg counters), @Cacheable
-class ProductRepoSearchImplTest  {
+class ProductRepoSearch2ImplTest {
    @Autowired
    ProductRepo repo;
+
 
    ProductSearchCriteria criteria = new ProductSearchCriteria();
 
