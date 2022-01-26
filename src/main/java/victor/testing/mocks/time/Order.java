@@ -1,6 +1,5 @@
 package victor.testing.mocks.time;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,6 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Data
 @Getter
 @Setter
 @Table(name="ORDERS")
