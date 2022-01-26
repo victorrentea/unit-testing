@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
 @ActiveProfiles("db-mem")
 @Transactional
-public class ProductServiceClientWireMockTest {
+public class ProductServiceWireMockTest {
    @Autowired
    public SafetyClient mockSafetyClient;
    @Autowired
