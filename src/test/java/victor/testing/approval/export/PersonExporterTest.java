@@ -55,6 +55,4 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
       System.out.println("Running with input:\n" + inStr);
       System.out.println("\nExpecting output:\n" + outStr);
    }
-
-
 }
