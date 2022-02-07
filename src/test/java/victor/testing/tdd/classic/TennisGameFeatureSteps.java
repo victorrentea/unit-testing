@@ -20,19 +20,22 @@ public class TennisGameFeatureSteps {
     // @Then("^Score is \"([^\"]*)\"$") // cucumber < 6
     @Then("Score is {string}")
     public void score_is(String expected) throws Throwable {
-        assertEquals(expected, tennisGame.score());
+        assertEquals(expected, tennisGame.getScore());
     }
 
-    @When("Player{int} scores")
-    public void playerScores(int playerNo) {
-        tennisGame.addPoint(playerNo);
+    @When("Player {string} scores")
+    public void playerScores(String playerStr) {
+        Player player = Player.valueOf(playerStr);
+        tennisGame.addPoint(player);
     }
 
 //    @And("^Player(\\d+) scores (\\d+) points$") // cucumber < 6
-    @And("Player{int} scores {int} points") // cucumber < 6
-    public void playerScoresPoints(int playerNo, int points) {
+    @And("Player {string} scores {int} points") // cucumber < 6
+    public void playerScoresPoints(String playerStr, int points) {
+        Player player = Player.valueOf(playerStr);
+
         for (int i = 0; i < points; i++) {
-            tennisGame.addPoint(playerNo);
+            tennisGame.addPoint(player);
         }
     }
 }

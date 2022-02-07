@@ -25,6 +25,7 @@ Feature: Records Search
     And criteria version number <searchVerNo>
     And include historical records "<includeHistorical>"
     And include inactive records "<includeInactive>"
+
     Then the results have versions "<rowVersions>"
     And the row has regliss reference "001.1.000001"
 
