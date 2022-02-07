@@ -1,99 +1,60 @@
 package victor.testing.tdd.classic;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TennisGameTest {
-    private TennisGame tennisGame = new TennisGame();
 
-    @Test
-    public void loveLove() {
-        setScore(0, 0);
-        String score = tennisGame.score();
-        assertEquals("Love-Love", score);
-    }
+   private TennisGame tennisGame = new TennisGame();
+//   private SomeSearchCriteria criteria =  new...
 
-    @Test
-    public void loveFifteen() {
-        setScore(0, 1);
-        String score = tennisGame.score();
-        assertEquals("Love-Fifteen", score);
-    }
+   public TennisGameTest() {
+      System.out.println("OUPS! I didn't know that for each @Test junit instantiate shte class again.");
+   }
 
-    @Test
-    public void fifteenLove() {
-        setScore(1, 0);
-        String score = tennisGame.score();
-        assertEquals("Fifteen-Love", score);
-    }
+   // Scores from zero to three points are described as
+   // “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
+   @Test
+   void returnsLoveLove_whenNewGame() {
+      String actual = tennisGame.getScore();
 
-    @Test
-    public void thirtyLove() {
-        setScore(2, 0);
-        String score = tennisGame.score();
-        assertEquals("Thirty-Love", score);
-    }
+      assertThat(actual).isEqualTo("Love - Love");
+   }
 
-    @Test
-    public void fortyLove() {
-        setScore(3, 0);
-        String score = tennisGame.score();
-        assertEquals("Forty-Love", score);
-    }
+   @Test
+   void returnsLoveFifteen_whenSecondPlayerScores1Point() {
+      tennisGame.addPoint(Player.TWO);
+      String actual = tennisGame.getScore();
 
-    @Test
-    public void deuce() {
-        setScore(3, 3);
-        String score = tennisGame.score();
-        assertEquals("Deuce", score);
-    }
+      assertThat(actual).isEqualTo("Love - Fifteen");
+   }
 
-    @Test
-    public void advantagePlayer1() {
-        setScore(7, 6);
-        String score = tennisGame.score();
-        assertEquals("Advantage Player1", score);
-    }
+   @Test
+   void returnsLoveThirty_whenSecondPlayerScores2Points() {
+      tennisGame.addPoint(Player.TWO);
+      tennisGame.addPoint(Player.TWO);
+      String actual = tennisGame.getScore();
 
-    @Test
-    public void advantagePlayer2() {
-        setScore(3, 4);
-        String score = tennisGame.score();
-        assertEquals("Advantage Player2", score);
-    }
+      assertThat(actual).isEqualTo("Love - Thirty");
+   }
 
-    @Test
-    public void mar() {
-        setScore(4, 0);
-        String score = tennisGame.score();
-        assertEquals("Game won Player1", score);
-    }
+   @Test
+   void returnsLoveForty_whenSecondPlayerScores3Points() {
+      tennisGame.addPoint(Player.TWO);
+      tennisGame.addPoint(Player.TWO);
+      tennisGame.addPoint(Player.TWO);
+      String actual = tennisGame.getScore();
 
-    @Test
-    public void mar2() {
-        setScore(7, 5);
-        String score = tennisGame.score();
-        assertEquals("Game won Player1", score);
-    }
+      assertThat(actual).isEqualTo("Love - Forty");
+   }
 
-    @Test
-    public void player2Won() {
-        setScore(0, 4);
-        String score = tennisGame.score();
-        assertEquals("Game won Player2", score);
-    }
+   @Test
+   void returnsFifteenLove_whenFirstPlayerScores3Points() {
+      tennisGame.addPoint(Player.ONE);
+      String actual = tennisGame.getScore();
 
+      assertThat(actual).isEqualTo("Fifteen - Love");
+   }
 
-
-    private void setScore(int player1Score, int player2Score) {
-        setPlayerScore(1, player1Score);
-        setPlayerScore(2, player2Score);
-    }
-
-    private void setPlayerScore(int playerNumber, int playerScore) {
-        for (int i = 0; i < playerScore; i++) {
-            tennisGame.addPoint(playerNumber);
-        }
-    }
 }
