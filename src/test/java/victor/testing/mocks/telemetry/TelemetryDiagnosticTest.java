@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -25,7 +24,7 @@ public class TelemetryDiagnosticTest {
    @Mock
    TelemetryClient clientMock;
    @InjectMocks
-       @Spy
+//       @Spy
    TelemetryDiagnostic target;
 
    @BeforeEach
@@ -85,17 +84,17 @@ public class TelemetryDiagnosticTest {
 
 
    
-   @Test
-   void configuresClient() {
-      ClientConfiguration someConfig = new ClientConfiguration();
-//      when(target.createConfig()).thenReturn(someConfig);
-      doReturn(someConfig).when(target).createConfig();
-
-      target.checkTransmission(true);
-
-//      verify(clientMock).configure(notNull());
-      verify(clientMock).configure(someConfig);
-   }
+//   @Test
+//   void configuresClient() {
+//      ClientConfiguration someConfig = new ClientConfiguration();
+////      when(target.createConfig()).thenReturn(someConfig);
+//      doReturn(someConfig).when(target).createConfig();
+//
+//      target.checkTransmission(true);
+//
+////      verify(clientMock).configure(notNull());
+//      verify(clientMock).configure(someConfig);
+//   }
 
    @Test
    void configIsOk() {
