@@ -1,5 +1,6 @@
 package victor.testing.mocks.purity;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import victor.testing.builder.Coupon;
@@ -42,6 +43,7 @@ public class PriceService {
 //      return computePrics(customer, products, resolvedPrices);
 //   }
 
+   @VisibleForTesting
    PriceResult computePrices(List<Product> products, Map<Long, Double> resolvedPrices, List<Coupon> coupons) {
       List<Coupon> usedCoupons = new ArrayList<>();
       Map<Long, Double> finalPrices = new HashMap<>();

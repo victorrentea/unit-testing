@@ -5,7 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.builder.Coupon;
 import victor.testing.spring.domain.Product;
@@ -21,16 +20,16 @@ import static victor.testing.spring.domain.ProductCategory.*;
 class PriceServiceTest {
 //   @Mock
 //   CustomerRepo customerRepo;
-   @Mock
-   ThirdPartyPrices thirdPartyPrices;
+//   @Mock
+//   ThirdPartyPrices thirdPartyPrices;
 //   @Mock
 //   CouponRepo couponRepo;
 //   @Mock
 //   ProductRepo productRepo;
    @InjectMocks
    PriceService priceService;
-   @Captor
-   ArgumentCaptor<List<Coupon>> couponCaptor;
+//   @Captor
+//   ArgumentCaptor<List<Coupon>> couponCaptor;
 
    private Product product1 = new Product().setId(1L).setCategory(HOME);
    private Product product2 = new Product().setId(2L).setCategory(KIDS);
