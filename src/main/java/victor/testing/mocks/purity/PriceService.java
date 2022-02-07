@@ -1,6 +1,7 @@
 package victor.testing.mocks.purity;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import victor.testing.builder.Coupon;
 import victor.testing.builder.Customer;
 import victor.testing.spring.domain.Product;
@@ -21,6 +22,15 @@ public class PriceService {
    public Map<Long, Double> computePrices(long customerId, List<Long> productIds, Map<Long, Double> internalPrices) {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
+
+      PriceResult result = computePrice(customer, products, internalPrices);
+
+      couponRepo.markUsedCoupons(customerId, result.getUsedCoupons());
+      return result.getFinalPrices();
+   }
+
+   //subcutaneous test
+   PriceResult computePrice(Customer customer, List<Product> products, Map<Long, Double> internalPrices) {
       List<Coupon> usedCoupons = new ArrayList<>();
       Map<Long, Double> finalPrices = new HashMap<>();
       for (Product product : products) {
@@ -36,9 +46,14 @@ public class PriceService {
          }
          finalPrices.put(product.getId(), price);
       }
-      couponRepo.markUsedCoupons(customerId, usedCoupons);
-      return finalPrices;
+      PriceResult result = new PriceResult(usedCoupons, finalPrices);
+      return result;
    }
 
 }
 
+@Value
+class PriceResult {
+   List<Coupon> usedCoupons;
+   Map<Long, Double> finalPrices;
+}
