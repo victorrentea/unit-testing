@@ -12,8 +12,9 @@ public final class TelemetryDiagnostic {
 	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
 
-	public TelemetryDiagnostic(TelemetryClient telemetryClient) {
+	public TelemetryDiagnostic(TelemetryClient telemetryClient, ConfigFactory configFactory) {
 		this.telemetryClient = telemetryClient;
+		this.configFactory = configFactory;
 	}
 
 	public String getDiagnosticInfo() {
@@ -36,7 +37,7 @@ public final class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = createConfig();
+		ClientConfiguration config = configFactory.createConfig(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
@@ -44,16 +45,22 @@ public final class TelemetryDiagnostic {
 
 	}
 
-	ClientConfiguration createConfig() {
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion().toUpperCase() + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
-		return config;
-	}
+	private final  ConfigFactory configFactory;
 
 }
 
 class ConfigFactory {
-
+	public ClientConfiguration createConfig(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		// heavy complexity
+		// heavy complexity
+		// heavy complexity
+		// heavy complexity
+		// heavy complexity
+		// heavy complexity
+		config.setAckMode(AckMode.NORMAL);
+		return config;
+	}
 }

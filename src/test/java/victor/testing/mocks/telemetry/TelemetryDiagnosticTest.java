@@ -23,14 +23,16 @@ import static org.mockito.Mockito.*;
 public class TelemetryDiagnosticTest {
    @Mock
    TelemetryClient clientMock;
+   @Mock
+   ConfigFactory configFactoryMock;
+
    @InjectMocks
-//       @Spy
    TelemetryDiagnostic target;
 
    @BeforeEach
    final void before() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
-      when(clientMock.getVersion()).thenReturn("ver"); // Should not be here as it's specific only for createConfig
+//      when(clientMock.getVersion()).thenReturn("ver"); // Should not be here as it's specific only for createConfig
    }
 
    @Test
@@ -40,6 +42,7 @@ public class TelemetryDiagnosticTest {
 
       verify(clientMock).disconnect(true);
    }
+
    @Test
    void sendsDiagnosticMessage() {
 
@@ -84,7 +87,6 @@ public class TelemetryDiagnosticTest {
 //   ArgumentCaptor<ClientConfiguration> configCaptor;
 
 
-   
 //   @Test
 //   void configuresClient() {
 //      ClientConfiguration someConfig = new ClientConfiguration();
@@ -96,11 +98,14 @@ public class TelemetryDiagnosticTest {
 ////      verify(clientMock).configure(notNull());
 //      verify(clientMock).configure(someConfig);
 //   }
+}
 
+class ConfigFactoryTest {
+   private final ConfigFactory configFactory = new ConfigFactory();
    @Test
-   void configIsOk() {
+   void configIsOk() { // x10 tests -- more comfortable to write more tests.
 
-      ClientConfiguration config = target.createConfig();
+      ClientConfiguration config = configFactory.createConfig("ver");
 
       assertThat(config.getSessionId()).startsWith("VER-")
           .hasSize(40);
@@ -111,6 +116,9 @@ public class TelemetryDiagnosticTest {
    }
 
 }
+
+// when a fixture gets bigger > refactor>
+// a) break the class
 
 
 
