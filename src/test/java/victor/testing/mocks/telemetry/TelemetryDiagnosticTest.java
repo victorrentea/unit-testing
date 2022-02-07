@@ -1,12 +1,21 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
+import java.time.LocalDateTime;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -16,9 +25,13 @@ public class TelemetryDiagnosticTest {
    @InjectMocks
    TelemetryDiagnostic target;
 
+   @BeforeEach
+   final void before() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+   }
+
    @Test
    void disconnects() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
 
       target.checkTransmission(true);
 
@@ -26,7 +39,6 @@ public class TelemetryDiagnosticTest {
    }
    @Test
    void sendsDiagnosticMessage() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
 
       target.checkTransmission(true);
 
@@ -38,7 +50,6 @@ public class TelemetryDiagnosticTest {
 
    @Test
    void receivesDiagnosticInfo() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
       when(clientMock.receive()).thenReturn("SOMETHING######");
 
       target.checkTransmission(true);
@@ -54,6 +65,37 @@ public class TelemetryDiagnosticTest {
       assertThat(target.getDiagnosticInfo()).isEqualTo("SOMETHING######");
    }
 // if you need to when..then AND verify the same method ===> you have a design issue. CQS violation
+
+
+   @Test
+   void configuresTheClient() {
+      target.checkTransmission(true);
+
+      //capture the arg
+//      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
+      verify(clientMock).configure(configCaptor.capture());
+      ClientConfiguration config = configCaptor.getValue();
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+   }
+   @Captor
+   ArgumentCaptor<ClientConfiguration> configCaptor;
+
+
+
+   @Test
+   void configIsOk() {
+      when(clientMock.getVersion()).thenReturn("ver");
+
+      ClientConfiguration config = target.createConfig();
+
+
+      assertThat(config.getSessionId()).startsWith("ver-")
+          .hasSize(40);
+//      assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now()); // stupid > flaky  tests
+      assertThat(config.getSessionStart()).isNotNull(); // engineer
+      assertThat(config.getSessionStart()).isCloseTo(LocalDateTime.now(), byLessThan(1, MINUTES)); // science guy
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+   }
 
 }
 
