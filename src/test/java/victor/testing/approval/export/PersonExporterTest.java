@@ -32,16 +32,16 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
       Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.csv");
       return scanForFileTestCases("classpath:/test-cases/export*.in.json", inToOutFileName);
    }
+
    @ParameterizedTest
    @MethodSource("testData")
    public void convert(FileTestCase test) throws IOException {
       log.info("Running {}", test);
       didacticLog(test);
-
       Person inputPerson = jackson.readValue(test.getInputFile(), Person.class);
       when(personRepo.findAll()).thenReturn(asList(inputPerson));
-
       StringWriter sw = new StringWriter();
+
       exporter.export(sw);
 
       String expectedContents = readFileToString(test.getExpectedOutputFile());

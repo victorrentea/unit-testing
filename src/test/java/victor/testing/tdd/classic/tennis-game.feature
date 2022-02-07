@@ -14,9 +14,19 @@ Feature: Tennis Game
       | 1             | 1             | Fifteen - Fifteen   |
       | 2             | 0             | Thirty - Love       |
       | 3             | 0             | Forty - Love        |
-#      | 3             | 3             | Deuce             |
-#      | 4             | 4             | Deuce             |
-#      | 8             | 8             | Deuce             |
+      | 3             | 3             | Deuce             |
+#  If at least three points have been scored by each player,
+#  and the scores are equal, the score is “Deuce”.
+      | 4             | 4             | Deuce             |
+      | 8             | 8             | Deuce             |
+  #If at least three points have been scored by each side
+  # and a player has one more point than his opponent,
+  # the score of the game is “Advantage” for the player in the lead.
+|3              | 4             | Advantage Player2 |
+|4              | 5             | Advantage Player2 |
+|34              | 35             | Advantage Player2 |
+|35              | 34             | Advantage Player1 |
+
 #      | 4             | 3             | Advantage Player1 |
 #      | 5             | 6             | Advantage Player2 |
 #      | 8             | 6             | Game won Player1  |

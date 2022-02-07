@@ -2,5 +2,5 @@
   "firstName": "John",
   "lastName" : "Doe",
   "birthDate" : "1985-11-24",
-  "phoneList" : ["111"]
+  "phoneList" : ["111","222"]
 }
