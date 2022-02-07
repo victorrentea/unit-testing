@@ -6,13 +6,13 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMod
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class TelemetryDiagnostic {
+public final class TelemetryDiagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(TelemetryClient telemetryClient) {
+	public TelemetryDiagnostic(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
 	}
 
@@ -24,7 +24,7 @@ public class TelemetryDiagnostic {
 	}
 
 	public void checkTransmission(boolean force) {
-		telemetryClient.disconnect(force);
+		telemetryClient.disconnect(force); //
 
 		int currentRetry = 1;
 		while (! telemetryClient.getOnlineStatus() && currentRetry <= 3) {
