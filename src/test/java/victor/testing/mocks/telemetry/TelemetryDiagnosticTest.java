@@ -3,11 +3,12 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -18,11 +19,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
+@MockitoSettings(strictness = Strictness.LENIENT) // BAD IDEA
 @ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticTest {
    @Mock
    TelemetryClient clientMock;
    @InjectMocks
+       @Spy
    TelemetryDiagnostic target;
 
    @BeforeEach
@@ -67,27 +70,38 @@ public class TelemetryDiagnosticTest {
 // if you need to when..then AND verify the same method ===> you have a design issue. CQS violation
 
 
+//   @Test
+//   void configuresTheClient() {
+//      target.checkTransmission(true);
+//
+//      //capture the arg
+////      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
+//      verify(clientMock).configure(configCaptor.capture());
+//      ClientConfiguration config = configCaptor.getValue();
+//      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+//   }
+//   @Captor
+//   ArgumentCaptor<ClientConfiguration> configCaptor;
+
+
+   
    @Test
-   void configuresTheClient() {
+   void configuresClient() {
+      ClientConfiguration someConfig = new ClientConfiguration();
+//      when(target.createConfig()).thenReturn(someConfig);
+      doReturn(someConfig).when(target).createConfig();
+
       target.checkTransmission(true);
 
-      //capture the arg
-//      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
-      verify(clientMock).configure(configCaptor.capture());
-      ClientConfiguration config = configCaptor.getValue();
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+//      verify(clientMock).configure(notNull());
+      verify(clientMock).configure(someConfig);
    }
-   @Captor
-   ArgumentCaptor<ClientConfiguration> configCaptor;
-
-
 
    @Test
    void configIsOk() {
       when(clientMock.getVersion()).thenReturn("ver");
 
       ClientConfiguration config = target.createConfig();
-
 
       assertThat(config.getSessionId()).startsWith("ver-")
           .hasSize(40);

@@ -51,4 +51,9 @@ public final class TelemetryDiagnostic {
 		config.setAckMode(AckMode.NORMAL);
 		return config;
 	}
+
+}
+
+class ConfigFactory {
+
 }
