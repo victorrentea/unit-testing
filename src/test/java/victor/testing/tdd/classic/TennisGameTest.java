@@ -32,8 +32,7 @@ public class TennisGameTest {
 
    @Test
    void returnsLoveThirty_whenSecondPlayerScores2Points() {
-      tennisGame.addPoint(Player.TWO);
-      tennisGame.addPoint(Player.TWO);
+      addPointsToPlayer2(2);
       String actual = tennisGame.getScore();
 
       assertThat(actual).isEqualTo("Love - Thirty");
@@ -41,20 +40,38 @@ public class TennisGameTest {
 
    @Test
    void returnsLoveForty_whenSecondPlayerScores3Points() {
-      tennisGame.addPoint(Player.TWO);
-      tennisGame.addPoint(Player.TWO);
-      tennisGame.addPoint(Player.TWO);
+      addPointsToPlayer2(3);
       String actual = tennisGame.getScore();
 
       assertThat(actual).isEqualTo("Love - Forty");
    }
 
+   // building a 'testing framework' - is it good or bad.
+   // - risk of bugs
+   // + simpler shorter tests
+   private void addPointsToPlayer2(int points) {
+      for (int i = 0; i < points; i++) {
+         tennisGame.addPoint(Player.TWO);
+      }
+   }
+
    @Test
-   void returnsFifteenLove_whenFirstPlayerScores3Points() {
+   void returnsFifteenLove_whenFirstPlayerScores1Point() {
       tennisGame.addPoint(Player.ONE);
       String actual = tennisGame.getScore();
 
       assertThat(actual).isEqualTo("Fifteen - Love");
    }
 
+   // when to keep an overlapping test ? > in general they make tsts harder to maintain
+   // > "Examples" in the requirements should be 100% translated to tests, even if they overlap
+   // > It'a ramarkable example
+   @Test
+   void returnsThirtyLove_whenFirstPlayerScores2Point() {
+      tennisGame.addPoint(Player.ONE);
+      tennisGame.addPoint(Player.ONE);
+      String actual = tennisGame.getScore();
+
+      assertThat(actual).isEqualTo("Thirty - Love");
+   }
 }
