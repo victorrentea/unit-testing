@@ -30,6 +30,7 @@ public class TelemetryDiagnosticTest {
    @BeforeEach
    final void before() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
+      when(clientMock.getVersion()).thenReturn("ver"); // Should not be here as it's specific only for createConfig
    }
 
    @Test
@@ -98,11 +99,10 @@ public class TelemetryDiagnosticTest {
 
    @Test
    void configIsOk() {
-      when(clientMock.getVersion()).thenReturn("ver");
 
       ClientConfiguration config = target.createConfig();
 
-      assertThat(config.getSessionId()).startsWith("ver-")
+      assertThat(config.getSessionId()).startsWith("VER-")
           .hasSize(40);
 //      assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now()); // stupid > flaky  tests
       assertThat(config.getSessionStart()).isNotNull(); // engineer
