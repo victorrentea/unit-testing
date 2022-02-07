@@ -23,22 +23,31 @@ public class PriceService {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
 
-      PriceResult result = computePrice(customer, products, internalPrices);
+//      PriceResult result = computePrice(customer, products, internalPrices);
+
+      Map<Long, Double> resolvedPrices = resolvePrices(products, internalPrices);
+
+      PriceResult result = computePrices(products, resolvedPrices, customer.getCoupons());
 
       couponRepo.markUsedCoupons(customerId, result.getUsedCoupons());
       return result.getFinalPrices();
    }
 
    //subcutaneous test
-   PriceResult computePrice(Customer customer, List<Product> products, Map<Long, Double> internalPrices) {
+//   PriceResult computePrice(Customer customer, List<Product> products,
+//                            Map<Long, Double> internalPrices
+//                            ) {
+//      Map<Long, Double> resolvedPrices = resolvePrices(products, internalPrices);
+//
+//      return computePrics(customer, products, resolvedPrices);
+//   }
+
+   PriceResult computePrices(List<Product> products, Map<Long, Double> resolvedPrices, List<Coupon> coupons) {
       List<Coupon> usedCoupons = new ArrayList<>();
       Map<Long, Double> finalPrices = new HashMap<>();
       for (Product product : products) {
-         Double price = internalPrices.get(product.getId());
-         if (price == null) {
-            price = thirdPartyPrices.retrievePrice(product.getId());
-         }
-         for (Coupon coupon : customer.getCoupons()) {
+         Double price = resolvedPrices.get(product.getId());
+         for (Coupon coupon : coupons) {
             if (coupon.autoApply() && coupon.isApplicableFor(product) && !usedCoupons.contains(coupon)) {
                price = coupon.apply(product, price);
                usedCoupons.add(coupon);
@@ -46,8 +55,19 @@ public class PriceService {
          }
          finalPrices.put(product.getId(), price);
       }
-      PriceResult result = new PriceResult(usedCoupons, finalPrices);
-      return result;
+      return new PriceResult(usedCoupons, finalPrices);
+   }
+
+   private Map<Long, Double> resolvePrices(List<Product> products, Map<Long, Double> internalPrices) {
+      Map<Long, Double> resolvedPrices = new HashMap<>();
+      for (Product product : products) { // 1ns
+         Double price = internalPrices.get(product.getId());
+         if (price == null) {
+            price = thirdPartyPrices.retrievePrice(product.getId()); // 5ms - 300ms
+         }
+         resolvedPrices.put(product.getId(), price);
+      }
+      return resolvedPrices;
    }
 
 }
