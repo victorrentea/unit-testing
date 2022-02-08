@@ -1,4 +1,4 @@
-package victor.testing.spring.service;
+package victor.testing.spring.service.subpackage;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,11 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
@@ -19,12 +16,9 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.tools.WireMockExtension;
+import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
-
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
+import victor.testing.tools.WireMockExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -93,14 +87,14 @@ public class ProductServiceWireMockTest {
       assertThat(product.getCreateDate()); // TODO test time
    }
 
-   @TestConfiguration
-   public static class TestConfig {
-      @Bean
-      @Primary
-      public Clock clockFixed() {
-         return Clock.fixed(Instant.parse("2014-12-22T10:15:30.00Z"), ZoneId.systemDefault());
-      }
-   }
+//   @TestConfiguration
+//   public static class TestConfig {
+//      @Bean
+//      @Primary
+//      public Clock clockFixed() {
+//         return Clock.fixed(Instant.parse("2014-12-22T10:15:30.00Z"), ZoneId.systemDefault());
+//      }
+//   }
 
 
    // TODO Fixed Time
