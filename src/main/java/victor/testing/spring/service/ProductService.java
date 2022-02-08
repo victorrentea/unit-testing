@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
@@ -13,18 +14,13 @@ import victor.testing.spring.web.dto.ProductSearchResult;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Slf4j
 @Service
 public class ProductService {
     private final SafetyClient safetyClient;
     private final ProductRepo productRepo;
     private final SupplierRepo supplierRepo;
-
-    public ProductService(SafetyClient safetyClient, ProductRepo productRepo, SupplierRepo supplierRepo) {
-        this.safetyClient = safetyClient;
-        this.productRepo = productRepo;
-        this.supplierRepo = supplierRepo;
-    }
 
     public void createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode);

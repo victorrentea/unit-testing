@@ -12,7 +12,11 @@ public class TimeBasedLogic {
    private final OrderRepo orderRepo;
 
    public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = LocalDate.now();
+      // someone... ligic here
+      return isFrequentBuyer(customerId, LocalDate.now());
+   }
+   boolean isFrequentBuyer(int customerId, LocalDate now) {
+//      LocalDate now = LocalDate.now();
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);

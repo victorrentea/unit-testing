@@ -27,9 +27,9 @@ import static org.mockito.Mockito.*;
 public class ProductServiceMockBeanTest {
    @MockBean
    public SafetyClient mockSafetyClient;
-   @MockBean
+   @Autowired
    private ProductRepo productRepo;
-   @MockBean
+   @Autowired
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;

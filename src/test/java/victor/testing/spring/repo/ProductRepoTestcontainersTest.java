@@ -48,6 +48,7 @@ public class ProductRepoTestcontainersTest {
 
       registry.add("spring.datasource.username", postgres::getUsername);
       registry.add("spring.datasource.password", postgres::getPassword);
+
    }
 
    @BeforeEach

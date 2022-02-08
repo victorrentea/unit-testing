@@ -18,6 +18,9 @@ import static org.mockito.Mockito.*;
 class TimeBasedLogicTest {
    @Mock
    OrderRepo orderRepo;
+
+//   @Mock
+//   Clock
    @InjectMocks
    TimeBasedLogic target;
 
@@ -45,8 +48,13 @@ class TimeBasedLogicTest {
 
          assertThat(target.isFrequentBuyer(13)).isTrue();
       }
+   }
+   @Test
+   void subcutaneousTest() {
+      when(orderRepo.findByCustomerIdAndCreatedOnBetween(
+          13, parse("2021-12-18"), parse("2021-12-25"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+      LocalDate christmas = parse("2021-12-25");
 
-
-
+      assertThat(target.isFrequentBuyer(13, christmas)).isTrue();
    }
 }
