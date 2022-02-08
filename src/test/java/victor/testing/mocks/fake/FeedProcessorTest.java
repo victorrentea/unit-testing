@@ -14,7 +14,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class FeedProcessorTest {
-
    @InjectMocks
    FeedProcessor feedProcessor;
    @Mock
@@ -24,6 +23,7 @@ public class FeedProcessorTest {
    public void oneFileWithOneLine() {
       when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt"));
       when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+
       assertThat(feedProcessor.countPendingLines()).isEqualTo(1);
    }
 
@@ -31,14 +31,17 @@ public class FeedProcessorTest {
    public void oneFileWith2Lines() {
       when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("two.txt"));
       when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
+
       assertThat(feedProcessor.countPendingLines()).isEqualTo(2);
    }
 
    @Test
    public void twoFilesWith3Lines() {
-      // TODO
+      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt", "two.txt"));
+      when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
 
-      // TODO How to DRY the tests?
+      assertThat(feedProcessor.countPendingLines()).isEqualTo(3);
    }
 
 
