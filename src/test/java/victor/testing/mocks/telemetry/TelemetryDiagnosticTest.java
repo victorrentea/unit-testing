@@ -36,53 +36,40 @@ public class TelemetryDiagnosticTest {
    @BeforeEach
    final void before() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
-//      when(clientMock.getVersion()).thenReturn("ver"); // Should not be here as it's specific only for createConfig
    }
 
+   //separate tests: helps document the code
+//   @Test
+//   void disconnects() {
+//      target.checkTransmission(true);
+//
+//      verify(clientMock).disconnect(true);
+//   }
+//   @Test
+//   void sendsDiagnosticMessage() {
+//      target.checkTransmission(true);
+//
+//      verify(clientMock).send("AT#UD");
+//   }
+
+   // 'happy path test' : CONS: name of the test will not help you anymore.
    @Test
-   void disconnects() {
-
-      target.checkTransmission(true);
-
-      verify(clientMock).disconnect(true);
-   }
-
-   @Test
-   void sendsDiagnosticMessage() {
-
-      target.checkTransmission(true);
-
-      // IF AND ONLY IF the constant value is part of a CONTRACT (exposed via some API)
-      verify(clientMock).send("AT#UD");
-      // otherwise (if it's an internal-only constant)
-      verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
-   }
-
-   @Test
-   void receivesDiagnosticInfo() {
+   void ok() {
       when(clientMock.receive()).thenReturn("SOMETHING######");
 
       target.checkTransmission(true);
 
-//      verify(clientMock).receive(); // BAD: you shouldn't need to verify stubbed methods
-      // NEEDED though only if the invoked method is:
-      // a) NOT PURE (does side effects) eg. counter ++ <<< DESIGN MISTAKE
-      // b) takes time
-      // c) costs $$$
-      // doing any of a,b,c multiple times = BAD => you need to verify()
-
-      // NOTE! recent Mockito are STRICT: they check that every method stubbed (when..then) is really called from tested code
+      verify(clientMock).disconnect(true);
+      verify(clientMock).send("AT#UD");
       assertThat(target.getDiagnosticInfo()).isEqualTo("SOMETHING######");
    }
-// if you need to when..then AND verify the same method ===> you have a design issue. CQS violation
+
+
 
 
    @Test
    void configuresTheClient() {
       target.checkTransmission(true);
-
-      //capture the arg
-//      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
       verify(clientMock).configure(configCaptor.capture());
 
       verify(clientMock).configure(argThat(cc -> check(cc)));

@@ -31,15 +31,6 @@ public class PriceService {
       return result.getFinalPrices();
    }
 
-   //subcutaneous test
-//   PriceResult computePrice(Customer customer, List<Product> products,
-//                            Map<Long, Double> internalPrices
-//                            ) {
-//      Map<Long, Double> resolvedPrices = resolvePrices(products, internalPrices);
-//
-//      return computePrics(customer, products, resolvedPrices);
-//   }
-
    @VisibleForTesting
    PriceResult computePrices(List<Product> products, Map<Long, Double> resolvedPrices, List<Coupon> coupons) {
       List<Coupon> usedCoupons = new ArrayList<>();

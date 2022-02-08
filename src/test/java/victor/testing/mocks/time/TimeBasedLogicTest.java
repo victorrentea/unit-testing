@@ -1,6 +1,5 @@
 package victor.testing.mocks.time;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,20 +10,34 @@ import java.util.List;
 
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TimeBasedLogicTest {
    @Mock
    OrderRepo orderRepo;
+   @Mock
+   TimeProvider timeProvider;
+//   @Mock
+//   Clock clock; // Instant - BAD: framework ugly grose detail
    @InjectMocks
    TimeBasedLogic target;
 
    @Test
-   @Disabled("flaky, time-based")
+//   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
+      when(timeProvider.today()).thenReturn(parse("2021-12-25"));
+
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
-          13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+          13, parse("2021-02-18"), parse("2021-02-25"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+
+      //blame @Boris :)
+//      when(orderRepo.findByCustomerIdAndCreatedOnBetween(
+//          13, any(), any())).thenReturn(List.of(new Order().setTotalAmount(130d)));
+
+      //copy paste logic from prod - avoid
+//      when(orderRepo.findByCustomerIdAndCreatedOnBetween(
+//          13, now().minusDays(7), now())).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
       assertThat(target.isFrequentBuyer(13)).isTrue();
 
