@@ -54,12 +54,6 @@ class ConfigFactory {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
-		// heavy complexity
-		// heavy complexity
-		// heavy complexity
-		// heavy complexity
-		// heavy complexity
-		// heavy complexity
 		config.setAckMode(AckMode.NORMAL);
 		return config;
 	}

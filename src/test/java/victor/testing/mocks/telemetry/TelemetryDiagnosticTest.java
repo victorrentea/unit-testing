@@ -1,9 +1,13 @@
 package victor.testing.mocks.telemetry;
 
+import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -80,8 +84,8 @@ public class TelemetryDiagnosticTest {
       //capture the arg
 //      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
       verify(clientMock).configure(configCaptor.capture());
-      verify(clientMock).configure(argThat(cc -> true));
 
+      verify(clientMock).configure(argThat(cc -> check(cc)));
 
       ClientConfiguration config = configCaptor.getValue();
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
@@ -89,6 +93,11 @@ public class TelemetryDiagnosticTest {
    @Captor
    ArgumentCaptor<ClientConfiguration> configCaptor;
 
+   public boolean check(ClientConfiguration config) {
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      assertThat(config.getSessionStart()).isCloseTo(LocalDateTime.now(), byLessThan(1, MINUTES));
+      return true;
+   }
 
 //   @Test
 //   void configuresClient() {
@@ -107,15 +116,17 @@ class ConfigFactoryTest {
    private final ConfigFactory configFactory = new ConfigFactory();
    @Test
    void configIsOk() { // x10 tests -- more comfortable to write more tests.
-
       ClientConfiguration config = configFactory.createConfig("ver");
 
-      assertThat(config.getSessionId()).startsWith("VER-")
-          .hasSize(40);
-//      assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now()); // stupid > flaky  tests
-      assertThat(config.getSessionStart()).isNotNull(); // engineer
-      assertThat(config.getSessionStart()).isCloseTo(LocalDateTime.now(), byLessThan(1, MINUTES)); // science guy
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
+         softly.assertThat(config.getSessionId()).startsWith("VER-")
+             .hasSize(40);
+//      softly.assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now()); // stupid > flaky  tests
+         softly.assertThat(config.getSessionStart()).isNotNull(); // engineer
+         softly.assertThat(config.getSessionStart()).isCloseTo(LocalDateTime.now(), byLessThan(1, MINUTES)); // science guy
+         softly.assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      } // to fix the tech issue of seeing the first failure only
+      // supporting the idea of "Single Assert Rule"
    }
 
 }
