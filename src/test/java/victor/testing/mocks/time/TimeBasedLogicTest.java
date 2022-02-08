@@ -29,7 +29,7 @@ class TimeBasedLogicTest {
       when(timeProvider.today()).thenReturn(parse("2021-12-25"));
 
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
-          13, parse("2021-02-18"), parse("2021-02-25"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+          13, parse("2021-12-18"), parse("2021-12-25"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
       //blame @Boris :)
 //      when(orderRepo.findByCustomerIdAndCreatedOnBetween(

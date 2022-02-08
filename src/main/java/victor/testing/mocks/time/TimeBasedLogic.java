@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TimeBasedLogic {
    private final OrderRepo orderRepo;
-   private TimeProvider timeProvider;
+   private final TimeProvider timeProvider;
 
    public boolean isFrequentBuyer(int customerId) {
       LocalDate now = timeProvider.today();
