@@ -1,7 +1,6 @@
 package victor.testing.mocks.time;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,10 +10,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TimeBasedLogic {
    private final OrderRepo orderRepo;
-   private final TimeProvider timeProvider;
 
    public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = timeProvider.today();
+      LocalDate now = LocalDate.now();
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
@@ -27,9 +25,3 @@ public class TimeBasedLogic {
    }
 }
 
-@Component
-class TimeProvider {
-   public LocalDate today() {
-      return LocalDate.now();
-   }
-}
