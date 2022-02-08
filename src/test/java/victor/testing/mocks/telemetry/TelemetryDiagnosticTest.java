@@ -3,8 +3,7 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -16,6 +15,7 @@ import java.time.LocalDateTime;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 @MockitoSettings(strictness = Strictness.LENIENT) // BAD IDEA
@@ -73,18 +73,21 @@ public class TelemetryDiagnosticTest {
 // if you need to when..then AND verify the same method ===> you have a design issue. CQS violation
 
 
-//   @Test
-//   void configuresTheClient() {
-//      target.checkTransmission(true);
-//
-//      //capture the arg
-////      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
-//      verify(clientMock).configure(configCaptor.capture());
-//      ClientConfiguration config = configCaptor.getValue();
-//      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-//   }
-//   @Captor
-//   ArgumentCaptor<ClientConfiguration> configCaptor;
+   @Test
+   void configuresTheClient() {
+      target.checkTransmission(true);
+
+      //capture the arg
+//      ArgumentCaptor<ClientConfiguration> configCaptor = forClass(ClientConfiguration.class);
+      verify(clientMock).configure(configCaptor.capture());
+      verify(clientMock).configure(argThat(cc -> true));
+
+
+      ClientConfiguration config = configCaptor.getValue();
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+   }
+   @Captor
+   ArgumentCaptor<ClientConfiguration> configCaptor;
 
 
 //   @Test

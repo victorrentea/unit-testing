@@ -8,10 +8,7 @@ import victor.testing.builder.Customer;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.repo.ProductRepo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 public class PriceService {
@@ -72,6 +69,13 @@ public class PriceService {
       return resolvedPrices;
    }
 
+}
+class X {
+   PriceService s;
+
+   public void method() {
+      s.computePrices(Collections.emptyList(), Collections.emptyMap(), Collections.emptyList());
+   }
 }
 
 @Value
