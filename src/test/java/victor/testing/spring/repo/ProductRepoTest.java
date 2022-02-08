@@ -44,7 +44,7 @@ public class ProductRepoTest {
       repo.save(new Product("A"));
       List<ProductSearchResult> results = repo.search(criteria);
       assertThat(results).hasSize(1);
-      someService.method();
+//      someService.method();
    }
 
    @Test

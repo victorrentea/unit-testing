@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface ProductRepoSearch {
     List<ProductSearchResult> search(ProductSearchCriteria criteria);
+
+
+//    @Query("SELECT p FROM Product p JOIN p.bla WHERE EIXST")
 }
