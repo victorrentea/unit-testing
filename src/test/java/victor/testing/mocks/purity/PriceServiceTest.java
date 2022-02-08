@@ -16,7 +16,9 @@ import static victor.testing.spring.domain.ProductCategory.*;
 // testNG (not JUNIT) shares the instance for all @Test
 @ExtendWith(MockitoExtension.class)
 class PriceServiceTest {
-//   @Mock
+   public static final Coupon HOME_2_COUPON = new Coupon(HOME, 2);
+   public static final Coupon ELECTRONICS_2_COUPON = new Coupon(ELECTRONICS, 4);
+   //   @Mock
 //   CustomerRepo customerRepo;
 //   @Mock
 //   ThirdPartyPrices thirdPartyPrices;
@@ -35,19 +37,19 @@ class PriceServiceTest {
    @Test
    void sgkldskldskflskldskfldskfld() { // by default junit runs your methods in a 'pseudo-chaotical' order, but based on the method names.
       System.out.println(product1.getId());
+
+
    }
    @Test
    void computePrices() {
-      Coupon coupon1 = new Coupon(HOME, 2);
-      Coupon coupon2 = new Coupon(ELECTRONICS, 4);
-      List<Coupon> coupons = List.of(coupon1, coupon2);
+      List<Coupon> coupons = List.of(HOME_2_COUPON, ELECTRONICS_2_COUPON);
       List<Product> products = List.of(product1, product2);
       Map<Long, Double> prices = Map.of(1L, 10d, 2L, 5d);
 
       // when
       PriceResult result = priceService.computePrices(products,  prices, coupons);
 
-      assertThat(result.getUsedCoupons()).containsExactly(coupon1);
+      assertThat(result.getUsedCoupons()).containsExactly(HOME_2_COUPON);
       assertThat(result.getFinalPrices())
           .containsEntry(1L, 8d)
           .containsEntry(2L, 5d);
