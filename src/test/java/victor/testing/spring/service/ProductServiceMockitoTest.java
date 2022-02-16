@@ -1,12 +1,11 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -17,56 +16,48 @@ import victor.testing.spring.web.dto.ProductDto;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.byLessThan;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@Transactional
+@ActiveProfiles("db-mem")
 public class ProductServiceMockitoTest {
-   @Mock
+   @MockBean
    public SafetyClient mockSafetyClient;
-   @Mock
+   @Autowired
    private ProductRepo productRepo;
-   @Mock
+   @Autowired
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
+
 
    @Test
    public void createThrowsForUnsafeProduct() {
-      Assertions.assertThrows(IllegalStateException.class, () -> {
-         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+      assertThatThrownBy(() -> {
          productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME));
-      });
+      }).isInstanceOf(IllegalStateException.class);
    }
 
    @Test
    public void createOk() {
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getById(supplier.getId())).thenReturn(supplier);
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
 
-      productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
+      // "WHEN"
+      productService.createProduct(new ProductDto(
+          "name", "safebar", supplierId, ProductCategory.HOME));
 
-      // Yuck!
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
-
+      assertThat(productRepo.count()).isEqualTo(1);
+      Product product = productRepo.findAll().get(0);
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isNotNull();
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
 
-
-   // TODO Fixed Time
-   // @TestConfiguration public static class ClockConfig {  @Bean  @Primary  public Clock fixedClock() {}}
-
-   // TODO Variable Time
-   // when(clock.instant()).thenAnswer(call -> currentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(currentTime)));
-   // when(clock.getZone()).thenReturn(ZoneId.systemDefault());
 }
