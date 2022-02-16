@@ -1,4 +1,4 @@
-package victor.testing.spring.service;
+package victor.testing.spring.service.subfolder;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +13,7 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
 
 import static java.time.LocalDateTime.now;
@@ -22,8 +23,9 @@ import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
 
-@SpringBootTest
+@SpringBootTest // (properties = "some.prop=Oups this causes the context of this css to be different")
 @ActiveProfiles("db-mem")
+//@ActiveProfiles
 public class ProductServiceMockBeanTest {
    @MockBean
    public SafetyClient mockSafetyClient;
