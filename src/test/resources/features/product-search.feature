@@ -10,9 +10,21 @@ Feature: Search for product
     Given One product exists
     And That product has name "name"
     And That product has supplier "X"
+
     When The search criteria name is "name"
     And The search criteria supplier is "X"
+
     Then That product is returned by search
+
+  Scenario:
+    Given One product exists
+    And That product has name "name"
+    And That product has supplier "X"
+
+    When The search criteria name is "name"
+    And The search criteria supplier is "Y"
+
+    Then That product is NOT returned by search
 
   Scenario:
     Given One product exists

@@ -22,6 +22,9 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
                 " FROM Product p " +
                 " WHERE 1=1  ";
 
+//        String superHighlyTunedNativeSQLOf2A4pagesLong /*+hint */   select NLS_LANG.UPPER(s), max over partition by ()
+        // flyway / liquibase / dbmaintain : db migration tools. CREATE TABLE, ALTER TABLE < testin the incremental scripts.
+
         Map<String, Object> paramMap = new HashMap<>();
 
         if (StringUtils.isNotEmpty(criteria.name)) {

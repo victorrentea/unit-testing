@@ -1,8 +1,6 @@
 package victor.testing.spring.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,10 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.web.dto.ProductDto;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -37,7 +32,12 @@ public class ProductMvcTest {
 
         mockMvc.perform(post("/product/search")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{}") // empty criteria
+            .content("{\n" +
+                     "  \"name\":" +
+                     "  \"Tree\",\n" +
+                     "  \"otherField\" : 1\n" +
+                     "  \n" +
+                     "}") // empty criteria
         )
             .andExpect(status().isOk()) // 200
             .andExpect(header().string("Custom-Header", "true"))

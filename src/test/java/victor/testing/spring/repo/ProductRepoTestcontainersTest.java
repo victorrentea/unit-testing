@@ -21,7 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 public class ProductRepoTestcontainersTest {
    @Container
-   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")
+   static public PostgreSQLContainer<?> postgres =
+               new PostgreSQLContainer<>("postgres:11")
        .withDatabaseName("prop")
        .withUsername("postgres")
        .withPassword("password");

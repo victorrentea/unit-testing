@@ -119,4 +119,11 @@ public class ProductSearchSteps {
          assertThat(results).isEmpty();
       }
    }
+
+   @Then("That product is NOT returned by search")
+   public void thatProductIsNOTReturnedBySearch() {
+      productRepo.save(product);
+      List<ProductSearchResult> results = productRepo.search(criteria);
+      assertThat(results).isEmpty();
+   }
 }
