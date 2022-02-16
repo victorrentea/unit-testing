@@ -2,9 +2,8 @@ package victor.testing.spring.repo;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Repository;
-import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
+import victor.testing.spring.web.dto.ProductSearchResult;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 
-@Repository
 @RequiredArgsConstructor
 public class ProductRepoSearchImpl implements ProductRepoSearch {
     private final EntityManager em;
@@ -22,7 +20,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
     public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
         String jpql = "SELECT new victor.testing.spring.web.dto.ProductSearchResult(p.id, p.name)" +
                 " FROM Product p " +
-                " WHERE 1=1 ";
+                " WHERE 1=1  ";
 
         Map<String, Object> paramMap = new HashMap<>();
 

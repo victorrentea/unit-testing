@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,18 +9,27 @@ import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("db-mem") // using a real DB to run on > FLAKY tests > tests failing for non-bugs
 public class ProductRepoTest {
 
    @Autowired
    ProductRepo repo;
 
+   @Autowired
+   private EntityManager entityManager;
+
    ProductSearchCriteria criteria = new ProductSearchCriteria();
+
+   @BeforeEach
+   public void clearDb() {
+      repo.deleteAll();
+   }
 
    @Test
    public void noCriteria() {
@@ -34,5 +44,6 @@ public class ProductRepoTest {
       List<ProductSearchResult> results = repo.search(criteria);
       assertThat(results).hasSize(1);
    }
+
 }
 
