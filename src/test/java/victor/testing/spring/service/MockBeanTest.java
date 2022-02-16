@@ -21,10 +21,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
-
 @SpringBootTest
 @ActiveProfiles("db-mem")
-public class ProductServiceMockBeanTest {
+public class MockBeanTest {
    @MockBean
    public SafetyClient mockSafetyClient;
    @MockBean
@@ -34,24 +33,26 @@ public class ProductServiceMockBeanTest {
    @Autowired
    private ProductService productService;
 
-//   @Sql("/sql/common-reference-data.sql")
    @Test
    public void createThrowsForUnsafeProduct() {
+      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+
       Assertions.assertThrows(IllegalStateException.class, () -> {
-         when(mockSafetyClient.isSafe("bar")).thenReturn(false);
          productService.createProduct(new ProductDto("name", "bar",-1L, ProductCategory.HOME));
       });
    }
 
    @Test
    public void createOk() {
+      // GIVEN
       Supplier supplier = new Supplier().setId(13L);
       when(supplierRepo.getById(supplier.getId())).thenReturn(supplier);
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
+      // WHEN
       productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
 
-      // Yuck!
+      // THEN
       ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
       verify(productRepo).save(productCaptor.capture());
       Product product = productCaptor.getValue();
