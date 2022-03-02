@@ -20,15 +20,16 @@ class UseCaseTest {
    @Captor ArgumentCaptor<C> cCaptor;
 
    @Test
-   void useCase7() {
-      A a = new A();
-      B b = new B();
+   void case51() {
+      A a = new A("ax");
+      B b = new B("bx");
       when(repoA.findById(1L)).thenReturn(a);
       when(repoB.findById(2L)).thenReturn(b);
 
-      target.useCase7(1L, 2L);
+      target.case51(1L, 2L);
 
       verify(repoC).save(cCaptor.capture());
-      assertThat(cCaptor.getValue().getData()).isEqualTo("via complex logic");
+      assertThat(cCaptor.getValue().getData()).isEqualTo("computed with axbx");
    }
+   // TODO write 6 more such tests, to explore other paths in prod code
 }
