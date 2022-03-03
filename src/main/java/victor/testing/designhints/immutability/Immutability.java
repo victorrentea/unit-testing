@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 class A {
    private final B b;
    private final ObjRepo objRepo;
+
    public String caller(long id) {
       Obj obj = objRepo.findById(id);
       b.method(obj);
@@ -15,6 +16,7 @@ class A {
       return obj.getX();
    }
 }
+
 class B {
    public void method(Obj obj) {
       // logic
