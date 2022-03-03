@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class KebabTest {
+class KebabTestComplex1 {
    @Mock
    Dependency dependency;
    @InjectMocks
@@ -18,24 +18,54 @@ class KebabTest {
 
    @BeforeEach
    final void before() {
-
+      when(dependency.isOnionAllowed()).thenReturn(true);
    }
 
    @Test
    void complex1() {
-      when(dependency.isOnionAllowed()).thenReturn(true);
 
       kebab.complex1();
 
       // ..
    } // + 5 tests like this
-
+}
+   @ExtendWith(MockitoExtension.class)
+class KebabTestComplex2 {
+      @Mock
+      Dependency dependency;
+      @InjectMocks
+      KebabComplex2 kebab;
+      @BeforeEach //specific to all the tests
+      final void before() {
+         when(dependency.isCucumberAllowed()).thenReturn(true);
+      }
    @Test
    void complex2() {
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-
       kebab.complex2();
+   }
 
-      // ..
-   } // + 5 tests like this
+   @Test
+   void complex2a() {
+      kebab.complex2();
+   }
+
+   @Test
+   void complex2b() {
+      kebab.complex2();
+   }
+
+   @Test
+   void complex2c() {
+      kebab.complex2();
+   }
+
+   @Test
+   void complex2d() {
+      kebab.complex2();
+   }
+
+   @Test
+   void complex2e() {
+      kebab.complex2();
+   }
 }

@@ -31,5 +31,16 @@ class UseCaseTest {
       verify(repoC).save(cCaptor.capture());
       assertThat(cCaptor.getValue().getData()).isEqualTo("computed with axbx");
    }
+}
+
+class FunctionalCoreTest {
+   FunctionalCore core = new FunctionalCore();
+
+   @Test
+   void case51() {
+      C c = core.pureFunction(new A("ax"), new B("bx"));
+
+      assertThat(c.getData()).isEqualTo("computed with axbx");
+   }
    // TODO write 6 more such tests, to explore other paths in prod code
 }

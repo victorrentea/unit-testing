@@ -13,14 +13,18 @@ public class ImperativeShell {
       A a = repoA.findById(idA);
       B b = repoB.findById(idB);
 
-      // complex logic requiring 7 tests
-      String computedData = "computed with " + a + b;
-      C c = new C(computedData);
+      C c = functionalCore.pureFunction(a, b);
 
       repoC.save(c);
    }
+
 }
 
 class FunctionalCore {
 
+   public C pureFunction(A a, B b) {
+      // complex logic requiring 7 tests
+      String computedData = "computed with " + a + b;
+      return new C(computedData);
+   }
 }

@@ -10,11 +10,10 @@ class PreciseTest {
    @Test
    @CaptureSystemOutput
    void sendSprintFinishedEmail(OutputCapture outputCapture) {
-      Project project = new Project();
-      project.setPoEmail("boss@my.corp");
 
-      Precise.sendSprintFinishedEmail(project);
+      Precise.sendSprintFinishedEmail("boss@my.corp");
 
-      assertThat(outputCapture.toString()).isEqualTo("Sending email to boss@my.corp with subject 'Sprint Finished' and some body");
+      assertThat(outputCapture.toString())
+          .isEqualToNormalizingNewlines("Sending email to boss@my.corp with subject 'Sprint Finished' and some body\n");
    }
 }

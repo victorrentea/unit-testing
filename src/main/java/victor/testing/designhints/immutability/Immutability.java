@@ -10,7 +10,10 @@ class A {
 
    public String caller(long id) {
       Obj obj = objRepo.findById(id);
-      b.method(obj);
+
+      String x = b.method(obj);
+      obj.setX(x);
+
       // logic
       System.out.println("Logic using " + obj.getX());
       return obj.getX();
@@ -18,11 +21,12 @@ class A {
 }
 
 class B {
-   public void method(Obj obj) {
+   public String method(Obj obj) {
       // logic
       String x = "computed like in prod";
-      obj.setX(x);
+
       // logic
+      return x;
    }
 }
 

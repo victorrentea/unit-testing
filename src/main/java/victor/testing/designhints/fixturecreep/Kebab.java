@@ -13,7 +13,10 @@ public class Kebab {
       }
       // complex logic
    }
-
+}
+@RequiredArgsConstructor
+class KebabComplex2 {
+   private final Dependency dependency;
    public void complex2() {
       if (!dependency.isCucumberAllowed()) {
          throw new IllegalArgumentException();
