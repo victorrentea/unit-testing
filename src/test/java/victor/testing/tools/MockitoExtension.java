@@ -6,6 +6,7 @@ import org.mockito.internal.configuration.InjectingAnnotationEngine;
 import java.lang.reflect.Field;
 import java.util.Set;
 
+// also see src/test/resources/mockito-extensions
 public class MockitoExtension extends InjectingAnnotationEngine {
    @SneakyThrows
    @Override
