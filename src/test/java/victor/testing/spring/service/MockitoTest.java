@@ -7,6 +7,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -23,8 +24,8 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MockitoTest {
-   @Mock
-   public SafetyClient mockSafetyClient;
+//   @Mock
+   public SafetyClient mockSafetyClient = new SafetyClient(new RestTemplate());
    @Mock
    private ProductRepo productRepo;
    @Mock
@@ -34,7 +35,7 @@ public class MockitoTest {
 
    @Test
    public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
       Assertions.assertThrows(IllegalStateException.class, () ->
           productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME)));
