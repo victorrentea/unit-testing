@@ -67,7 +67,7 @@ public class BowlingGameTest {
       assertThat(game.score()).isEqualTo(11);
    }
 
-//   @Test
+   @Test
    void strike() {
       roll(10, 1, 1);
       rollZeros(16);
@@ -75,6 +75,16 @@ public class BowlingGameTest {
       int score = game.score();
 
       assertThat(score).isEqualTo(12 + 2);
+   }
+   @Test
+   void godGame() {
+      for (int i = 0; i < 12; i++) {
+         game.roll(10);
+      }
+
+      int score = game.score();
+
+      assertThat(score).isEqualTo(300);
    }
 
    private void roll(int... pinsArray) {
