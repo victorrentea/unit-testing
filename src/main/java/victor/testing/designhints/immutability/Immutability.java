@@ -2,6 +2,7 @@ package victor.testing.designhints.immutability;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.With;
 
 @RequiredArgsConstructor
 class A {
@@ -10,25 +11,28 @@ class A {
 
    public String caller(long id) {
       Obj obj = objRepo.findById(id);
-      b.method(obj);
+      String x = b.method(obj);
+//      obj = obj.withX(x);
+
       // logic
-      System.out.println("Logic using " + obj.getX());
-      return obj.getX();
+      System.out.println("Logic using " + x);
+      return x;
    }
 }
 
 class B {
-   public void method(Obj obj) {
+   public String method(Obj obj) {
       // logic
       String x = "computed like in prod";
-      obj.setX(x);
       // logic
+      return x;
    }
 }
 
 @Data
 class Obj {
-   private String x;
+   @With
+   private final String x;
 }
 
 interface ObjRepo {

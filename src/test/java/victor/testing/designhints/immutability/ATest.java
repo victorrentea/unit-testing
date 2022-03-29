@@ -17,11 +17,12 @@ class ATest {
 
    @Test
    void caller() {
-      when(objRepo.findById(1L)).thenReturn(new Obj());
-      doAnswer(invocation -> {
-         Obj obj = (Obj) invocation.getArguments()[0];
-         return obj.setX("stubbed");
-      }).when(b).method(any());
+      when(objRepo.findById(1L)).thenReturn(new Obj("x"));
+//      doAnswer(invocation -> {
+//         Obj obj = (Obj) invocation.getArguments()[0];
+//         return obj.setX("stubbed");
+//      }).when(b).method(any());
+      when(b.method(any())).thenReturn("stubbed");
 
       String result = a.caller(1L);
 
