@@ -3,9 +3,8 @@ package victor.testing.spring.repo.sub;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
@@ -19,7 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles({"db-mem","in-mem-kafka"})
 // TODO
 //@Sql(value = "classpath:/sql/common-reference-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+@Transactional
 public class ProductRepoTest {
    @Autowired
    ProductRepo repo;
