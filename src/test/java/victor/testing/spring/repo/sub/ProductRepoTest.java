@@ -3,6 +3,8 @@ package victor.testing.spring.repo.sub;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.repo.ProductRepo;
@@ -17,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles({"db-mem","in-mem-kafka"})
 // TODO
 //@Sql(value = "classpath:/sql/common-reference-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ProductRepoTest {
    @Autowired
    ProductRepo repo;
@@ -42,9 +45,9 @@ public class ProductRepoTest {
       repo.save(product);
       List<ProductSearchResult> results = repo.search(criteria);
 //      assertThat(results).hasSize(1);
-      assertThat(results.stream())
-          .anyMatch(p -> product.getId().equals(p.getId()))
-//          .hasSize(1)
+      assertThat(results)
+//          .anyMatch(p -> product.getId().equals(p.getId()))
+          .hasSize(1)
       ;
    }
 
@@ -52,8 +55,8 @@ public class ProductRepoTest {
    public void noCriteriaBis() { // not isolated tests
       repo.save(new Product("B"));
       List<ProductSearchResult> results = repo.search(criteria);
-      assertThat(results)
-          .anyMatch(p -> "B".equals(p.getName()))
+      assertThat(results).hasSize(1)
+//          .anyMatch(p -> "B".equals(p.getName()))
       ;
    }
 }
