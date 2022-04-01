@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,13 +14,17 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles({"db-mem","in-mem-kafka"})
 public class ProductRepoTest {
-
    @Autowired
    ProductRepo repo;
 
    ProductSearchCriteria criteria = new ProductSearchCriteria();
+
+   @AfterEach
+   final void cleanDB() {
+      repo.deleteAll();
+   }
 
    @Test
    public void noCriteria() {
@@ -29,7 +34,7 @@ public class ProductRepoTest {
    }
 
    @Test
-   public void noCriteriaBis() {
+   public void noCriteriaBis() { // not isolated tests
       repo.save(new Product("B"));
       List<ProductSearchResult> results = repo.search(criteria);
       assertThat(results).hasSize(1);
