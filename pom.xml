@@ -228,7 +228,7 @@
                         <include>**/*</include>
                     </includes>
                     <!-- or -->
-                    <groups>integration</groups>
+                    <groups>nightly</groups>
                 </configuration>
             </plugin>
 

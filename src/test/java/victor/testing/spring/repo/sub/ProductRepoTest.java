@@ -2,7 +2,6 @@ package victor.testing.spring.repo.sub;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
@@ -14,12 +13,15 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@ActiveProfiles({"db-mem","in-mem-kafka"})
-// TODO
 //@Sql(value = "classpath:/sql/common-reference-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+
+//@SpringBootTest
+//@DataJpaTest // slice test
+//@WebMvcTest
+@ActiveProfiles({"db-mem","in-mem-kafka"})
 @Transactional
+//@Tag("nightly")
 public class ProductRepoTest {
    @Autowired
    ProductRepo repo;

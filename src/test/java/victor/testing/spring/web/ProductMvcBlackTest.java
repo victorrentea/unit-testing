@@ -14,18 +14,18 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.SupplierRepo;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Transactional
+@Transactional // ONE TRANSACTION TO RULE THEM ALL. in one tx: insert ref, create product web, search from web. rollback
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc // start Spring without tomcat and emulates HTTP requests to controller
 public class ProductMvcBlackTest {
    @Autowired
-   private MockMvc mockMvc;
+   private MockMvc mockMvc; // can use this to 'emulate' web requests
    @MockBean
-   private SafetyClient safetyClient;
+   private SafetyClient safetyClient; // mocking a bean
    @Autowired
    private SupplierRepo supplierRepo;
 
@@ -33,8 +33,7 @@ public class ProductMvcBlackTest {
 
    @BeforeEach
    public void persistStaticData() {
-      supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-
+      supplierId = supplierRepo.save(new Supplier().setActive(true)).getId(); // insert ref data
    }
 
    @Test
@@ -43,6 +42,7 @@ public class ProductMvcBlackTest {
 
       createProduct("Tree");
 
+      /*List<ProductSearchResult> dtos = */
       runSearch("{\"name\": \"Tree\"}", 1);
    }
 
