@@ -11,19 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import victor.testing.bank.entity.Account;
 import victor.testing.bank.entity.Client;
 import victor.testing.bank.repo.ClientJpaRepository;
-import victor.testing.bank.vo.ClientSearchResult;
-import victor.testing.bank.entity.Account;
 import victor.testing.bank.vo.ClientSearchCriteria;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import victor.testing.bank.vo.ClientSearchResult;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-@EnableSwagger2
+//@EnableSwagger2
 @SpringBootApplication
 @MapperScan("ro.victor.unittest.bank.repo")
 public class BankApplication implements CommandLineRunner {
