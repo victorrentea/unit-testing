@@ -30,7 +30,12 @@ public class SafetyClient {
     }
 
     private boolean entryIsSafe(SafetyEntryDto report) {
+        renamePesteTot();
         return "SAFE".equals(report.getCategory());
 
     }
+    private void renamePesteTot() {
+
+    }
+
 }

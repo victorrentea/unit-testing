@@ -36,7 +36,8 @@ public class WireMockTest {
    @Test
    public void throwsForUnsafeProduct() {
       Assertions.assertThrows(IllegalStateException.class, () -> {
-         productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME));
+         ProductDto productDto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+         productService.createProduct(productDto);
       });
    }
 

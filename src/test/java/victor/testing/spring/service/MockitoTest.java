@@ -1,13 +1,11 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -20,41 +18,73 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@Transactional
+@ActiveProfiles("db-mem")
 public class MockitoTest {
-   @Mock
-   public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
-   @Mock
+   @MockBean
+   public SafetyClient mockSafetyClient;
+   @Autowired
    private ProductRepo productRepo;
-   @Mock
+   @Autowired
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test
    public void createThrowsForUnsafeProduct() {
-//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
-      Assertions.assertThrows(IllegalStateException.class, () ->
+      assertThrows(IllegalStateException.class, () ->
           productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME)));
    }
 
    @Test
    public void createOk() {
       // GIVEN
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getById(supplier.getId())).thenReturn(supplier);
+      Supplier supplier = supplierRepo.save(new Supplier());
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       // WHEN
-      productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
+      ProductDto dto = new ProductDto("name", "safebar",
+          supplier.getId(),
+          ProductCategory.HOME);
+      productService.createProduct(dto);
 
       // THEN
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+//      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+//      verify(productRepo).save(productCaptor.capture());
+//      Product product = productCaptor.getValue();
+      org.assertj.core.api.Assertions.assertThat(productRepo.findAll()).hasSize(1);
+      Product product = productRepo.findAll().get(0);
+
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+   }
+   @Test
+   public void createOk2() {
+      // GIVEN
+      Supplier supplier = supplierRepo.save(new Supplier());
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+
+      // WHEN
+      ProductDto dto = new ProductDto("name", "safebar",
+          supplier.getId(),
+          ProductCategory.HOME);
+      productService.createProduct(dto);
+
+      // THEN
+//      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+//      verify(productRepo).save(productCaptor.capture());
+//      Product product = productCaptor.getValue();
+      org.assertj.core.api.Assertions.assertThat(productRepo.findAll()).hasSize(1);
+      Product product = productRepo.findAll().get(0);
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
