@@ -218,14 +218,6 @@
         </dependency>
     </dependencies>
     <build>
-        <testResources>
-            <testResource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.feature</include>
-                </includes>
-            </testResource>
-        </testResources>
         <plugins>
 
             <!-- Typically: runs after every commit, takes 10-20 minutes, runs mockito-only, in-memory tests -->

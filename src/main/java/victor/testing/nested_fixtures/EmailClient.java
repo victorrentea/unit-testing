@@ -1,4 +1,4 @@
-package victor.testing.deep;
+package victor.testing.nested_fixtures;
 
 import victor.testing.builder.Customer;
 
