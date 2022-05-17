@@ -11,13 +11,14 @@ public class MockitoConfiguration extends DefaultMockitoConfiguration{
    @Override
    public Answer<Object> getDefaultAnswer() {
       return new ReturnsEmptyValues() {
+         @SuppressWarnings("ReactiveStreamsUnusedPublisher")
          @Override
          public Object answer(InvocationOnMock invocation) {
             if (Mono.class.isAssignableFrom(invocation.getMethod().getReturnType())) {
-               return Mono.error(new RuntimeException("DEFAULT EMIT ERROR"));
+               return Mono.error(new DefaultErrorSignalException());
             }
             if (Flux.class.isAssignableFrom(invocation.getMethod().getReturnType())) {
-               return Flux.error(new RuntimeException("DEFAULT EMIT ERROR"));
+               return Flux.error(new DefaultErrorSignalException());
             }
             return super.answer(invocation);
          }
