@@ -61,10 +61,13 @@ class ReactiveFlowTest {
         when(client.fetchProductDetails(11L)).thenReturn(
                 Mono.just(new ProductDetails("desc")).delayElement(ofSeconds(3)));
 
-        Duration duration = target.enrichData(11L)
-                .as(StepVerifier::create)
+        StepVerifier.withVirtualTime(() ->target.enrichData(11L))
+                .thenAwait(ofSeconds(5))
                 .expectNextCount(1)
                 .verifyComplete();
+        // 1) @Timeout (junit)
+        // 2) duration = .. .verifyComplete
+        // 3) withVirtualTime + all .delayXxx calls in lambdas (executed later in context of virtual time) => see other method in ReactiveFlow
     }
 }
 

@@ -1,8 +1,11 @@
 package victor.testing.reactive;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
+import javax.annotation.PostConstruct;
+import java.time.Duration;
+import java.util.List;
 
 public class ReactiveFlow {
     private final ReactiveClient client;
@@ -16,6 +19,18 @@ public class ReactiveFlow {
                 .zipWith(client.fetchStock(productId), ProductDto::new);
     }
 
+    @PostConstruct
+    public void onstartup() {
+        Flux<Long> kafkaMessages = Flux.empty(); // imagine dragons
+        subscribeToKafkaStream(kafkaMessages);
+    }
+
+    public void subscribeToKafkaStream(Flux<Long> productIdFlux) {
+        productIdFlux.bufferTimeout(3, Duration.ofSeconds(2))
+                .flatMap(pageOfMessages -> client.fetchProductDetailsInPages(pageOfMessages))
+//                .flatMap(repo::save)
+                .subscribe();
+    }
 }
 
 
@@ -26,6 +41,10 @@ class ReactiveClient {
     }
     public Mono<ProductDetails> fetchProductDetails(long productId) {
         return Mono.empty();
+    }
+
+    public Flux<ProductDetails> fetchProductDetailsInPages(List<Long> productIds) {
+        return Flux.empty();
     }
 }
 
