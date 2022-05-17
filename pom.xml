@@ -282,10 +282,10 @@
 
                 <configuration>
                     <targetClasses>
-                        <param>victor.testing.builder.*</param>
+                        <param>victor.testing.mutation.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>victor.testing.builder.*</param>
+                        <param>victor.testing.mutation.*</param>
                     </targetTests>
                     <mutators>
                         <mutator>NON_VOID_METHOD_CALLS</mutator>

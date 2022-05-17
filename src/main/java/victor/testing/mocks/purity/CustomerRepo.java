@@ -1,6 +1,6 @@
 package victor.testing.mocks.purity;
 
-import victor.testing.builder.Customer;
+import victor.testing.mutation.Customer;
 
 public interface CustomerRepo {
    Customer findById(long customerId);

@@ -1,4 +1,4 @@
-package victor.testing.builder;
+package victor.testing.mutation;
 
 import lombok.EqualsAndHashCode;
 import victor.testing.spring.domain.Product;

@@ -7,8 +7,8 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.builder.Coupon;
-import victor.testing.builder.Customer;
+import victor.testing.mutation.Coupon;
+import victor.testing.mutation.Customer;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.repo.ProductRepo;
 

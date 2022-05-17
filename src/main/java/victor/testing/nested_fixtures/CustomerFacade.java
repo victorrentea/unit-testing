@@ -1,10 +1,10 @@
 package victor.testing.nested_fixtures;
 
 import lombok.RequiredArgsConstructor;
-import victor.testing.builder.Country;
-import victor.testing.builder.Coupon;
-import victor.testing.builder.Customer;
-import victor.testing.builder.CustomerValidator;
+import victor.testing.mutation.Country;
+import victor.testing.mutation.Coupon;
+import victor.testing.mutation.Customer;
+import victor.testing.mutation.CustomerValidator;
 import victor.testing.mocks.purity.CustomerRepo;
 import victor.testing.spring.domain.ProductCategory;
 

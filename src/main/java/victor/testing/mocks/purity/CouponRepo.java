@@ -1,6 +1,6 @@
 package victor.testing.mocks.purity;
 
-import victor.testing.builder.Coupon;
+import victor.testing.mutation.Coupon;
 
 import java.util.List;
 

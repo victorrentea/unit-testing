@@ -1,4 +1,4 @@
-package victor.testing.builder;
+package victor.testing.mutation;
 
 
 import org.junit.jupiter.api.Test;

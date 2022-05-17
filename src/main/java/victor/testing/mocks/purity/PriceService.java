@@ -1,8 +1,8 @@
 package victor.testing.mocks.purity;
 
 import lombok.RequiredArgsConstructor;
-import victor.testing.builder.Coupon;
-import victor.testing.builder.Customer;
+import victor.testing.mutation.Coupon;
+import victor.testing.mutation.Customer;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.repo.ProductRepo;
 
