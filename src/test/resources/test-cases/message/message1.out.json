@@ -1,0 +1,12 @@
+{
+  "response": {
+    "requestId": "a",
+    "totalPrice": 6
+  },
+  "notFoundEvents": [
+    {
+      "requestId": "a",
+      "grocery": "strawberry"
+    }
+  ]
+}
