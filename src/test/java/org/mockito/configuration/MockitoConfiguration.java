@@ -6,7 +6,7 @@ import org.mockito.stubbing.Answer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-// by default mocks returning Mono/Flux should emit an error instead of throwing it, for any method not stubbed.
+// this class has to be exactly in this package, as Mockito looks for this classname at startup automatically: org.mockito.configuration.MockitoConfiguration
 public class MockitoConfiguration extends DefaultMockitoConfiguration{
    @Override
    public Answer<Object> getDefaultAnswer() {
@@ -14,6 +14,7 @@ public class MockitoConfiguration extends DefaultMockitoConfiguration{
          @SuppressWarnings("ReactiveStreamsUnusedPublisher")
          @Override
          public Object answer(InvocationOnMock invocation) {
+            // by default mocks returning Mono/Flux should emit an error instead of throwing it, for any method not stubbed.
             if (Mono.class.isAssignableFrom(invocation.getMethod().getReturnType())) {
                return Mono.error(new DefaultErrorSignalException());
             }
