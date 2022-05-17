@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import reactor.test.publisher.PublisherProbe;
+import reactor.test.publisher.TestPublisher;
 
 import java.time.Duration;
 
@@ -36,12 +37,17 @@ class ReactiveFlowTest {
                 // TODO a) CR ProductDto includes a uuid ==> can't use equals anymore; or b) 12 fields to compare => error message = ugly
                 .verifyComplete();
 
+        // TODO CR: see #enrichData code() ==> purpose for PublisherProbe
+
         stockProbe.assertWasSubscribed();
         detailsProbe.assertWasSubscribed();
     }
     @Test
     void enrichData_error() {
-        // TODO try to comment next line => @see org.mockito.configuration.MockitoConfiguration
+        // TODO how to emit an error to tested code
+        // 1) programmatic .error()
+        // 2) mock(class, EMITS_ERROR)
+        // 3) global default @see org.mockito.configuration.MockitoConfiguration
         when(client.fetchStock(11L)).thenReturn(Mono.error(new RuntimeException("failing")));
         when(client.fetchProductDetails(11L)).thenReturn(Mono.just(new ProductDetails("desc")));
 
@@ -50,7 +56,9 @@ class ReactiveFlowTest {
                 .verifyError(RuntimeException.class)
 //                .verifyErrorMessage("failing")
         ;
-        // todo debate: alternative way to check exception?
+        // TODO how to check exceptions?
+        // TODO should we audit if we emit an error?
+
     }
 
     @Test
@@ -68,7 +76,6 @@ class ReactiveFlowTest {
         // 1) @Timeout (junit)
         // 2) duration = .. .verifyComplete
         // 3) withVirtualTime + all .delayXxx calls in lambdas (executed later in context of virtual time) => see other method in ReactiveFlow
+           // ==> the need to emit items at arbitrary rate
     }
 }
-
-// fluxul 2: vin mesaje pe kafka. le grupam cate 3 in pagini cu max 100 ms delay -> trimitem la altii

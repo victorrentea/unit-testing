@@ -4,7 +4,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
-import java.time.Duration;
 import java.util.List;
 
 public class ReactiveFlow {
@@ -15,8 +14,10 @@ public class ReactiveFlow {
     }
 
     public Mono<ProductDto> enrichData(Long productId) {
+        //  TODO CR on each product returned successfully, call client.auditRequestedProduct(productId)
         return client.fetchProductDetails(productId)
-                .zipWith(client.fetchStock(productId), ProductDto::new);
+                .zipWith(client.fetchStock(productId), ProductDto::new)
+                ;
     }
 
     @PostConstruct
@@ -26,30 +27,31 @@ public class ReactiveFlow {
     }
 
     public void subscribeToKafkaStream(Flux<Long> productIdFlux) {
-        productIdFlux.bufferTimeout(3, Duration.ofSeconds(2))
-                .flatMap(pageOfMessages -> client.fetchProductDetailsInPages(pageOfMessages))
+        productIdFlux
+                .flatMap(id -> client.fetchProductDetails(id))
+//                .bufferTimeout(3, Duration.ofSeconds(2))
+//                .flatMap(pageOfIds -> client.fetchProductDetailsInPages(pageOfIds))
 //                .flatMap(repo::save)
                 .subscribe();
     }
 }
 
 
-class ReactiveClient {
-    public Mono<StockAmount> fetchStock(long productId) {
-//        WebClient...
-        return Mono.empty();
-    }
-    public Mono<ProductDetails> fetchProductDetails(long productId) {
-        return Mono.empty();
-    }
+interface ReactiveClient {
+    Mono<StockAmount> fetchStock(long productId);
 
-    public Flux<ProductDetails> fetchProductDetailsInPages(List<Long> productIds) {
-        return Flux.empty();
-    }
+    Mono<ProductDetails> fetchProductDetails(long productId);
+
+    Flux<ProductDetails> fetchProductDetailsInPages(List<Long> productIds);
+
+    Mono<Void> auditRequestedProduct(Long productId);
 }
 
 record StockAmount(int value) {
 }
+
 record ProductDetails(String description) {
 }
-record ProductDto(ProductDetails details, StockAmount stock/*, UUID uniqueResponseId*/){}
+
+record ProductDto(ProductDetails details, StockAmount stock/*, UUID uniqueResponseId*/) {
+}
