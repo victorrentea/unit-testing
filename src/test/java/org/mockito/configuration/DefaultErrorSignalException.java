@@ -5,4 +5,7 @@ package org.mockito.configuration;
  * unless the method is explicitly stubbed, ie. when(...).thenReturn(...)
  */
 public class DefaultErrorSignalException extends RuntimeException {
+    public DefaultErrorSignalException(String methodName) {
+        super("Method '" + methodName + "' was not stubbed and it emitted an error signal with this exception when subscribed");
+    }
 }

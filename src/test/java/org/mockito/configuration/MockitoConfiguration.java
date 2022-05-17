@@ -16,10 +16,10 @@ public class MockitoConfiguration extends DefaultMockitoConfiguration{
          public Object answer(InvocationOnMock invocation) {
             // by default mocks returning Mono/Flux should emit an error instead of throwing it, for any method not stubbed.
             if (Mono.class.isAssignableFrom(invocation.getMethod().getReturnType())) {
-               return Mono.error(new DefaultErrorSignalException());
+               return Mono.error(new DefaultErrorSignalException(invocation.getMethod().toString()));
             }
             if (Flux.class.isAssignableFrom(invocation.getMethod().getReturnType())) {
-               return Flux.error(new DefaultErrorSignalException());
+               return Flux.error(new DefaultErrorSignalException(invocation.getMethod().toString()));
             }
             return super.answer(invocation);
          }
