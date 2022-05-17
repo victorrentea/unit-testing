@@ -8,9 +8,11 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -20,23 +22,31 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
 
     @Override
     public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
-        String jpql = "SELECT new victor.testing.spring.web.dto.ProductSearchResult(p.id, p.name)" +
+        List<String> jpqlParts = new ArrayList<>();
+        jpqlParts.add("SELECT new victor.testing.spring.web.dto.ProductSearchResult(p.id, p.name)" +
                 " FROM Product p " +
-                " WHERE 1=1 ";
+                " WHERE 1=1");
 
         Map<String, Object> paramMap = new HashMap<>();
 
         if (StringUtils.isNotEmpty(criteria.name)) {
-            jpql += "  AND p.name = :name   ";
+            jpqlParts.add("AND p.name = :name");
+//            jpqlParts.add("AND UPPER(p.name) LIKE UPPER('%' || :name || '%')"); // = contains, ignoring case
             paramMap.put("name", criteria.name);
         }
 
         if (criteria.supplierId != null) {
-            jpql += "  AND p.supplier.id = :supplierId   ";
+            jpqlParts.add("AND p.supplier.id = :supplierId");
             paramMap.put("supplierId", criteria.supplierId);
         }
 
-        TypedQuery<ProductSearchResult> query = em.createQuery(jpql, ProductSearchResult.class);
+        if (criteria.category != null) {
+            jpqlParts.add(" AND p.category = :category");
+            paramMap.put("category", criteria.category);
+        }
+
+        String jqpl = String.join(" ", jpqlParts);
+        TypedQuery<ProductSearchResult> query = em.createQuery(jqpl, ProductSearchResult.class);
         for (String paramName : paramMap.keySet()) {
             query.setParameter(paramName, paramMap.get(paramName));
         }
