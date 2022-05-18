@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/payments/jdoe/2013/11"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": [
+      {
+        "date": "2013-11-05",
+        "amount": 100,
+        "description": "REF #1251235",
+        "category": "GROCERIES"
+      },
+      {
+        "date": "2013-11-06",
+        "amount": 48,
+        "description": "REF #1251235",
+        "category": "GROCERIES"
+      },
+      {
+        "date": "2013-11-30",
+        "amount": 928,
+        "description": "REF #622356",
+        "category": "TRAVEL"
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
