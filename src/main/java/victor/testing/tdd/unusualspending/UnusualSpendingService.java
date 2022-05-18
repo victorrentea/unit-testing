@@ -1,5 +1,8 @@
 package victor.testing.tdd.unusualspending;
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,8 +23,9 @@ public class UnusualSpendingService {
         List<Payment> payments = paymentServiceClient.fetchPayments(userId,
                 now.getYear(), now.getMonthValue());
 
-        UnsualPaymentReport report = paymentsAnalyzer.analyze(payments);
+        UnsualPaymentReport report = paymentsAnalyzer.analyze(payments).get();
 
         emailSender.sendUnusualSpendingReport(report);
     }
+
 }
