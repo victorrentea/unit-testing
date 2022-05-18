@@ -1,0 +1,15 @@
+parsed from JSON:
+
+new Payment(100, Category.GROCERIES, LocalDate.parse("2013-11-05")),
+new Payment(48, Category.GROCERIES, LocalDate.parse("2013-11-06")),
+new Payment(60, Category.GROCERIES, LocalDate.parse("2013-10-05")),
+new Payment(500, Category.TRAVEL, LocalDate.parse("2013-10-30")),
+new Payment(928, Category.TRAVEL, LocalDate.parse("2013-11-30"))
+
+
+
+
+     return WebClient.create()
+                .get().uri(baseUrl + "/payments/{username}/{year}/{month}", userId, year, month)
+                .retrieve()
+                .bodyToFlux(PaymentDto.class);
