@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * The bonus for that frame is the number of pins knocked down by the next roll.
  *
  * A strike is when the player knocks down all 10 pins on his first roll.
- * The frame is then completed with a single roll. The bonus for that frame is the value of the next two rolls.
+ * The frame is then completed with a single roll. The bonus for that frame is the value of the next TWO rolls.
  *
  * In the tenth frame a player who rolls a spare or strike is allowed to roll the extra balls to complete the frame.
  * However no more than three balls can be rolled in tenth frame.
@@ -59,6 +59,20 @@ public class GameTest {
         rollZeros(16);
 
         assertThat(game.score()).isEqualTo(11);
+    }
+
+    @Test
+    @Disabled
+    void strike() {
+        final int ROLL_AFTER_SPARE = 1;
+        game.roll(10); // 1st frame
+
+        game.roll(1); // 2nd
+        game.roll(1); // 2nd
+
+        rollZeros(16);
+
+        assertThat(game.score()).isEqualTo(10 + 1 + 1 + 1 + 1);
     }
 
     private void rollZeros(int x) {
