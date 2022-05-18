@@ -62,7 +62,7 @@ public class UnusualSpendingServiceTest {
                 "\n" +
                 "Love,\n" +
                 "\n" +
-                "The Credit Card Company");
+                "The Credit Card Company\n");
     }
 
     @Test

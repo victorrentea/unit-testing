@@ -30,8 +30,8 @@ class EmailSenderTest {
                                 
                 We have detected unusually high spending on your card in these categories:
                                 
-                * You spent $50 on groceries
                 * You spent $100 on travel
+                * You spent $50 on groceries
                                 
                 Love,
                                 

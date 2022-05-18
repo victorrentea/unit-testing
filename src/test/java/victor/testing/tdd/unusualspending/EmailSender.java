@@ -3,6 +3,8 @@ package victor.testing.tdd.unusualspending;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.Comparator;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -20,12 +22,13 @@ public class EmailSender {
                 "We have detected unusually high spending on your card in these categories:\n" +
                 "\n" +
                 unusualSpendingReport.amountPerCategory().entrySet().stream()
+                        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                         .map(e -> "* You spent $%d on %s\n".formatted(e.getValue(), e.getKey().name().toLowerCase()))
                         .collect(Collectors.joining())
                 +"\n" +
                 "Love,\n" +
                 "\n" +
-                "The Credit Card Company";
+                "The Credit Card Company\n";
         return emailClient.sendEmail(userId, subject, body);
 
     }
