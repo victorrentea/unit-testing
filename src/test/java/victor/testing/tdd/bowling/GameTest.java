@@ -64,15 +64,19 @@ public class GameTest {
     @Test
     @Disabled
     void strike() {
-        final int ROLL_AFTER_SPARE = 1;
+        final int ROLL_1_AFTER = 1;
+        final int ROLL_2_AFTER = 2;
+
         game.roll(10); // 1st frame
 
-        game.roll(1); // 2nd
-        game.roll(1); // 2nd
+        game.roll(ROLL_1_AFTER); // 2nd
+        game.roll(ROLL_2_AFTER); // 2nd
 
         rollZeros(16);
 
-        assertThat(game.score()).isEqualTo(10 + 1 + 1 + 1 + 1);
+        int bonus = ROLL_1_AFTER + ROLL_2_AFTER;
+        int nextFrameRegularScore = ROLL_1_AFTER + ROLL_2_AFTER;
+        assertThat(game.score()).isEqualTo(10 + bonus + nextFrameRegularScore);
     }
 
     private void rollZeros(int x) {
