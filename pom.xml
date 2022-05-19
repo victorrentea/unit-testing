@@ -182,7 +182,7 @@
         </dependency>
 
 
-        <!--Enable blockhound test listener to detect blockign calls in non-blocking threads-->
+        <!--Enable blockhound test listener to detect blocking calls in non-blocking threads-->
 <!--
         <dependency>
             <groupId>io.projectreactor.tools</groupId>
@@ -258,6 +258,9 @@
                     </excludes>
                     <!-- or: -->
                     <excludedGroups>integration</excludedGroups>
+
+
+                    <!-- for blockhound test listener: https://github.com/reactor/BlockHound/issues/33 -->
                     <argLine>-XX:+AllowRedefinitionToAddDeleteMethods</argLine>
                 </configuration>
             </plugin>
