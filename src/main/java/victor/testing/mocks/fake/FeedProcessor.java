@@ -14,8 +14,8 @@ import static java.util.stream.Collectors.toList;
 public class FeedProcessor {
    private final IFileRepo fileRepo;
 
-   public FeedProcessor(IFileRepo fileRepo) {
-      this.fileRepo = fileRepo;
+   public FeedProcessor(IFileRepo p) {
+      this.fileRepo = p;
    }
 
    public int countPendingLines() {
