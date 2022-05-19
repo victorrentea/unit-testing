@@ -183,14 +183,12 @@
 
 
         <!--Enable blockhound test listener to detect blocking calls in non-blocking threads-->
-<!--
         <dependency>
             <groupId>io.projectreactor.tools</groupId>
             <artifactId>blockhound-junit-platform</artifactId>
             <version>1.0.6.RELEASE</version>
             <scope>test</scope>
         </dependency>
--->
 
 
         <dependency>

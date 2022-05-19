@@ -14,6 +14,11 @@ public class ReactiveFlow {
     }
 
     public Mono<ProductDto> enrichData(Long productId) {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         //  TODO CR on each product returned successfully, call client.auditRequestedProduct(productId)
         return client.fetchProductDetails(productId)
                 .zipWith(client.fetchStock(productId), ProductDto::new)
