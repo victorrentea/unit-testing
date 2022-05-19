@@ -21,11 +21,13 @@ class CommandVsQueryTest {
    @CaptureSystemOutput
    void test(OutputCapture outputCapture) {
       Obj obj = new Obj();
-      when(dependency.stuff(obj, 5)).thenReturn(7);
+      when(dependency.computeStuff(5)).thenReturn(7);
 
       target.testedMethod(obj);
 
-      verify(dependency).stuff(obj, 5); // why ??
+      verify(dependency).changeStuff(obj, 5); // why ??
+      // ASK:1) Am i violating CQS ? is my function both returning and changing stuff ?
+      // or 2) the method I am verifying is an expensive call that I want to make sure it happens once
       assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Logic with 7");
    }
 }

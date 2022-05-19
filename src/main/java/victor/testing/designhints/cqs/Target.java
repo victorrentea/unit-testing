@@ -9,16 +9,18 @@ public class Target {
 
    public void testedMethod(Obj obj) {
       // logic to test
-      int x = dependency.stuff(obj, 5);
+      dependency.changeStuff(obj, 5);
+      int x = dependency.computeStuff(5);
       System.out.println("Logic with " + x);
    }
 }
 
 class Dependency {
-   public int stuff(Obj obj, int x) {
-      // imagine complexity => tested separately
-      obj.setTotal(obj.getTotal() + x); // side effect ==> command
+   public int computeStuff(int x) {
       return x * 2; // returns ==> query
+   }
+   public void changeStuff(Obj obj, int x) {
+      obj.setTotal(obj.getTotal() + x); // side effect ==> command
    }
 }
 

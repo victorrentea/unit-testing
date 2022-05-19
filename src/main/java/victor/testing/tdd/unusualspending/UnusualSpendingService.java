@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,15 +28,21 @@ public class UnusualSpendingService {
     public void checkClient(String userId) {
         LocalDate now = timeProvider.getCurrentDate();
 
+        // not pure because networking
         Set<Payment> paymentsThisMonth = paymentServiceClient.fetchPayments(userId, YearMonth.from(now));
-
-        Set<Payment> paymentsLastMonth = paymentServiceClient.fetchPayments(userId,
-                YearMonth.from(now.minusMonths(1)));
-//         paymentServiceClient.fetchPayments(userId, now.getYear(), now.getMonthValue());
+        Set<Payment> paymentsLastMonth = paymentServiceClient.fetchPayments(userId, YearMonth.from(now.minusMonths(1)));
 
         Set<Payment> payments = Stream.concat(paymentsThisMonth.stream(), paymentsLastMonth.stream()).collect(toSet());
 
-        paymentsAnalyzer.analyze(payments).ifPresent(report -> emailSender.sendUnusualSpendingReport(report));
+        // pure part
+        Optional<UnsualPaymentReport> reportOpt = paymentsAnalyzer.analyze(payments); // puere function
+
+        // side effect part
+        reportOpt.ifPresent(report -> emailSender.sendUnusualSpendingReport(report));
+
+        // TODO Think : purify even more ?
+//        Email e = composeEmail(report);
+//        email clinent. send(e);
     }
 }
 
