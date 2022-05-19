@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 import reactor.test.StepVerifier;
 import reactor.test.publisher.PublisherProbe;
 import reactor.test.publisher.TestPublisher;
@@ -51,7 +52,9 @@ class ReactiveFlowTest {
         when(client.fetchStock(11L)).thenReturn(Mono.error(new RuntimeException("failing")));
         when(client.fetchProductDetails(11L)).thenReturn(Mono.just(new ProductDetails("desc")));
 
+//        Mono.defer(() ->   // TODO use this to scan for blocking code with blockhound test listener
         target.enrichData(11L)
+//                .subscribeOn(Schedulers.parallel()) // TODO and this
                 .as(StepVerifier::create)
                 .verifyError(RuntimeException.class)
 //                .verifyErrorMessage("failing")
@@ -76,6 +79,6 @@ class ReactiveFlowTest {
         // 1) @Timeout (junit)
         // 2) duration = .. .verifyComplete
         // 3) withVirtualTime + all .delayXxx calls in lambdas (executed later in context of virtual time) => see other method in ReactiveFlow
-           // ==> the need to emit items at arbitrary rate
+        // ==> the need to emit items at arbitrary rate
     }
 }
