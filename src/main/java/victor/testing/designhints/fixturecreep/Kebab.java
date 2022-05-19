@@ -9,7 +9,7 @@ public class Kebab {
 
    public void complex1() {
       if (!dependency.isOnionAllowed()) {
-         throw new IllegalArgumentException();
+         throw new IllegalArgumentException("No taste");
       }
       // complex logic
    }

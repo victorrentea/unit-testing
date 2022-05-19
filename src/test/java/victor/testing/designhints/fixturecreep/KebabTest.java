@@ -18,21 +18,20 @@ class KebabTest {
 
    @BeforeEach
    final void before() {
-
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
-   void complex1() {
-      when(dependency.isOnionAllowed()).thenReturn(true);
-
+   void complex1() { // x 7
       kebab.complex1();
 
       // ..
    } // + 5 tests like this
 
    @Test
-   void complex2() {
-      when(dependency.isCucumberAllowed()).thenReturn(true);
+   void complex2() { // x 7
+
 
       kebab.complex2();
 

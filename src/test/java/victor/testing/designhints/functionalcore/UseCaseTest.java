@@ -28,8 +28,18 @@ class UseCaseTest {
 
       target.case51(1L, 2L);
 
+//      ArgumentCaptor<C> cCaptor = ArgumentCaptor.forClass(C.class);
       verify(repoC).save(cCaptor.capture());
       assertThat(cCaptor.getValue().getData()).isEqualTo("computed with axbx");
+   }
+   @Test
+   void theLogic() {
+      A a = new A("ax");
+      B b = new B("bx");
+
+      C c = target.theLogic(a, b);
+
+      assertThat(c.getData()).isEqualTo("computed with axbx");
    }
    // TODO write 6 more such tests, to explore other paths in prod code
 }
