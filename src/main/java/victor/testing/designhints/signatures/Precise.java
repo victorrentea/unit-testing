@@ -1,16 +1,17 @@
 package victor.testing.designhints.signatures;
 
-import lombok.Data;
+import lombok.Value;
 
 import java.time.LocalDate;
 
+//record SprintFinishedParams(String poEmail, 2,3,4) {}
 public class Precise {
-   public static void sendSprintFinishedEmail(Project project) {
-      System.out.println("Sending email to " + project.getPoEmail() + " with subject 'Sprint Finished' and some body");
+   public static void sendSprintFinishedEmail(String poEmail) {
+      System.out.println("Sending email to " + poEmail + " with subject 'Sprint Finished' and some body");
    }
 }
 
-@Data
+@Value
 class Project {
    private Long id;
    private String code;

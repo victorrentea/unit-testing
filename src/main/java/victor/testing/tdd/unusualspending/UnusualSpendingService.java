@@ -1,6 +1,7 @@
 package victor.testing.tdd.unusualspending;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -47,8 +48,20 @@ public class UnusualSpendingService {
 }
 
 @Component
-class TimeProvider {
+class TimeProvider { // test wrapper pattern
     public LocalDate getCurrentDate() {
         return LocalDate.now();
     }
+
+//    public MyKafkaMessage receive(topic) {
+//        WebClient.create()
+//        new LibClass();
+//        new SOmeClasINLibrary(differnt contructor)
+//    }
+}
+
+
+class PicnicWebClient { // in your codebase ?
+    PicnicWebClient() {} // spring instantiates a default webclient
+    PicnicWebClient(WebClient webClient) {} // we should be using this in prod
 }
