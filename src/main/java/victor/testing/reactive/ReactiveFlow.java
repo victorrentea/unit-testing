@@ -14,14 +14,24 @@ public class ReactiveFlow {
     }
 
     public Mono<ProductDto> enrichData(Long productId) {
-        block_OMG();
+//        block_OMG();
         //  TODO CR on each product returned successfully, call client.auditRequestedProduct(productId)
-        Mono<ProductDetails> mono = client.fetchProductDetails(productId);
 
-        return mono
-                .zipWith(client.fetchStock(productId), ProductDto::new)
+        return client.fetchProductDetails(productId)
+                .flatMap(details -> client.fetchStock(productId).map(stock -> new ProductDto(details, stock)))
+//                .zipWith(client.fetchStock(productId), ProductDto::new)
+                .doOnNext(p -> {
+//                    try {
+//                        System.out.println("On thread " +Thread.currentThread().getName());
+//                        Thread.sleep(100); // detected by blockhound  test listener io.projectreactor.tools
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
+                    client.auditRequestedProduct(productId).subscribe();
+                })
                 ;
     }
+
 
     private void block_OMG() {
         try {

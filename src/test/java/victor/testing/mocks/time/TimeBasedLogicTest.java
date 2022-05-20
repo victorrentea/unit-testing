@@ -11,12 +11,13 @@ import java.util.List;
 
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class TimeBasedLogicTest {
    @Mock
-   OrderRepo orderRepo;
+   OrderRepo orderRepo ;
    @InjectMocks
    TimeBasedLogic target;
 

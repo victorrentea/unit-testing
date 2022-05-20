@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TimeBasedLogic {
+
    private final OrderRepo orderRepo;
 
    public boolean isFrequentBuyer(int customerId) {
