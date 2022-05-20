@@ -16,6 +16,8 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.WireMockExtension;
 
+import java.time.LocalDateTime;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,6 +34,7 @@ public class WireMockTest {
 
    @RegisterExtension // starts-stops the WireMock web server that replies with pre-configured JSON responses
    public WireMockExtension wireMock = new WireMockExtension(8089);
+//   public WireMockExtension wireMock = new TimeExtension(LocalDateTime.parse("2022-12-25"));
 
    @Test
    public void throwsForUnsafeProduct() {

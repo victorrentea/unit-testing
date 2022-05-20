@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 //@ExtendWith(MockitoExtension.class)
 
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles({"db-mem"/*,"andThis"*/})
 public class FeedProcessorFakeTest {
    @Autowired
    FileRepoFake fileRepo;
