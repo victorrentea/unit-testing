@@ -16,7 +16,9 @@ public class ReactiveFlow {
     public Mono<ProductDto> enrichData(Long productId) {
         block_OMG();
         //  TODO CR on each product returned successfully, call client.auditRequestedProduct(productId)
-        return client.fetchProductDetails(productId)
+        Mono<ProductDetails> mono = client.fetchProductDetails(productId);
+
+        return mono
                 .zipWith(client.fetchStock(productId), ProductDto::new)
                 ;
     }

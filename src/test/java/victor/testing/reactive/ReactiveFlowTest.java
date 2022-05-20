@@ -16,6 +16,7 @@ import java.time.Duration;
 
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,21 +28,39 @@ class ReactiveFlowTest {
 
     @Test
     void enrichData() {
-        PublisherProbe<StockAmount> stockProbe = PublisherProbe.of(Mono.just(new StockAmount(10))); // TODO simplify
-        when(client.fetchStock(11L)).thenReturn(stockProbe.mono());
-        PublisherProbe<ProductDetails> detailsProbe = PublisherProbe.of(Mono.just(new ProductDetails("desc"))); // TODO simplify
-        when(client.fetchProductDetails(11L)).thenReturn(detailsProbe.mono());
+//        PublisherProbe<StockAmount> stockProbe = PublisherProbe.of(Mono.just(new StockAmount(10))); // TODO simplify
+//        when(client.fetchStock(11L)).thenReturn(stockProbe.mono());
+//        PublisherProbe<ProductDetails> detailsProbe = PublisherProbe.of(Mono.just(new ProductDetails("desc"))); // TODO simplify
+//        when(client.fetchProductDetails(11L)).thenReturn(detailsProbe.mono());
 
+        when(client.fetchStock(11L)).thenReturn(Mono.just(new StockAmount(10)));
+        when(client.fetchProductDetails(11L)).thenReturn(Mono.just(new ProductDetails("desc")));
+
+
+
+        // option 1 (imperative style testing)
+        assertThatThrownBy(() -> target.enrichData(11L).block())
+                .isInstanceOf(RuntimeException.class);
+        ProductDto dto = target.enrichData(11L).block();
+        assertThat(dto).isEqualTo(new ProductDto(new ProductDetails("desc"), new StockAmount(10)));
+
+
+//        assertThat(dto.details()).i
+        // option 2 reactive style testing
         target.enrichData(11L)
                 .as(StepVerifier::create)
+//                .assertNext(dto-> assertThat(dto.details()).isEqualTo())
                 .expectNext(new ProductDto(new ProductDetails("desc"), new StockAmount(10)))
                 // TODO a) CR ProductDto includes a uuid ==> can't use equals anymore; or b) 12 fields to compare => error message = ugly
                 .verifyComplete();
+//
+
 
         // TODO CR: see #enrichData code() ==> purpose for PublisherProbe
 
-        stockProbe.assertWasSubscribed();
-        detailsProbe.assertWasSubscribed();
+//        stockProbe.assertWasSubscribed();
+//        assertThat(stockProbe.subscribeCount()).isEqualTo(1); // ?? safer.
+//        detailsProbe.assertWasSubscribed();
     }
     @Test
     void enrichData_error() {
