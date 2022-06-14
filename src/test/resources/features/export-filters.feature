@@ -36,7 +36,7 @@ Feature: Exporting records that match a given watchlist filter
       | PEP      |          |          |             | PEP      |          |          |             | yes                      |
       | PEP      |          |          |             | PEP,SIP  |          |          |             | yes                      |
       | RCA,PEP  |          |          |             | PEP,SIP  |          |          |             | yes                      |
-      | PEP      |          |          | Cat1        | PEP      |          |          |             | no                       |
+      | PEP      |          |          | Cat1        | PEP      |          |          |             | no                      |
       | PEP      |          |          | Cat1        | PEP      |          |          | Cat2,Cat1   | yes                      |
       | PEP      | PA       |          | Cat1        | PEP      |          |          | Cat1        | no                       | 
       | PEP      |          |          |             | PEP      | PA       |          |             | yes                      |
