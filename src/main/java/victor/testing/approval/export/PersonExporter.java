@@ -39,7 +39,7 @@ public class PersonExporter {
    }
 }
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 class SaNeJucam  {
    // practic pe sub cand mockuiesti o metoda, Mockito subclaseaza clasa data si apoi te lasa sa ii inveti metodele ce sa faca, aprox ca mai jos:
 //      PersonRepo personRepoMock = new PersonRepo() {
@@ -48,11 +48,11 @@ class SaNeJucam  {
 //            return List.of(person);
 //         }
 //      }
-//   @Mock
-//   PersonRepo personRepoMock /*= Mockito.mock(PersonRepo.class)*/;
-//
-//   @InjectMocks
-//   PersonExporter personExporter /*= new PersonExporter(personRepoMock)*/;
+   @Mock
+   PersonRepo personRepoMock /*= Mockito.mock(PersonRepo.class)*/;
+
+   @InjectMocks
+   PersonExporter personExporter /*= new PersonExporter(personRepoMock)*/;
 
    @Test
    void explore() throws IOException {
@@ -60,9 +60,7 @@ class SaNeJucam  {
       // Plan a (Ionut): inseram in DB date, rulam codul, apoi stergem datele. > test de integration : mai mult de munca
       // Plan b (Victor): sa stabuim metoda #findAll sa intoarca ceea ce noi vrem > Mockuri
       Person person = new Person(1L, "John", "Doe", LocalDate.now(), List.of("0720019564"));
-      PersonRepo personRepoMock = Mockito.mock(PersonRepo.class);
       Mockito.when(personRepoMock.findAll()).thenReturn(List.of(person));
-      PersonExporter personExporter = new PersonExporter(personRepoMock);
       StringWriter writer = new StringWriter();
 
       // when (prod call)
