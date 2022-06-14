@@ -53,9 +53,7 @@ public class TennisScoreTest {
 
     @Test
     void loveForty() {
-        tennisScore.winPoint(1);
-        tennisScore.winPoint(1);
-        tennisScore.winPoint(1);
+        setPoints(0, 3);
 
         String actual = tennisScore.getScore();
 
@@ -67,12 +65,7 @@ public class TennisScoreTest {
 
     @Test
     void deuce3_3() {
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(1);
-        tennisScore.winPoint(1);
-        tennisScore.winPoint(1);
+        setPoints(3, 3);
 
         String actual = tennisScore.getScore();
 
@@ -80,14 +73,7 @@ public class TennisScoreTest {
     }
     @Test
     void deuce4_4() {
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(1);
-        tennisScore.winPoint(1);
-        tennisScore.winPoint(1);
-        tennisScore.winPoint(1);
+        setPoints(4, 4);
 
         String actual = tennisScore.getScore();
 
