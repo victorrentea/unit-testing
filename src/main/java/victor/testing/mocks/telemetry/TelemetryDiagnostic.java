@@ -6,6 +6,9 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMod
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+// cod scris de altu pe care tu curand va trebui sa il modifici dramatic.
+// sau cod pe care ai gasit 5 buguri in ultimele 6 luni
+// sau cod schimbat lunar.
 public class TelemetryDiagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 

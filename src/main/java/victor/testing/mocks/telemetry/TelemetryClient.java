@@ -61,7 +61,7 @@ public class TelemetryClient {
 
 	public void disconnect(boolean force) {
 		onlineStatus = false;
-		throw new IllegalStateException("Performs some external remote call impossible/not desirable to call from automated tests.");
+		throw new IllegalStateException("Pretend: Performs some external remote call impossible/not desirable to call from automated tests.");
 	}
 
 	public void send(String message) {

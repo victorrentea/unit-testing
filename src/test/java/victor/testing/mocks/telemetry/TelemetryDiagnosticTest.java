@@ -1,60 +1,85 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode.NORMAL;
 
 
 @ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticTest {
    @Mock
-   private TelemetryClient client;
+   TelemetryClient clientMock;
    @InjectMocks
-   private TelemetryDiagnostic target;
+   TelemetryDiagnostic target;
 
    @Test
-   public void disconnects() {
-      when(client.getOnlineStatus()).thenReturn(true);
+   void throwsWhenNotOnline() {
+      target.setTelemetryClient(clientMock);
+
+      assertThatThrownBy( ()-> target.checkTransmission(true) )
+              .isInstanceOf(IllegalStateException.class);
+   }
+   @Test
+   void ok() {
+      // stubbing
+      when(clientMock.getOnlineStatus()).thenReturn(true); // etapa de 'recording'
+      target.setTelemetryClient(clientMock);
+
       target.checkTransmission(true);
-      verify(client).disconnect(true);
    }
-
    @Test
-   public void throwsWhenNotOnline() {
-      when(client.getOnlineStatus()).thenReturn(false);
-      Assertions.assertThrows(IllegalStateException.class, () ->
-          target.checkTransmission(true));
-   }
+   void disconnects() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
 
-   @Test
-   public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
       target.checkTransmission(true);
-      verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+
+      verify(clientMock).disconnect(true);
+   }
+   @Test
+   void sendsDiagnosticMessage() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+
+      target.checkTransmission(true);
+
+      verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+   }
+   @Test
+   void receives() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+      when(clientMock.receive()).thenReturn("aceeasivaloare");
+
+      target.checkTransmission(true);
+
+      assertThat(target.getDiagnosticInfo()).isEqualTo("aceeasivaloare");
    }
 
    @Test
-   public void receivesDiagnosticInfo() {
-      // TODO inspect
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
+   void configHasAckModeNormal() {
+      // given
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+
+      // when
       target.checkTransmission(true);
-      verify(client).receive();
-      assertThat(target.getDiagnosticInfo()).isEqualTo("tataie");
+
+      // then
+      ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
+      verify(clientMock).configure(configCaptor.capture()); // mockule, ti-a chemat produ functia configure? da? cu ce param te rog;
+      ClientConfiguration configuration = configCaptor.getValue(); // captorule, da-mi si mie ce ti0-a dat mockul adineauri
+      assertThat(configuration.getAckMode()).isEqualTo(NORMAL);
    }
 
-   @Test
-   public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
-   }
+
+
 }
