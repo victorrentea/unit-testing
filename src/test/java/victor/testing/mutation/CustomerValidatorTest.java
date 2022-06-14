@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CustomerValidatorTest {
    CustomerValidator validator = new CustomerValidator();
-   private Customer customer;
+   private Customer customer= aValidCustomer();
 
    // test data factory methods
    private Customer aValidCustomer() {
@@ -25,10 +25,14 @@ public class CustomerValidatorTest {
                       .setCity("::city::"));
    }
 
+   public CustomerValidatorTest() {
+      System.out.println("Fiecare @Test are parte de o instanta proaspata de clasa de test. de ce pasa: orice date varza lasi pe campurile clasei de test, se pierd dupa @Test ul tau.");
+   }
+
    @BeforeEach
    final void before() {
       System.out.println("#sieu");
-      customer = aValidCustomer();
+//      customer = aValidCustomer();
    }
 
    @Test
