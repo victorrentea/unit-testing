@@ -1,6 +1,5 @@
 package victor.testing.tdd.classic;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +15,7 @@ public class TennisScoreTest {
     }
     @Test
     void newGame() {
-        String actual = new TennisScore().getScore();
+        String actual = tennisScore.getScore();
 
         assertThat(actual).isEqualTo("Love - Love");
     }
@@ -99,17 +98,34 @@ public class TennisScoreTest {
     // the score of the game is “Advantage” for the player in the lead.
     @Test
     void advantagePlayer1_WhenScoreIs4_3() {
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(0);
-        tennisScore.winPoint(1);
-        tennisScore.winPoint(1);
-        tennisScore.winPoint(1);
+        setPoints(4, 3);
 
         String actual = tennisScore.getScore();
 
         assertThat(actual).isEqualTo("Advantage Player1");
+    }
+    @Test
+    void advantagePlayer1_WhenScoreIs5_4() {
+        // hai sa visam
+//        tennisScore.winPoints(0, 5); // cui si cate puncte
+//        tennisScore.winPoints(1, 4); // cui si cate puncte
+        // biz: nu frate, n-are sens. ca niciodata nu castiga un player 3 puncte o data./
+        // atunci cand produ are un API naspa, pot sa-mi usurez testele creandu-mi un mic 'test framework' :
+        // aici o metoda care cheama api-ul unfliendly pentru mine
+        setPoints(5, 4);
+
+        String actual = tennisScore.getScore();
+
+        assertThat(actual).isEqualTo("Advantage Player1");
+    }
+
+    private void setPoints(int player1Points, int player2Points) {
+        for (int i = 0; i < player1Points; i++) {
+            tennisScore.winPoint(0);
+        }
+        for (int i = 0; i < player2Points; i++) {
+            tennisScore.winPoint(1);
+        }
     }
 
 }
