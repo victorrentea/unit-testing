@@ -2,7 +2,7 @@ package victor.testing.prework;
 
 public class Calculator {
 
-	public static int add(String text){
+	public static int add(String text){ // TODO test me cf req din .md
 		if(text.equals("")){
 			return 0;
 		}
