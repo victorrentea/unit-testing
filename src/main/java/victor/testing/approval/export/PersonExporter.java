@@ -1,7 +1,12 @@
 package victor.testing.approval.export;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +18,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonExporter {
+//   @Autowired
    private final PersonRepo personRepo;
 
    public PersonExporter(PersonRepo personRepo) {
@@ -33,7 +39,7 @@ public class PersonExporter {
    }
 }
 
-
+//@ExtendWith(MockitoExtension.class)
 class SaNeJucam  {
    // practic pe sub cand mockuiesti o metoda, Mockito subclaseaza clasa data si apoi te lasa sa ii inveti metodele ce sa faca, aprox ca mai jos:
 //      PersonRepo personRepoMock = new PersonRepo() {
@@ -42,6 +48,11 @@ class SaNeJucam  {
 //            return List.of(person);
 //         }
 //      }
+//   @Mock
+//   PersonRepo personRepoMock /*= Mockito.mock(PersonRepo.class)*/;
+//
+//   @InjectMocks
+//   PersonExporter personExporter /*= new PersonExporter(personRepoMock)*/;
 
    @Test
    void explore() throws IOException {
