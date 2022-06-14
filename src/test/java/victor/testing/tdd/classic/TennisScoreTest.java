@@ -29,4 +29,19 @@ public class TennisScoreTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Test
+    void thirtyLove() {
+        //given
+        TennisScore tennisScore = new TennisScore();
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(0);
+
+        //when
+        String actual = tennisScore.getScore();
+
+        // then
+        String expected = "Thirty - Love";
+        assertThat(actual).isEqualTo(expected);
+    }
+
 }
