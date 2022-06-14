@@ -12,16 +12,18 @@ public class TennisScoreTest {
     }
     @Test
     void newGame() {
-        String actual = TennisScore.getScore();
+        String actual = new TennisScore().getScore();
 
         String expected = "Love - Love";
         assertThat(actual).isEqualTo(expected);
     }
+
     @Test
     void fifteenLove() {
-        TennisScore.winPoint(0); // cum altfel pot spune "jucatorul 1"?
+        TennisScore tennisScore = new TennisScore();
+        tennisScore.winPoint(0); // cum altfel pot spune "jucatorul 1"?
         //  TODO dupa: metode separate
-        String actual = TennisScore.getScore();
+        String actual = tennisScore.getScore();
 
         String expected = "Fifteen - Love";
         assertThat(actual).isEqualTo(expected);
