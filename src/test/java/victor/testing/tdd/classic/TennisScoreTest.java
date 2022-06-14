@@ -18,8 +18,7 @@ public class TennisScoreTest {
     void newGame() {
         String actual = new TennisScore().getScore();
 
-        String expected = "Love - Love";
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isEqualTo("Love - Love");
     }
 
     @Test
@@ -62,6 +61,55 @@ public class TennisScoreTest {
         String actual = tennisScore.getScore();
 
         assertThat(actual).isEqualTo("Love - Forty");
+    }
+
+   //  If at least three points have been scored by each player,
+    //  and the scores are equal, the score is “Deuce”.
+
+    @Test
+    void deuce3_3() {
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(1);
+        tennisScore.winPoint(1);
+        tennisScore.winPoint(1);
+
+        String actual = tennisScore.getScore();
+
+        assertThat(actual).isEqualTo("Deuce");
+    }
+    @Test
+    void deuce4_4() {
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(1);
+        tennisScore.winPoint(1);
+        tennisScore.winPoint(1);
+        tennisScore.winPoint(1);
+
+        String actual = tennisScore.getScore();
+
+        assertThat(actual).isEqualTo("Deuce");
+    }
+    // If at least three points have been scored by each side
+    // and a player has one more point than his opponent,
+    // the score of the game is “Advantage” for the player in the lead.
+    @Test
+    void advantagePlayer1_WhenScoreIs4_3() {
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(0);
+        tennisScore.winPoint(1);
+        tennisScore.winPoint(1);
+        tennisScore.winPoint(1);
+
+        String actual = tennisScore.getScore();
+
+        assertThat(actual).isEqualTo("Advantage Player1");
     }
 
 }

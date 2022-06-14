@@ -6,12 +6,17 @@ public class TennisScore {
     private int player2Score;
 
     public String getScore() {
+        if (player1Score >=3 && player2Score >= 3
+            && player1Score - player2Score == 1) {
+            return "Advantage Player1";
+        }
+        if (player1Score == player2Score && player2Score >= 3) {
+            return "Deuce";
+        }
         return scoreAsText(player1Score) + " - " + scoreAsText(player2Score);
     }
 
-//    private static final String[] cStyle = {"Love", "Fifteen", "Thirty", "Forty"};
     private String scoreAsText(int score) {
-//        return cStyle[score];
         switch (score) {
             case 0:
                 return "Love";
