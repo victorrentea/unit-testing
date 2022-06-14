@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.bouncycastle.operator.InputAEADDecryptor;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
@@ -32,7 +33,8 @@ public class CustomerValidatorTest {
       validator.validate(customer);
 
       // Assert / Then
-      Assertions.assertEquals("::city::", customer.getAddress().getCity());
+//      Assertions.assertEquals("::city::", customer.getAddress().getCity()); // JUnit 5, mai bun e urmatorul:
+      assertThat(customer.getAddress().getCity()).isEqualTo("::city::");
    }
 
 
