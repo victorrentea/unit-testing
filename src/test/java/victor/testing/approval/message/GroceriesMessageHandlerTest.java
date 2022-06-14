@@ -1,3 +1,4 @@
+/*
 //package victor.testing.approval.message;
 //
 //import lombok.Data;
@@ -76,4 +77,4 @@
 //    public record Output(GroceriesResponseMessage response,
 //                         List<GroceryNotFoundEvent> notFoundEvents) {
 //    }
-//}
+//}*/

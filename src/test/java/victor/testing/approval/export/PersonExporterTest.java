@@ -29,7 +29,8 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    private PersonExporter exporter;
 
    public static List<FileTestCase> testData() throws IOException {
-      Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.csv");
+      Function<String, String> inToOutFileName =
+              inputFileName -> inputFileName.replace(".in.json", ".out.csv");
       return scanForFileTestCases("classpath:/test-cases/export/export*.in.json", inToOutFileName);
    }
    @ParameterizedTest
