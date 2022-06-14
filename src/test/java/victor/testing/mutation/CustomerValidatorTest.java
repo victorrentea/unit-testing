@@ -4,6 +4,7 @@ package victor.testing.mutation;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.bouncycastle.operator.InputAEADDecryptor;
 
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CustomerValidatorTest {
    CustomerValidator validator = new CustomerValidator();
+   private Customer customer;
 
    // test data factory methods
    private Customer aValidCustomer() {
@@ -23,10 +25,15 @@ public class CustomerValidatorTest {
                       .setCity("::city::"));
    }
 
+   @BeforeEach
+   final void before() {
+      System.out.println("#sieu");
+      customer = aValidCustomer();
+   }
+
    @Test
    void valid() {
       // Arrange / Given
-      Customer customer = aValidCustomer();
       customer.getAddress().setCity("  ::city::");
 
       // Act / When
@@ -37,13 +44,10 @@ public class CustomerValidatorTest {
       assertThat(customer.getAddress().getCity()).isEqualTo("::city::");
    }
 
-
-
    @Test
    void throwsWhenCityNameIsTooShort() {
       // Arrange / Given
-      Customer customer = aValidCustomer();
-      customer.getAddress().setCity("12");
+       customer.getAddress().setCity("12");
 
       // Act / When
       // JUnit 5 style
@@ -59,7 +63,6 @@ public class CustomerValidatorTest {
    @Test
    void throwsWhenCustomerNameIsNull() {
       // Arrange / Given
-      Customer customer = aValidCustomer();
       customer.setName(null);
 
       // Act / When
