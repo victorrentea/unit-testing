@@ -1,6 +1,7 @@
 package victor.testing.mutation;
 
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,47 +13,57 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class CustomerValidatorTest {
    CustomerValidator validator = new CustomerValidator();
 
+   // test data factory methods
+   private Customer aValidCustomer() {
+      return new Customer()
+              .setName("::name::")
+              .setEmail("::email::")
+              .setAddress(new Address()
+                      .setCity("::city::"));
+   }
+
    @Test
    void valid() {
       // Arrange / Given
-      Customer customer = new Customer();
-      customer.setName("::name::");
-      customer.setEmail("::email::");
-      customer.setAddress(new Address());
-      customer.getAddress().setCity("::city::");
+      Customer customer = aValidCustomer();
+      customer.getAddress().setCity("  ::city::");
 
       // Act / When
       validator.validate(customer);
+
+      // Assert / Then
+      Assertions.assertEquals("::city::", customer.getAddress().getCity());
    }
+
 
 
    @Test
    void throwsWhenCityNameIsTooShort() {
       // Arrange / Given
-      Customer customer = new Customer();
-      customer.setName("::name::");
-      customer.setEmail("::email::");
-      customer.setAddress(new Address());
+      Customer customer = aValidCustomer();
       customer.getAddress().setCity("12");
 
       // Act / When
-      // conceptual asta e ideea, doar ca sunt frameworkuri care fac asta mult mai usor+safe (vezi mai jos)
-//      try {
-//         validator.validate(customer);
-//         Assert.fail("Trebuia s-arunce");
-//      } catch (IllegalArgumentException e) {
-//         // ce fac aici ? Sunt intr-un tst
-////         Assertions.assertTrue(true); //
-//      }
-
       // JUnit 5 style
       Assertions.assertThrows(IllegalArgumentException.class,
               () -> validator.validate(customer) );
 
-      // nu ar trebui sa folositi Assertions din jupiter, ci Assertions din assertj, ca de ex:
+      // Assertions: nu ar trebui sa folositi Assertions din jupiter, ci Assertions din assertj, ca de ex:
       assertThatThrownBy(() -> validator.validate(customer))
               .isInstanceOf(IllegalArgumentException.class)
               .hasMessageContaining("city too short");
+
+   }
+   @Test
+   void throwsWhenCustomerNameIsNull() {
+      // Arrange / Given
+      Customer customer = aValidCustomer();
+      customer.setName(null);
+
+      // Act / When
+      assertThatThrownBy(() -> validator.validate(customer))
+              .isInstanceOf(IllegalArgumentException.class)
+              .hasMessageContaining("Missing customer name");
 
    }
 
