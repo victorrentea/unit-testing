@@ -11,19 +11,27 @@ import org.testcontainers.shaded.org.bouncycastle.operator.InputAEADDecryptor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-
-public class CustomerValidatorTest {
-   CustomerValidator validator = new CustomerValidator();
-   private Customer customer= aValidCustomer();
+class TestData { // asta se numeste acum "Object Mother" design pattern
+//   https://martinfowler.com/bliki/ObjectMother.html
 
    // test data factory methods
-   private Customer aValidCustomer() {
+   public static Customer aValidCustomer() { // bucata asta e tare apetisanta pentru multe alte clase de test.
+      // PERICOL: too high coupling: foarte multe teste vor depinde de aceasta metoda
+      // daca cineva o modifica > BUM
       return new Customer()
               .setName("::name::")
               .setEmail("::email::")
               .setAddress(new Address()
                       .setCity("::city::"));
    }
+
+}
+
+
+public class CustomerValidatorTest extends TestBase{
+   CustomerValidator validator = new CustomerValidator();
+   private Customer customer= TestData.aValidCustomer();
+
 
    public CustomerValidatorTest() {
       System.out.println("Fiecare @Test are parte de o instanta proaspata de clasa de test. de ce pasa: orice date varza lasi pe campurile clasei de test, se pierd dupa @Test ul tau.");
@@ -49,6 +57,15 @@ public class CustomerValidatorTest {
    }
 
    @Test
+   void throwsWhenCityNameIsMissing() {
+       customer.getAddress().setCity(null);
+
+      assertThatThrownBy(() -> validator.validate(customer))
+              .isInstanceOf(IllegalArgumentException.class)
+              .hasMessageContaining("Missing address city");
+
+   }
+   @Test
    void throwsWhenCityNameIsTooShort() {
       // Arrange / Given
        customer.getAddress().setCity("12");
@@ -73,6 +90,17 @@ public class CustomerValidatorTest {
       assertThatThrownBy(() -> validator.validate(customer))
               .isInstanceOf(IllegalArgumentException.class)
               .hasMessageContaining("Missing customer name");
+
+   }
+   @Test
+   void throwsWhenCustomerEmailIsNull() {
+      // Arrange / Given
+      customer.setEmail(null);
+
+      // Act / When
+      assertThatThrownBy(() -> validator.validate(customer))
+              .isInstanceOf(IllegalArgumentException.class)
+              .hasMessageContaining("customer email");
 
    }
 
