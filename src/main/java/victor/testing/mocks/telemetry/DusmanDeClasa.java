@@ -9,6 +9,6 @@ public class DusmanDeClasa {
     }
 
     public void logica() {
-        TelemetryClient.ClientConfiguration ilegalSoChemi = telemetryDiagnostic.createConfig();
+//        TelemetryClient.ClientConfiguration ilegalSoChemi = telemetryDiagnostic.createConfig();
     }
 }

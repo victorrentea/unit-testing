@@ -22,8 +22,10 @@ import static victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration
 public class TelemetryDiagnosticTest {
     @Mock
     TelemetryClient clientMock;
+    @Mock
+    ClientConfigurationFactory factoryMock;
     @InjectMocks
-    @Spy// SOLUTIA 2: @Spy (partial mocks) - NU O FACE. Sunt RELE.
+//    @Spy// SOLUTIA 2: @Spy (partial mocks) - NU O FACE. Sunt RELE.
     TelemetryDiagnostic target;
 
     @Test
@@ -37,7 +39,7 @@ public class TelemetryDiagnosticTest {
         when(clientMock.getOnlineStatus()).thenReturn(true);
         // solutia1: ingros setupul testului pe met publica ca sa suporte sa intre si prin met privata.
 //        when(clientMock.getVersion()).thenReturn("nu am nevoie de asta dar nah.. casa evit un NPE in fct pe care o chem");
-        doReturn(new ClientConfiguration()).when(target).createConfig(); // in testul asta met createConfig nu va executa de fapt
+//        doReturn(new ClientConfiguration()).when(target).createConfig(); // in testul asta met createConfig nu va executa de fapt
         when(clientMock.receive()).thenReturn("aceeasivaloare"); // SOLUTIA 2: @Spy (partial mocks) - NU O FACE. Sunt RELE.
 
         target.checkTransmission(true);
@@ -48,13 +50,18 @@ public class TelemetryDiagnosticTest {
         assertThat(target.getDiagnosticInfo()).isEqualTo("aceeasivaloare");
     }
 
+}
+
+// SOlutia 3: cea mai "creieroasa". Inseamna ca tie chiar iti pasa de codebase. (si ai un pic de curaj) < aici chemi pair programming.
+class ClientConfigurationFactoryTest {
 
     @Test
     void createConfigTest() { // x 7 din astea
         // lipseste ceva aici
-        when(clientMock.getVersion()).thenReturn("ovaloareanoastra");
+//        when(clientMock.getVersion()).thenReturn("ovaloareanoastra");
+        ClientConfigurationFactory target = new ClientConfigurationFactory();
 
-        ClientConfiguration config = target.createConfig();
+        ClientConfiguration config = target.createConfig("ovaloareanoastra");
 
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
 //      Assertions.assertTrue(config.getSessionId().startsWith("ovaloareanoastra-")); // failure messageul sucks!
