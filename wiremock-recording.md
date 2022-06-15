@@ -1,20 +1,22 @@
 
 Go here http://wiremock.org/docs/running-standalone/
 
-Download
+Download the standalone jar 
 
-Run
+Run:
 java -jar wiremock-standalone-2.27.2.jar 
 
 Go to http://localhost:8080/__admin/recorder/
 
-Point to real endpoint
+Point the recorded proxy to the real endpoint you consume (http://localhost:8090)
 
 Start Recording
 
 Point your app/tests to localhost:8080 (wiremock proxy)
 
-Run
+Launch SafetyApp.java (the "real" endpoint)
+
+Run Tests
 
 Stop Recording
 

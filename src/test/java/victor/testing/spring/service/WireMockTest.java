@@ -18,6 +18,7 @@ import victor.testing.tools.WireMockExtension;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
 @ActiveProfiles("db-mem")
@@ -35,9 +36,9 @@ public class WireMockTest {
 
    @Test
    public void throwsForUnsafeProduct() {
-      Assertions.assertThrows(IllegalStateException.class, () -> {
+      assertThatThrownBy(() -> {
          productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME));
-      });
+      }).isInstanceOf(IllegalStateException.class);
    }
 
    @Test
@@ -48,8 +49,8 @@ public class WireMockTest {
               .withHeader("Content-Type", "application/json")
               .withBody("{\"entries\": [{\"category\": \"DETERMINED\",\"detailsUrl\": \"http://wikipedia.com\"}]}"))); // override
 
-      Assertions.assertThrows(IllegalStateException.class, () ->
-          productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME)));
+      assertThatThrownBy(() ->
+              productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME))).isInstanceOf(IllegalStateException.class);
    }
 
    @Test
