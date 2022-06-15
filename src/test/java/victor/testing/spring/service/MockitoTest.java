@@ -33,6 +33,7 @@ import static org.mockito.Mockito.*;
 //@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Sql(scripts = "classpath:/sql/cleanup.sql")
 public class MockitoTest {
    @MockBean // asta ii zice lui spring sa INLOCUIASCA in contextul lui beanul real SafetyClient
    // cu un mock produs de mockito, si acel mock sa-l puna si pe campul asta,m ca sa pot sa-l programez.
@@ -52,7 +53,6 @@ public class MockitoTest {
 //      Assertions.assertThrows(IllegalStateException.class, () ->
 //          productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME)));
 //   }
-   @Sql(scripts = "classpath:/sql/cleanup.sql")
    @Test
    public void createOk() {
       // GIVEN
@@ -71,7 +71,6 @@ public class MockitoTest {
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
 
-   @Sql(scripts = "classpath:/sql/cleanup.sql")
    @Test
    public void createOk2() {
       // GIVEN
