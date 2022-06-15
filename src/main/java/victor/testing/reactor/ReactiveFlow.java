@@ -1,4 +1,4 @@
-package victor.testing.reactive;
+package victor.testing.reactor;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

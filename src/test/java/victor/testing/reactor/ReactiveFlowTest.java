@@ -1,4 +1,4 @@
-package victor.testing.reactive;
+package victor.testing.reactor;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
@@ -7,12 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 import reactor.test.StepVerifier;
 import reactor.test.publisher.PublisherProbe;
-import reactor.test.publisher.TestPublisher;
-
-import java.time.Duration;
 
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
