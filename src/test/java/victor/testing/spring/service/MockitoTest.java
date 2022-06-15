@@ -60,18 +60,7 @@ public class MockitoTest {
       productService.createProduct(new ProductDto("name", "safebar", supplierId, ProductCategory.HOME));
 
       // THEN
-//      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-//      verify(productRepo).save(productCaptor.capture());
-//      Product product = productCaptor.getValue();
-
-      // BLACKBOX: PRO orice schimbi pe fluxurile 2, inclusiv baza, testul tot va merge
-//      Product product = productService.getById(id); // blackbox (nu scarmeni in baza mereu)
-
-      // WHITEBOX: PRO testezi mai punctual ce te doare, un singur flux
       Product product = productRepo.findAll().get(0);
-
-//      Product product = productRepo.findById(id).get(); // whitebox (vad tot si dau drept in baza)
-
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
