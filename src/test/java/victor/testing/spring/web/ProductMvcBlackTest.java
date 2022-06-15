@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Supplier;
@@ -20,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 @SpringBootTest
+@ActiveProfiles("db-mem")
 @AutoConfigureMockMvc
 public class ProductMvcBlackTest {
    @Autowired
@@ -34,7 +36,6 @@ public class ProductMvcBlackTest {
    @BeforeEach
    public void persistStaticData() {
       supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-
    }
 
    @Test
@@ -61,14 +62,14 @@ public class ProductMvcBlackTest {
           .andExpect(status().isOk());
    }
 
-   private void runSearch(String searchCriteriaJson, int expectedSize) throws Exception {
+   private void runSearch(String searchCriteriaJson, int expectedNumberOfResults) throws Exception {
       mockMvc.perform(post("/product/search")
           .content(searchCriteriaJson)
           .contentType(MediaType.APPLICATION_JSON)
       )
           .andExpect(status().isOk())
           .andExpect(header().string("Custom-Header", "true"))
-          .andExpect(jsonPath("$", hasSize(expectedSize)));
+          .andExpect(jsonPath("$", hasSize(expectedNumberOfResults)));
    }
 
 

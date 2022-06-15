@@ -1,4 +1,4 @@
-package victor.testing.db;
+package victor.testing.dbunit;
 
 import static com.github.springtestdbunit.assertion.DatabaseAssertionMode.NON_STRICT;
 import static org.mockito.ArgumentMatchers.any;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 
-import victor.testing.db.prod.NotificationRepo;
+import victor.testing.dbunit.prod.NotificationRepo;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

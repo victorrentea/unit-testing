@@ -1,5 +1,5 @@
 // SOLUTION
-package victor.testing.db;
+package victor.testing.dbunit;
 
 import org.springframework.test.context.jdbc.Sql;
 

@@ -1,4 +1,4 @@
-package victor.testing.spring.service;
+package victor.testing.tricks;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,6 @@ public class AdvancedTweakingSpringContextTest {
       // Clear manually all caches
       cacheManager.getCacheNames().stream().map(cacheManager::getCache).forEach(Cache::clear);
    }
-
-
-
 
    @TestConfiguration
    public static class TestConfig {

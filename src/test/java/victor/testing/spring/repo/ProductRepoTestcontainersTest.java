@@ -13,6 +13,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
+import victor.testing.tools.TestcontainersUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,61 +21,57 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Testcontainers
 public class ProductRepoTestcontainersTest {
-   @Container
-   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")
-       .withDatabaseName("prop")
-       .withUsername("postgres")
-       .withPassword("password");
-   @Autowired
-   private ProductRepo repo;
+    @Container
+    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")
+            .withDatabaseName("prop")
+            .withUsername("postgres")
+            .withPassword("password");
 
-   private ProductSearchCriteria criteria = new ProductSearchCriteria();
+    @SneakyThrows
+    @DynamicPropertySource
+    public static void registerPgProperties(DynamicPropertyRegistry registry) {
+        // A: if you want to spy the JDBC calls
+        registry.add("spring.datasource.url", () -> TestcontainersUtils.injectP6SPYInJdbcUrl(postgres.getJdbcUrl()));
+        registry.add("spring.datasource.driver-class-name", () -> "com.p6spy.engine.spy.P6SpyDriver");
 
-   public static String injectP6SPY(String originalJdbcUrl) {
-      String remainingUrl = originalJdbcUrl.substring("jdbc:".length());
-      String p6spyUrl = "jdbc:p6spy:" + remainingUrl;
-      System.out.println("Injected p6spy into jdbc url:" + p6spyUrl + "; ORIGINAL=" + originalJdbcUrl);
-      return p6spyUrl;
-   }
+        // B: clean (no spying)
+        // registry.add("spring.datasource.url", () -> postgres.getJdbcUrl());
+        // registry.add("spring.datasource.driver-class-name", postgres::getDriverClassName);
 
-   @SneakyThrows
-   @DynamicPropertySource
-   public static void registerPgProperties(DynamicPropertyRegistry registry) {
-      registry.add("spring.datasource.url", () -> injectP6SPY(postgres.getJdbcUrl()));
-      registry.add("spring.datasource.driver-class-name", ()-> "com.p6spy.engine.spy.P6SpyDriver");
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+    }
 
-//      registry.add("spring.datasource.url", () -> postgres.getJdbcUrl());
-//      registry.add("spring.datasource.driver-class-name", postgres::getDriverClassName);
+    @Autowired
+    private ProductRepo repo;
 
-      registry.add("spring.datasource.username", postgres::getUsername);
-      registry.add("spring.datasource.password", postgres::getPassword);
-   }
+    private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
-   @BeforeEach
-   public void initialize() {
-      assertThat(repo.count()).isEqualTo(0); // good idea for larger projects
-   }
+    @BeforeEach
+    public void initialize() {
+        assertThat(repo.count()).isEqualTo(0); // good idea for larger projects
+    }
 
-   @Test
-   public void noCriteria() {
-      repo.save(new Product());
-      assertThat(repo.search(criteria)).hasSize(1);
-   }
+    @Test
+    public void noCriteria() {
+        repo.save(new Product());
+        assertThat(repo.search(criteria)).hasSize(1);
+    }
 
-   @Test
+    @Test
 //    @Commit // for letting the Test Tx commit so that you can debug it after
-   public void byNameMatch() {
-      criteria.name = "Am";
-      repo.save(new Product().setName("naMe"));
-      assertThat(repo.search(criteria)).hasSize(1);
-   }
+    public void byNameMatch() {
+        criteria.name = "Am";
+        repo.save(new Product().setName("naMe"));
+        assertThat(repo.search(criteria)).hasSize(1);
+    }
 
-   @Test
-   public void byNameNoMatch() {
-      criteria.name = "nameXX";
-      repo.save(new Product().setName("name"));
-      assertThat(repo.search(criteria)).isEmpty();
-   }
+    @Test
+    public void byNameNoMatch() {
+        criteria.name = "nameXX";
+        repo.save(new Product().setName("name"));
+        assertThat(repo.search(criteria)).isEmpty();
+    }
 
 //    @Test
 //    public void bySupplierMatch() {
@@ -91,8 +88,8 @@ public class ProductRepoTestcontainersTest {
 //    }
 
 
-   // TODO base test class persisting supplier
+    // TODO base test class persisting supplier
 
-   // TODO replace with composition
+    // TODO replace with composition
 }
 
