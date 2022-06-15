@@ -8,25 +8,18 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 @Slf4j
 @EnableCaching
 @SpringBootApplication
-public class SomeSpringApplication/* implements WebMvcConfigurer*/ {
+public class SomeSpringApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder()
             .profiles("insertDummyData")
             .initializers(new WaitForDatabase())
             .sources(SomeSpringApplication.class).run(args);
     }
-
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(headShotInterceptor()).addPathPatterns("/**");
-//    }
-//    @Bean
-//    public HandlerInterceptor headShotInterceptor() {
-//        return new CustomHeaderInterceptor();
-//    }
 
     @Autowired
     public void printDatabaseUrl(@Value("${spring.datasource.url}") String dbUrl) {

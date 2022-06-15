@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional // unde sta tranzactia curenta stocata in java ? PE THREADUL CURENT! (LocalStorage)
 // NU vreau Tomcat pornit pentru ca 1) nu merita mem/cpu 2) vreau sa raman pe acelasi thread, ca sa mearga @Transactional ROLLBACK
 @SpringBootTest
-//@ActiveProfile/**/s("db-mem")
+@ActiveProfiles("db-mem")
 @AutoConfigureMockMvc // EMULEAZA un tomcat: joaca rutarea si parsarea de JSON dar fara Tomcat.
 public class ProductMvcBlackboxTest {
    @Autowired
