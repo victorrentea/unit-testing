@@ -1,15 +1,23 @@
 package victor.testing.spring.repo;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.spring.CucumberContextConfiguration;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.ClassRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
+import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import victor.testing.spring.SomeSpringApplication;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -23,28 +31,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Slf4j
-//@CucumberContextConfiguration // from io.cucumber:cucumber-spring:7.0.0
+//@CucumberContextConfiguration // from io.cucumber:cucumber-spring:7.0.0 (commented out initially)
 @ActiveProfiles("db-mem")
 @ContextConfiguration(
     classes = SomeSpringApplication.class,
     loader = SpringBootContextLoader.class
-//    ,initializers = PostgresDBInitializer.class // TODO restore testcontainers + cucumber after migration from cucumber 1.x
+//    ,initializers = ProductSearchSteps.PostgresDBInitializer.class // uncomment for Testcontainers integration
 )
 public class ProductSearchSteps {
 
-   // Can't use @DynamicPropertySource as this is not a @SpringBootTest
+//   public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:11")
+//           .withDatabaseName("prop")
+//           .withUsername("postgres")
+//           .withPassword("password");
+//   // Cannot use @DynamicPropertySource as this is not a @SpringBootTest
 //   public static class PostgresDBInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 //      @Override
 //      public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+//         System.out.println("Starting testcontainer");
+//         container.start();
+//         System.out.println("Testcontainer started");
+//
 //         TestPropertyValues.of(
-//             "spring.datasource.url=" + ProductSearchFeature.postgres.getJdbcUrl(),
+//                 "spring.datasource.url=" + container.getJdbcUrl(),
 //             "spring.datasource.username=postgres",
 //             "spring.datasource.password=password",
 //             "spring.datasource.driver-class-name=org.postgresql.Driver"
 //         ).applyTo(configurableApplicationContext.getEnvironment());
 //      }
 //   }
-
 
 
    @Autowired
@@ -56,45 +71,43 @@ public class ProductSearchSteps {
 
    private Product product;
 
-   @Given("^Supplier \"([^\"]*)\" exists$")
+   @Given("Supplier {string} exists")
    @Transactional
    public void supplierExists(String supplierName) {
       log.debug("Persisting supplier {}", supplierName);
       supplierRepo.save(new Supplier().setName(supplierName));
    }
 
-   @Given("^One product exists$")
+   @Given("One product exists")
    public void aProductExists() {
       product = new Product();
    }
 
-   @And("^That product has name \"([^\"]*)\"$")
+   @And("That product has name {string}")
    public void thatProductHasName(String productName) {
       product.setName(productName);
    }
 
-   @And("^That product has supplier \"([^\"]*)\"$")
+   @And("That product has supplier {string}")
    public void thatProductHasSupplier(String supplierName) {
       if (StringUtils.isNotBlank(supplierName)) {
          product.setSupplier(supplierRepo.findByName(supplierName));
       }
    }
 
-
-
-   @When("^The search criteria name is \"([^\"]*)\"$")
+   @When("The search criteria name is {string}")
    public void theSearchCriteriaNameIs(String productName) {
       criteria.name = productName;
    }
 
-   @And("^The search criteria supplier is \"([^\"]*)\"$")
+   @And("The search criteria supplier is {string}")
    public void theSearchCriteriaSupplierIs(String supplierName) {
       if (StringUtils.isNotBlank(supplierName)) {
          criteria.supplierId = supplierRepo.findByName(supplierName).getId();
       }
    }
 
-   @Then("^That product is returned by search$")
+   @Then("That product is returned by search")
    public void thatProductIsReturned() {
       productRepo.save(product);
       List<ProductSearchResult> results = productRepo.search(criteria);
@@ -102,15 +115,16 @@ public class ProductSearchSteps {
       assertThat(results.get(0).getId()).isEqualTo(product.getId());
    }
 
-   @Then("^No products are returned by search$")
+   @Then("No products are returned by search")
    public void noProductsAreReturnedBySearch() {
       productRepo.save(product);
       List<ProductSearchResult> results = productRepo.search(criteria);
       assertThat(results).isEmpty();
    }
 
-   @Then("^That product is returned by search: \"([^\"]*)\"$")
-   public void thatProductIsReturnedBySearch(boolean found) throws Throwable {
+   @Then("That product is returned by search: {string}")
+   public void thatProductIsReturnedBySearch(String foundStr) throws Throwable {
+      boolean found = Boolean.parseBoolean(foundStr);
       productRepo.save(product);
       List<ProductSearchResult> results = productRepo.search(criteria);
       if (found) {

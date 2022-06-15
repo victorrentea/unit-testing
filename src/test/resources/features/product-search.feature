@@ -5,8 +5,7 @@ Feature: Search for product
     Given Supplier "X" exists
     And Supplier "Y" exists
 
-
-  Scenario:
+  Scenario: Search product by exact name and supplier
     Given One product exists
     And That product has name "name"
     And That product has supplier "X"
@@ -14,13 +13,13 @@ Feature: Search for product
     And The search criteria supplier is "X"
     Then That product is returned by search
 
-  Scenario:
+  Scenario: Product is not found if name does not match
     Given One product exists
     And That product has name "name"
     When The search criteria name is "namex"
     Then No products are returned by search
 
-  Scenario Outline:
+  Scenario Outline: Multiple Search examples
     Given One product exists
     And That product has name "<name>"
     And That product has supplier "<supplier>"

@@ -13,6 +13,7 @@
     </parent>
     <properties>
         <java.version>17</java.version>
+        <cucumber-java.version>7.3.3</cucumber-java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -163,25 +164,25 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>6.11.0</version>
+            <version>${cucumber-java.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- requires in every glue code path to include a package containing a class with @CucumberContextConfiguration -->
-        <!--<dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-spring</artifactId>
-            <version>6.11.0</version>
-            <scope>test</scope>
-        </dependency>-->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit-platform-engine</artifactId>
-            <version>6.11.0</version>
+            <version>${cucumber-java.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- WARNING: requires in every glue code path to include a package containing a class with @CucumberContextConfiguration -->
+       <!-- <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber-java.version}</version>
+            <scope>test</scope>
+        </dependency>-->
 
 
-        <!--Enable blockhound test listener to detect blockign calls in non-blocking threads-->
+        <!--Enable blockhound test listener to detect blocking calls in non-blocking threads-->
 <!--
         <dependency>
             <groupId>io.projectreactor.tools</groupId>
