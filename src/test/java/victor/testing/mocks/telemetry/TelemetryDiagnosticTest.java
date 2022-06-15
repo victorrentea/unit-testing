@@ -26,42 +26,18 @@ public class TelemetryDiagnosticTest {
 
    @Test
    void throwsWhenNotOnline() {
-      target.setTelemetryClient(clientMock);
-
       assertThatThrownBy( ()-> target.checkTransmission(true) )
               .isInstanceOf(IllegalStateException.class);
    }
    @Test
-   void ok() {
-      // stubbing
-      when(clientMock.getOnlineStatus()).thenReturn(true); // etapa de 'recording'
-      target.setTelemetryClient(clientMock);
-
-      target.checkTransmission(true);
-   }
-   @Test
-   void disconnects() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
-
-      target.checkTransmission(true);
-
-      verify(clientMock).disconnect(true);
-   }
-   @Test
-   void sendsDiagnosticMessage() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
-
-      target.checkTransmission(true);
-
-      verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
-   }
-   @Test
-   void receives() {
+   void happy() {
       when(clientMock.getOnlineStatus()).thenReturn(true);
       when(clientMock.receive()).thenReturn("aceeasivaloare");
 
       target.checkTransmission(true);
 
+      verify(clientMock).disconnect(true);
+      verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
       assertThat(target.getDiagnosticInfo()).isEqualTo("aceeasivaloare");
    }
 
