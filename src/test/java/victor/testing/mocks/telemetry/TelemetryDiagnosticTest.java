@@ -3,10 +3,7 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 
@@ -17,8 +14,7 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode.NORMAL;
 
 
@@ -27,6 +23,7 @@ public class TelemetryDiagnosticTest {
     @Mock
     TelemetryClient clientMock;
     @InjectMocks
+    @Spy// SOLUTIA 2: @Spy (partial mocks) - NU O FACE. Sunt RELE.
     TelemetryDiagnostic target;
 
     @Test
@@ -38,8 +35,10 @@ public class TelemetryDiagnosticTest {
     @Test
     void happy() {
         when(clientMock.getOnlineStatus()).thenReturn(true);
-        when(clientMock.getVersion()).thenReturn("nu am nevoie de asta dar nah.. casa evit un NPE in fct pe care o chem");
-        when(clientMock.receive()).thenReturn("aceeasivaloare");
+        // solutia1: ingros setupul testului pe met publica ca sa suporte sa intre si prin met privata.
+//        when(clientMock.getVersion()).thenReturn("nu am nevoie de asta dar nah.. casa evit un NPE in fct pe care o chem");
+        doReturn(new ClientConfiguration()).when(target).createConfig(); // in testul asta met createConfig nu va executa de fapt
+        when(clientMock.receive()).thenReturn("aceeasivaloare"); // SOLUTIA 2: @Spy (partial mocks) - NU O FACE. Sunt RELE.
 
         target.checkTransmission(true);
 
