@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,6 +31,7 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.WireMockExtension;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -42,21 +44,26 @@ import static org.mockito.Mockito.*;
 import static victor.testing.spring.repo.ProductRepoTestcontainersTest.injectP6SPY;
 
 //@ExtendWith(MockitoExtension.class)
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 //@CleanupDB
 //@ActiveProfiles("db-mem")
 @Testcontainers
 @Transactional // TOT TIMPUL testele care intearct cu o DB relationala trebuie sa aiba @Transactional ca spring dupa fiecare test sa faca ROLLBACK
 public class MockitoTest {
-   @MockBean // asta ii zice lui spring sa INLOCUIASCA in contextul lui beanul real SafetyClient
-   // cu un mock produs de mockito, si acel mock sa-l puna si pe campul asta,m ca sa pot sa-l programez.
-   public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
+//   @MockBean // asta ii zice lui spring sa INLOCUIASCA in contextul lui beanul real SafetyClient
+//   // cu un mock produs de mockito, si acel mock sa-l puna si pe campul asta,m ca sa pot sa-l programez.
+//   public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
    @Autowired
    private ProductRepo productRepo;
    @Autowired
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
+   @RegisterExtension
+   public WireMockExtension wireMock = new WireMockExtension(9999);
+// cand porneste wiremock el AUTOMAT se uita in /src/test/resources/mappings gaseste JSOAne pe care le incarca
+
 
    @Container
    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")
@@ -74,7 +81,7 @@ public class MockitoTest {
 
    @Test
    public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
       Assertions.assertThrows(IllegalStateException.class, () ->
           productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME)));
@@ -83,7 +90,7 @@ public class MockitoTest {
    public void createOk() {
       // GIVEN
       Long supplierId =supplierRepo.save(new Supplier()).getId();
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       // WHEN
       productService.createProduct(new ProductDto("name", "safebar", supplierId, ProductCategory.HOME));
@@ -101,7 +108,7 @@ public class MockitoTest {
    public void createOk2() {
       // GIVEN
       Long supplierId =supplierRepo.save(new Supplier()).getId();
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       // WHEN
       productService.createProduct(new ProductDto("name", "safebar", supplierId, ProductCategory.HOME));

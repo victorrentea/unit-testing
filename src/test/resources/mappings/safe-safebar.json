@@ -8,7 +8,11 @@
     "jsonBody": {
       "entries": [
         {
-          "category": "SAFE",
+          "categories": "SAFE",
+          "detailsUrl": "http://details.url/a/b"
+        },
+        {
+          "category": "ALTCEVA",
           "detailsUrl": "http://details.url/a/b"
         }
       ]
