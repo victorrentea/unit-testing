@@ -1,6 +1,7 @@
 package victor.testing.mocks.telemetry;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -28,8 +29,14 @@ public class TelemetryDiagnosticTest {
 //    @Spy// SOLUTIA 2: @Spy (partial mocks) - NU O FACE. Sunt RELE.
     TelemetryDiagnostic target;
 
+    @BeforeEach
+    final void before() {
+        when(clientMock.getVersion()).thenReturn("nu am nevoie de asta dar nah.. casa evit un NPE in fct pe care o chem");
+
+    }
     @Test
     void throwsWhenNotOnline() {
+        when(clientMock.getOnlineStatus()).thenReturn(false);
         assertThatThrownBy(() -> target.checkTransmission(true))
                 .isInstanceOf(IllegalStateException.class);
     }

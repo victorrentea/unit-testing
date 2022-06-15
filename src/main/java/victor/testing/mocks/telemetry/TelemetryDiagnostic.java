@@ -42,7 +42,8 @@ public class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = clientConfigurationFactory.createConfig(telemetryClient.getVersion());
+		ClientConfiguration config = clientConfigurationFactory.createConfig(
+				telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);

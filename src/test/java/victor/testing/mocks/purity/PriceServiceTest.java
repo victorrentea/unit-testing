@@ -45,11 +45,11 @@ class PriceServiceTest {
       when(productRepo.findAllById(List.of(1L, 2L))).thenReturn(List.of(p1, p2));
       when(thirdPartyPrices.retrievePrice(2L)).thenReturn(5d);
 
+      // then
       Map<Long, Double> result = priceService.computePrices(13L, List.of(1L, 2L), Map.of(1L, 10d));
 
       verify(couponRepo).markUsedCoupons(eq(13L), couponCaptor.capture());
       assertThat(couponCaptor.getValue()).containsExactly(coupon1);
-
       assertThat(result)
           .containsEntry(1L, 8d)
           .containsEntry(2L, 5d);
