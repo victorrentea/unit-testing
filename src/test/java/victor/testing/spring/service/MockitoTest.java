@@ -34,9 +34,9 @@ public class MockitoTest {
    @MockBean // asta ii zice lui spring sa INLOCUIASCA in contextul lui beanul real SafetyClient
    // cu un mock produs de mockito, si acel mock sa-l puna si pe campul asta,m ca sa pot sa-l programez.
    public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
-//   @Mock
+   @Autowired
    private ProductRepo productRepo;
-//   @Mock
+   @Autowired
    private SupplierRepo supplierRepo;
 
    @Autowired
@@ -53,21 +53,26 @@ public class MockitoTest {
    @Test
    public void createOk() {
       // GIVEN
-      Supplier supplier = new Supplier().setId(13L);
-//      when(supplierRepo.getById(supplier.getId())).thenReturn(supplier);
+      Long supplierId =supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       // WHEN
-      productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
+      Long id = productService.createProduct(new ProductDto("name", "safebar", supplierId, ProductCategory.HOME));
 
       // THEN
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+//      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+//      verify(productRepo).save(productCaptor.capture());
+//      Product product = productCaptor.getValue();
+
+      // BLACKBOX: PRO orice schimbi pe fluxurile 2, inclusiv baza, testul tot va merge
+//      Product product = productService.getById(id); // blackbox (nu scarmeni in baza mereu)
+
+      // WHITEBOX: PRO testezi mai punctual ce te doare, un singur flux
+      Product product = productRepo.findById(id).get(); // whitebox (vad tot si dau drept in baza)
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
