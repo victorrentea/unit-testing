@@ -59,7 +59,7 @@ public class TelemetryDiagnosticTest {
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
 //      Assertions.assertTrue(config.getSessionId().startsWith("ovaloareanoastra-")); // failure messageul sucks!
         assertThat(config.getSessionId())
-                .startsWith("ovaloareanoastra-")
+                .startsWith("OVALOAREANOASTRA-")
                 .hasSizeGreaterThan(30);
         assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, MINUTES));
 

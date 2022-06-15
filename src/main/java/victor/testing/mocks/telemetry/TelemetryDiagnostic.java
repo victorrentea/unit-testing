@@ -51,7 +51,7 @@ public class TelemetryDiagnostic {
 	@VisibleForTesting
 	ClientConfiguration createConfig() { // tre sa pun 7 teste pe asta
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionId(telemetryClient.getVersion().toUpperCase() + "-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		// assume a lot of cyclomatic complexity 7 ifuri
 		config.setAckMode(AckMode.NORMAL);
