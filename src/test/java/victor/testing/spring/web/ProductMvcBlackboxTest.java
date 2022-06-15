@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Supplier;
@@ -18,10 +19,12 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Transactional
+@Transactional // unde sta tranzactia curenta stocata in java ? PE THREADUL CURENT! (LocalStorage)
+// NU vreau Tomcat pornit pentru ca 1) nu merita mem/cpu 2) vreau sa raman pe acelasi thread, ca sa mearga @Transactional ROLLBACK
 @SpringBootTest
-@AutoConfigureMockMvc
-public class ProductMvcBlackTest {
+//@ActiveProfile/**/s("db-mem")
+@AutoConfigureMockMvc // EMULEAZA un tomcat: joaca rutarea si parsarea de JSON dar fara Tomcat.
+public class ProductMvcBlackboxTest {
    @Autowired
    private MockMvc mockMvc;
    @MockBean
@@ -34,7 +37,6 @@ public class ProductMvcBlackTest {
    @BeforeEach
    public void persistStaticData() {
       supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-
    }
 
    @Test
@@ -44,6 +46,8 @@ public class ProductMvcBlackTest {
       createProduct("Tree");
 
       runSearch("{\"name\": \"Tree\"}", 1);
+
+      runSearch("{\"name\": \"Copac\"}", 0);
    }
 
    private void createProduct(String productName) throws Exception {
