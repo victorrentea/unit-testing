@@ -15,8 +15,13 @@ public class NuclearService {
    private static final Logger log = LoggerFactory.getLogger(NuclearService.class);
 
    int phaserThreshold;
-   private DistanceService distanceService;
-   private ProbeService probeService;
+   private final DistanceService distanceService;
+   private final ProbeService probeService;
+
+   public NuclearService(DistanceService distanceService, ProbeService probeService) {
+      this.distanceService = distanceService;
+      this.probeService = probeService;
+   }
 
    // TODO test me
    public double interpolateQuantum(int atoms, double mark1) {
@@ -31,10 +36,6 @@ public class NuclearService {
       return atoms * mark1 + mark1 * mark1 - mark2;
    }
 
-
-   public void setDistanceService(DistanceService distanceService) {
-      this.distanceService = distanceService;
-   }
 
    // TODO test me
    public boolean hasRequiredMass(int quanta, int speed, int destinationSolarSystemId) {
