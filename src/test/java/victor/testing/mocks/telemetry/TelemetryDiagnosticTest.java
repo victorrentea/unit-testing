@@ -38,6 +38,7 @@ public class TelemetryDiagnosticTest {
     @Test
     void happy() {
         when(clientMock.getOnlineStatus()).thenReturn(true);
+        when(clientMock.getVersion()).thenReturn("nu am nevoie de asta dar nah.. casa evit un NPE in fct pe care o chem");
         when(clientMock.receive()).thenReturn("aceeasivaloare");
 
         target.checkTransmission(true);
