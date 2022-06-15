@@ -40,7 +40,7 @@ public class TelemetryDiagnostic {
 		}
 
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "xxx-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		telemetryClient.configure(config);
