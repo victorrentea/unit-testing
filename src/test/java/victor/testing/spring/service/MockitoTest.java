@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
@@ -51,7 +52,7 @@ public class MockitoTest {
 //      Assertions.assertThrows(IllegalStateException.class, () ->
 //          productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME)));
 //   }
-
+   @Sql(scripts = "classpath:/sql/cleanup.sql")
    @Test
    public void createOk() {
       // GIVEN
@@ -70,6 +71,7 @@ public class MockitoTest {
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
 
+   @Sql(scripts = "classpath:/sql/cleanup.sql")
    @Test
    public void createOk2() {
       // GIVEN
@@ -88,10 +90,10 @@ public class MockitoTest {
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
 
-   @BeforeEach
-   public void curataDupaMine() {
-      productRepo.deleteAll();
-      supplierRepo.deleteAll();
-   }
+//   @BeforeEach
+//   public void curataDupaMine() {
+//      productRepo.deleteAll();
+//      supplierRepo.deleteAll();
+//   }
 
 }
