@@ -48,6 +48,8 @@ import static victor.testing.spring.repo.ProductRepoTestcontainersTest.injectP6S
 //@CleanupDB
 //@ActiveProfiles("db-mem")
 @Testcontainers
+//@Sql(scripts = "", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//@WithReferenceData
 @Transactional // TOT TIMPUL testele care intearct cu o DB relationala trebuie sa aiba @Transactional ca spring dupa fiecare test sa faca ROLLBACK
 public class MockitoTest {
 //   @MockBean // asta ii zice lui spring sa INLOCUIASCA in contextul lui beanul real SafetyClient

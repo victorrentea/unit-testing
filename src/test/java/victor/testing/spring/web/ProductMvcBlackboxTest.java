@@ -44,12 +44,17 @@ public class ProductMvcBlackboxTest {
       when(safetyClient.isSafe("safebar")).thenReturn(true);
 
       createProduct("Tree");
-
       runSearch("{\"name\": \"Tree\"}", 1);
+   }
+   @Test
+   public void testSearch2() throws Exception {
+      when(safetyClient.isSafe("safebar")).thenReturn(true);
 
+      createProduct("Tree");
       runSearch("{\"name\": \"Copac\"}", 0);
    }
 
+   // mai jos este un Testing DSL (un mini testing framework)
    private void createProduct(String productName) throws Exception {
       // Option 1: JSON serialization
       // ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.WIFE);

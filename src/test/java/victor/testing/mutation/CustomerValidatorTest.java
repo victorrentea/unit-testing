@@ -1,12 +1,9 @@
 package victor.testing.mutation;
 
 
-import org.jetbrains.annotations.NotNull;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.bouncycastle.operator.InputAEADDecryptor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -15,7 +12,7 @@ class TestData { // asta se numeste acum "Object Mother" design pattern
 //   https://martinfowler.com/bliki/ObjectMother.html
 
    // test data factory methods
-   public static Customer aValidCustomer() { // bucata asta e tare apetisanta pentru multe alte clase de test.
+   public static Customer johnCustomer() { // bucata asta e tare apetisanta pentru multe alte clase de test.
       // PERICOL: too high coupling: foarte multe teste vor depinde de aceasta metoda
       // daca cineva o modifica > BUM
       return new Customer()
@@ -30,7 +27,7 @@ class TestData { // asta se numeste acum "Object Mother" design pattern
 
 public class CustomerValidatorTest extends TestBase{
    CustomerValidator validator = new CustomerValidator();
-   private Customer customer= TestData.aValidCustomer();
+   private Customer customer= TestData.johnCustomer();
 
 
    public CustomerValidatorTest() {
@@ -46,6 +43,7 @@ public class CustomerValidatorTest extends TestBase{
    @Test
    void valid() {
       // Arrange / Given
+      Customer customer = TestData.johnCustomer();
       customer.getAddress().setCity("  ::city::");
 
       // Act / When
