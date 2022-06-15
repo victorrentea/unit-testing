@@ -24,6 +24,9 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,8 +35,8 @@ import static org.mockito.Mockito.*;
 
 //@ExtendWith(MockitoExtension.class)
 @SpringBootTest
+@CleanupDB
 @ActiveProfiles("db-mem")
-@Sql(scripts = "classpath:/sql/cleanup.sql")
 public class MockitoTest {
    @MockBean // asta ii zice lui spring sa INLOCUIASCA in contextul lui beanul real SafetyClient
    // cu un mock produs de mockito, si acel mock sa-l puna si pe campul asta,m ca sa pot sa-l programez.
