@@ -7,6 +7,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
@@ -22,15 +25,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("db-mem")
 public class MockitoTest {
-   @Mock
+//   @Mock
    public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
-   @Mock
+//   @Mock
    private ProductRepo productRepo;
-   @Mock
+//   @Mock
    private SupplierRepo supplierRepo;
-   @InjectMocks
+
+   @Autowired
    private ProductService productService;
 
    @Test
@@ -45,8 +51,8 @@ public class MockitoTest {
    public void createOk() {
       // GIVEN
       Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getById(supplier.getId())).thenReturn(supplier);
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(supplierRepo.getById(supplier.getId())).thenReturn(supplier);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       // WHEN
       productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
