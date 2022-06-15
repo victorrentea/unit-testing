@@ -57,7 +57,7 @@ public class MockitoTest {
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       // WHEN
-      Long id = productService.createProduct(new ProductDto("name", "safebar", supplierId, ProductCategory.HOME));
+      productService.createProduct(new ProductDto("name", "safebar", supplierId, ProductCategory.HOME));
 
       // THEN
 //      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
@@ -68,7 +68,9 @@ public class MockitoTest {
 //      Product product = productService.getById(id); // blackbox (nu scarmeni in baza mereu)
 
       // WHITEBOX: PRO testezi mai punctual ce te doare, un singur flux
-      Product product = productRepo.findById(id).get(); // whitebox (vad tot si dau drept in baza)
+      Product product = productRepo.findAll().get(0);
+
+//      Product product = productRepo.findById(id).get(); // whitebox (vad tot si dau drept in baza)
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");

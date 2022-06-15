@@ -26,7 +26,7 @@ public class ProductService {
         this.supplierRepo = supplierRepo;
     }
 
-    public Long createProduct(ProductDto productDto) {
+    public void createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode);
         if (!safe) {
             throw new IllegalStateException("Product is not safe: " + productDto.barcode);
@@ -39,7 +39,7 @@ public class ProductService {
         product.setSupplier(supplierRepo.getById(productDto.supplierId));
         // TODO CR check that the supplier is active!
         product.setCreateDate(LocalDateTime.now());
-        return productRepo.save(product).getId();
+        productRepo.save(product);
     }
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
