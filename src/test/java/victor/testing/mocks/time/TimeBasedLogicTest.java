@@ -26,7 +26,7 @@ class TimeBasedLogicTest {
    TimeBasedLogic target;
    private List<Order> orders = List.of(new Order().setTotalAmount(130d));
 
-   @Test // 95 din cazuri esti inginer
+   @Test // 95 din cazuri esti inginer SOLUTIA1
    void isFrequentBuyer_inSiktir_imprecis_darVerdeSiMaine() {
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(eq(13), any(), any()))
               .thenReturn(orders);
@@ -44,7 +44,7 @@ class TimeBasedLogicTest {
       LocalDate fixedTime = parse("2021-12-25");
 
       try (MockedStatic<LocalDate> staticMock = mockStatic(LocalDate.class)) { // dep de pom: org.mockito:mockito-inline
-         staticMock.when(() -> LocalDate.now()).thenReturn(fixedTime);
+         staticMock.when(() -> LocalDate.now()).thenReturn(fixedTime); // SOLUTIA 2
          boolean result = target.isFrequentBuyer(13);
 
          assertThat(result).isTrue();
@@ -77,7 +77,8 @@ class TimeBasedLogicTest {
               13, parse("2022-06-08"), now))
               .thenReturn(orders);
 
-      boolean result = target.isFrequentBuyer_candTestuPute_designulProduluiPoateFiImbunatatit(13, now);
+      boolean result = target.isFrequentBuyer_candTestuPute_designulProduluiPoateFiImbunatatit(13,
+              now); // SOLUTIA 3
 
       assertThat(result).isTrue();
    }

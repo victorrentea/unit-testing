@@ -13,7 +13,7 @@ public class TimeBasedLogic {
    private final OrderRepo orderRepo;
 
    // Optiunea 4: introduci o noua clasa numita TimeProvider a ta pe care apoi o @Mock @InjectMocks ca de obicei
-//   @Autowired
+//   @Autowired // SOLUTIA 4
 //   private TimeProvider timeProvider;
 
    public boolean  isFrequentBuyer(int customerId) {
