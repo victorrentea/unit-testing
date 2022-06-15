@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,9 +15,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -33,11 +39,13 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.Mockito.*;
+import static victor.testing.spring.repo.ProductRepoTestcontainersTest.injectP6SPY;
 
 //@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 //@CleanupDB
-@ActiveProfiles("db-mem")
+//@ActiveProfiles("db-mem")
+@Testcontainers
 @Transactional // TOT TIMPUL testele care intearct cu o DB relationala trebuie sa aiba @Transactional ca spring dupa fiecare test sa faca ROLLBACK
 public class MockitoTest {
    @MockBean // asta ii zice lui spring sa INLOCUIASCA in contextul lui beanul real SafetyClient
@@ -47,9 +55,22 @@ public class MockitoTest {
    private ProductRepo productRepo;
    @Autowired
    private SupplierRepo supplierRepo;
-
    @Autowired
    private ProductService productService;
+
+   @Container
+   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")
+           .withDatabaseName("prop")
+           .withUsername("postgres")
+           .withPassword("password");
+
+   @DynamicPropertySource
+   public static void registerPgProperties(DynamicPropertyRegistry registry) {
+      registry.add("spring.datasource.url", () -> injectP6SPY(postgres.getJdbcUrl()));
+      registry.add("spring.datasource.driver-class-name", ()-> "com.p6spy.engine.spy.P6SpyDriver");
+      registry.add("spring.datasource.username", postgres::getUsername);
+      registry.add("spring.datasource.password", postgres::getPassword);
+   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
