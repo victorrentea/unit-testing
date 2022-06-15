@@ -43,25 +43,11 @@ public class TelemetryDiagnosticTest {
         target.checkTransmission(true);
 
         verify(clientMock).disconnect(true);
+        verify(clientMock).configure(any()); // pragmatic merge
         verify(clientMock).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
         assertThat(target.getDiagnosticInfo()).isEqualTo("aceeasivaloare");
     }
 
-    @Test
-    void configHasAckModeNormal() {
-        // given
-        when(clientMock.getOnlineStatus()).thenReturn(true);
-        when(clientMock.getVersion()).thenReturn("ovaloareanoastra");
-
-        // when
-        target.checkTransmission(true);
-
-//        // then
-//        ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
-//        verify(clientMock).configure(configCaptor.capture()); // mockule, ti-a chemat produ functia configure? da? cu ce param te rog;
-//        ClientConfiguration config = configCaptor.getValue(); // captorule, da-mi si mie ce ti0-a dat mockul adineauri
-
-    }
 
     @Test
     void createConfigTest() { // x 7 din astea
