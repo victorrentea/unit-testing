@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
@@ -35,8 +36,9 @@ import static org.mockito.Mockito.*;
 
 //@ExtendWith(MockitoExtension.class)
 @SpringBootTest
-@CleanupDB
+//@CleanupDB
 @ActiveProfiles("db-mem")
+@Transactional // TOT TIMPUL testele care intearct cu o DB relationala trebuie sa aiba @Transactional ca spring dupa fiecare test sa faca ROLLBACK
 public class MockitoTest {
    @MockBean // asta ii zice lui spring sa INLOCUIASCA in contextul lui beanul real SafetyClient
    // cu un mock produs de mockito, si acel mock sa-l puna si pe campul asta,m ca sa pot sa-l programez.
@@ -49,13 +51,13 @@ public class MockitoTest {
    @Autowired
    private ProductService productService;
 
-//   @Test
-//   public void createThrowsForUnsafeProduct() {
-//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-//
-//      Assertions.assertThrows(IllegalStateException.class, () ->
-//          productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME)));
-//   }
+   @Test
+   public void createThrowsForUnsafeProduct() {
+      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+
+      Assertions.assertThrows(IllegalStateException.class, () ->
+          productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME)));
+   }
    @Test
    public void createOk() {
       // GIVEN
