@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.jetbrains.annotations.NotNull;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -39,14 +40,20 @@ public class TelemetryDiagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "xxx-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = createConfig();
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	 ClientConfiguration createConfig() { // tre sa pun 7 teste pe asta
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "xxx-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		// assume a lot of cyclomatic complexity 7 ifuri
+		config.setAckMode(AckMode.NORMAL);
+		return config;
 	}
 
 }
