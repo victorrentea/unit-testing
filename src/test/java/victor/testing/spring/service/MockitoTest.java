@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.domain.Product;
@@ -29,7 +31,8 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class MockitoTest {
-//   @Mock
+   @MockBean // asta ii zice lui spring sa INLOCUIASCA in contextul lui beanul real SafetyClient
+   // cu un mock produs de mockito, si acel mock sa-l puna si pe campul asta,m ca sa pot sa-l programez.
    public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
 //   @Mock
    private ProductRepo productRepo;
@@ -41,7 +44,7 @@ public class MockitoTest {
 
    @Test
    public void createThrowsForUnsafeProduct() {
-//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
       Assertions.assertThrows(IllegalStateException.class, () ->
           productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME)));
@@ -52,7 +55,7 @@ public class MockitoTest {
       // GIVEN
       Supplier supplier = new Supplier().setId(13L);
 //      when(supplierRepo.getById(supplier.getId())).thenReturn(supplier);
-//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
 
       // WHEN
       productService.createProduct(new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME));
