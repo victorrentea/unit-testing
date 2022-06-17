@@ -27,7 +27,6 @@ public class ProductRepoTestcontainersTest {
             .withUsername("postgres")
             .withPassword("password");
 
-    @SneakyThrows
     @DynamicPropertySource
     public static void registerPgProperties(DynamicPropertyRegistry registry) {
         // A: if you want to spy the JDBC calls

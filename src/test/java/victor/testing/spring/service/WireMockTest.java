@@ -20,7 +20,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@SpringBootTest(properties = "safety.service.url.base=http://localhost:8089")
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @ActiveProfiles("db-mem")
 @Transactional
 public class WireMockTest {
@@ -32,13 +32,13 @@ public class WireMockTest {
    private ProductService productService;
 
    @RegisterExtension // starts-stops the WireMock web server that replies with pre-configured JSON responses
-   public WireMockExtension wireMock = new WireMockExtension(8089);
+   public WireMockExtension wireMock = new WireMockExtension(9999);
 
    @Test
    public void throwsForUnsafeProduct() {
-      assertThatThrownBy(() -> {
-         productService.createProduct(new ProductDto("name", "bar", -1L, ProductCategory.HOME));
-      }).isInstanceOf(IllegalStateException.class);
+         ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+      assertThatThrownBy(() -> productService.createProduct(dto))
+              .isInstanceOf(IllegalStateException.class);
    }
 
    @Test

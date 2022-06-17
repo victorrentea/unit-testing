@@ -34,7 +34,7 @@ public class MockitoTest {
 
    @Test
    public void createThrowsForUnsafeProduct() {
-//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
       ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
