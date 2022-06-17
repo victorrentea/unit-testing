@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +27,15 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+//@ConditionaOn
 @SpringBootTest//(properties = "spring.datasource.url=jdbc:h2:mem:")
 @ActiveProfiles("db-mem")
-//@Transactional // LOVE❤️
-@Sql("classpath:/sql/cleanup.sql")
-public class MockitoTest {
+@Transactional // LOVE❤️
+//@Preven
+//@Tag("")
+//@Sql("classpath:/sql/cleanup.sql")
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // nu are voie sa apara pe git. RUPE SPringu de tot
+public class MockitoTest extends AbstractRepoTestBase {
    @MockBean // inlocuieste in contextu spring beanul real cu un Mock mockito pe care apoi ti-l si da aici sa-l programezik
    public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
    @Autowired
