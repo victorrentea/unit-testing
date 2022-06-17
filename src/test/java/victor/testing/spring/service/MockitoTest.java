@@ -30,6 +30,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest//(properties = "spring.datasource.url=jdbc:h2:mem:")
 @ActiveProfiles("db-mem")
 @Transactional
+
 public class MockitoTest {
    @MockBean // inlocuieste in contextu spring beanul real cu un Mock mockito pe care apoi ti-l si da aici sa-l programezik
    public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
@@ -39,6 +40,7 @@ public class MockitoTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
 
    @Test
    public void createThrowsForUnsafeProduct() {
