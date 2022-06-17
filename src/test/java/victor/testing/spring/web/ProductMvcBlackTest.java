@@ -22,55 +22,61 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @SpringBootTest
 @ActiveProfiles("db-mem")
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc // emulates the HTTP request without starting a Tomcat => faster + test and prod shares thread
 public class ProductMvcBlackTest {
-   @Autowired
-   private MockMvc mockMvc;
-   @MockBean
-   private SafetyClient safetyClient;
-   @Autowired
-   private SupplierRepo supplierRepo;
+    @Autowired
+    private MockMvc mockMvc;
+    @MockBean
+    private SafetyClient safetyClient;
+    @Autowired
+    private SupplierRepo supplierRepo;
 
-   private Long supplierId;
+    private Long supplierId;
 
-   @BeforeEach
-   public void persistStaticData() {
-      supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-   }
+    @BeforeEach
+    public void persistStaticData() {
+        supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
+    }
 
-   @Test
-   public void testSearch() throws Exception {
-      when(safetyClient.isSafe("safebar")).thenReturn(true);
+    @Test
+    public void flowTest() throws Exception {
+        when(safetyClient.isSafe("safebar")).thenReturn(true);
 
-      createProduct("Tree");
+        createProduct("Tree");
 
-      runSearch("{\"name\": \"Tree\"}", 1);
-   }
+        runSearch("{\"name\": \"Tree\"}", 1);
+    }
 
-   private void createProduct(String productName) throws Exception {
-      // Option 1: JSON serialization
-      // ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.WIFE);
-      // String createJson = new ObjectMapper().writeValueAsString(dto);
+    private void createProduct(String productName) throws Exception {
+        // Option 1: JSON serialization (more convenient)
+        // ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.WIFE);
+        // String createJson = new ObjectMapper().writeValueAsString(dto);
 
-      // Option 2: Manual JSON formatting (freezes the DTO)
-      // language=json
-      String createJson = String.format("{\"name\": \"" + productName + "\", \"supplierId\": \"%d\", \"barcode\": \"safebar\"}", this.supplierId);
+        // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
+        // language=json
+        String createJson = """
+                {
+                    "name": "?",
+                    "supplierId": "%d",
+                    "barcode": "safebar"
+                }
+                """.formatted(supplierId);
 
-      mockMvc.perform(post("/product/create")
-          .content(createJson)
-          .contentType(MediaType.APPLICATION_JSON))
-          .andExpect(status().isOk());
-   }
+        mockMvc.perform(post("/product/create")
+                        .content(createJson)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
-   private void runSearch(String searchCriteriaJson, int expectedNumberOfResults) throws Exception {
-      mockMvc.perform(post("/product/search")
-          .content(searchCriteriaJson)
-          .contentType(MediaType.APPLICATION_JSON)
-      )
-          .andExpect(status().isOk())
-          .andExpect(header().string("Custom-Header", "true"))
-          .andExpect(jsonPath("$", hasSize(expectedNumberOfResults)));
-   }
+    private void runSearch(String searchCriteriaJson, int expectedNumberOfResults) throws Exception {
+        mockMvc.perform(post("/product/search")
+                        .content(searchCriteriaJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(header().string("Custom-Header", "true"))
+                .andExpect(jsonPath("$", hasSize(expectedNumberOfResults)));
+    }
 
 
 }
