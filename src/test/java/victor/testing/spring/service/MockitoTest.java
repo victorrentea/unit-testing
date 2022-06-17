@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.domain.Product;
@@ -29,7 +30,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest//(properties = "spring.datasource.url=jdbc:h2:mem:")
 @ActiveProfiles("db-mem")
 //@Transactional // LOVE❤️
-
+@Sql("classpath:/sql/cleanup.sql")
 public class MockitoTest {
    @MockBean // inlocuieste in contextu spring beanul real cu un Mock mockito pe care apoi ti-l si da aici sa-l programezik
    public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
@@ -40,12 +41,12 @@ public class MockitoTest {
    @Autowired
    private ProductService productService;
 
-@BeforeEach
-final void before() {
-   // ordinea conteaza :)
-    productRepo.deleteAll();
-   supplierRepo.deleteAll();
-}
+//@BeforeEach
+//final void before() {
+//   // ordinea conteaza :)
+//    productRepo.deleteAll();
+//   supplierRepo.deleteAll();
+//}
    @Test
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
