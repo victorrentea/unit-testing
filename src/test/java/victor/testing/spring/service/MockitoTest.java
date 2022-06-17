@@ -1,7 +1,6 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -29,7 +28,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest//(properties = "spring.datasource.url=jdbc:h2:mem:")
 @ActiveProfiles("db-mem")
-@Transactional
+//@Transactional // LOVE❤️
 
 public class MockitoTest {
    @MockBean // inlocuieste in contextu spring beanul real cu un Mock mockito pe care apoi ti-l si da aici sa-l programezik
@@ -41,7 +40,12 @@ public class MockitoTest {
    @Autowired
    private ProductService productService;
 
-
+@BeforeEach
+final void before() {
+   // ordinea conteaza :)
+    productRepo.deleteAll();
+   supplierRepo.deleteAll();
+}
    @Test
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
