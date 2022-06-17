@@ -1,3 +1,4 @@
+HOW TO RECORD REAL REQUEST/RESPONSE FROM PROD-LIKE and GENERATE mapping files (JSONS)
 
 Go here http://wiremock.org/docs/running-standalone/
 

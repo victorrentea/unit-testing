@@ -3,6 +3,7 @@ package victor.testing.spring.service;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -29,6 +30,7 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.TestcontainersUtils;
+import victor.testing.tools.WireMockExtension;
 
 import java.io.IOException;
 
@@ -37,7 +39,8 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 //@ConditionaOn
-@SpringBootTest//(properties = "spring.datasource.url=jdbc:h2:mem:")
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+//(properties = "spring.datasource.url=jdbc:h2:mem:")
 //@ActiveProfiles("db-mem")
 @Testcontainers
 @Transactional // LOVE❤️
@@ -46,14 +49,17 @@ import static org.mockito.Mockito.*;
 //@Sql("classpath:/sql/cleanup.sql")
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // nu are voie sa apara pe git. RUPE SPringu de tot
 public class MockitoTest extends AbstractRepoTestBase {
-   @MockBean // inlocuieste in contextu spring beanul real cu un Mock mockito pe care apoi ti-l si da aici sa-l programezik
-   public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
+//   @MockBean // inlocuieste in contextu spring beanul real cu un Mock mockito pe care apoi ti-l si da aici sa-l programezik
+//   public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
    @Autowired
    private ProductRepo productRepo;
    @Autowired
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
+   @RegisterExtension
+   public WireMockExtension wireMock = new WireMockExtension(9999);
 
    @Container
    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")
@@ -84,7 +90,7 @@ public class MockitoTest extends AbstractRepoTestBase {
 //}
    @Test
    public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
       ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -97,7 +103,7 @@ public class MockitoTest extends AbstractRepoTestBase {
 //      Supplier supplier = new Supplier().setId(13L);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
 
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
       // WHEN
@@ -119,7 +125,7 @@ public class MockitoTest extends AbstractRepoTestBase {
 //      Supplier supplier = new Supplier().setId(13L);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
 
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
       // WHEN
