@@ -1,17 +1,10 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -23,10 +16,11 @@ import victor.testing.spring.web.dto.ProductDto;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest(properties = "spring.datasource.url=jdbc:h2:mem:")
-public class MockitoTest {
+@SpringBootTest(properties = {"spring.datasource.url=jdbc:h2:mem:"})
+public class Mockito2Test {
    @MockBean // inlocuieste in contextu spring beanul real cu un Mock mockito pe care apoi ti-l si da aici sa-l programezik
    public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
    @MockBean
