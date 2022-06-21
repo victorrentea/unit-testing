@@ -17,18 +17,41 @@ public class PriceService {
    private final ThirdPartyPrices thirdPartyPrices;
    private final CouponRepo couponRepo;
    private final ProductRepo productRepo;
-
+   //@PreAu
    public Map<Long, Double> computePrices(long customerId, List<Long> productIds, Map<Long, Double> internalPrices) {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
-      List<Coupon> usedCoupons = new ArrayList<>();
-      Map<Long, Double> finalPrices = new HashMap<>();
+
+      Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);
+
+      PriceComputationResults results = applyCoupons(products, resolvedPrices, customer.getCoupons());
+
+      // BEWARE OF these in java: keep them under control;
+//      reflection ?/ don't use !'
+      // SpEL
+      // APIs (structure of DTOs
+      couponRepo.markUsedCoupons(customerId, results.usedCoupons());
+      return results.finalPrices();
+   }
+
+   private Map<Long, Double> resolvePrices(Map<Long, Double> internalPrices, List<Product> products) {
+      Map<Long, Double> resolvedPrices = new HashMap<>();
       for (Product product : products) {
          Double price = internalPrices.get(product.getId());
          if (price == null) {
             price = thirdPartyPrices.retrievePrice(product.getId());
          }
-         for (Coupon coupon : customer.getCoupons()) {
+         resolvedPrices.put(product.getId(), price);
+      }
+      return resolvedPrices;
+   }
+
+   private PriceComputationResults applyCoupons(List<Product> products, Map<Long, Double> resolvedPrices, List<Coupon> coupons) {
+      List<Coupon> usedCoupons = new ArrayList<>();
+      Map<Long, Double> finalPrices = new HashMap<>();
+      for (Product product : products) {
+         Double price = resolvedPrices.get(product.getId());
+         for (Coupon coupon : coupons) {
             if (coupon.autoApply() && coupon.isApplicableFor(product) && !usedCoupons.contains(coupon)) {
                price = coupon.apply(product, price);
                usedCoupons.add(coupon);
@@ -36,9 +59,21 @@ public class PriceService {
          }
          finalPrices.put(product.getId(), price);
       }
-      couponRepo.markUsedCoupons(customerId, usedCoupons);
-      return finalPrices;
+      return new PriceComputationResults(usedCoupons, finalPrices);
+   }
+
+   record PriceComputationResults(
+           List<Coupon> usedCoupons,
+           Map<Long, Double> finalPrices
+   ) {
+
    }
 
 }
 
+
+
+//
+//f(x:PriceService) {
+//   x.thePurePart()
+//}
