@@ -1,5 +1,6 @@
 package victor.testing.spring;
 
+import liquibase.integration.spring.SpringLiquibase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,14 @@ public class SomeSpringApplication {
             .initializers(new WaitForDatabase())
             .sources(SomeSpringApplication.class).run(args);
     }
+
+//    @Bean
+//    public SpringLiquibase liquibase() {
+//        SpringLiquibase liquibase = new SpringLiquibase();
+//        liquibase.setChangeLog("classpath:liquibase-changeLog.xml");
+//        liquibase.setDataSource(dataSource());
+//        return liquibase;
+//    }
 
     @Autowired
     public void printDatabaseUrl(@Value("${spring.datasource.url}") String dbUrl) {
