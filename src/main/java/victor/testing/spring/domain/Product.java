@@ -19,7 +19,8 @@ public class Product {
     private String name;
 
     private ProductCategory category;
-
+//@Column(nullable = false)
+//    private String coloanaCiudatal;
     private String barcode;
 
     @ManyToOne
