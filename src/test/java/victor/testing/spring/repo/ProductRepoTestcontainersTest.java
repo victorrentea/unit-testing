@@ -1,6 +1,5 @@
 package victor.testing.spring.repo;
 
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +21,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 public class ProductRepoTestcontainersTest {
     @Container
-    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")
-            .withDatabaseName("prop")
-            .withUsername("postgres")
-            .withPassword("password");
+    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
 
     @DynamicPropertySource
     public static void registerPgProperties(DynamicPropertyRegistry registry) {
-        // A: if you want to spy the JDBC calls
-        registry.add("spring.datasource.url", () -> TestcontainersUtils.injectP6SPYInJdbcUrl(postgres.getJdbcUrl()));
-        registry.add("spring.datasource.driver-class-name", () -> "com.p6spy.engine.spy.P6SpyDriver");
-
-        // B: clean (no spying)
-        // registry.add("spring.datasource.url", () -> postgres.getJdbcUrl());
-        // registry.add("spring.datasource.driver-class-name", postgres::getDriverClassName);
-
-        registry.add("spring.datasource.username", postgres::getUsername);
-        registry.add("spring.datasource.password", postgres::getPassword);
+        TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
     }
 
     @Autowired

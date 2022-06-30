@@ -24,47 +24,46 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @ActiveProfiles("db-mem")
 @Transactional
 public class WireMockTest {
-   @Autowired
-   private ProductRepo productRepo;
-   @Autowired
-   private SupplierRepo supplierRepo;
-   @Autowired
-   private ProductService productService;
+    @RegisterExtension // starts-stops the WireMock web server that replies with pre-configured JSON responses
+    public WireMockExtension wireMock = new WireMockExtension(9999);
+    @Autowired
+    private ProductRepo productRepo;
+    @Autowired
+    private SupplierRepo supplierRepo;
+    @Autowired
+    private ProductService productService;
 
-   @RegisterExtension // starts-stops the WireMock web server that replies with pre-configured JSON responses
-   public WireMockExtension wireMock = new WireMockExtension(9999);
+    @Test
+    public void throwsForUnsafeProduct() {
+        ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+        assertThatThrownBy(() -> productService.createProduct(dto))
+                .isInstanceOf(IllegalStateException.class);
+    }
 
-   @Test
-   public void throwsForUnsafeProduct() {
-         ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
-      assertThatThrownBy(() -> productService.createProduct(dto))
-              .isInstanceOf(IllegalStateException.class);
-   }
+    @Test
+    public void programmatic_wiremock() {
+        WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"entries\": [{\"category\": \"DETERMINED\",\"detailsUrl\": \"http://wikipedia.com\"}]}"))); // override
 
-   @Test
-   public void programmatic_wiremock() {
-      WireMock.stubFor(get(urlEqualTo("/product/customXX/safety"))
-          .willReturn(aResponse()
-              .withStatus(200)
-              .withHeader("Content-Type", "application/json")
-              .withBody("{\"entries\": [{\"category\": \"DETERMINED\",\"detailsUrl\": \"http://wikipedia.com\"}]}"))); // override
+        assertThatThrownBy(() ->
+                productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME))).isInstanceOf(IllegalStateException.class);
+    }
 
-      assertThatThrownBy(() ->
-              productService.createProduct(new ProductDto("name", "customXX", -1L, ProductCategory.HOME))).isInstanceOf(IllegalStateException.class);
-   }
+    @Test
+    public void fullOk() {
+        long supplierId = supplierRepo.save(new Supplier()).getId();
+        ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
-   @Test
-   public void fullOk() {
-      long supplierId = supplierRepo.save(new Supplier()).getId();
-      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
+        productService.createProduct(dto);
 
-      productService.createProduct(dto);
-
-      Product product = productRepo.findAll().get(0);
-      assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
-      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-      assertThat(product.getCreateDate()).isNotNull();
-   }
+        Product product = productRepo.findAll().get(0);
+        assertThat(product.getName()).isEqualTo("name");
+        assertThat(product.getBarcode()).isEqualTo("safebar");
+        assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+        assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+        assertThat(product.getCreateDate()).isNotNull();
+    }
 }
