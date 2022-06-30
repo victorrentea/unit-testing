@@ -28,6 +28,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 //@ActiveProfiles("db-mem")
 @Transactional
+@ActiveProfiles("db-migration")
 @Testcontainers
 // niciodata pe Jenkins
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
