@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
-//@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class MockitoTest {
    @MockBean
    public SafetyClient mockSafetyClient;
@@ -42,11 +42,11 @@ public class MockitoTest {
    @Autowired
    private ProductService productService;
 
-   @BeforeEach
-   public void stergColacu() {
-      productRepo.deleteAll(); // ordinea conteaza de aia pe app mari curatarea DB e o arta (CASCADE .., DISABLE CONSTRAINTS)
-      supplierRepo.deleteAll();
-   }
+//   @BeforeEach
+//   public void stergColacu() {
+//      productRepo.deleteAll(); // ordinea conteaza de aia pe app mari curatarea DB e o arta (CASCADE .., DISABLE CONSTRAINTS)
+//      supplierRepo.deleteAll();
+//   }
    @Test
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
