@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -26,13 +27,16 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.WireMockExtension;
+
+import javax.annotation.RegEx;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @ActiveProfiles("db-mem")
 @Transactional
 
@@ -41,14 +45,17 @@ import static org.mockito.Mockito.*;
 
 //@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class MockitoTest {
-   @MockBean
-   public SafetyClient mockSafetyClient;
+//   @MockBean
+//   public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
    @Autowired
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
+   @RegisterExtension
+   public static WireMockExtension wireMock = new WireMockExtension(9999);
 
 //   @BeforeEach
 //   public void stergColacu() {
@@ -57,7 +64,7 @@ public class MockitoTest {
 //   }
    @Test
    public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
       ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -68,7 +75,7 @@ public class MockitoTest {
    public void tataLor() {
       // GIVEN
       Long supplierId = supplierRepo.save(new Supplier()).getId();
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
       // WHEN
@@ -88,7 +95,7 @@ public class MockitoTest {
    public void tataLorBis() {
       // GIVEN
       Long supplierId = supplierRepo.save(new Supplier()).getId();
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
       // WHEN

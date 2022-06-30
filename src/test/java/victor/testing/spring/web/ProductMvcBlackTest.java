@@ -19,8 +19,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Transactional
 @SpringBootTest
+@Transactional
 @ActiveProfiles("db-mem")
 @AutoConfigureMockMvc // emulates the HTTP request without starting a Tomcat => faster + test and prod shares thread
 public class ProductMvcBlackTest {
@@ -45,6 +45,7 @@ public class ProductMvcBlackTest {
         createProduct("Tree");
 
         runSearch("{\"name\": \"Tree\"}", 1);
+        runSearch("{\"name\": \"ASGAee\"}", 0);
     }
 
     private void createProduct(String productName) throws Exception {
