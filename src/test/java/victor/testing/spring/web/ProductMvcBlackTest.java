@@ -57,11 +57,11 @@ public class ProductMvcBlackTest {
         // language=json
         String createJson = """
                 {
-                    "name": "?",
+                    "name": "%s",
                     "supplierId": "%d",
                     "barcode": "safebar"
                 }
-                """.formatted(supplierId);
+                """.formatted(productName, supplierId);
 
         mockMvc.perform(post("/product/create")
                         .content(createJson)
