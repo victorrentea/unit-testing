@@ -1,8 +1,10 @@
 package victor.testing.spring.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
@@ -13,18 +15,13 @@ import victor.testing.spring.web.dto.ProductSearchResult;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Slf4j
 @Service
 public class ProductService {
     private final SafetyClient safetyClient;
     private final ProductRepo productRepo;
     private final SupplierRepo supplierRepo;
-
-    public ProductService(SafetyClient safetyClient, ProductRepo productRepo, SupplierRepo supplierRepo) {
-        this.safetyClient = safetyClient;
-        this.productRepo = productRepo;
-        this.supplierRepo = supplierRepo;
-    }
 
     public void createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode);
@@ -36,7 +33,8 @@ public class ProductService {
         product.setName(productDto.name);
         product.setCategory(productDto.category);
         product.setBarcode(productDto.barcode);
-        product.setSupplier(supplierRepo.getReferenceById(productDto.supplierId));
+        Supplier supplier = supplierRepo.getReferenceById(productDto.supplierId);
+        product.setSupplier(supplier);
         // TODO CR check that the supplier is active!
         product.setCreateDate(LocalDateTime.now());
         productRepo.save(product);
