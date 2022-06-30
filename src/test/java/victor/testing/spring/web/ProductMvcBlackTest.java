@@ -30,6 +30,15 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * - Connects to a production-like DB in a Docker image
+ * - Runs the flyway migration scripts against this DB
+ * - Uses WireMock to stub the JSON responses from third party APIs
+ * - Starts one @Transaction / @Test
+ * - Fills some 'static' data in the database (Supplier)
+ * - Emulates a JSON request against my API and checks the JSON response
+ * - At the end of each tests leaves the DB clean (by auto-rollback of @Transactional)
+ */
 @Transactional
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Testcontainers
