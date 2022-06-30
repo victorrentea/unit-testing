@@ -1,6 +1,8 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
@@ -28,6 +31,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
+//@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class MockitoTest {
    @MockBean
    public SafetyClient mockSafetyClient;
@@ -38,6 +42,11 @@ public class MockitoTest {
    @Autowired
    private ProductService productService;
 
+   @BeforeEach
+   public void stergColacu() {
+      productRepo.deleteAll(); // ordinea conteaza de aia pe app mari curatarea DB e o arta (CASCADE .., DISABLE CONSTRAINTS)
+      supplierRepo.deleteAll();
+   }
    @Test
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
@@ -67,5 +76,24 @@ public class MockitoTest {
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
+   @Test
+   public void tataLorBis() {
+      // GIVEN
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
+      // WHEN
+      productService.createProduct(dto);
+
+      // THEN
+      assertThat(productRepo.findAll()).hasSize(1);
+      Product product = productRepo.findAll().get(0);
+
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+   }
 }
