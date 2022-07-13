@@ -62,6 +62,7 @@ public class TelemetryDiagnosticTest {
    } */
    /*= mock(TelemetryClient.class)*/; // a mock is created and injected here
    @InjectMocks
+   @Spy
    private TelemetryDiagnostic target; // the mock is injected in the dependecy of target
 
    @BeforeEach
@@ -72,6 +73,9 @@ public class TelemetryDiagnosticTest {
    @Test
    public void disconnects() {
       // what the heck happens here in fact (the line above)
+
+
+      doReturn(new ClientConfiguration()).when(target).configureClient(any());
 
       target.checkTransmission(true);
 
