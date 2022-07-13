@@ -41,7 +41,7 @@ public class AssertionsShowcase {
          assertEquals(1, list.size());
       }
       @Test
-      public void size() {
+      public void size() { // assertJ
          assertThat(list).hasSize(1);
       }
 

@@ -4,9 +4,6 @@ import java.util.function.Predicate;
 
 public class CustomerValidator {
 	public void validate(Customer customer) {
-		if (customer.getName().contains("na") || customer.getEmail().contains("em")) {
-			System.out.println("This");
-		}
 		if (customer.getName() == null) {
 			throw new IllegalArgumentException("Missing customer name");
 		}
@@ -14,6 +11,9 @@ public class CustomerValidator {
 			throw new IllegalArgumentException("Missing customer email");
 		}
 		validateAddress(customer.getAddress());
+		if (customer.getName().contains("na") || customer.getEmail().contains("em")) {
+			System.out.println("Beer");
+		}
 		//etc
 	}
 	
