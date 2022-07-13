@@ -21,6 +21,37 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 
+//  @Test
+//   public void configuresClient() throws Exception {
+//      when(client.getOnlineStatus()).thenReturn(true);
+//      LocalDateTime testTime = now();
+//
+//      try (MockedStatic<LocalDateTime> mockedStatic = mockStatic(LocalDateTime.class)) {
+//         mockedStatic.when(LocalDateTime::now).thenReturn(testTime);// only do this if
+//         // the tested code does time-based calculations. eg now(). minus 1 day.
+//
+//         target.checkTransmission(true);
+//      }
+//
+//      ArgumentCaptor<ClientConfiguration> captor = forClass(ClientConfiguration.class);
+//      verify(client).configure(captor.capture());
+//      ClientConfiguration config = captor.getValue();
+//      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+//      // how to asset time
+//
+//      assertThat(config.getSessionStart()).isNotNull();// engineer way
+//
+//      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientific way
+//
+//      assertThat(config.getSessionStart()).isEqualTo(testTime); //
+//      // GEEK WAY:
+//      // ideas to exactly control the time in prod code
+//      // 1) @Spy a local method - NOPE
+//      // 2) inject a Clock
+//      // 3) pass LocalDateTime as arg to method
+//      // 4) stub the static method LocalDateTime.now() previously with PowerMockito, but recently with mockito-inline
+//   }
+
 @ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticTest {
    @Mock
@@ -80,31 +111,18 @@ public class TelemetryDiagnosticTest {
    @Test
    public void configuresClient() throws Exception {
       when(client.getOnlineStatus()).thenReturn(true);
-      LocalDateTime testTime = now();
+      when(client.getVersion()).thenReturn("ver");
 
-      try (MockedStatic<LocalDateTime> mockedStatic = mockStatic(LocalDateTime.class)) {
-         mockedStatic.when(LocalDateTime::now).thenReturn(testTime);// only do this if
-         // the tested code does time-based calculations. eg now(). minus 1 day.
-
-         target.checkTransmission(true);
-      }
+      target.checkTransmission(true);
 
       ArgumentCaptor<ClientConfiguration> captor = forClass(ClientConfiguration.class);
       verify(client).configure(captor.capture());
       ClientConfiguration config = captor.getValue();
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-      // how to asset time
-
-      assertThat(config.getSessionStart()).isNotNull();// engineer way
-
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientific way
+      assertThat(config.getSessionId())
+              .startsWith("ver-")
+              .hasSizeGreaterThan(10);
 
-      assertThat(config.getSessionStart()).isEqualTo(testTime); //
-      // GEEK WAY:
-      // ideas to exactly control the time in prod code
-      // 1) @Spy a local method - NOPE
-      // 2) inject a Clock
-      // 3) pass LocalDateTime as arg to method
-      // 4) stub the static method LocalDateTime.now() previously with PowerMockito, but recently with mockito-inline
    }
 }
