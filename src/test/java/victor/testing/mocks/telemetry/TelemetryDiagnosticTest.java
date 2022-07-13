@@ -4,11 +4,18 @@ import org.apache.kafka.server.authorizer.Authorizer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
+import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -24,6 +31,7 @@ public class TelemetryDiagnosticTest {
    } */
    /*= mock(TelemetryClient.class)*/; // a mock is created and injected here
    @InjectMocks
+   @Spy
    private TelemetryDiagnostic target; // the mock is injected in the dependecy of target
 
    @Test
@@ -71,9 +79,17 @@ public class TelemetryDiagnosticTest {
 
    @Test
    public void configuresClient() throws Exception {
+      LocalDateTime testTime= LocalDateTime.now();
+      doReturn(testTime).when(target).time();
       when(client.getOnlineStatus()).thenReturn(true);
+
       target.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
+
+      ArgumentCaptor<ClientConfiguration> captor = forClass(ClientConfiguration.class);
+      verify(client).configure(captor.capture());
+      ClientConfiguration config = captor.getValue();
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      // how to asset time
+      assertThat(config.getSessionStart()).isEqualTo(testTime);
    }
 }

@@ -39,15 +39,15 @@ Authorizer authorizer;
 
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(telemetryClient.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
+		config.setSessionStart(time());
 		config.setAckMode(AckMode.NORMAL);
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
-		diagnosticInfo = telemetryClient.receive();
-		diagnosticInfo = telemetryClient.receive();
-		diagnosticInfo = telemetryClient.receive();
 	}
 
+	public LocalDateTime time() {
+		return LocalDateTime.now();
+	}
 }
