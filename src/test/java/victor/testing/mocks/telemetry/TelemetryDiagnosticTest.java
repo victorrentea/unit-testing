@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -48,6 +50,7 @@ import static org.mockito.Mockito.*;
 //      // 4) stub the static method LocalDateTime.now() previously with PowerMockito, but recently with mockito-inline
 //   }
 
+//@MockitoSettings(strictness = Strictness.LENIENT) // NO: because opens the door for a @Before orf 10 when..then
 @ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticTest {
    @Mock
@@ -63,7 +66,7 @@ public class TelemetryDiagnosticTest {
 
    @BeforeEach
    final void before() {
-//      when(client.getOnlineStatus()).thenReturn(true);
+      lenient().when(client.getOnlineStatus()).thenReturn(true);
    }
 
    @Test
