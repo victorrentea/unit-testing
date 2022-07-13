@@ -2,6 +2,7 @@ package victor.testing.mocks.telemetry;
 
 import java.time.LocalDateTime;
 import java.util.Random;
+import java.util.UUID;
 
 public class TelemetryClient {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
@@ -101,6 +102,8 @@ public class TelemetryClient {
 			message = diagnosticMessageResult;
 			diagnosticMessageResult = "";
 		}
+
+//		this.a++;
 
 		return message;
 	}

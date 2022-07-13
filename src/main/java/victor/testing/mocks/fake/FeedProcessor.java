@@ -23,6 +23,7 @@ public class FeedProcessor {
       log.debug("Found files: " + names);
       int count = 0;
       for (String fileName : names) {
+//         fileRepo.chmod(fileName);
          try (Stream<String> linesStream = fileRepo.openFile(fileName)) {
             List<String> lines = linesStream.collect(toList());
             lines.removeIf(line -> line.startsWith("#"));

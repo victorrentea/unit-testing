@@ -21,11 +21,11 @@ class CommandVsQueryTest {
    @CaptureSystemOutput
    void test(OutputCapture outputCapture) {
       Obj obj = new Obj();
-      when(dependency.stuff(obj, 5)).thenReturn(7);
+      when(dependency.query(5)).thenReturn(7);
 
       target.testedMethod(obj);
 
-      verify(dependency).stuff(obj, 5); // why ??
+      verify(dependency).command(obj, 5); // why ??
       assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Logic with 7");
    }
 }

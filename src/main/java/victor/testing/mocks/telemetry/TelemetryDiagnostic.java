@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.apache.kafka.server.authorizer.Authorizer;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
@@ -11,7 +12,7 @@ public class TelemetryDiagnostic {
 
 	private TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
-
+Authorizer authorizer;
 	public void setTelemetryClient(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
 	}
@@ -43,6 +44,9 @@ public class TelemetryDiagnostic {
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
+		diagnosticInfo = telemetryClient.receive();
+		diagnosticInfo = telemetryClient.receive();
+		diagnosticInfo = telemetryClient.receive();
 		diagnosticInfo = telemetryClient.receive();
 	}
 

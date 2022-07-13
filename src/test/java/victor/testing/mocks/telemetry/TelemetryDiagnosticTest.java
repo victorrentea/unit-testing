@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.apache.kafka.server.authorizer.Authorizer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,15 +16,24 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticTest {
    @Mock
-   private TelemetryClient client;
+   private TelemetryClient client /*= new TelemetryClient() {
+      @Override
+      public boolean getOnlineStatus() {
+         return true;
+      }
+   } */
+   /*= mock(TelemetryClient.class)*/; // a mock is created and injected here
    @InjectMocks
-   private TelemetryDiagnostic target;
+   private TelemetryDiagnostic target; // the mock is injected in the dependecy of target
 
    @Test
    public void disconnects() {
-      when(client.getOnlineStatus()).thenReturn(true);
+      when(client.getOnlineStatus()).thenReturn(true); // stubbing
+      // what the heck happens here in fact (the line above)
+
       target.checkTransmission(true);
-      verify(client).disconnect(true);
+
+      verify(client).disconnect(true); // mocking = verification that a method was invoked
    }
 
    @Test
@@ -44,10 +54,19 @@ public class TelemetryDiagnosticTest {
    public void receivesDiagnosticInfo() {
       // TODO inspect
       when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
+      when(client.receive()).thenReturn("granpa"); // stubbing
+
+      // act
       target.checkTransmission(true);
-      verify(client).receive();
-      assertThat(target.getDiagnosticInfo()).isEqualTo("tataie");
+
+      assertThat(target.getDiagnosticInfo()).isEqualTo("granpa");
+      verify(client).receive(); // should be needed,
+      // Why would you ever want to verify() a method that you also when.,.then (stubbed)
+      // to make sure the function that brought data to tested code is called only ONCE
+      // WHY?
+      // - expensive $ or time
+      // - not referential transparent (diffrerent results 2nd time: relies on time, random, reads over NETWORK)
+      // BUT if the method is NOT doing network => having  to verify() it means it's not CQS
    }
 
    @Test
