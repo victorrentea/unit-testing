@@ -45,7 +45,9 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
       exporter.export(sw);
 
       String expectedContents = readFileToString(test.getExpectedOutputFile());
-      assertThat(sw.toString()).isEqualToNormalizingNewlines(expectedContents);
+      String actualContentsOfTheGeneratedFile = sw.toString();
+      assertThat(actualContentsOfTheGeneratedFile)
+              .isEqualToNormalizingNewlines(expectedContents);
    }
 
    private void didacticLog(FileTestCase testCase) throws IOException {
