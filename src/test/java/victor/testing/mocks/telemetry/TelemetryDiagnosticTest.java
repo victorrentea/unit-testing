@@ -4,17 +4,18 @@ import org.apache.kafka.server.authorizer.Authorizer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.byLessThan;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -31,7 +32,6 @@ public class TelemetryDiagnosticTest {
    } */
    /*= mock(TelemetryClient.class)*/; // a mock is created and injected here
    @InjectMocks
-   @Spy
    private TelemetryDiagnostic target; // the mock is injected in the dependecy of target
 
    @Test
@@ -79,17 +79,32 @@ public class TelemetryDiagnosticTest {
 
    @Test
    public void configuresClient() throws Exception {
-      LocalDateTime testTime= LocalDateTime.now();
-      doReturn(testTime).when(target).time();
       when(client.getOnlineStatus()).thenReturn(true);
+      LocalDateTime testTime = now();
 
-      target.checkTransmission(true);
+      try (MockedStatic<LocalDateTime> mockedStatic = mockStatic(LocalDateTime.class)) {
+         mockedStatic.when(LocalDateTime::now).thenReturn(testTime);// only do this if
+         // the tested code does time-based calculations. eg now(). minus 1 day.
+
+         target.checkTransmission(true);
+      }
 
       ArgumentCaptor<ClientConfiguration> captor = forClass(ClientConfiguration.class);
       verify(client).configure(captor.capture());
       ClientConfiguration config = captor.getValue();
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       // how to asset time
-      assertThat(config.getSessionStart()).isEqualTo(testTime);
+
+      assertThat(config.getSessionStart()).isNotNull();// engineer way
+
+      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientific way
+
+      assertThat(config.getSessionStart()).isEqualTo(testTime); //
+      // GEEK WAY:
+      // ideas to exactly control the time in prod code
+      // 1) @Spy a local method - NOPE
+      // 2) inject a Clock
+      // 3) pass LocalDateTime as arg to method
+      // 4) stub the static method LocalDateTime.now() previously with PowerMockito, but recently with mockito-inline
    }
 }
