@@ -18,6 +18,12 @@ class TestData {
       return new Customer()
               .setName("::name::")
               .setEmail("::email::")
+              .setName("::name::")
+              .setEmail("::email::")
+              .setName("::name::")
+              .setEmail("::email::")
+              .setName("::name::")
+              .setEmail("::email::")
               .setAddress(new Address()
                       .setCity("::city::"));
    }

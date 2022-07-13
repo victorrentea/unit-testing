@@ -73,7 +73,7 @@ public class TennisScoreTest {
 //        tennisScore.winsPoints(Player.ONE);
 //        tennisScore.winsPoints(Player.ONE);
 //
-//        tennisScore.winsPoints(Player.TWO);
+//        tennisScore.winsPoints(Player.TWO, 3);
 //        tennisScore.winsPoints(Player.TWO);
 //        tennisScore.winsPoints(Player.TWO);
         addPoints(3,3);

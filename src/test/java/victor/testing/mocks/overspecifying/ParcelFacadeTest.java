@@ -46,9 +46,8 @@ class ParcelFacadeTest {
 
       target.processBarcode("BAR", 99);
 
-      verify(displayService).displayAWB("AWB");
-      verify(displayService).displayMultiParcelWarning();
+      verify(displayService).displayAWB(parcel);
       verify(platformService).addParcel(parcel);
-      verify(trackingService).markDepartingWarehouse("AWB", 99, trackingProviders);
+      verify(trackingService).markDepartingWarehouse("AWB", 99);
    }
 }

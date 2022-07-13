@@ -1,11 +1,16 @@
 package victor.testing.mocks.overspecifying.service;
 
+import victor.testing.mocks.overspecifying.model.Parcel;
+
 public class DisplayService {
-   public void displayAWB(String barcode){
-      System.out.println("Display barcode " + barcode);
+   public void displayAWB(Parcel parcel){
+      System.out.println("Display barcode " + parcel.getBarcode());
+      if (parcel.isPartOfCompositeShipment()) {
+         displayMultiParcelWarning();
+      }
    }
 
-   public void displayMultiParcelWarning(){
+   private void displayMultiParcelWarning(){
       System.out.println("Display WARNING: MULTIPARCEL");
 
    }
