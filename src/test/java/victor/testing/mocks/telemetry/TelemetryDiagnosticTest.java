@@ -1,7 +1,7 @@
 package victor.testing.mocks.telemetry;
 
-import org.apache.kafka.server.authorizer.Authorizer;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -9,14 +9,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -65,9 +61,13 @@ public class TelemetryDiagnosticTest {
    @InjectMocks
    private TelemetryDiagnostic target; // the mock is injected in the dependecy of target
 
+   @BeforeEach
+   final void before() {
+//      when(client.getOnlineStatus()).thenReturn(true);
+   }
+
    @Test
    public void disconnects() {
-      when(client.getOnlineStatus()).thenReturn(true); // stubbing
       // what the heck happens here in fact (the line above)
 
       target.checkTransmission(true);
@@ -84,7 +84,6 @@ public class TelemetryDiagnosticTest {
 
    @Test
    public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
       target.checkTransmission(true);
       verify(client).send(TelemetryClient.DIAGNOSTIC_MESSAGE);
    }
@@ -92,7 +91,6 @@ public class TelemetryDiagnosticTest {
    @Test
    public void receivesDiagnosticInfo() {
       // TODO inspect
-      when(client.getOnlineStatus()).thenReturn(true);
       when(client.receive()).thenReturn("granpa"); // stubbing
 
       // act
@@ -110,19 +108,15 @@ public class TelemetryDiagnosticTest {
 
    @Test
    public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.getVersion()).thenReturn("ver");
+      ClientConfiguration config = target.configureClient("ver");
 
-      target.checkTransmission(true);
-
-      ArgumentCaptor<ClientConfiguration> captor = forClass(ClientConfiguration.class);
-      verify(client).configure(captor.capture());
-      ClientConfiguration config = captor.getValue();
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientific way
       assertThat(config.getSessionId())
               .startsWith("ver-")
               .hasSizeGreaterThan(10);
-
    }
+   @Captor
+   ArgumentCaptor<ClientConfiguration> captor;
+
 }

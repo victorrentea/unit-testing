@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.kafka.server.authorizer.Authorizer;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration;
 import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMode;
@@ -37,15 +38,23 @@ Authorizer authorizer;
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(
-				telemetryClient.getVersion()/*.toUpperCase()*/ +
-				"-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = configureClient(telemetryClient.getVersion());
 		telemetryClient.configure(config);
 
 		telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = telemetryClient.receive();
+	}
+
+	@VisibleForTesting
+	public ClientConfiguration configureClient(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(
+				version/*.toUpperCase()*/ +
+				"-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		// 10 ifs to determine what to put in config.
+		config.setAckMode(AckMode.NORMAL);
+		return config;
+
 	}
 }
