@@ -1,7 +1,5 @@
-package victor.testing.approval.message;
+package victor.testing.filebased.message;
 
-import lombok.Data;
-import org.assertj.core.api.Assertions;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -12,16 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.approval.FileBasedApprovalTestBase;
-import victor.testing.assertj.SoftAssertions;
-import victor.testing.spring.domain.Product;
+import victor.testing.filebased.FileBasedApprovalTestBase;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;

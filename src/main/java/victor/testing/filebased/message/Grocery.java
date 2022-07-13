@@ -1,9 +1,8 @@
-package victor.testing.approval.message;
+package victor.testing.filebased.message;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.UUID;
 
 @Entity
 public class Grocery {

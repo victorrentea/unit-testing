@@ -1,4 +1,4 @@
-package victor.testing.approval.export;
+package victor.testing.filebased.export;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.approval.FileBasedApprovalTestBase;
+import victor.testing.filebased.FileBasedApprovalTestBase;
 
 import java.io.IOException;
 import java.io.StringWriter;

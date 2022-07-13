@@ -1,4 +1,4 @@
-package victor.testing.approval.export;
+package victor.testing.filebased.export;
 
 import lombok.AccessLevel;
 import lombok.Data;

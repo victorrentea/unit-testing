@@ -1,4 +1,4 @@
-package victor.testing.approval.message;
+package victor.testing.filebased.message;
 
 public class GroceryRequest {
     private final String grocery;

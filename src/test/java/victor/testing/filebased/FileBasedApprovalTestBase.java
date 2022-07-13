@@ -1,4 +1,4 @@
-package victor.testing.approval;
+package victor.testing.filebased;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;

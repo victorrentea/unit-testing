@@ -1,6 +1,4 @@
-package victor.testing.approval.message;
-
-import java.util.List;
+package victor.testing.filebased.message;
 
 public class GroceriesResponseMessage {
     private final String requestId;
