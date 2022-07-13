@@ -36,12 +36,32 @@ public class TennisScoreTest {
 
     @Test
     void fifteenFifteen() {
-        tennisScore.winsPoints(Player.ONE); //
-        tennisScore.winsPoints(Player.TWO); //
+        tennisScore.winsPoints(Player.ONE);
+        tennisScore.winsPoints(Player.TWO);
 
         String actual = tennisScore.getScore();
 
         assertThat(actual).isEqualTo("Fifteen - Fifteen");
+    }
+    @Test
+    void thirtyLove() {
+        tennisScore.winsPoints(Player.ONE);
+        tennisScore.winsPoints(Player.ONE);
+
+        String actual = tennisScore.getScore();
+
+        assertThat(actual).isEqualTo("Thirty - Love");
+
+    }
+    @Test
+    void fortyLove() {
+        tennisScore.winsPoints(Player.ONE);
+        tennisScore.winsPoints(Player.ONE);
+        tennisScore.winsPoints(Player.ONE);
+
+        String actual = tennisScore.getScore();
+
+        assertThat(actual).isEqualTo("Forty - Love");
 
     }
 }

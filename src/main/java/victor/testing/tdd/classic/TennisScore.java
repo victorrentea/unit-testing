@@ -1,26 +1,37 @@
 package victor.testing.tdd.classic;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 public class TennisScore {
-
-    private String string = "Love - Love";
-
     private int player1Point;
     private int player2Point;
 
     public String getScore() {
-        return string;
+        return translateScore(player1Point) + " - " + translateScore(player2Point);
+    }
+
+    private String translateScore(int player1Point) {
+        switch (player1Point) {
+            case 0:
+                return "Love";
+            case 1:
+                return "Fifteen";
+            case 2:
+                return "Thirty";
+            case 3:
+                return "Forty";
+            default:
+                throw new IllegalStateException("Unexpected value: " + player1Point);
+        }
     }
 
     public void winsPoints(Player player) {
         if (player == Player.ONE) {
-            string = "Fifteen - Love";
+            player1Point++;
         } else {
-            if (Objects.equals(string, "Fifteen - Love"))
-                string = "Fifteen - Fifteen";
-            else
-                string = "Love - Fifteen";
+            player2Point++;
         }
     }
 }
