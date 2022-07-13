@@ -20,7 +20,7 @@ class TestData {
    }
 }//Object Mother F...er https://martinfowler.com/bliki/ObjectMother.html
 
-
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS) // avoid, unless this test is NOT a unit test but a flow test.
 public class CustomerValidatorShould {
     CustomerValidator validator = new CustomerValidator();
     private Customer customer = TestData.johnCustomer();
