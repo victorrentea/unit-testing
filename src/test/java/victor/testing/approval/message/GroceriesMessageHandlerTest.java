@@ -41,7 +41,7 @@ class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
     private ArgumentCaptor<GroceriesResponseMessage> responseMessageCaptor;
     @Captor
     private ArgumentCaptor<GroceryNotFoundEvent> notFoundMessageCaptor;
-
+// THIS TOO!
     public static List<FileTestCase> testData() throws IOException {
         Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.json");
         return scanForFileTestCases("classpath:/test-cases/message/message*.in.json", inToOutFileName);
