@@ -49,7 +49,7 @@ Authorizer authorizer;
 	public ClientConfiguration configureClient(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(
-				version/*.toUpperCase()*/ +
+				version.toUpperCase() +
 				"-" + UUID.randomUUID().toString());
 		config.setSessionStart(LocalDateTime.now());
 		// 10 ifs to determine what to put in config.

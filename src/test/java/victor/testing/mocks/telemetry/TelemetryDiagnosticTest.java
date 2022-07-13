@@ -116,10 +116,7 @@ public class TelemetryDiagnosticTest {
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientific way
       assertThat(config.getSessionId())
-              .startsWith("ver-")
+              .startsWith("VER-")
               .hasSizeGreaterThan(10);
    }
-   @Captor
-   ArgumentCaptor<ClientConfiguration> captor;
-
 }
