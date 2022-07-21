@@ -305,6 +305,7 @@
 
                 <executions>
                     <execution>
+                        <!-- pt @Cornel -->
                         <id>pit-report</id>
                         <!-- optional -->
                         <phase>test</phase>
