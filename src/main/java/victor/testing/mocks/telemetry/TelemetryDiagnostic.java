@@ -6,15 +6,19 @@ import victor.testing.mocks.telemetry.TelemetryClient.ClientConfiguration.AckMod
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+// am gasit acest cod prin proiect.
+// si am ajuns la concl ca trebuie sa-l schimb
+
 public class TelemetryDiagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private TelemetryClient telemetryClient;
+	private final TelemetryClient telemetryClient;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(TelemetryClient telemetryClient) {
+	public TelemetryDiagnostic(TelemetryClient telemetryClient) {
 		this.telemetryClient = telemetryClient;
 	}
+
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;

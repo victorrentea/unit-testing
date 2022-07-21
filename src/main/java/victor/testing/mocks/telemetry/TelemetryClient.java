@@ -3,7 +3,7 @@ package victor.testing.mocks.telemetry;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-public class TelemetryClient {
+public class TelemetryClient /*implements I*/{
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
 
@@ -61,6 +61,7 @@ public class TelemetryClient {
 
 	public void disconnect(boolean force) {
 		onlineStatus = false;
+		// RMI, JAXWS, SOAP, API call HTTP, apel in DB, ES, ..
 		throw new IllegalStateException("Performs some external remote call impossible/not desirable to call from automated tests.");
 	}
 
