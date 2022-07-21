@@ -26,7 +26,7 @@ public class AssertionsShowcase {
    @Nested
    @TestMethodOrder(MethodName.class)
    public class Collections {
-      private final List<Integer> list = asList(100, 200, 300);
+      private final List<Integer> listaCu3ElemDinProd = asList(100, 200, 300);
       private final List<Character> fellowship = List.of(
           new Character("Frodo", 20, new Race("Hobbit")),
           new Character("Sam", 18, new Race("Hobbit")),
@@ -38,25 +38,27 @@ public class AssertionsShowcase {
       );
       @Test
       public void size_JUnit() {
-         assertEquals(1, list.size());
+         assertEquals(1, listaCu3ElemDinProd.size());
       }
       @Test
       public void size() {
-         assertThat(list).hasSize(1);
+         assertThat(listaCu3ElemDinProd).hasSize(1);
       }
 
 
       // check contents in any order
       @Test
       public void inAnyOrder_JUnit() {
-         assertEquals(Set.of(100, 200, 300), new HashSet<>(list));
-         assertFalse(list.contains(500));
+         assertEquals(Set.of(100, 200, 300), new HashSet<>(listaCu3ElemDinProd));
+
+         assertFalse(listaCu3ElemDinProd.contains(500));
       }
       @Test
       public void inAnyOrder() {
-         assertThat(list)
+         assertThat(listaCu3ElemDinProd)
              .containsExactlyInAnyOrder(100, 200, 300)
-             .doesNotContain(500);
+//             .doesNotContain(500)
+         ;
       }
 
       @Test
@@ -77,7 +79,8 @@ public class AssertionsShowcase {
       }
       @Test
       public void subsetAttributesOfElements() {
-         assertThat(fellowship).extracting("name", "age", "race.name")
+         assertThat(fellowship)
+              .extracting("name", "age", "race.name")
              .contains(
                  tuple("Frodo", 20, "Hobbit"),
                  tuple("Aragorn", 39, "Man"),
