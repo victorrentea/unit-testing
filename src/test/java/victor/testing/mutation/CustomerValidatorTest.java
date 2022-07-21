@@ -21,22 +21,27 @@ class TestData {
 public class CustomerValidatorTest {
    CustomerValidator validator = new CustomerValidator();
 
+   Customer customer = TestData.john(); // oare obiectul ramane in memorie INTRE TESTE?
+
+
+   public CustomerValidatorTest() {
+      System.out.println("Fiecare @Test are o noua instanta de clasa de test?!!");
+   }
    @Test
    void happy() {
-      Customer customer = TestData.john();
       validator.validate(customer);
    }
 
    @Test
    void throws_forMissingCustomerName() {
-      Customer customer = TestData.john().setName(null);
+      customer.setName(null);
 
       assertThatThrownBy(() -> validator.validate(customer))
               .isInstanceOf(IllegalArgumentException.class);
    }
    @Test
    void throws_forMissingCustomerEmail() {
-      Customer customer = TestData.john().setEmail(null);
+      customer.setEmail(null);
 
       assertThatThrownBy(() -> validator.validate(customer))
               .isInstanceOf(IllegalArgumentException.class);
