@@ -23,14 +23,8 @@ import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.
 public class TelemetryDiagnosticTest {
     @Mock
     Client clientMock;
-//    = new Client() {
-//        @Override
-//        public boolean getOnlineStatus() {
-//            return true;
-//        }
-//    }; // = mock(TelemetryClient.class);
     @InjectMocks
-    Diagnostic diagnostic;// = new TelemetryDiagnostic(mock);
+    Diagnostic diagnostic;
 
     @Test
     void disconnects() {
