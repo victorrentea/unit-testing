@@ -2,6 +2,7 @@ package victor.testing.assertj;
 
 
 import lombok.Value;
+import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -71,6 +72,8 @@ public class AssertionsShowcase {
          assertThat(fellowship.stream().map(character -> character.getRace().getName()))
              .containsOnly("Man", "Dwarf", "Elf", "Hobbit");
       }
+
+//      assertJ.prototype.functieNoua=
       @Test
       public void subsetAttributesOfElements_JUnit() {
          assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Frodo") && c.getRace().getName().equals("Hobbit")));
@@ -79,6 +82,15 @@ public class AssertionsShowcase {
       }
       @Test
       public void subsetAttributesOfElements() {
+         LocalDateTime now = now();
+
+
+         assertThat(fellowship).map(Character::getName).contains("Frodo");
+
+         assertThat(fellowship).anyMatch(c -> c.getName().equals("Frodo"));
+
+         assertThat(fellowship).have(new Condition<>(c -> c.getName().equals("Frodxo"), "are Frodo"));
+
          assertThat(fellowship)
               .extracting("name", "age", "race.name")
              .contains(

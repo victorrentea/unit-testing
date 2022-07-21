@@ -1,40 +1,40 @@
 Feature: Tennis Game
 
-  Scenario: Love-Love
+  Scenario: Love - Love
     Given A new tennis game
-    Then Score is "Love-Love"
+    Then Score is "Love - Love"
 
-  Scenario: Fifteen-Love
+  Scenario: Fifteen - Love
     Given A new tennis game
-    When Player1 scores
-    Then Score is "Fifteen-Love"
+    When Player "ONE" scores
+    Then Score is "Fifteen - Love"
 
-  Scenario: Fifteen-Fifteen
+  Scenario: Fifteen - Fifteen
     Given A new tennis game
-    When Player1 scores
-    And Player2 scores
-    Then Score is "Fifteen-Fifteen"
+    When Player "ONE" scores
+    And Player "TWO" scores
+    Then Score is "Fifteen - Fifteen"
 
   Scenario: Deuce
     Given A new tennis game
-    When Player1 scores 3 points
-    And Player2 scores 3 points
+    When Player "ONE" scores 3 points
+    And Player "TWO" scores 3 points
     Then Score is "Deuce"
 
   Scenario Outline: All Data Table
     Given A new tennis game
-    When Player1 scores <player1Points> points
-    And Player2 scores <player2Points> points
+    When Player "ONE" scores <player1Points> points
+    And Player "TWO" scores <player2Points> points
     Then Score is "<expectedScore>"
 
     Examples:
       | player1Points | player2Points | expectedScore     |
-      | 0             | 0             | Love-Love         |
-      | 1             | 0             | Fifteen-Love      |
-      | 0             | 1             | Love-Fifteen      |
-      | 1             | 1             | Fifteen-Fifteen   |
-      | 2             | 0             | Thirty-Love       |
-      | 3             | 0             | Forty-Love        |
+      | 0             | 0             | Love - Love       |
+      | 1             | 0             | Fifteen - Love    |
+      | 0             | 1             | Love - Fifteen    |
+      | 1             | 1             | Fifteen - Fifteen |
+      | 2             | 0             | Thirty - Love     |
+      | 3             | 0             | Forty - Love      |
       | 3             | 3             | Deuce             |
       | 4             | 4             | Deuce             |
       | 8             | 8             | Deuce             |
