@@ -9,9 +9,6 @@ public class TennisScoreTest {
 
     TennisScore tennisScore = new TennisScore();
 
-    // The running score of each game is described in a manner peculiar to tennis:
-    // scores from zero to three points are described as
-    // “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
     @Test
     void loveLove_forNewGame() {
         String score = tennisScore.getScore();
@@ -34,6 +31,28 @@ public class TennisScoreTest {
 
         assertThat(score).isEqualTo("Love - Fifteen");
     }
+
+    // The running score of each game is described in a manner peculiar to tennis:
+    // scores from zero to three points are described as
+    // “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
+    @Test
+    void fifteenFifteen() { //test overlapping
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.TWO);
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Fifteen - Fifteen");
+    }
+
+    @Test
+    void thirtyLove() { // test cu bug
+        tennisScore.addPoint(Player.ONE); // cum pasezi ideea de "jucatorul 1": 1, 0, enum, ??
+        tennisScore.addPoint(Player.ONE); // cum pasezi ideea de "jucatorul 1": 1, 0, enum, ??
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Fifteen - Love");
+    }
+
 }
 
 // 1> te apuci de partea din req cea mai simpla
@@ -46,5 +65,9 @@ public class TennisScoreTest {
 //      Testele nu sunt izolate => date care "curg" dintr-unu-n altu'
 // 8> Nu ai voie refactoring daca ai teste picate. Refactoringul pleaca si se termina pe verde.
 // 9> cand fixezi testul e acceptabil sa faci copy-paste, si alte abominatii.
+// 10> scriu un test NOU si e gata verde:
+//   1) esti prost: nu te-ai prins ca deja implementasesi featureul
+//   2) esti prost: testul nou scris ARE UN BUG:
+
 
 // Junit ruleaza testele tale alandala. nu in ordinea in care le-ai scris. Pentru ca sa caute cuplari intre teste.

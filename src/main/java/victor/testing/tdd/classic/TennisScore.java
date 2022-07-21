@@ -11,9 +11,9 @@ public class TennisScore {
     }
 
     private String translateScore(int player2Point) {
-        String player2Score = "Love";
-        if (player2Point == 1) {
-            player2Score = "Fifteen";
+        String player2Score = "Fifteen";
+        if (player2Point == 0) {
+            player2Score = "Love";
         }
         return player2Score;
     }
