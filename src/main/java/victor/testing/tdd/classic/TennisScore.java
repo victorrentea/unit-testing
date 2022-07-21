@@ -10,12 +10,20 @@ public class TennisScore {
         return translateScore(player1Point) + " - " + translateScore(player2Point);
     }
 
-    private String translateScore(int player2Point) {
-        String player2Score = "Fifteen";
-        if (player2Point == 0) {
-            player2Score = "Love";
-        }
-        return player2Score;
+    private static final String[] LABELS = {"Love", "Fifteen", "Thirty"};
+
+    private String translateScore(int points) {
+        return LABELS[points];
+//        switch (points) {
+//            case 0:
+//                return "Love";
+//            case 1:
+//                return "Fifteen";
+//            case 2:
+//                return "Thirty";
+//            default:
+//                throw new IllegalStateException("Unexpected value: " + points);
+//        }
     }
 
     public void addPoint(Player player) {

@@ -45,12 +45,12 @@ public class TennisScoreTest {
     }
 
     @Test
-    void thirtyLove() { // test cu bug
+    void thirtyLove() {
         tennisScore.addPoint(Player.ONE); // cum pasezi ideea de "jucatorul 1": 1, 0, enum, ??
         tennisScore.addPoint(Player.ONE); // cum pasezi ideea de "jucatorul 1": 1, 0, enum, ??
         String score = tennisScore.getScore();
 
-        assertThat(score).isEqualTo("Fifteen - Love");
+        assertThat(score).isEqualTo("Thirty - Love");
     }
 
 }
@@ -67,7 +67,10 @@ public class TennisScoreTest {
 // 9> cand fixezi testul e acceptabil sa faci copy-paste, si alte abominatii.
 // 10> scriu un test NOU si e gata verde:
 //   1) esti prost: nu te-ai prins ca deja implementasesi featureul
-//   2) esti prost: testul nou scris ARE UN BUG:
+//   2) esti prost: testul nou scris ARE UN BUG: copy-paste din alt test sau din prod
+//   3) Lasi teste overlapping OK daca traduci exemple concrete mentionate in requirementuri
+// 11> TDD iti da libertatea sa te joci fara sa-ti fie frica. Te incurajeaza.
 
+// ** FACI TDD DE FAPT NU PENTRU SEFU. CI PENTRU TINE> CA SA CRESTI. sa stai mai mult timp in refactoring,> experimentand mai multe idei > devii mai destept > $++
 
 // Junit ruleaza testele tale alandala. nu in ordinea in care le-ai scris. Pentru ca sa caute cuplari intre teste.
