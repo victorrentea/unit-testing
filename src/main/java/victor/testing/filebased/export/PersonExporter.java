@@ -10,15 +10,15 @@ public class PersonExporter {
       this.personRepo = personRepo;
    }
 
-   // This legacy code is in production for 7 years.
-   // So, it has no bugs, 🤞
+   // This legacy code is in production for 7 years. NOt tests. ofc.
+   // So, it has NO bugs, 🤞
    //    but your task is to change it... 😱
    // Ofc, you want to make sure you don't introduce bugs.
 
    // So: (** CHARACTERIZATION TESTS **)
-   // - You capture its current output
+   // - You capture its current output, you save it in in/out files
    // - Find inputs to go "everywhere" (Line coverage helps here)
-   // - Save actual current output as tests
+   // - Save actual current output as files
 
    // Then, when refactoring/evolving it, the tests should stay green.
    public void export(Writer writer) throws IOException {
