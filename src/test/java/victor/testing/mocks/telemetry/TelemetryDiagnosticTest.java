@@ -2,20 +2,36 @@ package victor.testing.mocks.telemetry;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+import static java.time.LocalDateTime.MIN;
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.MINUTES;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 
 //class Fake implements I {}
 @ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticTest {
     @Mock
-    Client clientMock; // = mock(TelemetryClient.class);
+    Client clientMock;
+//    = new Client() {
+//        @Override
+//        public boolean getOnlineStatus() {
+//            return true;
+//        }
+//    }; // = mock(TelemetryClient.class);
     @InjectMocks
     Diagnostic diagnostic;// = new TelemetryDiagnostic(mock);
 
@@ -32,6 +48,9 @@ public class TelemetryDiagnosticTest {
     void throwsWhenNotOnline() {
         when(clientMock.getOnlineStatus()).thenReturn(false);
 
+        //in Spr Boot by default Mockito functioneaza prin generearea dinamica la runtime a unei subclase a clasei mele.
+        System.out.println("Client mock este de fapt o clasa: "+ clientMock.getClass().getName());
+
         assertThatThrownBy(() -> diagnostic.checkTransmission(true))
                 .isInstanceOf(IllegalStateException.class);
 
@@ -46,7 +65,6 @@ public class TelemetryDiagnosticTest {
         verify(clientMock).send(notNull());// null este any() dar nu este anyString()
 //        verify(clientMock).send(any());// null este any() dar nu este anyString()
 //        verify(clientMock).send(anyString()); // ai consumat 6 car degeaba
-
 
         // mai strict
         // refolosesti constanta din prod: PRO: are semantica (nume), si testul NU pica daca val ct se modifica
@@ -77,5 +95,24 @@ public class TelemetryDiagnosticTest {
         assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("acelceva");
     }
 
+    @Captor
+    ArgumentCaptor<ClientConfiguration> configCaptor;
+
+    @Test
+    void configuresClient() {
+        when(clientMock.getOnlineStatus()).thenReturn(true);
+
+        diagnostic.checkTransmission(true);
+
+        verify(clientMock).configure(configCaptor.capture());
+        ClientConfiguration config = configCaptor.getValue();
+        assertThat(config.getAckMode()).isEqualTo(NORMAL);
+
+        // nu merge
+//        assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());
+        assertThat(config.getSessionStart()).isNotNull(); // ingineru'
+        assertThat(config.getSessionStart()).isCloseTo(now(),byLessThan(1, MINUTES)); // omu de stiinta'
+
+    }
 
 }
