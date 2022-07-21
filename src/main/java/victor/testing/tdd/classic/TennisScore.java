@@ -7,8 +7,13 @@ public class TennisScore {
     private int player2Point;
 
     public String getScore() {
-        if (player1Point >= 3 && player2Point >= 3 && player1Point == player2Point) {
-            return "Deuce";
+        if (player1Point >= 3 && player2Point >= 3) {
+            if (player1Point - player2Point == 1) {
+                return "Advantage Player1";
+            }
+            if (player1Point == player2Point) {
+                return "Deuce";
+            }
         }
         return translateScore(player1Point) + " - " + translateScore(player2Point);
     }

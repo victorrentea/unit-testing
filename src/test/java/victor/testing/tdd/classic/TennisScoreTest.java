@@ -1,5 +1,7 @@
 package victor.testing.tdd.classic;
 
+import io.cucumber.java.ro.Atunci;
+import io.cucumber.java.ro.Cand;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -71,30 +73,49 @@ public class TennisScoreTest {
 
     @Test
     void deuce3() {
-        tennisScore.addPoint(Player.ONE);
-        tennisScore.addPoint(Player.ONE);
-        tennisScore.addPoint(Player.ONE);
-        tennisScore.addPoint(Player.TWO);
-        tennisScore.addPoint(Player.TWO);
-        tennisScore.addPoint(Player.TWO);
+        scoresMultiple(Player.ONE,3);
+        scoresMultiple(Player.TWO,3);
         String score = tennisScore.getScore();
 
         assertThat(score).isEqualTo("Deuce");
     }
     @Test
     void deuce4() {
-        tennisScore.addPoint(Player.ONE);
-        tennisScore.addPoint(Player.ONE);
-        tennisScore.addPoint(Player.ONE);
-        tennisScore.addPoint(Player.ONE);
-        tennisScore.addPoint(Player.TWO);
-        tennisScore.addPoint(Player.TWO);
-        tennisScore.addPoint(Player.TWO);
-        tennisScore.addPoint(Player.TWO);
+        scoresMultiple(Player.ONE,4);
+        scoresMultiple(Player.TWO,4);
         String score = tennisScore.getScore();
 
         assertThat(score).isEqualTo("Deuce");
     }
+
+    // un mini-micro testing framework; te ajuta sa testezi un flux neprietenos.
+    public void scoresMultiple(Player player, int points) {
+        for (int i = 0; i < points; i++) {
+            tennisScore.addPoint(player);
+        }
+    }
+
+//    If at least three points have been scored by each side
+//    and a player has one more point than his opponent,
+//    the score of the game is “Advantage” for the player in the lead.
+    @Test
+    void advantagePlayer1_7_6() {
+        scoresMultiple(Player.ONE,7);
+        scoresMultiple(Player.TWO,6);
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Advantage Player1");
+    }
+    @Test
+    void advantagePlayer1_17_16() {
+        scoresMultiple(Player.ONE,17);
+        scoresMultiple(Player.TWO,16);
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Advantage Player1");
+    }
+
+//"o facem pentru test dar ma gandesc ca poate ma ajuta si-n prod."
 
 }
 

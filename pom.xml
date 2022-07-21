@@ -320,10 +320,10 @@
 
                 <configuration>
                     <targetClasses>
-                        <param>victor.testing.mutation.*</param>
+                        <param>victor.testing.tdd.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>victor.testing.mutation.*</param>
+                        <param>victor.testing.tdd.*</param>
                     </targetTests>
                     <mutators>
                         <mutator>NON_VOID_METHOD_CALLS</mutator>
