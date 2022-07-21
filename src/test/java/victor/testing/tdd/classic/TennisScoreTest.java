@@ -11,6 +11,7 @@ public class TennisScoreTest {
 
     TennisScore tennisScore = new TennisScore();
 
+    // TDD stil triangulare, classic style
     @Test
     void loveLove_forNewGame() {
         String score = tennisScore.getScore();
@@ -53,6 +54,46 @@ public class TennisScoreTest {
         String score = tennisScore.getScore();
 
         assertThat(score).isEqualTo("Thirty - Love");
+    }
+    @Test
+    void fortyLove() {
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Forty - Love");
+    }
+
+    //If at least three points have been scored by
+    // each player, and the scores are equal,
+    // the score is “Deuce”.
+
+    @Test
+    void deuce3() {
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Deuce");
+    }
+    @Test
+    void deuce4() {
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Deuce");
     }
 
 }
