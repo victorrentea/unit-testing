@@ -2,10 +2,7 @@ package victor.testing.mocks.telemetry;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
@@ -100,10 +97,14 @@ public class TelemetryDiagnosticTest {
 
     @Test
     void configuresClient() {
+        LocalDateTime testTime = now();
         when(clientMock.getOnlineStatus()).thenReturn(true);
+        try (MockedStatic<LocalDateTime> staticMock = mockStatic(LocalDateTime.class)) {
+            staticMock.when(LocalDateTime::now).thenReturn(testTime);
 
-        diagnostic.checkTransmission(true);
+            diagnostic.checkTransmission(true);
 
+        }
         verify(clientMock).configure(configCaptor.capture());
         ClientConfiguration config = configCaptor.getValue();
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
@@ -112,6 +113,9 @@ public class TelemetryDiagnosticTest {
 //        assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());
         assertThat(config.getSessionStart()).isNotNull(); // ingineru'
         assertThat(config.getSessionStart()).isCloseTo(now(),byLessThan(1, MINUTES)); // omu de stiinta'
+
+        assertThat(config.getSessionStart()).isEqualTo(testTime); // ingineru'
+
 
     }
 
