@@ -11,6 +11,9 @@ public class TennisScore {
             if (player1Point - player2Point == 1) {
                 return "Advantage Player1";
             }
+            if (player2Point - player1Point == 1) {
+                return "Advantage Player2";
+            }
             if (player1Point == player2Point) {
                 return "Deuce";
             }

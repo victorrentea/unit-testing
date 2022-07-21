@@ -71,48 +71,40 @@ public class TennisScoreTest {
     // each player, and the scores are equal,
     // the score is “Deuce”.
 
-    @Test
-    void deuce3() {
-        scoresMultiple(Player.ONE,3);
-        scoresMultiple(Player.TWO,3);
-        String score = tennisScore.getScore();
-
-        assertThat(score).isEqualTo("Deuce");
-    }
-    @Test
-    void deuce4() {
-        scoresMultiple(Player.ONE,4);
-        scoresMultiple(Player.TWO,4);
-        String score = tennisScore.getScore();
-
-        assertThat(score).isEqualTo("Deuce");
-    }
-
-    // un mini-micro testing framework; te ajuta sa testezi un flux neprietenos.
     public void scoresMultiple(Player player, int points) {
         for (int i = 0; i < points; i++) {
             tennisScore.addPoint(player);
         }
     }
+    @Test
+    void deuce3() {
+        sePrindeIJ(3, 3, "Deuce");
+    }
+
+    @Test
+    void deuce4() {
+        sePrindeIJ(4, 4, "Deuce");
+    }
+    // un mini-micro testing framework; te ajuta sa testezi un flux neprietenos.
 
 //    If at least three points have been scored by each side
 //    and a player has one more point than his opponent,
 //    the score of the game is “Advantage” for the player in the lead.
     @Test
     void advantagePlayer1_7_6() {
-        scoresMultiple(Player.ONE,7);
-        scoresMultiple(Player.TWO,6);
-        String score = tennisScore.getScore();
-
-        assertThat(score).isEqualTo("Advantage Player1");
+        sePrindeIJ(7, 6, "Advantage Player1");
     }
     @Test
     void advantagePlayer1_17_16() {
-        scoresMultiple(Player.ONE,17);
-        scoresMultiple(Player.TWO,16);
+        sePrindeIJ(17, 16, "Advantage Player1");
+    }
+
+    private void sePrindeIJ(int points, int points1, String Advantage_Player1) {
+        scoresMultiple(Player.ONE, points);
+        scoresMultiple(Player.TWO, points1);
         String score = tennisScore.getScore();
 
-        assertThat(score).isEqualTo("Advantage Player1");
+        assertThat(score).isEqualTo(Advantage_Player1);
     }
 
 //"o facem pentru test dar ma gandesc ca poate ma ajuta si-n prod."
