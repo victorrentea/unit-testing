@@ -1,11 +1,6 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -29,10 +24,10 @@ import static org.mockito.Mockito.when;
 public class ProductServiceSpringTest {
    @MockBean
    public SafetyClient safetyClientMock;
-   @MockBean
-   private ProductRepo productRepoMock;
-   @MockBean
-   private SupplierRepo supplierRepoMock;
+  @Autowired
+   private ProductRepo productRepo;
+  @Autowired
+   private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
 
@@ -48,22 +43,19 @@ public class ProductServiceSpringTest {
    @Test
    public void createOk() {
       // GIVEN
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepoMock.getReferenceById(supplier.getId())).thenReturn(supplier);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(safetyClientMock.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME);
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
       // WHEN
       productService.createProduct(dto);
 
       // THEN
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepoMock).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
-
+      assertThat(productRepo.findAll()).hasSize(1);
+      Product product = productRepo.findAll().get(0);
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
