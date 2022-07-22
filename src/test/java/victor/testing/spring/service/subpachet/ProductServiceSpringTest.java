@@ -10,6 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionalEventListener;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -18,6 +19,10 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
+
+import javax.persistence.EntityManager;
+
+import java.sql.Connection;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -53,9 +58,13 @@ public class ProductServiceSpringTest extends BaseDBTest {
       assertThatThrownBy(() -> productService.createProduct(dto))
               .isInstanceOf(IllegalStateException.class);
    }
-
+   @BeforeEach
+   final void before() {
+//CacheMana
+   }
 //   @BeforeEach
 //   public void curatDupa() {
+   // util pt : nosql, daca vrei sa vezi COMMIT (ca ai hookuri), resetezi continutuk cacheu
 //      productRepo.deleteAll();
 //      supplierRepo.deleteAll(); //acu merge
 //   }
