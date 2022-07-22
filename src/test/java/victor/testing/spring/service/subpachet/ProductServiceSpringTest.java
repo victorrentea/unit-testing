@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.domain.Product;
@@ -23,9 +24,14 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+
 @SpringBootTest
 @ActiveProfiles("db-mem")
-@Sql(value = "classpath:/sql/cleanup.sql")
+//@Sql(value = "classpath:/sql/cleanup.sql")
+
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+// asta ditruge tot contextu spring, cu tot cu DB in mem >> + 30 sec / @Test
+// NICIODATA NU VREAU ASTA PE GIT
 public class ProductServiceSpringTest {
    @MockBean
    public SafetyClient safetyClientMock;
