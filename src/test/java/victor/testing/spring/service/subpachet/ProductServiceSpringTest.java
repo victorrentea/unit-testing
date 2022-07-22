@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Sql(value = "classpath:/sql/cleanup.sql")
 public class ProductServiceSpringTest {
    @MockBean
    public SafetyClient safetyClientMock;
@@ -43,11 +45,11 @@ public class ProductServiceSpringTest {
 //              .isInstanceOf(IllegalStateException.class);
 //   }
 
-   @BeforeEach
-   public void curatDupa() {
-      productRepo.deleteAll();
-      supplierRepo.deleteAll(); //acu merge
-   }
+//   @BeforeEach
+//   public void curatDupa() {
+//      productRepo.deleteAll();
+//      supplierRepo.deleteAll(); //acu merge
+//   }
 
    @Test
    public void createOk() {
