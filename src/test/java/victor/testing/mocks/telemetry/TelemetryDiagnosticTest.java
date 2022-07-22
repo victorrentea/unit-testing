@@ -42,6 +42,7 @@ public class TelemetryDiagnosticTest {
 
     @Test
     void happy() {
+        when(clientMock.getVersion()).thenReturn("nu-mi pasa, da sa fie nenull");
         when(clientMock.receive()).thenReturn("acelceva");
 
         diagnostic.checkTransmission(true);

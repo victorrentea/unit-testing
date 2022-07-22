@@ -5,6 +5,7 @@ import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 // am gasit acest cod prin proiect.
