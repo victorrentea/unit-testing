@@ -16,7 +16,7 @@ import victor.testing.mutation.Customer;
 import victor.testing.mutation.CustomerValidator;
 import victor.testing.mocks.purity.CustomerRepo;
 import victor.testing.spring.domain.ProductCategory;
-import victor.testing.tools.ReplaceCamelCase;
+import victor.testing.tools.ReplaceCamelCaseWithSpaces;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
  * Could be a replacement for a .feature file?
  */
 @ExtendWith(MockitoExtension.class)
-@DisplayNameGeneration(ReplaceCamelCase.class)
+@DisplayNameGeneration(ReplaceCamelCaseWithSpaces.class)
 class CreateCustomerShould {
    @Mock
    CustomerRepo customerRepo;
@@ -71,12 +71,6 @@ class CreateCustomerShould {
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
              .isInstanceOf(IllegalArgumentException.class);
       }
-      @Test
-      void failForMissingCountry() {
-         aValidCustomer.getAddress().setCountry(null);
-         assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
-             .isInstanceOf(IllegalArgumentException.class);
-      }
    }
 
    @Nested
@@ -86,7 +80,7 @@ class CreateCustomerShould {
          when(customerRepo.countByEmail("::email::")).thenReturn(0);
       }
       @Test
-      void failIfAnotherCustomerWithTheSameEmailExists() {
+      void failIfAnotherCustomerWithTheSameEmailExists() { // oaia neagra. exceptia de la @Before
          when(customerRepo.countByEmail("::email::")).thenReturn(1);
 
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
@@ -104,7 +98,7 @@ class CreateCustomerShould {
       }
 
       @Nested
-      class WithDiscountedCountry {
+      class GivenTheCountryIsDiscounted {
          @ParameterizedTest
          @ValueSource(strings = {"HOME","ELECTRONICS"})
          void receivesCoupon(ProductCategory category) {
