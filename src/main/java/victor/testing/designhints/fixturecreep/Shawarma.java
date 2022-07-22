@@ -4,22 +4,16 @@ package victor.testing.designhints.fixturecreep;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class Kebab {
+public class Shawarma {
    private final Dependency dependency;
 
-   public void complex1() {
+   public void shaworma() {
       if (!dependency.isOnionAllowed()) {
          throw new IllegalArgumentException();
       }
-      // complex logic
+      // complex logic  7 ifuri
    }
 
-   public void complex2() {
-      if (!dependency.isCucumberAllowed()) {
-         throw new IllegalArgumentException();
-      }
-      // complex logic
-   }
 }
 
 

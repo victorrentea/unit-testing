@@ -18,14 +18,14 @@ class CommandVsQueryTest {
    Target target;
 
    @Test
-   @CaptureSystemOutput
+   @CaptureSystemOutput // foarte fragil test, ca testezi si 'prezentarea'/formatarea logului
    void test(OutputCapture outputCapture) {
       Obj obj = new Obj();
-      when(dependency.stuff(obj, 5)).thenReturn(7);
+      when(dependency.query(obj, 5)).thenReturn(7);
 
       target.testedMethod(obj);
 
-      verify(dependency).stuff(obj, 5); // why ??
+      verify(dependency).command(obj, 5); // why ??
       assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Logic with 7");
    }
 }

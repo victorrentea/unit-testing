@@ -31,16 +31,16 @@ import static org.mockito.Mockito.*;
 @DisplayNameGeneration(ReplaceCamelCaseWithSpaces.class)
 class CreateCustomerShould {
    @Mock
-   CustomerRepo customerRepo;
+   CustomerRepo customerRepoMock;
    @Mock
-   EmailClient emailClient;
+   EmailClient emailClientMock;
 
    CustomerFacade customerFacade;
 
    Customer aValidCustomer;
    @BeforeEach
    public final void before() {
-      customerFacade = new CustomerFacade(new CustomerValidator(), customerRepo, emailClient);
+      customerFacade = new CustomerFacade(new CustomerValidator(), customerRepoMock, emailClientMock);
 
       aValidCustomer = new Customer();
       aValidCustomer.setName("::name::");
@@ -77,11 +77,11 @@ class CreateCustomerShould {
    class GivenAValidCustomer {
       @BeforeEach
       public final void before() {
-         when(customerRepo.countByEmail("::email::")).thenReturn(0);
+         when(customerRepoMock.countByEmail("::email::")).thenReturn(0);
       }
       @Test
       void failIfAnotherCustomerWithTheSameEmailExists() { // oaia neagra. exceptia de la @Before
-         when(customerRepo.countByEmail("::email::")).thenReturn(1);
+         when(customerRepoMock.countByEmail("::email::")).thenReturn(1);
 
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
              .hasMessageContaining("already exists");
@@ -89,12 +89,12 @@ class CreateCustomerShould {
 
       @Test
       void sendAWelcomeEmailAndBeSaveTheCustomer() {
-         when(customerRepo.save(aValidCustomer)).thenReturn(13L);
+         when(customerRepoMock.save(aValidCustomer)).thenReturn(13L);
 
          Long id = customerFacade.createCustomer(aValidCustomer);
 
          assertThat(id).isEqualTo(13L);
-         verify(emailClient).sendWelcomeEmail(aValidCustomer);
+         verify(emailClientMock).sendWelcomeEmail(aValidCustomer);
       }
 
       @Nested
@@ -109,7 +109,7 @@ class CreateCustomerShould {
          @Test
          void isSentAnEmailAboutTheCoupon() {
             customerFacade.createCustomer(aValidCustomer);
-            verify(emailClient).sendNewCouponEmail(aValidCustomer);
+            verify(emailClientMock).sendNewCouponEmail(aValidCustomer);
          }
       }
    }

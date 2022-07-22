@@ -34,6 +34,9 @@ class ParcelFacadeTest {
    @InjectMocks
    ParcelFacade target;
 
+   // Frustare: ce testez de fapt?!!!
+   // primii ani pana scrii 100-500 de teste, injuuri si scrii.
+   // scii ca 🐂 pana iti intra in sange testarea.
    @Test
    void processBarcode() {
       Parcel parcel = new Parcel()
@@ -41,14 +44,11 @@ class ParcelFacadeTest {
           .setAwb("AWB")
           .setPartOfCompositeShipment(true);
       when(parcelRepo.findByBarcode("BAR")).thenReturn(parcel);
-      List<TrackingProvider> trackingProviders = List.of(new TrackingProvider());
-      when(trackingProviderRepo.findByAwb("AWB")).thenReturn(trackingProviders);
 
       target.processBarcode("BAR", 99);
 
-      verify(displayService).displayAWB("AWB");
-      verify(displayService).displayMultiParcelWarning();
+      verify(displayService).displayAWB(parcel);
       verify(platformService).addParcel(parcel);
-      verify(trackingService).markDepartingWarehouse("AWB", 99, trackingProviders);
+      verify(trackingService).markDepartingWarehouse(99, parcel);
    }
 }
