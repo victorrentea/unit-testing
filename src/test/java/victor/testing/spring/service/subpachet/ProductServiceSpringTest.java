@@ -26,16 +26,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
+//@SpringBootTest
+//@ActiveProfiles("db-mem")
 //@Sql(value = "classpath:/sql/cleanup.sql")
 
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 // asta ditruge tot contextu spring, cu tot cu DB in mem >> + 30 sec / @Test
 // NICIODATA NU VREAU ASTA PE GIT
 
-@Transactional
-public class ProductServiceSpringTest {
+//@Transactional
+public class ProductServiceSpringTest extends BaseDBTest {
    @MockBean
    public SafetyClient safetyClientMock;
   @Autowired

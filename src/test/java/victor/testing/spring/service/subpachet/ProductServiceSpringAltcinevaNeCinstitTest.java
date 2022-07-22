@@ -21,10 +21,8 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional
-public class ProductServiceSpringAltcinevaNeCinstitTest {
+
+public class ProductServiceSpringAltcinevaNeCinstitTest extends BaseDBTest{
    @MockBean
    public SafetyClient safetyClientMock;
   @Autowired
