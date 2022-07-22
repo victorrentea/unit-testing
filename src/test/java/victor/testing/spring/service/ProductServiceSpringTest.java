@@ -6,6 +6,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -17,17 +20,18 @@ import victor.testing.spring.web.dto.ProductDto;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-public class ProductServiceTest {
-   @Mock
-   public SafetyClient safetyClientMock;// = new SafetyClient(new RestTemplate());
-   @Mock
+@SpringBootTest
+public class ProductServiceSpringTest {
+   @MockBean
+   public SafetyClient safetyClientMock;
+   @MockBean
    private ProductRepo productRepoMock;
-   @Mock
+   @MockBean
    private SupplierRepo supplierRepoMock;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test
