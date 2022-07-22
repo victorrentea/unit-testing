@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,6 +39,12 @@ public class ProductServiceSpringTest {
 
       assertThatThrownBy(() -> productService.createProduct(dto))
               .isInstanceOf(IllegalStateException.class);
+   }
+
+   @AfterEach
+   public void curatDupa() {
+      supplierRepo.deleteAll(); // nu merge pentru ca exista produs cu FK la supplier.
+      productRepo.deleteAll();
    }
 
    @Test
