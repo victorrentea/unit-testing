@@ -12,9 +12,9 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 @Service
 public class FeedProcessor {
-   private final FileRepo fileRepo;
+   private final IFileRepo fileRepo; // aici voi pune FAKEul
 
-   public FeedProcessor(FileRepo fileRepo) {
+   public FeedProcessor(IFileRepo fileRepo) {
       this.fileRepo = fileRepo;
    }
 
