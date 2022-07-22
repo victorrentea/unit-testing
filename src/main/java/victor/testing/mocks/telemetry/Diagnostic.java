@@ -49,7 +49,7 @@ public class Diagnostic {
 
 	@VisibleForTesting // cand deschizi o metoda sa fie non-privata doar pentru teste, asta crapa pe sonar
 	// daca o chemi din alta parte din prod decat din teste.
-	 public ClientConfiguration parteaComplexa(String version) {
+	ClientConfiguration parteaComplexa(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(version + "-" + UUID.randomUUID());
 //		if for try if  ?: ai nevoie de 7 teste

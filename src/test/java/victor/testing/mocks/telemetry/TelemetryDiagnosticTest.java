@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
 import static java.time.LocalDateTime.now;
@@ -15,6 +17,7 @@ import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 
 //class Fake implements I {}
+//@MockitoSettings(strictness = Strictness.LENIENT) // greseala> pt ca (re)deschide portita ca sa pui in @Before cu detoate. ,
 @ExtendWith(MockitoExtension.class)
 public class TelemetryDiagnosticTest {
     @Mock
@@ -25,8 +28,10 @@ public class TelemetryDiagnosticTest {
 
     @BeforeEach
     final void before() {
-        when(clientMock.getOnlineStatus()).thenReturn(true);
+        // stubbing (eu stabuiesc, tu stabuiesti, noi stabuim)
+        lenient().when(clientMock.getOnlineStatus()).thenReturn(true);
     }
+
     @Test
     void throwsWhenNotOnline() {
         when(clientMock.getOnlineStatus()).thenReturn(false);
@@ -34,6 +39,7 @@ public class TelemetryDiagnosticTest {
         assertThatThrownBy(() -> diagnostic.checkTransmission(true))
                 .isInstanceOf(IllegalStateException.class);
     }
+
     @Test
     void happy() {
         when(clientMock.receive()).thenReturn("acelceva");
@@ -57,11 +63,11 @@ public class TelemetryDiagnosticTest {
 //        verify(clientMock).configure(configCaptor.capture());
 //        ClientConfiguration config = configCaptor.getValue();
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
-        assertThat(config.getSessionStart()).isCloseTo(now(),byLessThan(1, MINUTES));
+        assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, MINUTES));
         assertThat(config.getSessionId())
                 .startsWith("ver-")
                 .hasSize(40)
-                ;
+        ;
     }
 
 }
