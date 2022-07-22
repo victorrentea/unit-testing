@@ -1,8 +1,8 @@
-package victor.testing.designhints.overspecifying.service;
+package victor.testing.designhints.roles.service;
 
 import lombok.RequiredArgsConstructor;
-import victor.testing.designhints.overspecifying.model.TrackingProvider;
-import victor.testing.designhints.overspecifying.repo.TrackingProviderRepo;
+import victor.testing.designhints.roles.model.TrackingProvider;
+import victor.testing.designhints.roles.repo.TrackingProviderRepo;
 
 import java.util.List;
 

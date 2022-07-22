@@ -1,6 +1,6 @@
-package victor.testing.designhints.overspecifying.service;
+package victor.testing.designhints.roles.service;
 
-import victor.testing.designhints.overspecifying.model.Parcel;
+import victor.testing.designhints.roles.model.Parcel;
 
 public class PlatformService {
    public void addParcel(Parcel parcel) {

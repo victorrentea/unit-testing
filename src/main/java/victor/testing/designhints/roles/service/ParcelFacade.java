@@ -1,10 +1,10 @@
-package victor.testing.designhints.overspecifying.service;
+package victor.testing.designhints.roles.service;
 
 import lombok.RequiredArgsConstructor;
-import victor.testing.designhints.overspecifying.model.Parcel;
-import victor.testing.designhints.overspecifying.repo.ParcelRepo;
-import victor.testing.designhints.overspecifying.repo.TrackingProviderRepo;
-import victor.testing.designhints.overspecifying.model.TrackingProvider;
+import victor.testing.designhints.roles.model.Parcel;
+import victor.testing.designhints.roles.repo.ParcelRepo;
+import victor.testing.designhints.roles.repo.TrackingProviderRepo;
+import victor.testing.designhints.roles.model.TrackingProvider;
 
 import java.util.List;
 
@@ -27,7 +27,6 @@ public class ParcelFacade {
       List<TrackingProvider> trackingProviders = trackingProviderRepo.findByAwb(parcel.getAwb());
       // TODO move findByAwb to trackingService ==> then notice bad encapsulation
       trackingService.markDepartingWarehouse(parcel.getAwb(), warehouseId, trackingProviders);
-
    }
 
 }

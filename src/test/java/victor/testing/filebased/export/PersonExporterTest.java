@@ -37,11 +37,11 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    public void convert(FileTestCase test) throws IOException {
       log.info("Running {}", test);
       didacticLog(test);
-
       Person inputPerson = jackson.readValue(test.getInputFile(), Person.class);
       when(personRepo.findAll()).thenReturn(asList(inputPerson));
-
       StringWriter sw = new StringWriter();
+
+      // when
       exporter.export(sw);
 
       String expectedContents = readFileToString(test.getExpectedOutputFile());

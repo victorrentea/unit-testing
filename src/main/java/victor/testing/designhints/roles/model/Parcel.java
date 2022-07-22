@@ -1,4 +1,4 @@
-package victor.testing.designhints.overspecifying.model;
+package victor.testing.designhints.roles.model;
 
 import lombok.Data;
 

@@ -1,18 +1,18 @@
-package victor.testing.designhints.overspecifying;
+package victor.testing.designhints.roles;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.designhints.overspecifying.repo.ParcelRepo;
-import victor.testing.designhints.overspecifying.repo.TrackingProviderRepo;
-import victor.testing.designhints.overspecifying.service.DisplayService;
-import victor.testing.designhints.overspecifying.model.Parcel;
-import victor.testing.designhints.overspecifying.service.ParcelFacade;
-import victor.testing.designhints.overspecifying.service.PlatformService;
-import victor.testing.designhints.overspecifying.model.TrackingProvider;
-import victor.testing.designhints.overspecifying.service.TrackingService;
+import victor.testing.designhints.roles.repo.ParcelRepo;
+import victor.testing.designhints.roles.repo.TrackingProviderRepo;
+import victor.testing.designhints.roles.service.DisplayService;
+import victor.testing.designhints.roles.model.Parcel;
+import victor.testing.designhints.roles.service.ParcelFacade;
+import victor.testing.designhints.roles.service.PlatformService;
+import victor.testing.designhints.roles.model.TrackingProvider;
+import victor.testing.designhints.roles.service.TrackingService;
 
 import java.util.List;
 

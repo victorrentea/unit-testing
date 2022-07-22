@@ -7,7 +7,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -19,14 +18,13 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.tools.TestcontainersUtils;
 import victor.testing.tools.WireMockExtension;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -50,7 +48,7 @@ public class ProductMvcBlackTest {
     @Autowired
     private SupplierRepo supplierRepo;
 
-    // === test containers ===
+    // === Testcontainers ===
     @Container
     static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
     @DynamicPropertySource
@@ -61,6 +59,7 @@ public class ProductMvcBlackTest {
     // === WireMock ===
     @RegisterExtension // starts-stops the WireMock web server that replies with pre-configured JSON responses
     public WireMockExtension wireMock = new WireMockExtension(9999);
+    private final ObjectMapper jackson = new ObjectMapper();
 
     private Long supplierId;
 
@@ -73,13 +72,13 @@ public class ProductMvcBlackTest {
     public void flowTest() throws Exception {
         createProduct("Tree");
 
-        runSearch("{\"name\": \"Tree\"}", 1);
+        runSearch(new ProductSearchCriteria().setName("Tree"), 1);
     }
 
     private void createProduct(String productName) throws Exception {
         // Option 1: JSON serialization (more convenient)
          ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.HOME);
-         String createJson1 = new ObjectMapper().writeValueAsString(dto);
+        String createJson1 = jackson.writeValueAsString(dto);
 
         // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
         // language=json
@@ -97,15 +96,13 @@ public class ProductMvcBlackTest {
                 .andExpect(status().isOk());
     }
 
-    private void runSearch(String searchCriteriaJson, int expectedNumberOfResults) throws Exception {
+    private void runSearch(ProductSearchCriteria criteria, int expectedNumberOfResults) throws Exception {
         mockMvc.perform(post("/product/search")
-                        .content(searchCriteriaJson)
+                        .content(jackson.writeValueAsString(criteria))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(header().string("Custom-Header", "true"))
                 .andExpect(jsonPath("$", hasSize(expectedNumberOfResults)));
     }
-
-
 }
