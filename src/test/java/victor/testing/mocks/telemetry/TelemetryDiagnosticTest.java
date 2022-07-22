@@ -7,13 +7,8 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
-import static java.time.LocalDateTime.MIN;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -31,13 +26,6 @@ public class TelemetryDiagnosticTest {
     @BeforeEach
     final void before() {
         when(clientMock.getOnlineStatus()).thenReturn(true);
-
-    }
-    @Test
-    void disconnects() {
-        diagnostic.checkTransmission(true);
-
-        verify(clientMock).disconnect(true);
     }
     @Test
     void throwsWhenNotOnline() {
@@ -47,18 +35,13 @@ public class TelemetryDiagnosticTest {
                 .isInstanceOf(IllegalStateException.class);
     }
     @Test
-    void sends() {
-        diagnostic.checkTransmission(true);
-
-        verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE);
-    }
-
-    @Test
-    void receivesDiagnosticInfo() {
+    void happy() {
         when(clientMock.receive()).thenReturn("acelceva");
 
         diagnostic.checkTransmission(true);
 
+        verify(clientMock).disconnect(true);
+        verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE);
         assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("acelceva");
     }
 
