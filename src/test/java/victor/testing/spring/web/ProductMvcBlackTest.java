@@ -29,19 +29,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * - Connects to a production-like DB in a Docker image
- * - Runs the flyway migration scripts against this DB
- * - Uses WireMock to stub the JSON responses from third party APIs
- * - Starts one @Transaction / @Test
- * - Fills some 'static' data in the database (Supplier)
- * - Emulates a JSON request against my API and checks the JSON response
- * - At the end of each tests leaves the DB clean (by auto-rollback of @Transactional)
+ * <li> Connects to a production-like DB in a Docker image
+ * <li> Runs the flyway migration scripts against this DB
+ * <li> Uses WireMock to stub the JSON responses from third party APIs
+ * <li> Starts one @Transaction / @Test
+ * <li> Fills some 'static' data in the database (Supplier)
+ * <li> Emulates a JSON request against my API and checks the JSON response
+ * <li> At the end of each tests leaves the DB clean (by auto-rollback of @Transactional)
  */
 @Transactional
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Testcontainers
 @ActiveProfiles("db-migration")
-@AutoConfigureMockMvc // emulates the HTTP request without starting a Tomcat => faster + test and prod shares thread
+@AutoConfigureMockMvc // emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 public class ProductMvcBlackTest {
     @Autowired
     private MockMvc mockMvc;
