@@ -1,8 +1,10 @@
 package victor.testing.designhints.overspecifying.service;
 
+import victor.testing.designhints.overspecifying.model.Parcel;
+
 public class DisplayService {
-   public void displayAWB(String barcode){
-      System.out.println("Display barcode " + barcode);
+   public void displayAWB(Parcel parcel){
+      System.out.println("Display barcode " + parcel.getBarcode());
    }
 
    public void displayMultiParcelWarning(){

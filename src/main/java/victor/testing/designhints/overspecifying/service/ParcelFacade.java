@@ -19,7 +19,7 @@ public class ParcelFacade {
    public void processBarcode(String barcode, int warehouseId) {
       Parcel parcel = parcelRepo.findByBarcode(barcode);
 
-      displayService.displayAWB(parcel.getAwb());
+      displayService.displayAWB(parcel);
       if (parcel.isPartOfCompositeShipment()) {
          displayService.displayMultiParcelWarning();
       }
