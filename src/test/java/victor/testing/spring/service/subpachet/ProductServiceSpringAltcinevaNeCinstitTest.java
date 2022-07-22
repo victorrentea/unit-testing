@@ -1,12 +1,8 @@
 package victor.testing.spring.service.subpachet;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -23,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 
 //@ActiveProfiles("altu")
-public class ProductServiceSpringAltcinevaNeCinstitTest extends BaseDBTest{
+public class ProductServiceSpringAltcinevaNeCinstitTest extends BaseDBInMemoryTest {
    @MockBean
    public SafetyClient safetyClientMock;
   @Autowired

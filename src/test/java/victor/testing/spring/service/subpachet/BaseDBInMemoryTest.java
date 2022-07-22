@@ -7,5 +7,5 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 @Transactional
-public abstract class BaseDBTest {
+public abstract class BaseDBInMemoryTest {
 }
