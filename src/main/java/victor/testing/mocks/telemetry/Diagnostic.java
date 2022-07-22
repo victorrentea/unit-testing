@@ -5,7 +5,6 @@ import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 // am gasit acest cod prin proiect.
@@ -41,7 +40,7 @@ public class Diagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = parteaComplexa(client.getVersion());
+		ClientConfiguration config = createConfig(client.getVersion());
 		client.configure(config);
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
@@ -50,7 +49,7 @@ public class Diagnostic {
 
 	@VisibleForTesting // cand deschizi o metoda sa fie non-privata doar pentru teste, asta crapa pe sonar
 	// daca o chemi din alta parte din prod decat din teste.
-	ClientConfiguration parteaComplexa(String version) {
+	ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
 //		if for try if  ?: ai nevoie de 7 teste

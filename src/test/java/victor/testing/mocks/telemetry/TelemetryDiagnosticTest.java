@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
 import static java.time.LocalDateTime.now;
@@ -23,6 +21,7 @@ public class TelemetryDiagnosticTest {
     @Mock
     Client clientMock;
     @InjectMocks
+    @Spy
     Diagnostic diagnostic;
 
 
@@ -42,7 +41,8 @@ public class TelemetryDiagnosticTest {
 
     @Test
     void happy() {
-        when(clientMock.getVersion()).thenReturn("nu-mi pasa, da sa fie nenull");
+        doReturn(new ClientConfiguration()).when(diagnostic).createConfig(any());
+//        when(clientMock.getVersion()).thenReturn("nu-mi pasa, da sa fie nenull");
         when(clientMock.receive()).thenReturn("acelceva");
 
         diagnostic.checkTransmission(true);
@@ -54,7 +54,7 @@ public class TelemetryDiagnosticTest {
 
     @Test
     void configuresClient() { // x 7 😊 tests
-        ClientConfiguration config = diagnostic.parteaComplexa("ver");
+        ClientConfiguration config = diagnostic.createConfig("ver");
 
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
         assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, MINUTES));
