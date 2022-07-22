@@ -20,8 +20,9 @@ import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.
 public class TelemetryDiagnosticTest {
     @Mock
     Client clientMock;
+    @Mock
+    ConfigFactory configFactory;
     @InjectMocks
-    @Spy
     Diagnostic diagnostic;
 
 
@@ -41,7 +42,8 @@ public class TelemetryDiagnosticTest {
 
     @Test
     void happy() {
-        doReturn(new ClientConfiguration()).when(diagnostic).createConfig(any());
+        when(configFactory.createConfig(any())).thenReturn(new ClientConfiguration());
+//        doReturn(new ClientConfiguration()).when(diagnostic).createConfig(any());
 //        when(clientMock.getVersion()).thenReturn("nu-mi pasa, da sa fie nenull");
         when(clientMock.receive()).thenReturn("acelceva");
 
@@ -52,9 +54,16 @@ public class TelemetryDiagnosticTest {
         assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("acelceva");
     }
 
+
+
+}
+
+
+class ConfigFactoryTest {
+    private final ConfigFactory configFactory = new ConfigFactory();
     @Test
     void configuresClient() { // x 7 😊 tests
-        ClientConfiguration config = diagnostic.createConfig("ver");
+        ClientConfiguration config = configFactory.createConfig("ver");
 
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
         assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, MINUTES));
@@ -63,5 +72,4 @@ public class TelemetryDiagnosticTest {
                 .hasSize(40)
         ;
     }
-
 }

@@ -1,6 +1,5 @@
 package victor.testing.mocks.telemetry;
 
-import com.google.common.annotations.VisibleForTesting;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -13,9 +12,11 @@ import java.util.UUID;
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 	private final Client client;
+	private final ConfigFactory configFactory;
 
-	public Diagnostic(Client client) {
+	public Diagnostic(Client client, ConfigFactory configFactory) {
 		this.client = client;
+		this.configFactory = configFactory;
 	}
 
 	private String diagnosticInfo = "";
@@ -23,6 +24,7 @@ public class Diagnostic {
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
+
 	public void setDiagnosticInfo(String diagnosticInfo) {
 		this.diagnosticInfo = diagnosticInfo;
 	}
@@ -31,32 +33,20 @@ public class Diagnostic {
 		client.disconnect(force);
 
 		int currentRetry = 1;
-		while (! client.getOnlineStatus() && currentRetry <= 3) {
+		while (!client.getOnlineStatus() && currentRetry <= 3) {
 			client.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
-			currentRetry ++;
+			currentRetry++;
 		}
 
-		if (! client.getOnlineStatus()) {
+		if (!client.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = createConfig(client.getVersion());
+		ClientConfiguration config = configFactory.createConfig(client.getVersion());
 		client.configure(config);
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = client.receive();
-	}
-
-	@VisibleForTesting // cand deschizi o metoda sa fie non-privata doar pentru teste, asta crapa pe sonar
-	// daca o chemi din alta parte din prod decat din teste.
-	ClientConfiguration createConfig(String version) {
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
-//		if for try if  ?: ai nevoie de 7 teste
-		// maine devine foarte cyclomatic complex
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
-		return config;
 	}
 
 }
