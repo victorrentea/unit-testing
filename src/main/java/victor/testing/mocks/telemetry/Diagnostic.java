@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import com.google.common.annotations.VisibleForTesting;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -39,14 +40,23 @@ public class Diagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion() + "-" + UUID.randomUUID());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = parteaComplexa(client.getVersion());
 		client.configure(config);
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = client.receive();
+	}
+
+	@VisibleForTesting // cand deschizi o metoda sa fie non-privata doar pentru teste, asta crapa pe sonar
+	// daca o chemi din alta parte din prod decat din teste.
+	 public ClientConfiguration parteaComplexa(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(version + "-" + UUID.randomUUID());
+//		if for try if  ?: ai nevoie de 7 teste
+		// maine devine foarte cyclomatic complex
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
 	}
 
 }
