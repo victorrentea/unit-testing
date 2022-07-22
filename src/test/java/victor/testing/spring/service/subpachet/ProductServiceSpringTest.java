@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.TestPropertySources;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -40,7 +43,11 @@ import static org.mockito.Mockito.when;
 // NICIODATA NU VREAU ASTA PE GIT
 
 //@Transactional
+//@TestPropertySource(properties = "aaa=")
+        //@TestPropertySource(locations = "classpath:/"))
 public class ProductServiceSpringTest extends BaseDBTest {
+
+
    @MockBean
    public SafetyClient safetyClientMock;
   @Autowired

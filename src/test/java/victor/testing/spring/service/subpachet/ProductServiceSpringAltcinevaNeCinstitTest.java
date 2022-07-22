@@ -22,6 +22,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 
+//@ActiveProfiles("altu")
 public class ProductServiceSpringAltcinevaNeCinstitTest extends BaseDBTest{
    @MockBean
    public SafetyClient safetyClientMock;
