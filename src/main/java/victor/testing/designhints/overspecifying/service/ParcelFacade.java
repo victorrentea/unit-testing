@@ -1,10 +1,10 @@
-package victor.testing.mocks.overspecifying.service;
+package victor.testing.designhints.overspecifying.service;
 
 import lombok.RequiredArgsConstructor;
-import victor.testing.mocks.overspecifying.repo.ParcelRepo;
-import victor.testing.mocks.overspecifying.repo.TrackingProviderRepo;
-import victor.testing.mocks.overspecifying.model.Parcel;
-import victor.testing.mocks.overspecifying.model.TrackingProvider;
+import victor.testing.designhints.overspecifying.model.Parcel;
+import victor.testing.designhints.overspecifying.repo.ParcelRepo;
+import victor.testing.designhints.overspecifying.repo.TrackingProviderRepo;
+import victor.testing.designhints.overspecifying.model.TrackingProvider;
 
 import java.util.List;
 

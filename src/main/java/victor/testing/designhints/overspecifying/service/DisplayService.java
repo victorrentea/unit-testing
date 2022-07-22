@@ -1,4 +1,4 @@
-package victor.testing.mocks.overspecifying.service;
+package victor.testing.designhints.overspecifying.service;
 
 public class DisplayService {
    public void displayAWB(String barcode){

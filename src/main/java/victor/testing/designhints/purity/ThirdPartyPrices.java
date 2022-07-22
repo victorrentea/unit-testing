@@ -1,4 +1,4 @@
-package victor.testing.mocks.purity;
+package victor.testing.designhints.purity;
 
 public interface ThirdPartyPrices {
    double retrievePrice(Long id);

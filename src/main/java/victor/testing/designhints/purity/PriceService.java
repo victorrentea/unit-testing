@@ -1,4 +1,4 @@
-package victor.testing.mocks.purity;
+package victor.testing.designhints.purity;
 
 import lombok.RequiredArgsConstructor;
 import victor.testing.mutation.Coupon;

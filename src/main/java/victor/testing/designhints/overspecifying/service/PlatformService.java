@@ -1,6 +1,6 @@
-package victor.testing.mocks.overspecifying.service;
+package victor.testing.designhints.overspecifying.service;
 
-import victor.testing.mocks.overspecifying.model.Parcel;
+import victor.testing.designhints.overspecifying.model.Parcel;
 
 public class PlatformService {
    public void addParcel(Parcel parcel) {

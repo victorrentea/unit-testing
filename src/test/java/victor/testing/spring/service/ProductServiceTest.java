@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
    @Mock
-   public SafetyClient mockSafetyClient;// = new SafetyClient(new RestTemplate());
+   public SafetyClient mockSafetyClient;
    @Mock
    private ProductRepo productRepo;
    @Mock

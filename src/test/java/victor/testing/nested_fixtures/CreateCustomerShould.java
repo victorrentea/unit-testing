@@ -14,7 +14,7 @@ import victor.testing.mutation.Country;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
 import victor.testing.mutation.CustomerValidator;
-import victor.testing.mocks.purity.CustomerRepo;
+import victor.testing.designhints.purity.CustomerRepo;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.tools.ReplaceCamelCase;
 

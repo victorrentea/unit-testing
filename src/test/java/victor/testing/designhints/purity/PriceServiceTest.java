@@ -1,4 +1,4 @@
-package victor.testing.mocks.purity;
+package victor.testing.designhints.purity;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,6 +7,10 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.designhints.purity.CouponRepo;
+import victor.testing.designhints.purity.CustomerRepo;
+import victor.testing.designhints.purity.PriceService;
+import victor.testing.designhints.purity.ThirdPartyPrices;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
 import victor.testing.spring.domain.Product;
