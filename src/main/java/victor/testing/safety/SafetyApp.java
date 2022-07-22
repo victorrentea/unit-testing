@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class SafetyApp {
+public class SafetyApp { // e cica microservicul de safety.
+   // mai real: api-ul guvernului pe care-l chemi, api extern, alta echipa
    public static void main(String[] args) {
       SpringApplication.run(SafetyApp.class, "--server.port=8090");
    }
