@@ -51,7 +51,7 @@ public class Diagnostic {
 	// daca o chemi din alta parte din prod decat din teste.
 	ClientConfiguration parteaComplexa(String version) {
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(version + "-" + UUID.randomUUID());
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
 //		if for try if  ?: ai nevoie de 7 teste
 		// maine devine foarte cyclomatic complex
 		config.setSessionStart(LocalDateTime.now());

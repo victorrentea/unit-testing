@@ -51,21 +51,14 @@ public class TelemetryDiagnosticTest {
         assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("acelceva");
     }
 
-//    @Captor
-//    ArgumentCaptor<ClientConfiguration> configCaptor;
-
     @Test
     void configuresClient() { // x 7 😊 tests
-//        when(clientMock.getVersion()).thenReturn("ver");
-
         ClientConfiguration config = diagnostic.parteaComplexa("ver");
 
-//        verify(clientMock).configure(configCaptor.capture());
-//        ClientConfiguration config = configCaptor.getValue();
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
         assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, MINUTES));
         assertThat(config.getSessionId())
-                .startsWith("ver-")
+                .startsWith("VER-")
                 .hasSize(40)
         ;
     }
