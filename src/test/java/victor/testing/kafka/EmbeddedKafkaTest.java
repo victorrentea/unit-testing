@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringRunner.class)
@@ -84,7 +85,7 @@ public class EmbeddedKafkaTest {
 
         NotificationEvent notificationEvent = records.iterator().next().value();
 
-        Assert.assertEquals("email@example.com", notificationEvent.getNotification());
+        assertThat(notificationEvent.getNotification()).isEqualTo("email@example.com");
     }
 
 

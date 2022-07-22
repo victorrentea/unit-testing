@@ -17,16 +17,16 @@ import java.util.List;
 @Slf4j
 public class ProductController {
 
-   private final ProductService facade;
+   private final ProductService productService;
 
    @PostMapping("product/create")
    public void create(@RequestBody ProductDto productDto) {
-      facade.createProduct(productDto);
+      productService.createProduct(productDto);
    }
 
    @PostMapping("product/search")
    public List<ProductSearchResult> search(@RequestBody ProductSearchCriteria criteria) {
-      return facade.searchProduct(criteria);
+      return productService.searchProduct(criteria);
    }
 
 

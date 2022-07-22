@@ -54,7 +54,7 @@ public class ProductDockerTest {
 
       ProductDto productDto = new ProductDto("Tree", "SAFE", supplierId, ProductCategory.ME);
       ResponseEntity<Void> createResult = rest.postForEntity("/product/create", productDto, Void.class);
-      assertEquals(HttpStatus.OK, createResult.getStatusCode());
+      assertThat(createResult.getStatusCode()).isEqualTo(HttpStatus.OK);
       log.info("Created OK");
 
       ProductSearchCriteria searchCriteria = new ProductSearchCriteria("Tree", null, null);
@@ -63,7 +63,7 @@ public class ProductDockerTest {
           new HttpEntity<>(searchCriteria), new ParameterizedTypeReference<List<ProductSearchResult>>() {
           });
 
-      assertEquals(HttpStatus.OK, searchResponse.getStatusCode());
+      assertThat(searchResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
       assertThat(searchResponse.getBody()).allMatch(p -> "Tree".equals(p.getName()));
       log.info("Search OK");
    }

@@ -39,8 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * - Emulates a JSON request against my API and checks the JSON response
  * - At the end of each tests leaves the DB clean (by auto-rollback of @Transactional)
  */
-@Transactional
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+@Transactional
 @Testcontainers
 @ActiveProfiles("db-migration")
 @AutoConfigureMockMvc // emulates the HTTP request without starting a Tomcat => faster + test and prod shares thread
@@ -70,6 +70,7 @@ public class ProductMvcBlackTest {
     }
 
     @Test
+//    @WithMockUser(role="ala_din_OAUTH_token")
     public void flowTest() throws Exception {
         createProduct("Tree");
 
@@ -77,7 +78,7 @@ public class ProductMvcBlackTest {
     }
 
     private void createProduct(String productName) throws Exception {
-        // Option 1: JSON serialization (more convenient)
+        // Option 1: JSON serialization (more convenient) daca expui openapi
          ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.HOME);
          String createJson1 = new ObjectMapper().writeValueAsString(dto);
 

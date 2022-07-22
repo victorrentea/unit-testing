@@ -10,6 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -30,12 +31,12 @@ public class TransactionRepositoryShould {
     public void returns_created_deposit() {
         repo.addDeposit(100);
         List<Transaction> transactions = repo.getAllTransactions();
-        assertEquals(Collections.singletonList(new Transaction("17/07/2019", 100)), transactions);
+        assertThat(transactions).isEqualTo(Collections.singletonList(new Transaction("17/07/2019", 100)));
     }
     @Test
     public void returns_created_withdrawal() {
         repo.addWithdrawal(100);
         List<Transaction> transactions = repo.getAllTransactions();
-        assertEquals(Collections.singletonList(new Transaction("17/07/2019", -100)), transactions);
+        assertThat(transactions).isEqualTo(Collections.singletonList(new Transaction("17/07/2019", -100)));
     }
 }

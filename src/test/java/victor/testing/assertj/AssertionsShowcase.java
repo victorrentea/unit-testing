@@ -39,7 +39,7 @@ public class AssertionsShowcase {
       );
       @Test
       public void size_JUnit() {
-         assertEquals(1, listaCu3ElemDinProd.size());
+         assertThat(listaCu3ElemDinProd.size()).isEqualTo(1);
       }
       @Test
       public void size() {
@@ -50,9 +50,9 @@ public class AssertionsShowcase {
       // check contents in any order
       @Test
       public void inAnyOrder_JUnit() {
-         assertEquals(Set.of(100, 200, 300), new HashSet<>(listaCu3ElemDinProd));
+         assertThat(new HashSet<>(listaCu3ElemDinProd)).isEqualTo(Set.of(100, 200, 300));
 
-         assertFalse(listaCu3ElemDinProd.contains(500));
+         assertThat(listaCu3ElemDinProd.contains(500)).isFalse();
       }
       @Test
       public void inAnyOrder() {
@@ -65,7 +65,7 @@ public class AssertionsShowcase {
       @Test
       public void oneAttributeOfElements_JUnit() {
          Set<String> races = fellowship.stream().map(character -> character.getRace().getName()).collect(toSet());
-         assertEquals(Set.of("Man", "Dwarf", "Elf", "Hobbit"), races);
+         assertThat(races).isEqualTo(Set.of("Man", "Dwarf", "Elf", "Hobbit"));
       }
       @Test
       public void oneAttributeOfElements() {
@@ -76,9 +76,9 @@ public class AssertionsShowcase {
 //      assertJ.prototype.functieNoua=
       @Test
       public void subsetAttributesOfElements_JUnit() {
-         assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Frodo") && c.getRace().getName().equals("Hobbit")));
-         assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Aragorn") && c.getRace().getName().equals("Man")));
-         assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Legolas") && c.getRace().getName().equals("Elf")));
+         assertThat(fellowship.stream().anyMatch(c -> c.getName().equals("Frodo") && c.getRace().getName().equals("Hobbit"))).isTrue();
+         assertThat(fellowship.stream().anyMatch(c -> c.getName().equals("Aragorn") && c.getRace().getName().equals("Man"))).isTrue();
+         assertThat(fellowship.stream().anyMatch(c -> c.getName().equals("Legolas") && c.getRace().getName().equals("Elf"))).isTrue();
       }
       @Test
       public void subsetAttributesOfElements() {
@@ -108,7 +108,7 @@ public class AssertionsShowcase {
 
       @Test
       public void stringStarts_JUnit() {
-         assertTrue(actual.startsWith("bcd")); // see the failure message
+         assertThat(actual.startsWith("bcd")).isTrue(); // see the failure message
       }
       @Test
       public void stringStarts() {
@@ -116,7 +116,7 @@ public class AssertionsShowcase {
       }
       @Test
       public void ignoreCase_JUnit() {
-         assertEquals("ABCDEF", actual.toUpperCase()); // looses the original case
+         assertThat(actual.toUpperCase()).isEqualTo("ABCDEF"); // looses the original case
       }
       @Test
       public void ignoreCase() {
@@ -132,7 +132,7 @@ public class AssertionsShowcase {
 
       @Test
       public void contains() {
-         assertTrue(oneSecAgo.isAfter(now().minus(1, MINUTES)));
+         assertThat(oneSecAgo.isAfter(now().minus(1, MINUTES))).isTrue();
       }
       @Test
       public void stringStarts() {

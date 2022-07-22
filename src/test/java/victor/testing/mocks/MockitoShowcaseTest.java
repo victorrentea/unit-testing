@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -101,16 +102,14 @@ public class MockitoShowcaseTest {
 		// stubbing
 		when(mockedList.get(anyInt())).thenThrow(new RuntimeException());
 
-		assertThrows(RuntimeException.class,
-			() -> System.out.println(mockedList.get(2)));
+		assertThatThrownBy(() -> System.out.println(mockedList.get(2))).isInstanceOf(RuntimeException.class);
 	}
 
 	@Test
 	public void voidMethodToThrowException() {
 		doThrow(new RuntimeException()).when(mockedList).clear();
 
-		assertThrows(RuntimeException.class,
-			() -> mockedList.clear());
+		assertThatThrownBy(() -> mockedList.clear()).isInstanceOf(RuntimeException.class);
 	}
 
 	@Test
@@ -168,13 +167,13 @@ public class MockitoShowcaseTest {
 			.thenReturn("foo");
 
 		// First call: throws runtime exception:
-		assertThrows(RuntimeException.class, () -> mock.someMethod("some arg"));
+		assertThatThrownBy(() -> mock.someMethod("some arg")).isInstanceOf(RuntimeException.class);
 
 		// Second call: prints "foo"
-		assertEquals("foo", mock.someMethod("some arg"));
+		assertThat(mock.someMethod("some arg")).isEqualTo("foo");
 
 		// Any consecutive call: prints "foo" as well (last stubbing prevails).
-		assertEquals("foo", mock.someMethod("some arg"));
+		assertThat(mock.someMethod("some arg")).isEqualTo("foo");
 		System.out.println(mock.someMethod("some arg"));
 	}
 
@@ -183,12 +182,12 @@ public class MockitoShowcaseTest {
 		when(mock.someMethod("some arg"))
 			.thenReturn("one", "two", "three");
 
-		assertEquals("one", mock.someMethod("some arg")); // first call
-		assertEquals("two", mock.someMethod("some arg")); // second call
-		assertEquals("three", mock.someMethod("some arg")); // third call
+		assertThat(mock.someMethod("some arg")).isEqualTo("one"); // first call
+		assertThat(mock.someMethod("some arg")).isEqualTo("two"); // second call
+		assertThat(mock.someMethod("some arg")).isEqualTo("three"); // third call
 
 		// Last stubbing prevails
-		assertEquals("three", mock.someMethod("some arg"));
+		assertThat(mock.someMethod("some arg")).isEqualTo("three");
 	}
 
 	@Test
@@ -199,7 +198,7 @@ public class MockitoShowcaseTest {
 		});
 
 		String result = mock.someMethod("foo");
-		assertEquals("called with arguments: foo", result);
+		assertThat(result).isEqualTo("called with arguments: foo");
 		System.out.println(result);
 	}
 
@@ -221,7 +220,7 @@ public class MockitoShowcaseTest {
 		verify(mock).sideEffecting(argument.capture());
 		// if there is no other way to get the object instance out from tested code
 		ObjectWithoutEquals actualArgument = argument.getValue();
-		assertEquals(13, actualArgument.getX());
+		assertThat(actualArgument.getX()).isEqualTo(13);
 
 		// Hint: Sometimes the tested code can be refactored to return the object to assert directly
 
@@ -239,7 +238,7 @@ public class MockitoShowcaseTest {
 	@Test
 	public void mockLibraryMethod() {
 		// prove the original behavior
-		assertThrows(RuntimeException.class, () -> SomeLibrary.heavyMethod("x"));
+		assertThatThrownBy(() -> SomeLibrary.heavyMethod("x")).isInstanceOf(RuntimeException.class);
 
 		try (MockedStatic<SomeLibrary> mock = mockStatic(SomeLibrary.class)) {
 			// All the calls to static methods of SomeLibrary for this thread are now mocked until the end of try }
@@ -249,7 +248,7 @@ public class MockitoShowcaseTest {
 			int actual = SomeLibrary.heavyMethod("x") + 5;
 
 			// back in tests
-			assertEquals(7, actual);
+			assertThat(actual).isEqualTo(7);
 		}
 	}
 

@@ -7,6 +7,7 @@ import org.junit.runners.Suite;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Suite.class)
@@ -27,7 +28,7 @@ public class TestTimeRuleTest {
 
             LocalDateTime testTime = LocalDateTime.of(2019, 01, 01, 0, 0);
             TimeProvider.setTestTime(testTime);
-            assertEquals(testTime, getTimeFromProd());
+            assertThat(getTimeFromProd()).isEqualTo(testTime);
             TimeProvider.clearTestTime(); // TODO forget this
 
             // TODO Try LocalDateTime.now(Clock)
@@ -37,9 +38,7 @@ public class TestTimeRuleTest {
     public static class WithoutHackedTime {
         @Test
         public void testWithoutTimeHack() {
-            assertEquals(
-                    LocalDateTime.now().truncatedTo(ChronoUnit.DAYS),
-                    getTimeFromProd().truncatedTo(ChronoUnit.DAYS));
+            assertThat(getTimeFromProd().truncatedTo(ChronoUnit.DAYS)).isEqualTo(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS));
         }
     }
 }

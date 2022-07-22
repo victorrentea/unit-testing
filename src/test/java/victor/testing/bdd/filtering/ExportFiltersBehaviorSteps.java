@@ -12,6 +12,7 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 public class ExportFiltersBehaviorSteps {
@@ -94,7 +95,7 @@ public class ExportFiltersBehaviorSteps {
 
 	@Then("^Does the record passes the filter\\? (\\w+)$")
 	public void does_the_record_passes_the_filter(String yesNo) throws Throwable {
-		assertEquals(yesNo.equalsIgnoreCase("yes"), filter.matches(record));
+		assertThat(filter.matches(record)).isEqualTo(yesNo.equalsIgnoreCase("yes"));
 	}
 
 }

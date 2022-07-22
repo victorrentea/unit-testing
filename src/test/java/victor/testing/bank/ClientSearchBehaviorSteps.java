@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 @ContextConfiguration(classes = BankApplication.class)
@@ -46,15 +47,15 @@ public class ClientSearchBehaviorSteps {
     @Then("^The Client is returned$")
     public void theClientIsReturned() {
         List<ClientSearchResult> list = repository.search(criteria);
-        assertEquals(1, list.size());
-        assertEquals((long)client.getId(), list.get(0).getId());
-        assertEquals(client.getName(), list.get(0).getName());
+        assertThat(list.size()).isEqualTo(1);
+        assertThat(list.get(0).getId()).isEqualTo((long) client.getId());
+        assertThat(list.get(0).getName()).isEqualTo(client.getName());
     }
 
     @Then("^No results are returned$")
     public void noResultsAreReturned() {
         List<ClientSearchResult> list = repository.search(criteria);
-        assertEquals(0, list.size());
+        assertThat(list.size()).isEqualTo(0);
     }
 
     @Given("^The Client has nationality iso \"([^\"]*)\"$")
