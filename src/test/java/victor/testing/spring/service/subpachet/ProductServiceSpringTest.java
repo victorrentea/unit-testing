@@ -9,6 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -29,9 +30,11 @@ import static org.mockito.Mockito.when;
 @ActiveProfiles("db-mem")
 //@Sql(value = "classpath:/sql/cleanup.sql")
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 // asta ditruge tot contextu spring, cu tot cu DB in mem >> + 30 sec / @Test
 // NICIODATA NU VREAU ASTA PE GIT
+
+@Transactional
 public class ProductServiceSpringTest {
    @MockBean
    public SafetyClient safetyClientMock;
@@ -42,14 +45,14 @@ public class ProductServiceSpringTest {
    @Autowired
    private ProductService productService;
 
-//   @Test
-//   public void createThrowsForUnsafeProduct() {
-//      when(safetyClientMock.isSafe("bar")).thenReturn(false);
-//      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
-//
-//      assertThatThrownBy(() -> productService.createProduct(dto))
-//              .isInstanceOf(IllegalStateException.class);
-//   }
+   @Test
+   public void createThrowsForUnsafeProduct() {
+      when(safetyClientMock.isSafe("bar")).thenReturn(false);
+      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+
+      assertThatThrownBy(() -> productService.createProduct(dto))
+              .isInstanceOf(IllegalStateException.class);
+   }
 
 //   @BeforeEach
 //   public void curatDupa() {
