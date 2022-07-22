@@ -1,6 +1,7 @@
-package victor.testing.spring.service;
+package victor.testing.spring.service.subpachet;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,7 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
 
 import static java.time.LocalDateTime.now;
@@ -32,16 +34,16 @@ public class ProductServiceSpringTest {
    @Autowired
    private ProductService productService;
 
-   @Test
-   public void createThrowsForUnsafeProduct() {
-      when(safetyClientMock.isSafe("bar")).thenReturn(false);
-      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+//   @Test
+//   public void createThrowsForUnsafeProduct() {
+//      when(safetyClientMock.isSafe("bar")).thenReturn(false);
+//      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+//
+//      assertThatThrownBy(() -> productService.createProduct(dto))
+//              .isInstanceOf(IllegalStateException.class);
+//   }
 
-      assertThatThrownBy(() -> productService.createProduct(dto))
-              .isInstanceOf(IllegalStateException.class);
-   }
-
-   @AfterEach
+   @BeforeEach
    public void curatDupa() {
       productRepo.deleteAll();
       supplierRepo.deleteAll(); //acu merge
