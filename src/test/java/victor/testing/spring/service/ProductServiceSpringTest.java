@@ -43,8 +43,8 @@ public class ProductServiceSpringTest {
 
    @AfterEach
    public void curatDupa() {
-      supplierRepo.deleteAll(); // nu merge pentru ca exista produs cu FK la supplier.
       productRepo.deleteAll();
+      supplierRepo.deleteAll(); //acu merge
    }
 
    @Test
