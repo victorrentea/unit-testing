@@ -40,7 +40,7 @@ public class Diagnostic {
 		}
 
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionId(client.getVersion() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		client.configure(config);

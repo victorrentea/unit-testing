@@ -50,12 +50,18 @@ public class TelemetryDiagnosticTest {
 
     @Test
     void configuresClient() {
+        when(clientMock.getVersion()).thenReturn("ver");
+
         diagnostic.checkTransmission(true);
 
         verify(clientMock).configure(configCaptor.capture());
         ClientConfiguration config = configCaptor.getValue();
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
         assertThat(config.getSessionStart()).isCloseTo(now(),byLessThan(1, MINUTES));
+        assertThat(config.getSessionId())
+                .startsWith("ver-")
+                .hasSize(40)
+                ;
     }
 
 }
