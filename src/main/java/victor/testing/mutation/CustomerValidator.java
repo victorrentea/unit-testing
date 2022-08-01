@@ -1,17 +1,6 @@
 package victor.testing.mutation;
 
 
-class CustomerValidationException extends RuntimeException {
-	private final String fieldInError;
-
-	CustomerValidationException(String fieldInError) {
-		this.fieldInError = fieldInError;
-	}
-
-	public String getFieldInError() {
-		return fieldInError;
-	}
-}
 public class CustomerValidator {
 	public void validate(Customer customer) {
 		if (customer.getName() == null) {

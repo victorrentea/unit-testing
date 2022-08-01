@@ -10,10 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.mutation.Country;
-import victor.testing.mutation.Coupon;
-import victor.testing.mutation.Customer;
-import victor.testing.mutation.CustomerValidator;
+import victor.testing.mutation.*;
 import victor.testing.designhints.purity.CustomerRepo;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.tools.ReplaceCamelCase;
@@ -56,7 +53,7 @@ class CreateCustomerShould {
       void failForMissingName() {
          aValidCustomer.setName(null);
          assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
-             .isInstanceOf(IllegalArgumentException.class);
+             .isInstanceOf(CustomerValidationException.class);
       }
       @Test
       void failForMissingEmail() {
