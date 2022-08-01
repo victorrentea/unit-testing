@@ -1,15 +1,27 @@
 package victor.testing.tdd.classic;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TennisScore {
 
-    private String string = "Love - Love";
-
+    private int player1Points;
+    private int player2Points;
+    private static final Map<Integer, String> POINTS_TO_SCORE = Map.of(
+            0, "Love",
+            1, "Fifteen",
+            2, "Thirty"
+    );
 
     public String getScore() {
-        return string;
+        return POINTS_TO_SCORE.get(player1Points) + " - " +POINTS_TO_SCORE.get(player2Points);
     }
 
     public void wonPoint(Player player) {
-        string = "Fifteen - Love";
+        if (player == Player.ONE) {
+            player1Points ++;
+        }else {
+            player2Points ++;
+        }
     }
 }
