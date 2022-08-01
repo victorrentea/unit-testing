@@ -1,11 +1,21 @@
 package victor.testing.mutation;
 
-import java.util.function.Predicate;
 
+class CustomerValidationException extends RuntimeException {
+	private final String fieldInError;
+
+	CustomerValidationException(String fieldInError) {
+		this.fieldInError = fieldInError;
+	}
+
+	public String getFieldInError() {
+		return fieldInError;
+	}
+}
 public class CustomerValidator {
 	public void validate(Customer customer) {
 		if (customer.getName() == null) {
-			throw new IllegalArgumentException("Missing customer name");
+			throw new CustomerValidationException("name");
 		}
 		if (customer.getEmail() == null) {
 			throw new IllegalArgumentException("Missing customer email");
