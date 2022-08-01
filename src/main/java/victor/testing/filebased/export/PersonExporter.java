@@ -1,9 +1,14 @@
 package victor.testing.filebased.export;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.Writer;
+import java.util.stream.Collectors;
 
 public class PersonExporter {
+   private static final Logger log = LoggerFactory.getLogger(PersonExporter.class);
    private final PersonRepo personRepo;
 
    public PersonExporter(PersonRepo personRepo) {
@@ -24,9 +29,11 @@ public class PersonExporter {
    public void export(Writer writer) throws IOException {
       writer.write("full_name;phones;birth_date\n");
       for (Person person : personRepo.findAll()) {
-         writer.write(person.getFirstName() + " " + person.getLastName().toUpperCase());
+         writer.write(person.getFirstName() + " " + person.getLastName());
          writer.write(";");
-         writer.write( person.getPhoneList().get(0)); // TODO fix bug when no phones
+         writer.write( person.getPhoneList()
+                 .stream().collect(Collectors.joining(","))
+         );
             // TODO CR: output all phones comma-separated
          writer.write(";");
          if (person.getBirthDate() != null) {
