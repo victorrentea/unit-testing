@@ -43,5 +43,5 @@ Feature: Exporting records that match a given watchlist filter
       | PEP      | PA       |          |             | PEP      |          |          |             | no                       |
       | PEP      | PA       |          |             | PEP      | PA       |          |             | yes                      |
       | PEP      | PA,PB    |          |             | PEP      | PC,PB    |          |             | yes                      |
-      | PEP      | PA,PB    | PB1      |             | PEP      | PA,PB    |          |             | yes                      |
+      | PEP      | PA,PB    | PB1      |             |1 PEP      | PA,PB    |          |             | yes                      |
       | PEP      | PA       | PA1      |             | PEP      |          |          |             | yes                       |
