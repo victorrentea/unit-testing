@@ -14,7 +14,11 @@ public class TennisScore {
     );
 
     public String getScore() {
-        return POINTS_TO_SCORE.get(player1Points) + " - " +POINTS_TO_SCORE.get(player2Points);
+        return translate(player1Points) + " - " + translate(player2Points);
+    }
+
+    private String translate(int player1Points) {
+        return POINTS_TO_SCORE.get(player1Points);
     }
 
     public void wonPoint(Player player) {
