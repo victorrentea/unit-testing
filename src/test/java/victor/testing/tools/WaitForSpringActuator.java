@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -20,8 +22,13 @@ public class WaitForSpringActuator implements BeforeAllCallback {
 
     @Override
     public void beforeAll(ExtensionContext context) {
+
+
         log.info("Waiting for {} to come UP...", baseUrl);
-        Awaitility.await().pollInterval(1,TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).until(() -> isApplicationUp(baseUrl + "/actuator"));
+        Awaitility.await()
+                .pollInterval(200,TimeUnit.MILLISECONDS)
+                .atMost(1, TimeUnit.MINUTES)
+                .until(() -> isApplicationUp(baseUrl + "/actuator"));
         log.info("{} is UP", baseUrl);
     }
 
