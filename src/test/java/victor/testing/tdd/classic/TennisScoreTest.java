@@ -52,27 +52,24 @@ public class TennisScoreTest {
 
     @Test
     void deuce() {
-        wonPoints(Player.ONE, 3);
-        wonPoints(Player.TWO, 3);
-        String actual = tennis.getScore();
-
-        assertThat(actual).isEqualTo("Deuce");
+        iaoPasta(3, 3, "Deuce");
     }
     @Test
     void deuce4() {
-        wonPoints(Player.ONE, 4);
-        wonPoints(Player.TWO, 4);
-        String actual = tennis.getScore();
-
-        assertThat(actual).isEqualTo("Deuce");
+        iaoPasta(4, 4, "Deuce");
     }
     @Test
     void advantagePlayer1() {
-        wonPoints(Player.ONE, 14);
-        wonPoints(Player.TWO, 13);
+
+        iaoPasta(14, 13, "Advantage Player1");
+    }
+
+    private void iaoPasta(int points1, int points2, String expectedScore) {
+        wonPoints(Player.ONE, points1);
+        wonPoints(Player.TWO, points2);
         String actual = tennis.getScore();
 
-        assertThat(actual).isEqualTo("Advantage Player1");
+        assertThat(actual).isEqualTo(expectedScore);
     }
 
     // bebe mic testing framework....
