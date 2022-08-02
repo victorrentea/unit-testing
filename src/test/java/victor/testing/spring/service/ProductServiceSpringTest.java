@@ -42,6 +42,10 @@ import static org.mockito.Mockito.when;
 @ActiveProfiles("db-mem")
 @SpringBootTest
 abstract class BaseTest {
+   @BeforeEach
+   final void before() {
+      System.out.println("Sieu");
+   }
 }
 
 // daca ai zeci si sute de tabele, curatarea e o arta. PL/SQL
