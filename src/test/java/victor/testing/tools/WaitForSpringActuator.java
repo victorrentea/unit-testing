@@ -26,8 +26,8 @@ public class WaitForSpringActuator implements BeforeAllCallback {
 
         log.info("Waiting for {} to come UP...", baseUrl);
         Awaitility.await()
-                .pollInterval(200,TimeUnit.MILLISECONDS)
-                .atMost(1, TimeUnit.MINUTES)
+                .pollInterval(50,TimeUnit.MILLISECONDS)
+                .atMost(2, TimeUnit.SECONDS)
                 .until(() -> isApplicationUp(baseUrl + "/actuator"));
         log.info("{} is UP", baseUrl);
     }

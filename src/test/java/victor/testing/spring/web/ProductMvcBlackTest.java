@@ -69,10 +69,17 @@ public class ProductMvcBlackTest {
     }
 
     @Test
+//    @WithMockUser(roles="")
     public void flowTest() throws Exception {
         createProduct("Tree");
 
         runSearch(new ProductSearchCriteria().setName("Tree"), 1);
+    }
+    @Test
+    public void flowTest2() throws Exception {
+        createProduct("Tree");
+
+        runSearch(new ProductSearchCriteria().setName("Re"), 1);
     }
 
     private void createProduct(String productName) throws Exception {

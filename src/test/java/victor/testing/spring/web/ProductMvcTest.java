@@ -43,7 +43,6 @@ public class ProductMvcTest {
         when(safetyClient.isSafe("safebar")).thenReturn(true);
 
         createProduct("Tree");
-
         runSearch("{\"name\": \"Tree\"}", 1);
     }
 
