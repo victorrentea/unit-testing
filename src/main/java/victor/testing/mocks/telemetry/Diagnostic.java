@@ -34,7 +34,6 @@ public class Diagnostic {
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		clientMock.configure(config);
-		clientMock.configure(config);
 
 		clientMock.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = clientMock.receive();

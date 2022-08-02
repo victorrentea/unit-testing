@@ -18,7 +18,7 @@ public class FeedProcessorTest {
    @InjectMocks
    FeedProcessor feedProcessor;
    @Mock
-   FileRepo fileRepoMock;
+   IFileRepo fileRepoMock;
 
    @Test
    public void oneFileWithOneLine() {
@@ -36,9 +36,11 @@ public class FeedProcessorTest {
 
    @Test
    public void twoFilesWith3Lines() {
-      // TODO
+      when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt","two.txt"));
+      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one"));
+      when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
+      assertThat(feedProcessor.countPendingLines()).isEqualTo(3);
 
-      // TODO How to DRY the tests?
    }
 
 

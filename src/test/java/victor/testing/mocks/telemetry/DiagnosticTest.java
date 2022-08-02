@@ -8,8 +8,12 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -67,10 +71,22 @@ public class DiagnosticTest {
 
     @Test
     void configuresClient() {
-        target.checkTransmission(true);
+        LocalDateTime testTime = LocalDateTime.parse("2021-12-25T08:00:00");
+
+        try (MockedStatic<LocalDateTime> staticMock = Mockito.mockStatic(LocalDateTime.class)) {
+            staticMock.when(LocalDateTime::now).thenReturn(testTime);
+            target.checkTransmission(true);
+        }
+
+        // PowerMock
+        // PowerMockito
+        // mockito-inline  COOL
 
         verify(clientMock).configure(configCaptor.capture());
         ClientConfiguration config = configCaptor.getValue();
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
+        assertThat(config.getSessionStart()).isEqualTo(testTime); // sarma
+//        assertThat(config.getSessionStart()).isNotNull(); // sarma
+//        assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));// ingineru
     }
 }
