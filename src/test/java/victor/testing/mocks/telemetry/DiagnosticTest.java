@@ -71,6 +71,8 @@ public class DiagnosticTest {
 
     @Test
     void configuresClient() {
+        when(clientMock.getVersion()).thenReturn("ver");
+
         target.checkTransmission(true);
 
         verify(clientMock).configure(configCaptor.capture());
@@ -78,5 +80,7 @@ public class DiagnosticTest {
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
 //        assertThat(config.getSessionStart()).isNotNull(); // sarma
         assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));// ingineru
+        assertThat(config.getSessionId()).startsWith("ver-")
+                .hasSize(40);
     }
 }
