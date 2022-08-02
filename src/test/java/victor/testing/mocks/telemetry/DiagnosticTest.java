@@ -78,9 +78,10 @@ public class DiagnosticTest {
             target.checkTransmission(true);
         }
 
+        //
         // PowerMock
         // PowerMockito
-        // mockito-inline  COOL
+        // mockito-inline  COOLorg.mockito:mockito-inline
 
         verify(clientMock).configure(configCaptor.capture());
         ClientConfiguration config = configCaptor.getValue();
