@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -38,9 +39,10 @@ import static org.mockito.Mockito.when;
 @interface Cleanup {
 }
 
-@Cleanup
+//@Cleanup
 @ActiveProfiles("db-mem")
 @SpringBootTest
+@Transactional
 abstract class BaseTest {
    @BeforeEach
    final void before() {
