@@ -1,13 +1,19 @@
 package victor.testing.mocks.telemetry;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
 public class Client {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
+	public Client(String version) {
+		this.version = Objects.requireNonNull(version);
+	}
 
-    public static class ClientConfiguration {
+
+	public static class ClientConfiguration {
 		enum AckMode {NORMAL, TIMEBOXED, FLOOD};
 		private String sessionId;
 		private LocalDateTime sessionStart;
@@ -34,6 +40,9 @@ public class Client {
 		
 		
 	}
+
+	private final String version;
+
 
 	private boolean onlineStatus;
 	private String diagnosticMessageResult = "";

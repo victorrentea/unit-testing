@@ -21,8 +21,9 @@ import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.
 public class DiagnosticTest {
     @Mock
     private Client clientMock;
+    @Mock
+    private ClientConfigurationFactory factoryMock;
     @InjectMocks
-    @Spy
     private Diagnostic target;
 
 //@BeforeAll // 1 data inainte de toate testele
@@ -45,8 +46,8 @@ public class DiagnosticTest {
     @Test
     void exploreWithTrue() {
         // given adica contextul testului
-        doReturn(new ClientConfiguration())
-                .when(target).configureClient(any());
+        when(factoryMock.configureClient(any())).thenReturn(new ClientConfiguration());
+
 //        when(clientMock.getVersion()).thenReturn("ceva, nu-mi pasa, da tre sa fie");
 
         // when adica callu de prod
@@ -61,7 +62,7 @@ public class DiagnosticTest {
 
     @Test
     void receivesDiagnosticInfo() {
-        when(clientMock.getVersion()).thenReturn("ceva, nu-mi pasa, da tre sa fie");
+        when(factoryMock.configureClient(any())).thenReturn(new ClientConfiguration());
         when(clientMock.receive()).thenReturn("DE CE DOAMNE!?");
 
         target.checkTransmission(true);
@@ -69,21 +70,24 @@ public class DiagnosticTest {
         assertThat(target.getDiagnosticInfo()).isEqualTo("DE CE DOAMNE!?");
     }
 
+
+    // AM UN CHANGE REQUEST !! sa fac uppercase
+    // pe versiune cand generez sessionID
+
+    @Captor
+    ArgumentCaptor<ClientConfiguration> configCaptor;
+}
+
+class ClientCOnfigurationFactoryTest {
+
     @Test // x 7
     void configuresClient() {
-        ClientConfiguration config = target.configureClient("ver");
+        ClientConfiguration config = new ClientConfigurationFactory()
+                .configureClient("ver");
 
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
         assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));// ingineru
         assertThat(config.getSessionId()).startsWith("VER-")
                 .hasSize(40);
     }
-
-
-    // AM UN CHANGE REQUEST !! sa fac uppercase
-    // pe versiune cand generez sessionID
-
-
-    @Captor
-    ArgumentCaptor<ClientConfiguration> configCaptor;
 }

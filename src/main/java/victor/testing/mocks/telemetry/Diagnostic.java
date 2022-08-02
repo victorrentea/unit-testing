@@ -1,6 +1,5 @@
 package victor.testing.mocks.telemetry;
 
-import com.google.common.annotations.VisibleForTesting;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -11,10 +10,12 @@ public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
 	private final Client clientMock;
+	private final ClientConfigurationFactory clientConfigurationFactory;
 	private String diagnosticInfo = "";
 
-	public Diagnostic(Client clientMock) {
+	public Diagnostic(Client clientMock, ClientConfigurationFactory clientConfigurationFactory) {
 		this.clientMock = clientMock;
+		this.clientConfigurationFactory = clientConfigurationFactory;
 	}
 
 	public void checkTransmission(boolean force) {
@@ -30,23 +31,28 @@ public class Diagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = configureClient(clientMock.getVersion());
+		ClientConfiguration config = clientConfigurationFactory.configureClient(clientMock.getVersion());
 		clientMock.configure(config);
 
 		clientMock.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = clientMock.receive();
 	}
 
-	@VisibleForTesting
-	public ClientConfiguration configureClient(String version) { // are nevoie de 7 teste
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
-		return config;
-	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
+	}
+}
+
+
+class ClientConfigurationFactory {
+	public ClientConfiguration configureClient(String version) { // are nevoie de 7 teste
+		ClientConfiguration config = new ClientConfiguration();
+		String v = version != null ? version.toUpperCase() : null;
+		//		String v = Optional.ofNullable(version).map(String::toUpperCase).orElse(null);
+		config.setSessionId(v + "-" + UUID.randomUUID());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
 	}
 }
