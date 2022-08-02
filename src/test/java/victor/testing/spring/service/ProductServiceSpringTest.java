@@ -72,7 +72,7 @@ public class ProductServiceSpringTest {
       // WHEN
       productService.createProduct(dto);
 
-      assertThat(productRepo.findAll()).hasSize(1);
+      assertThat(productRepo.findAll()).hasSize(1); //crapa cu 2 pentru ca testu precedent da commit la changeuri in DB
       Product product = productRepo.findAll().get(0);
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
