@@ -22,6 +22,7 @@ public class DiagnosticTest {
     @Mock
     private Client clientMock;
     @InjectMocks
+    @Spy
     private Diagnostic target;
 
 //@BeforeAll // 1 data inainte de toate testele
@@ -44,7 +45,9 @@ public class DiagnosticTest {
     @Test
     void exploreWithTrue() {
         // given adica contextul testului
-        when(clientMock.getVersion()).thenReturn("ceva, nu-mi pasa, da tre sa fie");
+        doReturn(new ClientConfiguration())
+                .when(target).configureClient(any());
+//        when(clientMock.getVersion()).thenReturn("ceva, nu-mi pasa, da tre sa fie");
 
         // when adica callu de prod
         target.checkTransmission(true);
