@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -21,15 +22,27 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@interface Cleanup {
+
+}
+
+
 @ActiveProfiles("db-mem")
 @SpringBootTest
+@Cleanup
+// daca ai zeci si sute de tabele, curatarea e o arta. PL/SQL
 public class ProductServiceSpringTest {
-   public static final long SUPPLIER_ID = 13L;
    @MockBean // mockito naste un mock pe care Springu in pune in Contextul lui in LOCUL ob real
    public SafetyClient mockSafetyClient;
    @Autowired
@@ -39,14 +52,14 @@ public class ProductServiceSpringTest {
    @Autowired
    private ProductService productService;
 
-   @BeforeEach
-   final void before() {
-      // pre-checks
-//      assertThat(productRepo.findAll()).hasSize(0);
-
-      supplierRepo.deleteAll();
-       productRepo.deleteAll();// asa merge
-   }
+//   @BeforeEach
+//   final void before() {
+//      // pre-checks
+////      assertThat(productRepo.findAll()).hasSize(0);
+//
+//      supplierRepo.deleteAll();
+//       productRepo.deleteAll();// asa merge
+//   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
