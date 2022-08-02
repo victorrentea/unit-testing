@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +41,10 @@ public class ProductServiceSpringTest {
 
    @BeforeEach
    final void before() {
-       supplierRepo.deleteAll();
+      // pre-checks
+//      assertThat(productRepo.findAll()).hasSize(0);
+
+      supplierRepo.deleteAll();
        productRepo.deleteAll();// asa merge
    }
 
