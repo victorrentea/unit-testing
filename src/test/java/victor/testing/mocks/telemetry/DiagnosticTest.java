@@ -71,23 +71,12 @@ public class DiagnosticTest {
 
     @Test
     void configuresClient() {
-        LocalDateTime testTime = LocalDateTime.parse("2021-12-25T08:00:00");
-
-        try (MockedStatic<LocalDateTime> staticMock = Mockito.mockStatic(LocalDateTime.class)) {
-            staticMock.when(LocalDateTime::now).thenReturn(testTime);
-            target.checkTransmission(true);
-        }
-
-        //
-        // PowerMock
-        // PowerMockito
-        // mockito-inline  COOLorg.mockito:mockito-inline
+        target.checkTransmission(true);
 
         verify(clientMock).configure(configCaptor.capture());
         ClientConfiguration config = configCaptor.getValue();
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
-        assertThat(config.getSessionStart()).isEqualTo(testTime); // sarma
 //        assertThat(config.getSessionStart()).isNotNull(); // sarma
-//        assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));// ingineru
+        assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));// ingineru
     }
 }
