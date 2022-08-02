@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -44,19 +45,17 @@ import static org.mockito.Mockito.when;
 @Transactional
 @ActiveProfiles("db-migration")
 @Testcontainers
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ProductServiceSpringTest {
-
    @Container
-   static public PostgreSQLContainer<?> postgres =
-           new PostgreSQLContainer<>("postgres:11");
-
+   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
 
    @DynamicPropertySource
    public static void registerPgProperties(DynamicPropertyRegistry registry) {
       TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
    }
 
-   @MockBean // mockito naste un mock pe care Springu in pune in Contextul lui in LOCUL ob real
+   @MockBean
    public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
