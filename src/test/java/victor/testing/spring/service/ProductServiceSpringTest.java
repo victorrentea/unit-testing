@@ -33,23 +33,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@interface Cleanup {
-}
-
-//@Cleanup
-@ActiveProfiles("db-mem")
-@SpringBootTest
-@Transactional
-abstract class BaseTest {
-   @BeforeEach
-   final void before() {
-      System.out.println("Sieu");
-   }
-}
-
 // daca ai zeci si sute de tabele, curatarea e o arta. PL/SQL
 public class ProductServiceSpringTest extends BaseTest {
    @MockBean // mockito naste un mock pe care Springu in pune in Contextul lui in LOCUL ob real
