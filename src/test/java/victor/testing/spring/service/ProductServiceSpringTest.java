@@ -13,8 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -22,6 +27,7 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -33,8 +39,23 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-// daca ai zeci si sute de tabele, curatarea e o arta. PL/SQL
-public class ProductServiceSpringTest extends BaseTest {
+
+@SpringBootTest
+@Transactional
+@ActiveProfiles("db-migration")
+@Testcontainers
+public class ProductServiceSpringTest {
+
+   @Container
+   static public PostgreSQLContainer<?> postgres =
+           new PostgreSQLContainer<>("postgres:11");
+
+
+   @DynamicPropertySource
+   public static void registerPgProperties(DynamicPropertyRegistry registry) {
+      TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+   }
+
    @MockBean // mockito naste un mock pe care Springu in pune in Contextul lui in LOCUL ob real
    public SafetyClient mockSafetyClient;
    @Autowired
@@ -43,15 +64,6 @@ public class ProductServiceSpringTest extends BaseTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
-
-//   @BeforeEach
-//   final void before() {
-//      // pre-checks
-////      assertThat(productRepo.findAll()).hasSize(0);
-//
-//      supplierRepo.deleteAll();
-//       productRepo.deleteAll();// asa merge
-//   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
