@@ -44,6 +44,7 @@ public class DiagnosticTest {
     @Test
     void exploreWithTrue() {
         // given adica contextul testului
+        when(clientMock.getVersion()).thenReturn("ceva, nu-mi pasa, da tre sa fie");
 
         // when adica callu de prod
         target.checkTransmission(true);
@@ -57,6 +58,7 @@ public class DiagnosticTest {
 
     @Test
     void receivesDiagnosticInfo() {
+        when(clientMock.getVersion()).thenReturn("ceva, nu-mi pasa, da tre sa fie");
         when(clientMock.receive()).thenReturn("DE CE DOAMNE!?");
 
         target.checkTransmission(true);
@@ -64,7 +66,7 @@ public class DiagnosticTest {
         assertThat(target.getDiagnosticInfo()).isEqualTo("DE CE DOAMNE!?");
     }
 
-    @Test
+    @Test // x 7
     void configuresClient() {
         ClientConfiguration config = target.configureClient("ver");
 
