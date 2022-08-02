@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -36,6 +37,12 @@ public class ProductServiceSpringTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
+   @BeforeEach
+   final void before() {
+       productRepo.deleteAll(); // FK violation, ordine gresita de stergeri
+       supplierRepo.deleteAll();
+   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
