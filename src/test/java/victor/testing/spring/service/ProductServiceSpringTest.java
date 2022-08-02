@@ -1,0 +1,67 @@
+package victor.testing.spring.service;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ActiveProfiles;
+import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.domain.Supplier;
+import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.web.dto.ProductDto;
+
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+@ActiveProfiles("db-mem")
+@SpringBootTest
+public class ProductServiceSpringTest {
+   public static final long SUPPLIER_ID = 13L;
+   @MockBean // mockito naste un mock pe care Springu in pune in Contextul lui in LOCUL ob real
+   public SafetyClient mockSafetyClient;
+   @Autowired
+   private ProductRepo productRepo;
+   @Autowired
+   private SupplierRepo supplierRepo;
+   @Autowired
+   private ProductService productService;
+
+   @Test
+   public void createThrowsForUnsafeProduct() {
+      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+
+      assertThatThrownBy(() -> productService.createProduct(dto))
+              .isInstanceOf(IllegalStateException.class);
+   }
+
+   @Test
+   public void createOk() {
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
+
+      // WHEN
+      productService.createProduct(dto);
+
+      assertThat(productRepo.findAll()).hasSize(1);
+      Product product = productRepo.findAll().get(0);
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+   }
+
+}
