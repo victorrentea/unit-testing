@@ -40,8 +40,8 @@ public class ProductServiceSpringTest {
 
    @BeforeEach
    final void before() {
-       productRepo.deleteAll(); // FK violation, ordine gresita de stergeri
        supplierRepo.deleteAll();
+       productRepo.deleteAll();// asa merge
    }
 
    @Test
