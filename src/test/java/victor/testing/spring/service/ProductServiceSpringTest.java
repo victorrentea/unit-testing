@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -29,6 +30,7 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.TestcontainersUtils;
+import victor.testing.tools.WireMockExtension;
 
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -41,11 +43,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Transactional
 @ActiveProfiles("db-migration")
 @Testcontainers
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD) // NU ARE VOIE pe remote
 public class ProductServiceSpringTest {
    @Container
    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
@@ -55,8 +57,11 @@ public class ProductServiceSpringTest {
       TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
    }
 
-   @MockBean
-   public SafetyClient mockSafetyClient;
+   @RegisterExtension
+   WireMockExtension wireMock = new WireMockExtension(9999);
+
+//   @MockBean
+//   public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
    @Autowired
@@ -66,7 +71,7 @@ public class ProductServiceSpringTest {
 
    @Test
    public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
       ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
 
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -75,7 +80,7 @@ public class ProductServiceSpringTest {
 
    @Test
    public void createOk() {
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
@@ -92,7 +97,7 @@ public class ProductServiceSpringTest {
    }
    @Test
    public void createOk_siEu_peIfuMeu() {
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
