@@ -5,16 +5,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 
+//@MockitoSettings(strictness = Strictness.LENIENT) // NU nicioadata pe teste noi
 @ExtendWith(MockitoExtension.class)
 public class DiagnosticTest {
     @Mock
@@ -27,7 +29,8 @@ public class DiagnosticTest {
 //}
     @BeforeEach
     final void before() {
-        when(clientMock.getOnlineStatus()).thenReturn(true);
+        lenient(). // ok-ish
+                when(clientMock.getOnlineStatus()).thenReturn(true);
     }
 
     @Test
@@ -56,24 +59,26 @@ public class DiagnosticTest {
     void receivesDiagnosticInfo() {
         when(clientMock.receive()).thenReturn("DE CE DOAMNE!?");
 
-        // when
         target.checkTransmission(true);
 
         assertThat(target.getDiagnosticInfo()).isEqualTo("DE CE DOAMNE!?");
     }
 
-    @Captor
-    ArgumentCaptor<ClientConfiguration> configCaptor;
-
     @Test
     void configuresClient() {
-
         ClientConfiguration config = target.configureClient("ver");
 
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
-//        assertThat(config.getSessionStart()).isNotNull(); // sarma
         assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));// ingineru
-        assertThat(config.getSessionId()).startsWith("ver-")
+        assertThat(config.getSessionId()).startsWith("VER-")
                 .hasSize(40);
     }
+
+
+    // AM UN CHANGE REQUEST !! sa fac uppercase
+    // pe versiune cand generez sessionID
+
+
+    @Captor
+    ArgumentCaptor<ClientConfiguration> configCaptor;
 }

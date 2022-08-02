@@ -40,8 +40,7 @@ public class Diagnostic {
 	@VisibleForTesting
 	public ClientConfiguration configureClient(String version) { // are nevoie de 7 teste
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(version + "-" + UUID.randomUUID());
-		// 7 ifuri
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		return config;

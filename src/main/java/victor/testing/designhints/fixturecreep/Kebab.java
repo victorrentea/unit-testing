@@ -7,18 +7,25 @@ import lombok.RequiredArgsConstructor;
 public class Kebab {
    private final Dependency dependency;
 
-   public void complex1() {
+   public void shawarma() {
       if (!dependency.isOnionAllowed()) {
          throw new IllegalArgumentException();
       }
-      // complex logic
+      // complex logic 7 ifuri
+      // if
+      // if
+      // if
+      // if
+      // if
+      // if
+      // if
    }
 
-   public void complex2() {
+   public void tzatziki() {
       if (!dependency.isCucumberAllowed()) {
          throw new IllegalArgumentException();
       }
-      // complex logic
+      // complex logic 5 ifuri
    }
 }
 

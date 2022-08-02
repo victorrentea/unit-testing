@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class KebabTest {
+class ShawarmaTest {
    @Mock
    Dependency dependency;
    @InjectMocks
@@ -18,24 +18,16 @@ class KebabTest {
 
    @BeforeEach
    final void before() {
-
+      when(dependency.isOnionAllowed()).thenReturn(true);
    }
 
    @Test
-   void complex1() {
-      when(dependency.isOnionAllowed()).thenReturn(true);
-
-      kebab.complex1();
-
-      // ..
+   void shawarma() {
+      kebab.shawarma();
    } // + 5 tests like this
-
    @Test
-   void complex2() {
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-
-      kebab.complex2();
-
-      // ..
+   void shawarma2() {
+      kebab.shawarma();
    } // + 5 tests like this
+
 }
