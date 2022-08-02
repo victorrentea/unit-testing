@@ -22,6 +22,7 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -32,17 +33,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @Retention(RetentionPolicy.RUNTIME)
+@Inherited
 @Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @interface Cleanup {
-
 }
 
-
+@Cleanup
 @ActiveProfiles("db-mem")
 @SpringBootTest
-@Cleanup
+abstract class BaseTest {
+}
+
 // daca ai zeci si sute de tabele, curatarea e o arta. PL/SQL
-public class ProductServiceSpringTest {
+public class ProductServiceSpringTest extends BaseTest {
    @MockBean // mockito naste un mock pe care Springu in pune in Contextul lui in LOCUL ob real
    public SafetyClient mockSafetyClient;
    @Autowired
