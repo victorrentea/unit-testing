@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import com.google.common.annotations.VisibleForTesting;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -29,15 +30,21 @@ public class Diagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(clientMock.getVersion()
-							+ "-" + UUID.randomUUID());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = configureClient(clientMock.getVersion());
 		clientMock.configure(config);
 
 		clientMock.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = clientMock.receive();
+	}
+
+	@VisibleForTesting
+	public ClientConfiguration configureClient(String version) { // are nevoie de 7 teste
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(version + "-" + UUID.randomUUID());
+		// 7 ifuri
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
 	}
 
 	public String getDiagnosticInfo() {

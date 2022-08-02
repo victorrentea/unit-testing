@@ -1,15 +1,11 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
-
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -71,12 +67,9 @@ public class DiagnosticTest {
 
     @Test
     void configuresClient() {
-        when(clientMock.getVersion()).thenReturn("ver");
 
-        target.checkTransmission(true);
+        ClientConfiguration config = target.configureClient("ver");
 
-        verify(clientMock).configure(configCaptor.capture());
-        ClientConfiguration config = configCaptor.getValue();
         assertThat(config.getAckMode()).isEqualTo(NORMAL);
 //        assertThat(config.getSessionStart()).isNotNull(); // sarma
         assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));// ingineru
