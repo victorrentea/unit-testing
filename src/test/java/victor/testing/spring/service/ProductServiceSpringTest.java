@@ -63,5 +63,22 @@ public class ProductServiceSpringTest {
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
+   @Test
+   public void createOk_siEu_peIfuMeu() {
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
+
+      // WHEN
+      productService.createProduct(dto);
+
+      assertThat(productRepo.findAll()).hasSize(1);
+      Product product = productRepo.findAll().get(0);
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+   }
 
 }
