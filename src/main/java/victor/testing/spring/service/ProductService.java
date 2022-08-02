@@ -33,6 +33,9 @@ public class ProductService {
             throw new IllegalStateException("Product is not safe: " + productDto.barcode);
         }
 
+        // TRIGGERI PRE-COMMIT vs POST_COMMIT; CHECK CONSTRAINTS,.
+
+
         Product product = new Product();
         product.setName(productDto.name);
         product.setCategory(productDto.category);
