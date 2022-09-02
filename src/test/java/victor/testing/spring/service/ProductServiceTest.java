@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -32,6 +33,7 @@ import victor.testing.spring.service.ProductService;
 import victor.testing.spring.service.subpacket.DBTestBase;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.TestcontainersUtils;
+import victor.testing.tools.WireMockExtension;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -40,17 +42,20 @@ import static org.mockito.Mockito.*;
 
 //@ActiveProfiles("db-mem") // no need anymore
 @ActiveProfiles("db-migration") // flyway
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Testcontainers
 public class ProductServiceTest extends DBTestBase {
-    @MockBean // replaces the real class with a mockito mock that you can then configur
-    public SafetyClient mockSafetyClient;
+//    @MockBean // replaces the real class with a mockito mock that you can then configur
+//    public SafetyClient mockSafetyClient;
     @Autowired
     private ProductRepo productRepo;
     @Autowired
     private SupplierRepo supplierRepo;
     @Autowired
     private ProductService productService;
+
+    @RegisterExtension
+    public WireMockExtension wireMock = new WireMockExtension(9999);
 
     private Long supplierId;
 
@@ -68,8 +73,14 @@ public class ProductServiceTest extends DBTestBase {
     }
 
     @Test
+    public void createThrowsForUnsafeProduct() {
+        ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+
+        assertThatThrownBy(() -> productService.createProduct(dto))
+                .isInstanceOf(IllegalStateException.class);
+    }
+    @Test
     public void createOk() {
-        when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
         ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
         // WHEN
