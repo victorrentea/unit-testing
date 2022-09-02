@@ -21,7 +21,10 @@ public class WaitForSpringActuator implements BeforeAllCallback {
     @Override
     public void beforeAll(ExtensionContext context) {
         log.info("Waiting for {} to come UP...", baseUrl);
-        Awaitility.await().pollInterval(1,TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).until(() -> isApplicationUp(baseUrl + "/actuator"));
+        Awaitility.await()
+                .pollInterval(1,TimeUnit.SECONDS)
+                .atMost(1, TimeUnit.MINUTES)
+                .until(() -> isApplicationUp(baseUrl + "/actuator"));
         log.info("{} is UP", baseUrl);
     }
 

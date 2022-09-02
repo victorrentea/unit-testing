@@ -54,7 +54,6 @@ public class ProductServiceTest extends DBTestBase {
 
     private Long supplierId;
 
-
     @Container
     static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
 
