@@ -24,13 +24,13 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@DataJpaTest // test slices only creates repos
 public class ProductServiceTest {
    @MockBean // replaces the real class with a mockito mock that you can then configur
    public SafetyClient mockSafetyClient;
-   @MockBean
+   @Autowired
    private ProductRepo productRepo;
-   @MockBean
+   @Autowired
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
