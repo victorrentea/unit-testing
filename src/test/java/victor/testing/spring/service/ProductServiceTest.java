@@ -15,8 +15,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -26,14 +31,17 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductService;
 import victor.testing.spring.service.subpacket.DBTestBase;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ActiveProfiles("db-mem")
+//@ActiveProfiles("db-mem") // no need anymore
+@ActiveProfiles("db-migration") // flyway
 @SpringBootTest
+@Testcontainers
 public class ProductServiceTest extends DBTestBase {
     @MockBean // replaces the real class with a mockito mock that you can then configur
     public SafetyClient mockSafetyClient;
@@ -45,6 +53,15 @@ public class ProductServiceTest extends DBTestBase {
     private ProductService productService;
 
     private Long supplierId;
+
+
+    @Container
+    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
+
+    @DynamicPropertySource
+    public static void registerPgProperties(DynamicPropertyRegistry registry) {
+        TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+    }
 
     @BeforeEach
     final void before() {
