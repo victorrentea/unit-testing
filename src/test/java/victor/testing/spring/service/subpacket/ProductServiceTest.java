@@ -1,6 +1,7 @@
-package victor.testing.spring.service;
+package victor.testing.spring.service.subpacket;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -12,13 +13,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
 
 import static java.time.LocalDateTime.now;
@@ -27,6 +31,10 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 @ActiveProfiles("db-mem")
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS) // only use for debugging.
+// If you nuke spring, you just lost ~40 seconds of your build time. for you and your colleagues.\
+// NOT on GIT.
+@Sql(value = "classpath:/sql/cleanup.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class ProductServiceTest {
    @MockBean // replaces the real class with a mockito mock that you can then configur
    public SafetyClient mockSafetyClient;
@@ -37,20 +45,22 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
-   @AfterEach
-   public void flushAfterUse() {
-      productRepo.deleteAll();
-      supplierRepo.deleteAll();
-   }
+//   @BeforeEach
+//   public void flushAfterUse() {
+//
+////      /celean the whole DB
+//      productRepo.deleteAll();
+//      supplierRepo.deleteAll();
+//   }
 
-   @Test
-   public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-
-      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
-      assertThatThrownBy(() -> productService.createProduct(dto))
-              .isInstanceOf(IllegalStateException.class);
-   }
+//   @Test
+//   public void createThrowsForUnsafeProduct() {
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//
+//      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+//      assertThatThrownBy(() -> productService.createProduct(dto))
+//              .isInstanceOf(IllegalStateException.class);
+//   }
 
    @Test
    public void createOk() {
