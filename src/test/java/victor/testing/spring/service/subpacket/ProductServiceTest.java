@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -34,7 +35,8 @@ import static org.mockito.Mockito.*;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS) // only use for debugging.
 // If you nuke spring, you just lost ~40 seconds of your build time. for you and your colleagues.\
 // NOT on GIT.
-@Sql(value = "classpath:/sql/cleanup.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//@Sql(value = "classpath:/sql/cleanup.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Transactional
 public class ProductServiceTest {
    @MockBean // replaces the real class with a mockito mock that you can then configur
    public SafetyClient mockSafetyClient;
@@ -44,8 +46,9 @@ public class ProductServiceTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+   private Long supplierId;
 
-//   @BeforeEach
+   //   @BeforeEach
 //   public void flushAfterUse() {
 //
 ////      /celean the whole DB
@@ -62,9 +65,13 @@ public class ProductServiceTest {
 //              .isInstanceOf(IllegalStateException.class);
 //   }
 
+   @BeforeEach
+   final void before() {
+      supplierId = supplierRepo.save(new Supplier()).getId();
+
+   }
    @Test
    public void createOk() {
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
@@ -81,7 +88,6 @@ public class ProductServiceTest {
    }
    @Test
    public void createOk2() {
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
