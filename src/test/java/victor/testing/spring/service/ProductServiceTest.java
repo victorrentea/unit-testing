@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -44,6 +45,7 @@ import static org.mockito.Mockito.*;
 @ActiveProfiles("db-migration") // flyway
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Testcontainers
+@AutoConfigureWireMock(port = 9999)
 public class ProductServiceTest extends DBTestBase {
 //    @MockBean // replaces the real class with a mockito mock that you can then configur
 //    public SafetyClient mockSafetyClient;
@@ -54,8 +56,8 @@ public class ProductServiceTest extends DBTestBase {
     @Autowired
     private ProductService productService;
 
-    @RegisterExtension
-    public WireMockExtension wireMock = new WireMockExtension(9999);
+//    @RegisterExtension
+//    public WireMockExtension wireMock = new WireMockExtension(9999);
 
     private Long supplierId;
 
