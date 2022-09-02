@@ -7,13 +7,18 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 import victor.testing.tools.WireMockExtension;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -33,6 +38,14 @@ public class WireMockTest {
     @Autowired
     private ProductService productService;
 
+
+    @Container
+    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
+
+    @DynamicPropertySource
+    public static void registerPgProperties(DynamicPropertyRegistry registry) {
+        TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+    }
     @Test
     public void throwsForUnsafeProduct() {
         ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);

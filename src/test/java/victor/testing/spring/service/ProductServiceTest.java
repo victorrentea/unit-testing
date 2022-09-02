@@ -41,8 +41,14 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-//@ActiveProfiles("db-mem") // no need anymore
+
+
+//@Sql("classpath:/sql/cleanup.sql")
+//@interface CleanupDB {}
+//@CleanupDB
+
 @ActiveProfiles("db-migration") // flyway
+//@ActiveProfiles("db-mem") // no need anymore
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Testcontainers
 @AutoConfigureWireMock(port = 9999)
