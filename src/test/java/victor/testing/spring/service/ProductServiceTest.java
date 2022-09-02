@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -36,6 +37,12 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
+   @AfterEach
+   public void flushAfterUse() {
+      productRepo.deleteAll();
+      supplierRepo.deleteAll();
+   }
+
    @Test
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
@@ -47,6 +54,23 @@ public class ProductServiceTest {
 
    @Test
    public void createOk() {
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
+
+      // WHEN
+     productService.createProduct(dto);
+
+      assertThat(productRepo.count()).isEqualTo(1);
+      Product product = productRepo.findAll().get(0);
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+   }
+   @Test
+   public void createOk2() {
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
