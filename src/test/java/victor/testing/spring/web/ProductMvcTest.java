@@ -40,7 +40,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Testcontainers
 @ActiveProfiles("db-migration")
-@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
+@AutoConfigureMockMvc
+// ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 @AutoConfigureWireMock(port = 9999)
 public class ProductMvcTest {
     @Autowired
@@ -51,6 +52,7 @@ public class ProductMvcTest {
     // === Testcontainers ===
     @Container
     static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
+
     @DynamicPropertySource
     public static void registerPgProperties(DynamicPropertyRegistry registry) {
         TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
@@ -74,7 +76,7 @@ public class ProductMvcTest {
 
     private void createProduct(String productName) throws Exception {
         // Option 1: JSON serialization (more convenient)
-         ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.HOME);
+        ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.HOME);
         String createJson1 = jackson.writeValueAsString(dto);
 
         // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
