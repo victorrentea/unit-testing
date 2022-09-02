@@ -47,7 +47,6 @@ public class ProductServiceTest {
 
    @Test
    public void createOk() {
-      // GIVEN
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
@@ -55,10 +54,8 @@ public class ProductServiceTest {
       // WHEN
      productService.createProduct(dto);
 
-      // THEN
       assertThat(productRepo.count()).isEqualTo(1);
       Product product = productRepo.findAll().get(0);
-
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
