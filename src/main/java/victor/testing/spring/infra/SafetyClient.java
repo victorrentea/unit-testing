@@ -12,6 +12,7 @@ import java.net.URL;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+//Adapter pattern
 public class SafetyClient {
 
     private final RestTemplate rest;
