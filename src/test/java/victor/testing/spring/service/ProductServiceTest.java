@@ -56,20 +56,8 @@ public class ProductServiceTest {
      productService.createProduct(dto);
 
       // THEN
-//      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-//      verify(productRepo).save(productCaptor.capture());
-//      Product product = productCaptor.getValue();
-
-
-      // 1) testing a bit more than just my createProducy... is it bad or good?
-//      Product product = productRepo.findByName(dto.name);
-
-      // 2) find all , assuming the DB was empty before
       assertThat(productRepo.count()).isEqualTo(1);
       Product product = productRepo.findAll().get(0);
-
-      // 3) CHANGED production just for testign ! WHY.
-//      Product product = productRepo.findById(productId).get();
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
