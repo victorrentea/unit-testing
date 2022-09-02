@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -23,8 +24,8 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
-@DataJpaTest // test slices only creates repos
+@ActiveProfiles("db-mem")
+@SpringBootTest
 public class ProductServiceTest {
    @MockBean // replaces the real class with a mockito mock that you can then configur
    public SafetyClient mockSafetyClient;
@@ -47,22 +48,32 @@ public class ProductServiceTest {
    @Test
    public void createOk() {
       // GIVEN
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getReferenceById(supplier.getId())).thenReturn(supplier);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME);
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
       // WHEN
-      productService.createProduct(dto);
+     productService.createProduct(dto);
 
       // THEN
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
+//      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+//      verify(productRepo).save(productCaptor.capture());
+//      Product product = productCaptor.getValue();
+
+
+      // 1) testing a bit more than just my createProducy... is it bad or good?
+//      Product product = productRepo.findByName(dto.name);
+
+      // 2) find all , assuming the DB was empty before
+      assertThat(productRepo.count()).isEqualTo(1);
+      Product product = productRepo.findAll().get(0);
+
+      // 3) CHANGED production just for testign ! WHY.
+//      Product product = productRepo.findById(productId).get();
 
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
