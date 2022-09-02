@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 @ActiveProfiles("db-mem")
 @SpringBootTest
-public class ProductServiceEvilStupidBadRushedTest {
+public class ProductServiceEvilStupidBadRushedTest  {
    @MockBean // replaces the real class with a mockito mock that you can then configur
    public SafetyClient mockSafetyClient;
    @Autowired

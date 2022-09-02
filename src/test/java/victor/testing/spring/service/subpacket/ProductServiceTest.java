@@ -32,12 +32,12 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 @ActiveProfiles("db-mem")
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS) // only use for debugging.
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS) // only use for debugging.
 // If you nuke spring, you just lost ~40 seconds of your build time. for you and your colleagues.\
 // NOT on GIT.
 //@Sql(value = "classpath:/sql/cleanup.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Transactional
-public class ProductServiceTest {
+public class ProductServiceTest extends DBTestBase {
    @MockBean // replaces the real class with a mockito mock that you can then configur
    public SafetyClient mockSafetyClient;
    @Autowired
@@ -47,6 +47,13 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
    private Long supplierId;
+
+   // in what scenario, starting a Tx at the benning of the test is NOT ENOUGH,
+   // and data inserted from Prod will still remain despite the ROLLBACK of this test transaction?
+   // 1) @Transactional(propagation=
+   // 2) multithreading
+   // if that happens, => @Sql or @Before+AFter cleanup + no @Transactional on class
+
 
    //   @BeforeEach
 //   public void flushAfterUse() {
