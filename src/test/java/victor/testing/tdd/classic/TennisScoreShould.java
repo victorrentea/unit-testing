@@ -25,7 +25,7 @@ public class TennisScoreShould {
 
     @Test
     void returnsFifteenLoveWhenPlayer1Scores1Point() {
-        tennisScore.winsPoint(Player.ONE, 3);
+        tennisScore.winsPoint(Player.ONE);
 
         String score = tennisScore.getScore();
 
@@ -35,7 +35,7 @@ public class TennisScoreShould {
     @Test
     void returnsLoveFifteenWhenPlayer2Scores1Point() {
         // given
-        tennisScore.winsPoint(Player.TWO, 3);
+        tennisScore.winsPoint(Player.TWO);
 
         // when - prod call
         String score = tennisScore.getScore();
@@ -43,11 +43,21 @@ public class TennisScoreShould {
         // then : assert + verify
         assertThat(score).isEqualTo("Love - Fifteen");
     }
+    @Test
+    void fifteenFifteen() {
+        // test overlap = you can't make this test FAIL alone, no matter how you mess the rpod
+        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.TWO);
+
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Fifteen - Fifteen");
+    }
 
     @Test
     void returnsThirtyLoveWhenPlayer1Scores2Points() {
-        tennisScore.winsPoint(Player.ONE, 3);
-        tennisScore.winsPoint(Player.ONE, 3);
+        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.ONE);
 
         String score = tennisScore.getScore();
 
@@ -62,27 +72,40 @@ public class TennisScoreShould {
 
         assertThat(score).isEqualTo("Forty - Love");
     }
+
     @Test
     void returnsDeuce() {
         // Option B: change PROD tested API to make it easier to test. add #points as param
         // sometimes doesn't make sense to change prod API like this.
         // eg. prod only call winsPoint(.., 1) > DON'T DO THIS refactoring
-        tennisScore.winsPoint(Player.ONE, 3);
-        tennisScore.winsPoint(Player.TWO, 3);
+        //        tennisScore.winsPoint(Player.ONE);
+        //        tennisScore.winsPoint(Player.TWO);
 
         // Option A:
         // test helper methods, tomorrow a mini testing-framework >>> even larger
-        // RISK:
-//        addMorePoints(Player.ONE, 3);
-//        addMorePoints(Player.TWO, 3);
+        // RISK: the helper will HIDE perhaps surprises.
+        // RISK: the test helper can contain BUGS
+        // CHALLENGE: evolve it with time
+        addMorePoints(Player.ONE, 3);
+        addMorePoints(Player.TWO, 3);
 
         String score = tennisScore.getScore();
 
         assertThat(score).isEqualTo("Deuce");
     }
+    @Test
+    void returnsDeuce4() {
+        addMorePoints(Player.ONE, 4);
+        addMorePoints(Player.TWO, 4);
+
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Deuce");
+    }
+
     private void addMorePoints(Player player, int n) {
         for (int i = 0; i < n; i++) {
-         tennisScore.winsPoint(player, 3);
+            tennisScore.winsPoint(player);
         }
     }
 }

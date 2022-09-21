@@ -6,6 +6,10 @@ public class TennisScore {
     private int player2Points;
 
     public String getScore() {
+        if (player1Points == player2Points &&
+            player1Points >= 3) {
+            return "Deuce";
+        }
         return translatePoints(player1Points) + " - " + translatePoints(player2Points);
     }
 
@@ -24,7 +28,7 @@ public class TennisScore {
         }
     }
 
-    public void winsPoint(Player player, int i) {
+    public void winsPoint(Player player) {
         if (player == Player.ONE) {
             player1Points ++;
         } else {
