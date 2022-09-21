@@ -1,6 +1,7 @@
 package victor.testing.mocks.telemetry;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -10,8 +11,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.MILLIS;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
@@ -35,12 +41,12 @@ public class DiagnosticTest {
 
       verify(clientMock).disconnect(true);
       verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE); // 99%
-      verify(clientMock).send("AT#UD"); // freezes the constant value
       verify(clientMock).receive(); // NOT NEEDED0
       assertThat(target.getDiagnosticInfo()).isEqualTo("tataie");
       verify(clientMock).configure(configCaptor.capture());
       ClientConfiguration config = configCaptor.getValue();
       assertThat(config.getAckMode()).isEqualTo(NORMAL);
+      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
       // not common unless targetting a critical API
 //      verify(clientMock,never()).reportBadPayerToGovCreditOffice("qa");
 //      verifyNoInteractions(clientMock); //
