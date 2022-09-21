@@ -10,17 +10,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@TestMethodOrder(MethodOrderer.class) // don't!
 public class TennisScoreShould {
 
-//     #2 - only ONE instance of the obj / shared by all tests - WRONG!
     // Junit instantiates a NEW test class / each @Test =>
     private final TennisScore tennisScore = new TennisScore();
-    private final Customer customer = new Customer()
-            .setEmail("a@b.com")
-            .setName("John Doe");
 
 
     @Test
     void returnsLoveLoveForNewGame() {
-        customer.setName("differnt value");
         String score = tennisScore.getScore();
         assertThat(score).isEqualTo("Love - Love");
     }
@@ -32,14 +27,21 @@ public class TennisScoreShould {
     @Test
     void returnsFifteenLoveWhenPlayer1Scores1Point() {
         tennisScore.winsPoint(Player.ONE);
+
         String score = tennisScore.getScore();
+
         assertThat(score).isEqualTo("Fifteen - Love");
     }
 
     @Test
     void returnsLoveFifteenWhenPlayer2Scores1Point() {
+        // given
         tennisScore.winsPoint(Player.TWO);
+
+        // when - prod call
         String score = tennisScore.getScore();
+
+        // then : assert + verify
         assertThat(score).isEqualTo("Love - Fifteen");
     }
 }
