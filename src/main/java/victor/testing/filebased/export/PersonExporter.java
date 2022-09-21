@@ -2,6 +2,7 @@ package victor.testing.filebased.export;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.stream.Collectors;
 
 public class PersonExporter {
    private final PersonRepo personRepo;
@@ -10,8 +11,8 @@ public class PersonExporter {
       this.personRepo = personRepo;
    }
 
-   // This legacy code is in production for 7 years.
-   // So, it has no bugs, 🤞
+   // This legacy code is in production for 7 years. There are NO tests on it!
+   // So, it has no bugs, 🤞 (you assume)
    //    but your task is to change it... 😱
    // Ofc, you want to make sure you don't introduce bugs.
 
@@ -21,16 +22,16 @@ public class PersonExporter {
    // - Save actual current output as tests
 
    // Then, when refactoring/evolving it, the tests should stay green.
-   public void export(Writer writer) throws IOException {
+   public void exportPersons(Writer writer) throws IOException {
       writer.write("full_name;phones;birth_date\n");
       for (Person person : personRepo.findAll()) {
          writer.write(person.getFirstName() + " " + person.getLastName().toUpperCase());
          writer.write(";");
-         writer.write( person.getPhoneList().get(0)); // TODO fix bug when no phones
+         writer.write( person.getPhoneList().stream().collect(Collectors.joining(","))); // TODO fix bug when no phones
             // TODO CR: output all phones comma-separated
          writer.write(";");
          if (person.getBirthDate() != null) {
-            writer.write(person.getBirthDate().toString()); // TODO CR: change format to "12 Nov 2021"
+            writer.write(person.getBirthDate().toString());
          } else {
             writer.write("N/A");
          }

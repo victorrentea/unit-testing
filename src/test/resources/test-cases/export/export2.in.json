@@ -1,0 +1,6 @@
+{
+  "firstName": "John",
+  "lastName" : "Doe",
+  "birthDate" : null,
+  "phoneList" : ["111"]
+}

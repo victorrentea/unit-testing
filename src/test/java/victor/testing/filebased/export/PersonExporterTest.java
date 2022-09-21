@@ -29,7 +29,8 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    private PersonExporter exporter;
 
    public static List<FileTestCase> testData() throws IOException {
-      Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.csv");
+      Function<String, String> inToOutFileName =
+              inputFileName -> inputFileName.replace(".in.json", ".out.csv");
       return scanForFileTestCases("classpath:/test-cases/export/export*.in.json", inToOutFileName);
    }
    @ParameterizedTest
@@ -42,10 +43,11 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
       StringWriter sw = new StringWriter();
 
       // when
-      exporter.export(sw);
+      exporter.exportPersons(sw);
 
       String expectedContents = readFileToString(test.getExpectedOutputFile());
-      assertThat(sw.toString()).isEqualToNormalizingNewlines(expectedContents);
+      String actualExport = sw.toString();
+      assertThat(actualExport).isEqualToNormalizingNewlines(expectedContents);
    }
 
    private void didacticLog(FileTestCase testCase) throws IOException {
