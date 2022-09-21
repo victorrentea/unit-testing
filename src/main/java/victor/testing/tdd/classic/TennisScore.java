@@ -1,18 +1,37 @@
 package victor.testing.tdd.classic;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class TennisScore {
 
-    // comment in prod code outdated
-    private String score = "Love - Love";
+    private int player1Points;
+    private int player2Points;
 
     public String getScore() {
-        return score;
+        return translatePoints(player1Points) + " - " + translatePoints(player2Points);
+    }
+
+    private String translatePoints(int points) {
+        switch (points) {
+            case 0:
+                return "Love";
+            case 1:
+                return "Fifteen";
+            case 2:
+                return "Thirty";
+            default:
+                throw new IllegalArgumentException("IDN!!");
+        }
     }
 
     public void winsPoint(Player player) {
-        if (player == Player.ONE)
-            score = "Fifteen - Love";
-        else score = "Love - Fifteen";
+        if (player == Player.ONE) {
+            player1Points ++;
+        } else {
+            player2Points ++;
+        }
     }
 }
 
