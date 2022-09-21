@@ -20,12 +20,19 @@ class CommandVsQueryTest {
    @Test
    @CaptureSystemOutput
    void test(OutputCapture outputCapture) {
-      Obj obj = new Obj();
-      when(dependency.query( 5)).thenReturn(7);
+      Obj obj = new Obj(0);
+      when(dependency.derive(obj, 5))
+              .thenReturn(new Obj(5));
+      when(dependency.query( 5)).thenReturn(10);
 
       target.testedMethod(obj);
 
-      verify(dependency).command(obj, 5); // why ??
-      assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Logic with 7");
+//      verify(dependency).mutateAndReturn(obj, 5);
+      ; // why ??
+//      InOrder inOrder = inOrder(dependency);
+//      inOrder.verify(dependency).mutateAndReturn(obj, 5);
+//      inOrder.verify(dependency).query(anyInt());
+
+      assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Logic with 10");
    }
 }
