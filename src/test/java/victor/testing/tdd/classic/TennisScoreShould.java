@@ -52,8 +52,6 @@ public class TennisScoreShould {
 
         String score = tennisScore.getScore();
 
-        assertThat(score).isEqualTo("Fifteen - Love");
-        // bug in a test. Lies to you in the face
-        // you never saw it failing, did you?
+        assertThat(score).isEqualTo("Thirty - Love");
     }
 }

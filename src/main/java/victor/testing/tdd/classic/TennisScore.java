@@ -11,10 +11,11 @@ public class TennisScore {
 
     public void winsPoint(Player player) {
         if (player == Player.ONE)
-        score = "Fifteen - Love";
+            score = "Fifteen - Love";
         else score = "Love - Fifteen";
     }
 }
+
 enum Player {
     TWO, ONE
 }
