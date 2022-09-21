@@ -8,7 +8,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayNameGeneration(ReplaceCamelCase.class)
 //@TestMethodOrder(MethodOrderer.class) // don't!
 public class TennisScoreShould {
+
+//     #2 - only ONE instance of the obj / shared by all tests - WRONG!
+    // Junit instantiates a NEW test class / each @Test =>
     private final TennisScore tennisScore = new TennisScore();
+
+    @BeforeEach
+    final void before() {
+//        // #1 - before each test
+//        tennisScore = new TennisScore();
+        System.out.println(tennisScore);
+    }
 
     @Test
     void returnsLoveLoveForNewGame() {
@@ -26,6 +36,7 @@ public class TennisScoreShould {
         String score = tennisScore.getScore();
         assertThat(score).isEqualTo("Fifteen - Love");
     }
+
     @Test
     void returnsLoveFifteenWhenPlayer2Scores1Point() {
         tennisScore.winsPoint(Player.TWO);
