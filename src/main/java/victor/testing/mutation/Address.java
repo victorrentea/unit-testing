@@ -9,6 +9,6 @@ import lombok.Value;
 public class Address {
 	private final String streetName;
 	private final Integer streetNumber;
-	private String city; // oups!! :)
+	private final String city; // oups!! :)
 	private final Country country;
 }

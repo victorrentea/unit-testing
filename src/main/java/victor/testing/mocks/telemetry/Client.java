@@ -3,7 +3,7 @@ package victor.testing.mocks.telemetry;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-public class Client {
+public final class Client {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
 
@@ -55,6 +55,7 @@ public class Client {
 		onlineStatus = success;
 	}
 
+	public void reportBadPayerToGovCreditOffice (String customerId) {}
 	public String getVersion() {
 		return "1.3";
 	}

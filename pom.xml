@@ -238,6 +238,7 @@
 
         <!-- mock statics -->
         <dependency>
+            <!--Mockito on steroids 💪-->
             <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
             <scope>test</scope>

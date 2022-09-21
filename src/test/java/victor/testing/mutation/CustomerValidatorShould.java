@@ -53,8 +53,12 @@ public class CustomerValidatorShould {
                 .address(anAddress().city("Oi").build())
                 .build();
 
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+        IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () ->
                 validator.validate(customer));
+
+        // is this a good idea ? only if the messages are constants somewhere.
+        assertThat(e.getMessage()).isEqualTo("Address city too short"); // asserting a presentation concern. bad idea.
+
     }
 
     @Test
@@ -67,9 +71,4 @@ public class CustomerValidatorShould {
 
         assertThat(customer.getAddress().getCity()).isEqualTo("Pui");
     }
-
-    // TODO matching exceptions
-    // TODO immutable objects
-
-
 }
