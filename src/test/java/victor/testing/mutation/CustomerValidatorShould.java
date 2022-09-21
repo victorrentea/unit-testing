@@ -4,28 +4,31 @@ package victor.testing.mutation;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+// ObjectMother F... https://martinfowler.com/bliki/ObjectMother.html
+class TestData {
 
-public class CustomerValidatorShould {
-    CustomerValidator validator = new CustomerValidator();
-
-
-    @Test
-    void acceptAValidCustomer() {
-        Customer customer = aValidCustomer();
-        validator.validate(customer);
-    }
-
-    private static Customer aValidCustomer() {
+    public static Customer john() { // too high coupling!!
         return new Customer()
                 .setName("::name::")
                 .setEmail("::name::")
                 .setAddress(new Address()
                         .setCity("::city::"));
     }
+}
+
+public class CustomerValidatorShould {
+    CustomerValidator validator = new CustomerValidator();
+    private final Customer customer = TestData.john();
+
+
+    @Test
+    void acceptAValidCustomer() {
+        validator.validate(customer);
+    }
 
     @Test
     void throwsForNullName() {
-        Customer customer = aValidCustomer().setName(null);
+        customer.setName(null);
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 validator.validate(customer));
@@ -33,14 +36,13 @@ public class CustomerValidatorShould {
 
     @Test
     void throwsForNullEmail() {
-        Customer customer = aValidCustomer().setEmail(null);
+        customer.setEmail(null);
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 validator.validate(customer));
     }
     @Test
     void throwsForNullCity() {
-        Customer customer = aValidCustomer();
         customer.getAddress().setCity(null);
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
