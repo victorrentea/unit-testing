@@ -54,4 +54,28 @@ public class TennisScoreShould {
 
         assertThat(score).isEqualTo("Thirty - Love");
     }
+
+    @Test
+    void returnsFortyLoveWhenPlayer1Scores3Points() {
+        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.ONE);
+
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Forty - Love");
+    }
+    @Test
+    void returnsDeuce() {
+        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.TWO);
+        tennisScore.winsPoint(Player.TWO);
+        tennisScore.winsPoint(Player.TWO);
+
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Deuce");
+    }
 }
