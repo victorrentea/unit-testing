@@ -1,20 +1,43 @@
 package victor.testing.mutation;
 
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 
 public class CustomerValidatorShould {
-   CustomerValidator validator = new CustomerValidator();
+    CustomerValidator validator = new CustomerValidator();
 
-   @Test
-   void valid() {
-      Customer customer = new Customer();
-      customer.setName("::name::");
-      customer.setEmail("::email::");
-      customer.setAddress(new Address());
-      customer.getAddress().setCity("::city::");
-      validator.validate(customer);
-   }
+    @Test
+    void acceptAValidCustomer() {
+        Customer customer = new Customer()
+                .setName("::name::")
+                .setEmail("::email::")
+                .setAddress(new Address()
+                        .setCity("::city::"));
+        validator.validate(customer);
+    }
+
+    @Test
+    void throwsForNullName() {
+        Customer customer = new Customer()
+                .setEmail("::email::")
+                .setAddress(new Address()
+                        .setCity("::city::"));
+
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                validator.validate(customer));
+    }
+
+    @Test
+    void throwsForNullEmail() {
+        Customer customer = new Customer()
+                .setName("::name::")
+                .setAddress(new Address()
+                        .setCity("::city::"));
+
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                validator.validate(customer));
+    }
 
 }
