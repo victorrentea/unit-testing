@@ -88,12 +88,13 @@ class CreateCustomerShould {
 
       @Test
       void sendAWelcomeEmailAndBeSaveTheCustomer() {
-         when(customerRepo.save(john().build())).thenReturn(13L);
+         Customer john = john().build();
+         when(customerRepo.save(john)).thenReturn(13L);
 
-         Long id = customerFacade.createCustomer(john().build());
+         Long id = customerFacade.createCustomer(john);
 
          assertThat(id).isEqualTo(13L);
-         verify(emailClient).sendWelcomeEmail(john().build());
+         verify(emailClient).sendWelcomeEmail(john);
       }
 
       @Nested
@@ -101,14 +102,16 @@ class CreateCustomerShould {
          @ParameterizedTest
          @ValueSource(strings = {"HOME","ELECTRONICS"})
          void receivesCoupon(ProductCategory category) {
-            customerFacade.createCustomer(john().build());
-            Assertions.assertThat(john().build().getCoupons())
+            Customer john = john().build();
+            customerFacade.createCustomer(john);
+            Assertions.assertThat(john.getCoupons())
                 .contains(new Coupon(category, 10));
          }
          @Test
          void isSentAnEmailAboutTheCoupon() {
-            customerFacade.createCustomer(john().build());
-            verify(emailClient).sendNewCouponEmail(john().build());
+            Customer john = john().build();
+            customerFacade.createCustomer(john);
+            verify(emailClient).sendNewCouponEmail(john);
          }
       }
    }

@@ -1,5 +1,7 @@
 package victor.testing.mocks.telemetry;
 
+import org.assertj.core.util.VisibleForTesting;
+import org.jetbrains.annotations.NotNull;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -29,14 +31,23 @@ public class Diagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(clientMock.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = createConfig();
 		clientMock.configure(config);
 
 		clientMock.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = clientMock.receive();
+	}
+
+	// this is NOT as bad as:
+	// adding an extra param, extra field, exposing a public field
+	// just for testing
+	@VisibleForTesting
+	ClientConfiguration createConfig() {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(clientMock.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
 	}
 
 	public String getDiagnosticInfo() {

@@ -11,6 +11,8 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
 import java.time.LocalDateTime;
@@ -44,6 +46,9 @@ import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.
 ////      verifyNoInteractions(clientMock); //
 //   }
 @ExtendWith(MockitoExtension.class)
+
+// #1 DONT' USE : global per class .
+//@MockitoSettings(strictness = Strictness.LENIENT) // only for migrating from Mockito 1. to 2.
 public class DiagnosticTest {
    @Mock
    private Client clientMock;
@@ -54,7 +59,8 @@ public class DiagnosticTest {
 
    @BeforeEach
    final void before() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
+      // #2 just some stubbing
+      lenient().when(clientMock.getOnlineStatus()).thenReturn(true);
    }
 
    @Test
@@ -98,6 +104,13 @@ public class DiagnosticTest {
 
       verify(clientMock).configure(configCaptor.capture());
       ClientConfiguration config = configCaptor.getValue();
+      assertThat(config.getAckMode()).isEqualTo(NORMAL);
+      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
+   }
+   @Test
+   void configuresClientDirectCall() {
+      ClientConfiguration config = target.createConfig();
+
       assertThat(config.getAckMode()).isEqualTo(NORMAL);
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
 
