@@ -1,6 +1,8 @@
 package victor.testing.spring.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.util.VisibleForTesting;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.infra.SafetyClient;
@@ -26,12 +28,20 @@ public class ProductService {
         this.supplierRepo = supplierRepo;
     }
 
-    public void createProduct(ProductDto productDto) {
+    public Product createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode);
         if (!safe) {
             throw new IllegalStateException("Product is not safe: " + productDto.barcode);
         }
 
+        Product product = getProductOMG(productDto);
+        productRepo.save(product);
+        return product;
+    }
+
+
+    @VisibleForTesting
+    /*package*/ Product getProductOMG(ProductDto productDto) {
         Product product = new Product();
         product.setName(productDto.name);
         product.setCategory(productDto.category);
@@ -39,7 +49,7 @@ public class ProductService {
         product.setSupplier(supplierRepo.getReferenceById(productDto.supplierId));
         // TODO CR check that the supplier is active!
         product.setCreateDate(LocalDateTime.now());
-        productRepo.save(product);
+        return product;
     }
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
