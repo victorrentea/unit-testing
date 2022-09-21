@@ -1,12 +1,14 @@
 package victor.testing.mutation;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Value;
 
 @Data
+@Builder
 public class Address {
-	private String streetName;
-	private Integer streetNumber;
-	private String city;
-	private Country country;
-
+	private final String streetName;
+	private final Integer streetNumber;
+	private String city; // oups!! :)
+	private final Country country;
 }

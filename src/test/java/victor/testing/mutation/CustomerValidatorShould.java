@@ -4,31 +4,28 @@ package victor.testing.mutation;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-// ObjectMother F... https://martinfowler.com/bliki/ObjectMother.html
-class TestData {
-
-    public static Customer john() { // too high coupling!!
-        return new Customer()
-                .setName("::name::")
-                .setEmail("::name::")
-                .setAddress(new Address()
-                        .setCity("::city::"));
-    }
-}
+import static org.assertj.core.api.Assertions.assertThat;
+import static victor.testing.mutation.TestData.anAddress;
+import static victor.testing.mutation.TestData.john;
 
 public class CustomerValidatorShould {
-    CustomerValidator validator = new CustomerValidator();
-    private final Customer customer = TestData.john();
-
+   CustomerValidator validator = new CustomerValidator();
 
     @Test
     void acceptAValidCustomer() {
+        Customer customer = john().build();
         validator.validate(customer);
     }
+    // overtesting
+//    @Test
+//    void throwsForNullCustomer() {
+//        Assert.assertThrows(IllegalArgumentException.class, () ->
+//                validator.validate(null));
+//    }
 
     @Test
     void throwsForNullName() {
-        customer.setName(null);
+        Customer customer = john().name(null).build();
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 validator.validate(customer));
@@ -36,17 +33,43 @@ public class CustomerValidatorShould {
 
     @Test
     void throwsForNullEmail() {
-        customer.setEmail(null);
+        Customer customer = john().email(null).build();
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 validator.validate(customer));
     }
     @Test
     void throwsForNullCity() {
-        customer.getAddress().setCity(null);
+        Customer customer = john()
+                .address(anAddress().city(null).build())
+                .build();
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 validator.validate(customer));
     }
+    @Test
+    void throwsTooShortCity() {
+        Customer customer = john()
+                .address(anAddress().city("Oi").build())
+                .build();
+
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                validator.validate(customer));
+    }
+
+    @Test
+    void trimsCityName() {
+        Customer customer = john()
+                .address(anAddress().city(" Pui ").build())
+                .build();
+
+        validator.validate(customer);
+
+        assertThat(customer.getAddress().getCity()).isEqualTo("Pui");
+    }
+
+    // TODO matching exceptions
+    // TODO immutable objects
+
 
 }

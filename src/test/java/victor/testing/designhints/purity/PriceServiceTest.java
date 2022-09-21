@@ -1,5 +1,6 @@
 package victor.testing.designhints.purity;
 
+import com.google.common.collect.ImmutableList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -13,6 +14,7 @@ import victor.testing.designhints.purity.PriceService;
 import victor.testing.designhints.purity.ThirdPartyPrices;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
+import victor.testing.mutation.TestData;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.repo.ProductRepo;
 
@@ -42,7 +44,7 @@ class PriceServiceTest {
    void computePrices() {
       Coupon coupon1 = new Coupon(HOME, 2);
       Coupon coupon2 = new Coupon(ELECTRONICS, 4);
-      Customer customer = new Customer().setCoupons(List.of(coupon1, coupon2));
+      Customer customer = TestData.john().coupons(ImmutableList.of(coupon1, coupon2)).build();
       when(customerRepo.findById(13L)).thenReturn(customer);
       Product p1 = new Product().setId(1L).setCategory(HOME);
       Product p2 = new Product().setId(2L).setCategory(KIDS);
