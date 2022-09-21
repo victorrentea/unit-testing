@@ -44,4 +44,16 @@ public class TennisScoreShould {
         // then : assert + verify
         assertThat(score).isEqualTo("Love - Fifteen");
     }
+
+    @Test
+    void returnsThirtyLoveWhenPlayer1Scores2Points() {
+        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.ONE);
+
+        String score = tennisScore.getScore();
+
+        assertThat(score).isEqualTo("Fifteen - Love");
+        // bug in a test. Lies to you in the face
+        // you never saw it failing, did you?
+    }
 }
