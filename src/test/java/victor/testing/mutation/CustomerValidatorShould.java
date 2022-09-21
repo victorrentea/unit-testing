@@ -8,22 +8,24 @@ import org.junit.jupiter.api.Test;
 public class CustomerValidatorShould {
     CustomerValidator validator = new CustomerValidator();
 
+
     @Test
     void acceptAValidCustomer() {
-        Customer customer = new Customer()
+        Customer customer = aValidCustomer();
+        validator.validate(customer);
+    }
+
+    private static Customer aValidCustomer() {
+        return new Customer()
                 .setName("::name::")
-                .setEmail("::email::")
+                .setEmail("::name::")
                 .setAddress(new Address()
                         .setCity("::city::"));
-        validator.validate(customer);
     }
 
     @Test
     void throwsForNullName() {
-        Customer customer = new Customer()
-                .setEmail("::email::")
-                .setAddress(new Address()
-                        .setCity("::city::"));
+        Customer customer = aValidCustomer().setName(null);
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 validator.validate(customer));
@@ -31,10 +33,15 @@ public class CustomerValidatorShould {
 
     @Test
     void throwsForNullEmail() {
-        Customer customer = new Customer()
-                .setName("::name::")
-                .setAddress(new Address()
-                        .setCity("::city::"));
+        Customer customer = aValidCustomer().setEmail(null);
+
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                validator.validate(customer));
+    }
+    @Test
+    void throwsForNullCity() {
+        Customer customer = aValidCustomer();
+        customer.getAddress().setCity(null);
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 validator.validate(customer));
