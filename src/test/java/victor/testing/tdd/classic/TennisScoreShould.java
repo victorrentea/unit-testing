@@ -1,7 +1,6 @@
 package victor.testing.tdd.classic;
 
 import org.junit.jupiter.api.*;
-import victor.testing.mutation.Customer;
 import victor.testing.tools.ReplaceCamelCase;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +25,7 @@ public class TennisScoreShould {
 
     @Test
     void returnsFifteenLoveWhenPlayer1Scores1Point() {
-        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.ONE, 3);
 
         String score = tennisScore.getScore();
 
@@ -36,7 +35,7 @@ public class TennisScoreShould {
     @Test
     void returnsLoveFifteenWhenPlayer2Scores1Point() {
         // given
-        tennisScore.winsPoint(Player.TWO);
+        tennisScore.winsPoint(Player.TWO, 3);
 
         // when - prod call
         String score = tennisScore.getScore();
@@ -47,8 +46,8 @@ public class TennisScoreShould {
 
     @Test
     void returnsThirtyLoveWhenPlayer1Scores2Points() {
-        tennisScore.winsPoint(Player.ONE);
-        tennisScore.winsPoint(Player.ONE);
+        tennisScore.winsPoint(Player.ONE, 3);
+        tennisScore.winsPoint(Player.ONE, 3);
 
         String score = tennisScore.getScore();
 
@@ -57,9 +56,7 @@ public class TennisScoreShould {
 
     @Test
     void returnsFortyLoveWhenPlayer1Scores3Points() {
-        tennisScore.winsPoint(Player.ONE);
-        tennisScore.winsPoint(Player.ONE);
-        tennisScore.winsPoint(Player.ONE);
+        addMorePoints(Player.ONE, 3);
 
         String score = tennisScore.getScore();
 
@@ -67,15 +64,25 @@ public class TennisScoreShould {
     }
     @Test
     void returnsDeuce() {
-        tennisScore.winsPoint(Player.ONE);
-        tennisScore.winsPoint(Player.ONE);
-        tennisScore.winsPoint(Player.ONE);
-        tennisScore.winsPoint(Player.TWO);
-        tennisScore.winsPoint(Player.TWO);
-        tennisScore.winsPoint(Player.TWO);
+        // Option B: change PROD tested API to make it easier to test. add #points as param
+        // sometimes doesn't make sense to change prod API like this.
+        // eg. prod only call winsPoint(.., 1) > DON'T DO THIS refactoring
+        tennisScore.winsPoint(Player.ONE, 3);
+        tennisScore.winsPoint(Player.TWO, 3);
+
+        // Option A:
+        // test helper methods, tomorrow a mini testing-framework >>> even larger
+        // RISK:
+//        addMorePoints(Player.ONE, 3);
+//        addMorePoints(Player.TWO, 3);
 
         String score = tennisScore.getScore();
 
         assertThat(score).isEqualTo("Deuce");
+    }
+    private void addMorePoints(Player player, int n) {
+        for (int i = 0; i < n; i++) {
+         tennisScore.winsPoint(player, 3);
+        }
     }
 }

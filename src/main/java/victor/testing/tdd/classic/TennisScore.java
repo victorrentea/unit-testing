@@ -1,9 +1,5 @@
 package victor.testing.tdd.classic;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
 public class TennisScore {
 
     private int player1Points;
@@ -28,7 +24,7 @@ public class TennisScore {
         }
     }
 
-    public void winsPoint(Player player) {
+    public void winsPoint(Player player, int i) {
         if (player == Player.ONE) {
             player1Points ++;
         } else {
