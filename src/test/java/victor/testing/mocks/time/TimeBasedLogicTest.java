@@ -1,5 +1,6 @@
 package victor.testing.mocks.time;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static java.time.LocalDate.now;
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -17,15 +19,17 @@ import static org.mockito.Mockito.when;
 class TimeBasedLogicTest {
    @Mock
    OrderRepo orderRepo;
-   @Mock
-   TimeService timeService;
    @InjectMocks
    TimeBasedLogic target;
+
+   @BeforeEach
+   final void before() {
+       target = new TimeBasedLogic(orderRepo, () -> parse("2022-12-25"));
+   }
 
    @Test
 //   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
-      when(timeService.today()).thenReturn(parse("2022-12-25"));
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
           13, parse("2022-12-18"), parse("2022-12-25")))
               .thenReturn(List.of(new Order().setTotalAmount(130d)));
