@@ -108,11 +108,13 @@ public class DiagnosticTest {
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
    @Test
-   void configuresClientDirectCall() {
+   void configuresClientDirectCall() { // x 10 tests
+      when(clientMock.getVersion()).thenReturn("ver");
+
       ClientConfiguration config = target.createConfig();
 
+      assertThat(config.getSessionId()).startsWith("VER-");
       assertThat(config.getAckMode()).isEqualTo(NORMAL);
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
-
    }
 }

@@ -44,7 +44,8 @@ public class Diagnostic {
 	@VisibleForTesting
 	ClientConfiguration createConfig() {
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(clientMock.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		// imagine dragons/ 17 ifs. BR that no one understands
+		config.setSessionId(clientMock.getVersion().toUpperCase() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		return config;
