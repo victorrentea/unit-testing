@@ -10,9 +10,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TimeBasedLogic {
    private final OrderRepo orderRepo;
+   private final TimeService timeService;
 
+   // frequent customer = paid more than 100 EUR over the last 7 days or c.genius=true
    public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = LocalDate.now();
+      LocalDate now = timeService.today();
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
@@ -22,5 +24,12 @@ public class TimeBasedLogic {
       boolean anyGenius = recentOrders.stream().anyMatch(Order::isGenius);
 
       return totalAmount > 100 || anyGenius;
+   }
+}
+// thin wrapper class over a static method, just to be able to mock it
+// BAD. altering the desing of production (+1 file, +1dep everywhere) just for testing !
+class TimeService {
+   public LocalDate today() {
+      return LocalDate.now();
    }
 }

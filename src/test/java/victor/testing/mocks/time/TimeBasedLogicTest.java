@@ -17,14 +17,18 @@ import static org.mockito.Mockito.when;
 class TimeBasedLogicTest {
    @Mock
    OrderRepo orderRepo;
+   @Mock
+   TimeService timeService;
    @InjectMocks
    TimeBasedLogic target;
 
    @Test
-   @Disabled("flaky, time-based")
+//   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
+      when(timeService.today()).thenReturn(parse("2022-12-25"));
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
-          13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+          13, parse("2022-12-18"), parse("2022-12-25")))
+              .thenReturn(List.of(new Order().setTotalAmount(130d)));
 
       assertThat(target.isFrequentBuyer(13)).isTrue();
 
