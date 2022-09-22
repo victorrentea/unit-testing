@@ -1,7 +1,5 @@
 package victor.testing.mocks.telemetry;
 
-import org.assertj.core.util.VisibleForTesting;
-import org.jetbrains.annotations.NotNull;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -11,12 +9,15 @@ import java.util.UUID;
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private Client clientMock;
+	private final Client clientMock;
+	private final ClientConfigurationFactory clientConfigurationFactory;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(Client client) {
-		this.clientMock = client;
+	public Diagnostic(Client clientMock, ClientConfigurationFactory clientConfigurationFactory) {
+		this.clientMock = clientMock;
+		this.clientConfigurationFactory = clientConfigurationFactory;
 	}
+
 
 	public void checkTransmission(boolean force) {
 		clientMock.disconnect(force);
@@ -31,7 +32,7 @@ public class Diagnostic {
 			throw new IllegalStateException("Unable to connect.");
 		}
 
-		ClientConfiguration config = createConfig();
+		ClientConfiguration config = clientConfigurationFactory.createConfig(clientMock.getVersion());
 		clientMock.configure(config);
 
 		clientMock.send(Client.DIAGNOSTIC_MESSAGE);
@@ -41,18 +42,21 @@ public class Diagnostic {
 	// this is NOT as bad as:
 	// adding an extra param, extra field, exposing a public field
 	// just for testing
-	@VisibleForTesting
-	ClientConfiguration createConfig() {
-		ClientConfiguration config = new ClientConfiguration();
-		// imagine dragons/ 17 ifs. BR that no one understands
-		config.setSessionId(clientMock.getVersion().toUpperCase() + "-" + UUID.randomUUID());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
-		return config;
-	}
+
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
 
+}
+
+class ClientConfigurationFactory {
+	public	ClientConfiguration createConfig(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		// imagine dragons/ 17 ifs. BR that no one understands
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
+	}
 }

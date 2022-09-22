@@ -1,22 +1,14 @@
 package victor.testing.mocks.telemetry;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
 import static java.time.LocalDateTime.now;
-import static java.time.temporal.ChronoUnit.MILLIS;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,16 +41,14 @@ import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.
 public class DiagnosticTest {
    @Mock
    private Client clientMock;
+   @Mock
+   private ClientConfigurationFactory clientConfigurationFactory;
    @InjectMocks
-   @Spy
    private Diagnostic target;
-   @Captor
-   private ArgumentCaptor<ClientConfiguration> configCaptor;
 
    @BeforeEach
    final void before() {
       // #2 just some stubbing
-      lenient().doReturn(new ClientConfiguration()).when(target).createConfig();
       lenient().when(clientMock.getOnlineStatus()).thenReturn(true);
    }
 
@@ -96,26 +86,27 @@ public class DiagnosticTest {
    }
 
 
-   @Test
-   void configuresClient() {
-      reset(target);
+//   @Test
+//   void configuresClient() {
+//      reset(target);
+//
+//      target.checkTransmission(true);
+//
+//      verify(clientMock).configure(configCaptor.capture());
+//      ClientConfiguration config = configCaptor.getValue();
+//      assertThat(config.getAckMode()).isEqualTo(NORMAL);
+//      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
+//   }
+}
 
-      target.checkTransmission(true);
-
-      verify(clientMock).configure(configCaptor.capture());
-      ClientConfiguration config = configCaptor.getValue();
-      assertThat(config.getAckMode()).isEqualTo(NORMAL);
-      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
-   }
+class ClientCOnfigurationFactoryTest {
    @Test
    void configuresClientDirectCall() { // x 10 tests
-      reset(target);
-      lenient().when(clientMock.getVersion()).thenReturn("ver");
-
-      ClientConfiguration config = target.createConfig();
+      ClientConfiguration config = new ClientConfigurationFactory().createConfig("ver");
 
       assertThat(config.getSessionId()).startsWith("VER-");
       assertThat(config.getAckMode()).isEqualTo(NORMAL);
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
+
 }
