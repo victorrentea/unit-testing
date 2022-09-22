@@ -22,11 +22,6 @@ class TimeBasedLogicTest {
    @InjectMocks
    TimeBasedLogic target;
 
-   @BeforeEach
-   final void before() {
-       target = new TimeBasedLogic(orderRepo, () -> parse("2022-12-25"));
-   }
-
    @Test
 //   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
@@ -34,7 +29,7 @@ class TimeBasedLogicTest {
           13, parse("2022-12-18"), parse("2022-12-25")))
               .thenReturn(List.of(new Order().setTotalAmount(130d)));
 
-      assertThat(target.isFrequentBuyer(13)).isTrue();
+      assertThat(target.isFrequentBuyer(13, parse("2022-12-25"))).isTrue();
 
       // 1: inject a Clock; Hint: you'll need ZoneId.systemDefault()
       // 2: interface for Clock retrival [general solution] -> **indirection without abstraction**
