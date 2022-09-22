@@ -12,12 +12,13 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 @Service
 public class FeedProcessor {
-   private final FileRepo fileRepo;
+   private final IFileRepo fileRepo;
 
-   public FeedProcessor(FileRepo fileRepo) {
+   public FeedProcessor(IFileRepo fileRepo) {
       this.fileRepo = fileRepo;
    }
 
+   // see total lines I still have to process in files in a given folder
    public int countPendingLines() {
       Collection<String> names = fileRepo.getFileNames();
       log.debug("Found files: " + names);
