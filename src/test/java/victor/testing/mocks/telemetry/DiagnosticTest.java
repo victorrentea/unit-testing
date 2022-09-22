@@ -60,6 +60,8 @@ public class DiagnosticTest {
    @BeforeEach
    final void before() {
       // #2 just some stubbing
+      lenient().when(clientMock.getVersion()).thenReturn("not used");
+
       lenient().when(clientMock.getOnlineStatus()).thenReturn(true);
    }
 
@@ -109,7 +111,7 @@ public class DiagnosticTest {
    }
    @Test
    void configuresClientDirectCall() { // x 10 tests
-      when(clientMock.getVersion()).thenReturn("ver");
+      lenient().when(clientMock.getVersion()).thenReturn("ver");
 
       ClientConfiguration config = target.createConfig();
 
