@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -53,6 +50,7 @@ public class DiagnosticTest {
    @Mock
    private Client clientMock;
    @InjectMocks
+   @Spy
    private Diagnostic target;
    @Captor
    private ArgumentCaptor<ClientConfiguration> configCaptor;
@@ -60,8 +58,7 @@ public class DiagnosticTest {
    @BeforeEach
    final void before() {
       // #2 just some stubbing
-      lenient().when(clientMock.getVersion()).thenReturn("not used");
-
+      lenient().doReturn(new ClientConfiguration()).when(target).createConfig();
       lenient().when(clientMock.getOnlineStatus()).thenReturn(true);
    }
 
@@ -101,6 +98,7 @@ public class DiagnosticTest {
 
    @Test
    void configuresClient() {
+      reset(target);
 
       target.checkTransmission(true);
 
@@ -111,6 +109,7 @@ public class DiagnosticTest {
    }
    @Test
    void configuresClientDirectCall() { // x 10 tests
+      reset(target);
       lenient().when(clientMock.getVersion()).thenReturn("ver");
 
       ClientConfiguration config = target.createConfig();
