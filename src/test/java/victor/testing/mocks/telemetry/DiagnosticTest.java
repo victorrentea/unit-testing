@@ -3,6 +3,7 @@ package victor.testing.mocks.telemetry;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -76,6 +77,8 @@ public class DiagnosticTest {
    }
 
    @Test
+//   @Timeout(100, MILL
+//   )
    void receives() {
       when(clientMock.receive()).thenReturn("tataie");
 
@@ -102,7 +105,7 @@ public class DiagnosticTest {
 class ClientCOnfigurationFactoryTest {
    @Test
    void configuresClientDirectCall() { // x 10 tests
-      ClientConfiguration config = new ClientConfigurationFactory().createConfig("ver");
+      ClientConfiguration config = ClientConfigurationFactory.createConfig("ver");
 
       assertThat(config.getSessionId()).startsWith("VER-");
       assertThat(config.getAckMode()).isEqualTo(NORMAL);

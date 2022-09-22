@@ -51,7 +51,7 @@ public class Diagnostic {
 }
 
 class ClientConfigurationFactory {
-	public	ClientConfiguration createConfig(String version) {
+	public static	ClientConfiguration createConfig(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		// imagine dragons/ 17 ifs. BR that no one understands
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
