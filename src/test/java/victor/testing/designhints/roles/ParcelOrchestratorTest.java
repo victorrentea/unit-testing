@@ -9,7 +9,7 @@ import victor.testing.designhints.roles.repo.ParcelRepo;
 import victor.testing.designhints.roles.repo.TrackingProviderRepo;
 import victor.testing.designhints.roles.service.DisplayService;
 import victor.testing.designhints.roles.model.Parcel;
-import victor.testing.designhints.roles.service.ParcelFacade;
+import victor.testing.designhints.roles.service.ParcelOrchestrator;
 import victor.testing.designhints.roles.service.PlatformService;
 import victor.testing.designhints.roles.model.TrackingProvider;
 import victor.testing.designhints.roles.service.TrackingService;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ParcelFacadeTest {
+class ParcelOrchestratorTest {
    @Mock
    ParcelRepo parcelRepo;
    @Mock
@@ -32,7 +32,7 @@ class ParcelFacadeTest {
    @Mock
    TrackingProviderRepo trackingProviderRepo;
    @InjectMocks
-   ParcelFacade target;
+   ParcelOrchestrator target;
 
    @Test
    void processBarcode() {
@@ -41,14 +41,14 @@ class ParcelFacadeTest {
           .setAwb("AWB")
           .setPartOfCompositeShipment(true);
       when(parcelRepo.findByBarcode("BAR")).thenReturn(parcel);
-      List<TrackingProvider> trackingProviders = List.of(new TrackingProvider());
-      when(trackingProviderRepo.findByAwb("AWB")).thenReturn(trackingProviders);
+//      List<TrackingProvider> trackingProviders = List.of(new TrackingProvider());
+//      when(trackingProviderRepo.findByAwb("AWB")).thenReturn(trackingProviders);
 
       target.processBarcode("BAR", 99);
 
       verify(displayService).displayAWB(parcel);
       verify(displayService).displayMultiParcelWarning();
       verify(platformService).addParcel(parcel);
-      verify(trackingService).markDepartingWarehouse("AWB", 99, trackingProviders);
+      verify(trackingService).markDepartingWarehouse(parcel, 99);
    }
 }

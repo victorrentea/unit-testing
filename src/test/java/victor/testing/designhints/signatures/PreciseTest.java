@@ -6,6 +6,7 @@ import victor.testing.tools.CaptureSystemOutput.OutputCapture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//@WithFeatureToggle()
 class PreciseTest {
    @Test
    @CaptureSystemOutput

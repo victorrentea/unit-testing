@@ -4,12 +4,9 @@ import lombok.RequiredArgsConstructor;
 import victor.testing.designhints.roles.model.Parcel;
 import victor.testing.designhints.roles.repo.ParcelRepo;
 import victor.testing.designhints.roles.repo.TrackingProviderRepo;
-import victor.testing.designhints.roles.model.TrackingProvider;
-
-import java.util.List;
 
 @RequiredArgsConstructor
-public class ParcelFacade {
+public class ParcelOrchestrator {
    private final ParcelRepo parcelRepo;
    private final DisplayService displayService;
    private final PlatformService platformService;
@@ -24,9 +21,9 @@ public class ParcelFacade {
          displayService.displayMultiParcelWarning();
       }
       platformService.addParcel(parcel);
-      List<TrackingProvider> trackingProviders = trackingProviderRepo.findByAwb(parcel.getAwb());
+
       // TODO move findByAwb to trackingService ==> then notice bad encapsulation
-      trackingService.markDepartingWarehouse(parcel.getAwb(), warehouseId, trackingProviders);
+      trackingService.markDepartingWarehouse(parcel, warehouseId);
    }
 
 }
