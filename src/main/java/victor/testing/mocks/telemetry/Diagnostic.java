@@ -6,6 +6,8 @@ import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static java.util.UUID.randomUUID;
+
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
@@ -30,7 +32,7 @@ public class Diagnostic {
 		}
 
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + UUID.randomUUID().toString());
+		config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + randomUUID());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		client.configure(config);

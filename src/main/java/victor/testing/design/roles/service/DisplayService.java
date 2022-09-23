@@ -1,0 +1,14 @@
+package victor.testing.design.roles.service;
+
+import victor.testing.design.roles.model.Parcel;
+
+public class DisplayService {
+   public void displayAWB(Parcel parcel){
+      System.out.println("Display barcode " + parcel.getBarcode());
+   }
+
+   public void displayMultiParcelWarning(){
+      System.out.println("Display WARNING: MULTIPARCEL");
+
+   }
+}
