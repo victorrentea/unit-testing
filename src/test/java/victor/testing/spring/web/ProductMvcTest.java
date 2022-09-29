@@ -76,7 +76,7 @@ public class ProductMvcTest {
 
     private void createProduct(String productName) throws Exception {
         // Option 1: JSON serialization (more convenient)
-        ProductDto dto = new ProductDto(productName, "barcode", supplierId, ProductCategory.HOME);
+        ProductDto dto = new ProductDto(productName, "safebar", supplierId, ProductCategory.HOME);
         String createJson1 = jackson.writeValueAsString(dto);
 
         // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
