@@ -67,8 +67,6 @@ public class ProductServiceTest {
    @Autowired
    private ProductRepo productRepo;
    @Autowired
-   private SupplierRepo supplierRepo;
-   @Autowired
    private ProductService productService;
 
 //   @BeforeEach
