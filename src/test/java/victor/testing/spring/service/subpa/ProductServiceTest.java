@@ -2,62 +2,20 @@ package victor.testing.spring.service.subpa;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.service.ProductService;
-import victor.testing.spring.service.WithReferenceData;
 import victor.testing.spring.web.dto.ProductDto;
-import victor.testing.tools.TestcontainersUtils;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@Testcontainers
-//@Transactional
-@ActiveProfiles("db-migration")
-@Retention(RetentionPolicy.RUNTIME)
-@interface DBTest {
-
-}
-
-@WithReferenceData
-//@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-@DBTest
-@SpringBootTest
-// @DockerPG
-// @InMemKafka
-// @EmbeddedMongo
 public class ProductServiceTest extends BaseClass{
-   @Container
-   static public PostgreSQLContainer<?> postgres =
-           new PostgreSQLContainer<>("postgres:11");
-   private Long supplierId = 99L;
-
-   @DynamicPropertySource
-   public static void registerPgProperties(DynamicPropertyRegistry registry) {
-      TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
-   }
-
    @MockBean
    public SafetyClient mockSafetyClient;
    @Autowired
@@ -65,11 +23,6 @@ public class ProductServiceTest extends BaseClass{
    @Autowired
    private ProductService productService;
 
-//   @BeforeEach
-//   final void before() {
-//       productRepo.deleteAll();
-//       supplierRepo.deleteAll();
-//   }
    @Test
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
@@ -82,7 +35,7 @@ public class ProductServiceTest extends BaseClass{
    @Test
    public void createOk() {
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
+      ProductDto dto = new ProductDto("name", "safebar", SUPPLIER_ID, ProductCategory.HOME);
 
       // WHEN
       productService.createProduct(dto);
@@ -90,7 +43,7 @@ public class ProductServiceTest extends BaseClass{
       Product product = productRepo.findAll().get(0);
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+      assertThat(product.getSupplier().getId()).isEqualTo((Long) SUPPLIER_ID);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
@@ -98,7 +51,7 @@ public class ProductServiceTest extends BaseClass{
    @Test
    public void createOk2() {
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
+      ProductDto dto = new ProductDto("name", "safebar", SUPPLIER_ID, ProductCategory.HOME);
 
       // WHEN
       productService.createProduct(dto);
@@ -106,7 +59,7 @@ public class ProductServiceTest extends BaseClass{
       Product product = productRepo.findAll().get(0);
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+      assertThat(product.getSupplier().getId()).isEqualTo((Long) SUPPLIER_ID);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
