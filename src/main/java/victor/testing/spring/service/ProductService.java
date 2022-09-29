@@ -1,7 +1,10 @@
 package victor.testing.spring.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
@@ -26,6 +29,8 @@ public class ProductService {
         this.supplierRepo = supplierRepo;
     }
 
+//    @Async
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Long createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode);
         if (!safe) {
