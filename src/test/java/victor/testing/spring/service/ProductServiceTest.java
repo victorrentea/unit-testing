@@ -35,7 +35,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @Testcontainers
 //@Transactional
-@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class ProductServiceTest {
    @Container
    static public PostgreSQLContainer<?> postgres =
