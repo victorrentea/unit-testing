@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,14 @@ public class ProductRepoTestcontainersTest {
     public static void registerPgProperties(DynamicPropertyRegistry registry) {
         TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
     }
+
+    // === Reuse the testcontainer across multiple test classes ===
+//    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")
+//                    .withReuse(true);
+//    @BeforeAll
+//    public static void startTestcontainer() {
+//        postgres.start();
+//    }
 
     @Autowired
     private ProductRepo repo;
