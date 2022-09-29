@@ -28,6 +28,9 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.TestcontainersUtils;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
@@ -37,13 +40,22 @@ import static org.mockito.Mockito.*;
 @Testcontainers
 @Transactional
 @ActiveProfiles("db-migration")
-//@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-//@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@interface DBTest {
+
+}
+
+@WithReferenceData
+@DBTest
+
+// @DockerPG
+// @InMemKafka
+// @EmbeddedMongo
 public class ProductServiceTest {
    @Container
    static public PostgreSQLContainer<?> postgres =
            new PostgreSQLContainer<>("postgres:11");
-   private Long supplierId;
+   private Long supplierId = 99L;
 
    @DynamicPropertySource
    public static void registerPgProperties(DynamicPropertyRegistry registry) {
@@ -64,10 +76,6 @@ public class ProductServiceTest {
 //       productRepo.deleteAll();
 //       supplierRepo.deleteAll();
 //   }
-   @BeforeEach
-   final void before() {
-      supplierId = supplierRepo.save(new Supplier()).getId();
-   }
    @Test
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
