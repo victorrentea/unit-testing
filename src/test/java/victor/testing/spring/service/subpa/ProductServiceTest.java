@@ -1,16 +1,10 @@
-package victor.testing.spring.service;
+package victor.testing.spring.service.subpa;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -21,10 +15,10 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.ProductService;
+import victor.testing.spring.service.WithReferenceData;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.TestcontainersUtils;
 
@@ -38,7 +32,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @Testcontainers
-@Transactional
+//@Transactional
 @ActiveProfiles("db-migration")
 @Retention(RetentionPolicy.RUNTIME)
 @interface DBTest {
@@ -46,12 +40,14 @@ import static org.mockito.Mockito.*;
 }
 
 @WithReferenceData
+//@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @DBTest
-
+@SpringBootTest
 // @DockerPG
 // @InMemKafka
 // @EmbeddedMongo
-public class ProductServiceTest {
+public class ProductServiceTest extends BaseClass{
    @Container
    static public PostgreSQLContainer<?> postgres =
            new PostgreSQLContainer<>("postgres:11");

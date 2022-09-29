@@ -19,6 +19,7 @@ public class ProductController {
 
    private final ProductService facade;
 
+//   @PreAuth
    @PostMapping("product/create")
    public void create(@RequestBody ProductDto productDto) {
       facade.createProduct(productDto);
