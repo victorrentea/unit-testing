@@ -26,6 +26,7 @@ import victor.testing.tools.TestcontainersUtils;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static victor.testing.spring.domain.ProductCategory.HOME;
 
 /**
  * <li> Connects to a production-like DB in a Docker image
@@ -76,7 +77,7 @@ public class ProductMvcTest {
 
     private void createProduct(String productName) throws Exception {
         // Option 1: JSON serialization (more convenient)
-        ProductDto dto = new ProductDto(productName, "safebar", supplierId, ProductCategory.HOME);
+        ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
         String createJson1 = jackson.writeValueAsString(dto);
 
         // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
