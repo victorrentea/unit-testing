@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -32,10 +33,12 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @Testcontainers
+@Transactional
 public class ProductServiceTest {
    @Container
    static public PostgreSQLContainer<?> postgres =
            new PostgreSQLContainer<>("postgres:11");
+   private Long supplierId;
 
    @DynamicPropertySource
    public static void registerPgProperties(DynamicPropertyRegistry registry) {
@@ -51,10 +54,14 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
+//   @BeforeEach
+//   final void before() {
+//       productRepo.deleteAll();
+//       supplierRepo.deleteAll();
+//   }
    @BeforeEach
    final void before() {
-       productRepo.deleteAll();
-       supplierRepo.deleteAll();
+      supplierId = supplierRepo.save(new Supplier()).getId();
    }
    @Test
    public void createThrowsForUnsafeProduct() {
@@ -67,7 +74,6 @@ public class ProductServiceTest {
 
    @Test
    public void createOk() {
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
@@ -84,7 +90,6 @@ public class ProductServiceTest {
 
    @Test
    public void createOk2() {
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
