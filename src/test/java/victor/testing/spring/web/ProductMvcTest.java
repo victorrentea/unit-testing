@@ -82,29 +82,27 @@ public class ProductMvcTest {
         ProductDto dto = new ProductDto(productName, "safebar", supplierId, ProductCategory.HOME);
         String createJson = jackson.writeValueAsString(dto);
         // DO WE WANT TO TEST/FREEZE THE STRUCTURE OF THE REQUEST OBJECT?
-            // Option2 FAILS TEST if you change the name of a field in the Dto.
-            // is that a risk we want to cover in picnic ?
-            // NO, because we have client-jar-1.4.jar   compile time checked
+        // Option2 FAILS TEST if you change the name of a field in the Dto.
+        // is that a risk we want to cover in picnic ?
+        // NO, because we have client-jar-1.4.jar   compile time checked
 
         // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
         // language=json
-//        String createJson = """
-//                {
-//                    "name": "%s",
-//                    "supplierId": "%d",
-//                    "barcode": "safebar"
-//                }
-//                """.formatted(productName, supplierId);
+        //         createJson = ("{\n" +
+        //                       "    \"name\": \"%s\",\n" +
+        //                       "    \"supplierId\": \"%d\",\n" +
+        //                       "    \"barcode\": \"safebar\"\n" +
+        //                       "}\n").formatted(productName, supplierId);
 
         productController.create(dto);
         // what risk do we take with calling the controller directly ?
         // - infra filters we might have in spring (test that separately)
         // - url + verbs + status codes >> not a risk in picnic
-//
-//        mockMvc.perform(post("/product/create")
-//                        .content(createJson)
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk());
+        //
+        //        mockMvc.perform(post("/product/create")
+        //                        .content(createJson)
+        //                        .contentType(MediaType.APPLICATION_JSON))
+        //                .andExpect(status().isOk());
     }
 
     private void runSearch(ProductSearchCriteria criteria, int expectedNumberOfResults) throws Exception {
