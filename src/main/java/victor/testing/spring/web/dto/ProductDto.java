@@ -2,7 +2,6 @@ package victor.testing.spring.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 
 @Data

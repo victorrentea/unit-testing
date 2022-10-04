@@ -69,29 +69,35 @@ public class ProductMvcTest {
     }
 
     @Test
+    //@WithMockUser(role="ADMIN")
     public void flowTest() throws Exception {
         createProduct("Tree");
 
         runSearch(new ProductSearchCriteria().setName("Tree"), 1);
+
+        runSearch(new ProductSearchCriteria().setName("Copac"), 0);
     }
 
     private void createProduct(String productName) throws Exception {
         // Option 1: JSON serialization (more convenient)
+        //  daca ai: appmea-client-1.0.jar daca ai asa ceva sau Contract Tests : (PACT sau Spring Cloud Contract)
+        // atunci poti sa lucrezi cu new Dto
         ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
         String createJson1 = jackson.writeValueAsString(dto);
 
+        // pt api-uri publice catre alte firme!!
         // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
         // language=json
-        String createJson = """
+        String createJson = ("""
                 {
                     "name": "%s",
                     "supplierId": "%d",
                     "barcode": "safebar"
                 }
-                """.formatted(productName, supplierId);
+                """).formatted(productName, supplierId);
 
         mockMvc.perform(post("/product/create")
-                        .content(createJson)
+                        .content(createJson1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

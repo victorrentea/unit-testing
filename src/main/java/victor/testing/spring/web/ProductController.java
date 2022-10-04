@@ -2,6 +2,7 @@ package victor.testing.spring.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +25,10 @@ public class ProductController {
       facade.createProduct(productDto);
    }
 
+//   @Secured("ADMIN")
+//   @PreAuthorized("hasRole('ADMIN')")
    @PostMapping("product/search")
-   public List<ProductSearchResult> search(@RequestBody ProductSearchCriteria criteria) {
+   public List<ProductSearchResult> search(@RequestBody @Validated ProductSearchCriteria criteria) {
       return facade.searchProduct(criteria);
    }
 
