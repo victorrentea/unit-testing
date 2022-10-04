@@ -14,8 +14,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -23,6 +28,7 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -32,8 +38,20 @@ import static org.mockito.Mockito.*;
 @Transactional // limitari: @Async, @Transactional(REQUIRES_NEW/NOT_SUPPORTED)
 //@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @SpringBootTest
-@ActiveProfiles("db-mem")
+//@ActiveProfiles("db-mem") // rau ca : nu poti folosi SQL native dure, nu testezi flyway
+@Testcontainers
+@ActiveProfiles("db-migration")
 public class ProductServiceTest {
+
+    @Container
+    static public PostgreSQLContainer<?> postgres =
+            new PostgreSQLContainer<>("postgres:11");
+
+    @DynamicPropertySource
+    public static void registerPgProperties(DynamicPropertyRegistry registry) {
+        TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+    }
+
     @MockBean
     public SafetyClient mockSafetyClient;
     @Autowired

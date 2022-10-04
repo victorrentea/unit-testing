@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name="products")
 @Getter @Setter
 @ToString
 public class Product {
