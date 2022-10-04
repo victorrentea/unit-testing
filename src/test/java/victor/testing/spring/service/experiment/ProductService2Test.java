@@ -31,10 +31,13 @@ import static org.assertj.core.api.Assertions.*;
 @Testcontainers
 @AutoConfigureWireMock(port=9999)
 @ActiveProfiles("db-migration")
+abstract class  TestBaseClass {
+
+}
 
 // n-ai voie pe git! ca lungesti buildu foarte mult.
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class ProductService2Test {
+public class ProductService2Test  extends TestBaseClass{
 
     @Container
     static public PostgreSQLContainer<?> postgres =
