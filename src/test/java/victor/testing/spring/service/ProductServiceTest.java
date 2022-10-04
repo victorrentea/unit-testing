@@ -29,64 +29,65 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class ProductServiceTest {
-   @MockBean
-   public SafetyClient mockSafetyClient;
-   @Autowired
-   private ProductRepo productRepo;
-   @Autowired
-   private SupplierRepo supplierRepo;
-   @Autowired
-   private ProductService productService;
+    @MockBean
+    public SafetyClient mockSafetyClient;
+    @Autowired
+    private ProductRepo productRepo;
+    @Autowired
+    private SupplierRepo supplierRepo;
+    @Autowired
+    private ProductService productService;
 
-   @BeforeEach
-   // cand cureti? iainte sau dupa
-   final void before() {
-       productRepo.deleteAll();
-         supplierRepo.deleteAll();
-   }
+    @BeforeEach
+    // cand cureti? iainte sau dupa
+    final void before() {
+        productRepo.deleteAll();
+        supplierRepo.deleteAll();
+    }
 
-   @Test
-   public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+    @Test
+    public void createThrowsForUnsafeProduct() {
+        when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
-      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
-      assertThatThrownBy(() -> productService.createProduct(dto))
-              .isInstanceOf(IllegalStateException.class);
-   }
+        ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+        assertThatThrownBy(() -> productService.createProduct(dto))
+                .isInstanceOf(IllegalStateException.class);
+    }
 
-   @Test
-   public void createOk() {
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
+    @Test
+    public void createOk() {
+        Long supplierId = supplierRepo.save(new Supplier()).getId();
+        when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+        ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
-      // WHEN
-      productService.createProduct(dto);
+        // WHEN
+        productService.createProduct(dto);
 
-      assertThat(productRepo.findAll()).hasSize(1); // supra testare!
-      Product product = productRepo.findAll().get(0);
-      assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
-      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
-   }
-   @Test
-   public void createOkBis() {
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
+        assertThat(productRepo.findAll()).hasSize(1); // supra testare!
+        Product product = productRepo.findAll().get(0);
+        assertThat(product.getName()).isEqualTo("name");
+        assertThat(product.getBarcode()).isEqualTo("safebar");
+        assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+        assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+        assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+    }
 
-      // WHEN
-      productService.createProduct(dto);
+    @Test
+    public void createOkBis() {
+        Long supplierId = supplierRepo.save(new Supplier()).getId();
+        when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+        ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
-      assertThat(productRepo.findAll()).hasSize(1); // supra testare!
-      Product product = productRepo.findAll().get(0);
-      assertThat(product.getName()).isEqualTo("name");
-      assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
-      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
-      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
-   }
+        // WHEN
+        productService.createProduct(dto);
+
+        assertThat(productRepo.findAll()).hasSize(1); // supra testare!
+        Product product = productRepo.findAll().get(0);
+        assertThat(product.getName()).isEqualTo("name");
+        assertThat(product.getBarcode()).isEqualTo("safebar");
+        assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+        assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+        assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+    }
 
 }
