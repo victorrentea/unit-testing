@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
@@ -39,8 +40,8 @@ public class ProductServiceTest {
     private ProductService productService;
 
     @BeforeEach
-    // cand cureti? iainte sau dupa
     final void before() {
+        // orice resursa exterioara JVM de care depinzi non-RDB: Mongo, nosql, kafka, file, cacheuri
         productRepo.deleteAll();
         supplierRepo.deleteAll();
     }
