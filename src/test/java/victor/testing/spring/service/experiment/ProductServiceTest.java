@@ -1,4 +1,4 @@
-package victor.testing.spring.service;
+package victor.testing.spring.service.experiment;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -28,6 +29,7 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.TestcontainersUtils;
 
@@ -43,6 +45,9 @@ import static org.mockito.Mockito.*;
 @Testcontainers
 @AutoConfigureWireMock(port=9999)
 @ActiveProfiles("db-migration")
+
+// n-ai voie pe git! ca lungesti buildu foarte mult.
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ProductServiceTest {
 
     @Container
@@ -65,6 +70,12 @@ public class ProductServiceTest {
 
     @Test
     public void createThrowsForUnsafeProduct() {
+        ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+        assertThatThrownBy(() -> productService.createProduct(dto))
+                .isInstanceOf(IllegalStateException.class);
+    }
+    @Test
+    public void createThrowsForUnsafeProduct3() {
         ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
         assertThatThrownBy(() -> productService.createProduct(dto))
                 .isInstanceOf(IllegalStateException.class);
