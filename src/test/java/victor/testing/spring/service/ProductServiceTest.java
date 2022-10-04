@@ -14,6 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -27,6 +29,8 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+//@Transactional
+@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class ProductServiceTest {
@@ -38,13 +42,6 @@ public class ProductServiceTest {
     private SupplierRepo supplierRepo;
     @Autowired
     private ProductService productService;
-
-    @BeforeEach
-    final void before() {
-        // orice resursa exterioara JVM de care depinzi non-RDB: Mongo, nosql, kafka, file, cacheuri
-        productRepo.deleteAll();
-        supplierRepo.deleteAll();
-    }
 
     @Test
     public void createThrowsForUnsafeProduct() {
