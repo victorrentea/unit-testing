@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.CacheManager;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -37,9 +38,10 @@ import static org.mockito.Mockito.*;
 
 @Transactional // limitari: @Async, @Transactional(REQUIRES_NEW/NOT_SUPPORTED)
 //@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 //@ActiveProfiles("db-mem") // rau ca : nu poti folosi SQL native dure, nu testezi flyway
 @Testcontainers
+@AutoConfigureWireMock(port=9999)
 @ActiveProfiles("db-migration")
 public class ProductServiceTest {
 
@@ -52,8 +54,8 @@ public class ProductServiceTest {
         TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
     }
 
-    @MockBean
-    public SafetyClient mockSafetyClient;
+//    @MockBean
+//    public SafetyClient mockSafetyClient;
     @Autowired
     private ProductRepo productRepo;
     @Autowired
@@ -63,8 +65,6 @@ public class ProductServiceTest {
 
     @Test
     public void createThrowsForUnsafeProduct() {
-        when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-
         ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
         assertThatThrownBy(() -> productService.createProduct(dto))
                 .isInstanceOf(IllegalStateException.class);
@@ -73,7 +73,6 @@ public class ProductServiceTest {
     @Test
     public void createOk() {
         Long supplierId = supplierRepo.save(new Supplier()).getId();
-        when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
         ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
         // WHEN
@@ -91,7 +90,6 @@ public class ProductServiceTest {
     @Test
     public void createOkBis() {
         Long supplierId = supplierRepo.save(new Supplier()).getId();
-        when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
         ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
         // WHEN
