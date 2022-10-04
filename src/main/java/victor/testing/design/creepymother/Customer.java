@@ -2,30 +2,14 @@ package victor.testing.design.creepymother;
 
 import static java.util.Objects.requireNonNull;
 
-class ShippingService {
-   public int estimateShippingCosts(Customer customer) {
-      if (!customer.getShippingAddress().contains("Romania")) {
-         return 50;
-      }
-      // more logic
-      return 20;
-   }
-}
-class InvoiceService {
-   public String generateInvoice(Customer customer, String order) {
-      String invoice = "Invoice\n";
-      invoice += "Buyer: " + customer.getBillingAddress() + "\n";
-      invoice += "For order " + order ;
-      // more
-      return invoice;
-   }
-}
-
 class Customer {
+   private String name;
    private String shippingAddress;
    private String billingAddress;
+   // 20 more fields...
 
-   Customer(String shippingAddress, String billingAddress) {
+   Customer(String name, String shippingAddress, String billingAddress) {
+      this.name = requireNonNull(name);
       this.shippingAddress = requireNonNull(shippingAddress);
       this.billingAddress = requireNonNull(billingAddress);
    }
