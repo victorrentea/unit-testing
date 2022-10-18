@@ -42,7 +42,6 @@ import static org.mockito.Mockito.*;
 @ActiveProfiles("db-migration")
 @Transactional
 @Testcontainers
-
 // rau, mananca timp
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // = Nukes Spring. Killareste contextul si-l forteaza sa se REPORNEASCA (banner)
 
