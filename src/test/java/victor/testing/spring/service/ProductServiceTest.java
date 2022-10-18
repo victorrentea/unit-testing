@@ -11,6 +11,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -39,18 +40,20 @@ import static org.mockito.Mockito.*;
 // (in care am inserat date in DB, selectat, testat , etc)
 
 @Slf4j
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999") // unde asculta WireMock
 @ActiveProfiles("db-migration")
 @Transactional
 @Testcontainers
 
 // daca ai carca de SQL, PL/SQL, native multe si vrei sa stergi. Sau daca ai COMMITuri intermediare.
-@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 
 // rau, mananca timp
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // = Nukes Spring. Killareste contextul si-l forteaza sa se REPORNEASCA (banner)
 
 //@Execution(ExecutionMode.SAME_THREAD) // !!! Atentie
+
+@AutoConfigureWireMock(port = 9999)// ridica un server de HTTP care raspunde cu fisiere din src/test/mappings/*.json
 public class ProductServiceTest {
 
 
@@ -67,8 +70,10 @@ public class ProductServiceTest {
    // cu un mock Mockito, pe care ti-l si injecteaza in campul asta,
    // ca sa-i poti face ce-i faci de ob unui mock. ! intre @Test, behaviorul
    // acestui mock se reseteaza automat
-   @MockBean
-   public SafetyClient safetyClientMock;
+
+//   @MockBean // no need to mock the adapter anymore : let the tested code hit WireMock instead serving baked JSON files
+   // from my git.
+//   public SafetyClient safetyClientMock;
    @Autowired
    private ProductRepo productRepo;
    @Autowired
@@ -88,10 +93,7 @@ public class ProductServiceTest {
 //   }
    @Test
    public void createThrowsForUnsafeProduct() {
-      when(safetyClientMock.isSafe("bar")).thenReturn(false);
-
-
-
+//      when(safetyClientMock.isSafe("bar")).thenReturn(false);
       productService.horror();
       ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -110,7 +112,7 @@ public class ProductServiceTest {
       // GIVEN
       // in loc de a "stabui" apelul de repo, fac un "save" inainte de a chema codul testat
       Long supplierId = supplierRepo.save(new Supplier("de ce Doamne?")).getId();
-      when(safetyClientMock.isSafe("safebar")).thenReturn(true);
+//      when(safetyClientMock.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
       staiUnPic();
@@ -132,7 +134,7 @@ public class ProductServiceTest {
       // GIVEN
       // in loc de a "stabui" apelul de repo, fac un "save" inainte de a chema codul testat
       Long supplierId = supplierRepo.save(new Supplier("de ce Doamne?")).getId();
-      when(safetyClientMock.isSafe("safebar")).thenReturn(true);
+//      when(safetyClientMock.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
 
