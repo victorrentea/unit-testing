@@ -13,52 +13,5 @@ public class TestIncet2AltaClasa {
         Thread.sleep(5000);
         log.info("End3");
     }
-    @Test
-    void tre3i() throws InterruptedException {
-        log.info("Start3");
-        Thread.sleep(5000);
-        log.info("End3");
-    }
-    @Test
-    void tr5ei() throws InterruptedException {
-        log.info("Start3");
-        Thread.sleep(5000);
-        log.info("End3");
-    }
-    @Test
-    void tr7ei() throws InterruptedException {
-        log.info("Start3");
-        Thread.sleep(5000);
-        log.info("End3");
-    }
-    @Test
-    void tr4eti() throws InterruptedException {
-        log.info("Start3");
-        Thread.sleep(5000);
-        log.info("End3");
-    }
-    @Test
-    void treeri() throws InterruptedException {
-        log.info("Start3");
-        Thread.sleep(5000);
-        log.info("End3");
-    }
-    @Test
-    void treerwi() throws InterruptedException {
-        log.info("Start3");
-        Thread.sleep(5000);
-        log.info("End3");
-    }
-    @Test
-    void trwerei() throws InterruptedException {
-        log.info("Start3");
-        Thread.sleep(5000);
-        log.info("End3");
-    }
-    @Test
-    void trwerewei() throws InterruptedException {
-        log.info("Start3");
-        Thread.sleep(5000);
-        log.info("End3");
-    }
+
 }
