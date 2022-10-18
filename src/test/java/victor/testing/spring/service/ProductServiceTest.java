@@ -85,6 +85,9 @@ public class ProductServiceTest {
    public void createThrowsForUnsafeProduct() {
       when(safetyClientMock.isSafe("bar")).thenReturn(false);
 
+
+
+      productService.horror();
       ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
               .isInstanceOf(IllegalStateException.class);

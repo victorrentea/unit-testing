@@ -5,6 +5,8 @@ import org.checkerframework.checker.nullness.qual.PolyRaw;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
@@ -53,5 +55,12 @@ public class ProductService {
         return productRepo.findById(productId).get()
             .getCreateDate().isAfter(oneYearAgo);
     }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW) // oups: buseste testul
+    public void horror() {
+        productRepo.save(new Product());
+    }
+    // proxy-ul din fata comit not matter what. Tx original din teste  (urma sa faca ROLLBACK)
+    // care a venit in fct asta NU POATE intra. Se face o noua Tx > COMMIT la ea.
 }
 
