@@ -1,7 +1,10 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +28,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Execution(ExecutionMode.SAME_THREAD) // !!! Atentie
 public class ProductServiceTest {
    @MockBean // inlocuieste beanul real SafetyClient din Spring context
    // cu un mock Mockito, pe care ti-l si injecteaza in campul asta,
@@ -38,7 +42,11 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
-   @AfterEach
+   @BeforeEach // daca tre sa cureti ceva "sa pleci de pe curat" <<< asta!
+      // NU pentru Relational DBs. Asta e buna pentru orice altceva:
+   // de golit cozi, cacheuri, mongo, cassandra, unic in Spring. fisiere.
+   // (daca joci multithreading pe astea --- esti mort)
+   @AfterEach// paranoia?
    public void curataDupaMine() {
       productRepo.deleteAll();
       supplierRepo.deleteAll();
