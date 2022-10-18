@@ -13,7 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -21,6 +26,7 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -33,18 +39,31 @@ import static org.mockito.Mockito.*;
 
 @Slf4j
 @SpringBootTest
-@ActiveProfiles("db-mem-flyway")
+@ActiveProfiles("db-migration")
 @Transactional
+@Testcontainers
 
 // rau, mananca timp
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // = Nukes Spring. Killareste contextul si-l forteaza sa se REPORNEASCA (banner)
 
 //@Execution(ExecutionMode.SAME_THREAD) // !!! Atentie
 public class ProductServiceTest {
-   @MockBean // inlocuieste beanul real SafetyClient din Spring context
+
+
+   @Container
+   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
+
+   @DynamicPropertySource
+   public static void registerPgProperties(DynamicPropertyRegistry registry) {
+      TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+   }
+
+
+   // inlocuieste beanul real SafetyClient din Spring context
    // cu un mock Mockito, pe care ti-l si injecteaza in campul asta,
    // ca sa-i poti face ce-i faci de ob unui mock. ! intre @Test, behaviorul
    // acestui mock se reseteaza automat
+   @MockBean
    public SafetyClient safetyClientMock;
    @Autowired
    private ProductRepo productRepo;
