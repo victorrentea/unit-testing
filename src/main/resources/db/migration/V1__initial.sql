@@ -4,3 +4,5 @@ create table product (id int8 not null, barcode varchar(255), category int4, cre
 
 create table supplier (id int8 not null, active boolean not null, name varchar(255), primary key (id));
 
+-- select tstzrange() // la un moment dat H2 nu mai poate 'emula sintaxa' PG. in query-uri native din app care folosesc
+-- eg functii specifice PG
