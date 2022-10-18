@@ -233,7 +233,11 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>3.5.13</version>
+        </dependency>
+        <dependency>
+            <!-- needed for victor.testing.tools.CountHowManySpringContextWereCreated -->
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
         </dependency>
 
         <!-- mock statics -->
