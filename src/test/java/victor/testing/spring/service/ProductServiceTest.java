@@ -1,11 +1,16 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -19,15 +24,20 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@Tag("integration")
 public class ProductServiceTest {
-   @Mock
+   @MockBean // inlocuieste beanul real SafetyClient din Spring context
+   // cu un mock Mockito, pe care ti-l si injecteaza in campul asta,
+   // ca sa-i poti face ce-i faci de ob unui mock. ! intre @Test, behaviorul
+   // acestui mock se reseteaza automat
    public SafetyClient mockSafetyClient;
-   @Mock
+   @MockBean
    private ProductRepo productRepo;
-   @Mock
+   @MockBean
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test

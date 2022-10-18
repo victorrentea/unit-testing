@@ -2,6 +2,7 @@ package victor.testing.spring.repo;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 @SpringBootTest
 @Testcontainers
+@Tag("integration")
+
 public class ProductRepoTestcontainersTest {
     @Container
     static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");

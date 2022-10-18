@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Tag("integration")
+
 public class ProductRepoTest {
 
    @Autowired

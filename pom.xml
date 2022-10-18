@@ -261,20 +261,23 @@
     <build>
         <plugins>
 
+            <!-- SUREFIRE plugin -->
             <!-- Typically: runs after every commit, takes 10-20 minutes, runs mockito-only, in-memory tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <!-- folder pattern -->
-                    <excludes>
+                    <!--<excludes>
                         <exclude>**/spring/**</exclude>
-                    </excludes>
-                    <!-- or: -->
+                    </excludes>-->
+                    <!-- or: @Tag(...) -->
                     <excludedGroups>integration</excludedGroups>
                     <argLine>-XX:+AllowRedefinitionToAddDeleteMethods</argLine>
                 </configuration>
             </plugin>
+
+            <!-- FAILSAFE plugin -->
             <!-- Typically: runs during nighly build, takes 10-2000 minutes. Typically startup Spring, Databases, Dockers, Wiremocks -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -285,50 +288,10 @@
                         <include>**/*</include>
                     </includes>
                     <!-- or -->
-                    <groups>integration</groups>
+                    <!--<groups>integration</groups>-->
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.7.2</version>
-
-                <!-- adds support for JUnit5 -->
-                <dependencies>
-                    <dependency>
-                        <groupId>org.pitest</groupId>
-                        <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>0.14</version>
-                    </dependency>
-                </dependencies>
-
-                <executions>
-                    <execution>
-                        <id>pit-report</id>
-                        <!-- optional -->
-                        <phase>test</phase>
-                        <goals>
-                            <goal>mutationCoverage</goal>
-                            <!-- only run mutation coverage on changed FILES -->
-                            <!-- https://twitter.com/_HamzaBlm/status/1449529008501272579?s=20 -->
-                            <!-- mvn org.pitest:pitest-maven:scmMutationCoverage -Dinclude=ADDED,UNKNOWN -DmutationThreshold=85 -DoriginalBranch & -DdestinationBranch-->
-                        </goals>
-                    </execution>
-                </executions>
-
-                <configuration>
-                    <targetClasses>
-                        <param>victor.testing.mutation.*</param>
-                    </targetClasses>
-                    <targetTests>
-                        <param>victor.testing.mutation.*</param>
-                    </targetTests>
-                    <mutators>
-                        <mutator>NON_VOID_METHOD_CALLS</mutator>
-                    </mutators>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>

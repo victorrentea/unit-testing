@@ -2,6 +2,7 @@ package victor.testing.spring.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -42,6 +43,8 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @Testcontainers
 @ActiveProfiles("db-migration")
 @AutoConfigureMockMvc
+@Tag("integration")
+
 // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 @AutoConfigureWireMock(port = 9999)
 public class ProductMvcTest {

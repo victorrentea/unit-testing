@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Tag("integration")
+
 public class MockBeanTest {
    @MockBean
    public SafetyClient mockSafetyClient;
