@@ -21,21 +21,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Testcontainers
 public class ProductRepoTestcontainersTest {
+    // === A) Start/Stop the container for each test class (not so efficient) ===
     @Container
     static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
+
+    // === B) Reuse the container across multiple test classes ===
+//    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11").withReuse(true);
+//    @BeforeAll
+//    public static void startTestcontainer() {
+//        postgres.start();
+//    }
 
     @DynamicPropertySource
     public static void registerPgProperties(DynamicPropertyRegistry registry) {
         TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
     }
-
-    // === Reuse the testcontainer across multiple test classes ===
-//    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11")
-//                    .withReuse(true);
-//    @BeforeAll
-//    public static void startTestcontainer() {
-//        postgres.start();
-//    }
 
     @Autowired
     private ProductRepo repo;
