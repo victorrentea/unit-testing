@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.cache.ContextCache;
 import org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate;
 
@@ -12,6 +13,7 @@ import java.lang.reflect.Field;
 
 @Slf4j
 @DataJpaTest
+@ActiveProfiles("db-mem")
 //@SpringBootTest
 public class TestIncet2AltaClasa {
     @SneakyThrows

@@ -14,7 +14,7 @@ import victor.testing.spring.repo.ProductRepo;
 //@Configuration
 //class SecurityConfig {}
 @Slf4j
-
+@ActiveProfiles("db-mem")
 //@DataJpaTest // test slices : porneste din Spring Boot doar parti mici : merge mai repede testu tau in clasa asta (pe local),
 //  #4 dar pe CI ar putea cauza sa se creeze inca un context dedicat pt clasa asta
 

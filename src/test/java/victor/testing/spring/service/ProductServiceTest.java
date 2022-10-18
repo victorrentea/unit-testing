@@ -1,5 +1,7 @@
 package victor.testing.spring.service;
 
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,7 @@ import static org.mockito.Mockito.*;
 // Vlad: dupa fiecare @Test sa fac ROLLBACK la tranzactia pe care am jucat @Testul meu
 // (in care am inserat date in DB, selectat, testat , etc)
 
+@Slf4j
 @SpringBootTest
 @ActiveProfiles("db-mem")
 @Transactional
@@ -69,6 +72,13 @@ public class ProductServiceTest {
               .isInstanceOf(IllegalStateException.class);
    }
 
+   @SneakyThrows
+   public static void staiUnPic() {
+      log.info("Start");
+      Thread.sleep(2000);
+      log.info("End");
+   }
+
    @Test
    public void vic_createOk() {
       // GIVEN
@@ -77,6 +87,7 @@ public class ProductServiceTest {
       when(safetyClientMock.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
+      staiUnPic();
       // WHEN
       productService.createProduct(dto);
 
@@ -98,6 +109,8 @@ public class ProductServiceTest {
       when(safetyClientMock.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
+
+      staiUnPic();
       // WHEN
       productService.createProduct(dto);
 
