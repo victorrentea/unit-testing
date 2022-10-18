@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+
+// Vlad: dupa fiecare @Test sa fac ROLLBACK la tranzactia pe care am inserat date in DB
+
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class ProductServiceTest {
@@ -34,6 +38,11 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
+   @AfterEach
+   public void curataDupaMine() {
+      productRepo.deleteAll();
+      supplierRepo.deleteAll();
+   }
    @Test
    public void createThrowsForUnsafeProduct() {
       when(safetyClientMock.isSafe("bar")).thenReturn(false);
