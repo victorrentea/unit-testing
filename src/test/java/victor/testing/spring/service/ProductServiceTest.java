@@ -28,16 +28,16 @@ import static org.mockito.Mockito.*;
 
 // Vlad: dupa fiecare @Test sa fac ROLLBACK la tranzactia pe care am jucat @Testul meu
 // (in care am inserat date in DB, selectat, testat , etc)
-//@Transactional
-//
-//@SpringBootTest
-//@ActiveProfiles("db-mem")
+
+@SpringBootTest
+@ActiveProfiles("db-mem")
+@Transactional
 
 // rau, mananca timp
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // = Nukes Spring. Killareste contextul si-l forteaza sa se REPORNEASCA (banner)
 
 //@Execution(ExecutionMode.SAME_THREAD) // !!! Atentie
-public class ProductServiceTest extends AbstractInMemDBTest{
+public class ProductServiceTest {
    @MockBean // inlocuieste beanul real SafetyClient din Spring context
    // cu un mock Mockito, pe care ti-l si injecteaza in campul asta,
    // ca sa-i poti face ce-i faci de ob unui mock. ! intre @Test, behaviorul
