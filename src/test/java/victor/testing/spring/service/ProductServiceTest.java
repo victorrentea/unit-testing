@@ -9,6 +9,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
@@ -28,7 +29,10 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
-@Execution(ExecutionMode.SAME_THREAD) // !!! Atentie
+
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // = Nukes Spring. Killareste contextul si-l forteaza sa se REPORNEASCA (banner)
+
+//@Execution(ExecutionMode.SAME_THREAD) // !!! Atentie
 public class ProductServiceTest {
    @MockBean // inlocuieste beanul real SafetyClient din Spring context
    // cu un mock Mockito, pe care ti-l si injecteaza in campul asta,
@@ -42,15 +46,16 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
-   @BeforeEach // daca tre sa cureti ceva "sa pleci de pe curat" <<< asta!
+   // daca tre sa cureti ceva "sa pleci de pe curat" <<< asta!
       // NU pentru Relational DBs. Asta e buna pentru orice altceva:
    // de golit cozi, cacheuri, mongo, cassandra, unic in Spring. fisiere.
    // (daca joci multithreading pe astea --- esti mort)
-   @AfterEach// paranoia?
-   public void curataDupaMine() {
-      productRepo.deleteAll();
-      supplierRepo.deleteAll();
-   }
+//   @BeforeEach
+//   @AfterEach// paranoia?
+//   public void curataDupaMine() {
+//      productRepo.deleteAll();
+//      supplierRepo.deleteAll();
+//   }
    @Test
    public void createThrowsForUnsafeProduct() {
       when(safetyClientMock.isSafe("bar")).thenReturn(false);
