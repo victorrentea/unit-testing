@@ -10,7 +10,7 @@ public class TestIncet2AltaClasa {
     @Test
     void trei() throws InterruptedException {
         log.info("Start3");
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         log.info("End3");
     }
 

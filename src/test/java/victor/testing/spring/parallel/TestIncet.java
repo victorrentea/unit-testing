@@ -10,13 +10,13 @@ public class TestIncet {
     @Test
     void unu() throws InterruptedException {
         log.info("Start1");
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         log.info("End1");
     }
     @Test
     void doi() throws InterruptedException {
         log.info("Start2");
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         log.info("End2");
     }
 }
