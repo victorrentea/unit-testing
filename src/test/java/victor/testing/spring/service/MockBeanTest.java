@@ -15,6 +15,8 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
+import java.util.Optional;
+
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
@@ -45,7 +47,7 @@ public class MockBeanTest {
    public void createOk() {
       // GIVEN
       Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.getReferenceById(supplier.getId())).thenReturn(supplier);
+      when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME);
 

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
@@ -23,9 +24,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @ActiveProfiles("db-mem")
 @Transactional
+@AutoConfigureWireMock(port = 9999)
 public class WireMockTest {
-    @RegisterExtension // starts-stops the WireMock web server that replies with pre-configured JSON responses
-    public WireMockExtension wireMock = new WireMockExtension(9999);
     @Autowired
     private ProductRepo productRepo;
     @Autowired
