@@ -56,7 +56,7 @@ public class ProductService {
             .getCreateDate().isAfter(oneYearAgo);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW) // oups: buseste testul
+//    @Transactional(propagation = Propagation.REQUIRES_NEW) // oups: buseste testul
     public void horror() {
         productRepo.save(new Product());
     }
