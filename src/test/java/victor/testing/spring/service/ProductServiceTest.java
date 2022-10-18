@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
 
 @Slf4j
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("db-mem-flyway")
 @Transactional
 
 // rau, mananca timp
