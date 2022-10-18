@@ -53,7 +53,7 @@ public class ProductServiceTest {
    }
 
    @Test
-   public void createOk() {
+   public void vic_createOk() {
       // GIVEN
       // in loc de a "stabui" apelul de repo, fac un "save" inainte de a chema codul testat
       Long supplierId = supplierRepo.save(new Supplier("de ce Doamne?")).getId();
@@ -74,7 +74,7 @@ public class ProductServiceTest {
    }
 
    @Test
-   public void createOkBis() {
+   public void vic_createOkBis() {
       // GIVEN
       // in loc de a "stabui" apelul de repo, fac un "save" inainte de a chema codul testat
       Long supplierId = supplierRepo.save(new Supplier("de ce Doamne?")).getId();
