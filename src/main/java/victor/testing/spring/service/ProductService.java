@@ -1,6 +1,9 @@
 package victor.testing.spring.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.nullness.qual.PolyRaw;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.infra.SafetyClient;
@@ -36,8 +39,7 @@ public class ProductService {
         product.setName(productDto.name);
         product.setCategory(productDto.category);
         product.setBarcode(productDto.barcode);
-        product.setSupplier(supplierRepo.getReferenceById(productDto.supplierId));
-        // TODO CR check that the supplier is active!
+        product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
         product.setCreateDate(LocalDateTime.now());
         productRepo.save(product);
     }
@@ -52,3 +54,4 @@ public class ProductService {
             .getCreateDate().isAfter(oneYearAgo);
     }
 }
+
