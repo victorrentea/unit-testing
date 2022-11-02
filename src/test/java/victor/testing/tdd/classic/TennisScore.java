@@ -20,8 +20,10 @@ public class TennisScore {
             player2Points++;
         }
     }
+//    private static final String scores[]={"Love","Fifteen", "Thirty", "Forty"};
 
     private String translate(int points) {
+//        return scores[points];
         return switch (points) {
             case 0 -> "Love";
             case 1 -> "Fifteen";
