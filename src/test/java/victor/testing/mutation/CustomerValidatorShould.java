@@ -29,10 +29,13 @@ public class CustomerValidatorShould {
 
       // org.junit.jupiter.api.Assertions (java5) <- sucks!. never use it,
       // instead use AssertJ library
+      // ❤️org.assertj.core.api.Assertions.assertThatThrownBy(org.assertj.core.api.ThrowableAssert.ThrowingCallable)
       assertThatThrownBy(() -> validator.validate(customer))
               .isInstanceOf(IllegalArgumentException.class)
-              .hasMessage("Missing customer name");
-//              .hasMessageContaining("name");
+//              .matches(e -> e.getCode() == MISSING_NAME) // enum alternative
+              .hasMessage("Missing the customer name") // the most precise, best for ex messages aimed for developoers only.
+      ;
+//              .hasMessageContaining("name"); // less failures, possible false negatives
    }
 
 }
