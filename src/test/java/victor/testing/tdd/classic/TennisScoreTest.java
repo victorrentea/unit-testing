@@ -45,13 +45,14 @@ public class TennisScoreTest {
         tennisScore.addPoint(Player.TWO);
         tennisScore.addPoint(Player.TWO);
         String actual = tennisScore.getScore();
-        assertThat(actual).isEqualTo("Love:Thirty");
+        assertThat(actual).isEqualTo("Love:Forty");
     }
-//    @Test// redundant/overlapping test
+    @Test// redundant/overlapping test
     // in TDD when a new test is already green
     // - stupid your test is INCORRECT
-    // - stupid
-    // - smart
+    // - stupid accidental overlap believe this part of the feature was NOT eyy implment
+    // - ME: smart if you TRANSLATE 1:1 the examples in the spec to tests.
+    //      "For example: Exa1, Exa2... " in a feature description/spec
     void fortyLove() {
         tennisScore.addPoint(Player.ONE);
         tennisScore.addPoint(Player.ONE);
@@ -59,4 +60,33 @@ public class TennisScoreTest {
         String actual = tennisScore.getScore();
         assertThat(actual).isEqualTo("Forty:Love");
     }
+
+    @Test
+    void deuce() {
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        String actual = tennisScore.getScore();
+        assertThat(actual).isEqualTo("Deuce");
+    }
+    @Test
+    void deuce4() {
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE);
+        tennisScore.addPoint(Player.ONE); // YES We Enjoy Typing = WET <> DRY
+
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        tennisScore.addPoint(Player.TWO);
+        String actual = tennisScore.getScore();
+        assertThat(actual).isEqualTo("Deuce");
+    }
+
+
+
 }

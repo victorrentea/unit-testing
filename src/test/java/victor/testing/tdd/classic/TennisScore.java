@@ -7,6 +7,9 @@ public class TennisScore {
     private int player2Points = 0;
 
     public String getScore() {
+        if (player1Points >= 3 && player1Points == player2Points) {
+            return "Deuce";
+        }
         return translate(player1Points) + ":" + translate(player2Points);
     }
 
@@ -23,12 +26,12 @@ public class TennisScore {
             return "Love";
         } else if (points == 1) {
             return "Fifteen";
-        } else {
+        } else if (points ==2){
             return "Thirty";
-//        } else if (points == 3) {
-//            return "Forty";
+        } else if (points == 3 ) {
+            return "Forty";
         }
-//        throw new IllegalArgumentException("impossible");
+        throw new IllegalArgumentException("impossible");
     }
 
     // Simon says... anticipating this implem funct > DON'T TEST IMPLEM FUNCTIONS.
