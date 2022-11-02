@@ -66,6 +66,7 @@ public class TennisScoreTest {
         tennisScore.addPoint(Player.ONE);
         tennisScore.addPoint(Player.ONE);
         tennisScore.addPoint(Player.ONE);
+
         tennisScore.addPoint(Player.TWO);
         tennisScore.addPoint(Player.TWO);
         tennisScore.addPoint(Player.TWO);
