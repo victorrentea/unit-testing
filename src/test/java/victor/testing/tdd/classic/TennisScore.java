@@ -1,18 +1,22 @@
 package victor.testing.tdd.classic;
 
-public class TennisScore {
-    private static String firstPlayerScore = "Love";
-    private static String secondPlayerScore = "Love";
+import java.util.Objects;
 
-    public static String getScore() {
+public class TennisScore {
+    private String firstPlayerScore = "Love";
+    private String secondPlayerScore = "Love";
+
+    public String getScore() {
         return firstPlayerScore + ":" + secondPlayerScore;
     }
 
-    public static void addPoint(Player player) {
+    public void addPoint(Player player) {
         if (player==Player.ONE) {
             firstPlayerScore = "Fifteen";
         } else {
-            secondPlayerScore = "Fifteen";
+            if (Objects.equals(secondPlayerScore, "Fifteen"))
+                secondPlayerScore = "Thirty";
+            else secondPlayerScore = "Fifteen";
         }
     }
 
