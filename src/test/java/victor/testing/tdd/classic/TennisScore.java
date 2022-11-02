@@ -22,16 +22,13 @@ public class TennisScore {
     }
 
     private String translate(int points) {
-        if (points == 0) {
-            return "Love";
-        } else if (points == 1) {
-            return "Fifteen";
-        } else if (points ==2){
-            return "Thirty";
-        } else if (points == 3 ) {
-            return "Forty";
-        }
-        throw new IllegalArgumentException("impossible");
+        return switch (points) {
+            case 0 -> "Love";
+            case 1 -> "Fifteen";
+            case 2 -> "Thirty";
+            case 3 -> "Forty";
+            default -> throw new IllegalArgumentException("impossible");
+        };
     }
 
     // Simon says... anticipating this implem funct > DON'T TEST IMPLEM FUNCTIONS.
