@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 public class CustomerValidator {
 	public void validate(Customer customer) {
 		if (customer.getName() == null) {
-			throw new IllegalArgumentException("Missing customer name");
+			throw new IllegalArgumentException("Missing the customer name");
 		}
 		if (customer.getEmail() == null) {
 			throw new IllegalArgumentException("Missing customer email");
