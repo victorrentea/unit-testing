@@ -14,10 +14,15 @@ import java.util.List;
 public class TimeBasedLogic {
    private final OrderRepo orderRepo;
 
-   // how dare you pollute the public api under test JUST FOR THE SAKE OF TESTS
-   public boolean isFrequentBuyer(int customerId) {
-      return isFrequentBuyer(customerId, LocalDate.now());
-   }
+    // how dare you pollute the public api under test JUST FOR THE SAKE OF TESTS
+    public boolean isFrequentBuyer(int customerId) {
+        // the BIG IDEA behind this approach:
+         // leave outside of complex logic all dependencies to ease testing
+        // PHILOSOPHY MOMENT:
+            // The more complex some code is, the more decoupled you should (try) to make it
+        return isFrequentBuyer(customerId, LocalDate.now());
+    }
+
    @VisibleForTesting
     boolean isFrequentBuyer(int customerId, LocalDate now) {
 //      LocalDate now = LocalDate.now(); // hidden coupling to the 'current' time
