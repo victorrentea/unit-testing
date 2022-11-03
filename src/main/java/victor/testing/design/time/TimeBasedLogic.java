@@ -13,6 +13,7 @@ import java.util.List;
 public class TimeBasedLogic {
    private final OrderRepo orderRepo;
 
+   // how dare you pollute the public api under test JUST FOR THE SAKE OF TESTS
    public boolean isFrequentBuyer(int customerId, LocalDate now) {
 //      LocalDate now = LocalDate.now(); // hidden coupling to the 'current' time
       LocalDate sevenDaysAgo = now.minusDays(7);
