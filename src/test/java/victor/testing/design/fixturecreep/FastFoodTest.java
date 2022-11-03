@@ -11,13 +11,13 @@ import org.mockito.quality.Strictness;
 
 import static org.mockito.Mockito.*;
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 //@MockitoSettings(strictness = Strictness.LENIENT) // DO NOT DO THIS!
 class FastFoodTest {
-//   @Mock
-   Dependency dependency = mock(Dependency.class);
-//   @InjectMocks
-   FastFood fastFood = new FastFood(dependency);
+   @Mock
+   Dependency dependency;
+   @InjectMocks
+   FastFood fastFood;
 
    @BeforeEach
    final void before() {
