@@ -26,7 +26,6 @@ class TimeBasedLogicTest {
    OrderRepo orderRepo;
    @InjectMocks
    TimeBasedLogic target;
-   private LocalDateTime now = LocalDateTime.now();
 
 
    //   @Mock Clock clock; // exposing some awkward library Intant ZoneId
@@ -35,12 +34,12 @@ class TimeBasedLogicTest {
    void isFrequentBuyer() {
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
           13,
-              now.minus(7*23*3600, ChronoUnit.SECONDS),
-             now))
+              LocalDate.parse("2022-12-18"),
+              LocalDate.parse("2022-12-25")))
         .thenReturn(List.of(new Order().setTotalAmount(130d)));
 
       // call to tested code
-      assertThat(target.isFrequentBuyer(13, now)).isTrue();
+      assertThat(target.isFrequentBuyer(13, LocalDate.parse("2022-12-25"))).isTrue();
 
       //NO too heavy 3.5y ago 1: inject a Clock; Hint: you'll need ZoneId.systemDefault()
       //NO 3: inject a Supplier<LocalDate> - FP maniac version
