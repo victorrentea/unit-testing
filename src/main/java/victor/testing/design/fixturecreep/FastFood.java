@@ -9,16 +9,16 @@ public class FastFood {
 
    public void makeShawarma() {
       if (!dependency.isOnionAllowed()) {
-         throw new IllegalArgumentException();
+         throw new IllegalArgumentException("Unconceivable!!!!!(*%#@(*&%*(!^&%(");
       }
-      // complex logic
+      // complex logic >= 7 if
    }
 
    public void makeTzatziki() {
       if (!dependency.isCucumberAllowed()) {
          throw new IllegalArgumentException();
       }
-      // complex logic
+      // complex logic >= 5 Imagine Dragons
    }
 }
 
