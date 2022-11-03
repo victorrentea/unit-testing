@@ -1,7 +1,6 @@
 package victor.testing.mutation;
 
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,17 +8,22 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 public class CustomerValidatorShould {
+   private static Customer validCustomer = new Customer()
+           .setName("::name::")
+           .setEmail("::email::")
+           .setAddress(new Address().setCity("::city::"));
    CustomerValidator validator = new CustomerValidator();
 
    @Test
    void validate1() {
-      Customer customer = new Customer();
-      customer.setName("::name::");
-      customer.setEmail("::email::");
-      customer.setAddress(new Address());
-      customer.getAddress().setCity("::city::");
-      validator.validate(customer);
+      validator.validate(validCustomer);
    }
+   @Test
+   void throwsForNullName() {
+      assertThatThrownBy(() ->validator.validate(validCustomer.setName(null)));
+   }
+
+
    @Test
 //   void whenTheCustomerNameIsNull_throw() { // given..when..then approach of naming 🥱
    @DisplayName("strange edge case you need a human readable explanation from 1y ago that no one updated")
