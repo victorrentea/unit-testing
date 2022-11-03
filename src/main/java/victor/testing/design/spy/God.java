@@ -1,6 +1,8 @@
 package victor.testing.design.spy;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.Data;
+import org.mockito.Spy;
 
 import java.time.LocalDate;
 
@@ -17,7 +19,8 @@ public class God {
       return "regular";
    }
 
-   public void low(Order order) {
+   @VisibleForTesting
+   void low(Order order) { // Package Protected
       // complexity requiring 5+ tests
       if (order.getCreationDate().isBefore(now().minusMonths(1))) {
          throw new IllegalArgumentException("Order too old");
