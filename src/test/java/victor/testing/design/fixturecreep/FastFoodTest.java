@@ -11,19 +11,19 @@ import org.mockito.quality.Strictness;
 
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
 //@MockitoSettings(strictness = Strictness.LENIENT) // DO NOT DO THIS!
 class FastFoodTest {
-   @Mock
-   Dependency dependency;
-   @InjectMocks
-   FastFood fastFood;
+//   @Mock
+   Dependency dependency = mock(Dependency.class);
+//   @InjectMocks
+   FastFood fastFood = new FastFood(dependency);
 
    @BeforeEach
    final void before() {
       // maybe one dark night . perhaps. For ONE call
-      lenient().when(dependency.isOnionAllowed()).thenReturn(true);
-      lenient().when(dependency.isCucumberAllowed()).thenReturn(true);
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
