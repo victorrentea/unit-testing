@@ -6,14 +6,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 //@MockitoSettings(strictness = Strictness.LENIENT) // DO NOT DO THIS!
-class FastFoodTest {
+class ShawormaTest {
    @Mock
    Dependency dependency;
    @InjectMocks
@@ -23,7 +21,6 @@ class FastFoodTest {
    final void before() {
       // maybe one dark night . perhaps. For ONE call
       when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
@@ -40,21 +37,5 @@ class FastFoodTest {
    void shawarmaTest6() { // + 7 more tests
       // ... complex
       fastFood.makeShawarma();
-   }
-
-   @Test
-   void tzatzikiTest() { // + 5 more tests
-      // ... complex
-      fastFood.makeTzatziki();
-   }
-   @Test
-   void tzatzikiTest1() { // + 5 more tests
-      // ... complex
-      fastFood.makeTzatziki();
-   }
-   @Test
-   void tzatzikiTest2() { // + 5 more tests
-      // ... complex
-      fastFood.makeTzatziki();
    }
 }
