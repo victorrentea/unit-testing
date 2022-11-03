@@ -1,9 +1,6 @@
 package victor.testing.tdd.classic;
 
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,16 +60,19 @@ public class TennisScoreTest {
 
     @Test
     void deuce() {
-        tennisScore.addPoint(Player.ONE);
-        tennisScore.addPoint(Player.ONE);
-        tennisScore.addPoint(Player.ONE);
-
-        tennisScore.addPoint(Player.TWO);
-        tennisScore.addPoint(Player.TWO);
-        tennisScore.addPoint(Player.TWO);
+        addPoints(3, Player.ONE);
+        addPoints(3, Player.TWO);
         String actual = tennisScore.getScore();
         assertThat(actual).isEqualTo("Deuce");
     }
+
+    // my own little testing helper method.
+    private void addPoints(int points, Player player) {
+        for (int i = 0; i < points; i++) {
+            tennisScore.addPoint(player);
+        }
+    }
+
     @Test
     void deuce4() {
         tennisScore.addPoint(Player.ONE);

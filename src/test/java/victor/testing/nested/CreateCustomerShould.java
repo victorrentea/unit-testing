@@ -39,7 +39,7 @@ class CreateCustomerShould {
 
    Customer aValidCustomer;
    @BeforeEach
-   public final void before() {
+   public final void before() { // useful for both @Nested classes inside (both branches)
       customerFacade = new CustomerFacade(new CustomerValidator(), customerRepo, emailClient);
 
       aValidCustomer = new Customer();
@@ -83,6 +83,7 @@ class CreateCustomerShould {
    class GivenAValidCustomer {
       @BeforeEach
       public final void before() {
+         // hierarchical test fixtures: @Tests in this class run 2 @Before
          when(customerRepo.countByEmail("::email::")).thenReturn(0);
       }
       @Test
