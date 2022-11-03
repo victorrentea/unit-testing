@@ -12,7 +12,7 @@ import org.mockito.quality.Strictness;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-//@MockitoSettings(strictness = Strictness.LENIENT) // DO NOT DO THIS!
+@MockitoSettings(strictness = Strictness.LENIENT) // DO NOT DO THIS!
 class FastFoodTest {
    @Mock
    Dependency dependency;
