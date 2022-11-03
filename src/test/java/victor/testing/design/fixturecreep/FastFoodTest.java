@@ -12,7 +12,7 @@ import org.mockito.quality.Strictness;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT) // DO NOT DO THIS!
+//@MockitoSettings(strictness = Strictness.LENIENT) // DO NOT DO THIS!
 class FastFoodTest {
    @Mock
    Dependency dependency;
@@ -21,14 +21,9 @@ class FastFoodTest {
 
    @BeforeEach
    final void before() {
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
+      // maybe one dark night . perhaps. For ONE call
+      lenient().when(dependency.isOnionAllowed()).thenReturn(true);
+      lenient().when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
