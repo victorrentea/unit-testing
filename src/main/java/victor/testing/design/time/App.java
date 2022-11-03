@@ -21,8 +21,8 @@ public class App implements CommandLineRunner {
    @Override
    public void run(String... args) throws Exception {
       // calls happen from many places in existing code:
-      timeBasedLogic.isFrequentBuyer(13);
-      timeBasedLogic.isFrequentBuyer(13);
-      timeBasedLogic.isFrequentBuyer(13);
+//      timeBasedLogic.isFrequentBuyer(13, now());
+//      timeBasedLogic.isFrequentBuyer(13, now());
+//      timeBasedLogic.isFrequentBuyer(13, now());
    }
 }
