@@ -56,8 +56,7 @@ class ReactiveBugsTest {
 
     @Test
     void flatMapLoss() {
-        PublisherProbe<ReactiveBugs.A> aProbe = of(Mono.just(A));
-        when(dependencyMock.fetchA(ID)).thenReturn(aProbe.mono());
+        when(dependencyMock.fetchA(ID)).thenReturn(Mono.just(A));
         when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
         PublisherProbe<Void> saveProbe = empty();
         when(dependencyMock.saveA(A)).thenReturn(saveProbe.mono());
@@ -70,9 +69,12 @@ class ReactiveBugsTest {
     }
 
     @Test
-    void flatMapLossWhenNoBFound() {
-        PublisherProbe<ReactiveBugs.A> aProbe = of(Mono.just(A));
-        when(dependencyMock.fetchA(ID)).thenReturn(aProbe.mono());
+//    @MyExtension
+    void flatMapLossWhenNoBFound(/*??? once*/) {
+//        when(dependencyMock.fetchA(ID)).thenReturn(once(Mono.just(A)));
+        PublisherProbe<ReactiveBugs.A> aProbe = of(Mono.just(A));//
+        when(dependencyMock.fetchA(ID)).thenReturn(aProbe.mono()); //
+
         when(dependencyMock.fetchB(A)).thenReturn(Mono.empty());
         PublisherProbe<Void> saveProbe = empty();
         when(dependencyMock.saveA(A)).thenReturn(saveProbe.mono());
@@ -82,5 +84,6 @@ class ReactiveBugsTest {
                 .verifyComplete(); // nothing happens in prd until you subscribe
 
         assertThat(saveProbe.subscribeCount()).isEqualTo(1);
+        assertThat(aProbe.subscribeCount()).isEqualTo(1); //
     }
 }
