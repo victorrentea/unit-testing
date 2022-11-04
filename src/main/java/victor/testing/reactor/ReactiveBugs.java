@@ -37,11 +37,9 @@ public class ReactiveBugs {
     public Mono<C> triangleOfDeath(int id) {
         // TODO how to fix the bug [you] (avoid subscribing twice to monoA)
         // DON'T REUSE THE MONO A
-        Mono<A> monoA = dependency.fetchA(id);
-        Mono<B> monoB = monoA.flatMap(a -> dependency.fetchB(a));
-        Mono<C> monoC = monoA.zipWith(monoB)
-                .flatMap(tuple -> dependency.fetchC(tuple.getT1(), tuple.getT2()));
-        return monoC;
+        return dependency.fetchA(id)
+                .zipWhen(dependency::fetchB)
+                .flatMap(TupleUtils.function(dependency::fetchC));
     }
 
     // ================================================================
