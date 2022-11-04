@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ReactiveBugsTest {
     public static final int ID = 1;
-    public static final ReactiveBugs.A A = new A(ID);
+    public static final A A = new A(ID);
     public static final ReactiveBugs.B B = new B();
     public static final ReactiveBugs.C C = new C();
     @Mock
@@ -29,13 +29,11 @@ class ReactiveBugsTest {
 
     @Test
     void triangleOfDeath() {
-        // Idea #2 let's mock the Mono itself : which of the 7 subscribe(..) methods you want to verify >
-        // NEVER Mock MONO!!
-//        Mono mock = mock(Mono.class);
-        //        PublisherProbe.of(); // inspect the calls
-        when(dependencyMock.fetchA(ID)).thenReturn(Mono.just(A).doOnSubscribe(s -> {
+        PublisherProbe<A> monoA = PublisherProbe.of(Mono.just(A).doOnSubscribe(s -> {
             System.out.println("FIRE IN THE HOLE!");
         }));
+
+        when(dependencyMock.fetchA(ID)).thenReturn(monoA.mono());
         when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
         when(dependencyMock.fetchC(A, B)).thenReturn(Mono.just(C));
 
@@ -43,6 +41,7 @@ class ReactiveBugsTest {
 
         C actual = monoC.block(); // subscibed and BLOCKed the JUnit main thread for the called f to complete
         assertThat(actual).isEqualTo(C);
-        verify(dependencyMock).fetchA(ID);
+        verify(dependencyMock).fetchA(ID); // idea #1: check fetchA is actually called only once - not helpful in reactive calls
+        assertThat(monoA.subscribeCount()).isEqualTo(1);
     }
 }
