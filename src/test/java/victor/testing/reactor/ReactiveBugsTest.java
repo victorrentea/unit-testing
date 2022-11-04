@@ -13,6 +13,7 @@ import victor.testing.reactor.ReactiveBugs.A;
 import victor.testing.reactor.ReactiveBugs.B;
 import victor.testing.reactor.ReactiveBugs.C;
 import victor.testing.reactor.ReactiveBugs.Dependency;
+import victor.testing.tools.CaptureSystemOutput;
 import victor.testing.tools.ProbeExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -90,5 +91,14 @@ class ReactiveBugsTest {
         when(dependencyMock.auditA(A)).thenReturn(probes.once(Mono.empty()));
 
         assertThat(target.fireAndForget(ID).block()).isEqualTo(A);
+    }
+    @Test
+    @CaptureSystemOutput
+    void flowShouldNotFailWhenAuditErrors(CaptureSystemOutput.OutputCapture capture) {
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
+        when(dependencyMock.auditA(A)).thenReturn(probes.once(Mono.error(new RuntimeException("TESTEX"))));
+
+        assertThat(target.fireAndForget(ID).block()).isEqualTo(A);
+        assertThat(capture.toString()).contains("TESTEX");
     }
 }

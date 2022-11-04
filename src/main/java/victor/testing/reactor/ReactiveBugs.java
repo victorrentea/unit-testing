@@ -59,7 +59,6 @@ public class ReactiveBugs {
      * Apply logic and save A back to the datastore.
      */
     public Mono<Void> flatMapLoss(int id, String data) {
-        dependency.fetchA(id).block();
         return dependency.fetchA(id)
                 .zipWhen(a -> dependency.fetchB(a)
                         .map(Optional::of)
@@ -95,17 +94,21 @@ public class ReactiveBugs {
      * Default go-to: .flatMap
      * Better solution: .delayUntil
      * Later CR#1: errors in audit should not fail the main flow (eg. errors in Kafka.send)
+     *      please make sure any errors in audit do not kill the flow no .error
+     *
      * Later CR#2: the main flow should not wait for the audit to be performed (eg. delays in Kafka.send)
      */
     public Mono<A> fireAndForget(int id) {
         return dependency.fetchA(id)
-//                .delayUntil(dependency::auditA) // identical beh with the line below
+                .delayUntil(a -> dependency.auditA(a)
+                        .doOnError(e -> log.error("OMG!", e))
+                        .onErrorResume(e -> Mono.empty())) // identical beh with the line below
 //                .flatMap(a -> dependency.auditA(a).thenReturn(a))
 
                 // 95% of time we uyse doOnNext for logging: burry the logging deeper in the 'colabborator methods',
                 // don't pollute your topLevel reactive chain (push it inside fetchA()
 
-                .doOnNext(a -> dependency.auditA(a).block()) // just the blocking(worst) alternative to flatMap/delayUntil
+//                .doOnNext(a -> dependency.auditA(a).block()) // just the blocking(worst) alternative to flatMap/delayUntil
                 ;
     }
 }
