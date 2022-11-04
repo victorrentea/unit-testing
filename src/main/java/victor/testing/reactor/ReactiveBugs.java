@@ -102,9 +102,12 @@ public class ReactiveBugs {
      */
     public Mono<A> fireAndForget(int id) {
         return dependency.fetchA(id)
-                .delayUntil(a -> dependency.auditA(a)
-                        .doOnError(e -> log.error("OMG!", e))
-                        .onErrorResume(e -> Mono.empty())) // identical beh with the line below
+                .doOnNext(a -> dependency.auditA(a)
+                            .subscribe(v->{}, e -> log.error("OMG!", e) ))
+
+//                .delayUntil(a -> dependency.auditA(a)
+//                        .doOnError(e -> log.error("OMG!", e))
+//                        .onErrorResume(e -> Mono.empty())) // identical beh with the line below
 //                .flatMap(a -> dependency.auditA(a).thenReturn(a))
 
                 // 95% of time we uyse doOnNext for logging: burry the logging deeper in the 'colabborator methods',
