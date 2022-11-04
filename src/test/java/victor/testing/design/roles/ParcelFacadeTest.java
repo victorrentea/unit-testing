@@ -49,6 +49,6 @@ class ParcelFacadeTest {
       verify(displayService).displayAWB(parcel);
       verify(displayService).displayMultiParcelWarning();
       verify(platformService).addParcel(parcel);
-      verify(trackingService).markDepartingWarehouse("AWB", 99, trackingProviders);
+      verify(trackingService).markDepartingWarehouse(99, parcel);
    }
 }
