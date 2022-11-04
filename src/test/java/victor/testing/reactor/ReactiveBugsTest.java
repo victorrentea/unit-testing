@@ -14,6 +14,7 @@ import victor.testing.reactor.ReactiveBugs.Dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,5 +42,6 @@ class ReactiveBugsTest {
 
         C actual = monoC.block(); // subscibed and BLOCKed the JUnit main thread for the called f to complete
         assertThat(actual).isEqualTo(C);
+        verify(dependencyMock).fetchA(ID);
     }
 }
