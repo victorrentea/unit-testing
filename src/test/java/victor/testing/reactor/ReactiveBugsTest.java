@@ -40,9 +40,8 @@ class ReactiveBugsTest {
         Mono<C> monoC = target.triangleOfDeath(ID);
 
         C actual = monoC.block(); // subscibed and BLOCKed the JUnit main thread for the called f to complete
+
         assertThat(actual).isEqualTo(C);
-        // this is NOT this necessary, as the same publisher probe is returned even if the prod code calls fetchA() twice
-        // verify(dependencyMock).fetchA(ID); // idea #1: check fetchA is actually called only once - not helpful in reactive calls
         assertThat(monoA.subscribeCount()).isEqualTo(1);
     }
 }
