@@ -99,8 +99,13 @@ public class ReactiveBugs {
      */
     public Mono<A> fireAndForget(int id) {
         return dependency.fetchA(id)
-                .delayUntil(dependency::auditA) // identical beh with the line below
+//                .delayUntil(dependency::auditA) // identical beh with the line below
 //                .flatMap(a -> dependency.auditA(a).thenReturn(a))
+
+                // 95% of time we uyse doOnNext for logging: burry the logging deeper in the 'colabborator methods',
+                // don't pollute your topLevel reactive chain (push it inside fetchA()
+
+                .doOnNext(a -> dependency.auditA(a).block())
                 ;
     }
 }
