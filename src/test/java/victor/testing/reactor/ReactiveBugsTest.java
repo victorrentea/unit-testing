@@ -66,4 +66,19 @@ class ReactiveBugsTest {
 
         assertThat(saveProbe.subscribeCount()).isEqualTo(1);
     }
+
+    @Test
+    void flatMapLossWhenNoBFound() {
+        PublisherProbe<ReactiveBugs.A> aProbe = of(Mono.just(A));
+        when(dependencyMock.fetchA(ID)).thenReturn(aProbe.mono());
+        when(dependencyMock.fetchB(A)).thenReturn(Mono.empty());
+        PublisherProbe<Void> saveProbe = empty();
+        when(dependencyMock.saveA(A)).thenReturn(saveProbe.mono());
+
+        target.flatMapLoss(ID, "data")
+                .as(StepVerifier::create)
+                .verifyComplete(); // nothing happens in prd until you subscribe
+
+        assertThat(saveProbe.subscribeCount()).isEqualTo(1);
+    }
 }
