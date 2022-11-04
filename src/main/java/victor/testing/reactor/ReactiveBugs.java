@@ -1,5 +1,6 @@
 package victor.testing.reactor;
 
+import org.testcontainers.shaded.com.google.common.annotations.VisibleForTesting;
 import reactor.core.publisher.Mono;
 import reactor.function.TupleUtils;
 
@@ -46,7 +47,8 @@ public class ReactiveBugs {
     // ================================================================
 
     /**
-     * Retrieve A, then B for that A (⚠️ you might find no B for that A).
+     * Retrieve A, then B for that A
+     * (⚠️ you might find no B for that A).
      * Apply logic and save A back to the datastore.
      */
     public Mono<Void> flatMapLoss(int id, String data) {
@@ -56,7 +58,8 @@ public class ReactiveBugs {
                 .flatMap(a -> dependency.saveA(a));
     }
 
-    private A logic(A a, B b, String data) {
+    @VisibleForTesting
+     A logic(A a, B b, String data) {
         // complex logic, implem in imperative style (no Publishers) ❤️
         // returning the results in A. using B if any
         return a;

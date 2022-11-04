@@ -16,6 +16,8 @@ import victor.testing.reactor.ReactiveBugs.Dependency;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static reactor.test.publisher.PublisherProbe.empty;
+import static reactor.test.publisher.PublisherProbe.of;
 
 @ExtendWith(MockitoExtension.class)
 class ReactiveBugsTest {
@@ -30,7 +32,7 @@ class ReactiveBugsTest {
 
     @Test
     void triangleOfDeath() {
-        PublisherProbe<A> monoA = PublisherProbe.of(Mono.just(A));
+        PublisherProbe<A> monoA = of(Mono.just(A));
         when(dependencyMock.fetchA(ID)).thenReturn(monoA.mono());
         when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
         when(dependencyMock.fetchC(A, B)).thenReturn(Mono.just(C));
@@ -48,5 +50,20 @@ class ReactiveBugsTest {
                 .verifyComplete();
 
         assertThat(monoA.subscribeCount()).isEqualTo(1);
+    }
+
+    @Test
+    void flatMapLoss() {
+        PublisherProbe<ReactiveBugs.A> aProbe = of(Mono.just(A));
+        when(dependencyMock.fetchA(ID)).thenReturn(aProbe.mono());
+        when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
+        PublisherProbe<Void> saveProbe = empty();
+        when(dependencyMock.saveA(A)).thenReturn(saveProbe.mono());
+
+        target.flatMapLoss(ID, "data")
+                .as(StepVerifier::create)
+                .verifyComplete(); // nothing happens in prd until you subscribe
+
+        assertThat(saveProbe.subscribeCount()).isEqualTo(1);
     }
 }
