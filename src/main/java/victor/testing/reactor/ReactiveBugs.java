@@ -59,6 +59,7 @@ public class ReactiveBugs {
      * Apply logic and save A back to the datastore.
      */
     public Mono<Void> flatMapLoss(int id, String data) {
+        dependency.fetchA(id).block();
         return dependency.fetchA(id)
                 .zipWhen(a -> dependency.fetchB(a)
                         .map(Optional::of)

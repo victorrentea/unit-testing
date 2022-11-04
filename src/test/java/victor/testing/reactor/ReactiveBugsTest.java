@@ -2,6 +2,7 @@ package victor.testing.reactor;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -14,6 +15,7 @@ import victor.testing.reactor.ReactiveBugs.A;
 import victor.testing.reactor.ReactiveBugs.B;
 import victor.testing.reactor.ReactiveBugs.C;
 import victor.testing.reactor.ReactiveBugs.Dependency;
+import victor.testing.tools.ProbeExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +33,9 @@ class ReactiveBugsTest {
     Dependency dependencyMock;
     @InjectMocks
     ReactiveBugs target;
+
+    @RegisterExtension
+    ProbeExtension probes = new ProbeExtension();
 
     @Test
     void triangleOfDeath() {
@@ -69,12 +74,10 @@ class ReactiveBugsTest {
     }
 
     @Test
-//    @MyExtension
-    void flatMapLossWhenNoBFound(/*??? once*/) {
-//        when(dependencyMock.fetchA(ID)).thenReturn(once(Mono.just(A)));
-        PublisherProbe<ReactiveBugs.A> aProbe = of(Mono.just(A));//
-        when(dependencyMock.fetchA(ID)).thenReturn(aProbe.mono()); //
-
+    void flatMapLossWhenNoBFound() {
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.probeOnce(Mono.just(A)));
+//        PublisherProbe<ReactiveBugs.A> aProbe = of(Mono.just(A));//
+//        when(dependencyMock.fetchA(ID)).thenReturn(aProbe.mono()); //
         when(dependencyMock.fetchB(A)).thenReturn(Mono.empty());
         PublisherProbe<Void> saveProbe = empty();
         when(dependencyMock.saveA(A)).thenReturn(saveProbe.mono());
@@ -84,6 +87,6 @@ class ReactiveBugsTest {
                 .verifyComplete(); // nothing happens in prd until you subscribe
 
         assertThat(saveProbe.subscribeCount()).isEqualTo(1);
-        assertThat(aProbe.subscribeCount()).isEqualTo(1); //
+//        assertThat(aProbe.subscribeCount()).isEqualTo(1); //
     }
 }
