@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 import reactor.test.publisher.PublisherProbe;
 import victor.testing.reactor.ReactiveBugs.A;
 import victor.testing.reactor.ReactiveBugs.B;
@@ -29,19 +30,23 @@ class ReactiveBugsTest {
 
     @Test
     void triangleOfDeath() {
-        PublisherProbe<A> monoA = PublisherProbe.of(Mono.just(A).doOnSubscribe(s -> {
-            System.out.println("FIRE IN THE HOLE!");
-        }));
-
+        PublisherProbe<A> monoA = PublisherProbe.of(Mono.just(A));
         when(dependencyMock.fetchA(ID)).thenReturn(monoA.mono());
         when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
         when(dependencyMock.fetchC(A, B)).thenReturn(Mono.just(C));
 
-        Mono<C> monoC = target.triangleOfDeath(ID);
+        // pragmatic but use the EVIL B... word
+//        C actual = target.triangleOfDeath(ID).block(); // subscibed and BLOCKed the JUnit main thread for the called f to complete
+//        assertThat(actual).isEqualTo(C);
 
-        C actual = monoC.block(); // subscibed and BLOCKed the JUnit main thread for the called f to complete
 
-        assertThat(actual).isEqualTo(C);
+//        StepVerifier.create(target.triangleOfDeath(ID)); // neah...
+
+        target.triangleOfDeath(ID)
+                .as(StepVerifier::create)
+                .expectNext(C)
+                .verifyComplete();
+
         assertThat(monoA.subscribeCount()).isEqualTo(1);
     }
 }
