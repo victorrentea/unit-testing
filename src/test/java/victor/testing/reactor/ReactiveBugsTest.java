@@ -14,8 +14,7 @@ import victor.testing.reactor.ReactiveBugs.Dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ReactiveBugsTest {
@@ -30,13 +29,15 @@ class ReactiveBugsTest {
 
     @Test
     void triangleOfDeath() {
-//        PublisherProbe.of(); // inspect the calls
+        // Idea #2 let's mock the Mono itself : which of the 7 subscribe(..) methods you want to verify >
+        // NEVER Mock MONO!!
+//        Mono mock = mock(Mono.class);
+        //        PublisherProbe.of(); // inspect the calls
         when(dependencyMock.fetchA(ID)).thenReturn(Mono.just(A).doOnSubscribe(s -> {
             System.out.println("FIRE IN THE HOLE!");
         }));
         when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
         when(dependencyMock.fetchC(A, B)).thenReturn(Mono.just(C));
-        // Q for 1M $ when is fetchA firing the HTTP NETWORK REQUEST?
 
         Mono<C> monoC = target.triangleOfDeath(ID);
 
