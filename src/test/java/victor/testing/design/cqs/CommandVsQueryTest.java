@@ -2,6 +2,7 @@ package victor.testing.design.cqs;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -18,7 +19,7 @@ class CommandVsQueryTest {
    Target target;
 
    @Test
-   @CaptureSystemOutput
+   @CaptureSystemOutput // fragile !!! NOT GOOD
    void test(OutputCapture outputCapture) {
       Obj obj = new Obj();
       when(dependency.stuff(obj, 5)).thenReturn(7);

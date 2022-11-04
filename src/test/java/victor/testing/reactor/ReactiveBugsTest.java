@@ -83,4 +83,12 @@ class ReactiveBugsTest {
 
         assertThat(saveProbe.subscribeCount()).isEqualTo(1);
     }
+
+    @Test
+    void fire1() {
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
+        when(dependencyMock.auditA(A)).thenReturn(probes.once(Mono.empty()));
+
+        assertThat(target.fireAndForget(ID).block()).isEqualTo(A);
+    }
 }

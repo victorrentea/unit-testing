@@ -90,7 +90,8 @@ public class ReactiveBugs {
     // ================================================================
 
     /**
-     * Fire and forget: audit any returned A
+     * *** Fire and forget **
+     * Original requirement: Audit any returned A
      * Default go-to: .flatMap
      * Better solution: .delayUntil
      * Later CR#1: errors in audit should not fail the main flow (eg. errors in Kafka.send)
@@ -98,6 +99,8 @@ public class ReactiveBugs {
      */
     public Mono<A> fireAndForget(int id) {
         return dependency.fetchA(id)
-                .flatMap(a -> dependency.auditA(a).thenReturn(a));
+                .delayUntil(dependency::auditA) // identical beh with the line below
+//                .flatMap(a -> dependency.auditA(a).thenReturn(a))
+                ;
     }
 }
