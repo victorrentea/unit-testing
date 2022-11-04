@@ -7,8 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 import reactor.test.StepVerifier;
 import reactor.test.publisher.PublisherProbe;
 import victor.testing.reactor.ReactiveBugs.A;
@@ -18,7 +16,6 @@ import victor.testing.reactor.ReactiveBugs.Dependency;
 import victor.testing.tools.ProbeExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static reactor.test.publisher.PublisherProbe.empty;
 import static reactor.test.publisher.PublisherProbe.of;
@@ -75,9 +72,7 @@ class ReactiveBugsTest {
 
     @Test
     void flatMapLossWhenNoBFound() {
-        when(dependencyMock.fetchA(ID)).thenReturn(probes.probeOnce(Mono.just(A)));
-//        PublisherProbe<ReactiveBugs.A> aProbe = of(Mono.just(A));//
-//        when(dependencyMock.fetchA(ID)).thenReturn(aProbe.mono()); //
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
         when(dependencyMock.fetchB(A)).thenReturn(Mono.empty());
         PublisherProbe<Void> saveProbe = empty();
         when(dependencyMock.saveA(A)).thenReturn(saveProbe.mono());
@@ -87,6 +82,5 @@ class ReactiveBugsTest {
                 .verifyComplete(); // nothing happens in prd until you subscribe
 
         assertThat(saveProbe.subscribeCount()).isEqualTo(1);
-//        assertThat(aProbe.subscribeCount()).isEqualTo(1); //
     }
 }
