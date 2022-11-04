@@ -6,6 +6,8 @@ import org.testcontainers.shaded.com.google.common.annotations.VisibleForTesting
 import reactor.core.publisher.Mono;
 import reactor.function.TupleUtils;
 
+import java.util.Optional;
+
 public class ReactiveBugs {
     private static final Logger log = LoggerFactory.getLogger(ReactiveBugs.class);
     record A(int id) {}
@@ -58,7 +60,9 @@ public class ReactiveBugs {
      */
     public Mono<Void> flatMapLoss(int id, String data) {
         return dependency.fetchA(id)
-                .zipWhen(a -> dependency.fetchB(a).defaultIfEmpty(B.nothing)) // never emits any value if fetchB returns empty()
+                .zipWhen(a -> dependency.fetchB(a)
+                        .map(Optional::of)
+                        .defaultIfEmpty(Optional.empty())) // never emits any value if fetchB returns empty()
 //                .zipWhen(a -> {
 //                    try {
 //                        return dependency.fetchB(a).defaultIfEmpty(null);
@@ -72,9 +76,9 @@ public class ReactiveBugs {
     }
 
     @VisibleForTesting
-     A logic(A a, B b, String data) {
-        if (b == B.nothing) {
-            // no B
+     A logic(A a, Optional<B> b, String data) {
+        if (b.isPresent()) {
+            // stuff with B
         }
         // complex logic, implem in imperative style (no Publishers) ❤️
         // returning the results in A. using B if any
