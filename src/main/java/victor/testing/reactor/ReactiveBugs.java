@@ -5,8 +5,8 @@ import reactor.function.TupleUtils;
 
 public class ReactiveBugs {
     record A(int id) {}
-    class B {}
-    class C {}
+    static class B {}
+    static class C {}
 
     interface Dependency {
         Mono<A> fetchA(int id);
@@ -24,6 +24,7 @@ public class ReactiveBugs {
 
     // ================================================================
     /**
+     * // imperative style code
      * a = fetchA(id);
      * b = fetchB(a);
      * c = fetchC(a, b);
@@ -37,7 +38,7 @@ public class ReactiveBugs {
         Mono<A> monoA = dependency.fetchA(id);
         Mono<B> monoB = monoA.flatMap(a -> dependency.fetchB(a));
         Mono<C> monoC = monoA.zipWith(monoB)
-                .flatMap(t2 -> dependency.fetchC(t2.getT1(), t2.getT2()));
+                .flatMap(tuple -> dependency.fetchC(tuple.getT1(), tuple.getT2()));
         return monoC;
     }
 
