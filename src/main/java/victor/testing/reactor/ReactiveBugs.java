@@ -105,7 +105,7 @@ public class ReactiveBugs {
                 // 95% of time we uyse doOnNext for logging: burry the logging deeper in the 'colabborator methods',
                 // don't pollute your topLevel reactive chain (push it inside fetchA()
 
-                .doOnNext(a -> dependency.auditA(a).block())
+                .doOnNext(a -> dependency.auditA(a).block()) // just the blocking(worst) alternative to flatMap/delayUntil
                 ;
     }
 }
