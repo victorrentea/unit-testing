@@ -18,7 +18,7 @@ import victor.testing.tools.ProbeExtension;
 
 import java.time.Duration;
 
-import static java.time.Duration.ofMillis;
+import static java.time.Duration.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static reactor.test.publisher.PublisherProbe.empty;
@@ -116,5 +116,28 @@ class ReactiveBugsTest {
                 .verifyComplete();
 
         assertThat(took).isLessThan(ofMillis(499));
+    }
+    @Test
+    void flowShouldNotWaitForAudit_virtualTime() {
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
+//        when(dependencyMock.auditA(A)).thenReturn(Mono.delay(ofMinutes(1)) // NOW delay of 1 minute really plays 1 min
+//                .doOnTerminate(() -> System.out.println("AUDIT DOWN")).then());
+
+        //
+        when(dependencyMock.auditA(A)).thenAnswer(x -> Mono.delay(ofMinutes(1)) // delay uses the virtual time
+                .doOnTerminate(() -> System.out.println("AUDIT DOWN")).then());
+
+//        Duration duration = StepVerifier.create(target.fireAndForget(ID))
+        Duration duration = StepVerifier.withVirtualTime(
+                        // just before    calling this lambda, the time is made "virtual" on this thread
+                        () -> target.fireAndForget(ID).timeout(ofSeconds(30))
+                        // time is restored
+                )
+                .thenAwait(ofSeconds(40)) // advance the virtual time explicitly
+                .expectNext(A)
+                .thenAwait(ofSeconds(30)) // advance the virtual time explicitly
+                .verifyComplete();
+
+        assertThat(duration).isLessThan(ofMillis(499));
     }
 }
