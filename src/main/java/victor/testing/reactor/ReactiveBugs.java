@@ -39,8 +39,8 @@ public class ReactiveBugs {
         // DON'T REUSE THE MONO A
         return dependency
                 .fetchA(id)
-                .zipWhen(a -> dependency.fetchB(a))
-                .flatMap(tuple -> dependency.fetchC(tuple.getT1(), tuple.getT2()));
+                .zipWhen(dependency::fetchB)
+                .flatMap(TupleUtils.function(dependency::fetchC));
     }
 
     // ================================================================
