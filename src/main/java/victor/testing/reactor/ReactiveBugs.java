@@ -1,12 +1,17 @@
 package victor.testing.reactor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.shaded.com.google.common.annotations.VisibleForTesting;
 import reactor.core.publisher.Mono;
 import reactor.function.TupleUtils;
 
 public class ReactiveBugs {
+    private static final Logger log = LoggerFactory.getLogger(ReactiveBugs.class);
     record A(int id) {}
-    static class B {}
+    static class B {
+        public static B nothing = new B(); // stupid B
+    }
     static class C {}
 
     interface Dependency {
@@ -53,13 +58,24 @@ public class ReactiveBugs {
      */
     public Mono<Void> flatMapLoss(int id, String data) {
         return dependency.fetchA(id)
-                .zipWhen(a -> dependency.fetchB(a))
+                .zipWhen(a -> dependency.fetchB(a).defaultIfEmpty(B.nothing)) // never emits any value if fetchB returns empty()
+//                .zipWhen(a -> {
+//                    try {
+//                        return dependency.fetchB(a).defaultIfEmpty(null);
+//                    } catch (Exception e) {
+//                        log.error("YES!");
+//                        throw new RuntimeException(e);
+//                    }
+//                }) // never emits any value if fetchB returns empty()
                 .map(TupleUtils.function((a, b) -> logic(a, b, data)))
                 .flatMap(a -> dependency.saveA(a));
     }
 
     @VisibleForTesting
      A logic(A a, B b, String data) {
+        if (b == B.nothing) {
+            // no B
+        }
         // complex logic, implem in imperative style (no Publishers) ❤️
         // returning the results in A. using B if any
         return a;
