@@ -63,6 +63,7 @@ class ReactiveBugsTest {
         when(dependencyMock.fetchC(A, B)).thenReturn(Mono.just(C));
 
         // Call production Option #2: (uniform) StepVerifier
+        //  usefull when dealing with Fluxes, backpressure, or testing operators for resilience (eg retry, timeout...)
         target.triangleOfDeath(ID)
                 .as(StepVerifier::create)
                 .expectNext(C)
