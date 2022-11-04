@@ -96,7 +96,9 @@ public class ReactiveBugs {
      * Later CR#1: errors in audit should not fail the main flow (eg. errors in Kafka.send)
      *      please make sure any errors in audit do not kill the flow no .error
      *
-     * Later CR#2: the main flow should not wait for the audit to be performed (eg. delays in Kafka.send)
+     * Later
+     * Problem: eg. delays in Kafka.send
+     * Req: the main flow should not wait for the audit to complete = "fire-and-forget"
      */
     public Mono<A> fireAndForget(int id) {
         return dependency.fetchA(id)

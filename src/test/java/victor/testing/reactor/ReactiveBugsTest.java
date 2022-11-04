@@ -16,6 +16,9 @@ import victor.testing.reactor.ReactiveBugs.Dependency;
 import victor.testing.tools.CaptureSystemOutput;
 import victor.testing.tools.ProbeExtension;
 
+import java.time.Duration;
+
+import static java.time.Duration.ofMillis;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static reactor.test.publisher.PublisherProbe.empty;
@@ -100,5 +103,18 @@ class ReactiveBugsTest {
 
         assertThat(target.fireAndForget(ID).block()).isEqualTo(A);
         assertThat(capture.toString()).contains("TESTEX");
+    }
+
+    @Test
+    void flowShouldNotWaitForAudit() {
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
+        when(dependencyMock.auditA(A)).thenReturn(probes.once(Mono.delay(ofMillis(500)).then()));
+
+        Duration took = target.fireAndForget(ID)
+                .as(StepVerifier::create)
+                .expectNext(A)
+                .verifyComplete();
+
+        assertThat(took).isLessThan(ofMillis(499));
     }
 }
