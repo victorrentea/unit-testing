@@ -41,6 +41,7 @@ class ReactiveBugsTest {
 
         C actual = monoC.block(); // subscibed and BLOCKed the JUnit main thread for the called f to complete
         assertThat(actual).isEqualTo(C);
+        // TODO is this necessary ? [vic]
         verify(dependencyMock).fetchA(ID); // idea #1: check fetchA is actually called only once - not helpful in reactive calls
         assertThat(monoA.subscribeCount()).isEqualTo(1);
     }
