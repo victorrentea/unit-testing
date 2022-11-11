@@ -6,6 +6,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -21,15 +25,15 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 public class ProductServiceTest {
-   @Mock
+   @MockBean // in contextul pornit inlocuieste beanul real cu un mock de mockito, pe care ti-l si ijecteaza aici ca sa-l poti when/then/verify
    public SafetyClient mockSafetyClient;
-   @Mock
+   @Autowired
    private ProductRepo productRepo;
-   @Mock
+   @Autowired
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test
@@ -44,22 +48,18 @@ public class ProductServiceTest {
    @Test
    public void createOk() {
       // GIVEN
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
       // WHEN
-      productService.createProduct(dto);
+      Long productId = productService.createProduct(dto);
 
       // THEN
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
-
+      Product product = productRepo.findById(productId).orElseThrow();
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
