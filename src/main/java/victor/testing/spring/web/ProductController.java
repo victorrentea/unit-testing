@@ -18,7 +18,6 @@ import java.util.List;
 public class ProductController {
 
    private final ProductService facade;
-
    @PostMapping("product/create")
    public void create(@RequestBody ProductDto productDto) {
       facade.createProduct(productDto);

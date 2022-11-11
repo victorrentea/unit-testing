@@ -16,13 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
+import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.tools.TestcontainersUtils;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -41,12 +44,8 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Testcontainers
 @ActiveProfiles("db-migration")
-@AutoConfigureMockMvc
-// ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 @AutoConfigureWireMock(port = 9999)
-public class ProductMvcTest {
-    @Autowired
-    private MockMvc mockMvc;
+public class ProductMvcPragmaticTest {
     @Autowired
     private SupplierRepo supplierRepo;
 
@@ -69,40 +68,30 @@ public class ProductMvcTest {
     }
 
     @Test
+//    @WithMockUser
     public void flowTest() throws Exception {
         createProduct("Tree");
 
         runSearch(new ProductSearchCriteria().setName("Tree"), 1);
     }
+    @Test
+    public void notFound() throws Exception {
+        createProduct("Copac");
+
+        runSearch(new ProductSearchCriteria().setName("Tree"), 0);
+    }
+
+    @Autowired
+    private ProductController productController;
 
     private void createProduct(String productName) throws Exception {
-        // Option 1: JSON serialization din DTO (more convenient dar mai riscant, ca nu TESTEZI de fapt ca JSONul isi pasttreaza structura)
+        // am chemat direct controllerul daca am contractul openapi
         ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
-        String createJson1 = jackson.writeValueAsString(dto); // daca ai contract teste <-
-
-        // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
-        // language=json
-        String createJson = """
-                {
-                    "name": "%s",
-                    "supplierId": "%d",
-                    "barcode": "safebar"
-                }
-                """.formatted(productName, supplierId);
-
-        mockMvc.perform(post("/product/create")
-                        .content(createJson)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        productController.create(dto);
     }
 
     private void runSearch(ProductSearchCriteria criteria, int expectedNumberOfResults) throws Exception {
-        mockMvc.perform(post("/product/search")
-                        .content(jackson.writeValueAsString(criteria))
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isOk())
-                .andExpect(header().string("Custom-Header", "true"))
-                .andExpect(jsonPath("$", hasSize(expectedNumberOfResults)));
+        List<ProductSearchResult> results = productController.search(criteria);
+        assertThat(results).hasSizeLessThanOrEqualTo(expectedNumberOfResults);
     }
 }
