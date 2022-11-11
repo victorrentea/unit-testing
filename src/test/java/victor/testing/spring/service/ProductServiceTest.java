@@ -43,8 +43,8 @@ public class ProductServiceTest {
 
    @BeforeEach
    final void before() {
-       supplierRepo.deleteAll();
        productRepo.deleteAll();
+       supplierRepo.deleteAll();
    }
 
    @Test
