@@ -48,6 +48,9 @@ import static org.mockito.Mockito.*;
 
 @Transactional // THE BEST pt baze relationale mici /curate <200 tabele
 // fata de codu din src/main, @Transactional aici se ROLLBACK la final dupa fiecare @Test anyway
+   // NU MERGE daca codul testat face @Transaction(propagation=REQUIRES_NEW/NOT_SUPPORTED)
+   // NU MERGE daca async / multithreading
+   //==> in aceste cazuri RENUNTA CU TOT la @Transactional din teste => recurgi la alte solutii
 public class ProductServiceTest {
    @MockBean // in contextul pornit inlocuieste beanul real cu un mock de mockito, pe care ti-l si ijecteaza aici ca sa-l poti when/then/verify
    public SafetyClient mockSafetyClient;
@@ -60,7 +63,7 @@ public class ProductServiceTest {
 
 //   @BeforeEach
 //   final void before() {
-//      // modul de lucru preferat pentru baze nerelationale (eg mongo/casandra/...)
+//      // modul de lucru preferat pentru baze nerelationale nosql (eg mongo/casandra/...)
 //       productRepo.deleteAll();
 //       supplierRepo.deleteAll();
 //   }
