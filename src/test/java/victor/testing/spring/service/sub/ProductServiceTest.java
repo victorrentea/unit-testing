@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
 public class ProductServiceTest {
    @MockBean // in contextul pornit inlocuieste beanul real cu un mock de mockito, pe care ti-l si ijecteaza aici ca sa-l poti when/then/verify
    public SafetyClient mockSafetyClient;
-   @Autowired
+   @MockBean
    private ProductRepo productRepo;
    @Autowired
    private SupplierRepo supplierRepo;
