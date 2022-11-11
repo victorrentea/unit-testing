@@ -12,7 +12,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Transactional
 @ActiveProfiles("db-migration")
 public abstract class TestRepoBase {
-    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11").withReuse(true);
+    static public PostgreSQLContainer<?> postgres =
+            new PostgreSQLContainer<>("postgres:11").withReuse(true);
     @BeforeAll
     public static void startTestcontainer() {
         postgres.start(); // porneste 1 data global pt toate testele
