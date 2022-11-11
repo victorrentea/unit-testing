@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 //@DirtiesContext(classMode = ClassMode.BEFORE_CLASS) // + 20-30 sec pierdute pe CI
-@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // + 20-30 x nr de @Test sec pierdute pe CI
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // + 20-30 x nr de @Test sec pierdute pe CI
 public class ProductService2Test {
    @MockBean // in contextul pornit inlocuieste beanul real cu un mock de mockito, pe care ti-l si ijecteaza aici ca sa-l poti when/then/verify
    public SafetyClient mockSafetyClient;
