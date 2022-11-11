@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import io.cucumber.java.Transpose;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,9 +15,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -25,6 +30,7 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,23 +41,25 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
-@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-@interface PeDBCurat {
+import static victor.testing.spring.service.TestRepoBase.postgres;
 
-}
+// Motivatie: cand nu ajunge DB in mem
+// 1 sa testez scripturi incrementale
+// 2 am queryuri SQL native care fol featureuri spec DB mele de date
 
-@SpringBootTest//(properties = "prop.mea=alta")
-@ActiveProfiles("db-mem")
-//@PeDBCurat // bun pentru baze mari
-//@DirtiesContext // NU pe remote!!
 
-@Transactional // THE BEST pt baze relationale mici /curate <200 tabele
+//@Testcontainers // vom porni o 🐳 Docker in care vom starta PG ca-n prod pe care voi rula toate incrementalele del a inceput
+//
+//@SpringBootTest//(properties = "prop.mea=alta")
+////@ActiveProfiles("db-mem")
+////@PeDBCurat // bun pentru baze mari
+////@DirtiesContext // NU pe remote!!
+//@Transactional // THE BEST pt baze relationale mici /curate <200 tabele
 // fata de codu din src/main, @Transactional aici se ROLLBACK la final dupa fiecare @Test anyway
    // NU MERGE daca codul testat face @Transaction(propagation=REQUIRES_NEW/NOT_SUPPORTED)
    // NU MERGE daca async / multithreading
    //==> in aceste cazuri RENUNTA CU TOT la @Transactional din teste => recurgi la alte solutii
-public class ProductServiceTest {
+public class ProductServiceTest extends TestRepoBase{
    @MockBean // in contextul pornit inlocuieste beanul real cu un mock de mockito, pe care ti-l si ijecteaza aici ca sa-l poti when/then/verify
    public SafetyClient mockSafetyClient;
    @Autowired
@@ -61,12 +69,20 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
+   @DynamicPropertySource
+   public static void registerPgProperties(DynamicPropertyRegistry registry) {
+      TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+   }
+
 //   @BeforeEach
 //   final void before() {
 //      // modul de lucru preferat pentru baze nerelationale nosql (eg mongo/casandra/...)
 //       productRepo.deleteAll();
 //       supplierRepo.deleteAll();
 //   }
+
+   // liquibase,flyway,dbmaintain...
+
 
    @Test
    public void createThrowsForUnsafeProduct() {
