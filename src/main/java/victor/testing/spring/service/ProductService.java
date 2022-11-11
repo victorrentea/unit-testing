@@ -22,7 +22,7 @@ public class ProductService {
     private final ProductRepo productRepo;
     private final SupplierRepo supplierRepo;
 
-    public Long createProduct(ProductDto productDto) {
+    public void createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode);
         if (!safe) {
             throw new IllegalStateException("Product is not safe: " + productDto.barcode);
@@ -36,7 +36,6 @@ public class ProductService {
         // TODO CR check that the supplier is active!
         product.setCreateDate(LocalDateTime.now());
         productRepo.save(product);
-        return product.getId();
     }
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {

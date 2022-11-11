@@ -18,6 +18,7 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
@@ -53,10 +54,12 @@ public class ProductServiceTest {
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
       // WHEN
-      Long productId = productService.createProduct(dto);
+      productService.createProduct(dto);
 
       // THEN
-      Product product = productRepo.findById(productId).orElseThrow();
+      List<Product> products = productRepo.findAll();
+      assertThat(products).hasSize(1);
+      Product product = products.get(0);
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
