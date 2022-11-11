@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -21,6 +23,8 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +32,15 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
+@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@interface PeDBCurat {
+
+}
 
 @SpringBootTest//(properties = "prop.mea=alta")
 @ActiveProfiles("db-mem")
+@PeDBCurat
 public class ProductServiceTest {
    @MockBean // in contextul pornit inlocuieste beanul real cu un mock de mockito, pe care ti-l si ijecteaza aici ca sa-l poti when/then/verify
    public SafetyClient mockSafetyClient;
@@ -41,11 +51,12 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
-   @BeforeEach
-   final void before() {
-       productRepo.deleteAll();
-       supplierRepo.deleteAll();
-   }
+//   @BeforeEach
+//   final void before() {
+//      // modul de lucru preferat pentru baze nerelationale (eg mongo/casandra/...)
+//       productRepo.deleteAll();
+//       supplierRepo.deleteAll();
+//   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
