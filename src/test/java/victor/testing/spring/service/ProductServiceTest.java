@@ -60,8 +60,8 @@ import static victor.testing.spring.service.TestRepoBase.postgres;
    // NU MERGE daca async / multithreading
    //==> in aceste cazuri RENUNTA CU TOT la @Transactional din teste => recurgi la alte solutii
 public class ProductServiceTest extends TestRepoBase{
-   @MockBean // in contextul pornit inlocuieste beanul real cu un mock de mockito, pe care ti-l si ijecteaza aici ca sa-l poti when/then/verify
-   public SafetyClient mockSafetyClient;
+//   @MockBean // in contextul pornit inlocuieste beanul real cu un mock de mockito, pe care ti-l si ijecteaza aici ca sa-l poti when/then/verify
+//   public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
    @Autowired
@@ -86,7 +86,7 @@ public class ProductServiceTest extends TestRepoBase{
 
    @Test
    public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
       ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -96,7 +96,7 @@ public class ProductServiceTest extends TestRepoBase{
    @Test
    public void createOk() {
       // GIVEN
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
@@ -116,7 +116,7 @@ public class ProductServiceTest extends TestRepoBase{
    @Test
    public void createOkBis() {
       // GIVEN
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, ProductCategory.HOME);
 
