@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import io.cucumber.java.Transpose;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -40,7 +43,11 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest//(properties = "prop.mea=alta")
 @ActiveProfiles("db-mem")
-@PeDBCurat
+//@PeDBCurat // bun pentru baze mari
+//@DirtiesContext // NU pe remote!!
+
+@Transactional // THE BEST pt baze relationale mici /curate <200 tabele
+// fata de codu din src/main, @Transactional aici se ROLLBACK la final dupa fiecare @Test anyway
 public class ProductServiceTest {
    @MockBean // in contextul pornit inlocuieste beanul real cu un mock de mockito, pe care ti-l si ijecteaza aici ca sa-l poti when/then/verify
    public SafetyClient mockSafetyClient;
