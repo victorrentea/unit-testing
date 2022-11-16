@@ -10,14 +10,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
@@ -43,39 +46,43 @@ import static victor.testing.spring.domain.ProductCategory.*;
 // // HERE IS DOES NO DESTROY THE DATABASE CONTENTS: flyway sees the DB up-to-date, even if there is garbage data from the prev test class.
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // git hook to reject pushes to remote if they contained @DirtiesContext
 // => you only use this on your machine to find out if the test coupling si due to something in Spring.
-public class ProductServiceTest  extends BaseTest{
-   @MockBean // this tells Spring to REPLACE in its context the real SafetyClient bean with a Mockit mock!
-   // and injhect that mock in this field to allow you teach its methods what to return
-   public SafetyClient mockSafetyClient;
+
+@AutoConfigureWireMock(port = 9999) // start up a HTTP server listening to port 9999
+// serving responses as read from /src/test/resources/mappings
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
+public class ProductServiceTest extends BaseTest {
+//   @MockBean // this tells Spring to REPLACE in its context the real SafetyClient bean with a Mockit mock!
+//   // and injhect that mock in this field to allow you teach its methods what to return
+//   public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
 
    @Autowired
    private ProductService productService;
-//   @BeforeEach
-//   @AfterEach
-//   public void teardown() {
-//      productRepo.deleteAll();
-//   }
+   //   @BeforeEach
+   //   @AfterEach
+   //   public void teardown() {
+   //      productRepo.deleteAll();
+   //   }
 
    // best solution for non-transacted databases,
    // clean kafaka listeners, clear caches,
    // delete files
 
-//   @Test
-//   public void createThrowsForUnsafeProduct() {
-//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-//      ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
-//
-//      assertThatThrownBy(() -> productService.createProduct(dto))
-//              .isInstanceOf(IllegalStateException.class);
-//   }
+   //   @Test
+   //   public void createThrowsForUnsafeProduct() {
+   //      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+   //      ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
+   //
+   //      assertThatThrownBy(() -> productService.createProduct(dto))
+   //              .isInstanceOf(IllegalStateException.class);
+   //   }
 
 
    @Test
    public void createOk() {
       // GIVEN
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN
@@ -91,10 +98,11 @@ public class ProductServiceTest  extends BaseTest{
       assertThat(product.getCategory()).isEqualTo(HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
+
    @Test
    public void createOkBis() {
       // GIVEN
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN
