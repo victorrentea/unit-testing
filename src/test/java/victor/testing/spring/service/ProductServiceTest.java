@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -35,6 +36,7 @@ import static victor.testing.spring.domain.ProductCategory.*;
 
 @Testcontainers
 @SpringBootTest
+@ActiveProfiles("db-migration") // enables a set of profiles for this test class
 public class ProductServiceTest {
    @MockBean // this tells Spring to REPLACE in its context the real SafetyClient bean with a Mockit mock!
    // and injhect that mock in this field to allow you teach its methods what to return
