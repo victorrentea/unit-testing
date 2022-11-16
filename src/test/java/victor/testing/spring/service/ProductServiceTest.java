@@ -25,6 +25,7 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.TestcontainersUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
@@ -41,9 +42,9 @@ public class ProductServiceTest {
    @MockBean // this tells Spring to REPLACE in its context the real SafetyClient bean with a Mockit mock!
    // and injhect that mock in this field to allow you teach its methods what to return
    public SafetyClient mockSafetyClient;
-   @MockBean
+   @Autowired
    private ProductRepo productRepo;
-   @MockBean
+   @Autowired
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
@@ -74,20 +75,19 @@ public class ProductServiceTest {
    public void createOk() {
       // GIVEN
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.findById(supplier.getId())).thenReturn(of(supplier));
-      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN
       productService.createProduct(dto);
 
       // THEN
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture()); // extract the value passed from tested code to save(..)
-      Product product = productCaptor.getValue();
+      List<Product> products = productRepo.findAll();
+      assertThat(products).hasSize(1);
+      Product product = products.get(0);
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
