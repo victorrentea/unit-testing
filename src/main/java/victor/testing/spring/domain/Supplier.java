@@ -2,10 +2,9 @@ package victor.testing.spring.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Supplier {
@@ -20,6 +19,7 @@ public class Supplier {
     @Getter @Setter
     private boolean active;
 
+//    @OneToMany(cascade = CascadeType.ALL)
     public Supplier() {}
 
     public Supplier(String name) {

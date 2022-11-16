@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -60,6 +61,12 @@ public class ProductServiceTest {
    @DynamicPropertySource
    public static void registerPgProperties(DynamicPropertyRegistry registry) {
       TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+   }
+
+   @AfterEach
+   public void teardown() {
+      productRepo.deleteAll();
+      supplierRepo.deleteAll();
    }
 
    @Test
