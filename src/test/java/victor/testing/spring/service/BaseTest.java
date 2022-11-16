@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import victor.testing.tools.TestcontainersUtils;
 
 @Testcontainers
 @SpringBootTest
-@Transactional // makes sure that each @Test + @BeforeEach/After they execute will run in a dedicated Tx, that is automatically ROLLEDBACK
+//@Transactional // makes sure that each @Test + @BeforeEach/After they execute will run in a dedicated Tx, that is automatically ROLLEDBACK
 @ActiveProfiles("db-migration") // enables a set of profiles for this test class
 public abstract class BaseTest {
 
@@ -34,10 +35,12 @@ public abstract class BaseTest {
 
   protected Long supplierId;
   @Autowired
-  private SupplierRepo supplierRepo;
+  protected SupplierRepo supplierRepo;
+
 
   @BeforeEach
   final void insertSupplier() {
+    supplierRepo.deleteAll();
     supplierId = supplierRepo.save(new Supplier()).getId();
   }
 

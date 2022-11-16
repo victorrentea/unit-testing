@@ -52,17 +52,15 @@ public class ProductServiceTest  extends BaseTest{
 
    @Autowired
    private ProductService productService;
-
+   @BeforeEach
+   @AfterEach
+   public void teardown() {
+      productRepo.deleteAll();
+   }
 
    // best solution for non-transacted databases,
    // clean kafaka listeners, clear caches,
    // delete files
-//   @BeforeEach
-//   @AfterEach
-//   public void teardown() {
-//      productRepo.deleteAll();
-//      supplierRepo.deleteAll();
-//   }
 
 //   @Test
 //   public void createThrowsForUnsafeProduct() {
