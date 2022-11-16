@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
+import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
@@ -25,19 +26,20 @@ import static victor.testing.spring.domain.ProductCategory.*;
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
    @Mock
-   public SafetyClient mockSafetyClient;
+   public SafetyClient mockSafetyClient; //  = mock(SafetyClient.class);
    @Mock
    private ProductRepo productRepo;
    @Mock
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @InjectMocks // tells the MockitoExtension on line :25 to create and inject all @Mocks above in fields of this class (ctor, private field)
    private ProductService productService;
+
 
    @Test
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-
       ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
+
       assertThatThrownBy(() -> productService.createProduct(dto))
               .isInstanceOf(IllegalStateException.class);
    }
@@ -47,7 +49,7 @@ public class ProductServiceTest {
       // GIVEN
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+      when(supplierRepo.findById(supplier.getId())).thenReturn(of(supplier));
       ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
 
       // WHEN
@@ -57,7 +59,6 @@ public class ProductServiceTest {
       ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
       verify(productRepo).save(productCaptor.capture()); // extract the value passed from tested code to save(..)
       Product product = productCaptor.getValue();
-
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
