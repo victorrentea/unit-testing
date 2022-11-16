@@ -35,27 +35,29 @@ public class ProductServiceTest {
 
    @Test
    public void createThrowsForUnsafeProduct() {
+      // tell .isSave() to return false when called from production code
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-
       ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
+
       assertThatThrownBy(() -> productService.createProduct(dto))
               .isInstanceOf(IllegalStateException.class);
    }
 
    @Test
    public void createOk() {
-      // GIVEN
+      // GIVEN (setup)
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Supplier supplier = new Supplier().setId(13L);
       when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
       ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
 
-      // WHEN
+      // WHEN (prod call)
       productService.createProduct(dto);
 
-      // THEN
+      // THEN (expectations/effects)
+      // Argument Captors extract the value passed from tested code to save(..)
       ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture()); // extract the value passed from tested code to save(..)
+      verify(productRepo).save(productCaptor.capture());
       Product product = productCaptor.getValue();
 
       assertThat(product.getName()).isEqualTo("name");

@@ -3,6 +3,7 @@ package victor.testing.spring.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
@@ -27,18 +28,20 @@ public class ProductService {
     }
 
     public void createProduct(ProductDto productDto) {
-        boolean safe = safetyClient.isSafe(productDto.barcode);
+        boolean safe = safetyClient.isSafe(productDto.barcode); // ⚠️ REST call inside
         if (!safe) {
             throw new IllegalStateException("Product is not safe: " + productDto.barcode);
         }
 
         Product product = new Product();
         product.setName(productDto.name);
-        product.setCategory(productDto.category);
         product.setBarcode(productDto.barcode);
-        product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
-        // TODO CR check that the supplier is active!
         product.setCreateDate(LocalDateTime.now());
+        product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
+        if (productDto.category != null) {
+            productDto.category = ProductCategory.UNCATEGORIZED; // untested 😱
+        }
+        product.setCategory(productDto.category);
         productRepo.save(product);
     }
 
