@@ -32,6 +32,8 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.TestcontainersUtils;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,13 +49,12 @@ import static victor.testing.spring.domain.ProductCategory.*;
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // git hook to reject pushes to remote if they contained @DirtiesContext
 // => you only use this on your machine to find out if the test coupling si due to something in Spring.
 
-@AutoConfigureWireMock(port = 9999) // start up a HTTP server listening to port 9999
-// serving responses as read from /src/test/resources/mappings
-@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
+
+@WithWiremock
 public class ProductServiceTest extends BaseTest {
-//   @MockBean // this tells Spring to REPLACE in its context the real SafetyClient bean with a Mockit mock!
-//   // and injhect that mock in this field to allow you teach its methods what to return
-//   public SafetyClient mockSafetyClient;
+   //   @MockBean // this tells Spring to REPLACE in its context the real SafetyClient bean with a Mockit mock!
+   //   // and injhect that mock in this field to allow you teach its methods what to return
+   //   public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
 
@@ -82,7 +83,7 @@ public class ProductServiceTest extends BaseTest {
    @Test
    public void createOk() {
       // GIVEN
-//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      //      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN
@@ -102,7 +103,7 @@ public class ProductServiceTest extends BaseTest {
    @Test
    public void createOkBis() {
       // GIVEN
-//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      //      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN
