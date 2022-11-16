@@ -49,8 +49,7 @@ public class ProductServiceTest  extends BaseTest{
    public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
-   @Autowired
-   private SupplierRepo supplierRepo;
+
    @Autowired
    private ProductService productService;
 
@@ -74,11 +73,11 @@ public class ProductServiceTest  extends BaseTest{
 //              .isInstanceOf(IllegalStateException.class);
 //   }
 
+
    @Test
    public void createOk() {
       // GIVEN
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN
@@ -98,7 +97,6 @@ public class ProductServiceTest  extends BaseTest{
    public void createOkBis() {
       // GIVEN
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN
