@@ -91,5 +91,25 @@ public class ProductServiceTest {
       assertThat(product.getCategory()).isEqualTo(HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
+   @Test
+   public void createOkBis() {
+      // GIVEN
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
+
+      // WHEN
+      productService.createProduct(dto);
+
+      // THEN
+      List<Product> products = productRepo.findAll();
+      assertThat(products).hasSize(1);
+      Product product = products.get(0);
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+      assertThat(product.getCategory()).isEqualTo(HOME);
+      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+   }
 
 }

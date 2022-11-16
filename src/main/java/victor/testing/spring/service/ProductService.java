@@ -32,8 +32,8 @@ public class ProductService {
         product.setName(productDto.name);
         product.setCategory(productDto.category);
         product.setBarcode(productDto.barcode);
+
         product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
-        // TODO CR check that the supplier is active!
         product.setCreateDate(LocalDateTime.now());
         productRepo.save(product);
     }
