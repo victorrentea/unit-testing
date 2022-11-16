@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -37,6 +39,9 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
+// destroy the spring context before each test method => spring starts over again->
+// // HERE IS DOES NO DESTROY THE DATABASE CONTENTS: flyway sees the DB up-to-date, even if there is garbage data from the prev test class.
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ProductServiceTest  extends BaseTest{
    @MockBean // this tells Spring to REPLACE in its context the real SafetyClient bean with a Mockit mock!
    // and injhect that mock in this field to allow you teach its methods what to return
@@ -52,12 +57,12 @@ public class ProductServiceTest  extends BaseTest{
    // best solution for non-transacted databases,
    // clean kafaka listeners, clear caches,
    // delete files
-   @BeforeEach
-   @AfterEach
-   public void teardown() {
-      productRepo.deleteAll();
-      supplierRepo.deleteAll();
-   }
+//   @BeforeEach
+//   @AfterEach
+//   public void teardown() {
+//      productRepo.deleteAll();
+//      supplierRepo.deleteAll();
+//   }
 
 //   @Test
 //   public void createThrowsForUnsafeProduct() {
