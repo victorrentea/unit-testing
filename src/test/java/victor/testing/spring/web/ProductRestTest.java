@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpStatus.OK;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT) // starts a real Tomcat in memory
+@SpringBootTest(webEnvironment = RANDOM_PORT) // starts a real Tomcat in memory. I can't use @Transactional
 public class ProductRestTest {
    @MockBean
    private SafetyClient safetyClient;

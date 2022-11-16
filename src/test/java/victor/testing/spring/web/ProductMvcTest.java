@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
@@ -41,9 +40,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Testcontainers
 @ActiveProfiles("db-migration")
-@AutoConfigureMockMvc
-// ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 @AutoConfigureWireMock(port = 9999)
+@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat. WHY? I don't want my tests to fire a real HTTP request => that would loose my thread
+    // => @Transactional works, as the whole test shares 1 single thread
 public class ProductMvcTest {
     @Autowired
     private MockMvc mockMvc;
@@ -70,15 +69,12 @@ public class ProductMvcTest {
 
     @Test
     public void flowTest() throws Exception {
-        createProduct("Tree");
+        createProductStrictJSON("Tree");
 
         runSearch(new ProductSearchCriteria().setName("Tree"), 1);
     }
 
-    private void createProduct(String productName) throws Exception {
-        // Option 1: JSON serialization (more convenient)
-        ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
-        String createJson1 = jackson.writeValueAsString(dto);
+    private void createProductStrictJSON(String productName) throws Exception {
 
         // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
         // language=json
@@ -95,6 +91,32 @@ public class ProductMvcTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+    private void createProductUsingDtos(String productName) throws Exception {
+        // your test might pass but your consumers might cakll you angry: your broke the JSON structure !!!
+        // BUT if we could make sure all our client have the correct Dtos, this test would be better
+        // -> how to do that ? -> openapi /v3/api
+
+        // API-level test in memory firing real JSON String  -> the most strict test you can write
+        // Option 1: JSON serialization (more convenient)
+        ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
+        String createJson = jackson.writeValueAsString(dto);
+
+        mockMvc.perform(post("/product/create")
+                        .content(createJson)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Autowired
+    private ProductController productController;
+
+    private void createProductUsingDirectControllerMethodCall(String productName) throws Exception {
+        productController.create(new ProductDto(productName, "safebar", supplierId, HOME));
+    }
+
+    // Victor, we keep a copy of our production open-api contract from the code
+    // (v3/api) in src/test/resources/my-api.json
+    // and we have a test that starts @SpringBootTest and calls /v3/api to check the api stays the same.
 
     private void runSearch(ProductSearchCriteria criteria, int expectedNumberOfResults) throws Exception {
         mockMvc.perform(post("/product/search")
