@@ -11,7 +11,7 @@ import victor.testing.tools.TestcontainersUtils;
 
 @Testcontainers
 @SpringBootTest
-@ActiveProfiles("db-migration") // enables a set of profiles for this test class
+//@ActiveProfiles("db-migration") // enables a set of profiles for this test class
 
 public abstract class BaseTest {
 
