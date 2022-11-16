@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -16,14 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.tools.TestcontainersUtils;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
@@ -37,13 +38,13 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
  * <li> Emulates a JSON request against my API and checks the JSON response
  * <li> At the end of each tests leaves the DB clean (by auto-rollback of @Transactional)
  */
-@Transactional
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
-@Testcontainers
 @ActiveProfiles("db-migration")
-@AutoConfigureMockMvc
-// ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
+@Transactional
+@Testcontainers
 @AutoConfigureWireMock(port = 9999)
+
+@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 public class ProductMvcTest {
     @Autowired
     private MockMvc mockMvc;
@@ -64,23 +65,24 @@ public class ProductMvcTest {
     private Long supplierId;
 
     @BeforeEach
-    public void persistStaticData() {
+    public void persistReferenceData() {
         supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
     }
 
     @Test
     public void flowTest() throws Exception {
-        createProduct("Tree");
+        createProduct_json("Tree");
 
-        runSearch(new ProductSearchCriteria().setName("Tree"), 1);
+        searchProduct(new ProductSearchCriteria().setName("Tree"), 1);
     }
 
-    private void createProduct(String productName) throws Exception {
-        // Option 1: JSON serialization (more convenient)
-        ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
-        String createJson1 = jackson.writeValueAsString(dto);
+    // ==================== test-DSL (helpers/framework) ======================
 
-        // Option 2: Manual JSON formatting (more formal, "freezes" the DTO structure)
+
+    // -------- 1: raw JSON formatting -----
+    // + freezes the contract (Dto structure + URL)
+    // - cumbersome
+    private void createProduct_json(String productName) throws Exception {
         // language=json
         String createJson = """
                 {
@@ -92,14 +94,38 @@ public class ProductMvcTest {
 
         mockMvc.perform(post("/product/create")
                         .content(createJson)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
-    private void runSearch(ProductSearchCriteria criteria, int expectedNumberOfResults) throws Exception {
+    // -------- 2: Instantiate Dtos  ---------
+    // + can test status code
+    // ± robust against Dto structure change
+    private void createProduct_dto(String productName) throws Exception {
+        ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
+        String createJson = jackson.writeValueAsString(dto);
+
+        mockMvc.perform(post("/product/create")
+                        .content(createJson)
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    // -------- 3: Direct controller method call ---------
+    // > use if clients are using my openAPI contract or a client.jar
+    // + shortest, testing 100% of MY LOGIC
+    // ! Can be paired by an OpenAPI freeze test
+    @Autowired
+    private ProductController productController;
+    private void createProduct_controllerCall(String productName) throws Exception {
+        ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
+        productController.create(dto);
+    }
+
+    private void searchProduct(ProductSearchCriteria criteria, int expectedNumberOfResults) throws Exception {
         mockMvc.perform(post("/product/search")
                         .content(jackson.writeValueAsString(criteria))
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(header().string("Custom-Header", "true"))
