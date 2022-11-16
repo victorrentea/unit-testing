@@ -41,7 +41,8 @@ import static victor.testing.spring.domain.ProductCategory.*;
 
 // destroy the spring context before each test method => spring starts over again->
 // // HERE IS DOES NO DESTROY THE DATABASE CONTENTS: flyway sees the DB up-to-date, even if there is garbage data from the prev test class.
-@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // git hook to reject pushes to remote if they contained @DirtiesContext
+// => you only use this on your machine to find out if the test coupling si due to something in Spring.
 public class ProductServiceTest  extends BaseTest{
    @MockBean // this tells Spring to REPLACE in its context the real SafetyClient bean with a Mockit mock!
    // and injhect that mock in this field to allow you teach its methods what to return
