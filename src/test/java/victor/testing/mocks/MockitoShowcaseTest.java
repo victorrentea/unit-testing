@@ -137,11 +137,11 @@ public class MockitoShowcaseTest {
 
 	@Test
 	public void verifyNumberOfInvocations_exact() {
-		mockedList.add("once");
+		mockedList.add("subscribeOnce");
 
 		//following two verifications work exactly the same - times(1) is used by default
-		verify(mockedList).add("once");
-		verify(mockedList, times(1)).add("once");
+		verify(mockedList).add("subscribeOnce");
+		verify(mockedList, times(1)).add("subscribeOnce");
 
 		//verification using never(). never() is an alias to times(0)
 		verify(mockedList, never()).add("never happened");

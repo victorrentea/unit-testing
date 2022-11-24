@@ -22,7 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static reactor.test.publisher.PublisherProbe.empty;
 import static reactor.test.publisher.PublisherProbe.of;
-import static victor.testing.reactor.ReactiveBugs.*;
 
 @ExtendWith(MockitoExtension.class)
 class ReactiveBugsTest {
@@ -56,8 +55,8 @@ class ReactiveBugsTest {
 
     @Test
     void triangleOfDeath_withExtension() {
-        // probes.once() is a custom extension that checks automatically that that mono is subscribed ONCE at the end of the method
-//        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
+        // probes.subscribeOnce() is a custom extension that checks automatically that that mono is subscribed ONCE at the end of the method
+//        when(dependencyMock.fetchA(ID)).thenReturn(probes.subscribeOnce(Mono.just(A)));
         when(dependencyMock.fetchA(ID)).thenReturn(Mono.just(A));// not enough !
         when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
         when(dependencyMock.fetchC(A, B)).thenReturn(Mono.just(C));
@@ -84,10 +83,10 @@ class ReactiveBugsTest {
 
     @Test
     void flatMapLossWhenNoBFound() {
-        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.subscribeOnce(Mono.just(A)));
         when(dependencyMock.fetchB(A)).thenReturn(Mono.empty());
         PublisherProbe<Void> saveProbe = empty();
-        when(dependencyMock.saveA(A)).thenReturn(probes.once(saveProbe.mono()));
+        when(dependencyMock.saveA(A)).thenReturn(probes.subscribeOnce(saveProbe.mono()));
 
         target.flatMapLoss(ID, "data").block();
 
@@ -97,8 +96,8 @@ class ReactiveBugsTest {
     // ======================================================
     @Test
     void fire() {
-        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
-        when(dependencyMock.auditA(A)).thenReturn(probes.once(Mono.empty()));
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.subscribeOnce(Mono.just(A)));
+        when(dependencyMock.auditA(A)).thenReturn(probes.subscribeOnce(Mono.empty()));
 
         assertThat(target.fireAndForget(ID).block()).isEqualTo(A);
     }
@@ -106,8 +105,8 @@ class ReactiveBugsTest {
     @Test
     @CaptureSystemOutput
     void flowShouldNotFailWhenAuditErrors(CaptureSystemOutput.OutputCapture capture) {
-        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
-        when(dependencyMock.auditA(A)).thenReturn(probes.once(Mono.error(new RuntimeException("TESTEX"))));
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.subscribeOnce(Mono.just(A)));
+        when(dependencyMock.auditA(A)).thenReturn(probes.subscribeOnce(Mono.error(new RuntimeException("TESTEX"))));
 
         assertThat(target.fireAndForget(ID).block()).isEqualTo(A);
         assertThat(capture.toString()).contains("TESTEX");
@@ -115,8 +114,8 @@ class ReactiveBugsTest {
 
     @Test
     void flowShouldNotWaitForAudit() {
-        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
-        when(dependencyMock.auditA(A)).thenReturn(probes.once(Mono.delay(ofMillis(500)).then()));
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.subscribeOnce(Mono.just(A)));
+        when(dependencyMock.auditA(A)).thenReturn(probes.subscribeOnce(Mono.delay(ofMillis(500)).then()));
 
         Duration took = target.fireAndForget(ID)
                 .as(StepVerifier::create)
@@ -128,7 +127,7 @@ class ReactiveBugsTest {
 
     @Test
     void flowShouldNotWaitForAudit_virtualTime() {
-        when(dependencyMock.fetchA(ID)).thenReturn(probes.once(Mono.just(A)));
+        when(dependencyMock.fetchA(ID)).thenReturn(probes.subscribeOnce(Mono.just(A)));
         when(dependencyMock.auditA(A)).thenReturn(Mono.delay(ofMinutes(1)).then());
 
         StepVerifier.withVirtualTime(

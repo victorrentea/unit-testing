@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProbeExtension implements InvocationInterceptor {
     private final Map<PublisherProbe<?>, StackTraceElement> probes = new HashMap<>();
 
-    public <T> Mono<T> once(Mono<T> mono) {
+    public <T> Mono<T> subscribeOnce(Mono<T> mono) {
         PublisherProbe<T> probe = PublisherProbe.of(mono);
         StackTraceElement place = new RuntimeException().getStackTrace()[1];
         probes.put(probe, place);
