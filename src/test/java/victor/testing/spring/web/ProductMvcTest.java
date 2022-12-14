@@ -129,6 +129,5 @@ public class ProductMvcTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(header().string("Custom-Header", "true"))
-                .andExpect(jsonPath("$", hasSize(expectedNumberOfResults)));
     }
 }
