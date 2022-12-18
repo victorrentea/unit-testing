@@ -128,6 +128,6 @@ public class ProductMvcTest {
                         .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
-                .andExpect(header().string("Custom-Header", "true"))
+                .andExpect(header().string("Custom-Header", "true"));
     }
 }
