@@ -46,7 +46,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @Testcontainers
 @AutoConfigureWireMock(port = 9999)
 
-@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
+@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat =>
 public class ProductMvcTest {
     @Autowired
     private MockMvc mockMvc;
@@ -85,13 +85,15 @@ public class ProductMvcTest {
     // - cumbersome
     private void createProduct_json(String productName) throws Exception {
         // language=json
-        String createJson = """
+        String createJson = ("""
                 {
-                    "name": "%s",
-                    "supplierId": "%d",
-                    "barcode": "safebar"
+                  "name": "%s",
+                  "supplierId": "%d",
+                  "barcode": "safebar",
+                  "frate": 1,
+                  "magie": true
                 }
-                """.formatted(productName, supplierId);
+                """).formatted(productName, supplierId);
 
         mockMvc.perform(post("/product/create")
                         .content(createJson)

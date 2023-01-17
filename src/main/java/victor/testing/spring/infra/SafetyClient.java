@@ -18,6 +18,7 @@ public class SafetyClient {
     @Value("${safety.service.url.base}")
     private URL baseUrl;
 
+    // testu asta a acoperit si parsarea si requ catre safety. adik metoda awsta
     public boolean isSafe(String barcode) {
         ResponseEntity<SafetyReportDto> response = rest.getForEntity(
             baseUrl + "/product/{barcode}/safety",
