@@ -63,7 +63,7 @@ public class ProductServiceTest {
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
-      assertThat(product.getCategory()).isEqualTo(HOME);
+      assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
 
