@@ -21,6 +21,8 @@ import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.tools.TestcontainersUtils;
 
+import java.io.ObjectInputStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -77,7 +79,6 @@ public class ProductMvcTest {
     }
 
     // ==================== test-DSL (helpers/framework) ======================
-
 
     // -------- 1: raw JSON formatting -----
     // + freezes the contract (Dto structure + URL)
