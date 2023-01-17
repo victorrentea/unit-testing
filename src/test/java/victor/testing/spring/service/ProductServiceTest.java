@@ -14,7 +14,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -22,6 +27,7 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 
 import java.util.Optional;
 
@@ -31,11 +37,20 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
-@ActiveProfiles("db-mem")
+@ActiveProfiles("db-migration")
+@Testcontainers
 @SpringBootTest
 @Transactional
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // ineficient pt run time pe CI
 public class ProductServiceTest {
+   @Container
+   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
+
+   @DynamicPropertySource
+   public static void registerPgProperties(DynamicPropertyRegistry registry) {
+      TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+   }
+
    @MockBean // inlocuieste in context spring clasa reala cu un mock Mockito
    // ->te lasa sa mockuiesti metode de pe ea
    public SafetyClient mockSafetyClient;
