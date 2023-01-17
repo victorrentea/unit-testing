@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -30,6 +33,8 @@ import static victor.testing.spring.domain.ProductCategory.*;
 
 @ActiveProfiles("db-mem")
 @SpringBootTest
+@Transactional
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // ineficient pt run time pe CI
 public class ProductServiceTest {
    @MockBean // inlocuieste in context spring clasa reala cu un mock Mockito
    // ->te lasa sa mockuiesti metode de pe ea
@@ -41,11 +46,11 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
-   @BeforeEach
-   final void before() {
-       productRepo.deleteAll();
-      supplierRepo.deleteAll();
-   }
+//   @BeforeEach
+//   final void before() {
+//       productRepo.deleteAll();
+//      supplierRepo.deleteAll();
+//   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
