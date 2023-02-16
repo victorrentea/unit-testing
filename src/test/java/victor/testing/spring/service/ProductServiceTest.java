@@ -46,8 +46,8 @@ public class ProductServiceTest extends DBTest {
 
    @BeforeEach
    final void before() {
-      supplierRepo.deleteAll();
        productRepo.deleteAll(); // FK violation
+      supplierRepo.deleteAll();
    }
    @Test
    public void createThrowsForUnsafeProduct() {

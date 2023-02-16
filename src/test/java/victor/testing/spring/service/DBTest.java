@@ -25,4 +25,6 @@ public abstract class DBTest {
   public static void registerPgProperties(DynamicPropertyRegistry registry) {
     TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
   }
+
+
 }
