@@ -17,6 +17,7 @@ public class CountHowManySpringContextWereCreated implements TestExecutionListen
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
         try {
+            // HERE ! this is fun
             Field f = DefaultCacheAwareContextLoaderDelegate.class.getDeclaredField("defaultContextCache");
             f.setAccessible(true);
             ContextCache cache = (ContextCache) f.get(null);

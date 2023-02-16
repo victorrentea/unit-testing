@@ -1,68 +1,47 @@
-package victor.testing.spring.service;
+package victor.testing.spring.service.subp;
 
-import org.awaitility.Awaitility;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.DBTest;
+import victor.testing.spring.service.OtherService;
+import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.tools.WireMockExtension;
 
-import javax.annotation.RegEx;
-import javax.print.attribute.standard.RequestingUserName;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
-@Sql(value = "classpath:/sql/cleanup.sql",
-        executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-@interface WipeDB {}
-
- // AVOID this in normal applications: only use when you write code
+// AVOID this in normal applications: only use when you write code
 // that CHANGES the spring context (eg defines new beans, changes environme)
 // @DirtiesContext(classMode =  ClassMode.BEFORE_EACH_TEST_METHOD)
 // tempting to use this to blow up your H2 in memory db.
 
-@WipeDB // NOT PARALLELIZABLE
-//@Transactional // parallelization-friendly
+//@WipeDB // NOT PARALLELIZABLE
+@Transactional // parallelization-friendly
 
-@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
 @ActiveProfiles("db-migration")
 @Testcontainers
-@AutoConfigureWireMock(port = 9999)
+@AutoConfigureWireMock(port = 0)
 // assume we can't do this: @Async , REQUIRES_NEW, no-sql, MQ, files on disk
 public class ProductServiceTest extends DBTest {
    @Autowired
@@ -76,6 +55,8 @@ public class ProductServiceTest extends DBTest {
 //   @RegisterExtension
 //   public WireMockExtension wireMock = new WireMockExtension(9999);
 
+   @MockBean
+   OtherService service;
 //   @BeforeEach
 //   final void before() {
 //       productRepo.deleteAll(); // FK violation
