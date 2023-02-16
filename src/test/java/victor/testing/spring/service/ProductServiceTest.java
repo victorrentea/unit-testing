@@ -47,10 +47,10 @@ import static victor.testing.spring.domain.ProductCategory.*;
 
  // AVOID this in normal applications: only use when you write code
 // that CHANGES the spring context (eg defines new beans, changes environme)
- @DirtiesContext(classMode =  ClassMode.BEFORE_EACH_TEST_METHOD)
+// @DirtiesContext(classMode =  ClassMode.BEFORE_EACH_TEST_METHOD)
 // tempting to use this to blow up your H2 in memory db.
 
-//@WipeDB
+@WipeDB
 //@Transactional // assume we can't do this: @Async , REQUIRES_NEW, no-sql, MQ, files on disk
 public class ProductServiceTest extends DBTest {
    @MockBean
