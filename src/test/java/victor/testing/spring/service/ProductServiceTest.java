@@ -14,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -25,6 +27,9 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
+import javax.print.attribute.standard.RequestingUserName;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
@@ -33,6 +38,12 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
+@Sql(value = "classpath:/sql/cleanup.sql",
+        executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@interface WipeDB {}
+
+@WipeDB
 //@Transactional // assume we can't do this: @Async , REQUIRES_NEW, no-sql, MQ, files on disk
 public class ProductServiceTest extends DBTest {
    @MockBean
@@ -44,11 +55,11 @@ public class ProductServiceTest extends DBTest {
    @Autowired
    private ProductService productService;
 
-   @BeforeEach
-   final void before() {
-       productRepo.deleteAll(); // FK violation
-      supplierRepo.deleteAll();
-   }
+//   @BeforeEach
+//   final void before() {
+//       productRepo.deleteAll(); // FK violation
+//      supplierRepo.deleteAll();
+//   }
    @Test
    public void createThrowsForUnsafeProduct() {
       // tell .isSave() to return false when called from production code
