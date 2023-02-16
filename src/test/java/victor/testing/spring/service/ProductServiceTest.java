@@ -2,6 +2,7 @@ package victor.testing.spring.service;
 
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -32,7 +33,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
-@Transactional
+//@Transactional // assume we can't do this: @Async , REQUIRES_NEW, no-sql, MQ, files on disk
 public class ProductServiceTest extends DBTest {
    @MockBean
    public SafetyClient mockSafetyClient;
@@ -43,6 +44,11 @@ public class ProductServiceTest extends DBTest {
    @Autowired
    private ProductService productService;
 
+   @BeforeEach
+   final void before() {
+      supplierRepo.deleteAll();
+       productRepo.deleteAll(); // FK violation
+   }
    @Test
    public void createThrowsForUnsafeProduct() {
       // tell .isSave() to return false when called from production code
