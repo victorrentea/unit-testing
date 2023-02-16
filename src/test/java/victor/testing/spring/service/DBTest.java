@@ -10,9 +10,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.tools.TestcontainersUtils;
 
-@SpringBootTest
-@ActiveProfiles("db-migration")
-@Testcontainers
+
 // [THE BEST WAY to test with RDB] tell spring to start each test in a new transaction and  ROLLBACK after each test.
 public abstract class DBTest {
   // === B) Reuse the container across multiple test classes ===

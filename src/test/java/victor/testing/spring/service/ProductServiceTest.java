@@ -6,13 +6,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -29,7 +32,9 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.WireMockExtension;
 
+import javax.annotation.RegEx;
 import javax.print.attribute.standard.RequestingUserName;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -54,9 +59,13 @@ import static victor.testing.spring.domain.ProductCategory.*;
 @WipeDB // NOT PARALLELIZABLE
 //@Transactional // parallelization-friendly
 
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+@ActiveProfiles("db-migration")
+@Testcontainers
+@AutoConfigureWireMock(port = 9999)
 // assume we can't do this: @Async , REQUIRES_NEW, no-sql, MQ, files on disk
 public class ProductServiceTest extends DBTest {
-   @MockBean
+   @Autowired
    public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
@@ -64,6 +73,8 @@ public class ProductServiceTest extends DBTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+//   @RegisterExtension
+//   public WireMockExtension wireMock = new WireMockExtension(9999);
 
 //   @BeforeEach
 //   final void before() {
@@ -73,7 +84,7 @@ public class ProductServiceTest extends DBTest {
    @Test
    public void createThrowsForUnsafeProduct() {
       // tell .isSave() to return false when called from production code
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
       ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -83,7 +94,7 @@ public class ProductServiceTest extends DBTest {
    @Test
    public void createOk() {
       // GIVEN (setup)
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
@@ -104,7 +115,7 @@ public class ProductServiceTest extends DBTest {
    @Test
    public void createOkBis() {
       // GIVEN (setup)
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 

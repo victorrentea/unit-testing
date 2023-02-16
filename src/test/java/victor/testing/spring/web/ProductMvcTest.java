@@ -40,10 +40,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
  */
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @ActiveProfiles("db-migration")
-@Transactional
 @Testcontainers
+@Transactional
 @AutoConfigureWireMock(port = 9999)
-
 @AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 public class ProductMvcTest {
     @Autowired
@@ -82,6 +81,7 @@ public class ProductMvcTest {
     // -------- 1: raw JSON formatting -----
     // + freezes the contract (Dto structure + URL)
     // - cumbersome
+//    @WithMockUser(role="ADMIN")
     private void createProduct_json(String productName) throws Exception {
         // language=json
         String createJson = """
@@ -95,12 +95,13 @@ public class ProductMvcTest {
         mockMvc.perform(post("/product/create")
                         .content(createJson)
                         .contentType(APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(header().string("a","b"));
     }
 
     // -------- 2: Instantiate Dtos  ---------
     // + can test status code
-    // ± robust against Dto structure change
+    // ± robust against Dto structure change (ok if you pair this with a Contract test or OpenApiFreeze Test
     private void createProduct_dto(String productName) throws Exception {
         ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
         String createJson = jackson.writeValueAsString(dto);
