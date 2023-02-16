@@ -38,7 +38,7 @@ public class ProductService {
         product.setBarcode(productDto.barcode);
         product.setCreateDate(LocalDateTime.now());
         product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
-        if (productDto.category != null) {
+        if (productDto.category == null) {
             productDto.category = ProductCategory.UNCATEGORIZED; // untested 😱
         }
         product.setCategory(productDto.category);
