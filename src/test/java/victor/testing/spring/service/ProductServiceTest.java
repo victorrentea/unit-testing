@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
@@ -43,7 +45,12 @@ import static victor.testing.spring.domain.ProductCategory.*;
 @Retention(RetentionPolicy.RUNTIME)
 @interface WipeDB {}
 
-@WipeDB
+ // AVOID this in normal applications: only use when you write code
+// that CHANGES the spring context (eg defines new beans, changes environme)
+ @DirtiesContext(classMode =  ClassMode.BEFORE_EACH_TEST_METHOD)
+// tempting to use this to blow up your H2 in memory db.
+
+//@WipeDB
 //@Transactional // assume we can't do this: @Async , REQUIRES_NEW, no-sql, MQ, files on disk
 public class ProductServiceTest extends DBTest {
    @MockBean
