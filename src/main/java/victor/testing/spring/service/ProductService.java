@@ -27,7 +27,7 @@ public class ProductService {
     private final ProductRepo productRepo;
     private final SupplierRepo supplierRepo;
 
-    @Transactional
+//    @Transactional
     //(propagation = Propagation.REQUIRES_NEW) // BREAKS IT #1
     //    @Async  //  BREAKS IT #2 as you loose the JDBC conn + tx
     public void createProduct(ProductDto productDto) {

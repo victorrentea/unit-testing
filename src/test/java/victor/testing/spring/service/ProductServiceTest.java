@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import org.awaitility.Awaitility;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,8 +51,10 @@ import static victor.testing.spring.domain.ProductCategory.*;
 // @DirtiesContext(classMode =  ClassMode.BEFORE_EACH_TEST_METHOD)
 // tempting to use this to blow up your H2 in memory db.
 
-@WipeDB
-//@Transactional // assume we can't do this: @Async , REQUIRES_NEW, no-sql, MQ, files on disk
+@WipeDB // NOT PARALLELIZABLE
+//@Transactional // parallelization-friendly
+
+// assume we can't do this: @Async , REQUIRES_NEW, no-sql, MQ, files on disk
 public class ProductServiceTest extends DBTest {
    @MockBean
    public SafetyClient mockSafetyClient;
