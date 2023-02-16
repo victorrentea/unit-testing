@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,6 +32,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
+@Transactional
 public class ProductServiceTest extends DBTest {
    @MockBean
    public SafetyClient mockSafetyClient;

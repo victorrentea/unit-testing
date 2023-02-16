@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
@@ -27,8 +28,8 @@ public class ProductService {
     private final SupplierRepo supplierRepo;
 
     @Transactional
-    (propagation = Propagation.REQUIRES_NEW) // BREAKS IT #1
-//    @Async  //  BREAKS IT #2 as you loose the JDBC conn + tx
+    //(propagation = Propagation.REQUIRES_NEW) // BREAKS IT #1
+    //    @Async  //  BREAKS IT #2 as you loose the JDBC conn + tx
     public void createProduct(ProductDto productDto) {
         boolean safe = safetyClient.isSafe(productDto.barcode); // ⚠️ REST call inside
         if (!safe) {
@@ -39,7 +40,8 @@ public class ProductService {
         product.setName(productDto.name);
         product.setBarcode(productDto.barcode);
         product.setCreateDate(LocalDateTime.now());
-        product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
+        Supplier supplier = supplierRepo.findById(productDto.supplierId).orElseThrow();
+        product.setSupplier(supplier);
         if (productDto.category == null) {
             productDto.category = ProductCategory.UNCATEGORIZED; // untested 😱
         }
