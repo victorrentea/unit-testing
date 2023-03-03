@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
@@ -38,8 +40,8 @@ import static victor.testing.spring.domain.ProductCategory.*;
 
 @SpringBootTest
 @Testcontainers
-@Sql(value = "classpath:/sql/cleanup.sql",
-        executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+//@Sql(value = "classpath:/sql/cleanup.sql",
+//        executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 abstract class BaseTest {
    @Container
    static public PostgreSQLContainer<?> postgres =
@@ -63,6 +65,9 @@ abstract class BaseTest {
    }
 }
 
+// Nukes Spring context => +40 sec to your CI for each @Test
+// don't push this unless you are testing extensions to spring.
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ProductServiceTest extends BaseTest {
    @MockBean // replaces a spring bean with a Mockito mock reset between each test and injects that here for you
    public SafetyClient mockSafetyClient;
