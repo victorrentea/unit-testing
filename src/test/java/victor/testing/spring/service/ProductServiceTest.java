@@ -11,11 +11,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,9 +55,11 @@ import static victor.testing.spring.domain.ProductCategory.*;
       // !! surprise, despite using multiple threads, @Transactions work with r2dbc drivers (WebFlux),
 //       as long as you don't use .subscribe()
 // - @Transactional(propagation=REQUIRES_NEW) > that one will commit.
+@AutoConfigureWireMock(port = 9999)
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
 public class ProductServiceTest extends BaseTest {
-   @MockBean // replaces a spring bean with a Mockito mock reset between each test and injects that here for you
-   public SafetyClient mockSafetyClient;
+//   @MockBean // replaces a spring bean with a Mockito mock reset between each test and injects that here for you
+//   public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
    @Autowired
@@ -73,7 +77,7 @@ public class ProductServiceTest extends BaseTest {
    @Test
    public void createThrowsForUnsafeProduct() {
       // tell .isSave() to return false when called from production code
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
       ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -83,7 +87,7 @@ public class ProductServiceTest extends BaseTest {
    @Test
    public void createOk() {
       // GIVEN (setup)
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
@@ -130,7 +134,7 @@ public class ProductServiceTest extends BaseTest {
 
    @Test
    public void createOkBis() {
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
       productService.createProduct(dto);

@@ -3,6 +3,9 @@ package victor.testing.spring.service;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -11,7 +14,14 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.tools.TestcontainersUtils;
 
-@ActiveProfiles("db-mem")
+//@Primary
+//@Profile("test")
+//@Component
+//class AlternativeImplemForTests  implements AnInterfFromProd{
+//
+//}
+
+@ActiveProfiles({"db-mem","test"})
 @SpringBootTest
 //@Testcontainers
 //@Sql(value = "classpath:/sql/cleanup.sql",
