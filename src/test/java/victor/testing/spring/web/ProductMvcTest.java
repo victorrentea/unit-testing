@@ -44,7 +44,8 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @Testcontainers
 @AutoConfigureWireMock(port = 9999)
 
-@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
+@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat =>
+    // @Transactional works, as the whole test shares 1 single thread
 public class ProductMvcTest {
     @Autowired
     private MockMvc mockMvc;
@@ -100,7 +101,7 @@ public class ProductMvcTest {
 
     // -------- 2: Instantiate Dtos  ---------
     // + can test status code
-    // ± robust against Dto structure change
+    // ± robust against Dto structure change (eg field name change refactor)
     private void createProduct_dto(String productName) throws Exception {
         ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
         String createJson = jackson.writeValueAsString(dto);
@@ -117,6 +118,8 @@ public class ProductMvcTest {
     // ! Can be paired by an OpenAPI freeze test
     @Autowired
     private ProductController productController;
+    @Test
+//    @WithMockUser(role=ADMIN) // test the @Secured
     private void createProduct_controllerCall(String productName) throws Exception {
         ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
         productController.create(dto);
