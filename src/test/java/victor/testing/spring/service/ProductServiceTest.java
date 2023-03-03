@@ -39,32 +39,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
-@SpringBootTest
-@Testcontainers
-//@Sql(value = "classpath:/sql/cleanup.sql",
-//        executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-abstract class BaseTest {
-   @Container
-   static public PostgreSQLContainer<?> postgres =
-           new PostgreSQLContainer<>("postgres:11");
-   @BeforeAll
-   public static void startTestcontainer() {
-      postgres.start();// TODO exercise for the reader: how to start docker ONCE for all tests!
-   }
-
-   @DynamicPropertySource
-   public static void registerPgProperties(DynamicPropertyRegistry registry) {
-      TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
-   }
-}
-
-
- class ProductService2Test extends BaseTest {
-   @Test
-   void explore() {
-      System.out.println("Me too");
-   }
-}
 
 // Nukes Spring context => +40 sec to your CI for each @Test
 // don't push this unless you are testing extensions to spring.
