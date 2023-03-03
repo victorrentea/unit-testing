@@ -39,6 +39,8 @@ public class ProductService {
         }
         product.setCategory(productDto.category);
         productRepo.save(product);
+        // #1 change the prod design
+//        return productRepo.save(product).getId();
     }
 
     public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
