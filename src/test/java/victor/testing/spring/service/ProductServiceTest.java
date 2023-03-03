@@ -14,6 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -36,6 +38,8 @@ import static victor.testing.spring.domain.ProductCategory.*;
 
 @SpringBootTest
 @Testcontainers
+@Sql(value = "classpath:/sql/cleanup.sql",
+        executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 abstract class BaseTest {
    @Container
    static public PostgreSQLContainer<?> postgres =
@@ -58,6 +62,7 @@ abstract class BaseTest {
       System.out.println("Me too");
    }
 }
+
 public class ProductServiceTest extends BaseTest {
    @MockBean // replaces a spring bean with a Mockito mock reset between each test and injects that here for you
    public SafetyClient mockSafetyClient;
@@ -67,6 +72,13 @@ public class ProductServiceTest extends BaseTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
+//   @BeforeEach // not safe against multithreaded tests.
+//   // the only option with non-relational stuff (Mongo, Rabbit)
+//   final void before() {
+//       productRepo.deleteAll();
+//       supplierRepo.deleteAll(); // FK ORDER MATTERS
+//   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
