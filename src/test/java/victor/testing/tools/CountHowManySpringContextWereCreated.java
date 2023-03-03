@@ -11,8 +11,17 @@ import org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDele
 
 import java.lang.reflect.Field;
 
+import static java.lang.System.currentTimeMillis;
+
 public class CountHowManySpringContextWereCreated implements TestExecutionListener {
     private static final Logger log = LoggerFactory.getLogger(CountHowManySpringContextWereCreated.class);
+    private long t0;
+
+    @Override
+    public void testPlanExecutionStarted(TestPlan testPlan) {
+        t0 = currentTimeMillis();
+    }
+
     @SneakyThrows
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
@@ -20,7 +29,8 @@ public class CountHowManySpringContextWereCreated implements TestExecutionListen
             Field f = DefaultCacheAwareContextLoaderDelegate.class.getDeclaredField("defaultContextCache");
             f.setAccessible(true);
             ContextCache cache = (ContextCache) f.get(null);
-            log.info("For the tests ran above, Spring created {} contexts" , cache.size());
+            long t1 = currentTimeMillis();
+            log.info("🏁 Executed tests in {} seconds. Spring created {} contexts",(t1-t0)/1000f, cache.size());
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
             log.warn("Listener failed: " + e);
         }

@@ -155,7 +155,7 @@
         </dependency>
 
 
-        <!-- <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
@@ -163,17 +163,9 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
-        </dependency>-->
-
-
-
-        <dependency>
-            <!-- niche -->
-            <groupId>com.github.springtestdbunit</groupId>
-            <artifactId>spring-test-dbunit</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
         </dependency>
+
+
         <dependency>
             <!-- niche -->
             <groupId>org.dbunit</groupId>
@@ -183,32 +175,25 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>3.3.0</version>
-            <scope>test</scope>
-        </dependency>
-
 
         <!-- WARNING: requires in every glue code path to include a package containing a class with @CucumberContextConfiguration -->
-       <!-- <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-spring</artifactId>
-            <version>${cucumber-java.version}</version>
-            <scope>test</scope>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>io.cucumber</groupId>
+             <artifactId>cucumber-spring</artifactId>
+             <version>${cucumber-java.version}</version>
+             <scope>test</scope>
+         </dependency>-->
 
 
         <!--Enable blockhound test listener to detect blocking calls in non-blocking threads-->
-<!--
-        <dependency>
-            <groupId>io.projectreactor.tools</groupId>
-            <artifactId>blockhound-junit-platform</artifactId>
-            <version>1.0.6.RELEASE</version>
-            <scope>test</scope>
-        </dependency>
--->
+        <!--
+                <dependency>
+                    <groupId>io.projectreactor.tools</groupId>
+                    <artifactId>blockhound-junit-platform</artifactId>
+                    <version>1.0.6.RELEASE</version>
+                    <scope>test</scope>
+                </dependency>
+        -->
 
 
         <dependency>
@@ -222,6 +207,11 @@
             <version>1.17.2</version>
         </dependency>
         <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>1.15.2</version>
+        </dependency>
+        <dependency>
             <!-- Only needed on MacBook M1 chips to connect to local Docker service -->
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
@@ -232,11 +222,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.3.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>1.15.2</version>
         </dependency>
 
         <dependency>
@@ -260,11 +245,6 @@
             <artifactId>mockwebserver</artifactId>
             <version>5.0.0-alpha.7</version>
         </dependency>
-        <!-- <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>compile</scope>
-        </dependency>-->
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>

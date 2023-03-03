@@ -1,12 +1,15 @@
 package victor.testing.spring.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.catalina.realm.GenericPrincipal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -21,7 +24,10 @@ import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.tools.TestcontainersUtils;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -69,13 +75,26 @@ public class ProductMvcTest {
         supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
     }
 
+    // Behold how readable these tests are:
+
+
     @Test
+    @WithMockUser(roles = "ADMIN") // sets a Principal with the ROLE_ADMIN on the current thread
     public void flowTest() throws Exception {
         createProduct_json("Tree");
+//        createProduct_dto("Tree");
+//        createProduct_controllerCall(   "Tree");
 
         searchProduct(new ProductSearchCriteria().setName("Tree"), 1);
     }
 
+    @Test
+    @WithMockUser
+    public void createProductByNonAdmin_NotAuthorized() throws Exception {
+        ProductDto dto = new ProductDto("product name", "safebar", supplierId, HOME);
+        assertThatThrownBy(() -> productController.create(dto))
+                .isInstanceOf(AccessDeniedException.class);
+    }
     // ==================== test-DSL (helpers/framework) ======================
 
 
@@ -117,7 +136,7 @@ public class ProductMvcTest {
     // ! Can be paired by an OpenAPI freeze test
     @Autowired
     private ProductController productController;
-    private void createProduct_controllerCall(String productName) throws Exception {
+    private void createProduct_controllerCall(String productName) {
         ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
         productController.create(dto);
     }
