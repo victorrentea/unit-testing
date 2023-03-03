@@ -1,42 +1,17 @@
 package victor.testing.spring.repo;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
-import victor.testing.tools.TestcontainersUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
-@SpringBootTest
-@Testcontainers
-public class ProductRepoTestcontainersTest {
-    // === A) Start/Stop the container for each test class (not so efficient) ===
-    @Container
-    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
-
-    // === B) Reuse the container across multiple test classes ===
-//    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11").withReuse(true);
-//    @BeforeAll
-//    public static void startTestcontainer() {
-//        postgres.start();
-//    }
-
-    @DynamicPropertySource
-    public static void registerPgProperties(DynamicPropertyRegistry registry) {
-        TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
-    }
-
+public class ProductRepoTestcontainersTest extends BaseDatabaseTest {
     @Autowired
     private ProductRepo repo;
 
