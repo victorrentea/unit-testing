@@ -18,6 +18,7 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -67,7 +68,17 @@ abstract class BaseTest {
 
 // Nukes Spring context => +40 sec to your CI for each @Test
 // don't push this unless you are testing extensions to spring.
-@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+
+@Transactional() // THE best cleanup for tests; if the @Transactional
+// is started from @Test it behaves differently.
+// It's ZOMBIE TRANSACTION from start
+// When won't this work?
+// - async tests @Async, CompletableFuture.supplyAsync, ThreadPoolTaskExecutor.submit()
+      // !! surprise, despite using multiple threads, @Transactions work with r2dbc drivers (WebFlux),
+//       as long as you don't use .subscribe()
+// - @Transactional(propagation=REQUIRES_NEW) > that one will commit.
 public class ProductServiceTest extends BaseTest {
    @MockBean // replaces a spring bean with a Mockito mock reset between each test and injects that here for you
    public SafetyClient mockSafetyClient;
