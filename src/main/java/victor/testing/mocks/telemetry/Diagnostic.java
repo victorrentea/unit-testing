@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
@@ -9,11 +10,11 @@ import java.time.LocalDateTime;
 
 import static java.util.UUID.randomUUID;
 
+@RequiredArgsConstructor
 @Component
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
-	@Autowired
-	private Client client;
+	private final Client client;
 	private String diagnosticInfo = "";
 
 
