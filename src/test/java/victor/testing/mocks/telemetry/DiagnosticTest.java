@@ -31,7 +31,12 @@ public class DiagnosticTest {
       // an unstubbed mock method returns the 'null' value for the type,
       //  boolean=false, Boolean=null, List=emptyList
        assertThatThrownBy(() -> diagnostic.checkTransmission(true))
-               .isInstanceOf(IllegalStateException.class);
+               .isInstanceOf(IllegalStateException.class)
+               .hasMessageContaining("connect") // checking exception
+       // PRO: same exception with different reasons
+       // CONS: brittle fragile test becasue I test presentation
+       // "fix": use ENUMs to distinguish betw error codes
+       ;
 
    }
 

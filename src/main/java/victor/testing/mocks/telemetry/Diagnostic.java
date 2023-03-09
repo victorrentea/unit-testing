@@ -29,6 +29,7 @@ public class Diagnostic {
 
 		if (! client.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
+//			throw new MyException(ErrorCode.UNABLE_TO_CONNECT); // rendered to the user use an enum in your own exception
 		}
 
 		ClientConfiguration config = new ClientConfiguration();
@@ -36,6 +37,7 @@ public class Diagnostic {
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		client.configure(config);
+
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = client.receive();
