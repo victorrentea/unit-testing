@@ -1,18 +1,50 @@
 package victor.testing.mocks.telemetry;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 public class DiagnosticTest {
 
+
+   @Test
+   void throwsWhenNotOnline() {
+      Diagnostic diagnostic = new Diagnostic();
+      Client client = mock(Client.class);
+      diagnostic.setTelemetryClient(client);
+      // an unstubbed mock method returns the 'null' value for the type,
+      //  boolean=false, Boolean=null, List=emptyList
+       assertThatThrownBy(() -> diagnostic.checkTransmission(true))
+               .isInstanceOf(IllegalStateException.class);
+
+   }
+
+   @Test
+   void disconnects() {
+      Diagnostic diagnostic = new Diagnostic();
+      Client client = mock(Client.class);
+      diagnostic.setTelemetryClient(client);
+      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+
+       diagnostic.checkTransmission(true);
+
+      verify(client).disconnect(true); // verify the call of a side-effecing function
+   }
+
+
+   @Test
+   void sendsDiagnosticMessage() {
+      Diagnostic diagnostic = new Diagnostic();
+      Client client = mock(Client.class);
+      diagnostic.setTelemetryClient(client);
+      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+
+      diagnostic.checkTransmission(true);
+
+      verify(client).send(Client.DIAGNOSTIC_MESSAGE);
+   }
 }
