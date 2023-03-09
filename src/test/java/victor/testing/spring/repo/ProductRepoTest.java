@@ -19,6 +19,7 @@ public class ProductRepoTest {
    @Autowired
    ProductRepo repo;
 
+   // this instance is re-creted for each @Test => no need for cleanup
    ProductSearchCriteria criteria = new ProductSearchCriteria();
 
    @Test
@@ -26,6 +27,20 @@ public class ProductRepoTest {
       repo.save(new Product("A"));
       List<ProductSearchResult> results = repo.search(criteria);
       assertThat(results).hasSize(1);
+   }
+   @Test
+   public void byName() {
+      repo.save(new Product("A"));
+      criteria.name = "A";
+      List<ProductSearchResult> results = repo.search(criteria);
+      assertThat(results).hasSize(1);
+   }
+   @Test
+   public void byName_misMatch() {
+      repo.save(new Product("A"));
+      criteria.name = "B";
+      List<ProductSearchResult> results = repo.search(criteria);
+      assertThat(results).hasSize(0);
    }
 
 //   @Test
