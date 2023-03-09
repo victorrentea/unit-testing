@@ -1,5 +1,6 @@
 package victor.testing.tdd.classic;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
@@ -136,5 +137,18 @@ public class BowlingGameTest {
   }
 
 
+  @Test
+  @Disabled("TODO")
+  void spareAfterStrik() {
+  }
+
+  @Test
+  @Disabled("TODO")
+  void strikeAsTheLastRoll() {
+  }
+  @Test
+  @Disabled("TODO")
+  void strikeafterStrike() {
+  }
   // what if    BowlingGame.roll(0);
 }
