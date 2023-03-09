@@ -17,7 +17,6 @@ import java.util.List;
 
 @Slf4j
 public class BowlingGame {
-  private int score;
   private Integer firstRollInCurrentFrame;
 
   record Frame(int first, int second) {
@@ -56,22 +55,13 @@ public class BowlingGame {
     }
     return totalScore;
   }
-  public int score3() {
-    if (score == 10) {
-      return -1;
-    }
-    return score;
-  }
 
   public void roll(int pins) {
-
     if (firstRollInCurrentFrame == null) {
       firstRollInCurrentFrame = pins;
     } else {
       completedFrames.add(new Frame(firstRollInCurrentFrame, pins));
       firstRollInCurrentFrame = null;
     }
-    if (score == 10) pins *= 2;
-    score += pins;
   }
 }
