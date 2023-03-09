@@ -1,11 +1,16 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.jupiter.api.BeforeEach;
+import com.sun.xml.bind.v2.TODO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import victor.testing.tools.WireMockExtension;
+
+import javax.annotation.RegEx;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -13,10 +18,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 
+//@AutoConfigureWireMock // spring manages to reuse the same WM between test classes
 @ExtendWith(MockitoExtension.class) // this extension to Junit reflection on the fields and sees @Mock @InjectMocks
 public class DiagnosticTest {
-
-
    @InjectMocks
    private Diagnostic diagnostic;
    @Mock
@@ -47,6 +51,15 @@ public class DiagnosticTest {
 
       diagnostic.checkTransmission(true);
 
-      verify(client).send(Client.DIAGNOSTIC_MESSAGE);
+      verify(client).send(Client.DIAGNOSTIC_MESSAGE); // <- default 99%
+
+      verify(client).send("AT#UD"); // <- only if you want to freeze that value, ie. fail the constant value changes
    }
+
 }
+// TODO:
+// test naming
+// single assert rule
+// abusing before / resetting mocks
+// captor
+// asserting exceptions
