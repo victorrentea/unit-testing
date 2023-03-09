@@ -1,8 +1,9 @@
 package victor.testing.mocks.telemetry;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.stereotype.Component;
+import scala.concurrent.impl.FutureConvertersImpl.CF;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -17,6 +18,11 @@ public class Diagnostic {
 	private final Client client;
 	private String diagnosticInfo = "";
 
+	// BAD
+//	private ClientConfiguration config;
+//	public ClientConfiguration getConfig() {
+//		return config;
+//	}
 
 	public void checkTransmission(boolean force) {
 		client.disconnect(force);
@@ -38,13 +44,21 @@ public class Diagnostic {
 		config.setAckMode(AckMode.NORMAL);
 		client.configure(config);
 
-
 		client.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = client.receive();
+//		return config; // least harmful, but still a change in prod API, violating CQS principle
 	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
 
+//	private final ConfigFactory configFactory;
 }
+
+// BAD just for testing :over enginerreing
+//class ConfigFactory {
+//	public ClientConfiguration newInstance() {
+//		return new ClientConfiguration();
+//	}
+//}

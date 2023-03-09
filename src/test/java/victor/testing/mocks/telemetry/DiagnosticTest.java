@@ -4,11 +4,12 @@ import com.sun.xml.bind.v2.TODO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import victor.testing.mocks.telemetry.Client.ClientConfiguration;
+import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 import victor.testing.tools.WireMockExtension;
 
 import javax.annotation.RegEx;
@@ -74,6 +75,20 @@ public class DiagnosticTest {
 //      verify(client).receive(); // insufficient, actually USELESS
       assertThat(diagnostic.getDiagnosticInfo())
               .isEqualTo("Gyros");
+   }
+
+   @Test
+   void achModeNormal() {
+      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+
+      diagnostic.checkTransmission(true);
+
+      // extract the value of the parameter from the mock
+      ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
+      verify(client).configure(configCaptor.capture());
+      ClientConfiguration config = configCaptor.getValue();
+
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
    }
 
 
