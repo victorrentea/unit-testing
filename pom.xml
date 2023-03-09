@@ -236,6 +236,7 @@
 
         <!-- mock statics -->
         <dependency>
+            <!-- This changed the practice: it's ok to mock statics from now on -->
             <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
             <scope>test</scope>

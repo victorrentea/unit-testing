@@ -5,11 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import static java.time.LocalDate.now;
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -20,6 +23,38 @@ class TimeBasedLogicTest {
    OrderRepo orderRepo;
    @InjectMocks
    TimeBasedLogic target;
+
+
+   @Test
+   void staticMocks() {
+      // some libraries (PowerMock, PowerMockito is dangerous) < can leak, stops multithread your tests
+      LocalDate christmas = parse("2022-12-25");
+      LocalDate sevenBeforeChristmas = parse("2022-12-18");
+
+      // mockito 2.0
+      try(MockedStatic<LocalDate> staticMock = Mockito.mockStatic(LocalDate.class)) {
+         staticMock.when(LocalDate::now).thenReturn(christmas);
+         when(orderRepo.findByCustomerIdAndCreatedOnBetween(
+                 13, sevenBeforeChristmas, christmas))
+                 .thenReturn(List.of(new Order().setTotalAmount(130d)));
+
+         boolean frequentBuyer = target.isFrequentBuyer(13);
+
+         assertThat(frequentBuyer).isTrue();
+      }
+   }
+
+   @Test
+   void isFrequentBuyer_repeatingProdCodeInTests() {
+      when(orderRepo.findByCustomerIdAndCreatedOnBetween(
+              13,
+             now().minusDays(7),
+              now())
+      )
+              .thenReturn(List.of(new Order().setTotalAmount(130d)));
+
+      assertThat(target.isFrequentBuyer(13)).isTrue();
+   }
 
    @Test
 //   @Disabled("flaky, time-based")
