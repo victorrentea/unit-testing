@@ -4,6 +4,7 @@ import com.sun.xml.bind.v2.TODO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -30,13 +31,13 @@ public class DiagnosticTest {
    void throwsWhenNotOnline() {
       // an unstubbed mock method returns the 'null' value for the type,
       //  boolean=false, Boolean=null, List=emptyList
-       assertThatThrownBy(() -> diagnostic.checkTransmission(true))
-               .isInstanceOf(IllegalStateException.class)
-               .hasMessageContaining("connect") // checking exception
-       // PRO: same exception with different reasons
-       // CONS: brittle fragile test becasue I test presentation
-       // "fix": use ENUMs to distinguish betw error codes
-       ;
+      assertThatThrownBy(() -> diagnostic.checkTransmission(true))
+              .isInstanceOf(IllegalStateException.class)
+              .hasMessageContaining("connect") // checking exception
+      // PRO: same exception with different reasons
+      // CONS: brittle fragile test becasue I test presentation
+      // "fix": use ENUMs to distinguish betw error codes
+      ;
 
    }
 
@@ -44,7 +45,7 @@ public class DiagnosticTest {
    void disconnects() {
       when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
 
-       diagnostic.checkTransmission(true);
+      diagnostic.checkTransmission(true);
 
       verify(client).disconnect(true); // verify the call of a side-effecing function
    }
@@ -61,7 +62,23 @@ public class DiagnosticTest {
       verify(client).send("AT#UD"); // <- only if you want to freeze that value, ie. fail the constant value changes
    }
 
+   @Test
+   void receives() {
+      // given <- use comments for test >7-10 lines long
+      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+      when(client.receive()).thenReturn("Gyros");
+
+      // when
+      diagnostic.checkTransmission(true);
+
+//      verify(client).receive(); // insufficient, actually USELESS
+      assertThat(diagnostic.getDiagnosticInfo())
+              .isEqualTo("Gyros");
+   }
+
+
 }
+
 // TODO:
 // test naming
 // single assert rule
