@@ -84,13 +84,17 @@ public class DiagnosticTest {
       diagnostic.checkTransmission(true);
 
       // extract the value of the parameter from the mock
-      ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
       verify(client).configure(configCaptor.capture());
       ClientConfiguration config = configCaptor.getValue();
 
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+
+      // or if you want to test a single field
+      verify(client).configure(argThat(c-> c.getAckMode() == AckMode.NORMAL));
    }
 
+   @Captor
+   ArgumentCaptor<ClientConfiguration> configCaptor;
 
 }
 
