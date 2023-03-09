@@ -1,9 +1,11 @@
 package victor.testing.tdd.classic;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
+import victor.testing.tools.ReplaceCamelCase;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // The game consists of 10 frames. In each frame the player has two rolls to knock down 10 pins.
 // The score for the frame is the total number of pins knocked down, plus bonuses for 'strikes' and 'spares'.
@@ -21,11 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //
 // Requirements
 // Write a class Game that has two methods
+@DisplayNameGeneration(ReplaceCamelCase.class)
 
 // void roll(int pins) is called each time the player rolls a ball. The argument is the number of pins knocked down.
 // int score() returns the total score for that game.
 public class BowlingGameTest {
   BowlingGame bowlingGame = new BowlingGame(); // it's the same instance - WRONG!
+
   public BowlingGameTest() {
     System.out.println("New instance per each @Test!! > no need to clean instance variables between @Test");
   }
@@ -37,9 +41,9 @@ public class BowlingGameTest {
   }
 
   @Test
-  void scoreIsOne_givenRolled_1() {
+  void scoreIs1_givenRolled_1() {
     bowlingGame.roll(1);
-    int score = bowlingGame.score(); // "score" in the ubiquitous language of the teams
+    int score = bowlingGame.score();
     assertThat(score).isEqualTo(1);
   }
 
@@ -48,12 +52,55 @@ public class BowlingGameTest {
   // The score should be calculated at every point in game.
 
   @Test
-  void scoreIsOne_givenRolled_1_2() {
-    bowlingGame.roll(1);
-    bowlingGame.roll(2);
-    int score = bowlingGame.score(); // "score" in the ubiquitous language of the teams
-    assertThat(score).isEqualTo(2);
+  void scoreIs4_givenRolled_4() {
+    bowlingGame.roll(4);
+    int score = bowlingGame.score();
+    assertThat(score).isEqualTo(4);
   }
 
-// what if    BowlingGame.roll(0);
+  // in TDD a new test can be green from start for 3 reasons:
+  // 1) the test contains a bug
+  // 2) we are overlapping func we already implemented
+  // 3) we might choose to leave that overlapping the test is a translation of an "Example" from the biz
+  @Test
+  // from the spec
+  void scoreIs8_givenRolled_4_4() {
+    bowlingGame.roll(4);
+    bowlingGame.roll(4);
+    int score = bowlingGame.score();
+    assertThat(score).isEqualTo(8);
+  }
+
+  @Test
+//  @DisplayName("good  quality code does not require //comments")
+//  @DisplayName("good  quality test do not require @DisplayName")
+  void scoreIsNegative_afterASpareBeforeTheNextRoll() {
+    bowlingGame.roll(9);
+    bowlingGame.roll(1);
+    int score = bowlingGame.score();
+    assertThat(score).isNegative();
+  }
+
+  @Test
+  void addsTheNextRollAfterSpare() {
+    bowlingGame.roll(9);
+    bowlingGame.roll(1);
+    bowlingGame.roll(1);
+    int score = bowlingGame.score();
+    final int BONUS = 1;
+    assertThat(score).isEqualTo((10 + BONUS) + 1);
+  }
+  // comment out the last failing test, to start refactoring from GREEN
+//  @Test
+//  void normalGame() {
+//    bowlingGame.roll(8);
+//    bowlingGame.roll(1);
+//    bowlingGame.roll(1);
+//    int score = bowlingGame.score();
+//    final int BONUS = 1;
+//    assertThat(score).isEqualTo(10);
+//  }
+
+
+  // what if    BowlingGame.roll(0);
 }
