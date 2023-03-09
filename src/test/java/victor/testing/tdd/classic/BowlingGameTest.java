@@ -91,15 +91,49 @@ public class BowlingGameTest {
     assertThat(score).isEqualTo((10 + BONUS) + 1);
   }
   // comment out the last failing test, to start refactoring from GREEN
-//  @Test
-//  void normalGame() {
-//    bowlingGame.roll(8);
-//    bowlingGame.roll(1);
-//    bowlingGame.roll(1);
-//    int score = bowlingGame.score();
-//    final int BONUS = 1;
-//    assertThat(score).isEqualTo(10);
-//  }
+  @Test
+  void normalGame() {
+    bowlingGame.roll(8);
+    bowlingGame.roll(1);
+    bowlingGame.roll(1);
+    int score = bowlingGame.score();
+    assertThat(score).isEqualTo(10);
+  }
+  @Test
+  void spareFollowedBy0() {
+    bowlingGame.roll(8);
+    bowlingGame.roll(2);
+    bowlingGame.roll(0);
+    bowlingGame.roll(0);
+    bowlingGame.roll(1);
+    int score = bowlingGame.score();
+    assertThat(score).isEqualTo(11);
+  }
+  @Test
+  void spareAfterSpare() {
+    bowlingGame.roll(8);
+    bowlingGame.roll(2);
+
+    bowlingGame.roll(5);
+    bowlingGame.roll(5);
+
+    bowlingGame.roll(1);
+    int score = bowlingGame.score();
+    assertThat(score).isEqualTo(15 + 11 + 1);
+  }
+
+  @Test
+  void normalThenSpareThenStuff() {
+    bowlingGame.roll(4);
+    bowlingGame.roll(4);
+
+    bowlingGame.roll(5);
+    bowlingGame.roll(5);
+
+    bowlingGame.roll(1);
+    int score = bowlingGame.score();
+    assertThat(score).isEqualTo(8 + 11 + 1);
+  }
 
 
   // what if    BowlingGame.roll(0);

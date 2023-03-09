@@ -32,12 +32,16 @@ public class BowlingGame {
 
 
   public int score() {
-    int totalScore = completedFrames.stream()
-            .mapToInt(Frame::totalPins).sum();
+    int totalScore = completedFrames.stream().mapToInt(Frame::totalPins).sum();
     log.info("Total of frames :" +totalScore);
     if (firstRollInCurrentFrame != null) {
       if (!completedFrames.isEmpty()) {
-        if (completedFrames.get(0).isSpare()) {
+        for (int i = 0; i < completedFrames.size() - 1; i++) {
+          if (completedFrames.get(i).isSpare()) {
+            totalScore += completedFrames.get(i + 1).first();
+          }
+        }
+        if (completedFrames.get(completedFrames.size()-1).isSpare()) {
           totalScore += firstRollInCurrentFrame;
         }
       }
