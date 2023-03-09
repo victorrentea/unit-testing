@@ -12,13 +12,11 @@ import static org.mockito.Mockito.*;
 public class DiagnosticTest {
 
 
-   private Diagnostic diagnostic;
-   private Client client;
+   private Diagnostic diagnostic = new Diagnostic();
+   private Client client = mock(Client.class);
 
    @BeforeEach
    final void before() {
-      diagnostic = new Diagnostic();
-      client = mock(Client.class);
       diagnostic.setTelemetryClient(client);
 
    }
