@@ -14,8 +14,12 @@ import victor.testing.tools.WireMockExtension;
 
 import javax.annotation.RegEx;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -88,6 +92,10 @@ public class DiagnosticTest {
       ClientConfiguration config = configCaptor.getValue();
 
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+//      assertThat(config.getSessionStart()).isEqualTo(now()); // fails due to millisconds passing from prod up to here
+      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientist
+      assertThat(config.getSessionStart()).isNotNull(); // engineer will do
+
 
       // or if you want to test a single field
       verify(client).configure(argThat(c-> c.getAckMode() == AckMode.NORMAL));

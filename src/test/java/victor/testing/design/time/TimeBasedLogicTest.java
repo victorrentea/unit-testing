@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
@@ -21,12 +22,18 @@ class TimeBasedLogicTest {
    TimeBasedLogic target;
 
    @Test
-   @Disabled("flaky, time-based")
+//   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
+      LocalDate fixedTime = parse("2021-09-08");
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
-          13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+          13,
+              parse("2021-09-01"),
+              parse("2021-09-08")))
+              .thenReturn(List.of(new Order().setTotalAmount(130d)));
 
-      assertThat(target.isFrequentBuyer(13)).isTrue();
+      assertThat(target.isFrequentBuyer_(13, fixedTime)).isTrue();
+
+
 
       // 1: inject a Clock; Hint: you'll need ZoneId.systemDefault()
       // 2: interface for Clock retrival [general solution] -> **indirection without abstraction**
