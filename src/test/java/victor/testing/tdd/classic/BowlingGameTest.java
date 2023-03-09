@@ -36,17 +36,24 @@ public class BowlingGameTest {
     assertThat(score).isEqualTo(0);
   }
 
-  // The game consists of 10 frames. In each frame the player has two rolls to knock down 10 pins.
-  // The score for the frame is the total number of pins knocked down, plus bonuses for 'strikes' and 'spares'.
-  // The score should be calculated at every point in game.
-
   @Test
-  void scoreIsOne_given1PinKnoknedDown() {
+  void scoreIsOne_givenRolled_1() {
     bowlingGame.roll(1);
     int score = bowlingGame.score(); // "score" in the ubiquitous language of the teams
     assertThat(score).isEqualTo(1);
   }
 
+  // The game consists of 10 frames. In each frame the player has two rolls to knock down 10 pins.
+  // The score for the frame is the total number of pins knocked down, plus bonuses for 'strikes' and 'spares'.
+  // The score should be calculated at every point in game.
+
+  @Test
+  void scoreIsOne_givenRolled_1_2() {
+    bowlingGame.roll(1);
+    bowlingGame.roll(2);
+    int score = bowlingGame.score(); // "score" in the ubiquitous language of the teams
+    assertThat(score).isEqualTo(2);
+  }
 
 // what if    BowlingGame.roll(0);
 }
