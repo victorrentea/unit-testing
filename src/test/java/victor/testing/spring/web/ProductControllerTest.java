@@ -1,7 +1,6 @@
 package victor.testing.spring.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.catalina.realm.GenericPrincipal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,6 @@ import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.tools.TestcontainersUtils;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.hamcrest.Matchers.hasSize;
@@ -45,19 +42,17 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
  * <li> At the end of each tests leaves the DB clean (by auto-rollback of @Transactional)
  */
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+@AutoConfigureWireMock(port = 9999)
+@Testcontainers
 @ActiveProfiles("db-migration")
 @Transactional
-@Testcontainers
-@AutoConfigureWireMock(port = 9999)
 
 @AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
-public class ProductMvcTest {
+public abstract class ProductControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private SupplierRepo supplierRepo;
-
-    // === Testcontainers ===
     @Container
     static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
 
@@ -66,20 +61,18 @@ public class ProductMvcTest {
         TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
     }
 
-    private final ObjectMapper jackson = new ObjectMapper();
+    private final static ObjectMapper jackson = new ObjectMapper();
 
     private Long supplierId;
 
     @BeforeEach
     public void persistReferenceData() {
         supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
+        dto = new ProductDto("productName", "safebar", supplierId, HOME);
     }
 
-    // Behold how readable these tests are:
-
-
     @Test
-    @WithMockUser(roles = "ADMIN") // sets a Principal with the ROLE_ADMIN on the current thread
+    @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
     public void flowTest() throws Exception {
         createProduct_json("Tree");
 //        createProduct_dto("Tree");
@@ -87,14 +80,15 @@ public class ProductMvcTest {
 
         searchProduct(new ProductSearchCriteria().setName("Tree"), 1);
     }
+    abstract void createProduct(String name);
 
-    @Test
-    @WithMockUser
-    public void createProductByNonAdmin_NotAuthorized() throws Exception {
-        ProductDto dto = new ProductDto("product name", "safebar", supplierId, HOME);
-        assertThatThrownBy(() -> productController.create(dto))
-                .isInstanceOf(AccessDeniedException.class);
+    public static class Flavor1Test extends ProductControllerTest {
+        @Override
+        void createProduct(String name) {
+
+        }
     }
+
     // ==================== test-DSL (helpers/framework) ======================
 
 
@@ -105,29 +99,31 @@ public class ProductMvcTest {
         // language=json
         String createJson = """
                 {
-                    "name": "%s",
+                    "name": null,
                     "supplierId": "%d",
                     "barcode": "safebar"
                 }
-                """.formatted(productName, supplierId);
+                """.formatted( supplierId);
 
         mockMvc.perform(post("/product/create")
                         .content(createJson)
                         .contentType(APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(header().string("Custom-Header", "true"));
     }
 
     // -------- 2: Instantiate Dtos  ---------
     // + can test status code
     // ± robust against Dto structure change
+    private ProductDto dto;
+
     private void createProduct_dto(String productName) throws Exception {
-        ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
-        String createJson = jackson.writeValueAsString(dto);
+        String createJson = jackson.writeValueAsString(dto.setName(productName));
 
         mockMvc.perform(post("/product/create")
                         .content(createJson)
                         .contentType(APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()); // status
     }
 
     // -------- 3: Direct controller method call ---------
@@ -137,8 +133,20 @@ public class ProductMvcTest {
     @Autowired
     private ProductController productController;
     private void createProduct_controllerCall(String productName) {
-        ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
-        productController.create(dto);
+        productController.create(dto.setName(productName));
+    }
+
+    @Test
+    @WithMockUser
+    public void createProductByNonAdmin_NotAuthorized() {
+        assertThatThrownBy(() -> productController.create(dto))
+                .isInstanceOf(AccessDeniedException.class);
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void createFails_forNullName() {
+         productController.create(dto.setName(null));
     }
 
     private void searchProduct(ProductSearchCriteria criteria, int expectedNumberOfResults) throws Exception {
@@ -146,7 +154,6 @@ public class ProductMvcTest {
                         .content(jackson.writeValueAsString(criteria))
                         .contentType(APPLICATION_JSON)
                 )
-                .andExpect(status().isOk())
-                .andExpect(header().string("Custom-Header", "true"));
+                .andExpect(status().isOk());
     }
 }

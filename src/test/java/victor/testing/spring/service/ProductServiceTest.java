@@ -20,7 +20,6 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static victor.testing.spring.domain.ProductCategory.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
@@ -35,27 +34,25 @@ public class ProductServiceTest {
 
    @Test
    public void createThrowsForUnsafeProduct() {
-      // tell .isSave() to return false when called from production code
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
-      ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
+      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
               .isInstanceOf(IllegalStateException.class);
    }
 
    @Test
    public void createOk() {
-      // GIVEN (setup)
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      // GIVEN
       Supplier supplier = new Supplier().setId(13L);
       when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
-      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME);
 
-      // WHEN (prod call)
+      // WHEN
       productService.createProduct(dto);
 
-      // THEN (expectations/effects)
-      // Argument Captors extract the value passed from tested code to save(..)
+      // THEN
       ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
       verify(productRepo).save(productCaptor.capture());
       Product product = productCaptor.getValue();
@@ -63,7 +60,7 @@ public class ProductServiceTest {
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
-      assertThat(product.getCategory()).isEqualTo(HOME);
+      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
 
