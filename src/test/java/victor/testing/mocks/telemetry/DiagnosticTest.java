@@ -67,9 +67,11 @@ public class DiagnosticTest {
       ;
    }
 
+   // right now these 3 tests follow the 'SINGLE ASSERT RULE' -> checking one behavior at a time
+   // no one follows this rule in practice
    @Test
    void disconnects() {
-//      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+      // 2-7 lines preparing object, stubbing methods
 
       diagnostic.checkTransmission(true);
 
@@ -79,27 +81,22 @@ public class DiagnosticTest {
 
    @Test
    void sendsDiagnosticMessage() {
-//      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+      // 2-7 lines preparing object, stubbing methods
 
       diagnostic.checkTransmission(true);
 
       verify(client).send(Client.DIAGNOSTIC_MESSAGE); // <- default 99%
-
       verify(client).send("AT#UD"); // <- only if you want to freeze that value, ie. fail the constant value changes
    }
 
    @Test
    void receives() {
-      // given <- use comments for test >7-10 lines long
-//      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+      // 2-7 lines preparing object, stubbing methods
       when(client.receive()).thenReturn("Gyros");
 
-      // when
       diagnostic.checkTransmission(true);
 
-//      verify(client).receive(); // insufficient, actually USELESS
-      assertThat(diagnostic.getDiagnosticInfo())
-              .isEqualTo("Gyros");
+      assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("Gyros");
    }
 
 //   @Test
