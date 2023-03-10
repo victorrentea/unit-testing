@@ -50,7 +50,7 @@ public class Diagnostic {
 	// option1: subcutaneous test (@VisibleForTesting)
 	// option2: refactor more > break the class!! [HARD but correct]
 	@VisibleForTesting
-	ClientConfiguration createConfig() {
+	ClientConfiguration createConfig() { // better design as we bring the MUTATION at an earlier phase;
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(client.getVersion().toUpperCase() + "-" + randomUUID());
 		// please imagine this block gets a Cyclomatic Complexity of 12

@@ -32,6 +32,7 @@ import static org.mockito.Mockito.*;
 //@MockitoSettings(strictness = Strictness.LENIENT) // < NEVER
 public class DiagnosticTest {
    @InjectMocks
+   @Spy
    private Diagnostic diagnostic;
    @Mock
    private Client client;
@@ -41,7 +42,7 @@ public class DiagnosticTest {
       // not clear for you tomorrow what part of this before is used
       // by the failing test you are trying to fix
 
-      lenient().when(client.getVersion()).thenReturn("ver"); // tolerable for 1 stubbing that
+//      lenient().when(client.getVersion()).thenReturn("ver"); // tolerable for 1 stubbing that
          // 70% of tests are using bellow: for zero impact calls eg for some config:
 //      lenient().when(featureFlagsService.getFlag(FFlag.STUFF)).thenReturn(true);
 
@@ -66,6 +67,8 @@ public class DiagnosticTest {
 
    @Test
    void disconnects() {
+//      doNothing().when(diagnostic).createConfig(); // vor a VOID-returnign method
+      doReturn(new ClientConfiguration()).when(diagnostic).createConfig(); // for method returning stuff
 
       when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
 
@@ -77,6 +80,8 @@ public class DiagnosticTest {
 
    @Test
    void sendsDiagnosticMessage() {
+      doReturn(new ClientConfiguration()).when(diagnostic).createConfig(); // for method returning stuff
+
 
       when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
 
@@ -89,6 +94,8 @@ public class DiagnosticTest {
 
    @Test
    void receives() {
+      doReturn(new ClientConfiguration()).when(diagnostic).createConfig(); // for method returning stuff
+
 
       // given <- use comments for test >7-10 lines long
       when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
@@ -134,6 +141,7 @@ public class DiagnosticTest {
 // CR: the version for the client upper case in the session ID
    @Test
    void createConfigDirectly() {
+      when(client.getVersion()).thenReturn("ver");
 
       ClientConfiguration config = diagnostic.createConfig();
 
