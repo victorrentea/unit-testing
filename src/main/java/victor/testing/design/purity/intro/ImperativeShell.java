@@ -1,4 +1,4 @@
-package victor.testing.design.functionalcore;
+package victor.testing.design.purity.intro;
 
 import lombok.RequiredArgsConstructor;
 

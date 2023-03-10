@@ -1,4 +1,4 @@
-package victor.testing.design.functionalcore;
+package victor.testing.design.purity.intro;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

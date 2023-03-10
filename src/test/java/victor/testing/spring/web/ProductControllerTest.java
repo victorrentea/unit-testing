@@ -2,6 +2,7 @@ package victor.testing.spring.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,6 +25,7 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
+import victor.testing.tools.HumanReadableTestNames;
 import victor.testing.tools.TestcontainersUtils;
 
 import java.util.List;
@@ -47,6 +49,8 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 // - @Validated on params of @RestController methods
 // - Security: @Secured, @PreAuthorized, mvcMatcher("/admin/**), SecurityContextHolder usage
 
+@DisplayNameGeneration(HumanReadableTestNames.class) // makes test names look nice
+
 
 /**
  * <li> Connects to a production-like DB in a Docker image
@@ -54,8 +58,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
  * <li> Uses WireMock to stub the JSON responses from third party APIs
  * <li> Starts one @Transaction / @Test
  * <li> Fills some 'static' data in the database (Supplier)
+ * <li> pre-autorizes the request as ROLE_ADMIN by default
  * <li> Emulates a JSON request against my API and checks the JSON response
- * <li> At the end of each tests leaves the DB clean (by auto-rollback of @Transactional)
+ * <li> At the end of each test leaves the DB clean (by auto-rollback of @Transactional)
  */
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @AutoConfigureWireMock(port = 9999)

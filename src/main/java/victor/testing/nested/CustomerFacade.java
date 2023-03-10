@@ -9,6 +9,7 @@ import victor.testing.design.purity.CustomerRepo;
 import victor.testing.spring.domain.ProductCategory;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 public class CustomerFacade {
@@ -28,8 +29,8 @@ public class CustomerFacade {
       emailClient.sendWelcomeEmail(customer);
 
       if (DISCOUNTED_COUNTRIES.contains(customer.getAddress().getCountry())) {
-         customer.getCoupons().add(new Coupon(ProductCategory.ELECTRONICS, 10));
-         customer.getCoupons().add(new Coupon(ProductCategory.HOME, 10));
+         customer.getCoupons().add(new Coupon(ProductCategory.ELECTRONICS, 10, Set.of()));
+         customer.getCoupons().add(new Coupon(ProductCategory.HOME, 10, Set.of()));
          emailClient.sendNewCouponEmail(customer);
       }
 

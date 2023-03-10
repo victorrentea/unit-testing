@@ -11,14 +11,17 @@ import victor.testing.tools.TestcontainersUtils;
 
 @SpringBootTest
 @Testcontainers
+@Transactional
 public class BaseDatabaseTest {
 
+  // https://stackoverflow.com/questions/62425598/how-to-reuse-testcontainers-between-multiple-springboottests
   // === The containers is reused across all subclasses ===
   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
           "postgres:11").withReuse(true);
 
   @BeforeAll
   public static void startTestcontainer() {
+    System.out.println("(re)Starting testcontainer");
     postgres.start();
   }
 

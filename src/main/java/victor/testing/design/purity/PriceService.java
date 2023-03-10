@@ -29,7 +29,9 @@ public class PriceService {
             price = thirdPartyPrices.retrievePrice(product.getId());
          }
          for (Coupon coupon : customer.getCoupons()) {
-            if (coupon.autoApply() && coupon.isApplicableFor(product) && !usedCoupons.contains(coupon)) {
+            if (coupon.autoApply()
+                && coupon.isApplicableFor(product, price)
+                && !usedCoupons.contains(coupon)) {
                price = coupon.apply(product, price);
                usedCoupons.add(coupon);
             }

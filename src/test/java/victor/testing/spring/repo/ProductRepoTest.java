@@ -17,7 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("db-mem")
 @Transactional
 public class ProductRepoTest {
-
   @Autowired
   ProductRepo repo;
   @Autowired
