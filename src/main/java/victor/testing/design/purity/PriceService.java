@@ -2,6 +2,7 @@ package victor.testing.design.purity;
 
 import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
@@ -48,6 +49,7 @@ public class PriceService {
 
    // static method + immutable object = pure function
    @VisibleForTesting
+//   @Contract(pure = true)
     static PriceCalculationResult doComputePricesPure(Customer customer, List<Product> products, Map<Long, Double> resolvedPrices) {
       List<Coupon> usedCoupons = new ArrayList<>();
       Map<Long, Double> finalPrices = new HashMap<>();
