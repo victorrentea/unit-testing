@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -29,26 +30,20 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
-// for terrible Oracles 500 tables of love
-//@Sql("classpath:/sql/cleanup.sql")
-@SpringBootTest
-@ActiveProfiles("db-mem")
-public class ProductServiceTest {
+public class ProductServiceTest extends BaseDBTest{
    @MockBean // replaces in the springcontext the bean with a MOckito mock that you can program time+=14.5 seconds :)
    public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
-   @Autowired
-   private SupplierRepo supplierRepo;
+
    @Autowired
    private ProductService productService;
 
-   @BeforeEach
-   final void before() {
-       productRepo.deleteAll();
-      supplierRepo.deleteAll(); // order matters. Listen to the FKs, Luke!
-   }
-
+   //   @BeforeEach
+//   final void before() {
+//       productRepo.deleteAll();
+//      supplierRepo.deleteAll(); // order matters. Listen to the FKs, Luke!
+//   }
    @Test
    public void createThrowsForUnsafeProduct() {
       // tell .isSave() to return false when called from production code
@@ -63,7 +58,6 @@ public class ProductServiceTest {
    public void createOk() {
       // GIVEN (setup)
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN (prod call)
@@ -82,7 +76,6 @@ public class ProductServiceTest {
    public void createOkBis() {
       // GIVEN (setup)
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      Long supplierId = supplierRepo.save(new Supplier()).getId();
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN (prod call)
