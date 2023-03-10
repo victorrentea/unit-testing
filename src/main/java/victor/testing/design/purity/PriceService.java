@@ -1,5 +1,6 @@
 package victor.testing.design.purity;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import victor.testing.mutation.Coupon;
@@ -24,23 +25,34 @@ public class PriceService {
                                           Map<Long, Double> internalPrices) {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
+      Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);
 
-      PriceCalculationResult result = doComputePrices(internalPrices, customer, products);
+      PriceCalculationResult result = doComputePricesPure(customer, products, resolvedPrices);
 
       couponRepo.markUsedCoupons(customerId, result.usedCoupons());
       return result.finalPrices();
    }
 
-   // no SRP
-   // not PURE: retrievePrices might give you different resultts 2nd time
-   private PriceCalculationResult doComputePrices(Map<Long, Double> internalPrices, Customer customer, List<Product> products) {
-      List<Coupon> usedCoupons = new ArrayList<>();
-      Map<Long, Double> finalPrices = new HashMap<>();
+   @NotNull
+   private Map<Long, Double> resolvePrices(Map<Long, Double> internalPrices, List<Product> products) {
+      Map<Long, Double> resolvedPrices = new HashMap<>();
       for (Product product : products) {
          Double price = internalPrices.get(product.getId());
          if (price == null) {
             price = thirdPartyPrices.retrievePrice(product.getId()); // GET
          }
+         resolvedPrices.put(product.getId(), price);
+      }
+      return resolvedPrices;
+   }
+
+   // static method + immutable object = pure function
+   @VisibleForTesting
+    static PriceCalculationResult doComputePricesPure(Customer customer, List<Product> products, Map<Long, Double> resolvedPrices) {
+      List<Coupon> usedCoupons = new ArrayList<>();
+      Map<Long, Double> finalPrices = new HashMap<>();
+      for (Product product : products) {
+         double price = resolvedPrices.get(product.getId());
          for (Coupon coupon : customer.getCoupons()) {
             if (coupon.autoApply() &&
                 coupon.isApplicableFor(product) &&
