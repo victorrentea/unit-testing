@@ -103,7 +103,7 @@ public class DiagnosticTest {
    }
 
 //   @Test
-//   void achModeNormal() {
+//   void achModeNor mal() {
 //      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
 //
 //      diagnostic.checkTransmission(true);
@@ -143,7 +143,6 @@ public class DiagnosticTest {
               .startsWith("VER-")
               .hasSize(40);
    } // x 11 more such tests
-
 
 }
 
