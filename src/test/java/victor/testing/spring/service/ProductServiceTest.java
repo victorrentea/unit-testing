@@ -10,8 +10,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
@@ -34,9 +36,12 @@ import static victor.testing.spring.domain.ProductCategory.*;
 //@ActiveProfiles("db-mem")
 //@Transactional
 
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
+@AutoConfigureWireMock(port = 9999) // starts a wiremock http server on 9999
+// serving files by default from /src/test/resources/mappings/*
 public class ProductServiceTest extends BaseDBTest{
-   @MockBean // replaces in the springcontext the bean with a MOckito mock that you can program time+=14.5 seconds :)
-   public SafetyClient mockSafetyClient;
+//   @MockBean // replaces in the springcontext the bean with a MOckito mock that you can program time+=14.5 seconds :)
+//   public SafetyClient mockSafetyClient;
    // what if we let the mock safety client work for real (no mocks) and we would mock
    // spring frameworks' RestTemplate ( a library class )
    // => NEVER as it will force me to mock a library class that I don;t own
@@ -55,7 +60,7 @@ public class ProductServiceTest extends BaseDBTest{
    @Test
    public void createThrowsForUnsafeProduct() {
       // tell .isSave() to return false when called from production code
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
       ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -65,7 +70,7 @@ public class ProductServiceTest extends BaseDBTest{
    @Test
    public void createOk() {
       // GIVEN (setup)
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN (prod call)
@@ -83,7 +88,7 @@ public class ProductServiceTest extends BaseDBTest{
    @Test
    public void createOkBis() {
       // GIVEN (setup)
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN (prod call)
