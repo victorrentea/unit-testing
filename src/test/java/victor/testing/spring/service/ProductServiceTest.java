@@ -30,9 +30,10 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional
+//@SpringBootTest
+//@ActiveProfiles("db-mem")
+//@Transactional
+
 public class ProductServiceTest extends BaseDBTest{
    @MockBean // replaces in the springcontext the bean with a MOckito mock that you can program time+=14.5 seconds :)
    public SafetyClient mockSafetyClient;

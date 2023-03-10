@@ -3,6 +3,8 @@ package victor.testing.spring.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Supplier;
@@ -12,6 +14,9 @@ import victor.testing.spring.repo.SupplierRepo;
 // for terrible Oracles 500 tables of love
 @SpringBootTest
 @ActiveProfiles("db-mem")
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // time += 10 x 30 sec => 5 minutes
+// never on git as it wastes time;!!
+
 @Transactional // when placed on a test class has a differnt semantics:
 // the transactions started from tests are neve commited (have rollback-only flag =true)
 // SURPRISE: you can actually run such @Transactional tests in paralllel (multi-threaded spring bo0t tests)
