@@ -42,22 +42,20 @@ public class DiagnosticTest {
    final void before() {
       // not clear for you tomorrow what part of this before is used
       // by the failing test you are trying to fix
+      when(client.getOnlineStatus()).thenReturn(true);
 
       when(configFactory.createConfig(any()))
               .thenReturn(new ClientConfiguration());
 //      lenient().when(client.getVersion()).thenReturn("ver"); // tolerable for 1 stubbing that
          // 70% of tests are using bellow: for zero impact calls eg for some config:
 //      lenient().when(featureFlagsService.getFlag(FFlag.STUFF)).thenReturn(true);
-
-
-//      when(client.getOnlineStatus()).thenReturn(true);
-//      when(client.receive()).thenReturn("Gyros");
    }
 
    @Test
    void throwsWhenNotOnline() {
-      reset(configFactory); // makes the mock forget everything you taught it
+      when(client.getOnlineStatus()).thenReturn(false); // reprogram the stubbed method; OK if happens in 1-2-3 tests (10%)
 
+      reset(configFactory); // makes the mock forget everything you taught it
       // an unstubbed mock method returns the 'null' value for the type,
       //  boolean=false, Boolean=null, List=emptyList
       assertThatThrownBy(() -> diagnostic.checkTransmission(true))
@@ -67,13 +65,11 @@ public class DiagnosticTest {
       // CONS: brittle fragile test becasue I test presentation
       // "fix": use ENUMs to distinguish betw error codes
       ;
-
    }
 
    @Test
    void disconnects() {
-
-      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+//      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
 
       diagnostic.checkTransmission(true);
 
@@ -83,8 +79,7 @@ public class DiagnosticTest {
 
    @Test
    void sendsDiagnosticMessage() {
-
-      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+//      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
 
       diagnostic.checkTransmission(true);
 
@@ -95,10 +90,8 @@ public class DiagnosticTest {
 
    @Test
    void receives() {
-
-
       // given <- use comments for test >7-10 lines long
-      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+//      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
       when(client.receive()).thenReturn("Gyros");
 
       // when
