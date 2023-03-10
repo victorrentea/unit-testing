@@ -7,31 +7,24 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class FastFoodTest {
+class FastFoodShawarmaTest {
    @Mock
    Dependency dependency;
    @InjectMocks
-   FastFood fastFood;
+   FastFoodShawarma fastFood;
 
    @BeforeEach
    final void before() {
-
+      when(dependency.isOnionAllowed()).thenReturn(true);
    }
 
    @Test
    void shawarmaTest() { // + 7 more tests
-      when(dependency.isOnionAllowed()).thenReturn(true);
       // ... complex
       fastFood.makeShawarma();
-   }
+   } // + 7 more like this
 
-   @Test
-   void tzatzikiTest() { // + 5 more tests
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      // ... complex
-      fastFood.makeTzatziki();
-   }
 }

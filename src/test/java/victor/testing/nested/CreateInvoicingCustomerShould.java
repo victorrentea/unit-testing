@@ -29,7 +29,7 @@ import static org.mockito.Mockito.*;
  */
 @ExtendWith(MockitoExtension.class)
 @DisplayNameGeneration(ReplaceCamelCase.class)
-class CreateCustomerShould {
+class CreateInvoicingCustomerShould {
    @Mock
    CustomerRepo customerRepo;
    @Mock
@@ -50,7 +50,7 @@ class CreateCustomerShould {
    }
 
    @Nested
-   class GivenAnInvalidCustomer {
+   class GivenAnInvalidInvoicingCustomer {
 
       @Test
       void failForMissingName() {
@@ -80,7 +80,7 @@ class CreateCustomerShould {
    }
 
    @Nested
-   class GivenAValidCustomer {
+   class GivenAValidInvoicingCustomer {
       @BeforeEach
       public final void before() {
          when(customerRepo.countByEmail("::email::")).thenReturn(0);

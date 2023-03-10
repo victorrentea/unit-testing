@@ -1,8 +1,8 @@
 package victor.testing.design.creepymother;
 
 class ShippingService {
-   public int estimateShippingCosts(Customer customer) {
-      if (!customer.getShippingAddress().contains("Romania")) {
+   public int estimateShippingCosts(InvoicingCustomer invoicingCustomer) {
+      if (!invoicingCustomer.getShippingAddress().contains("Romania")) {
          return 50;
       }
       // more logic
