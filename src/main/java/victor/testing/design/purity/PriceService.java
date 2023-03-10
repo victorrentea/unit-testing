@@ -1,6 +1,7 @@
 package victor.testing.design.purity;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
 import victor.testing.spring.domain.Product;
@@ -24,6 +25,15 @@ public class PriceService {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
 
+      PriceCalculationResult result = doComputePrices(internalPrices, customer, products);
+
+      couponRepo.markUsedCoupons(customerId, result.usedCoupons());
+      return result.finalPrices();
+   }
+
+   // no SRP
+   // not PURE: retrievePrices might give you different resultts 2nd time
+   private PriceCalculationResult doComputePrices(Map<Long, Double> internalPrices, Customer customer, List<Product> products) {
       List<Coupon> usedCoupons = new ArrayList<>();
       Map<Long, Double> finalPrices = new HashMap<>();
       for (Product product : products) {
@@ -42,10 +52,10 @@ public class PriceService {
          }
          finalPrices.put(product.getId(), price);
       }
-
-      couponRepo.markUsedCoupons(customerId, usedCoupons);
-      return finalPrices;
+      PriceCalculationResult result = new PriceCalculationResult(finalPrices, usedCoupons);
+      return result;
    }
 
 }
-
+record PriceCalculationResult(Map<Long, Double> finalPrices,
+                              List<Coupon> usedCoupons) {}
