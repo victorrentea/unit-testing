@@ -11,6 +11,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable(); // OK since I never take <form> POSTs
-    http.authorizeRequests().anyRequest().authenticated();
+    http.authorizeRequests().anyRequest().permitAll();
+//    http.authorizeRequests().anyRequest().authenticated();
   }
 }

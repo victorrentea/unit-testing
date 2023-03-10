@@ -20,6 +20,7 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
@@ -36,7 +37,7 @@ public class ProductServiceTest {
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
-      ProductDto dto = new ProductDto("name", "bar", -1L, ProductCategory.HOME);
+      ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
               .isInstanceOf(IllegalStateException.class);
    }
@@ -47,7 +48,7 @@ public class ProductServiceTest {
       Supplier supplier = new Supplier().setId(13L);
       when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), ProductCategory.HOME);
+      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
 
       // WHEN
       productService.createProduct(dto);
@@ -60,7 +61,7 @@ public class ProductServiceTest {
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
-      assertThat(product.getCategory()).isEqualTo(ProductCategory.HOME);
+      assertThat(product.getCategory()).isEqualTo(HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
 
