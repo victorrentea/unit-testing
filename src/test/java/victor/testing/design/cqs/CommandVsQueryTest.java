@@ -26,6 +26,7 @@ class CommandVsQueryTest {
       target.testedMethod(obj);
 
       verify(dependency).stuff(obj, 5); // why ??
-      assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Logic with 7");
+      assertThat(outputCapture.toString())
+              .isEqualToIgnoringNewLines("Logic with 7");
    }
 }
