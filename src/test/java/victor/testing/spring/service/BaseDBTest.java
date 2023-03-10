@@ -1,21 +1,30 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.tools.TestcontainersUtils;
 
 //@Sql("classpath:/sql/cleanup.sql")
 // for terrible Oracles 500 tables of love
 @SpringBootTest
-@ActiveProfiles("db-mem")
+//@ActiveProfiles("db-mem")
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // time += 10 x 30 sec => 5 minutes
 // never on git as it wastes time;!!
+
+@Testcontainers
+@ActiveProfiles("db-migration")
 
 @Transactional // when placed on a test class has a differnt semantics:
 // the transactions started from tests are neve commited (have rollback-only flag =true)
@@ -33,5 +42,20 @@ public abstract class BaseDBTest {
   final void insertStaticData() {
     supplierId = supplierRepo.save(new Supplier()).getId();
 
+  }
+
+
+  // === The containers is reused across all subclasses ===
+  static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
+          "postgres:11").withReuse(true);
+
+  @BeforeAll
+  public static void startTestcontainer() {
+    postgres.start();
+  }
+
+  @DynamicPropertySource
+  public static void registerPgProperties(DynamicPropertyRegistry registry) {
+    TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
   }
 }
