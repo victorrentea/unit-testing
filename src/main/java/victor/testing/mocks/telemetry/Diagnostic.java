@@ -37,7 +37,7 @@ public class Diagnostic {
 //			throw new MyException(ErrorCode.UNABLE_TO_CONNECT); // rendered to the user use an enum in your own exception
 		}
 
-		ClientConfiguration config = createConfig();
+		ClientConfiguration config = configFactory.createConfig(client.getVersion());
 		client.configure(config);
 
 //		if (featureFlagsService.getFlag(FFlag.STUFF))
@@ -49,26 +49,33 @@ public class Diagnostic {
 
 	// option1: subcutaneous test (@VisibleForTesting)
 	// option2: refactor more > break the class!! [HARD but correct]
-	@VisibleForTesting
-	ClientConfiguration createConfig() { // better design as we bring the MUTATION at an earlier phase;
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion().toUpperCase() + "-" + randomUUID());
-		// please imagine this block gets a Cyclomatic Complexity of 12
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
-		return config;
-	}
+//	@VisibleForTesting
+//	ClientConfiguration createConfig() { // better design as we bring the MUTATION at an earlier phase;
+//		ClientConfiguration config = new ClientConfiguration();
+//		config.setSessionId(client.getVersion().toUpperCase() + "-" + randomUUID());
+//		// please imagine this block gets a Cyclomatic Complexity of 12
+//		config.setSessionStart(LocalDateTime.now());
+//		config.setAckMode(AckMode.NORMAL);
+//		return config;
+//	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
 
-//	private final ConfigFactory configFactory;
+	private final ConfigFactory configFactory;
 }
 
 // BAD just for testing :over enginerreing
-//class ConfigFactory {
-//	public ClientConfiguration newInstance() {
-//		return new ClientConfiguration();
-//	}
-//}
+@Component
+class ConfigFactory {
+
+	public ClientConfiguration createConfig(String version) {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(version.toUpperCase() + "-" + randomUUID());
+		// please imagine this block gets a Cyclomatic Complexity of 12
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
+	}
+}
