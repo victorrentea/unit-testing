@@ -81,40 +81,44 @@ public class DiagnosticTest {
               .isEqualTo("Gyros");
    }
 
-   @Test
-   void achModeNormal() {
-      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
-      when(client.getVersion()).thenReturn("ver");
-
-      diagnostic.checkTransmission(true);
-
-      // extract the value of the parameter from the mock
-      verify(client).configure(configCaptor.capture());
-      ClientConfiguration config = configCaptor.getValue();
-
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-//      assertThat(config.getSessionStart()).isEqualTo(now()); // fails due to millisconds passing from prod up to here
-      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientist
-      assertThat(config.getSessionStart()).isNotNull(); // engineer will do
-
-      System.out.println(config.getSessionId());
-      assertThat(config.getSessionId())
-              .startsWith("ver-")
-              .hasSize(40); // approval testing: we copy the actual in the test after manually (visually) checking the result
-      //  "freeze-test"
-
-      // or if you want to test a single field
-      verify(client).configure(argThat(c-> c.getAckMode() == AckMode.NORMAL));
-   }
+//   @Test
+//   void achModeNormal() {
+//      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+//      when(client.getVersion()).thenReturn("ver");
+//
+//      diagnostic.checkTransmission(true);
+//
+//      // extract the value of the parameter from the mock
+//      verify(client).configure(configCaptor.capture());
+//      ClientConfiguration config = configCaptor.getValue();
+//
+//      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+////      assertThat(config.getSessionStart()).isEqualTo(now()); // fails due to millisconds passing from prod up to here
+//      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientist
+//      assertThat(config.getSessionStart()).isNotNull(); // engineer will do
+//
+//      System.out.println(config.getSessionId());
+//      assertThat(config.getSessionId())
+//              .startsWith("ver-")
+//              .hasSize(40); // approval testing: we copy the actual in the test after manually (visually) checking the result
+//      //  "freeze-test"
+//
+//      // or if you want to test a single field
+//      verify(client).configure(argThat(c-> c.getAckMode() == AckMode.NORMAL));
+//   }
 
    @Captor
    ArgumentCaptor<ClientConfiguration> configCaptor;
 
 
-
+// CR:
    @Test
    void createConfigDirectly() {
+      when(client.getVersion()).thenReturn("ver");
+
+
       ClientConfiguration config = diagnostic.createConfig();
+
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientist
       assertThat(config.getSessionId())
