@@ -1,9 +1,8 @@
 package victor.testing.mocks.telemetry;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.stereotype.Component;
-import scala.concurrent.impl.FutureConvertersImpl.CF;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -38,15 +37,25 @@ public class Diagnostic {
 //			throw new MyException(ErrorCode.UNABLE_TO_CONNECT); // rendered to the user use an enum in your own exception
 		}
 
-		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + randomUUID());
-		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		ClientConfiguration config = createConfig();
 		client.configure(config);
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = client.receive();
 //		return config; // least harmful, but still a change in prod API, violating CQS principle
+	}
+
+
+	// option1: subcutaneous test (@VisibleForTesting)
+	// option2: refactor more > break the class!! [HARD but correct]
+	@VisibleForTesting
+	ClientConfiguration createConfig() {
+		ClientConfiguration config = new ClientConfiguration();
+		config.setSessionId(client.getVersion()+ "-" + randomUUID());
+		// please imagine this block gets a Cyclomatic Complexity of 12
+		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
+		return config;
 	}
 
 	public String getDiagnosticInfo() {

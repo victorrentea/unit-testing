@@ -84,6 +84,7 @@ public class DiagnosticTest {
    @Test
    void achModeNormal() {
       when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
+      when(client.getVersion()).thenReturn("ver");
 
       diagnostic.checkTransmission(true);
 
@@ -96,6 +97,11 @@ public class DiagnosticTest {
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientist
       assertThat(config.getSessionStart()).isNotNull(); // engineer will do
 
+      System.out.println(config.getSessionId());
+      assertThat(config.getSessionId())
+              .startsWith("ver-")
+              .hasSize(40); // approval testing: we copy the actual in the test after manually (visually) checking the result
+      //  "freeze-test"
 
       // or if you want to test a single field
       verify(client).configure(argThat(c-> c.getAckMode() == AckMode.NORMAL));
@@ -103,6 +109,19 @@ public class DiagnosticTest {
 
    @Captor
    ArgumentCaptor<ClientConfiguration> configCaptor;
+
+
+
+   @Test
+   void createConfigDirectly() {
+      ClientConfiguration config = diagnostic.createConfig();
+      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientist
+      assertThat(config.getSessionId())
+              .startsWith("ver-")
+              .hasSize(40);
+   } // x 11 more such tests
+
 
 }
 
