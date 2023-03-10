@@ -1,6 +1,7 @@
 package victor.testing.mocks.telemetry;
 
 import com.sun.xml.bind.v2.TODO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -32,6 +33,15 @@ public class DiagnosticTest {
    @Mock
    private Client client;
 
+   @BeforeEach
+   final void before() {
+      // not clear for you tomorrow what part of this before is used
+      // by the failing test you are trying to fix
+      when(client.getVersion()).thenReturn("ver");
+//      when(client.getOnlineStatus()).thenReturn(true);
+//      when(client.receive()).thenReturn("Gyros");
+   }
+
    @Test
    void throwsWhenNotOnline() {
       // an unstubbed mock method returns the 'null' value for the type,
@@ -48,6 +58,7 @@ public class DiagnosticTest {
 
    @Test
    void disconnects() {
+
       when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
 
       diagnostic.checkTransmission(true);
@@ -58,6 +69,7 @@ public class DiagnosticTest {
 
    @Test
    void sendsDiagnosticMessage() {
+
       when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
 
       diagnostic.checkTransmission(true);
@@ -69,6 +81,7 @@ public class DiagnosticTest {
 
    @Test
    void receives() {
+
       // given <- use comments for test >7-10 lines long
       when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
       when(client.receive()).thenReturn("Gyros");
@@ -84,7 +97,6 @@ public class DiagnosticTest {
 //   @Test
 //   void achModeNormal() {
 //      when(client.getOnlineStatus()).thenReturn(true); // "mock a method" = "stubbing": i am teaching a method what return
-//      when(client.getVersion()).thenReturn("ver");
 //
 //      diagnostic.checkTransmission(true);
 //
@@ -114,7 +126,6 @@ public class DiagnosticTest {
 // CR: the version for the client upper case in the session ID
    @Test
    void createConfigDirectly() {
-      when(client.getVersion()).thenReturn("ver");
 
       ClientConfiguration config = diagnostic.createConfig();
 
