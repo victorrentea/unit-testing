@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
-@Service
+@Service // holy domain logic
 @RequiredArgsConstructor
 public class ProductService {
     private final SafetyClient safetyClient;
