@@ -12,12 +12,26 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class FastFoodTzatzikiTest {
    @Mock
-   Dependency dependency;
+   Dependency dependency = mock(Dependency.class);
+   // under the hood, Mockito generates a proxy (a subclass)
+   //    in memory that it loads and serves instead of the real one
+   // that's why you cannot mock final classes or methods.
+//   Dependency dependency = new Dependency() {
+//      @Override
+//      public boolean isOnionAllowed() {
+//         return false;
+//      }
+//      @Override
+//      public boolean isCucumberAllowed() {
+//         return true;
+//      }
+//   }
    @InjectMocks
    FastFoodTzatziki fastFood;
 
    @BeforeEach
    final void before() {
+//      System.out.println(dependency.getClass());
       when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 

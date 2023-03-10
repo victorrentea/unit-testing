@@ -53,6 +53,24 @@ class PriceServiceTest {
       assertThat(result)
           .containsEntry(1L, 8d)
           .containsEntry(2L, 5d);
-   }
+   } // i need 11 test for this method
+   // to avoid duplicating setup >
+   // Option1)
+   // @BeforeEach when..then
+   //    + fields to keep Coupon
+   //    + have only tests on computePrice in a dedicated COmputePriceTest
+
+   // Option2 @ParameterizedTests if I have a lot of table-like test data
+   // or even better: .feature files containing Example table validated by biz
+   // > 5+ rows => .feature
+      // ==> *** good example of using Parameterized Test for Approval Testing
+
+   // Option3: extract the complex part of the logic under
+   // test in a PURE FUNCTION without any deps to the outside world
+   // easy to test without Mocks !!! 👌
+      // ==> make the code between :26 :45 pure function.
+
+   // Tests without mocks are simpler. mocks suck!
+
 
 }
