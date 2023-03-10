@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -27,6 +29,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
+// for terrible Oracles 500 tables of love
+//@Sql("classpath:/sql/cleanup.sql")
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class ProductServiceTest {
@@ -38,6 +42,12 @@ public class ProductServiceTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
+   @BeforeEach
+   final void before() {
+       productRepo.deleteAll();
+      supplierRepo.deleteAll(); // order matters. Listen to the FKs, Luke!
+   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
@@ -51,6 +61,25 @@ public class ProductServiceTest {
 
    @Test
    public void createOk() {
+      // GIVEN (setup)
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
+
+      // WHEN (prod call)
+      productService.createProduct(dto);
+
+      // THEN (expectations/effects)
+      Product product = productRepo.findAll().get(0);// <=> iff the PRODUCT table was empty
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+      assertThat(product.getCategory()).isEqualTo(HOME);
+      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+   }
+
+   @Test
+   public void createOkBis() {
       // GIVEN (setup)
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       Long supplierId = supplierRepo.save(new Supplier()).getId();
