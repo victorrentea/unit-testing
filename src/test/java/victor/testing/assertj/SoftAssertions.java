@@ -1,14 +1,18 @@
-package victor.testing.assertj;
-
-import org.assertj.core.api.AutoCloseableSoftAssertions;
-import org.junit.jupiter.api.Test;
-
-public class SoftAssertions {
-   
-   
+//package victor.testing.assertj;
+//
+//import org.assertj.core.api.AutoCloseableSoftAssertions;
+//import org.junit.jupiter.api.Test;
+//
+//public class SoftAssertions {
+//
+//
 //   @Test
 //   void test() {
 //      try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
+//
+//        Mansion mansion = prodClass.call();
+//
+////         softly.assertThatThrownBy(()->/* verify(mock).method()*/).doesNotThrowAnyException();
 //         softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
 //         softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
 //         softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
@@ -19,4 +23,4 @@ public class SoftAssertions {
 //         // no need to call assertAll, it is done when softly is closed.
 //      }
 //   }
-}
+//}

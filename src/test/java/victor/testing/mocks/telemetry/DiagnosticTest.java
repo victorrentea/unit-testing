@@ -70,33 +70,20 @@ public class DiagnosticTest {
    // right now these 3 tests follow the 'SINGLE ASSERT RULE' -> checking one behavior at a time
    // no one follows this rule in practice
    @Test
-   void disconnects() {
-      // 2-7 lines preparing object, stubbing methods
-
-      diagnostic.checkTransmission(true);
-
-      verify(client).disconnect(true); // verify the call of a side-effecing function
-   }
-
-
-   @Test
-   void sendsDiagnosticMessage() {
-      // 2-7 lines preparing object, stubbing methods
-
-      diagnostic.checkTransmission(true);
-
-      verify(client).send(Client.DIAGNOSTIC_MESSAGE); // <- default 99%
-      verify(client).send("AT#UD"); // <- only if you want to freeze that value, ie. fail the constant value changes
-   }
-
-   @Test
-   void receives() {
-      // 2-7 lines preparing object, stubbing methods
+   void checkTransmission_HappyPath() { // if anything blows in this test the name of the tests doesn't tell anything
+      // 2-7 lines preparing object, stubbing methods (or extract this as a method)
       when(client.receive()).thenReturn("Gyros");
 
       diagnostic.checkTransmission(true);
 
-      assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("Gyros");
+//      description("should disconnect first").
+      verify(client).disconnect(true); // verify the call of a side-effecing function
+      verify(client).send(Client.DIAGNOSTIC_MESSAGE); // <- default 99%
+      assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("Gyros")
+              .describedAs("human words that this means");
+      // if the assertions in here are obvious=> oK
+      // if you need to explain //
+      // it's ok to budle together 3-5 assertion on one go. if they are obvious.
    }
 
 //   @Test
