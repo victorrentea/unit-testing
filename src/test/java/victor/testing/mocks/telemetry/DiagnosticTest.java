@@ -111,18 +111,17 @@ public class DiagnosticTest {
    ArgumentCaptor<ClientConfiguration> configCaptor;
 
 
-// CR:
+// CR: the version for the client upper case in the session ID
    @Test
    void createConfigDirectly() {
       when(client.getVersion()).thenReturn("ver");
-
 
       ClientConfiguration config = diagnostic.createConfig();
 
       assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
       assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // scientist
       assertThat(config.getSessionId())
-              .startsWith("ver-")
+              .startsWith("VER-")
               .hasSize(40);
    } // x 11 more such tests
 

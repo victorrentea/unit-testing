@@ -51,7 +51,7 @@ public class Diagnostic {
 	@VisibleForTesting
 	ClientConfiguration createConfig() {
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion()+ "-" + randomUUID());
+		config.setSessionId(client.getVersion().toUpperCase() + "-" + randomUUID());
 		// please imagine this block gets a Cyclomatic Complexity of 12
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
