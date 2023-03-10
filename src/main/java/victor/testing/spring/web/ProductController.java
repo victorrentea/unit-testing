@@ -1,8 +1,10 @@
 package victor.testing.spring.web;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,14 +22,17 @@ public class ProductController {
 
    private final ProductService facade;
 
+//   @Operation
    @PostMapping("product/create")
    @Secured("ROLE_ADMIN")
-   public void create(@RequestBody ProductDto productDto) {
+   public void create(
+           @Validated @RequestBody ProductDto productDto) {
       facade.createProduct(productDto);
    }
 
    @PostMapping("product/search")
-   public List<ProductSearchResult> search(@RequestBody ProductSearchCriteria criteria) {
+   public List<ProductSearchResult> search(
+           @RequestBody ProductSearchCriteria criteria) {
       return facade.searchProduct(criteria);
    }
 

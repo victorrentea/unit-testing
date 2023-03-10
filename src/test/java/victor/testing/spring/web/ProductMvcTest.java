@@ -45,12 +45,12 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
  * <li> At the end of each tests leaves the DB clean (by auto-rollback of @Transactional)
  */
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
-@ActiveProfiles("db-migration")
-@Transactional
-@Testcontainers
 @AutoConfigureWireMock(port = 9999)
-
-@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
+@ActiveProfiles("db-migration")
+@Testcontainers
+@Transactional
+@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat
+// => @Transactional works, as the whole test shares 1 single thread
 public class ProductMvcTest {
     @Autowired
     private MockMvc mockMvc;
@@ -89,6 +89,13 @@ public class ProductMvcTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN") // sets a Principal with the ROLE_ADMIN on the current thread
+    public void flowTestLIKE() throws Exception {
+        createProduct_json("Tree");
+        searchProduct(new ProductSearchCriteria().setName("ee"), 1);
+    }
+
+    @Test
     @WithMockUser
     public void createProductByNonAdmin_NotAuthorized() throws Exception {
         ProductDto dto = new ProductDto("product name", "safebar", supplierId, HOME);
@@ -117,12 +124,81 @@ public class ProductMvcTest {
                 .andExpect(status().isOk());
     }
 
+    // Reasons to test the controller:
+    // custom deserialization
+    // @Valid
+    // @Secured
+    // @RestControlledAdvice >
+
+    // useless:
+    // Contract OpenAPI {DTO STRUCTURE, URLS} - tested with OpenApiFreezeTest or COntract Tests
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void createProductInvalidFails() throws Exception {
+        // language=json
+//        String createJson = """
+//                {
+//                    "name": "name",
+//                    "supplierId": null,
+//                    "barcode": "safebar"
+//                }
+//                """;
+
+        ProductDto dto = new ProductDto("productName", "safebar", null, HOME);
+//         String createJson = jackson.writeValueAsString(dto);
+
+         productController.create(dto);
+
+//        mockMvc.perform(post("/product/create")
+//                        .content(createJson)
+//                        .contentType(APPLICATION_JSON))
+//                .andExpect(status().is(500));
+    }
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void create_succeeds() throws Exception {
+        // language=json
+        String createJson = """
+                {
+                    "name": "name",
+                    "supplierId": 1,
+                    "barcode": "safebar"
+                }
+                """;
+
+        mockMvc.perform(post("/product/create")
+                        .content(createJson)
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void createNotAuthorized() throws Exception {
+        // language=json
+        String createJson = """
+                {
+                    "name": "name",
+                    "supplierId": 1,
+                    "barcode": "safebar"
+                }
+                """;
+
+        mockMvc.perform(post("/product/create")
+                        .content(createJson)
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().is(403));
+    }
+
     // -------- 2: Instantiate Dtos  ---------
     // + can test status code
     // ± robust against Dto structure change
     private void createProduct_dto(String productName) throws Exception {
         ProductDto dto = new ProductDto(productName, "safebar", supplierId, HOME);
         String createJson = jackson.writeValueAsString(dto);
+
+        // weaker that json """ string, as JSON literals would catch
+        // a
+
 
         mockMvc.perform(post("/product/create")
                         .content(createJson)
