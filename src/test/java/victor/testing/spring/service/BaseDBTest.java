@@ -19,7 +19,7 @@ import victor.testing.spring.repo.SupplierRepo;
   // + the joy: race bugs, deadlocks, no statics,
 // multiple spring boot contexts existing in parallel at the same time !
 // https://www.baeldung.com/junit-5-parallel-tests
-public class BaseDBTest {
+public abstract class BaseDBTest {
   protected Long supplierId;
   @Autowired
   private SupplierRepo supplierRepo;

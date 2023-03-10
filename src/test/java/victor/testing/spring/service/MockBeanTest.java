@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@Tag("nightly") // you make sure failsafe Maven plugin runs these tags in nighly build. not after every commit
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class MockBeanTest {

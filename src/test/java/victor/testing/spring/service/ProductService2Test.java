@@ -1,39 +1,20 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
-
-import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static victor.testing.spring.domain.ProductCategory.*;
+import static org.mockito.Mockito.when;
+import static victor.testing.spring.domain.ProductCategory.HOME;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional
-public class ProductServiceTest extends BaseDBTest{
+public class ProductService2Test extends BaseDBTest{
    @MockBean // replaces in the springcontext the bean with a MOckito mock that you can program time+=14.5 seconds :)
    public SafetyClient mockSafetyClient;
    // what if we let the mock safety client work for real (no mocks) and we would mock
