@@ -40,6 +40,7 @@ public class Diagnostic {
 		ClientConfiguration config = createConfig();
 		client.configure(config);
 
+//		if (featureFlagsService.getFlag(FFlag.STUFF))
 		client.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = client.receive();
 //		return config; // least harmful, but still a change in prod API, violating CQS principle

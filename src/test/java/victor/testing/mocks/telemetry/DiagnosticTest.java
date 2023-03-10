@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
@@ -27,6 +29,7 @@ import static org.mockito.Mockito.*;
 
 //@AutoConfigureWireMock // spring manages to reuse the same WM between test classes
 @ExtendWith(MockitoExtension.class) // this extension to Junit reflection on the fields and sees @Mock @InjectMocks
+//@MockitoSettings(strictness = Strictness.LENIENT) // < NEVER
 public class DiagnosticTest {
    @InjectMocks
    private Diagnostic diagnostic;
@@ -37,7 +40,12 @@ public class DiagnosticTest {
    final void before() {
       // not clear for you tomorrow what part of this before is used
       // by the failing test you are trying to fix
-      when(client.getVersion()).thenReturn("ver");
+
+      lenient().when(client.getVersion()).thenReturn("ver"); // tolerable for 1 stubbing that
+         // 70% of tests are using bellow: for zero impact calls eg for some config:
+//      lenient().when(featureFlagsService.getFlag(FFlag.STUFF)).thenReturn(true);
+
+
 //      when(client.getOnlineStatus()).thenReturn(true);
 //      when(client.receive()).thenReturn("Gyros");
    }
