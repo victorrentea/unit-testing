@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import com.sun.xml.bind.util.Which;
 import com.sun.xml.bind.v2.TODO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ public class DiagnosticTest {
    final void before() {
       // not clear for you tomorrow what part of this before is used
       // by the failing test you are trying to fix
-      when(client.getOnlineStatus()).thenReturn(true);
+//      when(client.getOnlineStatus()).thenReturn(true);
 
       when(configFactory.createConfig(any()))
               .thenReturn(new ClientConfiguration());
@@ -54,6 +55,13 @@ public class DiagnosticTest {
    @Test
    void throwsWhenNotOnline() {
       when(client.getOnlineStatus()).thenReturn(false); // reprogram the stubbed method; OK if happens in 1-2-3 tests (10%)
+
+      // 'backwards-style' stubbing
+      //    eg:   doReturn(false).when(client).getOnlineStatus();
+      // ! incompatible with forward style
+      // NO : doReturn accepts any type not necessarily compatible with the retrun type of the stubbed method
+         // doReturn("false").when(client).getOnlineStatus(); // compiles!!! but fails at runtime
+      // YES: mandatory if using @Spy
 
       reset(configFactory); // makes the mock forget everything you taught it
       // an unstubbed mock method returns the 'null' value for the type,
@@ -148,7 +156,7 @@ class ConfigFactoryTest {
 
 // TODO:
 // test naming
-// single assert rule
-// abusing before / resetting mocks
+// single assert rule OK
+// abusing before / resetting mocks OK
 // captor
 // asserting exceptions
