@@ -166,21 +166,22 @@ public class ProductControllerTest {
 
 
     private List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
-        MvcResult result = mockMvc.perform(post("/product/search")
+        String responseJson = mockMvc.perform(post("/product/search")
                         .content(jackson.writeValueAsString(criteria))
                         .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().is2xxSuccessful())
-                .andReturn();
-        String responseJson = result.getResponse().getContentAsString();
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
         return List.of(jackson.readValue(responseJson, ProductSearchResult[].class)); // trick to unmarshall a collection<obj>
     }
 
     private ProductDto getProduct(long productId) throws Exception {
-        MvcResult result = mockMvc.perform(get("/product/{id}", productId))
+        String responseJson = mockMvc.perform(get("/product/{id}", productId))
                 .andExpect(status().is2xxSuccessful())
-                .andReturn();
-        return jackson.readValue(result.getResponse().getContentAsString(), ProductDto.class);
+                .andReturn().getResponse().getContentAsString();
+        return jackson.readValue(responseJson, ProductDto.class);
     }
 
     // ==================== More stuff you can test with MockMvc ======================
