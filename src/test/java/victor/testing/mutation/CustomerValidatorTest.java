@@ -19,23 +19,15 @@ public class CustomerValidatorTest {
    }
 
    @Test
-//   @Expected(exception=) JUnit4
    void throwForMissingName() {
       Customer customer = new Customer();
-//      customer.setName("::name::");
       customer.setEmail("::email::");
       customer.setAddress(new Address());
       customer.getAddress().setCity("::city::");
-      // in general avoid using Assertions from JUnit5, instead use AssertJ
-//      Assertions.assertThrows(IllegalArgumentException.class,
-//              () -> validator.validate(customer));
-
       Assertions.assertThatThrownBy(() -> validator.validate(customer))
               .isInstanceOf(IllegalArgumentException.class)
               .hasMessage("Missing customer name")
-//              .hasMessageContaining("name")
       ;
-
    }
 
 }
