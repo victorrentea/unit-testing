@@ -1,14 +1,16 @@
 {
   "request": {
     "id": "a",
-    "groceries": [{
-      "grocery": "apple",
-      "count": 3
-    },
+    "groceries": [
+      {
+        "grocery": "apple",
+        "count": 3
+      },
       {
         "grocery": "strawberry",
         "count": 2
-      }]
+      }
+    ]
   },
   "groceriesInDb": [
     {

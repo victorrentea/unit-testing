@@ -2,6 +2,7 @@ package victor.testing.filebased.export;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.stream.Collectors;
 
 public class PersonExporter {
    private final PersonRepo personRepo;
@@ -26,7 +27,7 @@ public class PersonExporter {
       for (Person person : personRepo.findAll()) {
          writer.write(person.getFirstName() + " " + person.getLastName().toUpperCase());
          writer.write(";");
-         writer.write( person.getPhoneList().get(0)); // TODO fix bug when no phones
+         writer.write( person.getPhoneList().stream().collect(Collectors.joining(","))); // TODO fix bug when no phones
             // TODO CR: output all phones comma-separated
          writer.write(";");
          if (person.getBirthDate() != null) {
