@@ -53,9 +53,44 @@ public class TennisScoreShouldReturnAScoreOf {
     String s = tennisGame.score();
     assertThat(s).isEqualTo("Love - Thirty");
   }
-//  void scoreIsDeuceWhenPlayer1Scores3PointAndPlayer2Score3Points() {
 
-  //2) The running score of each game is described in a manner peculiar to tennis:
-  // scores from zero to three points are described as
-  // “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
+  @Test
+  void loveFortyWhenPlayer2Scores3Points() {
+    tennisGame.earnsPoint(TennisSide.TWO);
+    tennisGame.earnsPoint(TennisSide.TWO);
+    tennisGame.earnsPoint(TennisSide.TWO);
+    String s = tennisGame.score();
+    assertThat(s).isEqualTo("Love - Forty");
+  }
+
+
+  //3) If at least three points have been scored by each player,
+  // and the scores are equal, // the score is “Deuce”.
+  @Test
+  void deuceWhenBothPlayersScore3Points() {
+    tennisGame.earnsPoint(TennisSide.ONE);
+    tennisGame.earnsPoint(TennisSide.ONE);
+    tennisGame.earnsPoint(TennisSide.ONE);
+    tennisGame.earnsPoint(TennisSide.TWO);
+    tennisGame.earnsPoint(TennisSide.TWO);
+    tennisGame.earnsPoint(TennisSide.TWO);
+
+    String s = tennisGame.score();
+    assertThat(s).isEqualTo("Deuce");
+  }
+  @Test
+  void deuceWhenBothPlayersScore4Points() {
+    tennisGame.earnsPoint(TennisSide.ONE);
+    tennisGame.earnsPoint(TennisSide.ONE);
+    tennisGame.earnsPoint(TennisSide.ONE);
+    tennisGame.earnsPoint(TennisSide.ONE);
+    tennisGame.earnsPoint(TennisSide.TWO);
+    tennisGame.earnsPoint(TennisSide.TWO);
+    tennisGame.earnsPoint(TennisSide.TWO);
+    tennisGame.earnsPoint(TennisSide.TWO);
+
+    String s = tennisGame.score();
+    assertThat(s).isEqualTo("Deuce");
+  }
+
 }
