@@ -1,18 +1,35 @@
 package victor.testing.mutation;
 
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
 
+//abstract class IntegrationTestBase {
+//  @BeforeEach
+//  final void before() { // sharing initialization BEHAVIOR
+//    // do something before each test
+//    // insert
+//    // mock when thenReturn
+//  }
+//}
+class ObjectMother {
+  // never CHANGE test-data factory methods. only add to them, or new ones
+  public static Customer aCustomer() { // reusing test data
+    // mandatory when using Immutables
+    return new Customer()
+            .setName("::name::")
+            .setEmail("::email::")
+            .setAddress(new Address().setCity("::city::"));
+
+  }
+}
+
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
-  private Customer validCustomer = new Customer()
-          .setName("::name::")
-          .setEmail("::email::")
-          .setAddress(new Address().setCity("::city::"));
+  private Customer validCustomer = ObjectMother.aCustomer();
 
   @Test
   void valid() {
