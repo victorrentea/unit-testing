@@ -25,9 +25,9 @@ public class TennisGame {
 
   public void earnsPoint(TennisSide side) {
     if (side == TennisSide.ONE) {
-      player1Points++;
+      player1Points += 1;
     } else {
-      player2Points++;
+      player2Points += 1;
     }
   }
 }

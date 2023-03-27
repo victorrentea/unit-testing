@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
 
+import java.util.stream.IntStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
   //1) A game is won by the first player to have won
@@ -26,20 +28,21 @@ public class TennisScoreShouldReturnAScoreOf {
 
   @Test
   void loveLoveForNewGame() {
+    setPoints(0, 0);
     String s = tennisGame.score();
     assertThat(s).isEqualTo("Love - Love");
   }
 
   @Test
   void loveFifteenWhenPlayer2Scores() {
-    tennisGame.earnsPoint(TennisSide.TWO);
+    setPoints(0, 1);
     String s = tennisGame.score();
     assertThat(s).isEqualTo("Love - Fifteen");
   }
 
   @Test
   void fifteenLoveWhenPlayer1Scores() {
-    tennisGame.earnsPoint(TennisSide.ONE);
+    setPoints(1, 0);
     String s = tennisGame.score();
     assertThat(s).isEqualTo("Fifteen - Love");
   }
@@ -48,17 +51,16 @@ public class TennisScoreShouldReturnAScoreOf {
   // and when you are testing combinations of data => think of using
   @Test
   void loveThirtyWhenPlayer2Scores2Points() {
-    tennisGame.earnsPoint(TennisSide.TWO);
-    tennisGame.earnsPoint(TennisSide.TWO);
+    setPoints(0, 2);
+
     String s = tennisGame.score();
     assertThat(s).isEqualTo("Love - Thirty");
   }
 
   @Test
   void loveFortyWhenPlayer2Scores3Points() {
-    tennisGame.earnsPoint(TennisSide.TWO);
-    tennisGame.earnsPoint(TennisSide.TWO);
-    tennisGame.earnsPoint(TennisSide.TWO);
+    setPoints(0, 3);
+
     String s = tennisGame.score();
     assertThat(s).isEqualTo("Love - Forty");
   }
@@ -68,29 +70,27 @@ public class TennisScoreShouldReturnAScoreOf {
   // and the scores are equal, // the score is “Deuce”.
   @Test
   void deuceWhenBothPlayersScore3Points() {
-    tennisGame.earnsPoint(TennisSide.ONE);
-    tennisGame.earnsPoint(TennisSide.ONE);
-    tennisGame.earnsPoint(TennisSide.ONE);
-    tennisGame.earnsPoint(TennisSide.TWO);
-    tennisGame.earnsPoint(TennisSide.TWO);
-    tennisGame.earnsPoint(TennisSide.TWO);
+    setPoints(3, 3);
 
     String s = tennisGame.score();
     assertThat(s).isEqualTo("Deuce");
   }
   @Test
   void deuceWhenBothPlayersScore4Points() {
-    tennisGame.earnsPoint(TennisSide.ONE);
-    tennisGame.earnsPoint(TennisSide.ONE);
-    tennisGame.earnsPoint(TennisSide.ONE);
-    tennisGame.earnsPoint(TennisSide.ONE);
-    tennisGame.earnsPoint(TennisSide.TWO);
-    tennisGame.earnsPoint(TennisSide.TWO);
-    tennisGame.earnsPoint(TennisSide.TWO);
-    tennisGame.earnsPoint(TennisSide.TWO);
+    setPoints(4, 4);
 
     String s = tennisGame.score();
     assertThat(s).isEqualTo("Deuce");
+  }
+
+  private void setPoints(int player1Points, int player2Points) {
+    earnsPoints(TennisSide.ONE, player1Points);
+    earnsPoints(TennisSide.TWO, player2Points);
+  }
+
+  private void earnsPoints(TennisSide side, int points) {
+    IntStream.range(0, points)
+            .forEach(i -> tennisGame.earnsPoint(side));
   }
 
 }
