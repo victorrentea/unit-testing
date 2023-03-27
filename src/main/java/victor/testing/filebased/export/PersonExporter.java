@@ -10,8 +10,8 @@ public class PersonExporter {
       this.personRepo = personRepo;
    }
 
-   // This legacy code is in production for 7 years.
-   // So, it has no bugs, 🤞
+   // This legacy code is in production for 17 years.
+   // Therefore, it has no bugs, 🤞
    //    but your task is to change it... 😱
    // Ofc, you want to make sure you don't introduce bugs.
 
