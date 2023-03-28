@@ -18,12 +18,13 @@ public class FeedProcessorTest {
    @InjectMocks
    FeedProcessor feedProcessor;
    @Mock
-   FileRepo fileRepoMock;
+   IFileRepo fileRepoMock;
 
    @Test
    public void oneFileWithOneLine() {
       when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt"));
       when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
+
       assertThat(feedProcessor.countPendingLines()).isEqualTo(1);
    }
 

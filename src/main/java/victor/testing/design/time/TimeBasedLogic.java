@@ -1,6 +1,7 @@
 package victor.testing.design.time;
 
 import lombok.RequiredArgsConstructor;
+import org.assertj.core.util.VisibleForTesting;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -9,18 +10,23 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TimeBasedLogic {
-   private final OrderRepo orderRepo;
+  private final OrderRepo orderRepo;
 
-   public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = LocalDate.now();
-      LocalDate sevenDaysAgo = now.minusDays(7);
+  public boolean isFrequentBuyer(int customerId) {
+    LocalDate now = LocalDate.now();
+    return isFrequentBuyerInternal(customerId, now);
+  }
 
-      System.out.println("Run with now=" + now);
-      List<Order> recentOrders = orderRepo.findByCustomerIdAndCreatedOnBetween(customerId, sevenDaysAgo, now);
+  @VisibleForTesting // tells tools to block other prod calls to this
+  boolean isFrequentBuyerInternal(int customerId, LocalDate now) {
+    LocalDate sevenDaysAgo = now.minusDays(7);
 
-      double totalAmount = recentOrders.stream().mapToDouble(Order::getTotalAmount).sum();
-      boolean anyGenius = recentOrders.stream().anyMatch(Order::isGenius);
+    System.out.println("Run with now=" + now);
+    List<Order> recentOrders = orderRepo.findByCustomerIdAndCreatedOnBetween(customerId, sevenDaysAgo, now);
 
-      return totalAmount > 100 || anyGenius;
-   }
+    double totalAmount = recentOrders.stream().mapToDouble(Order::getTotalAmount).sum();
+    boolean anyGenius = recentOrders.stream().anyMatch(Order::isGenius);
+
+    return totalAmount > 100 || anyGenius;
+  }
 }

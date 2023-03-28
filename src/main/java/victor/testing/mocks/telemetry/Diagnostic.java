@@ -3,6 +3,7 @@ package victor.testing.mocks.telemetry;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 import static java.util.UUID.randomUUID;
@@ -43,5 +44,9 @@ public class Diagnostic {
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
+
+//	public boolean receivedCorrectDIagnosticMessage() {
+//		return diagnosticInfo.equals("Something");
+//	}
 
 }

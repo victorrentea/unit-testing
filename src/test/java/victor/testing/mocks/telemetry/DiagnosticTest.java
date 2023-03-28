@@ -4,13 +4,22 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import victor.testing.mocks.telemetry.Client.ClientConfiguration;
+import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 import victor.testing.tools.InjectRealObjectsMockitoExtension.Real;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.MINUTES;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Diagnostic.DIAGNOSTIC_CHANNEL_CONNECTION_STRING;
 
@@ -49,7 +58,7 @@ public class DiagnosticTest {
   void throwsWhenCannotConnect() {
     when(mockClient.getOnlineStatus()).thenReturn(false);
 
-    Assertions.assertThatThrownBy(()-> sut.checkTransmission(true))
+    assertThatThrownBy(()-> sut.checkTransmission(true))
       .isInstanceOf(IllegalStateException.class)
       .hasMessage("Unable to connect.");
   }
@@ -75,4 +84,29 @@ public class DiagnosticTest {
 
   // TODO would I add the getDiagnosticInfo getter if
   //   it weren't there ? just for testing ?
+  // 👌NO, if I would find another way to use that state that I assigned
+  //    don't break encapsulation for testing
+  // imagine a class of 2000 lines of code with 7 mutable fields. You want to test a 120 lines method
+  //    Would I keep the shit encapsulated, or would I break encapsulation for testing
+  //   and add 7 getters for the 7 fields YES <=> facing terrible legacy
+
+  @Test
+  void configuresCorrectlyTheClient() {
+    when(mockClient.getOnlineStatus()).thenReturn(true);
+
+    sut.checkTransmission(true);
+
+    var configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
+    verify(mockClient).configure(configCaptor.capture());
+    ClientConfiguration config = configCaptor.getValue();
+    assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+    // USE THIS every time you say now() in prod code
+    assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
+  }
+
+  // TODO how much Captors is too much => your design sucks
 }
+
+
+// you parse a file that contains a date.
+// that date should be at most 10 days before now() = ARITHMETIC ON TIME
