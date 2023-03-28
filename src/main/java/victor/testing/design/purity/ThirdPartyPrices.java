@@ -1,5 +1,5 @@
 package victor.testing.design.purity;
 
-public interface ThirdPartyPrices {
+public interface  ThirdPartyPrices {
    double retrievePrice(Long id);
 }

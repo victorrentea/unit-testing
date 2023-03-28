@@ -1,5 +1,6 @@
 package victor.testing.tdd.classic;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
@@ -27,6 +28,8 @@ public class TennisScoreShouldReturnAScoreOf {
   }
 
   @Test
+//  @DisplayName("Human readable test name") //
+  // i hate display name for the same reason I hate // comments
   void loveLoveForNewGame() {
     setPoints(0, 0);
     String s = tennisGame.score();
