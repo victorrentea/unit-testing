@@ -13,6 +13,15 @@ public class DiagnosticTest {
   // starting Mockito version ... there is a new magic lib in your classpath called mockito-inline
   // that superseded PowerMock and allows mocking of final classes and methods, static
 //  private Client mockClient;
+
+
+//  private Client mockClient = new Client() {
+//    @Override
+//    public boolean getOnlineStatus() {
+//      return true;
+//    }
+//  };
+
   private Diagnostic sut = new Diagnostic(mockClient);
 
   @Test
