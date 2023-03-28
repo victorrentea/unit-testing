@@ -10,6 +10,9 @@ import static victor.testing.mocks.telemetry.Diagnostic.DIAGNOSTIC_CHANNEL_CONNE
 public class DiagnosticTest {
 
   private Client mockClient = mock(Client.class);
+  // starting Mockito version ... there is a new magic lib in your classpath called mockito-inline
+  // that superseded PowerMock and allows mocking of final classes and methods, static
+//  private Client mockClient;
   private Diagnostic sut = new Diagnostic(mockClient);
 
   @Test
