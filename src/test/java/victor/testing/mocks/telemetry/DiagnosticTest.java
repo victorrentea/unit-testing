@@ -3,26 +3,21 @@ package victor.testing.mocks.telemetry;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Diagnostic.DIAGNOSTIC_CHANNEL_CONNECTION_STRING;
 
+@ExtendWith(MockitoExtension.class) // the extension is in charge to initialize the test class
 public class DiagnosticTest {
-
-  private Client mockClient = mock(Client.class);
-  // starting Mockito version ... there is a new magic lib in your classpath called mockito-inline
-  // that superseded PowerMock and allows mocking of final classes and methods, static
-//  private Client mockClient;
-
-
-//  private Client mockClient = new Client() {
-//    @Override
-//    public boolean getOnlineStatus() {
-//      return true;
-//    }
-//  };
-
-  private Diagnostic sut = new Diagnostic(mockClient);
+  @Mock
+  Client mockClient;
+  @InjectMocks
+  Diagnostic sut;
 
   @Test
   void disconnects() {
