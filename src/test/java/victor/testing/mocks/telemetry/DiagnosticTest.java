@@ -21,9 +21,7 @@ import static victor.testing.mocks.telemetry.Diagnostic.DIAGNOSTIC_CHANNEL_CONNE
 //@ExtendWith(MockitoExtension.class) // the extension is in charge to initialize the test class
 //@MockitoSettings(strictness = Strictness.LENIENT) // default is STRICT // DONT!
 public class DiagnosticTest {
-  Client mockClient = mock(Client.class, invocation -> {
-    throw new RuntimeException("Not stubbed!");
-  }); // using mock() method makes all stubbing lenient by default. unlike @Mock
+  Client mockClient = mock(Client.class); // using mock() method makes all stubbing lenient by default. unlike @Mock
   //  @InjectMocks
   //  @Spy
   Diagnostic sut = spy(new Diagnostic(mockClient));
@@ -114,14 +112,15 @@ public class DiagnosticTest {
 
   @Test
   void sendsBadFailure() {
-    when(mockClient.getOnlineStatus()).thenReturn(true);
-    when(mockClient.getVersion()).thenReturn("ver");
-//    when(mockClient.send(any())).thenReturn(13);
-    when(mockClient.send(Client.DIAGNOSTIC_MESSAGE)).thenReturn(13);
+    Client mockClient = mock(Client.class, invocation -> {
+      throw new RuntimeException ( invocation.getMethod().getName() + " is not stubbed" );
+    });
+    Diagnostic sut = new Diagnostic(mockClient);
+    doReturn(true).when(mockClient).getOnlineStatus();
+    doReturn("ver").when(mockClient).getVersion();
+    doReturn(13).when(mockClient).send(Client.DIAGNOSTIC_MESSAGE);
 
     sut.checkTransmission(true);
-
-//    assertThat(v).isEqualTo(13);
 
   }
   /*@Test
