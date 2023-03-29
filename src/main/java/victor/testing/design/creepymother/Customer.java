@@ -23,6 +23,11 @@ class Customer {
       return this;
    }
 
+   public Customer setName(String name) {
+      this.name = name;
+      return this;
+   }
+
    public String getBillingAddress() {
       return billingAddress;
    }

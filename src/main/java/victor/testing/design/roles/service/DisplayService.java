@@ -5,6 +5,10 @@ import victor.testing.design.roles.model.Parcel;
 public class DisplayService {
    public void displayAWB(Parcel parcel){
       System.out.println("Display barcode " + parcel.getBarcode());
+
+      if (parcel.isPartOfCompositeShipment()) {
+         displayMultiParcelWarning();
+      }
    }
 
    public void displayMultiParcelWarning(){
