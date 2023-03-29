@@ -14,7 +14,7 @@ class TzatzikiTest {
   @Mock
   Dependency dependency;
   @InjectMocks
-  FastFood fastFood;
+  Tzatziki fastFood;
 
   @BeforeEach
   final void before() {

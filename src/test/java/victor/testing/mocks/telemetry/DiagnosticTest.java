@@ -28,9 +28,6 @@ public class DiagnosticTest {
   @BeforeEach
   final void before() {
     // it's a conscious decision to allow the stubbed meethod NOT be called by some @Test bellow
-    when(mockClient.getVersion()).thenReturn("ver");
-    when(mockClient.getOnlineStatus()).thenReturn(true);
-    when(mockClient.receive()).thenReturn("infoAFHAUIFYA&");
   }
     //    lenient().when(featureService.isFlagActive(MY_FEATURE2312)).thenReturn(true); // eg
 
@@ -41,12 +38,16 @@ public class DiagnosticTest {
 
   @Test
   void disconnects() {
+    when(mockClient.getOnlineStatus()).thenReturn(true);
+    when(mockClient.getVersion()).thenReturn("ver");
+
     sut.checkTransmission(true);
 
     verify(mockClient).disconnect(true);
   }
   @Test
   void connects() {
+    when(mockClient.getVersion()).thenReturn("ver");
     when(mockClient.getOnlineStatus()).thenReturn(false, true);
 
     sut.checkTransmission(true);
@@ -65,6 +66,10 @@ public class DiagnosticTest {
 
   @Test
   void receivesDiagnosticInfo() {
+    when(mockClient.getOnlineStatus()).thenReturn(true);
+    when(mockClient.getVersion()).thenReturn("ver");
+    when(mockClient.receive()).thenReturn("infoAFHAUIFYA&");
+
     sut.checkTransmission(true);
 
     verify(mockClient).receive();
@@ -89,6 +94,9 @@ public class DiagnosticTest {
 
   @Test
   void configuresCorrectlyTheClient() {
+    when(mockClient.getOnlineStatus()).thenReturn(true);
+    when(mockClient.getVersion()).thenReturn("ver");
+
     sut.checkTransmission(true);
 
     // cherry pick and test 1 attribute only in a complex param pobject

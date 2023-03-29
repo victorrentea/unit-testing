@@ -4,7 +4,7 @@ package victor.testing.design.fixturecreep;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class FastFood {
+public class Tzatziki {
    private final Dependency dependency;
 
    public void makeShawarma() {
@@ -23,7 +23,3 @@ public class FastFood {
 }
 
 
-interface Dependency {
-   boolean isOnionAllowed();
-   boolean isCucumberAllowed();
-}
