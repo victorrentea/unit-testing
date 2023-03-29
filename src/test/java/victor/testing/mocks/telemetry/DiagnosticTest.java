@@ -106,13 +106,9 @@ public class DiagnosticTest {
 
   @Test
   void testTheConfigureDirectly() {
-//    when(mockClient.getVersion()).thenReturn("ver");
 
     ClientConfiguration config = sut.createConfig("ver");
 
-    //    var configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
-//    verify(mockClient).configure(configCaptor.capture());
-//    ClientConfiguration config = configCaptor.getValue();
     assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
     assertThat(config.getSessionId())
             .startsWith("ver-")
