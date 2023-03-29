@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -24,6 +25,7 @@ public class DiagnosticTest {
   @Mock
   Client mockClient;// = mock(Client.class); // using mock() method makes all stubbing lenient by default. unlike @Mock
   @InjectMocks
+  @Spy
   Diagnostic sut;// = new Diagnostic(mockClient);
   @BeforeEach
   final void before() {
@@ -39,7 +41,8 @@ public class DiagnosticTest {
   @Test
   void disconnects() {
     when(mockClient.getOnlineStatus()).thenReturn(true);
-    when(mockClient.getVersion()).thenReturn("ver");
+//    when(mockClient.getVersion()).thenReturn("ver");
+    doReturn(new ClientConfiguration()).when(sut).createConfig(any());
 
     sut.checkTransmission(true);
 
