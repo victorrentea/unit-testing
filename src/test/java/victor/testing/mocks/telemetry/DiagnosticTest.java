@@ -7,6 +7,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -16,30 +18,29 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Diagnostic.DIAGNOSTIC_CHANNEL_CONNECTION_STRING;
 
-//@ExtendWith(MockitoExtension.class) // the extension is in charge to initialize the test class
+@ExtendWith(MockitoExtension.class) // the extension is in charge to initialize the test class
+@MockitoSettings(strictness = Strictness.LENIENT) // default is STRICT // DONT!
 public class DiagnosticTest {
-//  @Mock
-  Client mockClient = mock(Client.class); // using mock() method makes all stubbing lenient by default. unlike @Mock
-//  @InjectMocks
-  Diagnostic sut = new Diagnostic(mockClient);
+  @Mock
+  Client mockClient;// = mock(Client.class); // using mock() method makes all stubbing lenient by default. unlike @Mock
+  @InjectMocks
+  Diagnostic sut;// = new Diagnostic(mockClient);
   @BeforeEach
   final void before() {
     // it's a conscious decision to allow the stubbed meethod NOT be called by some @Test bellow
     when(mockClient.getVersion()).thenReturn("ver");
-//    lenient().when(featureService.isFlagActive(MY_FEATURE2312)).thenReturn(true); // eg
+    when(mockClient.getOnlineStatus()).thenReturn(true);
+    when(mockClient.receive()).thenReturn("infoAFHAUIFYA&");
   }
+    //    lenient().when(featureService.isFlagActive(MY_FEATURE2312)).thenReturn(true); // eg
 
   // DOn't use annotations iff you want to pass a real object to the SUT as a dependency
   // very good practice to test more than a single class with "social unit tests" vs isolated unit tests
-
   //  Diagnostic sut = new Diagnostic(mockClient, new MyRealMapper()); // in the field initialization
-
   //  Diagnostic sut = new Diagnostic(mockClient, configProperty); // @Value in prod code taken via constructor
 
   @Test
   void disconnects() {
-    when(mockClient.getOnlineStatus()).thenReturn(true);
-
     sut.checkTransmission(true);
 
     verify(mockClient).disconnect(true);
@@ -64,9 +65,6 @@ public class DiagnosticTest {
 
   @Test
   void receivesDiagnosticInfo() {
-    when(mockClient.getOnlineStatus()).thenReturn(true);
-    when(mockClient.receive()).thenReturn("infoAFHAUIFYA&");
-
     sut.checkTransmission(true);
 
     verify(mockClient).receive();
@@ -91,8 +89,6 @@ public class DiagnosticTest {
 
   @Test
   void configuresCorrectlyTheClient() {
-    when(mockClient.getOnlineStatus()).thenReturn(true);
-
     sut.checkTransmission(true);
 
     // cherry pick and test 1 attribute only in a complex param pobject
@@ -112,7 +108,6 @@ public class DiagnosticTest {
 
   @Test
   void testTheConfigureDirectly() {
-
     ClientConfiguration config = sut.createConfig("ver");
 
     assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
