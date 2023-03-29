@@ -16,16 +16,16 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Diagnostic.DIAGNOSTIC_CHANNEL_CONNECTION_STRING;
 
-@ExtendWith(MockitoExtension.class) // the extension is in charge to initialize the test class
+//@ExtendWith(MockitoExtension.class) // the extension is in charge to initialize the test class
 public class DiagnosticTest {
-  @Mock
-  Client mockClient;
-  @InjectMocks
-  Diagnostic sut;
+//  @Mock
+  Client mockClient = mock(Client.class); // using mock() method makes all stubbing lenient by default. unlike @Mock
+//  @InjectMocks
+  Diagnostic sut = new Diagnostic(mockClient);
   @BeforeEach
   final void before() {
     // it's a conscious decision to allow the stubbed meethod NOT be called by some @Test bellow
-    lenient().when(mockClient.getVersion()).thenReturn("ver");
+    when(mockClient.getVersion()).thenReturn("ver");
 //    lenient().when(featureService.isFlagActive(MY_FEATURE2312)).thenReturn(true); // eg
   }
 
