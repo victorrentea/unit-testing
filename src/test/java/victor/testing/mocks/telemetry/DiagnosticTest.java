@@ -1,23 +1,15 @@
 package victor.testing.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
-import victor.testing.tools.InjectRealObjectsMockitoExtension.Real;
-
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 import static java.time.LocalDateTime.now;
-import static java.time.temporal.ChronoUnit.MINUTES;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -110,6 +102,24 @@ public class DiagnosticTest {
     // USE THIS every time you say now() in prod code - 99% of time
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
   }
+
+
+  @Test
+  void testTheConfigureDirectly() {
+//    when(mockClient.getVersion()).thenReturn("ver");
+
+    ClientConfiguration config = sut.createConfig("ver");
+
+    //    var configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
+//    verify(mockClient).configure(configCaptor.capture());
+//    ClientConfiguration config = configCaptor.getValue();
+    assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+    assertThat(config.getSessionId())
+            .startsWith("ver-")
+            .hasSize("ver-b3ba1c7d-f426-4272-bd3f-19d087bd56df".length());
+    assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
+  }
+
 
   // TODO how much Captors is too much => your design sucks
 }
