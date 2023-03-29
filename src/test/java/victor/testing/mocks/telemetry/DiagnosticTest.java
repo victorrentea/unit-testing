@@ -100,7 +100,7 @@ public class DiagnosticTest {
     verify(mockClient).configure(configCaptor.capture());
     ClientConfiguration config = configCaptor.getValue();
     assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-    // USE THIS every time you say now() in prod code
+    // USE THIS every time you say now() in prod code - 99% of time
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
   }
 
