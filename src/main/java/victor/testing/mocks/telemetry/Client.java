@@ -64,7 +64,7 @@ public final class Client {
 		throw new IllegalStateException("Performs some external remote call impossible/not desirable to call from automated tests.");
 	}
 
-	public void send(String message) {
+	public int send(String message) {
 		if (message == null || "".equals(message)) {
 			throw new IllegalArgumentException();
 		}
@@ -80,11 +80,12 @@ public final class Client {
 					+ "BEP Test.................... -5\r\n" + "Local Rtrn Count............ 00\r\n"
 					+ "Remote Rtrn Count........... 00";
 
-			return;
+          return 0;
 		}
 
 		// here should go the real Send operation (not needed for this exercise)
-	}
+      return 0;
+    }
 
 	public String receive() {
 		String message;

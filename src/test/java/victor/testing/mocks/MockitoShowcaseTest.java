@@ -1,4 +1,4 @@
-package victor.testing.kata.demo;
+package victor.testing.mocks;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

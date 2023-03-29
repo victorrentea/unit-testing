@@ -3,13 +3,12 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.*;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.mockito.stubbing.Answer;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -19,14 +18,15 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Diagnostic.DIAGNOSTIC_CHANNEL_CONNECTION_STRING;
 
-@ExtendWith(MockitoExtension.class) // the extension is in charge to initialize the test class
-@MockitoSettings(strictness = Strictness.LENIENT) // default is STRICT // DONT!
+//@ExtendWith(MockitoExtension.class) // the extension is in charge to initialize the test class
+//@MockitoSettings(strictness = Strictness.LENIENT) // default is STRICT // DONT!
 public class DiagnosticTest {
-  @Mock
-  Client mockClient;// = mock(Client.class); // using mock() method makes all stubbing lenient by default. unlike @Mock
-  @InjectMocks
-  @Spy
-  Diagnostic sut;// = new Diagnostic(mockClient);
+  Client mockClient = mock(Client.class, invocation -> {
+    throw new RuntimeException("Not stubbed!");
+  }); // using mock() method makes all stubbing lenient by default. unlike @Mock
+  //  @InjectMocks
+  //  @Spy
+  Diagnostic sut = spy(new Diagnostic(mockClient));
   @BeforeEach
   final void before() {
     // it's a conscious decision to allow the stubbed meethod NOT be called by some @Test bellow
@@ -40,13 +40,20 @@ public class DiagnosticTest {
 
   @Test
   void disconnects() {
-    when(mockClient.getOnlineStatus()).thenReturn(true);
-//    when(mockClient.getVersion()).thenReturn("ver");
-    doReturn(new ClientConfiguration()).when(sut).createConfig(any());
+    when(mockClient.getOnlineStatus()).thenReturn(true); // GOOD , always pick this form
+//    BDDMockito.given(mockClient.getOnlineStatus()).willReturn(true); // BDD style -> superficial people imagining that BDD is only about using given/when/then
+//    doReturn("true").when(mockClient).getOnlineStatus(); // BAD: #1 not typesafe: this compiles
+//    doReturn(true).when(mockClient).getOnlineStatus(); // BAD: #2 it is required only when using @Spy = bad anyway
+
+    when(mockClient.getVersion()).thenReturn("ver");
+    doReturn(new ClientConfiguration()).when(sut).createConfig("ver"); // accepts null
+//    doReturn(new ClientConfiguration()).when(sut).createConfig(anyString()); // rejects NULL
 
     sut.checkTransmission(true);
 
     verify(mockClient).disconnect(true);
+
+    verify(sut).createConfig(notNull());
   }
   @Test
   void connects() {
@@ -96,6 +103,39 @@ public class DiagnosticTest {
   //   and add 7 getters for the 7 fields YES <=> facing terrible legacy
 
   @Test
+  void sendsGoodOutput() {
+    when(mockClient.getOnlineStatus()).thenReturn(true);
+    when(mockClient.getVersion()).thenReturn("ver");
+
+    sut.checkTransmission(true);
+
+    verify(mockClient).send("shit");
+  }
+
+  @Test
+  void sendsBadFailure() {
+    when(mockClient.getOnlineStatus()).thenReturn(true);
+    when(mockClient.getVersion()).thenReturn("ver");
+//    when(mockClient.send(any())).thenReturn(13);
+    when(mockClient.send(Client.DIAGNOSTIC_MESSAGE)).thenReturn(13);
+
+    sut.checkTransmission(true);
+
+//    assertThat(v).isEqualTo(13);
+
+  }
+  /*@Test
+  void separateTest() {
+    when(mockClient.getOnlineStatus()).thenReturn(true);
+    when(mockClient.getVersion()).thenReturn("ver");
+
+    int v = sut.checkTransmission(true);
+
+    verify(mockClient).send("AT#UD");
+    assertThat(v).isEqualTo(13);
+  }*/
+
+  @Test
   void configuresCorrectlyTheClient() {
     when(mockClient.getOnlineStatus()).thenReturn(true);
     when(mockClient.getVersion()).thenReturn("ver");
@@ -103,7 +143,9 @@ public class DiagnosticTest {
     sut.checkTransmission(true);
 
     // cherry pick and test 1 attribute only in a complex param pobject
+    verify(mockClient).configure(any());
     verify(mockClient).configure(argThat(c->c.getAckMode() == AckMode.NORMAL));
+    verify(mockClient).configure(argThat(c->c.getSessionId().startsWith("VER-")));
 
     var configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
     verify(mockClient).configure(configCaptor.capture());
