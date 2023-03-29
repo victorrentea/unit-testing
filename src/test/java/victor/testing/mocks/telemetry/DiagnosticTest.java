@@ -93,13 +93,20 @@ public class DiagnosticTest {
   @Test
   void configuresCorrectlyTheClient() {
     when(mockClient.getOnlineStatus()).thenReturn(true);
+    when(mockClient.getVersion()).thenReturn("ver");
 
     sut.checkTransmission(true);
+
+    // cherry pick and test 1 attribute only in a complex param pobject
+    verify(mockClient).configure(argThat(c->c.getAckMode() == AckMode.NORMAL));
 
     var configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
     verify(mockClient).configure(configCaptor.capture());
     ClientConfiguration config = configCaptor.getValue();
     assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+    assertThat(config.getSessionId())
+            .startsWith("ver-")
+            .hasSize("ver-b3ba1c7d-f426-4272-bd3f-19d087bd56df".length());
     // USE THIS every time you say now() in prod code - 99% of time
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
   }
