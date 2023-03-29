@@ -111,7 +111,7 @@ public class DiagnosticTest {
 
     assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
     assertThat(config.getSessionId())
-            .startsWith("ver-")
+            .startsWith("VER-")
             .hasSize("ver-b3ba1c7d-f426-4272-bd3f-19d087bd56df".length());
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
   }

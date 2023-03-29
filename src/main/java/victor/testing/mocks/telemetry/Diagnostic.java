@@ -41,7 +41,7 @@ public class Diagnostic {
 	@VisibleForTesting
 	ClientConfiguration createConfig(String clientVersion) { // imagine 12 tests written on this method
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(clientVersion + "-" + randomUUID());
+		config.setSessionId(clientVersion.toUpperCase() + "-" + randomUUID());
 		config.setSessionStart(LocalDateTime.now());
 		// 😱😱😱😱😱😱😱😱😱😱imagine terrible complexity accumulates here !!! 12
 		// cyclomatic complexity = 1 + number of if/else + number of loops ~= a max of how many tests you have to write
