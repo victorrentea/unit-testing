@@ -15,33 +15,22 @@ import static victor.testing.mocks.telemetry.Diagnostic.DIAGNOSTIC_CHANNEL_CONNE
 public class DiagnosticPragmaticTest {
   Client mockClient = mock(Client.class);
   Diagnostic sut = new Diagnostic(mockClient);
+
+  // pragmatic 1 test for the entire happy flow : max 3 behavior pieces.
+  // + less test code
+  // - not specific tests, broad names
+  // - harder to track failures,
+  // - no more documentation purpose
   @Test
-  void disconnects() {
-    when(mockClient.getOnlineStatus()).thenReturn(true);
-    when(mockClient.getVersion()).thenReturn("ver");
-
-    sut.checkTransmission(true);
-
-    verify(mockClient).disconnect(true);
-  }
-  @Test
-  void sendsGoodOutput() {
-    when(mockClient.getOnlineStatus()).thenReturn(true);
-    when(mockClient.getVersion()).thenReturn("ver");
-
-    sut.checkTransmission(true);
-
-    verify(mockClient).send(Client.DIAGNOSTIC_MESSAGE);
-  }
-
-  @Test
-  void receivesDiagnosticInfo() {
+  void happy() {
     when(mockClient.getOnlineStatus()).thenReturn(true);
     when(mockClient.getVersion()).thenReturn("ver");
     when(mockClient.receive()).thenReturn("infoAFHAUIFYA&");
 
     sut.checkTransmission(true);
 
+    verify(mockClient).disconnect(true);
+    verify(mockClient).send(Client.DIAGNOSTIC_MESSAGE);
     verify(mockClient).receive();
     assertThat(sut.getDiagnosticInfo()).isEqualTo("infoAFHAUIFYA&");
   }
