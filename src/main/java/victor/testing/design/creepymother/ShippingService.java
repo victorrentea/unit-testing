@@ -8,4 +8,9 @@ class ShippingService {
       // more logic
       return 20;
    }
+
+   public String printShippingSlip(Customer customer) {
+      return "Recipient name: " + customer.getName() +
+             "\nAddress: " + customer.getShippingAddress();
+   }
 }

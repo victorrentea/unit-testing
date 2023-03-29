@@ -19,14 +19,13 @@ public class ParcelFacade {
    public void processBarcode(String barcode, int warehouseId) {
       Parcel parcel = parcelRepo.findByBarcode(barcode);
 
-      displayService.displayAWB(parcel);
+      displayService.displayParcel(parcel);
       if (parcel.isPartOfCompositeShipment()) {
          displayService.displayMultiParcelWarning();
       }
       platformService.addParcel(parcel);
-      List<TrackingProvider> trackingProviders = trackingProviderRepo.findByAwb(parcel.getAwb());
-      // TODO move findByAwb to trackingService ==> then notice bad encapsulation
-      trackingService.markDepartingWarehouse(parcel.getAwb(), warehouseId, trackingProviders);
+      List<TrackingProvider> trackingProviders = trackingProviderRepo.findByTrackingNumber(parcel.getTrackingNumber());
+      trackingService.markDepartingWarehouse(parcel.getTrackingNumber(), warehouseId, trackingProviders);
    }
 
 }

@@ -38,15 +38,15 @@ class ParcelFacadeTest {
    void processBarcode() {
       Parcel parcel = new Parcel()
           .setBarcode("BAR")
-          .setAwb("AWB")
+          .setTrackingNumber("AWB")
           .setPartOfCompositeShipment(true);
       when(parcelRepo.findByBarcode("BAR")).thenReturn(parcel);
       List<TrackingProvider> trackingProviders = List.of(new TrackingProvider());
-      when(trackingProviderRepo.findByAwb("AWB")).thenReturn(trackingProviders);
+      when(trackingProviderRepo.findByTrackingNumber("AWB")).thenReturn(trackingProviders);
 
       target.processBarcode("BAR", 99);
 
-      verify(displayService).displayAWB(parcel);
+      verify(displayService).displayParcel(parcel);
       verify(displayService).displayMultiParcelWarning();
       verify(platformService).addParcel(parcel);
       verify(trackingService).markDepartingWarehouse("AWB", 99, trackingProviders);

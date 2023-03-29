@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Parcel {
    private String barcode;
-   private String awb;
+   private String trackingNumber;
    private boolean partOfCompositeShipment;
 }

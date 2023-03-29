@@ -3,7 +3,7 @@ package victor.testing.design.roles.service;
 import victor.testing.design.roles.model.Parcel;
 
 public class DisplayService {
-   public void displayAWB(Parcel parcel){
+   public void displayParcel(Parcel parcel){
       System.out.println("Display barcode " + parcel.getBarcode());
    }
 

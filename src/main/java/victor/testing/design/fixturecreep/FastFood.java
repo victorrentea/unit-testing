@@ -11,19 +11,13 @@ public class FastFood {
       if (!dependency.isOnionAllowed()) {
          throw new IllegalArgumentException();
       }
-      // complex logic
+      // complex logic: 7 ifs
    }
 
    public void makeTzatziki() {
       if (!dependency.isCucumberAllowed()) {
          throw new IllegalArgumentException();
       }
-      // complex logic
+      // complex logic: 5 ifs
    }
-}
-
-
-interface Dependency {
-   boolean isOnionAllowed();
-   boolean isCucumberAllowed();
 }
