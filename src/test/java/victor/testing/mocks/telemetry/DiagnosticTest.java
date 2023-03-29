@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -21,6 +22,12 @@ public class DiagnosticTest {
   Client mockClient;
   @InjectMocks
   Diagnostic sut;
+  @BeforeEach
+  final void before() {
+    // it's a conscious decision to allow the stubbed meethod NOT be called by some @Test bellow
+    lenient().when(mockClient.getVersion()).thenReturn("ver");
+//    lenient().when(featureService.isFlagActive(MY_FEATURE2312)).thenReturn(true); // eg
+  }
 
   // DOn't use annotations iff you want to pass a real object to the SUT as a dependency
   // very good practice to test more than a single class with "social unit tests" vs isolated unit tests
@@ -85,7 +92,6 @@ public class DiagnosticTest {
   @Test
   void configuresCorrectlyTheClient() {
     when(mockClient.getOnlineStatus()).thenReturn(true);
-    when(mockClient.getVersion()).thenReturn("ver");
 
     sut.checkTransmission(true);
 
@@ -97,7 +103,7 @@ public class DiagnosticTest {
     ClientConfiguration config = configCaptor.getValue();
     assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
     assertThat(config.getSessionId())
-            .startsWith("ver-")
+            .startsWith("VER-")
             .hasSize("ver-b3ba1c7d-f426-4272-bd3f-19d087bd56df".length());
     // USE THIS every time you say now() in prod code - 99% of time
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
