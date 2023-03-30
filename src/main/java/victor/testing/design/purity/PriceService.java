@@ -19,35 +19,53 @@ public class PriceService {
    private final CouponRepo couponRepo;
    private final ProductRepo productRepo;
 
+   // 2 Cyclomatic complexity
    public Map<Long, Double> computePrices(long customerId, List<Long> productIds, Map<Long, Double> internalPrices) {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
-      List<Coupon> usedCoupons = new ArrayList<>();
-      Map<Long, Double> finalPrices = new HashMap<>();
+
+      Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);
+
+      PriceComputationResult result = computePricesPure(customer, products, resolvedPrices);
+
+      couponRepo.markUsedCoupons(customerId, result.usedCoupons());
+      return result.finalPrices();
+   }
+
+   // #2 pass an adapter wrapping over the internalPrices MAP - behavior -> mock
+   //      PriceResolver priceResolver <--as param
+
+   private Map<Long, Double> resolvePrices(Map<Long, Double> internalPrices, List<Product> products) {
+      Map<Long, Double> resolvedPrices = new HashMap<>();
       for (Product product : products) {
          Double price = internalPrices.get(product.getId());
          if (price == null) {
             price = thirdPartyPrices.retrievePrice(product.getId());
          }
+         resolvedPrices.put(product.getId(), price);
+      }
+      return resolvedPrices;
+   }
+
+   // 10 Cyclomatic complexity
+   @VisibleForTesting
+   PriceComputationResult computePricesPure(Customer customer, List<Product> products, Map<Long, Double> resolvedPrices) {
+      List<Coupon> usedCoupons = new ArrayList<>();
+      Map<Long, Double> finalPrices = new HashMap<>();
+      for (Product product : products) {
+         Double price = resolvedPrices.get(product.getId());
          for (Coupon coupon : customer.getCoupons()) {
-            price = F(usedCoupons, product, price, coupon);
+            if (coupon.autoApply() && coupon.isApplicableFor(product, price) && !usedCoupons.contains(coupon)) {
+               price = coupon.apply(product, price);
+               usedCoupons.add(coupon);
+            }
          }
          finalPrices.put(product.getId(), price);
       }
-      couponRepo.markUsedCoupons(customerId, usedCoupons);
-      return finalPrices;
+      return new PriceComputationResult(finalPrices, usedCoupons);
    }
-
-   @VisibleForTesting
-    static Double F(List<Coupon> usedCoupons, Product product, Double price, Coupon coupon) {
-      if (coupon.autoApply()
-          && coupon.isApplicableFor(product, price)
-          && !usedCoupons.contains(coupon)) {
-         price = coupon.apply(product, price);
-         usedCoupons.add(coupon);
-      }
-      return price;
-   }
-
 }
 
+record PriceComputationResult(Map<Long, Double> finalPrices,
+                              List<Coupon> usedCoupons) {
+}

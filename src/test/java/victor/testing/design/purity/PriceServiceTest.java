@@ -57,4 +57,21 @@ class PriceServiceTest {
           .containsEntry(2L, 5d);
    }
 
+   @Test
+   void computePricesPure() {
+      Coupon coupon1 = new Coupon(HOME, 2, Set.of(13L));
+      Coupon coupon2 = new Coupon(ELECTRONICS, 4, Set.of(13L));
+      Customer customer = new Customer().setCoupons(List.of(coupon1, coupon2));
+      Product p1 = new Product().setId(1L).setCategory(HOME).setSupplier(new Supplier().setId(13L));
+      Product p2 = new Product().setId(2L).setCategory(KIDS).setSupplier(new Supplier().setId(13L));
+
+      PriceComputationResult result = priceService.computePricesPure(
+              customer, List.of(p1,p2), Map.of(1L, 10d, 2L, 5d));
+
+      assertThat(result.usedCoupons()).containsExactly(coupon1);
+      assertThat(result.finalPrices())
+          .containsEntry(1L, 8d)
+          .containsEntry(2L, 5d);
+   }
+
 }
