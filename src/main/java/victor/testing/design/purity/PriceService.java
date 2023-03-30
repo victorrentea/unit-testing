@@ -1,5 +1,6 @@
 package victor.testing.design.purity;
 
+import com.google.errorprone.annotations.Var;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.util.VisibleForTesting;
 import victor.testing.mutation.Coupon;
@@ -24,7 +25,8 @@ public class PriceService {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
 
-      Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);
+      Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);// good
+//      internalPrices = resolvePrices(internalPrices, products);// bad
 
       PriceComputationResult result = computePricesPure(customer, products, resolvedPrices);
 
@@ -51,7 +53,7 @@ public class PriceService {
    @VisibleForTesting
    PriceComputationResult computePricesPure(Customer customer, List<Product> products, Map<Long, Double> resolvedPrices) {
       List<Coupon> usedCoupons = new ArrayList<>();
-      Map<Long, Double> finalPrices = new HashMap<>();
+      @Var Map<Long, Double> finalPrices = new HashMap<>();
       for (Product product : products) {
          Double price = resolvedPrices.get(product.getId());
          for (Coupon coupon : customer.getCoupons()) {
