@@ -28,10 +28,10 @@ public class Product {
     @ManyToOne
     private Supplier supplier;
 
-    @CreatedDate
-    LocalDateTime createTime;
-    @LastModifiedDate
-    LocalDateTime modifiedTime;
+//    @CreatedDate
+//    LocalDateTime createTime;
+//    @LastModifiedDate
+//    LocalDateTime modifiedTime;
 
     private LocalDateTime createDate;
     public Product(String name, String barcode, ProductCategory category) {
