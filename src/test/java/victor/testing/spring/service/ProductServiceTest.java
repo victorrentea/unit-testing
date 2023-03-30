@@ -32,9 +32,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 public class ProductServiceTest {
    @MockBean // replaces in spring context the bean with a mock
    public SafetyClient mockSafetyClient;
-   @MockBean
+   @Autowired
    private ProductRepo productRepo;
-   @MockBean
+   @Autowired
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
@@ -50,25 +50,28 @@ public class ProductServiceTest {
 
    @Test
    public void createOk() {
-      // GIVEN
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
-      // WHEN
+      // when
       productService.createProduct(dto);
 
-      // THEN
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
-
+      assertThat(productRepo.findAll()).hasSize(1);
+      Product product = productRepo.findAll().get(0);
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
 
 }
+// alternative: "test data slices" : each test creates from scratch its data
+
+      // if I cannot guarantee the DB is empty at the start of the test
+      // > I could TRUNCATE the tables at start of each test. how about multithreaded tests ?!
+            // then use the same findAll()
+
+      // > if the tested method returns the ID, then do this:
+//      Product product = productRepo.findById(returnedId).orElseThrow();

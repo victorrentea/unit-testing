@@ -12,7 +12,7 @@ import java.net.URL;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SafetyClient {
+public class SafetyClient { // Adapter Design Pattern (GoF)
 
     private final RestTemplate rest;
     @Value("${safety.service.url.base}")
