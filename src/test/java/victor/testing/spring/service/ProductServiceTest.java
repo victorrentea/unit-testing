@@ -1,5 +1,7 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -25,10 +28,17 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
+
+// non-isolated tests that leave data after themselves in the DB
+// 1) findById
+// 2) @BeforeEach (instead of @AfterEach) -> not parallel-friendly
+// 3) @Sql best for legacy or large databases
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 public class ProductServiceTest {
    @MockBean // replaces in spring context the bean with a mock
    public SafetyClient mockSafetyClient;
@@ -38,6 +48,12 @@ public class ProductServiceTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
+//   @BeforeEach
+//   final void before() {
+//      productRepo.deleteAll();
+//       supplierRepo.deleteAll(); // FK order matters
+//   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
@@ -50,6 +66,23 @@ public class ProductServiceTest {
 
    @Test
    public void createOk() {
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
+
+      // when
+      productService.createProduct(dto);
+
+      assertThat(productRepo.findAll()).hasSize(1);
+      Product product = productRepo.findAll().get(0);
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+      assertThat(product.getCategory()).isEqualTo(HOME);
+      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+   }
+   @Test
+   public void createOk2() {
       Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
