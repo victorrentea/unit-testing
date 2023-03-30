@@ -56,6 +56,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 @Transactional // in tests tells spring to rollback after each @Test
 @Testcontainers
+@ActiveProfiles("db-migration")  // test the incremental scripts
 public class ProductServiceTest {
    @MockBean // replaces in spring context the bean with a mock
    public SafetyClient mockSafetyClient;
