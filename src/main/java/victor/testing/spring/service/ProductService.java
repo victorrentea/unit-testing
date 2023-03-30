@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import scala.concurrent.impl.FutureConvertersImpl.CF;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
@@ -39,13 +40,14 @@ public class ProductService {
     product.setName(productDto.name);
     product.setBarcode(productDto.barcode);
     product.setCreateDate(LocalDateTime.now());
-    product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
+//    product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
+//    product.setSupplier(supplierRepo.getReferenceById(productDto.supplierId)); // better, -1 SELECT
+    product.setSupplier(new Supplier().setId(productDto.supplierId)); // the best
     if (productDto.category == null) {
       productDto.category = ProductCategory.UNCATEGORIZED; // untested 😱
     }
     product.setCategory(productDto.category);
     productRepo.save(product);
-//    return product.getId();
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
