@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -22,6 +27,7 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 
 import java.util.Optional;
 
@@ -43,9 +49,13 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
       // ⚠️ @Transactional(propagation = REQUIRES_NEW|NOT_SUPPORTED) -> suspend the TEST transaction > COMMIT
       // ⚠️ Loose the thread >  loose the JDBC transaction: if the tested code jumps on another thread > COMMIT
 @SpringBootTest
-@ActiveProfiles("db-mem")
+//@ActiveProfiles("db-mem") // bad because:
+   // - you can't use NATIVE Oracele SQL - Oracle specific functions , CONNECT BY
+   // - you can't test incremental DB scripts
+
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 @Transactional // in tests tells spring to rollback after each @Test
+@Testcontainers
 public class ProductServiceTest {
    @MockBean // replaces in spring context the bean with a mock
    public SafetyClient mockSafetyClient;
@@ -56,7 +66,25 @@ public class ProductServiceTest {
    @Autowired
    private ProductService productService;
 
-//   @BeforeEach
+   // https://stackoverflow.com/questions/62425598/how-to-reuse-testcontainers-between-multiple-springboottests
+   // === The containers is reused across all subclasses ===
+   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
+           "postgres:11")
+     .withReuse(true); // BE CAREFUL to allow testcontainers to reuse the container across different test classes
+
+   @BeforeAll
+   public static void startTestcontainer() {
+      System.out.println("(re)Starting testcontainer");
+      postgres.start();
+   }
+
+   @DynamicPropertySource
+   public static void registerPgProperties(DynamicPropertyRegistry registry) {
+      TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+   }
+
+
+   //   @BeforeEach
 //   final void before() {
 //      productRepo.deleteAll();
 //       supplierRepo.deleteAll(); // FK order matters
