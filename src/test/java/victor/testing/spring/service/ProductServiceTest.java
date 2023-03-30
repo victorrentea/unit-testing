@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -35,10 +36,16 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 // non-isolated tests that leave data after themselves in the DB
 // 1) findById
 // 2) @BeforeEach (instead of @AfterEach) -> not parallel-friendly
-// 3) @Sql best for legacy or large databases
+// 3) @Sql best for legacy or large databases  -> not parallel-friendly
+// 4) 👑 @Transactional you can run tests in parallel
+   // BUT:
+      // ⚠️ [bad practice] there are some CHECK constraints or PRE-COMMIT triggers that don't run, typical for PL/SQL 100k
+      // ⚠️ @Transactional(propagation = REQUIRES_NEW|NOT_SUPPORTED) -> suspend the TEST transaction > COMMIT
+      // ⚠️ Loose the thread >  loose the JDBC transaction: if the tested code jumps on another thread > COMMIT
 @SpringBootTest
 @ActiveProfiles("db-mem")
-@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
+//@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
+@Transactional // in tests tells spring to rollback after each @Test
 public class ProductServiceTest {
    @MockBean // replaces in spring context the bean with a mock
    public SafetyClient mockSafetyClient;

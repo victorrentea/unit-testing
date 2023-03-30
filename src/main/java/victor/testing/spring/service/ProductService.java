@@ -2,8 +2,12 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
+import scala.concurrent.impl.FutureConvertersImpl.CF;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.infra.SafetyClient;
@@ -24,12 +28,13 @@ public class ProductService {
   private final ProductRepo productRepo;
   private final SupplierRepo supplierRepo;
 
+//  @Async
+  //@Transactional(propagation = Propagation.REQUIRES_NEW)
   public void createProduct(ProductDto productDto) {
     boolean safe = safetyClient.isSafe(productDto.barcode); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe: " + productDto.barcode);
     }
-
     Product product = new Product();
     product.setName(productDto.name);
     product.setBarcode(productDto.barcode);
