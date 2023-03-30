@@ -1,41 +1,19 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
-import victor.testing.tools.TestcontainersUtils;
-
-import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
+import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
 
@@ -57,7 +35,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 //@Transactional // in tests tells spring to rollback after each @Test
 //@Testcontainers
 //@ActiveProfiles("db-migration")  // test the incremental scripts
-public class ProductServiceTest extends BaseTest {
+public class ProductService2Test extends BaseTest {
    @MockBean // replaces in spring context the bean with a mock
    public SafetyClient mockSafetyClient;
    @Autowired
