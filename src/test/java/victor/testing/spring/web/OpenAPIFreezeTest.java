@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @ActiveProfiles("db-mem")
 @AutoConfigureMockMvc
-public class OpenAPIFreezeTest {
+public class OpenAPIFreezeTest { // approval testing
     @Autowired
     MockMvc mockMvc;
     ObjectMapper jackson = new ObjectMapper();

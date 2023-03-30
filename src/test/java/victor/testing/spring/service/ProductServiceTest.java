@@ -12,10 +12,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -57,9 +62,17 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 //@Transactional // in tests tells spring to rollback after each @Test
 //@Testcontainers
 //@ActiveProfiles("db-migration")  // test the incremental scripts
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
+@AutoConfigureWireMock(port = 9999)
+
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)// nukes spring before each test
+// NEVER on 'dev'; only kept local to debug failures.
+
+// ONLY use
+
 public class ProductServiceTest extends BaseTest {
-   @MockBean // replaces in spring context the bean with a mock
-   public SafetyClient mockSafetyClient;
+//   @MockBean // replaces in spring context the bean with a mock
+//   public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
    @Autowired
@@ -77,7 +90,7 @@ public class ProductServiceTest extends BaseTest {
 
    @Test
    public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
       ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -87,7 +100,7 @@ public class ProductServiceTest extends BaseTest {
    @Test
    public void createOk() {
       Long supplierId = supplierRepo.save(new Supplier()).getId();
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // when
@@ -104,7 +117,7 @@ public class ProductServiceTest extends BaseTest {
    @Test
    public void createOk2() {
       Long supplierId = supplierRepo.save(new Supplier()).getId();
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // when
