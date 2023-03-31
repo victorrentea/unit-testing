@@ -232,7 +232,7 @@
             <version>4.6.0</version>
         </dependency>
         <dependency>
-            <!-- needed for victor.testing.tools.CountHowManySpringContextWereCreated -->
+            <!-- needed for victor.testing.spring.MonitorSpringTestStartupPerformance -->
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>

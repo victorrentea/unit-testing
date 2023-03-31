@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +14,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,12 +66,14 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
  * <li> At the end of each test leaves the DB clean (by auto-rollback of @Transactional)
  */
 @SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+
 @AutoConfigureWireMock(port = 9999)
+
 @Testcontainers
+@Transactional
 @ActiveProfiles("db-migration")
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
-@Transactional
 @AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 public class ProductControllerTest {
     private final static ObjectMapper jackson = new ObjectMapper();

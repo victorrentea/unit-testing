@@ -12,7 +12,7 @@ import victor.testing.tools.TestcontainersUtils;
 @SpringBootTest
 @Testcontainers
 @Transactional
-public class BaseDatabaseTest {
+public class BaseDatabaseTest { // inherit from this test class
 
   // https://stackoverflow.com/questions/62425598/how-to-reuse-testcontainers-between-multiple-springboottests
   // === The containers is reused across all subclasses ===
@@ -21,7 +21,7 @@ public class BaseDatabaseTest {
 
   @BeforeAll
   public static void startTestcontainer() {
-    System.out.println("(re)Starting testcontainer");
+    System.out.println("Starting testcontainer");
     postgres.start();
   }
 
@@ -29,4 +29,7 @@ public class BaseDatabaseTest {
   public static void registerPgProperties(DynamicPropertyRegistry registry) {
     TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
   }
+
+  // TODO in ~/.testcontainers.properties put testcontainers.reuse.enable=true
+
 }
