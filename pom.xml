@@ -228,7 +228,8 @@
 
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.6.0</version>
         </dependency>
         <dependency>
             <!-- needed for victor.testing.tools.CountHowManySpringContextWereCreated -->
