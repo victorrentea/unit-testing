@@ -31,9 +31,11 @@ import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.tools.HumanReadableTestNames;
 import victor.testing.tools.TestcontainersUtils;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.MILLIS;
 import static org.assertj.core.api.Assertions.*;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -107,6 +109,7 @@ public class ProductControllerTest {
         // (A) white box = direct DB access
         Product returnedProduct = productRepo.findAll().get(0);
         assertThat(returnedProduct.getName()).isEqualTo("Tree");
+        assertThat(returnedProduct.getCreateDate()).isCloseTo(now(), byLessThan(500, MILLIS));
         assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
         assertThat(returnedProduct.getSupplier().getId()).isEqualTo(product.supplierId);
         assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);

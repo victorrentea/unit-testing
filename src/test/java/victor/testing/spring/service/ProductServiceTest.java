@@ -62,7 +62,7 @@ public class ProductServiceTest {
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
       assertThat(product.getCategory()).isEqualTo(HOME);
-      assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
+      // assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS)); // uses Spring Magic
    }
 
 }
