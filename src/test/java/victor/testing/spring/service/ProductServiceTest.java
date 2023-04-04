@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import net.bytebuddy.utility.nullability.NeverNull.ByDefault;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -19,6 +25,7 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 
 import java.util.Optional;
 
@@ -28,8 +35,9 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
+@Testcontainers
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("db-migration")
 public class ProductServiceTest {
    @MockBean
    public SafetyClient mockSafetyClient;
@@ -39,6 +47,22 @@ public class ProductServiceTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
+   @Container
+   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
+           "postgres:11")
+           .withReuse(true);
+
+   @BeforeAll
+   public static void startTestcontainer() {
+      System.out.println("Starting testcontainer");
+      postgres.start();
+   }
+
+   @DynamicPropertySource
+   public static void registerPgProperties(DynamicPropertyRegistry registry) {
+      TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
