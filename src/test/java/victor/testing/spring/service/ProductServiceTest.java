@@ -1,11 +1,17 @@
 package victor.testing.spring.service;
 
+import net.bytebuddy.utility.nullability.NeverNull.ByDefault;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -22,15 +28,16 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("db-mem")
 public class ProductServiceTest {
-   @Mock
+   @MockBean
    public SafetyClient mockSafetyClient;
-   @Mock
+   @Autowired
    private ProductRepo productRepo;
-   @Mock
+   @Autowired
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test
@@ -45,22 +52,18 @@ public class ProductServiceTest {
    @Test
    public void createOk() {
       // GIVEN
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+      Long supplierId = supplierRepo.save(new Supplier()).getId();
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+      ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
       // WHEN
-      productService.createProduct(dto);
+      Long id = productService.createProduct(dto);
 
       // THEN
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
-
+      Product product = productRepo.findById(id).orElseThrow();
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
       assertThat(product.getCategory()).isEqualTo(HOME);
       assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS));
    }
