@@ -7,24 +7,26 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@TestMethodOrder(OrderAnnotation.class)
 public class TennisScoreTest {
   // The running score of each game is described in a manner peculiar to tennis:
   // scores from zero to three points
   // are described as “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
 
   @Test
-  @Order(1)
   void zeroZero() {
-    String score = TennisScore.getScore();
+    String score = new TennisScore().getScore();
     assertThat(score).isEqualTo("Love-Love");
   }
 
+    // this test was leaking data -> testele de dupa vad datele ramase
+    // - IN DB (daca e DB in-memory/in-docker) < nu la noi ca noi Mock repository
+    // - stare (campuri) pe singletoane Spring -> @DirtiesContext (de evitate)
+    // - campuri static
   @Test
-  @Order(2)
   void unuZero() {
-    TennisScore.winsPoint(Player.ONE);
-    String score = TennisScore.getScore();
+    TennisScore tennisScore = new TennisScore();
+    tennisScore.winsPoint(Player.ONE);
+    String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Fifteen-Love");
   }
 }
