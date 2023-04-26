@@ -2,7 +2,13 @@ package victor.testing.mocks.telemetry;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -11,14 +17,18 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+//@RunWith(MockitoJUnitRunner.class) // 4
+@ExtendWith(MockitoExtension.class) // 5
 class DiagnosticTest {
+  @Mock
+  Client clientMock; // = mock(...)
+  @InjectMocks
+  Diagnostic diagnostic; // inejcteaza orice @Mock de mai sus oricum poate (ctor, setter, private fields)
+  // < oricum stie Spring sa faca DI, stie si Mockito
 
   @Test
   void disconnects() {
     // given
-    Client clientMock = Mockito.mock(Client.class);
-    Diagnostic diagnostic = new Diagnostic();
-    diagnostic.setTelemetryClient(clientMock);
     when(clientMock.getOnlineStatus()).thenReturn(true);
 
     // when
@@ -31,9 +41,6 @@ class DiagnosticTest {
   @Test
   void throwsWhenNotOnline() {
     // given
-    Client clientMock = Mockito.mock(Client.class);
-    Diagnostic diagnostic = new Diagnostic();
-    diagnostic.setTelemetryClient(clientMock);
     when(clientMock.getOnlineStatus()).thenReturn(false);
 
     // when
@@ -44,9 +51,6 @@ class DiagnosticTest {
   @Test
   void sendsDiagnosticMessage() {
     // given
-    Client clientMock = Mockito.mock(Client.class);
-    Diagnostic diagnostic = new Diagnostic();
-    diagnostic.setTelemetryClient(clientMock);
     when(clientMock.getOnlineStatus()).thenReturn(true);
 
     // when
