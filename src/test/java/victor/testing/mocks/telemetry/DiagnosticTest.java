@@ -1,6 +1,7 @@
 package victor.testing.mocks.telemetry;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -33,10 +34,15 @@ class DiagnosticTest {
   Diagnostic diagnostic; // inejcteaza orice @Mock de mai sus oricum poate (ctor, setter, private fields)
   // < oricum stie Spring sa faca DI, stie si Mockito
 
+  @BeforeEach
+  final void before() {
+
+  }
   @Test
   void disconnects() {
     // given (= contextul, environment in care chemi metoda testata)
     when(clientMock.getOnlineStatus()).thenReturn(true);
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
     // when
     diagnostic.checkTransmission(true);
@@ -59,6 +65,7 @@ class DiagnosticTest {
   void sendsDiagnosticMessage() {
     // given
     when(clientMock.getOnlineStatus()).thenReturn(true);
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
     // when
     diagnostic.checkTransmission(true);
@@ -71,6 +78,7 @@ class DiagnosticTest {
   void receivesDiagnosticInfo() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
     when(clientMock.receive()).thenReturn("ceva");
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
     diagnostic.checkTransmission(true);
 
@@ -100,6 +108,7 @@ class DiagnosticTest {
   @Test
   public void configuresWithAckModeTimeBoxedWhenForced() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
     diagnostic.checkTransmission(false);
 
