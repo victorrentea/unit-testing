@@ -1,5 +1,6 @@
 package victor.testing.design.time;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,10 +22,10 @@ class TimeBasedLogicTest {
    TimeBasedLogic target;
 
    @Test
-   @Disabled("flaky, time-based")
+   //@Disabled("flaky, time-based")
    void isFrequentBuyer() {
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
-          13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+          13, parse("2023-04-19"), parse("2023-04-26"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
       assertThat(target.isFrequentBuyer(13)).isTrue();
 
