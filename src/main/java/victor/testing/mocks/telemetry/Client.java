@@ -3,6 +3,7 @@ package victor.testing.mocks.telemetry;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+// nu e codu meu
 public class Client {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 

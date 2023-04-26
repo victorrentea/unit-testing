@@ -1,60 +1,58 @@
 package victor.testing.mocks.telemetry;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mockito;
+import reactor.core.publisher.Mono;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+class DiagnosticTest {
 
-@ExtendWith(MockitoExtension.class)
-public class DiagnosticTest {
-   @Mock
-   private Client client;
-   @InjectMocks
-   private Diagnostic target;
+  @Test
+  void disconnects() {
+    // given
+    Client clientMock = Mockito.mock(Client.class);
+    Diagnostic diagnostic = new Diagnostic();
+    diagnostic.setTelemetryClient(clientMock);
+    when(clientMock.getOnlineStatus()).thenReturn(true);
 
-   @Test
-   public void disconnects() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).disconnect(true);
-   }
+    // when
+    diagnostic.checkTransmission(true);
 
-   @Test
-   public void throwsWhenNotOnline() {
-      when(client.getOnlineStatus()).thenReturn(false);
-      assertThatThrownBy(() ->
-              target.checkTransmission(true)).isInstanceOf(IllegalStateException.class);
-   }
+    // then
+    verify(clientMock).disconnect(true);
+  }
 
-   @Test
-   public void sendsDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).send(Client.DIAGNOSTIC_MESSAGE);
-   }
+  @Test
+  void throwsWhenNotOnline() {
+    // given
+    Client clientMock = Mockito.mock(Client.class);
+    Diagnostic diagnostic = new Diagnostic();
+    diagnostic.setTelemetryClient(clientMock);
+    when(clientMock.getOnlineStatus()).thenReturn(false);
 
-   @Test
-   public void receivesDiagnosticInfo() {
-      when(client.getOnlineStatus()).thenReturn(true);
-      when(client.receive()).thenReturn("tataie");
-      target.checkTransmission(true);
-      verify(client).receive();
-      assertThat(target.getDiagnosticInfo()).isEqualTo("tataie");
-   }
+    // when
+    assertThatThrownBy(() -> diagnostic.checkTransmission(true))
+            .isInstanceOf(IllegalStateException.class);
+  }
 
-   @Test
-   public void configuresClient() throws Exception {
-      when(client.getOnlineStatus()).thenReturn(true);
-      target.checkTransmission(true);
-      verify(client).configure(any());
-      // TODO check config.getAckMode is NORMAL
-   }
+  @Test
+  void sendsDiagnosticMessage() {
+    // given
+    Client clientMock = Mockito.mock(Client.class);
+    Diagnostic diagnostic = new Diagnostic();
+    diagnostic.setTelemetryClient(clientMock);
+    when(clientMock.getOnlineStatus()).thenReturn(true);
+
+    // when
+    diagnostic.checkTransmission(true);
+
+    verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE);
+//    verify(clientMock).send(anyString()); // nu-ti pasa/ e f dificil sa vf exact ce arg / deja ai verificat in alt test detaliile argumentului
+  }
 }
