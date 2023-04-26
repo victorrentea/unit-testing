@@ -37,4 +37,20 @@ public class TennisScoreTest {
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Thirty-Love");
   }
+  @Test
+  void treiZero() {
+    TennisScore tennisScore = new TennisScore();
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.ONE);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Forty-Love");
+  }
+  @Test
+  void zeroUnu() {
+    TennisScore tennisScore = new TennisScore();
+    tennisScore.winsPoint(Player.TWO);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Love-Fifteen");
+  }
 }
