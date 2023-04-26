@@ -138,7 +138,7 @@ class DiagnosticTest {
             .hasSize("ver-".length() + 36);
     assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));
-  }
+  } // x 10 teste
 
 
   // CR versiunea clientului concatenata la sessionId tre facuta upperCase
