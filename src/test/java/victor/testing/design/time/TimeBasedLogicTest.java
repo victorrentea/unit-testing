@@ -8,7 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,12 +22,15 @@ class TimeBasedLogicTest {
    OrderRepo orderRepo;
    @InjectMocks
    TimeBasedLogic target;
+   @Mock
+   Supplier<LocalDate> dateSupplier;
 
    @Test
    //@Disabled("flaky, time-based")
    void isFrequentBuyer() {
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
-          13, parse("2023-04-19"), parse("2023-04-26"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+          13, parse("2023-12-18"), parse("2023-12-25"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+      when(dateSupplier.get()).thenReturn(parse("2023-12-25"));
 
       assertThat(target.isFrequentBuyer(13)).isTrue();
 

@@ -5,14 +5,17 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
 public class TimeBasedLogic {
    private final OrderRepo orderRepo;
+   private final Supplier<LocalDate> dateSupplier;
 
    public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = LocalDate.now();
+//      LocalDate now = LocalDate.now();
+      LocalDate now = dateSupplier.get();
       LocalDate sevenDaysAgo = now.minusDays(7); // ARITMETICA PE TIMP
 
       System.out.println("Run with now=" + now);
