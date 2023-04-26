@@ -8,6 +8,11 @@ public class TennisScore {
   private int player2Points;
 
   public String getScore() {
+    if (Math.abs(player1Points - player2Points) == 1 &&
+        player1Points >= 3 &&
+        player2Points >= 3) {
+      return "Advantage";
+    }
     if (player1Points == player2Points &&
         player1Points >= 3) {
       return "Deuce";

@@ -65,27 +65,46 @@ public class TennisScoreTest {
   // and the scores are equal, the score is “Deuce”.
   @Test
   void deuce() {
-    tennisScore.winsPoint(Player.ONE);
-    tennisScore.winsPoint(Player.ONE);
-    tennisScore.winsPoint(Player.ONE);
-    tennisScore.winsPoint(Player.TWO);
-    tennisScore.winsPoint(Player.TWO);
-    tennisScore.winsPoint(Player.TWO);
+    winPoints(3, Player.ONE);
+    winPoints(3, Player.TWO);
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Deuce");
   }
 
   @Test
   void deuce4() {
-    tennisScore.winsPoint(Player.ONE);
-    tennisScore.winsPoint(Player.ONE);
-    tennisScore.winsPoint(Player.ONE);
-    tennisScore.winsPoint(Player.ONE);
-    tennisScore.winsPoint(Player.TWO);
-    tennisScore.winsPoint(Player.TWO);
-    tennisScore.winsPoint(Player.TWO);
-    tennisScore.winsPoint(Player.TWO);
+    winPoints(4, Player.ONE);
+    winPoints(4, Player.TWO);
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Deuce");
+  }
+
+  //If at least three points have been scored by each side
+  // and a player has one more point than his opponent,
+  // the score of the game is “Advantage” for the
+  // player in the lead.
+
+  @Test
+  void advantagePlayer1() {
+    winPoints(4, Player.ONE);
+    winPoints(3, Player.TWO);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Advantage");
+  }
+  @Test
+  void advantagePlayer2() {
+    winPoints(3, Player.ONE);
+    winPoints(4, Player.TWO);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Advantage");
+  }
+
+
+  // testing DSL = Domain Specific Language = miniframework
+  // un mic helper function pentru a-mi putea testa mai usor codul de prod
+  private void winPoints(int x, Player two) {
+    for (int i = 0; i < x; i++) {
+      tennisScore.winsPoint(two);
+    }
   }
 }
