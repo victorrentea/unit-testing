@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 //@RunWith(MockitoJUnitRunner.class) // 4
 @ExtendWith(MockitoExtension.class) // 5
 class DiagnosticTest {
+//class DiagnosticCheckTransmissionTest {
   @Mock
   Client clientMock; // = mock(...)
   @InjectMocks
@@ -28,7 +29,7 @@ class DiagnosticTest {
 
   @Test
   void disconnects() {
-    // given
+    // given (= contextul, environment in care chemi metoda testata)
     when(clientMock.getOnlineStatus()).thenReturn(true);
 
     // when

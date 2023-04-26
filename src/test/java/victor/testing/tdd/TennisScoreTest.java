@@ -35,8 +35,16 @@ public class TennisScoreTest {
   @Test
 //  void whenPlayer1Scores_thenTheScoreIsFifteenLove() {
   void fifteenLove_whenPlayer1Scores() {
+    // given
+    // when..thenReturn
+    // pregatirea datelor customer = new Customer().....
     tennisScore.winsPoint(Player.ONE);
+
+    //when
     String score = tennisScore.getScore();
+
+    //then
+    // verify
     assertThat(score).isEqualTo("Fifteen-Love");
   }
 
