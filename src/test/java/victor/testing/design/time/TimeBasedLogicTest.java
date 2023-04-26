@@ -58,3 +58,7 @@ class TimeBasedLogicTest {
       }
    }
 }
+// daca vr3ei sa controlezi timpul
+// #1 Supplier<LocalDate>
+// #2 Test Subcutanate (package-protected @VisibleForTesting)
+// #3 Mockuri statice
