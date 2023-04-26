@@ -22,23 +22,21 @@ class TimeBasedLogicTest {
    OrderRepo orderRepo;
    @InjectMocks
    TimeBasedLogic target;
-   @Mock
-   Supplier<LocalDate> dateSupplier;
+//   @Mock
+//   Supplier<LocalDate> dateSupplier;
 
    @Test
    //@Disabled("flaky, time-based")
    void isFrequentBuyer() {
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
-          13, parse("2023-12-18"), parse("2023-12-25"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
-      when(dateSupplier.get()).thenReturn(parse("2023-12-25"));
+              13, parse("2023-12-18"), parse("2023-12-25"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
-      assertThat(target.isFrequentBuyer(13)).isTrue();
-
+      assertThat(target.isFrequentBuyer(13, parse("2023-12-25"))).isTrue();
+   }
       // 1: inject a Clock; Hint: you'll need ZoneId.systemDefault()
       // 2: interface for Clock retrival [general solution] -> **indirection without abstraction**
       // 3: inject a Supplier<LocalDate>
       // 4: pass time as method arg
       // 5: package-protected variant for testing
       // 6: mock now() - mocks all methods (try to add another LD.parse in the prod code) >> mockStatic(, CALLS_REAL_METHODS)
-   }
 }
