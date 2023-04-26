@@ -18,7 +18,10 @@ public class CustomerValidatorShould {
    @Test
    public void valid() {
       Customer customer = aCustomer();
+      customer.getAddress().setCity(" gggg ");
       validator.validate(customer);
+      assertThat(customer.getAddress().getCity())
+              .isEqualTo("gggg");
    }
 
    @Test///(expected = IllegalArgumentException.class)
