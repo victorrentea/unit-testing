@@ -53,4 +53,34 @@ public class TennisScoreTest {
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Love-Fifteen");
   }
+
+  //If at least three points have been scored by each player,
+  // and the scores are equal, the score is “Deuce”.
+  @Test
+  void deuce() {
+    TennisScore tennisScore = new TennisScore();
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.TWO);
+    tennisScore.winsPoint(Player.TWO);
+    tennisScore.winsPoint(Player.TWO);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Deuce");
+  }
+
+  @Test
+  void deuce4() {
+    TennisScore tennisScore = new TennisScore();
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.TWO);
+    tennisScore.winsPoint(Player.TWO);
+    tennisScore.winsPoint(Player.TWO);
+    tennisScore.winsPoint(Player.TWO);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Deuce");
+  }
 }

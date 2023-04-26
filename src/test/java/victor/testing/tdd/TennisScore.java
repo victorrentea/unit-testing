@@ -8,6 +8,10 @@ public class TennisScore {
   private int player2Points;
 
   public String getScore() {
+    if (player1Points == player2Points &&
+        player1Points >= 3) {
+      return "Deuce";
+    }
     return scoreLabels[player1Points] + "-" + scoreLabels[player2Points];
   }
 
