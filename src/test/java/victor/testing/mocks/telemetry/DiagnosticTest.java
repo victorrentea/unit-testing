@@ -36,13 +36,13 @@ class DiagnosticTest {
 
   @BeforeEach
   final void before() {
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
   }
   @Test
   void disconnects() {
     // given (= contextul, environment in care chemi metoda testata)
     when(clientMock.getOnlineStatus()).thenReturn(true);
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
     // when
     diagnostic.checkTransmission(true);
@@ -65,7 +65,6 @@ class DiagnosticTest {
   void sendsDiagnosticMessage() {
     // given
     when(clientMock.getOnlineStatus()).thenReturn(true);
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
     // when
     diagnostic.checkTransmission(true);
@@ -78,7 +77,6 @@ class DiagnosticTest {
   void receivesDiagnosticInfo() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
     when(clientMock.receive()).thenReturn("ceva");
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
     diagnostic.checkTransmission(true);
 
@@ -108,7 +106,6 @@ class DiagnosticTest {
   @Test
   public void configuresWithAckModeTimeBoxedWhenForced() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
     diagnostic.checkTransmission(false);
 
