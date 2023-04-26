@@ -19,6 +19,7 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -94,6 +95,18 @@ class DiagnosticTest {
 //    assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());// nu merge ca millis
 //    assertThat(config.getSessionStart()).isNotNull();// prea'n siktir
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));
+  }
+
+  @Test
+  public void configuresWithAckModeTimeBoxedWhenForced() {
+    when(clientMock.getOnlineStatus()).thenReturn(true);
+
+    diagnostic.checkTransmission(false);
+
+//    verify(clientMock).configure(configCaptor.capture());
+//    ClientConfiguration config = configCaptor.getValue();
+//    assertThat(config.getAckMode()).isEqualTo(AckMode.TIMEBOXED);
+    verify(clientMock).configure(argThat(config -> config.getAckMode() == AckMode.TIMEBOXED));
   }
   @Captor
   ArgumentCaptor<ClientConfiguration> configCaptor;

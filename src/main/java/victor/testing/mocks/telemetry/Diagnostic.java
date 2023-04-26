@@ -34,7 +34,11 @@ public class Diagnostic {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(client.getVersion() + "-" + randomUUID());
 		config.setSessionStart(LocalDateTime.now());
-		config.setAckMode(AckMode.NORMAL);
+		if (force) {
+			config.setAckMode(AckMode.NORMAL);
+		} else {
+			config.setAckMode(AckMode.TIMEBOXED);
+		}
 		client.configure(config);
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
