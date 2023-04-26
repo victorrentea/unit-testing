@@ -1,13 +1,12 @@
 package victor.testing.tdd;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import victor.testing.tools.HumanReadableTestNames;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayNameGeneration(HumanReadableTestNames.class)
 public class TennisScoreTest {
   private TennisScore tennisScore  = new TennisScore();
 
@@ -34,17 +33,31 @@ public class TennisScoreTest {
     // - stare (campuri) pe singletoane Spring -> @DirtiesContext (de evitate)
     // - campuri static
   @Test
-  void unuZero() {
+//  void whenPlayer1Scores_thenTheScoreIsFifteenLove() {
+  void fifteenLove_whenPlayer1Scores() {
     tennisScore.winsPoint(Player.ONE);
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Fifteen-Love");
   }
+
+
+
   @Test
-  void doiZero() {
+  void thirtyLove_whenPlayer1Scores2Points() {
     tennisScore.winsPoint(Player.ONE);
     tennisScore.winsPoint(Player.ONE);
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Thirty-Love");
+  }
+  // overlapping, doar ca poti sa-l lasi totusi in cod daca este traducerea a vreunui exemplu
+  // gasit prin spec.
+  @Test
+  void fifteenThirty() {
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.TWO);
+    tennisScore.winsPoint(Player.TWO);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Fifteen-Thirty");
   }
   @Test
   void treiZero() {

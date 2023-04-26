@@ -179,13 +179,13 @@
 
 
         <!-- WARNING: requires in every glue code path to include a package containing a class with @CucumberContextConfiguration -->
-         <dependency>
+       <!--  <dependency>
              <groupId>io.cucumber</groupId>
              <artifactId>cucumber-spring</artifactId>
              <version>${cucumber-java.version}</version>
              <scope>test</scope>
          </dependency>
-
+-->
 
         <!--Enable blockhound test listener to detect blocking calls in non-blocking threads-->
         <!--
