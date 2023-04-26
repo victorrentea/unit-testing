@@ -1,5 +1,7 @@
 package victor.testing.tdd;
 
+import java.util.Map;
+
 public class TennisScore {
 
   private String score = "Love-Love";
@@ -9,6 +11,10 @@ public class TennisScore {
   }
 
   public void winsPoint(Player player) {
-    score = "Fifteen-Love";
+    if (score.equals("Fifteen-Love")) {
+      score = "Thirty-Love";
+    } else {
+      score = "Fifteen-Love";
+    }
   }
 }

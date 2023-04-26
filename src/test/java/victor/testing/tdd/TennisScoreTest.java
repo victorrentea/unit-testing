@@ -29,4 +29,12 @@ public class TennisScoreTest {
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Fifteen-Love");
   }
+  @Test
+  void doiZero() {
+    TennisScore tennisScore = new TennisScore();
+    tennisScore.winsPoint(Player.ONE);
+    tennisScore.winsPoint(Player.ONE);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Thirty-Love");
+  }
 }
