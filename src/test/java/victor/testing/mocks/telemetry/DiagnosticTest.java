@@ -79,23 +79,23 @@ class DiagnosticTest {
 //    verify(clientMock).receive();
   }
 
-  @Test
-  public void configuresClient() {
-    when(clientMock.getOnlineStatus()).thenReturn(true);
-    when(clientMock.getVersion()).thenReturn("ver");
-
-    diagnostic.checkTransmission(true);
-
-    verify(clientMock).configure(configCaptor.capture());
-    ClientConfiguration config = configCaptor.getValue();
-    assertThat(config.getSessionId())
-            .startsWith("ver-")
-            .hasSize("ver-".length() + 36);
-    assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-//    assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());// nu merge ca millis
-//    assertThat(config.getSessionStart()).isNotNull();// prea'n siktir
-    assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));
-  }
+//  @Test
+//  public void configuresClient() {
+//    when(clientMock.getOnlineStatus()).thenReturn(true);
+//    when(clientMock.getVersion()).thenReturn("ver");
+//
+//    diagnostic.checkTransmission(true);
+//
+//    verify(clientMock).configure(configCaptor.capture());
+//    ClientConfiguration config = configCaptor.getValue();
+//    assertThat(config.getSessionId())
+//            .startsWith("ver-")
+//            .hasSize("ver-".length() + 36);
+//    assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+////    assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());// nu merge ca millis
+////    assertThat(config.getSessionStart()).isNotNull();// prea'n siktir
+//    assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));
+//  }
 
   @Test
   public void configuresWithAckModeTimeBoxedWhenForced() {
@@ -108,6 +108,26 @@ class DiagnosticTest {
 //    assertThat(config.getAckMode()).isEqualTo(AckMode.TIMEBOXED);
     verify(clientMock).configure(argThat(config -> config.getAckMode() == AckMode.TIMEBOXED));
   }
+
+
+  @Test
+  public void configuresClientDirect() {
+    when(clientMock.getVersion()).thenReturn("ver");
+
+    diagnostic.configureClient(true);
+
+    verify(clientMock).configure(configCaptor.capture());
+    ClientConfiguration config = configCaptor.getValue();
+    assertThat(config.getSessionId())
+            .startsWith("VER-")
+            .hasSize("ver-".length() + 36);
+    assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+    assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(10, SECONDS));
+  }
+
+
+  // CR versiunea clientului concatenata la sessionId tre facuta upperCase
+
   @Captor
   ArgumentCaptor<ClientConfiguration> configCaptor;
 }
