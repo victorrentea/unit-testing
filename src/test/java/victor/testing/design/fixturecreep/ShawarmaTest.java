@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class FastFoodTest {
+class ShawarmaTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
    @InjectMocks
@@ -19,19 +19,15 @@ class FastFoodTest {
 
    @BeforeEach
    final void before() {
+      // tre sa fie UTIL TUTUROR testelor din clasa asta!
+      when(dependency.isOnionAllowed()).thenReturn(true);
    }
 
    @Test
    void shawarmaTest() { // + 7 more tests
-      when(dependency.isOnionAllowed()).thenReturn(true);
       // ... complex
-      fastFood.makeShawarma();
-   }
 
-   @Test
-   void tzatzikiTest() { // + 5 more tests
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      // ... complex
-      fastFood.makeTzatziki();
-   }
+      fastFood.makeShawarma();
+   } // x 7
+
 }

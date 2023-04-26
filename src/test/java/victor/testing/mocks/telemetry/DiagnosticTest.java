@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import reactor.core.publisher.Mono;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
@@ -26,6 +28,10 @@ import static org.mockito.Mockito.when;
 
 //@RunWith(MockitoJUnitRunner.class) // 4
 @ExtendWith(MockitoExtension.class) // 5
+
+@MockitoSettings(strictness = Strictness.LENIENT)
+//= da-le-ncolo de when-then. nu-mi pasa. nu mai arunca UnnecessaryStubbingException!
+  // dar renunti la protectia anti copy-spate
 class DiagnosticTest {
 //class DiagnosticCheckTransmissionTest {
   @Mock
@@ -36,6 +42,16 @@ class DiagnosticTest {
 
   @BeforeEach
   final void before() {
+
+    // daca mergi pe LENIENT mocking: ai voie sa nu fol un when-then
+    // ==> se strange GUNOI in before: toti care au nevoie de vreun when-then pt 2+ teste -> il pun in before
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
+    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
     when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
 
   }
