@@ -1,6 +1,7 @@
 package victor.testing.assertj;
 
 import org.assertj.core.api.AutoCloseableSoftAssertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class SoftAssertions {
@@ -19,5 +20,21 @@ public class SoftAssertions {
       softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
       softly.assertThat(mansion.candlestick()).as("Candlestick").isEqualTo("pristine");
     }
+  }
+  @Test
+  void rau() {
+    Mansion mansion = new Mansion(6, "diry", "clean", "pristine");
+
+    Assertions.assertEquals(7, mansion.guests());
+    Assertions.assertEquals("clean", mansion.kitchen());
+  }
+  @Test
+  void bine_veziToateFailurile() {
+    Mansion mansion = new Mansion(6, "diry", "clean", "pristine");
+
+    Assertions.assertAll(
+            ()-> Assertions.assertEquals(7, mansion.guests()),
+            ()-> Assertions.assertEquals("clean", mansion.kitchen())
+      );
   }
 }

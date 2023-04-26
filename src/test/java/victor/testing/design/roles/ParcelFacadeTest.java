@@ -44,6 +44,7 @@ class ParcelFacadeTest {
       List<TrackingProvider> trackingProviders = List.of(new TrackingProvider());
       when(trackingProviderRepo.findByTrackingNumber("AWB")).thenReturn(trackingProviders);
 
+      //when
       target.processBarcode("BAR", 99);
 
       verify(displayService).displayParcel(parcel);

@@ -2,6 +2,7 @@ package victor.testing.assertj;
 
 
 import lombok.Value;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -42,15 +43,21 @@ public class AssertionsShowcase {
       }
       @Test
       public void size() {
-         assertThat(list).hasSize(1);
+         assertThat(list)
+                 .hasSize(1)
+                 .doesNotContain(500)
+                 .contains(100);
       }
 
 
       // check contents in any order
       @Test
       public void inAnyOrder_JUnit() {
-         assertEquals(Set.of(100, 200, 300), new HashSet<>(list));
-         assertFalse(list.contains(500));
+//         assertEquals(Set.of(100, 200, 300), new HashSet<>(list));
+         assertThat(list).containsExactlyInAnyOrder(100, 200, 300);
+
+//         assertFalse(list.contains(300));
+         assertThat(list).doesNotContain(300);
       }
       @Test
       public void inAnyOrder() {
@@ -97,6 +104,7 @@ public class AssertionsShowcase {
       }
       @Test
       public void stringStarts() {
+
          assertThat(actual).startsWith("bcd"); // see the failure message
       }
       @Test
