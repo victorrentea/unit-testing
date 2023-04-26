@@ -11,13 +11,17 @@ import static victor.testing.mutation.TestData.aCustomer;
 
 public class CustomerValidatorShould {
    CustomerValidator validator = new CustomerValidator();
+   private Customer customer = aCustomer();
 
    // Junit 5 exceptiile se fac cu assertThrows -> BEST: assertThatThrownBy( -> ).isInstanceOf...
    // JUnit 4 metodele @Test publice
    // JUnit 5 nu mai are @Rule ci @RegisterExtension
    @Test
-   public void valid() {
-      Customer customer = aCustomer();
+   public void acceptsValidCustomer() {
+      validator.validate(customer);
+   }
+   @Test
+   public void trimsCityName() {
       customer.getAddress().setCity(" gggg ");
       validator.validate(customer);
       assertThat(customer.getAddress().getCity())
@@ -31,7 +35,7 @@ public class CustomerValidatorShould {
 //      customer.setEmail("::email::");
 //      customer.setAddress(new Address());
 //      customer.getAddress().setCity("::city::");
-      Customer customer = aCustomer().setName(null);
+      customer.setName(null);
 
       assertThatThrownBy(() -> validator.validate(customer))
               .hasMessage("Missing customer name")
@@ -42,7 +46,7 @@ public class CustomerValidatorShould {
    }
    @Test//(expected = IllegalArgumentException.class)
    public void throwsForMissingCustomerEmail() { //B❤️
-      Customer customer = aCustomer().setEmail(null);
+      customer.setEmail(null);
 //      IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class,
 //              () -> validator.validate(customer));
 //      Assert.assertEquals("Missing customer email", e.getMessage());
@@ -53,14 +57,14 @@ public class CustomerValidatorShould {
 
    @Test
    public void throwsForNullCity() {
-      Customer customer = aCustomer().setAddress(TestData.anAddress().setCity(null));
+      customer.setAddress(TestData.anAddress().setCity(null));
       assertThatThrownBy(() -> validator.validate(customer))
               .hasMessage("Missing address city")
               .isInstanceOf(IllegalArgumentException.class);
    }
    @Test
    public void throwsForCityTooShort() {
-      Customer customer = aCustomer().setAddress(TestData.anAddress().setCity("Go"));
+      customer.setAddress(TestData.anAddress().setCity("Go"));
       assertThatThrownBy(() -> validator.validate(customer))
               .hasMessage("Address city too short")
               .isInstanceOf(IllegalArgumentException.class);
