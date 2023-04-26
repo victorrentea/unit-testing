@@ -1,14 +1,20 @@
 package victor.testing.mutation;
 
 
-import org.junit.jupiter.api.Test;
-
+// junit 4
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class CustomerValidatorShould {
    CustomerValidator validator = new CustomerValidator();
 
+   // Junit 5 exceptiile se fac cu assertThrows
+   // JUnit 4 metodele @Test publice
+   // JUnit 5 nu mai are @Rule ci @RegisterExtension
    @Test
-   void valid() {
+   public void valid() {
       Customer customer = new Customer();
       customer.setName("::name::");
       customer.setEmail("::email::");
@@ -16,5 +22,28 @@ public class CustomerValidatorShould {
       customer.getAddress().setCity("::city::");
       validator.validate(customer);
    }
+   @Test///(expected = IllegalArgumentException.class)
+//   public void whenCustomerNameNull_throws() { //A
+   public void throwsForMissingCustomerName() { //B❤️
+      Customer customer = new Customer();
+      customer.setEmail("::email::");
+      customer.setAddress(new Address());
+      customer.getAddress().setCity("::city::");
+      IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class,
+              () -> validator.validate(customer));
+      Assert.assertEquals("Missing customer name", e.getMessage());
+   }
+   @Test//(expected = IllegalArgumentException.class)
+   public void throwsForMissingCustomerEmail() { //B❤️
+      Customer customer = new Customer();
+      customer.setAddress(new Address());
+//      customer.setName("nu nume");
+      customer.getAddress().setCity("::city::");
+      IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class,
+              () -> validator.validate(customer));
+      Assert.assertEquals("Missing customer email", e.getMessage());
+   }
 
+//   @Rule
+//   ExpectedException
 }
