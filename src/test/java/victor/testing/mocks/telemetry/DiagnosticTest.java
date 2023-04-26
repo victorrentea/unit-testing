@@ -23,13 +23,12 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 //@RunWith(MockitoJUnitRunner.class) // 4
 @ExtendWith(MockitoExtension.class) // 5
 
-@MockitoSettings(strictness = Strictness.LENIENT)
+//@MockitoSettings(strictness = Strictness.LENIENT)
 //= da-le-ncolo de when-then. nu-mi pasa. nu mai arunca UnnecessaryStubbingException!
   // dar renunti la protectia anti copy-spate
 class DiagnosticTest {
@@ -45,14 +44,8 @@ class DiagnosticTest {
 
     // daca mergi pe LENIENT mocking: ai voie sa nu fol un when-then
     // ==> se strange GUNOI in before: toti care au nevoie de vreun when-then pt 2+ teste -> il pun in before
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
-    when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
+    lenient().when(clientMock.getVersion()).thenReturn("namnevoiedatrestepun");
+    // daca 1 singur test nu cheama metoda getVersion, e acceptabil sa pui lenient()
 
   }
   @Test
