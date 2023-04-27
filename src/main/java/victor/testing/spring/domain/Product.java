@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,7 +28,7 @@ public class Product {
     private Supplier supplier;
 
     @CreatedDate // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
-    private LocalDateTime createDate;
+    private LocalDate createDate;
 
     public Product(String name, String barcode, ProductCategory category) {
         this.name = name;

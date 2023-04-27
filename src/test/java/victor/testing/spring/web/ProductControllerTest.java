@@ -1,11 +1,10 @@
 package victor.testing.spring.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,9 +13,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -31,17 +28,16 @@ import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.tools.HumanReadableTestNames;
 import victor.testing.tools.TestcontainersUtils;
 
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
 import java.util.List;
 
-import static java.time.LocalDateTime.now;
-import static java.time.temporal.ChronoUnit.MILLIS;
-import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.Matchers.hasSize;
+import static java.time.LocalDate.now;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
 
@@ -78,7 +74,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
 @AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 public class ProductControllerTest {
-    private final static ObjectMapper jackson = new ObjectMapper();
+    private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -109,7 +105,7 @@ public class ProductControllerTest {
         // (A) white box = direct DB access
         Product returnedProduct = productRepo.findAll().get(0);
         assertThat(returnedProduct.getName()).isEqualTo("Tree");
-        assertThat(returnedProduct.getCreateDate()).isCloseTo(now(), byLessThan(500, MILLIS));
+        assertThat(returnedProduct.getCreateDate()).isToday();
         assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
         assertThat(returnedProduct.getSupplier().getId()).isEqualTo(product.supplierId);
         assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
@@ -129,6 +125,7 @@ public class ProductControllerTest {
         assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
         assertThat(returnedProduct.getSupplierId()).isEqualTo(product.supplierId);
         assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
+        assertThat(returnedProduct.getCreateDate()).isToday();
     }
 
 
@@ -163,7 +160,10 @@ public class ProductControllerTest {
 
     // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze
     void createProduct(String name) throws Exception {
-        product.setName(name);
+        product.setName(name)
+                .setSupplierId(supplierId)
+                .setCategory(HOME)
+                .setBarcode("safebar");
 
         mockMvc.perform(post("/product/create")
                         .content(jackson.writeValueAsString(product))
@@ -204,7 +204,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    @WithMockUser // wipe out the credentials from the test class
+    @WithMockUser // resets the credentials set at the class level
     public void createProductByNonAdmin_NotAuthorized() throws Exception {
         mockMvc.perform(post("/product/create")
                         .content(jackson.writeValueAsString(product))
