@@ -30,7 +30,8 @@ public class ProductService {
     Product product = new Product();
     product.setName(productDto.name);
     product.setBarcode(productDto.barcode);
-    product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
+//    product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
+    product.setSupplier(supplierRepo.getReferenceById(productDto.supplierId)); // -1 SELECT in DB (mai eficient)
     if (productDto.category == null) {
       productDto.category = ProductCategory.UNCATEGORIZED; // untested 😱
     }
