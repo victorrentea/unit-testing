@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
@@ -41,6 +42,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 //@TestPropertySource(properties = "a=b")// opreste pe spring sa refoloseasca contextul
 // la fel si : @MockBean-uri diferite sau @ActiveProfile diferite
+
+@AutoConfigureWireMock(port = 9999)
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
 public class ProductServiceTest extends BaseDatabaseTest {
   @Autowired
   private ProductRepo productRepo;

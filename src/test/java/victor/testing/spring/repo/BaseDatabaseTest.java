@@ -1,16 +1,20 @@
 package victor.testing.spring.repo;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.tools.TestcontainersUtils;
 
+//@RunWith(SpringJUnit4ClassRunner.class) // 4
 //@WebMvcTest // asta in loc de @SpringBootTest nu porneste decat controller =>
 // nu booteaza Hibernate, Actuator, cahce, queue
 // presupune ca ai @MockBean orice clasa chemata din controller.
@@ -24,7 +28,7 @@ public class BaseDatabaseTest { // inherit from this test class
   // === The containers is reused across all subclasses ===
   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
           "postgres:11")
-//          .withReuse(true)
+          //          .withReuse(true)
           ;
 
   @BeforeAll
