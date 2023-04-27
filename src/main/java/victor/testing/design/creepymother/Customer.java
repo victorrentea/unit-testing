@@ -17,3 +17,23 @@ class Customer {
    String billingAddress;
    // 20 more fields...
 }
+
+
+//@Value
+//@Builder
+//class ShippingCustomer {
+//   //   @NonNull
+//   String name;
+//   //   @NonNull
+//   String shippingAddress;
+//   // 20 more fields...
+//}
+//@Value
+//@Builder
+//class BillingCustomer {
+//   //   @NonNull
+//   String name;
+//   //   @NonNull
+//   String billingAddress;
+//   // 20 more fields...
+//}

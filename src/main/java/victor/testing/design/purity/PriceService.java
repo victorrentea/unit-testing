@@ -28,10 +28,14 @@ public class PriceService {
          if (price == null) {
             price = thirdPartyPrices.retrievePrice(product.getId());
          }
-         for (Coupon coupon : customer.getCoupons()) {
-            if (coupon.autoApply()
-                && coupon.isApplicableFor(product, price)
-                && !usedCoupons.contains(coupon)) {
+         // cate teste aveti nevoie sa puneti pe codul pana aici: 2
+         // cate mockuri: 4
+         // ----------------------------------
+         // 7 teste, cu 0 mockuri
+         for (Coupon coupon : customer.getCoupons()) { // 1
+            if (coupon.autoApply() // 1
+                && coupon.isApplicableFor(product, price) //4
+                && !usedCoupons.contains(coupon)) { // 1
                price = coupon.apply(product, price);
                usedCoupons.add(coupon);
             }
