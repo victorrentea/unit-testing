@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,9 +38,10 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 // NU merge daca codul testat se joaca cu
 // - @Transactional(propagation=REQUIRES_NEW) sau
 // - face multithreading (executir, CompletableFuture, @Async)
+
+//@TestPropertySource(properties = "a=b")// opreste pe spring sa refoloseasca contextul
+// la fel si : @MockBean-uri diferite sau @ActiveProfile diferite
 public class ProductServiceTest extends BaseDatabaseTest {
-  @MockBean // inlocuieste un bean de spring cu un mockito mock pe care-l si pune aici sa-l programezi
-  public SafetyClient mockSafetyClient;
   @Autowired
   private ProductRepo productRepo;
   @Autowired
@@ -46,7 +49,7 @@ public class ProductServiceTest extends BaseDatabaseTest {
   @Autowired
   private ProductService productService;
 
-//  @BeforeEach
+  //  @BeforeEach
 //  final void before() {
 //    productRepo.deleteAll();
 //    supplierRepo.deleteAll();
@@ -54,7 +57,7 @@ public class ProductServiceTest extends BaseDatabaseTest {
 
   @Test
   public void createThrowsForUnsafeProduct() {
-    when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//    when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -64,24 +67,7 @@ public class ProductServiceTest extends BaseDatabaseTest {
   @Test
   public void createOk() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
-
-    productService.createProduct(dto);
-
-    List<Product> products = productRepo.findAll();
-    assertThat(products).hasSize(1);
-    Product product = products.get(0);
-    assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getBarcode()).isEqualTo("safebar");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
-    assertThat(product.getCategory()).isEqualTo(HOME);
-    assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS)); // uses Spring Magic
-  }
-  @Test
-  public void createOkBis() {
-    Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
     productService.createProduct(dto);

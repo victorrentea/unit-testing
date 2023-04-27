@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.System.currentTimeMillis;
 
+// ATENTIE: copiaza si spring.factories in proj tau
 @Component
 public class MonitorSpringTestStartupPerformance implements TestExecutionListener,
         org.springframework.test.context.TestExecutionListener, Ordered {
