@@ -9,11 +9,11 @@ import static java.util.Objects.requireNonNull;
 @Value
 @Builder
 class Customer {
-   @NonNull
+//   @NonNull
    String name;
-   @NonNull
+//   @NonNull
    String shippingAddress;
-   @NonNull
+//   @NonNull
    String billingAddress;
    // 20 more fields...
 }
