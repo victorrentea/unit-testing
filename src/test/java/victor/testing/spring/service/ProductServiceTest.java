@@ -31,6 +31,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @ActiveProfiles("db-mem-migration")
 //@Sql(scripts = "/sql/cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 @Transactional // pusa pe clasa de test, ii zice lui Spring sa faca ROLLBACK la final automat dupa fiecare @Test
+// NU merge daca codul testat se joaca cu
+// - @Transactional(propagation=REQUIRES_NEW) sau
+// - face multithreading (executir, CompletableFuture, @Async)
 public class ProductServiceTest/* extends BaseTest*/ {
   @MockBean // inlocuieste un bean de spring cu un mockito mock pe care-l si pune aici sa-l programezi
   public SafetyClient mockSafetyClient;
