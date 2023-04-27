@@ -22,7 +22,7 @@ public class ProductService {
   private final ProductRepo productRepo;
   private final SupplierRepo supplierRepo;
 
-  public Long createProduct(ProductDto productDto) {
+  public void createProduct(ProductDto productDto) {
     boolean safe = safetyClient.isSafe(productDto.barcode); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe: " + productDto.barcode);
@@ -37,7 +37,6 @@ public class ProductService {
     }
     product.setCategory(productDto.category);
     productRepo.save(product);
-    return product.getId();
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {

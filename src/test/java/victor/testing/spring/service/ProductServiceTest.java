@@ -12,6 +12,8 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
+import java.util.List;
+
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
@@ -48,9 +50,28 @@ public class ProductServiceTest {
     when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
-    Long productId = productService.createProduct(dto);
+    productService.createProduct(dto);
 
-    Product product = productRepo.findById(productId).orElseThrow();
+    List<Product> products = productRepo.findAll();
+    assertThat(products).hasSize(1);
+    Product product = products.get(0);
+    assertThat(product.getName()).isEqualTo("name");
+    assertThat(product.getBarcode()).isEqualTo("safebar");
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+    assertThat(product.getCategory()).isEqualTo(HOME);
+    assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS)); // uses Spring Magic
+  }
+  @Test
+  public void createOkBis() {
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
+
+    productService.createProduct(dto);
+
+    List<Product> products = productRepo.findAll();
+    assertThat(products).hasSize(1);
+    Product product = products.get(0);
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("safebar");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
