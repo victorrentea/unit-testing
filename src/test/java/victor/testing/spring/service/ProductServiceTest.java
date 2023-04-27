@@ -8,6 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -28,8 +29,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 // @RunWith(SpringRunner.class) // 4
 @SpringBootTest
 @ActiveProfiles("db-mem-migration")
-@Sql(scripts = "/sql/cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class ProductServiceTest {
+//@Sql(scripts = "/sql/cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Transactional // pusa pe clasa de test, ii zice lui Spring sa faca ROLLBACK la final automat dupa fiecare @Test
+public class ProductServiceTest/* extends BaseTest*/ {
   @MockBean // inlocuieste un bean de spring cu un mockito mock pe care-l si pune aici sa-l programezi
   public SafetyClient mockSafetyClient;
   @Autowired
