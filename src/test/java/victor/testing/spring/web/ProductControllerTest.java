@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,9 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -31,7 +27,6 @@ import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.tools.HumanReadableTestNames;
 import victor.testing.tools.TestcontainersUtils;
 
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
@@ -145,14 +140,14 @@ public class ProductControllerTest {
     //    * Keep consumer-provider in sync👌 ==> Pact / Spring Cloud Contract Tests
     void createProductRawJson(String name) throws Exception {
         // language=json
-        String createJson = """
+        String createJson = ("""
                 {
-                    "name": "%s",
-                    "supplierId": "%d",
-                    "category" : "%s",
-                    "barcode": "safebar"
+                  "name": "%s",
+                  "supplierId": "%d",
+                  "category": "%s",
+                  "barcode": "safebar"
                 }
-                """.formatted(name, supplierId, HOME);
+                """).formatted(name, supplierId, HOME);
 
         mockMvc.perform(post("/product/create")
                         .content(createJson)
@@ -163,10 +158,13 @@ public class ProductControllerTest {
 
     // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze
     void createProduct(String name) throws Exception {
-        product.setName(name);
+        product.setName(name)
+                .setSupplierId(supplierId)
+                .setCategory(HOME)
+                .setBarcode("safebar");
 
         mockMvc.perform(post("/product/create")
-                        .content(jackson.writeValueAsString(product))
+                        .content(jackson.writeValueAsString(product)) // mai scurt, dar mai weak vs schimbari de structura in DTOs
                         .contentType(APPLICATION_JSON)) // can be set as default
                 .andExpect(status().is2xxSuccessful());
     }
