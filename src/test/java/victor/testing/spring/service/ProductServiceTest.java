@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.repo.BaseDatabaseTest;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
@@ -27,14 +28,15 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 //@ExtendWith(MockitoExtension.class)
 
 // @RunWith(SpringRunner.class) // 4
-@SpringBootTest
-@ActiveProfiles("db-mem-migration")
+//@SpringBootTest // vine din super clasa
+//@ActiveProfiles("db-migration")// vine din super clasa
 //@Sql(scripts = "/sql/cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-@Transactional // pusa pe clasa de test, ii zice lui Spring sa faca ROLLBACK la final automat dupa fiecare @Test
+//@Transactional // vine din super clasa
+// pusa pe clasa de test, ii zice lui Spring sa faca ROLLBACK la final automat dupa fiecare @Test
 // NU merge daca codul testat se joaca cu
 // - @Transactional(propagation=REQUIRES_NEW) sau
 // - face multithreading (executir, CompletableFuture, @Async)
-public class ProductServiceTest/* extends BaseTest*/ {
+public class ProductServiceTest extends BaseDatabaseTest {
   @MockBean // inlocuieste un bean de spring cu un mockito mock pe care-l si pune aici sa-l programezi
   public SafetyClient mockSafetyClient;
   @Autowired
