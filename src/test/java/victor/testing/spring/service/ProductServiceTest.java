@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -26,6 +28,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 // @RunWith(SpringRunner.class) // 4
 @SpringBootTest
 @ActiveProfiles("db-mem-migration")
+@Sql(scripts = "/sql/cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public class ProductServiceTest {
   @MockBean // inlocuieste un bean de spring cu un mockito mock pe care-l si pune aici sa-l programezi
   public SafetyClient mockSafetyClient;
@@ -36,11 +39,11 @@ public class ProductServiceTest {
   @Autowired
   private ProductService productService;
 
-  @BeforeEach
-  final void before() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
+//  @BeforeEach
+//  final void before() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
 
   @Test
   public void createThrowsForUnsafeProduct() {
