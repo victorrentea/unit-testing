@@ -11,8 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.client.RestTemplate;
 
 @Slf4j
-@EnableCaching
-@EnableJpaAuditing
+
 @SpringBootApplication
 public class SomeSpringApplication {
     public static void main(String[] args) {
