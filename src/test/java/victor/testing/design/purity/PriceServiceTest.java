@@ -7,6 +7,7 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.design.purity.PriceService.PriceCalculationResult;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
 import victor.testing.spring.domain.Product;
@@ -23,6 +24,8 @@ import static victor.testing.spring.domain.ProductCategory.*;
 
 @ExtendWith(MockitoExtension.class)
 class PriceServiceTest {
+   public static final Coupon HOME_COUPON_2 = new Coupon(HOME, 2, Set.of(13L));
+   public static final Coupon ELECTRONICS_COUPON_4 = new Coupon(ELECTRONICS, 4, Set.of(13L));
    @Mock
    CustomerRepo customerRepo;
    @Mock
@@ -53,6 +56,20 @@ class PriceServiceTest {
       assertThat(couponCaptor.getValue()).containsExactly(coupon1);
 
       assertThat(result)
+          .containsEntry(1L, 8d)
+          .containsEntry(2L, 5d);
+   }
+
+   @Test
+   void computePricesDirectPePura() { // x 7 teste
+      Product p1 = new Product().setId(1L).setCategory(HOME).setSupplier(new Supplier().setId(13L));
+      Product p2 = new Product().setId(2L).setCategory(KIDS).setSupplier(new Supplier().setId(13L));
+      Map<Long, Double> prices = Map.of(1L, 10d, 2L, 5d);
+
+      PriceCalculationResult result = priceService.computePrices(List.of(p1, p2), prices, List.of(HOME_COUPON_2, ELECTRONICS_COUPON_4));
+
+      assertThat(result.usedCoupons()).containsExactly(HOME_COUPON_2);
+      assertThat(result.finalPrices())
           .containsEntry(1L, 8d)
           .containsEntry(2L, 5d);
    }
