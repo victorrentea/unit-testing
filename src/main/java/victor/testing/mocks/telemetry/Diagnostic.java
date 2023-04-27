@@ -34,6 +34,9 @@ public class Diagnostic {
 
     client.send(Client.DIAGNOSTIC_MESSAGE);
     diagnosticInfo = client.receive();
+    diagnosticInfo = client.receive();
+    diagnosticInfo = client.receive();
+    diagnosticInfo = client.receive();
   }
 
   void configureClient(boolean force) {

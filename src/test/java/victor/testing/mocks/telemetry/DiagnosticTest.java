@@ -49,6 +49,33 @@ class DiagnosticTest {
 
   }
   @Test
+  void throwsWhenNotOnline() {
+    // given
+    when(clientMock.getOnlineStatus()).thenReturn(false);
+
+    // when
+    assertThatThrownBy(() -> diagnostic.checkTransmission(true))
+            .isInstanceOf(IllegalStateException.class);
+  }
+
+
+
+  // squash multiple asserts into a single test
+  // + less tests to maintain
+  // - nu e specific testul: daca cade nu stii de ce direct.
+  @Test
+  void successfulTransmission() {
+    when(clientMock.getOnlineStatus()).thenReturn(true);
+    when(clientMock.receive()).thenReturn("ceva");
+
+    diagnostic.checkTransmission(true);
+
+    assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("ceva");
+    verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE);
+    verify(clientMock).disconnect(true);
+  }
+
+  @Test
   void disconnects() {
     // given (= contextul, environment in care chemi metoda testata)
     when(clientMock.getOnlineStatus()).thenReturn(true);
@@ -58,16 +85,6 @@ class DiagnosticTest {
 
     // then
     verify(clientMock).disconnect(true);
-  }
-
-  @Test
-  void throwsWhenNotOnline() {
-    // given
-    when(clientMock.getOnlineStatus()).thenReturn(false);
-
-    // when
-    assertThatThrownBy(() -> diagnostic.checkTransmission(true))
-            .isInstanceOf(IllegalStateException.class);
   }
 
   @Test
@@ -85,13 +102,15 @@ class DiagnosticTest {
   @Test
   void receivesDiagnosticInfo() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
-    when(clientMock.receive()).thenReturn("ceva");
+    when(clientMock.receive()).thenReturn("tataie");
 
     diagnostic.checkTransmission(true);
 
-    assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("ceva");
+    assertThat(diagnostic.getDiagnosticInfo())
+            .isEqualTo("tataie");
     // supersedes the line below
-//    verify(clientMock).receive();
+    verify(clientMock).receive(); // TOTUSI, daca vrei sa te asiguri ca faci o singura data
+    // acel 'query' fetch de network -> poti face si verify() pe o metoda .thenReturn()
   }
 
 //  @Test
