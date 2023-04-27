@@ -1,4 +1,4 @@
-package victor.testing.design.creepymother;
+package victor.testing.design.objectmother;
 
 class InvoiceService {
    public String generateInvoice(Customer customer, String order) {

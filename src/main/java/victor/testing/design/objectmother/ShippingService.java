@@ -1,12 +1,12 @@
-package victor.testing.design.creepymother;
+package victor.testing.design.objectmother;
 
 class ShippingService {
    public int estimateShippingCosts(Customer customer) {
-      if (!customer.getShippingAddress().contains("Romania")) {
-         return 50;
+      if (customer.getShippingAddress().contains("Romania")) {
+         return 30;
       }
       // more logic
-      return 20;
+      return 50;
    }
 
    public String printShippingSlip(Customer customer) {

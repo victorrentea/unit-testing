@@ -1,4 +1,4 @@
-package victor.testing.design.creepymother;
+package victor.testing.design.objectmother;
 
 import org.junit.jupiter.api.Test;
 
