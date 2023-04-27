@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,6 +35,12 @@ public class ProductServiceTest {
   private SupplierRepo supplierRepo;
   @Autowired
   private ProductService productService;
+
+  @BeforeEach
+  final void before() {
+    supplierRepo.deleteAll();
+    productRepo.deleteAll();
+  }
 
   @Test
   public void createThrowsForUnsafeProduct() {
