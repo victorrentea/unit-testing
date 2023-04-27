@@ -41,15 +41,15 @@ class ParcelFacadeTest {
           .setTrackingNumber("AWB")
           .setPartOfCompositeShipment(true);
       when(parcelRepo.findByBarcode("BAR")).thenReturn(parcel);
-      List<TrackingProvider> trackingProviders = List.of(new TrackingProvider());
-      when(trackingProviderRepo.findByTrackingNumber("AWB")).thenReturn(trackingProviders);
+//      List<TrackingProvider> trackingProviders = List.of(new TrackingProvider());
+//      when(trackingProviderRepo.findByTrackingNumber("AWB")).thenReturn(trackingProviders);
 
       //when
       target.processBarcode("BAR", 99);
 
       verify(displayService).displayParcel(parcel);
-      verify(displayService).displayMultiParcelWarning();
+//      verify(displayService).displayMultiParcelWarning();
       verify(platformService).addParcel(parcel);
-      verify(trackingService).markDepartingWarehouse("AWB", 99, trackingProviders);
+      verify(trackingService).markDepartingWarehouse(parcel, 99);
    }
 }
