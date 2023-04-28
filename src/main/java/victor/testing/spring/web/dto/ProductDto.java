@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class ProductDto {
+	public Long id;
 	@NotNull
 	public String name;
 	public String barcode;

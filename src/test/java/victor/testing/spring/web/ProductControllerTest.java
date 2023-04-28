@@ -63,13 +63,12 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
  * <li> Emulates a JSON request against my API and checks the JSON response
  * <li> At the end of each test leaves the DB clean (by auto-rollback of @Transactional)
  */
-@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
+@SpringBootTest
 
-@AutoConfigureWireMock(port = 9999)
-
+@AutoConfigureWireMock(port = 0)
 @Testcontainers
 @Transactional
-@ActiveProfiles("db-migration")
+@ActiveProfiles({"db-migration", "wiremock"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
 @AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread

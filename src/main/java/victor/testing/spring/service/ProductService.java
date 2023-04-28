@@ -12,7 +12,6 @@ import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -22,21 +21,22 @@ public class ProductService {
   private final SafetyClient safetyClient;
   private final ProductRepo productRepo;
   private final SupplierRepo supplierRepo;
+  private final ProductMapper productMapper;
 
   public void createProduct(ProductDto productDto) {
-    boolean safe = safetyClient.isSafe(productDto.barcode); // ⚠️ REST call inside
+    boolean safe = safetyClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {
-      throw new IllegalStateException("Product is not safe: " + productDto.barcode);
+      throw new IllegalStateException("Product is not safe: " + productDto.getBarcode());
     }
 
-    Product product = new Product();
-    product.setName(productDto.name);
-    product.setBarcode(productDto.barcode);
-    product.setSupplier(supplierRepo.findById(productDto.supplierId).orElseThrow());
-    if (productDto.category == null) {
-      productDto.category = ProductCategory.UNCATEGORIZED; // untested 😱
+    if (productDto.getCategory() == null) {
+      productDto.setCategory(ProductCategory.UNCATEGORIZED); // untested line 😱
     }
-    product.setCategory(productDto.category);
+    Product product = new Product();
+    product.setName(productDto.getName());
+    product.setBarcode(productDto.getBarcode());
+    product.setCategory(productDto.getCategory());
+    product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
     productRepo.save(product);
   }
 
@@ -45,6 +45,7 @@ public class ProductService {
   }
 
   public ProductDto getProduct(long productId) {
-    return new ProductDto(productRepo.findById(productId).orElseThrow());
+    Product product = productRepo.findById(productId).orElseThrow();
+    return productMapper.toDto(product);
   }
 }
