@@ -6,7 +6,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.junit.platform.engine.Cucumber;
+import org.junit.jupiter.api.Assertions;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 @Cucumber
@@ -20,7 +22,7 @@ public class TennisGameFeatureSteps {
     // @Then("^Score is \"([^\"]*)\"$") // cucumber < 6
     @Then("Score is {string}")
     public void score_is(String expected) throws Throwable {
-        assertEquals(expected, tennisGame.score());
+        assertThat(tennisGame.score()).isEqualTo(expected);
     }
 
     @When("Player{int} scores")
