@@ -72,7 +72,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
 @AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
-public class ProductControllerTest {
+public class ProductApiTest {
     private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
     @Autowired
     private MockMvc mockMvc;

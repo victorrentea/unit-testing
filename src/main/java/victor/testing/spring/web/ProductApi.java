@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class ProductController {
+public class ProductApi {
    private final ProductService service;
 
    @PostMapping("product/create")
