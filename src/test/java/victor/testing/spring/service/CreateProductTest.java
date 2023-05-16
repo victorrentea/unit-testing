@@ -70,7 +70,25 @@ public class CreateProductTest {
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
       assertThat(product.getCategory()).isEqualTo(HOME);
-       assertThat(product.getCreateDate()).isToday();
+      assertThat(product.getCreateDate()).isToday();
+   }
+   @Test
+   public void createOkBis() {
+      // GIVEN
+      Supplier supplier = supplierRepo.save(new Supplier());
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+
+      // WHEN
+      productService.createProduct(dto);
+
+      // THEN
+      Product product = productRepo.findByName("name");
+      assertThat(product.getName()).isEqualTo("name");
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getCategory()).isEqualTo(HOME);
+      assertThat(product.getCreateDate()).isToday();
    }
 
 }

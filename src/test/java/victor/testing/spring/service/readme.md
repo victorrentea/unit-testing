@@ -10,7 +10,7 @@
 - instead of when(supplierRepo.findById), do a repo.save
 - instead of verify(repo.save(captor)), do a repo.find
 - replace @MockBean with @Autowired; only SafetyClient remains a @MockBean
-- duplicate the createOk test. Running the whole test class still works?
+_- duplicate the createOk test. Running the whole test class still works?_
 - uncomment the assert on getCreateDate -> it should work now (not working when using Mockito)
 
 ## 3. Clean up the state from DB
