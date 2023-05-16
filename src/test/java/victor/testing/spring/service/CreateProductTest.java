@@ -10,7 +10,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -37,10 +39,12 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 //B) cereti USB stickul :)
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@AutoConfigureWireMock(port = 0)
 @Transactional
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
 public class CreateProductTest {
-   @MockBean
-   public SafetyClient mockSafetyClient;
+//   @MockBean
+//   public SafetyClient mockSafetyClient;
    @Autowired
    private ProductRepo productRepo;
    @Autowired
@@ -56,7 +60,7 @@ public class CreateProductTest {
    
    @Test
    public void createThrowsForUnsafeProduct() {
-      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//      when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
       ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
       assertThatThrownBy(() -> productService.createProduct(dto))
@@ -67,7 +71,7 @@ public class CreateProductTest {
    public void createOk() {
       // GIVEN
       Supplier supplier = supplierRepo.save(new Supplier());
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
 
       // WHEN
@@ -85,7 +89,7 @@ public class CreateProductTest {
    public void createOkBis() {
       // GIVEN
       Supplier supplier = supplierRepo.save(new Supplier());
-      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
       ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
 
       // WHEN

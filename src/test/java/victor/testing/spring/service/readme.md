@@ -19,19 +19,21 @@
 - At the beginning of the test, there should be nothing in DB 
   - Write an assert checking that in a @BeforeEach
 - Experiment with all these alternative solutions:
-    a) in a @BeforeEach delete all products and suppliers via repo.deleteAll
-    b) @Sql on the class level with phase=before each test, pointing to the script at classpath:/sql/cleanup.sql  
-    c) @DirtiesContext -> blows up the entire Spring Context -> has to restart -> performance hit on CI build time
- ** d) @Transactional on the test class [the best⭐️]: ruleaza fiecare test in tranzactia lui, 
-       iar dupa fiecare @Test face ROLLBACK (nu commit ca-n PROD)
+    - a) in a @BeforeEach delete all products and suppliers via repo.deleteAll
+    - b) @Sql on the class level with phase=before each test, pointing to the script at classpath:/sql/cleanup.sql  
+    - c) @DirtiesContext -> blows up the entire Spring Context -> has to restart -> performance hit on CI build time
+    - d) @Transactional on the test class [the best⭐️]: runs each @Test in its own transcation,
+      automatically rolled back after each test (not commited as @Transactional in PROD)
 
 ## 4. Emulate API responses with WireMock
-**
-- @AutoConfigureWireMock(port=0) to start a server replaying responses from src/test/resources/mappings/*
-- Set the `safety.service.url.base=http://localhost:${wiremock.server.port}` via
-- @TestPropertySource on class, or
-- ActiveProfile("wiremock") reading from application-wiremock.properties
-- Remove the @MockBean Client from test -> the real class now is used
+- @AutoConfigureWireMock(port=0) on class to start a WireMock HTTP server
+  (replaying responses from src/test/resources/mappings/*)
+- Set the property `safety.service.url.base=http://localhost:${wiremock.server.port}` via
+  - @TestPropertySource(properties=) on class, or
+  - add to @ActiveProfiles the "wiremock" profile to read more props from application-wiremock.properties
+- Stop mocking the SafetyClient:
+  - Remove the SafetyClient field from test -> the real class now is used
+  - remove the when..then (not needed) 
 
 ## 5. Startup a real DB in a Docker for tests using Testcontainers [optional]
 - extend BaseDatabaseTest and explore that class
