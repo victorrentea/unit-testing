@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
@@ -40,7 +41,8 @@ public class ProductService {
     product.setName(productDto.getName());
     product.setBarcode(productDto.getBarcode());
     product.setCategory(productDto.getCategory());
-    product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
+//    product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
+    product.setSupplier(new Supplier().setId(productDto.getSupplierId()));
     productRepo.save(product);
   }
 

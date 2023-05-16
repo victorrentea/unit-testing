@@ -66,9 +66,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @SpringBootTest
 
 @AutoConfigureWireMock(port = 0)
-@Testcontainers
+//@Testcontainers
 @Transactional
-@ActiveProfiles({"db-migration", "wiremock"})
+@ActiveProfiles({"db-mem", "wiremock"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
 @AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
