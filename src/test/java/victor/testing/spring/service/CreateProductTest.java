@@ -38,10 +38,10 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 //-sau-
 //B) cereti USB stickul :)
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles({"db-mem", "wiremock"})
 @AutoConfigureWireMock(port = 0)
 @Transactional
-@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
+//@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
 public class CreateProductTest {
 //   @MockBean
 //   public SafetyClient mockSafetyClient;
