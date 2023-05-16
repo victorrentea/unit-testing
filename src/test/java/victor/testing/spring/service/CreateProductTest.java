@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -31,6 +32,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 //-sau-
 //B) cereti USB stickul :)
 @SpringBootTest
+@ActiveProfiles("db-mem")
 public class CreateProductTest {
    @MockBean
    public SafetyClient mockSafetyClient;
