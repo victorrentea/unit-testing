@@ -28,10 +28,8 @@ import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.tools.HumanReadableTestNames;
 import victor.testing.tools.TestcontainersUtils;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -71,155 +69,153 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @ActiveProfiles({"db-migration", "wiremock"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
-@AutoConfigureMockMvc // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
+@AutoConfigureMockMvc
+// ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 public class ProductApiTest {
-    private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
-    @Autowired
-    private MockMvc mockMvc;
-    @Autowired
-    private SupplierRepo supplierRepo;
-    @Autowired
-    private ProductRepo productRepo;
-    @Container
-    static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
+  private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
+  @Autowired
+  private MockMvc mockMvc;
+  @Autowired
+  private SupplierRepo supplierRepo;
+  @Autowired
+  private ProductRepo productRepo;
+  @Container
+  static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
 
-    @DynamicPropertySource
-    public static void registerPgProperties(DynamicPropertyRegistry registry) {
-        TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
-    }
+  @DynamicPropertySource
+  public static void registerPgProperties(DynamicPropertyRegistry registry) {
+    TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+  }
 
-    protected Long supplierId;
-    protected ProductDto product;
+  protected Long supplierId;
+  protected ProductDto product;
 
-    @BeforeEach
-    public void persistReferenceData() {
-        supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-        product = new ProductDto("productName", "safebar", supplierId, HOME);
-    }
+  @BeforeEach
+  public void persistReferenceData() {
+    supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
+    product = new ProductDto("productName", "safebar", supplierId, HOME);
+  }
 
-    @Test
-    public void whiteBox() throws Exception {
-        createProductRawJson("Tree");
+  @Test
+  public void whiteBox() throws Exception {
+    createProductRawJson("Tree");
 
-        // (A) white box = direct DB access
-        Product returnedProduct = productRepo.findAll().get(0);
-        assertThat(returnedProduct.getName()).isEqualTo("Tree");
-        assertThat(returnedProduct.getCreateDate()).isToday();
-        assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
-        assertThat(returnedProduct.getSupplier().getId()).isEqualTo(product.supplierId);
-        assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
-    }
+    // (A) white box = direct DB access
+    Product returnedProduct = productRepo.findAll().get(0);
+    assertThat(returnedProduct.getName()).isEqualTo("Tree");
+    assertThat(returnedProduct.getCreateDate()).isToday();
+    assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
+    assertThat(returnedProduct.getSupplier().getId()).isEqualTo(product.supplierId);
+    assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
+  }
 
-    @Test
-    public void blackBoxFlow() throws Exception {
-        createProduct("Tree"); // call#1
+  @Test
+  public void blackBoxFlow() throws Exception {
+    createProduct("Tree"); // call#1
 
-        // (B) black box = only API calls; more decoupled
-        List<ProductSearchResult> results = searchProduct(criteria().setName("Tree")); // call#2
-        assertThat(results).hasSize(1);
-        assertThat(results.get(0).getName()).isEqualTo("Tree");
-        Long productId = results.get(0).getId();
+    // (B) black box = only API calls; more decoupled
+    List<ProductSearchResult> results = searchProduct(criteria().setName("Tree")); // call#2
+    assertThat(results).hasSize(1);
+    assertThat(results.get(0).getName()).isEqualTo("Tree");
+    Long productId = results.get(0).getId();
 
-        ProductDto returnedProduct = getProduct(productId); // call#3
-        assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
-        assertThat(returnedProduct.getSupplierId()).isEqualTo(product.supplierId);
-        assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
-        assertThat(returnedProduct.getCreateDate()).isToday();
-    }
-
-
-    // ==================== test-DSL (helper/framework) ======================
-
-    private static ProductSearchCriteria criteria() {
-        return new ProductSearchCriteria();
-    }
-
-    // #1 RAW JSON in test
-    // - cumbersome
-    // + breaks on Dto structure change:
-    //    * Prevent accidental changes to my API ==> OpenAPIFreezeTest
-    //    * Keep consumer-provider in sync👌 ==> Pact / Spring Cloud Contract Tests
-    void createProductRawJson(String name) throws Exception {
-        // language=json
-        String createJson = """
-                {
-                    "name": "%s",
-                    "supplierId": "%d",
-                    "category" : "%s",
-                    "barcode": "safebar"
-                }
-                """.formatted(name, supplierId, HOME);
-
-        mockMvc.perform(post("/product/create")
-                        .content(createJson)
-                        .contentType(APPLICATION_JSON))
-                .andExpect(status().is2xxSuccessful())
-               ;
-    }
-
-    // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze
-    void createProduct(String name) throws Exception {
-        product.setName(name)
-                .setSupplierId(supplierId)
-                .setCategory(HOME)
-                .setBarcode("safebar");
-
-        mockMvc.perform(post("/product/create")
-                        .content(jackson.writeValueAsString(product))
-                        .contentType(APPLICATION_JSON)) // can be set as default
-                .andExpect(status().is2xxSuccessful());
-    }
+    ProductDto returnedProduct = getProduct(productId); // call#3
+    assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
+    assertThat(returnedProduct.getSupplierId()).isEqualTo(product.supplierId);
+    assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
+    assertThat(returnedProduct.getCreateDate()).isToday();
+  }
 
 
+  // ==================== test-DSL (helper/framework) ======================
 
-    private List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
-        String responseJson = mockMvc.perform(post("/product/search")
-                        .content(jackson.writeValueAsString(criteria))
-                        .contentType(APPLICATION_JSON)
-                )
-                .andExpect(status().is2xxSuccessful())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-        return List.of(jackson.readValue(responseJson, ProductSearchResult[].class)); // trick to unmarshall a collection<obj>
-    }
+  private static ProductSearchCriteria criteria() {
+    return new ProductSearchCriteria();
+  }
 
-    private ProductDto getProduct(long productId) throws Exception {
-        String responseJson = mockMvc.perform(get("/product/{id}", productId))
-                .andExpect(status().is2xxSuccessful())
-                .andReturn().getResponse().getContentAsString();
-        return jackson.readValue(responseJson, ProductDto.class);
-    }
+  // #1 RAW JSON in test
+  // - cumbersome
+  // + breaks on Dto structure change:
+  //    * Prevent accidental changes to my API ==> OpenAPIFreezeTest
+  //    * Keep consumer-provider in sync👌 ==> Pact / Spring Cloud Contract Tests
+  void createProductRawJson(String name) throws Exception {
+    // language=json
+    String createJson = String.format("{\n" +
+                                      "    \"name\": \"%s\",\n" +
+                                      "    \"supplierId\": \"%d\",\n" +
+                                      "    \"category\" : \"%s\",\n" +
+                                      "    \"barcode\": \"safebar\"\n" +
+                                      "}\n", name, supplierId, HOME);
 
-    // ==================== More stuff you can test with MockMvc ======================
+    mockMvc.perform(post("/product/create")
+            .content(createJson)
+            .contentType(APPLICATION_JSON))
+        .andExpect(status().is2xxSuccessful())
+    ;
+  }
 
-    @Test
-    void createProduct_returnsHeader() throws Exception {
-        mockMvc.perform(post("/product/create")
-                        .content(jackson.writeValueAsString(product))
-                        .contentType(APPLICATION_JSON))
-                .andExpect(header().string("Location", "http://created-uri"))
-                .andExpect(status().isCreated());
-    }
+  // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze
+  void createProduct(String name) throws Exception {
+    product.setName(name)
+        .setSupplierId(supplierId)
+        .setCategory(HOME)
+        .setBarcode("safebar");
 
-    @Test
-    @WithMockUser // resets the credentials set at the class level
-    public void createProductByNonAdmin_NotAuthorized() throws Exception {
-        mockMvc.perform(post("/product/create")
-                        .content(jackson.writeValueAsString(product))
-                        .contentType(APPLICATION_JSON)
-                )
-                .andExpect(status().isForbidden());
-    }
+    mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(product))
+            .contentType(APPLICATION_JSON)) // can be set as default
+        .andExpect(status().is2xxSuccessful());
+  }
 
-    @Test
-    public void cannotCreateProductWithNullName() throws Exception {
-        product.setName(null); // triggers @Validated on controller method
 
-        mockMvc.perform(post("/product/create")
-                        .content(jackson.writeValueAsString(product))
-                        .contentType(APPLICATION_JSON))
-                .andExpect(status().is4xxClientError()); // see the @RestControllerAdvice
-    }
+  private List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
+    String responseJson = mockMvc.perform(post("/product/search")
+            .content(jackson.writeValueAsString(criteria))
+            .contentType(APPLICATION_JSON)
+        )
+        .andExpect(status().is2xxSuccessful())
+        .andReturn()
+        .getResponse()
+        .getContentAsString();
+    return List.of(jackson.readValue(responseJson, ProductSearchResult[].class)); // trick to unmarshall a collection<obj>
+  }
+
+  private ProductDto getProduct(long productId) throws Exception {
+    String responseJson = mockMvc.perform(get("/product/{id}", productId))
+        .andExpect(status().is2xxSuccessful())
+        .andReturn().getResponse().getContentAsString();
+    return jackson.readValue(responseJson, ProductDto.class);
+  }
+
+  // ==================== More stuff you can test with MockMvc ======================
+
+  @Test
+  void createProduct_returnsHeader() throws Exception {
+    mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(product))
+            .contentType(APPLICATION_JSON))
+        .andExpect(header().string("Location", "http://created-uri"))
+        .andExpect(status().isCreated());
+  }
+
+  @Test
+  @WithMockUser // resets the credentials set at the class level
+  public void createProductByNonAdmin_NotAuthorized() throws Exception {
+    mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(product))
+            .contentType(APPLICATION_JSON)
+        )
+        .andExpect(status().isForbidden());
+  }
+
+  @Test
+  public void cannotCreateProductWithNullName() throws Exception {
+    product.setName(null); // triggers @Validated on controller method
+
+    mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(product))
+            .contentType(APPLICATION_JSON))
+        .andExpect(status().is4xxClientError()); // see the @RestControllerAdvice
+  }
 
 }

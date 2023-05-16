@@ -15,12 +15,10 @@ import victor.testing.tools.TestcontainersUtils;
 @Transactional
 @ActiveProfiles("db-migration")
 public class BaseDatabaseTest { // inherit from this test class
-
   // https://stackoverflow.com/questions/62425598/how-to-reuse-testcontainers-between-multiple-springboottests
   // === The containers is reused across all subclasses ===
   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
           "postgres:11");
-          // .withReuse(true) // - BAD: keeps the container open after all tests finish
   // TODO in ~/.testcontainers.properties put testcontainers.reuse.enable=true
 
   @BeforeAll
@@ -32,6 +30,4 @@ public class BaseDatabaseTest { // inherit from this test class
   public static void registerPgProperties(DynamicPropertyRegistry registry) {
     TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
   }
-
-
 }

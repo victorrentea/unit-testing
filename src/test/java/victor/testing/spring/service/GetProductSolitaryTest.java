@@ -19,7 +19,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 public class GetProductSolitaryTest {
   @Test
   void whatAmITestingHere() {
-    // DON'T DO THIS!
+    // DON'T DO THIS: mocking the mapper out
     ProductRepo repoMock = mock(ProductRepo.class);
     Product product = new Product().setSupplier(new Supplier());
     when(repoMock.findById(1L)).thenReturn(Optional.of(product));

@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import lombok.Value;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.domain.ProductCategory.ELECTRONICS;
@@ -54,7 +56,12 @@ public class ProductRepoParameterizedTest {
 //            new TestCase(criteria().setSupplierId(supplierId), true) // oups: limitation
     );
   }
-  private record TestCase(ProductSearchCriteria criteria, boolean matches) {}
+
+  @Value
+  private static class TestCase {
+    ProductSearchCriteria criteria;
+    boolean matches;
+  }
 
   private static ProductSearchCriteria criteria() {
     return new ProductSearchCriteria();

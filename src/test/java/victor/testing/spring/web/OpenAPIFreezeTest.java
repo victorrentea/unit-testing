@@ -16,32 +16,30 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
 @AutoConfigureMockMvc
 public class OpenAPIFreezeTest {
-    @Autowired
-    MockMvc mockMvc;
-    ObjectMapper jackson = new ObjectMapper();
+  @Autowired
+  MockMvc mockMvc;
+  ObjectMapper jackson = new ObjectMapper();
 
-    @Value("classpath:/my-openapi.json")
-    Resource myExpectedOpenAPI;
+  @Value("classpath:/my-openapi.json")
+  Resource myExpectedOpenAPI;
 
-    @Test
-    void myOpenAPIDidNotChange() throws Exception {
-        String actualOpenAPIJson = mockMvc.perform(get("/v3/api-docs")).andReturn().getResponse().getContentAsString();
-        String expectedOpenAPIJson = IOUtils.toString(myExpectedOpenAPI.getInputStream());
-        assertThat(prettifyJsonString(actualOpenAPIJson)).isEqualTo(prettifyJsonString(expectedOpenAPIJson));
+  @Test
+  void myOpenAPIDidNotChange() throws Exception {
+    String actualOpenAPIJson = mockMvc.perform(get("/v3/api-docs")).andReturn().getResponse().getContentAsString();
+    String expectedOpenAPIJson = IOUtils.toString(myExpectedOpenAPI.getInputStream());
+    assertThat(prettifyJsonString(actualOpenAPIJson)).isEqualTo(prettifyJsonString(expectedOpenAPIJson));
+  }
+
+  private String prettifyJsonString(String rawJson) throws JsonProcessingException {
+    if (StringUtils.isBlank(rawJson)) {
+      return rawJson;
     }
-
-    private String prettifyJsonString(String rawJson) throws JsonProcessingException {
-        if (StringUtils.isBlank(rawJson)) {
-            return rawJson;
-        }
-        return jackson.writerWithDefaultPrettyPrinter().writeValueAsString(jackson.readValue(rawJson, Map.class));
-    }
+    return jackson.writerWithDefaultPrettyPrinter().writeValueAsString(jackson.readValue(rawJson, Map.class));
+  }
 }
