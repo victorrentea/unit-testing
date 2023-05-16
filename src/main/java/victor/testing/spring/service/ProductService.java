@@ -3,6 +3,8 @@ package victor.testing.spring.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.infra.SafetyClient;
@@ -23,6 +25,8 @@ public class ProductService {
   private final SupplierRepo supplierRepo;
   private final ProductMapper productMapper;
 
+  // asta nu pate fi testat cu @Transactional test ci tre sa te intorci la @BeforeEach, sau alta solutie
+//  @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void createProduct(ProductDto productDto) {
     boolean safe = safetyClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {

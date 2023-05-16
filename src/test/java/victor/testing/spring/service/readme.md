@@ -25,7 +25,6 @@
  ** d) @Transactional on the test class [the best⭐️]: ruleaza fiecare test in tranzactia lui, 
        iar dupa fiecare @Test face ROLLBACK (nu commit ca-n PROD)
 
-
 ## 4. Emulate API responses with WireMock
 **
 - @AutoConfigureWireMock(port=0) to start a server replaying responses from src/test/resources/mappings/*
