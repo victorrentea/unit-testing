@@ -1,4 +1,4 @@
-package victor.testing.spring;
+package victor.testing.tools;
 
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestPlan;

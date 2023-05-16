@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 
 @SpringBootTest
-public class AdvancedTweakingSpringContextTest {
+public class ClockInSpringContextTest {
    @Autowired
    private CacheManager cacheManager;
 
