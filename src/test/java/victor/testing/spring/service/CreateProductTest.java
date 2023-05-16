@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.repo.BaseDatabaseTest;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
@@ -37,12 +38,12 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
    //git: https://github.com/victorrentea/unit-testing.git
 //-sau-
 //B) cereti USB stickul :)
-@SpringBootTest
-@ActiveProfiles({"db-mem", "wiremock"})
+//@SpringBootTest
+//@ActiveProfiles({"db-mem", "wiremock"})
 @AutoConfigureWireMock(port = 0)
-@Transactional
+//@Transactional
 //@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
-public class CreateProductTest {
+public class CreateProductTest extends BaseDatabaseTest {
 //   @MockBean
 //   public SafetyClient mockSafetyClient;
    @Autowired

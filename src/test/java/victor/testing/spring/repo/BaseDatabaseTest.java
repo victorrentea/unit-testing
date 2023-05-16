@@ -13,7 +13,7 @@ import victor.testing.tools.TestcontainersUtils;
 @SpringBootTest
 @Testcontainers
 @Transactional
-@ActiveProfiles("db-migration")
+@ActiveProfiles({"db-migration", "wiremock"})
 public class BaseDatabaseTest { // inherit from this test class
 
   // https://stackoverflow.com/questions/62425598/how-to-reuse-testcontainers-between-multiple-springboottests
