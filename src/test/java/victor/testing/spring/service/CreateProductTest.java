@@ -6,6 +6,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -19,16 +22,23 @@ import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
-
-@ExtendWith(MockitoExtension.class)
+//TODO:
+// 0) scritzi-va pe prezenta
+// 0) faceti-va name-tags cu foile indoite si markerul din sala
+// A) clonati/download zip la :
+   //Branch: db_2023_05_spring
+   //git: https://github.com/victorrentea/unit-testing.git
+//-sau-
+//B) cereti USB stickul :)
+@SpringBootTest
 public class CreateProductTest {
-   @Mock
+   @MockBean
    public SafetyClient mockSafetyClient;
-   @Mock
+   @MockBean
    private ProductRepo productRepo;
-   @Mock
+   @MockBean
    private SupplierRepo supplierRepo;
-   @InjectMocks
+   @Autowired
    private ProductService productService;
 
    @Test

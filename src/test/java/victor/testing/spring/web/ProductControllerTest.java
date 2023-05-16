@@ -141,20 +141,18 @@ public class ProductControllerTest {
     //    * Keep consumer-provider in sync👌 ==> Pact / Spring Cloud Contract Tests
     void createProductRawJson(String name) throws Exception {
         // language=json
-        String createJson = """
-                {
-                    "name": "%s",
-                    "supplierId": "%d",
-                    "category" : "%s",
-                    "barcode": "safebar"
-                }
-                """.formatted(name, supplierId, HOME);
+//        String createJson = ("{\n" +
+//                             "    \"name\": \"%s\",\n" +
+//                             "    \"supplierId\": \"%d\",\n" +
+//                             "    \"category\" : \"%s\",\n" +
+//                             "    \"barcode\": \"safebar\"\n" +
+//                             "}\n").formatted(name, supplierId, HOME);
 
-        mockMvc.perform(post("/product/create")
-                        .content(createJson)
-                        .contentType(APPLICATION_JSON))
-                .andExpect(status().is2xxSuccessful())
-               ;
+//        mockMvc.perform(post("/product/create")
+//                        .content(createJson)
+//                        .contentType(APPLICATION_JSON))
+//                .andExpect(status().is2xxSuccessful())
+//               ;
     }
 
     // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze

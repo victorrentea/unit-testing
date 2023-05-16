@@ -271,7 +271,9 @@
                     </excludes>
                     <!-- or: -->
                     <excludedGroups>integration</excludedGroups>
+<!--
                     <argLine>-XX:+AllowRedefinitionToAddDeleteMethods</argLine>
+-->
                 </configuration>
             </plugin>
             <!-- Typically: runs during nighly build, takes 10-2000 minutes. Typically startup Spring, Databases, Dockers, Wiremocks -->
