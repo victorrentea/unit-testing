@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -35,6 +37,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 //B) cereti USB stickul :)
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Transactional
 public class CreateProductTest {
    @MockBean
    public SafetyClient mockSafetyClient;
@@ -45,6 +48,12 @@ public class CreateProductTest {
    @Autowired
    private ProductService productService;
 
+//   @BeforeEach
+//   void method() {
+//      productRepo.deleteAll();
+//      supplierRepo.deleteAll();
+//   }
+   
    @Test
    public void createThrowsForUnsafeProduct() {
       when(mockSafetyClient.isSafe("bar")).thenReturn(false);
