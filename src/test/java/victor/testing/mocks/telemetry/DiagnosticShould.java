@@ -3,10 +3,7 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -45,14 +42,17 @@ public class DiagnosticShould {
 //    diagnostic = new Diagnostic(clientMock);
 //  }
   @InjectMocks
+  @Spy
   Diagnostic diagnostic;
 
-  @BeforeEach
-  final void before() {
-    lenient().when(clientMock.getVersion()).thenReturn("neversea");
-  }
+//  @BeforeEach
+//  final void before() {
+//    lenient().when(clientMock.getVersion()).thenReturn("neversea");
+//  }
   @Test
   public void disconnect() {
+    doReturn(new ClientConfiguration()).when(diagnostic)
+        .createConfig(false);
     when(clientMock.getOnlineStatus()).thenReturn(true);
     final boolean FORCE = false; // "constanta locala"
 
