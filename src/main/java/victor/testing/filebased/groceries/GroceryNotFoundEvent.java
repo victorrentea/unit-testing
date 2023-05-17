@@ -1,4 +1,4 @@
-package victor.testing.filebased.message;
+package victor.testing.filebased.groceries;
 
 import lombok.Value;
 

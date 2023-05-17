@@ -1,4 +1,4 @@
-package victor.testing.filebased.message;
+package victor.testing.filebased.groceries;
 
 import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.function.Function;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
@@ -50,23 +51,29 @@ class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
     groceryRepo.saveAll(input.groceriesInDb);
 
     target.handleRequest(input.request());
-
     try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
       // all failures in the soft assertions bellow will be reported
 
       softly.assertThatCode(() -> verify(kafkaSender)
                       .send(eq("grocery-response"), responseMessageCaptor.capture()))
               .doesNotThrowAnyException();
-      softly.assertThat(responseMessageCaptor.getValue())
-              .usingRecursiveComparison().isEqualTo(expectedOutput.response);
+//      softly.assertThat(responseMessageCaptor.getValue())
+//              .usingRecursiveComparison().isEqualTo(expectedOutput.response);
 
       softly.assertThatCode(() -> verify(kafkaSender, atLeast(0))
                       .send(eq("grocery-not-found"), notFoundMessageCaptor.capture()))
               .doesNotThrowAnyException();
 //      JSONComparator
-      softly.assertThat(notFoundMessageCaptor.getAllValues())
-              .usingRecursiveFieldByFieldElementComparator()
-              .containsExactlyInAnyOrderElementsOf(expectedOutput.notFoundEvents);
+//      softly.assertThat(notFoundMessageCaptor.getAllValues())
+//              .usingRecursiveFieldByFieldElementComparator()
+//              .containsExactlyInAnyOrderElementsOf(expectedOutput.notFoundEvents);
+
+      Output actualOutput = new Output(responseMessageCaptor.getValue(), notFoundMessageCaptor.getAllValues());
+
+      String actualOutputJson = jackson.writerWithDefaultPrettyPrinter().writeValueAsString(actualOutput);
+      String expectedOutputJson = jackson.writerWithDefaultPrettyPrinter().writeValueAsString(expectedOutput);
+
+      assertThat(actualOutputJson).isEqualToIgnoringWhitespace(expectedOutputJson);
     }
   }
 

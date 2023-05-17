@@ -4,15 +4,15 @@ import lombok.RequiredArgsConstructor;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
 @RequiredArgsConstructor
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
-
+//	private final Clock clock;
 	private final Client client;
 
 	private String diagnosticInfo = "";
