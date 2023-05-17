@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import lombok.RequiredArgsConstructor;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -8,25 +9,21 @@ import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
+@RequiredArgsConstructor
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private Client client;
-	private String diagnosticInfo = "";
+	private final Client client;
 
-	public void setTelemetryClient(Client client) {
-		this.client = client;
-	}
+	private String diagnosticInfo = "";
 
 	public void checkTransmission(boolean force) {
 		client.disconnect(force);
-
 		int currentRetry = 1;
 		while (! client.getOnlineStatus() && currentRetry <= 3) {
 			client.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
 			currentRetry ++;
 		}
-
 		if (! client.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
