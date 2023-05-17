@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -22,6 +23,9 @@ import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.
 
 @ExtendWith(MockitoExtension.class)
 public class DiagnosticShould {
+  public static final long CURRENT_TIME_MILLIS = 1L;
+  @Mock
+  Clock clockMock;
   @Mock
   Client clientMock/* = mock(Client.class)*/;
 //  Diagnostic diagnostic;
@@ -31,6 +35,11 @@ public class DiagnosticShould {
 //  }
   @InjectMocks
   Diagnostic diagnostic;
+
+  @BeforeEach
+  final void before() {
+      when(clockMock.millis()).thenReturn(CURRENT_TIME_MILLIS);
+  }
   @Test
   public void disconnect() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
@@ -94,8 +103,8 @@ public class DiagnosticShould {
     // scientist
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
     // arhitectu: sa facem wrap la apelul la now() intr-o componenta de spring mockuibila!
-    //
-
+    // injecteaza un clock  mockuit
+//    assertThat(config.getSessionStart()).isEqualTo(now(clockMock));
     // hacker
 
   }

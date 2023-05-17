@@ -12,7 +12,8 @@ import static java.util.UUID.randomUUID;
 @RequiredArgsConstructor
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
-//	private final Clock clock;
+//	private final TimeProvider clock; // interfata dedicata
+//	private final Clock clock; // + clock.millis in prod
 	private final Client client;
 
 	private String diagnosticInfo = "";
