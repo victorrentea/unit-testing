@@ -15,4 +15,9 @@ public class Customer {
 	private Address address = new Address();
 	private Date createDate;
 	private List<Coupon> coupons = new ArrayList<>();
+
+//	public Customer setName(String name) {
+//		this.name = name;
+//		return this;
+//	}
 }
