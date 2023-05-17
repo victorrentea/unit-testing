@@ -33,10 +33,10 @@ public class Diagnostic {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(client.getVersion() + "-" + uuidGenerator.uuid());
 		config.setSessionStart(LocalDateTime.now());
-//		if (!force)
+		if (!force)
 			config.setAckMode(AckMode.NORMAL);
-//		else
-//			config.setAckMode(AckMode.FLOOD);
+		else
+			config.setAckMode(AckMode.FLOOD);
 		client.configure(config);
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);

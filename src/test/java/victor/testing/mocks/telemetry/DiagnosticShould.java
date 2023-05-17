@@ -18,8 +18,10 @@ import java.util.UUID;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.FLOOD;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 
 @ExtendWith(MockitoExtension.class)
@@ -96,5 +98,13 @@ public class DiagnosticShould {
     assertThat(config.getAckMode()).isEqualTo(NORMAL);
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
     assertThat(config.getSessionId()).isEqualTo("ver-a");
+  }
+  @Test
+  public void ackModeIsFloodIfForced() {
+    when(clientMock.getOnlineStatus()).thenReturn(true);
+
+    diagnostic.checkTransmission(true);
+
+    verify(clientMock).configure(argThat(arg -> arg.getAckMode() == FLOOD));
   }
 }
