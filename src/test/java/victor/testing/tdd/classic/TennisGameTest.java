@@ -28,4 +28,55 @@ public class TennisGameTest {
     String actual = game.getScore();
     assertThat(actual).isEqualTo("Thirty:Love");
   }
+  @Test
+  void forty() {
+    TennisGame game = new TennisGame();
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    String actual = game.getScore();
+    assertThat(actual).isEqualTo("Forty:Love");
+  }
+  @Test
+  void player2Scores() {
+    TennisGame game = new TennisGame();
+    game.addPoint(Player.TWO);
+    String actual = game.getScore();
+    assertThat(actual).isEqualTo("Love:Fifteen");
+  }
+
+  // If at least three points have been scored by each player,
+  // and the scores are equal, the score is “Deuce”.
+  @Test
+  void deuce() {
+    TennisGame game = new TennisGame();
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.TWO);
+    game.addPoint(Player.TWO);
+    game.addPoint(Player.TWO);
+    String actual = game.getScore();
+    assertThat(actual).isEqualTo("Deuce");
+  }
+  @Test
+  void deuce7() {
+    TennisGame game = new TennisGame();
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.ONE);
+    game.addPoint(Player.TWO);
+    game.addPoint(Player.TWO);
+    game.addPoint(Player.TWO);
+    game.addPoint(Player.TWO);
+    game.addPoint(Player.TWO);
+    game.addPoint(Player.TWO);
+    game.addPoint(Player.TWO);
+    String actual = game.getScore();
+    assertThat(actual).isEqualTo("Deuce");
+  }
 }
