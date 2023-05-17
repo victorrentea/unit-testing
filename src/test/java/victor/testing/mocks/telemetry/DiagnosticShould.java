@@ -8,6 +8,8 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
 import java.time.Clock;
@@ -19,10 +21,16 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.FLOOD;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
+
+//@MockitoSettings(strictness = Strictness.LENIENT)
+// Doamne fereste!@!!!!!! NU FA ASTA pentru ca altfel
+// in @Before se va acumula gunoi: tot ce vreun test are nevoie poate fi pus acolo ->
+// concluzie : in before e ca la ghena
+// CAND ponceste un @Test in Before doar ce e necesar lui
+// in before pui doar lucruri UTILE TUTUROR
 
 @ExtendWith(MockitoExtension.class)
 public class DiagnosticShould {
@@ -38,6 +46,11 @@ public class DiagnosticShould {
 //  }
   @InjectMocks
   Diagnostic diagnostic;
+
+  @BeforeEach
+  final void before() {
+    lenient().when(clientMock.getVersion()).thenReturn("neversea");
+  }
   @Test
   public void disconnect() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
@@ -88,7 +101,7 @@ public class DiagnosticShould {
   @Test
   public void configuresClient() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
-    when(clientMock.getVersion()).thenReturn("ver");
+    when(clientMock.getVersion()).thenReturn("ver"); // overwrite primul stub
     when(uuidGenerator.uuid()).thenReturn("a");
 
     diagnostic.checkTransmission(false);
@@ -97,7 +110,7 @@ public class DiagnosticShould {
     ClientConfiguration config = captor.getValue();
     assertThat(config.getAckMode()).isEqualTo(NORMAL);
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
-    assertThat(config.getSessionId()).isEqualTo("ver-a");
+    assertThat(config.getSessionId()).isEqualTo("VER-a");
   }
   @Test
   public void ackModeIsFloodIfForced() {
