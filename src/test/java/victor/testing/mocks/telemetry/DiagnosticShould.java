@@ -94,17 +94,7 @@ public class DiagnosticShould {
     verify(clientMock).configure(captor.capture());
     ClientConfiguration config = captor.getValue();
     assertThat(config.getAckMode()).isEqualTo(NORMAL);
-//    assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now()); // nu merge, sau mai rau merge doar pe masina mea
-    // ingineru
-    assertThat(config.getSessionStart()).isNotNull();
-    // scientist
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
-    // arhitectu: sa facem wrap la apelul la now() intr-o componenta de spring mockuibila!
-    // injecteaza un clock  mockuit
-//    assertThat(config.getSessionStart()).isEqualTo(now(clockMock));
-    // hacker: static mock
-
     assertThat(config.getSessionId()).isEqualTo("ver-a");
-
   }
 }
