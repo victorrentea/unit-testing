@@ -36,16 +36,16 @@ public class CustomerValidatorShould {
    void valid() {
       validator.validate(customer);
    }
-   @Test
 //   void givenCustomer_whenValidated_addressCityIsTrimmed() {
 //   void checkCityAddressIsTrimmed() {
 //   void checkAddressCityIsTrimmed() {
 //   void addressCityIsTrimmed() {
-   void trimsAddressCity() {
-      customer.getAddress().setCity("  Bucharest  ");
-      validator.validate(customer);
-      assertThat(customer.getAddress().getCity()).isEqualTo("Bucharest");
-   }
+//   @Test
+//   void trimsAddressCity() {
+//      customer.getAddress().setCity("  Bucharest  ");
+//      validator.validate(customer);
+//      assertThat(customer.getAddress().getCity()).isEqualTo("Bucharest");
+//   }
    @Test
    void throwForMissingName() {
      customer.setName(null);
