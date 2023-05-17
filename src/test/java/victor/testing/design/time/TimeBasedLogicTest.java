@@ -5,8 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
@@ -23,10 +27,20 @@ class TimeBasedLogicTest {
    @Test
 //   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
+      LocalDate today = parse("2023-12-25");
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
-          13, parse("2023-05-10"), parse("2023-05-17"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+          13, parse("2023-12-18"), today)).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
-      assertThat(target.isFrequentBuyer(13)).isTrue();
+      // in pom sa-ti pui mockito-inline
+      // PowerMock a murit. L-a mancat Mockito
+
+      try (MockedStatic<LocalDate> staticMock = Mockito.mockStatic(LocalDate.class)) {
+         // in acest block orice met statica pe  LocalDate este mockuita
+         // Hard core: merge si multithreaded
+         staticMock.when(LocalDate::now).thenReturn(today);
+         assertThat(target.isFrequentBuyer(13)).isTrue();
+      }
+
 
       // 1: inject a Clock; Hint: you'll need ZoneId.systemDefault()
       // 2: interface for Clock retrival [general solution] -> **indirection without abstraction**
