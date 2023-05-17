@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
@@ -26,7 +27,17 @@ public class CustomerValidatorShould {
       Customer customer = aCustomer();
       validator.validate(customer);
    }
-
+   @Test
+//   void givenCustomer_whenValidated_addressCityIsTrimmed() {
+//   void checkCityAddressIsTrimmed() {
+//   void checkAddressCityIsTrimmed() {
+//   void addressCityIsTrimmed() {
+   void trimsAddressCity() {
+      Customer customer = aCustomer();
+      customer.getAddress().setCity("  Bucharest  ");
+      validator.validate(customer);
+      assertThat(customer.getAddress().getCity()).isEqualTo("Bucharest");
+   }
    @Test
    void throwForMissingName() {
       Customer customer = aCustomer().setName(null);
@@ -40,6 +51,22 @@ public class CustomerValidatorShould {
       assertThatThrownBy(()->validator.validate(customer))
           .isInstanceOf(IllegalArgumentException.class)
           .hasMessageContaining("email");
+   }
+   @Test
+   void throwForMissingAddressCity() {
+      Customer customer = aCustomer();
+      customer.getAddress().setCity(null);
+      assertThatThrownBy(()->validator.validate(customer))
+          .isInstanceOf(IllegalArgumentException.class)
+          .hasMessageContaining("city");
+   }
+   @Test
+   void throwForAddressCityTooShort() {
+      Customer customer = aCustomer();
+      customer.getAddress().setCity("aa");
+      assertThatThrownBy(()->validator.validate(customer))
+          .isInstanceOf(IllegalArgumentException.class)
+          .hasMessage("Address city too short");
    }
 
 }
