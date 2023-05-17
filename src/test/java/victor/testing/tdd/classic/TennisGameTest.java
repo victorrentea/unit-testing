@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TennisGameTest {
+  TennisGame game = new TennisGame();
   // The running score of each game is described in a manner peculiar to tennis:
   // scores from zero to three points are described as
   // “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
@@ -15,14 +16,12 @@ public class TennisGameTest {
   }
   @Test
   void fifteen() {
-    TennisGame game = new TennisGame();
     game.addPoint(Player.ONE);
     String actual = game.getScore();
     assertThat(actual).isEqualTo("Fifteen:Love");
   }
   @Test
   void thirty() {
-    TennisGame game = new TennisGame();
     game.addPoint(Player.ONE);
     game.addPoint(Player.ONE);
     String actual = game.getScore();
@@ -30,16 +29,12 @@ public class TennisGameTest {
   }
   @Test
   void forty() {
-    TennisGame game = new TennisGame();
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
+    addPoints(3, 0);
     String actual = game.getScore();
     assertThat(actual).isEqualTo("Forty:Love");
   }
   @Test
   void player2Scores() {
-    TennisGame game = new TennisGame();
     game.addPoint(Player.TWO);
     String actual = game.getScore();
     assertThat(actual).isEqualTo("Love:Fifteen");
@@ -49,34 +44,27 @@ public class TennisGameTest {
   // and the scores are equal, the score is “Deuce”.
   @Test
   void deuce() {
-    TennisGame game = new TennisGame();
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.TWO);
-    game.addPoint(Player.TWO);
-    game.addPoint(Player.TWO);
+    addPoints(3, 3);
     String actual = game.getScore();
     assertThat(actual).isEqualTo("Deuce");
   }
   @Test
   void deuce7() {
-    TennisGame game = new TennisGame();
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.ONE);
-    game.addPoint(Player.TWO);
-    game.addPoint(Player.TWO);
-    game.addPoint(Player.TWO);
-    game.addPoint(Player.TWO);
-    game.addPoint(Player.TWO);
-    game.addPoint(Player.TWO);
-    game.addPoint(Player.TWO);
+    addPoints(7, 7);
     String actual = game.getScore();
     assertThat(actual).isEqualTo("Deuce");
+  }
+
+  // Testing DSL = (Domain Specific Language)
+  // mini-framework: test-helpere
+  public void addPoints(int player1Points, int player2Points) {
+    addPointsToPlayer(Player.ONE, player1Points);
+    addPointsToPlayer(Player.TWO, player2Points);
+  }
+  public void addPointsToPlayer(Player player, int points) {
+    for (int i = 0; i < points; i++) {
+      game.addPoint(player);
+    }
+
   }
 }
