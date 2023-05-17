@@ -1,13 +1,9 @@
 {
   "request": {
-    "id": "a",
+    "id": "xx",
     "groceries": [
       {
-        "grocery": "apple",
-        "count": 3
-      },
-      {
-        "grocery": "strawberry",
+        "grocery": "pepene",
         "count": 2
       }
     ]

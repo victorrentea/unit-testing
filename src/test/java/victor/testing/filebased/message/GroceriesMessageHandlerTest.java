@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.skyscreamer.jsonassert.comparator.JSONComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,7 +39,7 @@ class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
 
   public static List<FileTestCase> testData() throws IOException {
     Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.json");
-    return scanForFileTestCases("classpath:/test-cases/message/message*.in.json", inToOutFileName);
+    return scanForFileTestCases("classpath:/test-cases/message/*.in.json", inToOutFileName);
   }
 
   @ParameterizedTest
@@ -62,6 +63,7 @@ class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
       softly.assertThatCode(() -> verify(kafkaSender, atLeast(0))
                       .send(eq("grocery-not-found"), notFoundMessageCaptor.capture()))
               .doesNotThrowAnyException();
+//      JSONComparator
       softly.assertThat(notFoundMessageCaptor.getAllValues())
               .usingRecursiveFieldByFieldElementComparator()
               .containsExactlyInAnyOrderElementsOf(expectedOutput.notFoundEvents);
