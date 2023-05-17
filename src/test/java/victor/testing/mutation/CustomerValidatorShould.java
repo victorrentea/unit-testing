@@ -13,6 +13,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class CustomerValidatorShould {
    CustomerValidator validator = new CustomerValidator();
 
+   // este comuna aceasta variabla tuturor testelor ?
+   private Customer customer = aCustomer();
+
+   public CustomerValidatorShould() {
+      System.out.println("De cate ori se instantiaza clasa de test: " +
+                         "o data pentru fiecare @Test");
+      // morala: orice lasi pe campurile de instanta ale clasei de test
+      // dispare pt urmatorul @Test
+   }
+
    private static Customer aCustomer() { // generator de date de test
       // sau il citesti din JSON
       return new Customer()
@@ -24,7 +34,6 @@ public class CustomerValidatorShould {
 
    @Test
    void valid() {
-      Customer customer = aCustomer();
       validator.validate(customer);
    }
    @Test
@@ -33,28 +42,26 @@ public class CustomerValidatorShould {
 //   void checkAddressCityIsTrimmed() {
 //   void addressCityIsTrimmed() {
    void trimsAddressCity() {
-      Customer customer = aCustomer();
       customer.getAddress().setCity("  Bucharest  ");
       validator.validate(customer);
       assertThat(customer.getAddress().getCity()).isEqualTo("Bucharest");
    }
    @Test
    void throwForMissingName() {
-      Customer customer = aCustomer().setName(null);
+     customer.setName(null);
       assertThatThrownBy(()->validator.validate(customer))
           .isInstanceOf(IllegalArgumentException.class)
           .hasMessageContaining("name");
    }
    @Test
    void throwForMissingEmail() {
-      Customer customer = aCustomer().setEmail(null);
+      customer.setEmail(null);
       assertThatThrownBy(()->validator.validate(customer))
           .isInstanceOf(IllegalArgumentException.class)
           .hasMessageContaining("email");
    }
    @Test
    void throwForMissingAddressCity() {
-      Customer customer = aCustomer();
       customer.getAddress().setCity(null);
       assertThatThrownBy(()->validator.validate(customer))
           .isInstanceOf(IllegalArgumentException.class)
@@ -62,7 +69,6 @@ public class CustomerValidatorShould {
    }
    @Test
    void throwForAddressCityTooShort() {
-      Customer customer = aCustomer();
       customer.getAddress().setCity("aa");
       assertThatThrownBy(()->validator.validate(customer))
           .isInstanceOf(IllegalArgumentException.class)
