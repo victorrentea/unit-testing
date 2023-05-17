@@ -1,6 +1,8 @@
 package victor.testing.mocks.telemetry;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -29,18 +31,23 @@ public class Diagnostic {
 		if (! client.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
+		ClientConfiguration config = createConfig(force);
+		client.configure(config);
+		client.send(Client.DIAGNOSTIC_MESSAGE);
+		diagnosticInfo = client.receive();
+	}
 
+	@VisibleForTesting // doar apelabila din src/test
+	ClientConfiguration createConfig(boolean force) {
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion() + "-" + uuidGenerator.uuid());
+		// inchipuie aici + 7 ifuri
+		config.setSessionId(client.getVersion().toUpperCase() + "-" + uuidGenerator.uuid());
 		config.setSessionStart(LocalDateTime.now());
 		if (!force)
 			config.setAckMode(AckMode.NORMAL);
 		else
 			config.setAckMode(AckMode.FLOOD);
-		client.configure(config);
-
-		client.send(Client.DIAGNOSTIC_MESSAGE);
-		diagnosticInfo = client.receive();
+		return config;
 	}
 
 	public String getDiagnosticInfo() {
