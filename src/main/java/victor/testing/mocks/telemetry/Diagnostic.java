@@ -15,6 +15,7 @@ public class Diagnostic {
 //	private final TimeProvider clock; // interfata dedicata
 //	private final Clock clock; // + clock.millis in prod
 	private final Client client;
+	private final UUIDGenerator uuidGenerator;
 
 	private String diagnosticInfo = "";
 
@@ -30,7 +31,7 @@ public class Diagnostic {
 		}
 
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + randomUUID());
+		config.setSessionId(client.getVersion() + "-" + uuidGenerator.uuid());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		client.configure(config);

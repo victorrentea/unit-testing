@@ -13,6 +13,7 @@ import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -25,7 +26,7 @@ import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.
 public class DiagnosticShould {
   public static final long CURRENT_TIME_MILLIS = 1L;
   @Mock
-  Clock clockMock;
+  UUIDGenerator uuidGenerator;
   @Mock
   Client clientMock/* = mock(Client.class)*/;
 //  Diagnostic diagnostic;
@@ -35,11 +36,6 @@ public class DiagnosticShould {
 //  }
   @InjectMocks
   Diagnostic diagnostic;
-
-  @BeforeEach
-  final void before() {
-      when(clockMock.millis()).thenReturn(CURRENT_TIME_MILLIS);
-  }
   @Test
   public void disconnect() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
@@ -90,6 +86,8 @@ public class DiagnosticShould {
   @Test
   public void configuresClient() {
     when(clientMock.getOnlineStatus()).thenReturn(true);
+    when(clientMock.getVersion()).thenReturn("ver");
+    when(uuidGenerator.uuid()).thenReturn("a");
 
     diagnostic.checkTransmission(false);
 
@@ -97,7 +95,6 @@ public class DiagnosticShould {
     ClientConfiguration config = captor.getValue();
     assertThat(config.getAckMode()).isEqualTo(NORMAL);
 //    assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now()); // nu merge, sau mai rau merge doar pe masina mea
-
     // ingineru
     assertThat(config.getSessionStart()).isNotNull();
     // scientist
@@ -105,7 +102,9 @@ public class DiagnosticShould {
     // arhitectu: sa facem wrap la apelul la now() intr-o componenta de spring mockuibila!
     // injecteaza un clock  mockuit
 //    assertThat(config.getSessionStart()).isEqualTo(now(clockMock));
-    // hacker
+    // hacker: static mock
+
+    assertThat(config.getSessionId()).isEqualTo("ver-a");
 
   }
 }
