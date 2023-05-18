@@ -13,6 +13,12 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class CreateConfigTest {
   @Mock Client client;
+//  Client client = new Client() {
+//    @Override
+//    public String getVersion() {
+//      return "ver";
+//    }
+//  };
   @Mock UUIDGenerator uuidGenerator;
   @InjectMocks Diagnostic diagnostic;
   @Test
