@@ -39,7 +39,7 @@ class CreateCustomerShould {
    Customer aValidCustomer = new Customer();
    @BeforeEach
    public final void before() {
-      // teste unitare sociale: testez facade + validator incojurate de mockuri
+      // unitare sociale: testez facade + validator incojurate de mockuri
       sut = new CustomerFacade(new CustomerValidator(), customerRepo, emailClient);
       aValidCustomer.setName("::name::");
       aValidCustomer.setEmail("::email::");
