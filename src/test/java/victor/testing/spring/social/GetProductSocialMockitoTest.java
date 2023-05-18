@@ -1,9 +1,11 @@
-package victor.testing.spring.service;
+package victor.testing.spring.social;
 
 import org.junit.jupiter.api.Test;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.service.ProductMapper;
+import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductDto;
 
 import java.time.LocalDate;
