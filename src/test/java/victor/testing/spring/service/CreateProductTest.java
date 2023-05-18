@@ -1,10 +1,12 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.SupplierRepo;
@@ -15,6 +17,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
+//@ActiveProfiles("could") // strica cacheul, nu poate spring refolosi contextul de dinainte pentru tine
+//@TestPropertySource(properties = "prop=#sieu")// strica cacheul, nu poate spring refolosi contextul de dinainte pentru tine
 public class CreateProductTest extends BaseFunctionalTest {
    public static final long SUPPLIER_ID = 13L;
    @MockBean

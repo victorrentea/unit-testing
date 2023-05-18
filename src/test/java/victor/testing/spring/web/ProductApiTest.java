@@ -61,7 +61,6 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
  * <li> Emulates a JSON request against my API and checks the JSON response
  * <li> At the end of each test leaves the DB clean (by auto-rollback of @Transactional)
  */
-@SpringBootTest
 
 @AutoConfigureWireMock(port = 0)
 @Testcontainers
@@ -69,7 +68,14 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @ActiveProfiles({"db-migration", "wiremock"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
+
+// A simuleaza ca porneste tomcat
+@SpringBootTest
 @AutoConfigureMockMvc
+
+// B porneste Tomcat +1s
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
 // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 public class ProductApiTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
