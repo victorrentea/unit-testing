@@ -6,12 +6,12 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.UUID;
 
 @Entity
 public class Supplier {
 
     @Id
-    @GeneratedValue
     @Getter @Setter
     private Long id;
     @Getter @Setter

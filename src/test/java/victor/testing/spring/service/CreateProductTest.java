@@ -28,11 +28,12 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @SpringBootTest
 @ActiveProfiles("db-migration")
 public class CreateProductTest {
+   public static final long SUPPLIER_ID = 13L;
    @MockBean
    public SafetyClient mockSafetyClient;
-   @MockBean
+   @Autowired
    private ProductRepo productRepo;
-   @MockBean
+   @Autowired
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
@@ -49,22 +50,21 @@ public class CreateProductTest {
    @Test
    public void createOk() {
       // GIVEN
-      Supplier supplier = new Supplier().setId(13L);
-      when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+      Supplier supplier = supplierRepo.save(new Supplier().setId(SUPPLIER_ID));
       when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-      ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+      ProductDto dto = new ProductDto("name", "safebar", SUPPLIER_ID, HOME);
 
       // WHEN
-      productService.createProduct(dto);
+      Long productId = productService.createProduct(dto);
 
       // THEN
-      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-      verify(productRepo).save(productCaptor.capture());
-      Product product = productCaptor.getValue();
-
+//      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+//      verify(productRepo).save(productCaptor.capture());
+//      Product product = productCaptor.getValue();
+      Product product = productRepo.findById(productId).orElseThrow();
       assertThat(product.getName()).isEqualTo("name");
       assertThat(product.getBarcode()).isEqualTo("safebar");
-      assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+      assertThat(product.getSupplier().getId()).isEqualTo(SUPPLIER_ID);
       assertThat(product.getCategory()).isEqualTo(HOME);
       // assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS)); // uses Spring Magic
    }
