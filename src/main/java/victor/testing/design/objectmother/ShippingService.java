@@ -1,6 +1,6 @@
 package victor.testing.design.objectmother;
 
-class ShippingService {
+class ShippingService { // 10k linii
    public int estimateShippingCosts(Customer customer) {
       if (customer.getShippingAddress().contains("Romania")) {
          return 30;

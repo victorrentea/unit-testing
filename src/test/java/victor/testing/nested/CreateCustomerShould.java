@@ -1,10 +1,7 @@
 package victor.testing.nested;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -37,14 +34,13 @@ class CreateCustomerShould {
    @Mock
    EmailClient emailClient;
 
-   CustomerFacade customerFacade;
+   CustomerFacade sut;
 
-   Customer aValidCustomer;
+   Customer aValidCustomer = new Customer();
    @BeforeEach
    public final void before() {
-      customerFacade = new CustomerFacade(new CustomerValidator(), customerRepo, emailClient);
-
-      aValidCustomer = new Customer();
+      // teste unitare sociale: testez facade + validator incojurate de mockuri
+      sut = new CustomerFacade(new CustomerValidator(), customerRepo, emailClient);
       aValidCustomer.setName("::name::");
       aValidCustomer.setEmail("::email::");
       aValidCustomer.getAddress().setCity("::city::");
@@ -57,26 +53,26 @@ class CreateCustomerShould {
       @Test
       void failForMissingName() {
          aValidCustomer.setName(null);
-         assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
+         assertThatThrownBy(() -> sut.createCustomer(aValidCustomer))
              .isInstanceOf(IllegalArgumentException.class);
       }
       @Test
       void failForMissingEmail() {
          aValidCustomer.setEmail(null);
-         assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
+         assertThatThrownBy(() -> sut.createCustomer(aValidCustomer))
              .isInstanceOf(IllegalArgumentException.class);
       }
 
       @Test
       void failForMissingCity() {
          aValidCustomer.getAddress().setCity(null);
-         assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
+         assertThatThrownBy(() -> sut.createCustomer(aValidCustomer))
              .isInstanceOf(IllegalArgumentException.class);
       }
       @Test
       void failForMissingCountry() {
          aValidCustomer.getAddress().setCountry(null);
-         assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
+         assertThatThrownBy(() -> sut.createCustomer(aValidCustomer))
              ;
       }
    }
@@ -91,7 +87,7 @@ class CreateCustomerShould {
       void failIfAnotherCustomerWithTheSameEmailExists() {
          when(customerRepo.countByEmail("::email::")).thenReturn(1);
 
-         assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
+         assertThatThrownBy(() -> sut.createCustomer(aValidCustomer))
              .hasMessageContaining("already exists");
       }
 
@@ -99,7 +95,7 @@ class CreateCustomerShould {
       void sendAWelcomeEmailAndBeSaveTheCustomer() {
          when(customerRepo.save(aValidCustomer)).thenReturn(13L);
 
-         Long id = customerFacade.createCustomer(aValidCustomer);
+         Long id = sut.createCustomer(aValidCustomer);
 
          assertThat(id).isEqualTo(13L);
          verify(emailClient).sendWelcomeEmail(aValidCustomer);
@@ -110,13 +106,13 @@ class CreateCustomerShould {
          @ParameterizedTest
          @ValueSource(strings = {"HOME","ELECTRONICS"})
          void receivesCoupon(ProductCategory category) {
-            customerFacade.createCustomer(aValidCustomer);
+            sut.createCustomer(aValidCustomer);
             Assertions.assertThat(aValidCustomer.getCoupons())
                 .contains(new Coupon(category, 10, Set.of()));
          }
          @Test
          void isSentAnEmailAboutTheCoupon() {
-            customerFacade.createCustomer(aValidCustomer);
+            sut.createCustomer(aValidCustomer);
             verify(emailClient).sendNewCouponEmail(aValidCustomer);
          }
       }
