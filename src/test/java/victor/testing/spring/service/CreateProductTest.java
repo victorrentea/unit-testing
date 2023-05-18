@@ -58,4 +58,22 @@ public class CreateProductTest {
       // assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS)); // uses Spring Magic
    }
 
+   @Test
+   public void createOkBis() {
+      // GIVEN
+      Supplier supplier = supplierRepo.save(new Supplier().setId(SUPPLIER_ID));
+      when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+      ProductDto dto = new ProductDto("name", "safebar", SUPPLIER_ID, HOME);
+
+      // WHEN
+      productService.createProduct(dto);
+
+      // THEN
+      Product product = productRepo.findByName(dto.name).orElseThrow();
+      assertThat(product.getName()).isEqualTo(dto.name);
+      assertThat(product.getBarcode()).isEqualTo("safebar");
+      assertThat(product.getSupplier().getId()).isEqualTo(SUPPLIER_ID);
+      assertThat(product.getCategory()).isEqualTo(HOME);
+      // assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS)); // uses Spring Magic
+   }
 }
