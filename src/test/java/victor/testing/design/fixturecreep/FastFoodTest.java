@@ -12,12 +12,12 @@ import org.mockito.quality.Strictness;
 import static org.mockito.Mockito.*;
 
 //@MockitoSettings(strictness = Strictness.LENIENT)
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
 class FastFoodTest {
-   @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
-   Dependency dependency;
-   @InjectMocks
-   FastFood fastFood;
+//   @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
+   Dependency dependency = mock(Dependency.class);
+   //   @InjectMocks
+   FastFood fastFood = new FastFood(dependency);
 
    @BeforeEach
    final void before() {
