@@ -1,15 +1,9 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -17,8 +11,6 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
-
-import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.*;
@@ -55,14 +47,11 @@ public class CreateProductTest {
       ProductDto dto = new ProductDto("name", "safebar", SUPPLIER_ID, HOME);
 
       // WHEN
-      Long productId = productService.createProduct(dto);
+      productService.createProduct(dto);
 
       // THEN
-//      ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-//      verify(productRepo).save(productCaptor.capture());
-//      Product product = productCaptor.getValue();
-      Product product = productRepo.findById(productId).orElseThrow();
-      assertThat(product.getName()).isEqualTo("name");
+      Product product = productRepo.findByName(dto.name).orElseThrow();
+      assertThat(product.getName()).isEqualTo(dto.name);
       assertThat(product.getBarcode()).isEqualTo("safebar");
       assertThat(product.getSupplier().getId()).isEqualTo(SUPPLIER_ID);
       assertThat(product.getCategory()).isEqualTo(HOME);
