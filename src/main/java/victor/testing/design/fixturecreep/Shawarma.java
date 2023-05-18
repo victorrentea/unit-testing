@@ -4,7 +4,7 @@ package victor.testing.design.fixturecreep;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class FastFood {
+public class Shawarma {
    private final Dependency dependency;
 
    public void makeShawarma() {
@@ -14,10 +14,4 @@ public class FastFood {
       // complex logic: 7 ifs
    }
 
-   public void makeTzatziki() {
-      if (!dependency.isCucumberAllowed()) {
-         throw new IllegalArgumentException();
-      }
-      // complex logic: 5 ifs
-   }
 }
