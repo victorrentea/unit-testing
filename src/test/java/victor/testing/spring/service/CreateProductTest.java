@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +22,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @SpringBootTest
 @ActiveProfiles("db-migration")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // doamne fereste sa push asa ceva. pierzi timp de build.
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // doamne fereste sa push asa ceva. pierzi timp de build.
 // niciodata decat ca sa debugezi probleme (investigare) sau
 // doar daca testezi EXTENSII LA SPRING
 public class CreateProductTest {
@@ -34,6 +35,13 @@ public class CreateProductTest {
    private SupplierRepo supplierRepo;
    @Autowired
    private ProductService productService;
+
+   @AfterEach
+   public void method() {
+      // 1 spring to rule them all, dar nu multithreaded friendly
+      productRepo.deleteAll();
+      supplierRepo.deleteAll();
+   }
 
    @Test
    public void createThrowsForUnsafeProduct() {
