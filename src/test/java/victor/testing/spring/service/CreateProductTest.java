@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -15,10 +16,14 @@ import victor.testing.spring.web.dto.ProductDto;
 import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @SpringBootTest
 @ActiveProfiles("db-migration")
+@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // doamne fereste sa push asa ceva. pierzi timp de build.
+// niciodata decat ca sa debugezi probleme (investigare) sau
+// doar daca testezi EXTENSII LA SPRING
 public class CreateProductTest {
    public static final long SUPPLIER_ID = 13L;
    @MockBean
