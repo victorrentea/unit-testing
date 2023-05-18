@@ -118,7 +118,7 @@ class CreateCustomerShould {
       }
 
       @Test
-      void isSentAnEmailAboutTheCoupon() {
+      void isSentAnEmailAboutTheCoupons() {
         customerFacade.createCustomer(aValidCustomer);
         verify(emailClient).sendNewCouponEmail(aValidCustomer);
       }
