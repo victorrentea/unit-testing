@@ -83,4 +83,17 @@ public class TennisGameTest {
     String actual = tennisGame.getScore();
     assertThat(actual).isEqualTo("Deuce");
   }
+  @Test
+  void deuce4() {
+    tennisGame.addPointToFirstTeam();
+    tennisGame.addPointToFirstTeam();
+    tennisGame.addPointToFirstTeam();
+    tennisGame.addPointToFirstTeam();
+    tennisGame.addPointToSecondTeam();
+    tennisGame.addPointToSecondTeam();
+    tennisGame.addPointToSecondTeam();
+    tennisGame.addPointToSecondTeam();
+    String actual = tennisGame.getScore();
+    assertThat(actual).isEqualTo("Deuce");
+  }
 }

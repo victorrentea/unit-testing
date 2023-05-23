@@ -8,7 +8,8 @@ public class TennisGame {
   private int secondTeamScore;
 
   public String getScore() {
-    if (firstTeamScore == secondTeamScore && firstTeamScore == 3) {
+    if (firstTeamScore == secondTeamScore &&
+        firstTeamScore >= 3) {
       return "Deuce";
     }
     return scoreNames.get(firstTeamScore) + "-" + scoreNames.get(secondTeamScore);
