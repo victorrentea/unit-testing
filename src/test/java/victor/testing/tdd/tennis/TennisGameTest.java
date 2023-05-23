@@ -40,9 +40,7 @@ public class TennisGameTest {
   }
   @Test
   void fortyLove() {
-    tennisGame.addPointToFirstTeam();
-    tennisGame.addPointToFirstTeam();
-    tennisGame.addPointToFirstTeam();
+    setPoints(3, 0);
     String actual = tennisGame.getScore();
     assertThat(actual).isEqualTo("Forty-Love");
   }
@@ -55,8 +53,7 @@ public class TennisGameTest {
   // 2) bug in a test -> fix the test
   @Test
   void loveThirty() {
-    tennisGame.addPointToSecondTeam();
-    tennisGame.addPointToSecondTeam();
+    setPoints(0, 2);
     String actual = tennisGame.getScore();
     assertThat(actual).isEqualTo("Love-Thirty");
   }
@@ -74,26 +71,40 @@ public class TennisGameTest {
   // AND the scores are equal, the score is “Deuce”.
   @Test
   void deuce() {
-    tennisGame.addPointToFirstTeam();
-    tennisGame.addPointToFirstTeam();
-    tennisGame.addPointToFirstTeam();
-    tennisGame.addPointToSecondTeam();
-    tennisGame.addPointToSecondTeam();
-    tennisGame.addPointToSecondTeam();
+    setPoints(3, 3);
     String actual = tennisGame.getScore();
     assertThat(actual).isEqualTo("Deuce");
   }
   @Test
   void deuce4() {
-    tennisGame.addPointToFirstTeam();
-    tennisGame.addPointToFirstTeam();
-    tennisGame.addPointToFirstTeam();
-    tennisGame.addPointToFirstTeam();
-    tennisGame.addPointToSecondTeam();
-    tennisGame.addPointToSecondTeam();
-    tennisGame.addPointToSecondTeam();
-    tennisGame.addPointToSecondTeam();
+//    tennisGame.addPointToFirstTeam(4); no, breaks prod encapsulation.
+    // TESTS SHOULD TEST AT THE PUBLIC API
+    setPoints(4, 4);
     String actual = tennisGame.getScore();
     assertThat(actual).isEqualTo("Deuce");
   }
+  //----
+  // If at least three points have been scored by
+  // each side and a player has one more point than
+  // his opponent, the score of the game is
+  // “Advantage” for the player in the lead.
+  @Test
+  void advantage1() {
+    setPoints(4, 3);
+
+    String actual = tennisGame.getScore();
+
+    assertThat(actual).isEqualTo("Advantage");
+  }
+
+  // test helper method, to work with an unfriendly testing api
+  private void setPoints(int firstTeamPoints, int secondTeamPoints) {
+    for (int i = 0; i < firstTeamPoints; i++) {
+      tennisGame.addPointToFirstTeam();
+    }
+    for (int i = 0; i < secondTeamPoints; i++) {
+      tennisGame.addPointToSecondTeam();
+    }
+  }
+
 }
