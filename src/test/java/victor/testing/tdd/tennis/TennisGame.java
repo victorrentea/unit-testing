@@ -1,19 +1,36 @@
 package victor.testing.tdd.tennis;
 
 public class TennisGame {
-  private String firstTeamScore = "Love";
-  private String secondTeamScore = "Love";
+  enum ScoreName {
+    LOVE("Love"),
+    FIFTEEN("Fifteen"),
+    THIRTY("Thirty"),
+    FORTY("Forty");
+    public final String name;
+
+    ScoreName(String name) {
+      this.name = name;
+    }
+  }
+  private ScoreName firstTeamScore = ScoreName.LOVE;
+  private ScoreName secondTeamScore = ScoreName.LOVE;
 
   public String getScore() {
-    return firstTeamScore + "-" + secondTeamScore;
+    return firstTeamScore.name + "-" + secondTeamScore.name;
   }
   // TODO make a switch
 
   public void addPointToFirstTeam() {
-    firstTeamScore = "Fifteen";
+    if (firstTeamScore == ScoreName.THIRTY) {
+      firstTeamScore = ScoreName.FORTY;
+    } else if (firstTeamScore == ScoreName.FIFTEEN) {
+      firstTeamScore = ScoreName.THIRTY;
+    } else {
+      firstTeamScore = ScoreName.FIFTEEN;
+    }
   }
 
   public void addPointToSecondTeam() {
-    secondTeamScore = "Fifteen";
+    secondTeamScore = ScoreName.FIFTEEN;
   }
 }
