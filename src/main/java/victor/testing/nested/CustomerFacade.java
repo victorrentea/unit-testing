@@ -20,7 +20,7 @@ public class CustomerFacade {
    private static final List<Country> DISCOUNTED_COUNTRIES = List.of(Country.ROU, Country.BGR, Country.SRB);
 
    public Long createCustomer(Customer customer) {
-      validator.validate(customer);
+//      validator.validate(customer);
 
       if (customerRepo.countByEmail(customer.getEmail()) != 0) {
          throw new IllegalArgumentException("A customer with that email already exists");
