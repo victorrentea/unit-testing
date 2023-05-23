@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 public class CustomerValidatorTest {
    CustomerValidator validator = new CustomerValidator();
 
-   @NotNull
    private static Customer validCustomer() {
       return new Customer()
           .setName("::name::")
@@ -32,8 +31,7 @@ public class CustomerValidatorTest {
 //   void throwsForInvalidCustomerName() {
 //   void throwsForInvalidName() {
    void throwsForNullName() {
-      Customer customer = validCustomer();
-      customer.setName(null);
+      Customer customer = validCustomer().setName(null);
 
       Assert.assertThrows(IllegalArgumentException.class,
           ()->validator.validate(customer));
@@ -41,8 +39,7 @@ public class CustomerValidatorTest {
 
    @Test
    void throwsForNullEmail() {
-      Customer customer = validCustomer();
-      customer.setEmail(null);
+      Customer customer = validCustomer().setEmail(null);
 
       Assert.assertThrows(IllegalArgumentException.class,
           ()->validator.validate(customer));
@@ -50,7 +47,7 @@ public class CustomerValidatorTest {
 
    @Test
    void throwsForNullAddressCity() {
-      Customer customer = validCustomer();
+      Customer customer = validCustomer();// sau: .setAddress(validAddress().setCity(null));
       customer.getAddress().setCity(null);
 
       Assert.assertThrows(IllegalArgumentException.class,
