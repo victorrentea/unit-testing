@@ -1,5 +1,6 @@
 package victor.testing.tdd.tennis;
 
+import lombok.Value;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -12,7 +13,10 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 public class TennisGameParameterizedTest {
   TennisGame tennisGame = new TennisGame();
-
+//  @Value
+//  private class TestCase{
+//    int a,b,c,d;
+//  }
   static Stream<Arguments> data() {
     return Stream.of(
 //        of(3, 0,  0,  0,  0,  0,  0, "Forty-Love", false, true, false),

@@ -16,7 +16,7 @@ public class TennisGame {
 //    secondTeamScore = b;
 //  }
   public String getScore() {
-    if (firstTeamScore - secondTeamScore == 1 &&
+    if (Math.abs(firstTeamScore - secondTeamScore) == 1 &&
         firstTeamScore >= 3 && secondTeamScore >= 3) {
       return "Advantage";
     }
