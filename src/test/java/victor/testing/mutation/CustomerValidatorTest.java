@@ -11,12 +11,11 @@ public class CustomerValidatorTest {
 
    @NotNull
    private static Customer validCustomer() {
-      Customer customer = new Customer();
-      customer.setName("::name::");
-      customer.setEmail("::email::");
-      customer.setAddress(new Address());
-      customer.getAddress().setCity("::city::");
-      return customer;
+      return new Customer()
+          .setName("::name::")
+          .setEmail("::email::")
+          .setAddress(new Address()
+              .setCity("::city::"));
    }
 
    @Test

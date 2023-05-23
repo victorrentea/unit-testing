@@ -1,11 +1,13 @@
 package victor.testing.mutation;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+//@Builder // niciodata pe @Data (are setteri)
 @Data
 public class Customer {
 	private Long id;
@@ -15,4 +17,9 @@ public class Customer {
 	private Address address = new Address();
 	private Date createDate;
 	private List<Coupon> coupons = new ArrayList<>();
+
+//	public Customer setName(String name) {
+//		this.name = name;
+//		return this; // chainable setters
+//	}
 }
