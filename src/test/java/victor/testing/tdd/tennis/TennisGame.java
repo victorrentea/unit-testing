@@ -1,24 +1,19 @@
 package victor.testing.tdd.tennis;
 
 public class TennisGame {
-
-  private String score = "Love-Love";
-//  private String firstTeamScore = "Love";...
-//  private String secondTeamScore = "Love";...
+  private String firstTeamScore = "Love";
+  private String secondTeamScore = "Love";
 
   public String getScore() {
-    return score;
+    return firstTeamScore + "-" + secondTeamScore;
   }
+  // TODO make a switch
 
   public void addPointToFirstTeam() {
-    score = "Fifteen-Love";
+    firstTeamScore = "Fifteen";
   }
 
   public void addPointToSecondTeam() {
-    if (score.equals("Fifteen-Love")) {
-      score = "Fifteen-Fifteen";
-    } else {
-      score = "Love-Fifteen";
-    }
+    secondTeamScore = "Fifteen";
   }
 }
