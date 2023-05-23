@@ -26,6 +26,15 @@ public class CustomerValidatorTest {
    }
 
    @Test
+   void trimsAddressCity() {
+      customer.getAddress().setCity(" 123 ");
+
+      validator.validate(customer);
+
+      Assertions.assertEquals(customer.getAddress().getCity(), "123");
+   }
+
+   @Test
        // givenAAcustomer_whenHerNameIsMissing_thenThrowsException
 //   void invalidCustomerName_throwsException() {
 //   void throwsExceptionWhenInvalidCustomerName() {
