@@ -2,6 +2,7 @@ package victor.testing.tdd.tennis;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
@@ -14,7 +15,7 @@ public class TennisGameParameterizedTest {
 
   static Stream<Arguments> data() {
     return Stream.of(
-        of(3, 0, "Forty-Love"),
+//        of(3, 0,  0,  0,  0,  0,  0, "Forty-Love", false, true, false),
         of(3, 2, "Forty-Thirty"),
         of(0, 2, "Love-Thirty"),
         of(3, 3, "Deuce"),
@@ -22,13 +23,27 @@ public class TennisGameParameterizedTest {
         of(7, 6, "Advantage")
     );
   }
+  // Use this when your tests have the same structure
+  // and the only thing that is different are some literals (int,strings...)
+
+  // when you can reduce the tests to an EXCEL file.
 
   @ParameterizedTest(name = "When first team scored {0} points, and second team scored {1}, then the score is ''{2}''")
   @MethodSource("data")
+//  @CsvSource(textBlock = """
+//      3,0,Forty-Love
+//      """)
+//  void aSingleTest(int firstTeamPoints,int firstTeamPoints,int firstTeamPoints,int firstTeamPoints,int firstTeamPoints,int firstTeamPoints,int firstTeamPoints, int secondTeamPoints, String expectedScore
   void aSingleTest(int firstTeamPoints, int secondTeamPoints, String expectedScore) {
     setPoints(firstTeamPoints, secondTeamPoints);
     String actual = tennisGame.getScore();
     assertThat(actual).isEqualTo(expectedScore);
+//    if (param4) {
+//      code should throw ...
+//    }
+//    if (param5) {
+//      verify(senderMock).sendMessage()
+//    }
   }
 
   // test helper method, to work with an unfriendly testing api
