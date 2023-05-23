@@ -26,13 +26,13 @@ public class CustomerValidatorTest {
    }
 
    @Test
-       // givenAAcustomer_whenHerNameIsNull_thenThrowsException
+       // givenAAcustomer_whenHerNameIsMissing_thenThrowsException
 //   void invalidCustomerName_throwsException() {
 //   void throwsExceptionWhenInvalidCustomerName() {
 //   void throwsWhenInvalidCustomerName() {
 //   void throwsForInvalidCustomerName() {
 //   void throwsForInvalidName() {
-   void throwsForNullName() {
+   void throwsForMissingName() {
       customer.setName(null);
 
       Assert.assertThrows(IllegalArgumentException.class,
@@ -40,7 +40,7 @@ public class CustomerValidatorTest {
    }
 
    @Test
-   void throwsForNullEmail() {
+   void throwsForMissingEmail() {
       customer.setEmail(null);
 
       Assert.assertThrows(IllegalArgumentException.class,
@@ -48,12 +48,21 @@ public class CustomerValidatorTest {
    }
 
    @Test
-   void throwsForNullAddressCity() {
+   void throwsForMissingAddressCity() {
       customer.getAddress().setCity(null);
 
       IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class,
           () -> validator.validate(customer));
       Assertions.assertEquals("Missing address city", e.getMessage());
+   }
+
+   @Test
+   void throwsForAddressCityTooShort() {
+      customer.getAddress().setCity("12");
+
+      IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class,
+          () -> validator.validate(customer));
+      Assertions.assertEquals("Address city too short", e.getMessage());
    }
 
 
