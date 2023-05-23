@@ -2,6 +2,7 @@ package victor.testing.mutation;
 
 
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
@@ -50,8 +51,10 @@ public class CustomerValidatorTest {
    void throwsForNullAddressCity() {
       customer.getAddress().setCity(null);
 
-      Assert.assertThrows(IllegalArgumentException.class,
-          ()->validator.validate(customer));
+      IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class,
+          () -> validator.validate(customer));
+      Assertions.assertEquals("Missing address city", e.getMessage());
    }
+
 
 }
