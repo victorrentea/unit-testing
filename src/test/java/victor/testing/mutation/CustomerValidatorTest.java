@@ -1,9 +1,16 @@
 package victor.testing.mutation;
 
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class CustomerValidatorTest {
@@ -31,7 +38,7 @@ public class CustomerValidatorTest {
 
       validator.validate(customer);
 
-      Assertions.assertEquals(customer.getAddress().getCity(), "123");
+      assertEquals("123", customer.getAddress().getCity());
    }
 
    @Test
@@ -44,34 +51,52 @@ public class CustomerValidatorTest {
    void throwsForMissingName() {
       customer.setName(null);
 
-      Assert.assertThrows(IllegalArgumentException.class,
-          ()->validator.validate(customer));
+      assertThatThrownBy(() -> validator.validate(customer))
+          .isInstanceOf(IllegalArgumentException.class);
    }
 
    @Test
    void throwsForMissingEmail() {
       customer.setEmail(null);
 
-      Assert.assertThrows(IllegalArgumentException.class,
-          ()->validator.validate(customer));
+      assertThatThrownBy(() -> validator.validate(customer))
+          .isInstanceOf(IllegalArgumentException.class);
    }
 
    @Test
    void throwsForMissingAddressCity() {
       customer.getAddress().setCity(null);
 
-      IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class,
-          () -> validator.validate(customer));
-      Assertions.assertEquals("Missing address city", e.getMessage());
+      assertThatThrownBy(() -> validator.validate(customer))
+          .isInstanceOf(IllegalArgumentException.class)
+          .hasMessage("Missing address city");
    }
 
    @Test
    void throwsForAddressCityTooShort() {
       customer.getAddress().setCity("12");
 
-      IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class,
-          () -> validator.validate(customer));
-      Assertions.assertEquals("Address city too short", e.getMessage());
+      assertThatThrownBy(() -> validator.validate(customer))
+          .isInstanceOf(IllegalArgumentException.class)
+          .hasMessage("Address city too short");
+   }
+
+
+   @Test
+   void whyAssertJ_rocks_andJupiterAssertions_sucks() { // aka assertThat rocks!!
+      List<Integer> actual = prodCode();
+//      assertEquals(3, actual.size());// failure message sucks
+      //
+      assertThat(actual)
+//          .extracting(::getId)
+          .contains(3)
+          .containsExactlyInAnyOrder(1,2,3)
+          .hasSize(3);
+   }
+
+   @NotNull
+   private static List<Integer> prodCode() {
+      return List.of(1, 2, 3, 2);
    }
 
 
