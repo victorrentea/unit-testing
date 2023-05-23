@@ -17,11 +17,16 @@ public class CustomerValidatorTest {
           .setAddress(new Address()
               .setCity("::city::"));
    }
-   Customer customer;
-   @BeforeEach
-   final void before() {
-       customer = validCustomer();
+   Customer customer = validCustomer();
+
+   public CustomerValidatorTest() {
+      System.out.println("Cate instante de clasa de test se fac pt 4 @Test"); // cate @Test atatea instanta
+      // => poti sa lasi gunoi pe campurile clasei, urmatorul test are alta instanta de clasa de test.
    }
+//   @BeforeEach
+//   final void before() {
+//       customer = validCustomer();
+//   }
 
    @Test
    void valid() {
