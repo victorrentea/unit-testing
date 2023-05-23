@@ -3,6 +3,7 @@ package victor.testing.mutation;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -16,10 +17,14 @@ public class CustomerValidatorTest {
           .setAddress(new Address()
               .setCity("::city::"));
    }
+   Customer customer;
+   @BeforeEach
+   final void before() {
+       customer = validCustomer();
+   }
 
    @Test
    void valid() {
-      Customer customer = validCustomer();
       validator.validate(customer);
    }
 
@@ -31,7 +36,7 @@ public class CustomerValidatorTest {
 //   void throwsForInvalidCustomerName() {
 //   void throwsForInvalidName() {
    void throwsForNullName() {
-      Customer customer = validCustomer().setName(null);
+      customer.setName(null);
 
       Assert.assertThrows(IllegalArgumentException.class,
           ()->validator.validate(customer));
@@ -39,7 +44,7 @@ public class CustomerValidatorTest {
 
    @Test
    void throwsForNullEmail() {
-      Customer customer = validCustomer().setEmail(null);
+      customer.setEmail(null);
 
       Assert.assertThrows(IllegalArgumentException.class,
           ()->validator.validate(customer));
@@ -47,7 +52,6 @@ public class CustomerValidatorTest {
 
    @Test
    void throwsForNullAddressCity() {
-      Customer customer = validCustomer();// sau: .setAddress(validAddress().setCity(null));
       customer.getAddress().setCity(null);
 
       Assert.assertThrows(IllegalArgumentException.class,
