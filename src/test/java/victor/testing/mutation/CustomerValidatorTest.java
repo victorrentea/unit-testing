@@ -1,23 +1,14 @@
 package victor.testing.mutation;
 
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 public class CustomerValidatorTest {
    CustomerValidator validator = new CustomerValidator();
 
-   private static Customer validCustomer() {
-      return new Customer()
-          .setName("::name::")
-          .setEmail("::email::")
-          .setAddress(new Address()
-              .setCity("::city::"));
-   }
-   Customer customer = validCustomer();
+   Customer customer = TestData.validCustomer();
 
    public CustomerValidatorTest() {
       System.out.println("Cate instante de clasa de test se fac pt 4 @Test"); // cate @Test atatea instanta
