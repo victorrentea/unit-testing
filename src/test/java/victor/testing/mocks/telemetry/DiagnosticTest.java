@@ -1,9 +1,9 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -14,36 +14,78 @@ import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
-import static java.time.LocalDateTime.*;
+import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-
+@ExtendWith(MockitoExtension.class)
 public class DiagnosticTest {
-  Diagnostic diagnostic;
+  @Mock
+  Client client /*= mock(Client.class) by MockitoExtension*/;
 
-  @BeforeEach
-  public void init() {
-    diagnostic = new Diagnostic();
-    diagnostic.setTelemetryClient(new Client());
+  @InjectMocks
+  Diagnostic diagnostic; // setTelemetryClient is called by MockitoExtension
+
+  @Test
+  void clientDisconnects() {
+    when(client.getOnlineStatus()).thenReturn(true);
+    diagnostic.checkTransmission(true);
+    verify(client).disconnect(true);
   }
 
   @Test
-  public void checkDiagnosticInfo() {
-    assertThat(diagnostic.getDiagnosticInfo())
-        .isEqualTo("");
+  void throwsIllegalStateWhenClientNotOnline() {
+    when(client.getOnlineStatus()).thenReturn(false);
+
+    assertThatThrownBy(() -> diagnostic.checkTransmission(false))
+        .isExactlyInstanceOf(IllegalStateException.class)
+        .hasMessage("Unable to connect.");
   }
 
   @Test
-  public void throwsForDisconnect() {
-    boolean force = true;
-    assertThatThrownBy(() -> diagnostic.checkTransmission(force))
-        .isInstanceOf(IllegalStateException.class)
-        .hasMessage("Performs some external remote call impossible/not desirable to call from automated tests.");
+  void returnsDiagnosticMessage() {
+    String info = "TEST";
+    when(client.getOnlineStatus()).thenReturn(true);
+    when(client.receive()).thenReturn(info);
+
+    diagnostic.checkTransmission(true);
+
+    assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(info);
   }
 
+  @Test
+  void clientSendsDiagnosticMessage() {
+    when(client.getOnlineStatus()).thenReturn(true);
+
+    diagnostic.checkTransmission(true);
+
+    verify(client).send(Client.DIAGNOSTIC_MESSAGE);
+  }
+
+  @Captor
+  ArgumentCaptor<ClientConfiguration> configCaptor;/* = ArgumentCaptor.forClass(ClientConfiguration.class*///);
+
+  @Test
+  void clientConfigOK() {
+    String clientVersion = "V1.0";
+    when(client.getOnlineStatus()).thenReturn(true);
+    when(client.getVersion()).thenReturn(clientVersion);
+
+    diagnostic.checkTransmission(true);
+
+    // dear mock, do you remember what argument you got when called from prod
+    // 2 lines above ?
+    verify(client).configure(configCaptor.capture());
+    ClientConfiguration config = configCaptor.getValue();
+    assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
+    assertThat(config.getSessionId()).startsWith(clientVersion+"-");
+//    assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());
+    assertThat(config.getSessionStart()).isEqualToIgnoringSeconds(now()); // truncate time to minute
+    assertThat(config.getSessionStart()).isCloseToUtcNow(byLessThan(1, SECONDS)); // truncate time to minute
+  }
 }
