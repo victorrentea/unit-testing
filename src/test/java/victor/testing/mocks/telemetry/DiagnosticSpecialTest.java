@@ -66,7 +66,9 @@ public class DiagnosticSpecialTest {
 		when(client.getVersion()).thenReturn(wisdom);
 		when(client.getOnlineStatus()).thenReturn(true);
 		MockedConstruction<Client.ClientConfiguration> mock = mockConstruction(Client.ClientConfiguration.class);
+
 		diagnostic.checkTransmission(true);
+
 		List<Client.ClientConfiguration> createdConfigurations = mock.constructed();
 		Client.ClientConfiguration mockedConfiguration = createdConfigurations.get(0);
 		assertThat(createdConfigurations.size()).isEqualTo(1);
