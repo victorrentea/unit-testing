@@ -18,13 +18,10 @@ public class TennisGameTest {
   }
   @Test
   void fifteenLove() {
-    // given (setup of data, mocks, DB, MockServer..)
     tennisGame.addPoint(Player.ONE);// enum;
 
-    // when (aka prod code call)
     String actual = tennisGame.getScore();
 
-    // then (assert/verify)
     assertThat(actual).isEqualTo("Fifteen-Love");
   }
 }
