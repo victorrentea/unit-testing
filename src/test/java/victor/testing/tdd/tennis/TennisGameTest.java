@@ -19,9 +19,7 @@ public class TennisGameTest {
   @Test
   void fifteenLove() {
     tennisGame.addPoint(Player.ONE);// enum;
-
     String actual = tennisGame.getScore();
-
     assertThat(actual).isEqualTo("Fifteen-Love");
   }
 }
