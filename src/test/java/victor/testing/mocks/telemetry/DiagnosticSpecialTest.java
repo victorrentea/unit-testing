@@ -1,13 +1,11 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedConstruction;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
@@ -15,7 +13,6 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,7 +37,9 @@ public class DiagnosticSpecialTest {
   }
 
   @Test
-  void receiveInfoFromClient() {
+  void happyFlow() { // test everything you can on one path
+    // + less test code with the same power
+    // - not specific name
     String message = "Something simple";
     when(client.receive()).thenReturn(message);
     when(client.getOnlineStatus()).thenReturn(true);
@@ -48,6 +47,7 @@ public class DiagnosticSpecialTest {
     diagnostic.checkTransmission(false);
 
     assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(message);
+    verify(client).disconnect(false);
     verify(client).send(Client.DIAGNOSTIC_MESSAGE);
     verify(client).configure(any(Client.ClientConfiguration.class));
   }
