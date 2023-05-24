@@ -74,7 +74,7 @@ public class DiagnosticTest {
 
   @Test
   void clientConfigOK() {
-    String clientVersion = "V1.0";
+    String clientVersion = "v";
     when(client.getVersion()).thenReturn(clientVersion);
 
     diagnostic.checkTransmission(true);
@@ -84,7 +84,7 @@ public class DiagnosticTest {
     verify(client).configure(configCaptor.capture());
     ClientConfiguration config = configCaptor.getValue();
     assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-    assertThat(config.getSessionId()).startsWith(clientVersion+"-");
+    assertThat(config.getSessionId()).startsWith("V-");
 //    assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());
     assertThat(config.getSessionStart()).isEqualToIgnoringSeconds(now()); // truncate time to minute
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // truncate time to minute
