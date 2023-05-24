@@ -28,20 +28,13 @@ import static org.mockito.Mockito.*;
 public class DiagnosticTest {
   @Mock
   Client client /*= mock(Client.class) by MockitoExtension*/;
-
   @InjectMocks
   Diagnostic diagnostic; // setTelemetryClient is called by MockitoExtension
-
   @BeforeEach
   final void before() {
-    when(client.getOnlineStatus()).thenReturn(true);
+    when(client.getOnlineStatus()).thenReturn(true); // stubbing a method = mocking a method
+    when(client.getVersion()).thenReturn("unused-why the hack!?!");
   }
-  @Test
-  void clientDisconnects() {
-    diagnostic.checkTransmission(true);
-    verify(client).disconnect(true);
-  }
-
   @Test
   void throwsIllegalStateWhenClientNotOnline() {
     when(client.getOnlineStatus()).thenReturn(false); // reprograms the return false not true
@@ -49,6 +42,12 @@ public class DiagnosticTest {
     assertThatThrownBy(() -> diagnostic.checkTransmission(false))
         .isExactlyInstanceOf(IllegalStateException.class)
         .hasMessage("Unable to connect.");
+  }
+
+  @Test
+  void clientDisconnects() {
+    diagnostic.checkTransmission(true);
+    verify(client).disconnect(true);
   }
 
   @Test

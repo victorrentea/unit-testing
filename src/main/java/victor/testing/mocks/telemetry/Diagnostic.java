@@ -34,6 +34,7 @@ public class Diagnostic {
 
 	private void configureClient() {
 		ClientConfiguration config = new ClientConfiguration();
+		// "in production, client.getVersion() never returns null" - biz on 24 may 2023, 5 PM
 		config.setSessionId(client.getVersion().toUpperCase() + "-" + randomUUID());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
