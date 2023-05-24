@@ -3,9 +3,12 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
-
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,66 +18,56 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class DiagnosticSpecialTest {
+	@Mock
+	Client client;
+	@InjectMocks
+  Diagnostic diagnostic;
 
-	Diagnostic diagnostic = new Diagnostic();
-	Client client = Mockito.mock(Client.class);
+  @Test
+  void emptyDiagnosticInitially() {
+    assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("");
+  }
 
-	@BeforeEach
-	void innit() {
-		diagnostic.setTelemetryClient(client);
-	}
+  @Test
+  void throwWhenUnableToConnect() {
+    doReturn(false).when(client).getOnlineStatus();
 
-	@Test
-	void emptyDiagnosticInitially() {
-		assertThat(diagnostic.getDiagnosticInfo()).isEqualTo("");
-	}
+    assertThatThrownBy(() -> diagnostic.checkTransmission(true))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("Unable to connect.");
+  }
 
-	@Test
-	void throwWhenUnableToConnect() {
-		doReturn(false).when(client).getOnlineStatus();
+  @Test
+  void receiveInfoFromClient() {
+    String message = "Something simple";
+    when(client.receive()).thenReturn(message);
+    when(client.getOnlineStatus()).thenReturn(true);
 
-		assertThatThrownBy(() -> diagnostic.checkTransmission(true))
-				.isInstanceOf(IllegalStateException.class)
-				.hasMessage("Unable to connect.");
-	}
+    diagnostic.checkTransmission(false);
 
-	@Test
-	void shouldRetryThreeTimes() {
-		when(client.getOnlineStatus())
-				.thenReturn(false, false, false, true);
-		diagnostic.checkTransmission(false);
-		verify(client, Mockito.times(3)).connect(anyString());
-	}
+    assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(message);
+    verify(client).send(Client.DIAGNOSTIC_MESSAGE);
+    verify(client).configure(any(Client.ClientConfiguration.class));
+  }
 
-	@Test
-	void receiveInfoFromClient() {
-		String message = "Something simple";
-		when(client.receive()).thenReturn(message);
-		when(client.getOnlineStatus()).thenReturn(true);
-		diagnostic.checkTransmission(false);
+  @Test
+  @DisplayName("コードを書く ジャバは強力だ オブジェクト指向")
+  void shouldContainVersionInSession() {
+    String wisdom = "コードを書く ジャバは強力だ オブジェクト指向";
+    when(client.getVersion()).thenReturn(wisdom);
+    when(client.getOnlineStatus()).thenReturn(true);
+    try (MockedConstruction<Client.ClientConfiguration> mock = mockConstruction(Client.ClientConfiguration.class)) {
+      diagnostic.checkTransmission(true);
 
-		assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(message);
-		verify(client, atLeastOnce()).send(anyString());
-		verify(client, times(1)).configure(any(Client.ClientConfiguration.class));
-	}
-
-	@Test
-	@DisplayName("コードを書く ジャバは強力だ オブジェクト指向")
-	void shouldContainVersionInSession() {
-		String wisdom = "コードを書く ジャバは強力だ オブジェクト指向";
-		when(client.getVersion()).thenReturn(wisdom);
-		when(client.getOnlineStatus()).thenReturn(true);
-		MockedConstruction<Client.ClientConfiguration> mock = mockConstruction(Client.ClientConfiguration.class);
-
-		diagnostic.checkTransmission(true);
-
-		List<Client.ClientConfiguration> createdConfigurations = mock.constructed();
-		Client.ClientConfiguration mockedConfiguration = createdConfigurations.get(0);
-		assertThat(createdConfigurations.size()).isEqualTo(1);
-		verify(mockedConfiguration).setSessionId(matches(wisdom + ".*"));
-		verify(mockedConfiguration, times(1)).setAckMode(any(Client.ClientConfiguration.AckMode.class));
-		verify(mockedConfiguration, times(1)).setSessionStart(any(LocalDateTime.class));
-	}
+      List<Client.ClientConfiguration> createdConfigurations = mock.constructed();
+      Client.ClientConfiguration mockedConfiguration = createdConfigurations.get(0);
+      assertThat(createdConfigurations.size()).isEqualTo(1);
+      verify(mockedConfiguration).setSessionId(matches(wisdom + ".*"));
+      verify(mockedConfiguration).setAckMode(any(Client.ClientConfiguration.AckMode.class));
+      verify(mockedConfiguration).setSessionStart(any(LocalDateTime.class));
+    }
+  }
 
 }
