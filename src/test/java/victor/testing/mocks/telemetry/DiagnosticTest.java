@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,16 +32,19 @@ public class DiagnosticTest {
   @InjectMocks
   Diagnostic diagnostic; // setTelemetryClient is called by MockitoExtension
 
+  @BeforeEach
+  final void before() {
+    when(client.getOnlineStatus()).thenReturn(true);
+  }
   @Test
   void clientDisconnects() {
-    when(client.getOnlineStatus()).thenReturn(true);
     diagnostic.checkTransmission(true);
     verify(client).disconnect(true);
   }
 
   @Test
   void throwsIllegalStateWhenClientNotOnline() {
-    when(client.getOnlineStatus()).thenReturn(false);
+    when(client.getOnlineStatus()).thenReturn(false); // reprograms the return false not true
 
     assertThatThrownBy(() -> diagnostic.checkTransmission(false))
         .isExactlyInstanceOf(IllegalStateException.class)
@@ -50,7 +54,6 @@ public class DiagnosticTest {
   @Test
   void returnsDiagnosticMessage() {
     String info = "TEST";
-    when(client.getOnlineStatus()).thenReturn(true);
     when(client.receive()).thenReturn(info);
 
     diagnostic.checkTransmission(true);
@@ -60,7 +63,6 @@ public class DiagnosticTest {
 
   @Test
   void clientSendsDiagnosticMessage() {
-    when(client.getOnlineStatus()).thenReturn(true);
 
     diagnostic.checkTransmission(true);
 
@@ -73,7 +75,6 @@ public class DiagnosticTest {
   @Test
   void clientConfigOK() {
     String clientVersion = "V1.0";
-    when(client.getOnlineStatus()).thenReturn(true);
     when(client.getVersion()).thenReturn(clientVersion);
 
     diagnostic.checkTransmission(true);
@@ -86,6 +87,6 @@ public class DiagnosticTest {
     assertThat(config.getSessionId()).startsWith(clientVersion+"-");
 //    assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());
     assertThat(config.getSessionStart()).isEqualToIgnoringSeconds(now()); // truncate time to minute
-    assertThat(config.getSessionStart()).isCloseToUtcNow(byLessThan(1, SECONDS)); // truncate time to minute
+    assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // truncate time to minute
   }
 }
