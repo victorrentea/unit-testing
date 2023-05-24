@@ -22,4 +22,11 @@ public class TennisGameTest {
     String actual = tennisGame.getScore();
     assertThat(actual).isEqualTo("Fifteen-Love");
   }
+  @Test
+  void thirtyLove() {
+    tennisGame.addPoint(Player.ONE);
+    tennisGame.addPoint(Player.ONE);
+    String actual = tennisGame.getScore();
+    assertThat(actual).isEqualTo("Thirty-Love");
+  }
 }

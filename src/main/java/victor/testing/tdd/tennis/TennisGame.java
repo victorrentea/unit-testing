@@ -9,6 +9,11 @@ public class TennisGame {
   }
 
   public void addPoint(Player player) {
+    if (Math.random() < .5) {
+
     score = "Fifteen-Love";
+    } else {
+      score = "Thirty-Love";
+    }
   }
 }
