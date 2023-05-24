@@ -6,24 +6,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static victor.testing.mutation.TestData.validCustomer;
 
 
 public class CustomerValidatorTest {
    CustomerValidator validator = new CustomerValidator();
-   Customer customer;
+   Customer customer = validCustomer();
 
-   private static Customer validCustomer() { // factory method for test data
-      Customer customer = new Customer();
-      customer.setName("::name::");
-      customer.setEmail("::email::");
-      customer.setAddress(new Address());
-      customer.getAddress().setCity("::city::");
-      return customer;
+   public CustomerValidatorTest() {
+      System.out.println("NEW INSTANCE");
    }
-   @BeforeEach // run code before every @Test
-   final void fixture() {
-      customer = validCustomer();
-   }
+
+//   @BeforeEach // run code before every @Test
+//   final void fixture() {
+//      customer = validCustomer();
+//   }
 
    @Test
    void acceptsValidCustomer() {
