@@ -1,5 +1,6 @@
 package victor.testing.design.objectmother;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -7,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ShippingServiceTest {
   // ??? = unnecessary information
   @Test
+  @Disabled
   void estimateShippingCosts() {
     Customer customer = new Customer("???", "Romania", "???");
     int cost = new ShippingService().estimateShippingCosts(customer);

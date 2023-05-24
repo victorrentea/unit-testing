@@ -13,7 +13,7 @@ public class CustomerAnotherTest {
 
    @BeforeEach // run code before every @Test
    final void fixture() {
-      customer = TestData.validCustomer();
+      customer = TestData.aCustomer();
    }
 
    @Test
