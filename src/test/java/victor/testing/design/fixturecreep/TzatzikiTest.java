@@ -10,8 +10,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.*;
 
 
+//@MockitoSettings(strictness = Strictness.LENIENT) // DON"T DO THIS, you are back 10y ago with @Before of dozens of lines
 @ExtendWith(MockitoExtension.class)
-class FastFoodTest {
+class TzatzikiTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
    @InjectMocks
@@ -19,18 +20,11 @@ class FastFoodTest {
 
    @BeforeEach
    final void before() {
-   }
-
-   @Test
-   void shawarmaTest() { // + 7 more tests
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      // ... complex
-      fastFood.makeShawarma();
+      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
    void tzatzikiTest() { // + 5 more tests
-      when(dependency.isCucumberAllowed()).thenReturn(true);
       // ... complex
       fastFood.makeTzatziki();
    }

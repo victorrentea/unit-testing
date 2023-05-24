@@ -33,7 +33,7 @@ public class DiagnosticTest {
   @BeforeEach
   final void before() {
     when(client.getOnlineStatus()).thenReturn(true); // stubbing a method = mocking a method
-    when(client.getVersion()).thenReturn("unused-why the hack!?!");
+    lenient().when(client.getVersion()).thenReturn("unused-why the hack!?!");
   }
   @Test
   void throwsIllegalStateWhenClientNotOnline() {
