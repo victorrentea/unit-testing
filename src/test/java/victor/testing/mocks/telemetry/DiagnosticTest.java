@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,8 +24,26 @@ import static org.mockito.Mockito.when;
 
 
 public class DiagnosticTest {
-  // TODO test the DIagnostic.java class so that
-  //   every line I comment out of it, it fails a test
-  //  don't change the public signatures
-  // send the test class to victorrentea@gmail.com by tomorrow 15:30
+  Diagnostic diagnostic;
+
+  @BeforeEach
+  public void init() {
+    diagnostic = new Diagnostic();
+    diagnostic.setTelemetryClient(new Client());
+  }
+
+  @Test
+  public void checkDiagnosticInfo() {
+    assertThat(diagnostic.getDiagnosticInfo())
+        .isEqualTo("");
+  }
+
+  @Test
+  public void throwsForDisconnect() {
+    boolean force = true;
+    assertThatThrownBy(() -> diagnostic.checkTransmission(force))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("Performs some external remote call impossible/not desirable to call from automated tests.");
+  }
+
 }
