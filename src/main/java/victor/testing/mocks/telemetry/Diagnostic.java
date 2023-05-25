@@ -37,10 +37,10 @@ public class Diagnostic {
 		// "in production, client.getVersion() never returns null" - biz on 24 may 2023, 5 PM
 		config.setSessionId(client.getVersion().toUpperCase() + "-" + randomUUID());
 		config.setSessionStart(LocalDateTime.now());
+		config.setAckMode(AckMode.NORMAL);
 		if (client.getVersion().startsWith("flood-")) {
 			config.setAckMode(AckMode.FLOOD);
 		}
-		config.setAckMode(AckMode.NORMAL);
 		// + 7 ifs are here !!! => + 7 tests (or @ParameterizedTest🤞)
 		client.configure(config);
 	}

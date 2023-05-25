@@ -36,14 +36,12 @@ public class DiagnosticTest {
     lenient().when(client.getVersion()).thenReturn("unused-why the hack!?!");
   }
   @Test // jira...
-//  @TestOfABug
   void throwsIllegalStateWhenClientNotOnline_BUG_1312() {
     when(client.getOnlineStatus()).thenReturn(false); // reprograms the return false not true
 
     assertThatThrownBy(() -> diagnostic.checkTransmission(false))
         .isExactlyInstanceOf(IllegalStateException.class)
         .hasMessage("Unable to connect.");
-//    System.out.println();
   }
 
   @Test

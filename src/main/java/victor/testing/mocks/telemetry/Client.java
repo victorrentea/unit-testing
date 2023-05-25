@@ -1,5 +1,7 @@
 package victor.testing.mocks.telemetry;
 
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -7,6 +9,7 @@ public class Client {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
 
+	@ToString
     public static class ClientConfiguration {
 		enum AckMode {NORMAL, TIMEBOXED, FLOOD};
 		private String sessionId;
