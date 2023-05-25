@@ -36,7 +36,7 @@ public class Diagnostic {
 		diagnosticInfo = client.receive();
 	}
 	@VisibleForTesting //less encapsulated but protected by tools like Sonar
-	/*private */ ClientConfiguration configureClient(String version) {
+	/*private */ static ClientConfiguration configureClient(String version) {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());
