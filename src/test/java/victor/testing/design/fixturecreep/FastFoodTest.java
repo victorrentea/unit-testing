@@ -19,18 +19,19 @@ class FastFoodTest {
 
    @BeforeEach
    final void before() {
+      // bad practice to accumulate stuff shared by a subset (<70% of tests)
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
-   void shawarmaTest() { // + 7 more tests
-      when(dependency.isOnionAllowed()).thenReturn(true);
+   void shawarmaTest() { // + 7 more tests imagine
       // ... complex
       fastFood.makeShawarma();
    }
 
    @Test
    void tzatzikiTest() { // + 5 more tests
-      when(dependency.isCucumberAllowed()).thenReturn(true);
       // ... complex
       fastFood.makeTzatziki();
    }
