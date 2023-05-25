@@ -240,8 +240,8 @@
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
 
-        <!-- mock statics -->
         <dependency>
+        <!-- mock statics, finals... -->
             <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
             <scope>test</scope>
