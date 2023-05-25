@@ -18,10 +18,10 @@ public class God {
       }
       return "regular";
    }
-
    // 2] open this method for testing: make it public
    // - break the class' encapsulation; risk: someone else might call it
    // solution: package protected + @VisibleForTesting
+   // STILL:
    @VisibleForTesting
    void low(Order order) { // Package Protected
       // complexity requiring 5+ tests

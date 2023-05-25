@@ -15,22 +15,22 @@ import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 import static victor.testing.design.spy.Order.PaymentMethod.CASH_ON_DELIVERY;
 
 class GodTest {
-
+   private God god = new God();
    @Test
    void high() { // + 5 more tests like this
-      String actual = new God().high(new Order().setPaymentMethod(CARD));
+      String actual = god.high(new Order()
+          .setPaymentMethod(CARD)
+          .setCreationDate(now())// WHY>>!!> #LIFE IS NOT FAIR
+      );
 
       assertThat(actual).isEqualTo("bonus");
    }
-   @Test
-   void high2() { // + 5 more tests like this
-      String actual = new God().high(new Order().setPaymentMethod(CASH_ON_DELIVERY));
-
-      assertThat(actual).isEqualTo("regular");
-   }
-   
+   // is it fair to have tests on public method FAIL because of the private method?
+   // REMEMBER: I already fully tested the private one directly below
    @Test
    void testLowDirectly() {
-//     refletion.callprivateMethod("low")
+      assertThatThrownBy(()-> god.low(new Order().setCreationDate(now().minusMonths(2))))
+          .isInstanceOf(IllegalArgumentException.class);
+
    }
 }
