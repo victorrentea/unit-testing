@@ -1,6 +1,5 @@
 package victor.testing.design.spy;
 
-import com.google.common.annotations.VisibleForTesting;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -8,10 +7,16 @@ import java.time.LocalDate;
 import static java.time.LocalDate.now;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
-public class God {
+public class High {
+   private final Low low;
+
+   public High(Low low) {
+      this.low = low;
+   }
+
    // 1] you test through the public method
    public String high(Order order) {
-      low(order);
+      low.low(order);
       // complexity requiring 5+ tests
       if (order.getPaymentMethod() == CARD) {
          return "bonus";
@@ -22,13 +27,16 @@ public class God {
    // - break the class' encapsulation; risk: someone else might call it
    // solution: package protected + @VisibleForTesting
    // STILL:
-   @VisibleForTesting
-   void low(Order order) { // Package Protected
+//   @VisibleForTesting
+}
+class Low {
+   public void low(Order order) { // Package Protected
       // complexity requiring 5+ tests
       if (order.getCreationDate().isBefore(now().minusMonths(1))) {
          throw new IllegalArgumentException("Order too old");
       }
    }
+
 }
 
 @Data
