@@ -35,13 +35,15 @@ public class DiagnosticTest {
     when(client.getOnlineStatus()).thenReturn(true); // stubbing a method = mocking a method
     lenient().when(client.getVersion()).thenReturn("unused-why the hack!?!");
   }
-  @Test
-  void throwsIllegalStateWhenClientNotOnline() {
+  @Test // jira...
+//  @TestOfABug
+  void throwsIllegalStateWhenClientNotOnline_BUG_1312() {
     when(client.getOnlineStatus()).thenReturn(false); // reprograms the return false not true
 
     assertThatThrownBy(() -> diagnostic.checkTransmission(false))
         .isExactlyInstanceOf(IllegalStateException.class)
         .hasMessage("Unable to connect.");
+//    System.out.println();
   }
 
   @Test
@@ -73,8 +75,7 @@ public class DiagnosticTest {
 
   @Test
   void clientConfigOK() {
-    String clientVersion = "v";
-    when(client.getVersion()).thenReturn(clientVersion);
+    when(client.getVersion()).thenReturn("v");
 
     diagnostic.checkTransmission(true);
 
@@ -87,5 +88,18 @@ public class DiagnosticTest {
 //    assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());
     assertThat(config.getSessionStart()).isEqualToIgnoringSeconds(now()); // truncate time to minute
     assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // truncate time to minute
+  }
+  @Test
+  void clientConfigOKFlood() {
+    when(client.getVersion()).thenReturn("flood-adasf");
+
+    diagnostic.checkTransmission(true);
+
+//    verify(client).configure(configCaptor.capture());
+//    ClientConfiguration config = configCaptor.getValue();
+//    assertThat(config.getAckMode()).isEqualTo(AckMode.FLOOD);
+
+    //surgical assertion of ONE FIELD
+    verify(client).configure(argThat(config-> config.getAckMode() == AckMode.FLOOD));
   }
 }

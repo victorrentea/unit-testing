@@ -15,9 +15,9 @@ public class Diagnostic {
 	private Client client;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(Client client) {
-		this.client = client;
-	}
+//	public void setTelemetryClient(Client client) {
+//		this.client = client;
+//	}
 
 	public void checkTransmission(boolean force) {
 		client.disconnect(force);
@@ -37,6 +37,9 @@ public class Diagnostic {
 		// "in production, client.getVersion() never returns null" - biz on 24 may 2023, 5 PM
 		config.setSessionId(client.getVersion().toUpperCase() + "-" + randomUUID());
 		config.setSessionStart(LocalDateTime.now());
+		if (client.getVersion().startsWith("flood-")) {
+			config.setAckMode(AckMode.FLOOD);
+		}
 		config.setAckMode(AckMode.NORMAL);
 		// + 7 ifs are here !!! => + 7 tests (or @ParameterizedTest🤞)
 		client.configure(config);
