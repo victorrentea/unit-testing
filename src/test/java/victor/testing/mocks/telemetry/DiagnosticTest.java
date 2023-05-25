@@ -3,25 +3,22 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
-
-import java.time.InstantSource;
 
 import static java.time.LocalDateTime.*;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static victor.testing.mocks.telemetry.Diagnostic.ZONE_ID;
 
 
 //@ExtendWith(MockitoExtension.class)
 public class DiagnosticTest {
 //   public static final InstantSource CHRISTMAS = InstantSource.fixed(parse("2023-12-25").toInstant(ZOffZONE_ID));
    //   @Mock
-   UUIDFactory uuidFactory = mock(UUIDFactory.class);
+   UUIDFactoryInterface uuidFactory = new UUIDFactoryFake("uuid");
+         //mock(UUIDFactory.class);
    Client client = mock(Client.class); /*new Client() {
    @Override
    public boolean getOnlineStatus() {
@@ -72,7 +69,7 @@ public class DiagnosticTest {
    @Test
    public void configuresClient() throws Exception {
       when(client.getVersion()).thenReturn("ver");
-      when(uuidFactory.get()).thenReturn("uuid");
+//      when(uuidFactory.get()).thenReturn("uuid");
 
       target.checkTransmission(true);
 
