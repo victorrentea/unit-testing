@@ -29,18 +29,20 @@ public class DiagnosticTest {
       return true;
    }
 };*/// = mock(Client.class);
-//   @InjectMocks
-   Diagnostic target = new Diagnostic(
-       client, uuidFactory, null);
+   //   @InjectMocks
+   Diagnostic target = spy(new Diagnostic(
+       client, uuidFactory, null));
 
    @BeforeEach
    final void before() {
-      when(client.getVersion()).thenReturn("something");
-      when(client.getOnlineStatus()).thenReturn(true);
+       when(client.getOnlineStatus()).thenReturn(true);
+//      when(client.getVersion()).thenReturn("something");
+
    }
 
    @Test
    public void disconnects() {
+      doReturn(new ClientConfiguration()).when(target).configureClient(anyString());
       target.checkTransmission(true);
       verify(client).disconnect(true);
    }
