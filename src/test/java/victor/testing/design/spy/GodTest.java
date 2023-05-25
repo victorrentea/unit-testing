@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import wiremock.com.google.common.reflect.Reflection;
 
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,27 +12,25 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
+import static victor.testing.design.spy.Order.PaymentMethod.CASH_ON_DELIVERY;
 
-@ExtendWith(MockitoExtension.class)
 class GodTest {
-
-   @Spy
-   God god;
 
    @Test
    void high() { // + 5 more tests like this
-      doNothing().when(god).low(any());
-      Order order = new Order().setPaymentMethod(CARD);
+      String actual = new God().high(new Order().setPaymentMethod(CARD));
 
-      String result = god.high(order);
-
-      assertThat(result).isEqualTo("bonus");
+      assertThat(actual).isEqualTo("bonus");
    }
-
    @Test
-   void low() { // + 5 more tests like this
-      Order oldOrder = new Order().setCreationDate(now().minusMonths(2));
-      assertThatThrownBy(() -> god.low(oldOrder))
-          .hasMessageContaining("old");
+   void high2() { // + 5 more tests like this
+      String actual = new God().high(new Order().setPaymentMethod(CASH_ON_DELIVERY));
+
+      assertThat(actual).isEqualTo("regular");
+   }
+   
+   @Test
+   void testLowDirectly() {
+//     refletion.callprivateMethod("low")
    }
 }
