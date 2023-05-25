@@ -84,4 +84,5 @@ public class DiagnosticTest {
 //          .hasSize("ver-".length() + 36)
       ;
    }
+
 }
