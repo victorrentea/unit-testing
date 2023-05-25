@@ -21,7 +21,7 @@ Feature: Exporting records that match a given watchlist filter
   Scenario Outline: A Record matches the filter
     Given The following descriptions exist:
       #| Description1[Description2(Description3,..);..] |
-      | PEP[PA(PA1,PA2,PA3);PB(PB1,PB2);PC()] |
+      | PEP [PA(PA1,PA2,PA3);PB(PB1,PB2);PC()] |
       | RCA[]                                 |
       | SIP[SA();SB(SB1);SC(SC1,SC2)]         |
     And The following PEP Occupation categories exist: "Cat1,Cat2,Cat3"

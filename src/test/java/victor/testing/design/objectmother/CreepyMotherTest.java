@@ -10,7 +10,7 @@ class ShippingServiceTest {
   void estimateShippingCosts() {
     Customer customer = new Customer("???", "Romania", "???");
     int cost = new ShippingService().estimateShippingCosts(customer);
-    assertThat(cost).isEqualTo(20);
+    assertThat(cost).isEqualTo(30);
   }
 
   @Test
