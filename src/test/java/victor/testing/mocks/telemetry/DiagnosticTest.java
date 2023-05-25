@@ -35,6 +35,7 @@ public class DiagnosticTest {
 
    @BeforeEach
    final void before() {
+      when(client.getVersion()).thenReturn("something");
       when(client.getOnlineStatus()).thenReturn(true);
    }
 
