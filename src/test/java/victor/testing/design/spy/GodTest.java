@@ -16,7 +16,7 @@ import static victor.testing.design.spy.Order.PaymentMethod.CASH_ON_DELIVERY;
 
 @ExtendWith(MockitoExtension.class)
 class GodTest {
-   @Spy
+   @Spy //2] partial mock : never ; either break the tested class or pass more input/mocks in
    private God god;
    @Test
    void high() { // + 5 more tests like this
@@ -25,7 +25,7 @@ class GodTest {
 
       String actual = god.high(new Order()
           .setPaymentMethod(CARD)
-//          .setCreationDate(now())// WHY>>!!> #LIFE IS NOT FAIR
+//          .setCreationDate(now())//1] WHY>>!!> #LIFE IS NOT FAIR
       );
 
       assertThat(actual).isEqualTo("bonus");
