@@ -87,7 +87,7 @@ public class DiagnosticTest {
       assertThat(config.getSessionStart())
           .isCloseTo(now(), byLessThan(1, SECONDS));
       assertThat(config.getSessionId())
-          .isEqualTo("ver-25571fb9-8967-4934-b949-2a8842d80108")
+          .isEqualTo("VER-25571fb9-8967-4934-b949-2a8842d80108")
 //          .startsWith("ver-")
 //          .hasSize("ver-".length() + 36)
       ;

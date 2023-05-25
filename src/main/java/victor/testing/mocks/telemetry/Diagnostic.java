@@ -38,15 +38,12 @@ public class Diagnostic {
 	@VisibleForTesting //less encapsulated but protected by tools like Sonar
 	/*private */static ClientConfiguration configureClient(String version) {
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(version + "-" + UUID.randomUUID());
-		// imagine 7 ifs
-//		if (version.startsWith("flood")){
-//			config.setAckMode(AckMode.FLOOD);
-//		}
+		config.setSessionId(version.toUpperCase() + "-" + UUID.randomUUID());
 		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		return config;
 	}
+	// CR: the version concatenated to the sessionId should be uppercased
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
