@@ -7,8 +7,9 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 public class Precise {
-   public static void sendSprintFinishedEmail(Project project) {
-      System.out.println("Sending email to " + project.getPoEmail() +
+   // happier prod
+   public static void sendSprintFinishedEmail(String poEmail) {
+      System.out.println("Sending email to " + poEmail +
                          " with subject 'Sprint Finished' and some body");
    }
 }
