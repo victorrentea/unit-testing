@@ -14,13 +14,18 @@ import static org.mockito.Mockito.*;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 import static victor.testing.design.spy.Order.PaymentMethod.CASH_ON_DELIVERY;
 
+@ExtendWith(MockitoExtension.class)
 class GodTest {
-   private God god = new God();
+   @Spy
+   private God god;
    @Test
    void high() { // + 5 more tests like this
+      doNothing().when(god).low(any());
+//      doReturn("shit").when(god).low(any());
+
       String actual = god.high(new Order()
           .setPaymentMethod(CARD)
-          .setCreationDate(now())// WHY>>!!> #LIFE IS NOT FAIR
+//          .setCreationDate(now())// WHY>>!!> #LIFE IS NOT FAIR
       );
 
       assertThat(actual).isEqualTo("bonus");
