@@ -1,28 +1,36 @@
 Feature: Tennis Game
+# readable by non technical: easy to review by biz (non dev).
+#   if they don't, they are a waste
+# for component tests which are closer to the requirement
+#    covering biz relevant flows
+
+#  Scenario: UC3124
+#    Given The app is loaded
+#    And In DB there is 1 row
+#    When The user clicks the button 'search'
+#    Then The search results grid contains 1 row
+
+  Background:  #@BeforeEach
+    Given A new tennis game
 
   Scenario: Love-Love
-    Given A new tennis game
     Then Score is "Love-Love"
 
   Scenario: Fifteen-Love
-    Given A new tennis game
     When Player1 scores
     Then Score is "Fifteen-Love"
 
   Scenario: Fifteen-Fifteen
-    Given A new tennis game
     When Player1 scores
     And Player2 scores
     Then Score is "Fifteen-Fifteen"
 
   Scenario: Deuce
-    Given A new tennis game
     When Player1 scores 3 points
     And Player2 scores 3 points
     Then Score is "Deuce"
 
   Scenario Outline: All Data Table
-    Given A new tennis game
     When Player1 scores <player1Points> points
     And Player2 scores <player2Points> points
     Then Score is "<expectedScore>"

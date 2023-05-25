@@ -35,8 +35,10 @@ public class TennisGameParameterizedTest {
 //    }
   }
 
-  What's better than parameterized tests? what's better than writing tests alone?
-    ==> .feature files
+//  What's better than parameterized tests?
+//  what's better than writing tests alone?
+//  what's better than Code Review? Pair Programming.
+//    ==> .feature files
 
   private void addPoints(Player onplayer, int points) {
     for (int i = 0; i < points; i++) {
