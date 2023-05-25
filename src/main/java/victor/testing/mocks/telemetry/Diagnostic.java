@@ -21,12 +21,6 @@ public class Diagnostic {
 	public void checkTransmission(boolean force) {
 		client.disconnect(force);
 
-		int currentRetry = 1;
-		while (! client.getOnlineStatus() && currentRetry <= 3) {
-			client.connect(DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
-			currentRetry ++;
-		}
-
 		if (! client.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
