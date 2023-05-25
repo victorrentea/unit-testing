@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Precise {
    // happier prod
@@ -26,4 +27,8 @@ class Project {
    private LocalDate startDate;
    // 10 more fields
 
+
+//   public Project(String name) {
+//      this.name = Objects.requireNonNull(name);
+//   }
 }
