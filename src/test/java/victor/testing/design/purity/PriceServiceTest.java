@@ -51,8 +51,31 @@ class PriceServiceTest {
 
       verify(couponRepo).markUsedCoupons(eq(13L), couponCaptor.capture());
       assertThat(couponCaptor.getValue()).containsExactly(coupon1);
-
       assertThat(result)
+          .containsEntry(1L, 8d)
+          .containsEntry(2L, 5d);
+   }
+
+   // much simpler test - no mocks!
+   @Test
+   void computePrices_directlyThePURE_FUNCTION() {
+      Coupon coupon1 = new Coupon(HOME, 2, Set.of(13L));
+      Coupon coupon2 = new Coupon(ELECTRONICS, 4, Set.of(13L));
+      Customer customer = new Customer().setCoupons(List.of(coupon1, coupon2));
+//      when(customerRepo.findById(13L)).thenReturn(customer);
+      Product p1 = new Product().setId(1L).setCategory(HOME).setSupplier(new Supplier().setId(13L));
+      Product p2 = new Product().setId(2L).setCategory(KIDS).setSupplier(new Supplier().setId(13L));
+//      when(productRepo.findAllById(List.of(1L, 2L))).thenReturn(List.of(p1, p2));
+//      when(thirdPartyPrices.retrievePrice(2L)).thenReturn(5d);
+      Map<Long, Double> prices = Map.of(1L, 10d, 2L, 5d);
+
+      PriceService.ApplyCouponsResult result = priceService.applyCoupons(customer, List.of(p1,p2),
+          prices);
+
+//      verify(couponRepo).markUsedCoupons(eq(13L), couponCaptor.capture());
+//      assertThat(couponCaptor.getValue()).containsExactly(coupon1);
+      assertThat(result.usedCoupons()).containsExactly(coupon1);
+      assertThat(result.finalPrices())
           .containsEntry(1L, 8d)
           .containsEntry(2L, 5d);
    }
