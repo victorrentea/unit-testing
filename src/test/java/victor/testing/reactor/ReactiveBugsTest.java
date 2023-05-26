@@ -21,6 +21,7 @@ import static java.time.Duration.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static reactor.test.publisher.PublisherProbe.empty;
+import static reactor.test.publisher.PublisherProbe.of;
 
 @ExtendWith(MockitoExtension.class)
 class ReactiveBugsTest {
@@ -38,7 +39,8 @@ class ReactiveBugsTest {
 
   @Test
   void triangleOfDeath() {
-    when(dependencyMock.fetchA(ID)).thenReturn(Mono.just(A));
+    PublisherProbe<A> probeA = of(Mono.just(A));
+    when(dependencyMock.fetchA(ID)).thenReturn(probeA.mono());
     when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
     when(dependencyMock.fetchC(A, B)).thenReturn(Mono.just(C));
 
@@ -46,6 +48,7 @@ class ReactiveBugsTest {
     C actual = target.triangleOfDeath(ID).block();
 
     assertThat(actual).isEqualTo(C);
+    assertThat(probeA.subscribeCount()).isEqualTo(1);
   }
 
   @Test
@@ -63,6 +66,15 @@ class ReactiveBugsTest {
         .expectNext(C)
         .verifyComplete();
   }
+
+
+
+
+
+
+
+
+
 
   @Test
   void flatMapLoss() {
