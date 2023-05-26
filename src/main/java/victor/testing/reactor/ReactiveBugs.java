@@ -54,15 +54,9 @@ public class ReactiveBugs {
 //    Mono<A> monoA = dependency.fetchA(id).cache(); // fix#1, but a bit scary
 // fix#2: don't ever keep Mono/Flux in variables
 
-    Mono<A> monoA = dependency.fetchA(id);
-
-    Mono<C> monoC = monoA.flatMap(a -> {
-
-      Mono<B> monoB = dependency.fetchB(a);
-      return monoB.flatMap(b -> dependency.fetchC(a, b));
-    });
-
-    return monoC;
+    return dependency.fetchA(id)
+        .flatMap(a -> dependency.fetchB(a)
+            .flatMap(b -> dependency.fetchC(a, b)));
   }
 
   // ================================================================
