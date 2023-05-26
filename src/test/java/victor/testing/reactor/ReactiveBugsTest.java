@@ -53,9 +53,7 @@ class ReactiveBugsTest {
 
   @Test
   void triangleOfDeath_withExtension() {
-    // probes.subscribeOnce() is a custom extension that checks automatically that that mono is subscribed ONCE at the end of the method
-//        when(dependencyMock.fetchA(ID)).thenReturn(probes.subscribeOnce(Mono.just(A)));
-    when(dependencyMock.fetchA(ID)).thenReturn(Mono.just(A));// not enough !
+    when(dependencyMock.fetchA(ID)).thenReturn(probes.subscribeOnce(Mono.just(A)));
     when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
     when(dependencyMock.fetchC(A, B)).thenReturn(Mono.just(C));
 
