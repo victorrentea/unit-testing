@@ -1,5 +1,7 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // - in a Docker just for tests (@Testcontainers ftw)
 @SpringBootTest
 @ActiveProfiles("db-mem")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // NEVER PUSH THIS ON GIT. only use it if you develop extensions to spring
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // NEVER PUSH THIS ON GIT. only use it if you develop extensions to spring
 public class CreateProductTest {
   @MockBean // = creates a Mockito.mock for this type and replaces the real class in the context with this mock
   SafetyClient mockSafetyClient;
@@ -40,6 +42,13 @@ public class CreateProductTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
+
+  @AfterEach
+  @BeforeEach
+  public void cleanupDB() {
+    productRepo.deleteAll(); // in the FK order
+    supplierRepo.deleteAll();
+  }
   @Test
   public void createThrowsForUnsafeProduct() {
     when(mockSafetyClient.isSafe("bar")).thenReturn(false);
