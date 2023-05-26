@@ -22,6 +22,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 // the db spring/hibernate needs can be:
 // - in-mem H2
@@ -63,6 +64,21 @@ public class CreateProductTest {
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
      assertThat(product.getCreateDate()).isNotNull();
+  }
+
+  @Test
+  public void createOkMIssingCategory() {
+    // GIVEN
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
+
+    // WHEN
+    productService.createProduct(dto);
+
+    // THEN
+    Product product = productRepo.findAll().get(0);
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
