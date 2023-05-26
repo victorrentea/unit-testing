@@ -74,11 +74,11 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 public class ProductApiTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
-  private MockMvc mockMvc;
+  MockMvc mockMvc;
   @Autowired
-  private SupplierRepo supplierRepo;
+  SupplierRepo supplierRepo;
   @Autowired
-  private ProductRepo productRepo;
+  ProductRepo productRepo;
   @Container
   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
 
@@ -87,17 +87,17 @@ public class ProductApiTest {
     TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
   }
 
-  protected Long supplierId;
-  protected ProductDto product;
+  Long supplierId;
+  ProductDto product;
 
   @BeforeEach
-  public void persistReferenceData() {
+  void persistReferenceData() {
     supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
     product = new ProductDto("productName", "safebar", supplierId, HOME);
   }
 
   @Test
-  public void whiteBox() throws Exception {
+  void whiteBox() throws Exception {
     createProductRawJson("Tree");
 
     // (A) white box = direct DB access
@@ -110,7 +110,7 @@ public class ProductApiTest {
   }
 
   @Test
-  public void blackBoxFlow() throws Exception {
+  void blackBoxFlow() throws Exception {
     createProduct("Tree"); // call#1
 
     // (B) black box = only API calls; more decoupled
@@ -129,7 +129,7 @@ public class ProductApiTest {
 
   // ==================== test-DSL (helper/framework) ======================
 
-  private static ProductSearchCriteria criteria() {
+  static ProductSearchCriteria criteria() {
     return new ProductSearchCriteria();
   }
 
@@ -168,7 +168,7 @@ public class ProductApiTest {
   }
 
 
-  private List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
+  List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
     String responseJson = mockMvc.perform(post("/product/search")
             .content(jackson.writeValueAsString(criteria))
             .contentType(APPLICATION_JSON)
@@ -180,7 +180,7 @@ public class ProductApiTest {
     return List.of(jackson.readValue(responseJson, ProductSearchResult[].class)); // trick to unmarshall a collection<obj>
   }
 
-  private ProductDto getProduct(long productId) throws Exception {
+  ProductDto getProduct(long productId) throws Exception {
     String responseJson = mockMvc.perform(get("/product/{id}", productId))
         .andExpect(status().is2xxSuccessful())
         .andReturn().getResponse().getContentAsString();
@@ -200,7 +200,7 @@ public class ProductApiTest {
 
   @Test
   @WithMockUser // resets the credentials set at the class level
-  public void createProductByNonAdmin_NotAuthorized() throws Exception {
+  void createProductByNonAdmin_NotAuthorized() throws Exception {
     mockMvc.perform(post("/product/create")
             .content(jackson.writeValueAsString(product))
             .contentType(APPLICATION_JSON)
@@ -209,7 +209,7 @@ public class ProductApiTest {
   }
 
   @Test
-  public void cannotCreateProductWithNullName() throws Exception {
+  void cannotCreateProductWithNullName() throws Exception {
     product.setName(null); // triggers @Validated on controller method
 
     mockMvc.perform(post("/product/create")
