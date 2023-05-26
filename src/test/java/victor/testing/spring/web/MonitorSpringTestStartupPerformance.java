@@ -1,4 +1,4 @@
-package victor.testing.tools;
+package victor.testing.spring.web;
 
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestPlan;
@@ -15,10 +15,10 @@ import org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDele
 import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.MIN_VALUE;
 import static java.lang.System.currentTimeMillis;
 
-@Component
+@Component // place this in the packages of your app under your @SpringBootApplication to be picked up by Spring
 public class MonitorSpringTestStartupPerformance implements TestExecutionListener,
         org.springframework.test.context.TestExecutionListener, Ordered {
   private static final Logger log = LoggerFactory.getLogger(MonitorSpringTestStartupPerformance.class);
@@ -31,19 +31,20 @@ public class MonitorSpringTestStartupPerformance implements TestExecutionListene
 
   @Override
   public void beforeTestClass(TestContext testContext) throws Exception {
+    System.out.println();
     springStartTime = currentTimeMillis();
   }
 
   @Override
   public int getOrder() {
-    return MAX_VALUE;
+    return MIN_VALUE;
   }
 
   // JUnit stuff -----------------------------
 
-  @EventListener
-  public void endInit(ApplicationStartedEvent event) {
-    System.out.println("STARTED");
+  @EventListener(ApplicationStartedEvent.class)
+  public void endInit() {
+//    System.out.println("STARTED");
     if (springStartTime != null) {
       long t1 = currentTimeMillis();
       Long t0 = springStartTime;
@@ -58,7 +59,7 @@ public class MonitorSpringTestStartupPerformance implements TestExecutionListene
       Field f = DefaultCacheAwareContextLoaderDelegate.class.getDeclaredField("defaultContextCache");
       f.setAccessible(true);
       ContextCache cache = (ContextCache) f.get(null);
-      log.info("🏁🏁🏁 All tests took {} seconds, and used {} Spring contexts started in {} seconds",
+      log.info("🏁🏁🏁 All tests took {} seconds, and used {} Spring contexts that started in {} seconds",
               (currentTimeMillis() - junitStartTime) / 1000f,
               cache.getMissCount(),
               totalSpringStartupTime.get() / 1000f);
