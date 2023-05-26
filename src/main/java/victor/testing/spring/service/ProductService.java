@@ -2,6 +2,7 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
@@ -32,13 +33,11 @@ public class ProductService {
     if (productDto.getCategory() == null) {
       productDto.setCategory(ProductCategory.UNCATEGORIZED); // untested line 😱
     }
-    Product product = new Product();
-    product.setName(productDto.getName());
-    product.setBarcode(productDto.getBarcode());
-    product.setCategory(productDto.getCategory());
-    product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
+    Product product = productMapper.fromDto(productDto);
     productRepo.save(product);
   }
+
+
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
     return productRepo.search(criteria);

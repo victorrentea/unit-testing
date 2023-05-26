@@ -20,16 +20,18 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
-   @Mock
-   public SafetyClient mockSafetyClient;
-   @Mock
-   private ProductRepo productRepo;
-   @Mock
-   private SupplierRepo supplierRepo;
-   @InjectMocks
-   private ProductService productService;
+//   @Mock
+   public SafetyClient mockSafetyClient = mock(SafetyClient.class);
+//   @Mock
+   private ProductRepo productRepo = mock(ProductRepo.class);
+//   @Mock
+   private SupplierRepo supplierRepo = mock(SupplierRepo.class);
+//   @InjectMocks
+   private ProductService productService =
+    new ProductService(mockSafetyClient, productRepo, supplierRepo,
+      new ProductMapper(supplierRepo));
 
    @Test
    public void createThrowsForUnsafeProduct() {
