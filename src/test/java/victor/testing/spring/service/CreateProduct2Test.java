@@ -20,17 +20,7 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
-// the db spring/hibernate needs can be:
-// - in-mem H2
-// - in a Docker just for tests (@Testcontainers ftw)
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional // every @Test runs in its own transaction, ROLLEDBACK automatically after each test
-  // NOT working if 1) you use @Transactional(propagation=REQUIRES_NEW) in prod 2) you test multithreaded code 3) you do Transaction.start yoursef
-//@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) // for terrible PL/SQL database
-@Sql(scripts = "classpath:/sql/common-reference-data.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) // for terrible PL/SQL database
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // NEVER PUSH THIS ON GIT. only use it if you develop extensions to spring
-public class CreateProduct2Test {
+public class CreateProduct2Test extends BaseTest{
   @MockBean // = creates a Mockito.mock for this type and replaces the real class in the context with this mock
   SafetyClient mockSafetyClient;
   @Autowired

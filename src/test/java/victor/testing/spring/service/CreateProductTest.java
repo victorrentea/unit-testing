@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,8 +8,10 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
@@ -29,19 +32,12 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
-// the db spring/hibernate needs can be:
-// - in-mem H2
-// - in a Docker just for tests (@Testcontainers ftw)
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional // every @Test runs in its own transaction, ROLLEDBACK automatically after each test
-  // NOT working if 1) you use @Transactional(propagation=REQUIRES_NEW) in prod 2) you test multithreaded code 3) you do Transaction.start yoursef
-//@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) // for terrible PL/SQL database
-@Sql(scripts = "classpath:/sql/common-reference-data.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) // for terrible PL/SQL database
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // NEVER PUSH THIS ON GIT. only use it if you develop extensions to spring
-public class CreateProductTest {
-  @MockBean // = creates a Mockito.mock for this type and replaces the real class in the context with this mock
-  SafetyClient mockSafetyClient;
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
+@AutoConfigureWireMock(port = 9999) // http server that responds the way I teach it
+// it will automatically read http stubs from /src/test/resources/mappings/*.json
+public class CreateProductTest extends BaseTest{
+//  @MockBean // = creates a Mockito.mock for this type and replaces the real class in the context with this mock
+//  SafetyClient mockSafetyClient;
   @Autowired
   ProductRepo productRepo;
   @Autowired
@@ -57,7 +53,7 @@ public class CreateProductTest {
 //  }
   @Test
   public void createThrowsForUnsafeProduct() {
-    when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+//    when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -68,7 +64,7 @@ public class CreateProductTest {
   public void createOk() {
     // GIVEN
     Long supplierId = -1L;//supplierRepo.save(new Supplier()).getId();
-    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
     // WHEN
@@ -87,7 +83,7 @@ public class CreateProductTest {
   public void createOkMIssingCategory() {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+//    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
 
     // WHEN
