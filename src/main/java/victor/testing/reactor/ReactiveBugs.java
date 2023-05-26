@@ -106,10 +106,15 @@ public class ReactiveBugs {
    * Req: the main flow should not wait for the audit to complete = "fire-and-forget"
    */
   public Mono<A> fireAndForget(int id) {
-    return dependency.fetchA(id)
+     return dependency.fetchA(id)
 //        .doOnNext(a -> dependency.auditA(a).subscribe()) // bad practice: loses the cancellation signal and ReactorContext (ReactiveSecurityContextHolder, traceId, metadata)
-        .doOnNext(a -> dependency.auditA(a).block())// same but worse: you block NETTY's threads
 //        .doOnNext(a -> dependency.auditA(a).block())// same but worse: you block NETTY's threads
+//        .flatMap(a -> dependency.auditA(a).thenReturn(a)) // fix
+        .delayUntil(dependency::auditA) // using a special operator
         ;
   }
+  // 1) re-subscribing: test=PublisherProbe, fix=don't keep Mono in variables
+  // 2) losing data signals (zipWith) where 2nd mono returns empty: test=empty()+UnnecessaryStubbing/PublisherProbe
+  // 3) not subscribing to Publishers -> publisher Probe; fix=chain the Mono (delayUntil)
+  // .block() vs .as(StepVerifier::create)
 }

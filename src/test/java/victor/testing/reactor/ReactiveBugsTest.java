@@ -92,7 +92,7 @@ class ReactiveBugsTest {
     A a = new A(1);
     when(dependencyMock.fetchA(1)).thenReturn(Mono.just(a));
     when(dependencyMock.fetchB(a)).thenReturn(Mono.empty());
-    when(dependencyMock.saveA(a)).thenReturn(Mono.empty());
+    when(dependencyMock.saveA(a)).thenReturn(probes.subscribeOnce(Mono.empty()));
 
     target.flatMapLoss(1, "data").block();
   }
