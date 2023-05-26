@@ -1,7 +1,9 @@
 package victor.testing.spring.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
@@ -11,13 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
@@ -26,7 +24,6 @@ import victor.testing.spring.web.dto.ProductDto;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
 import victor.testing.tools.HumanReadableTestNames;
-import victor.testing.tools.TestcontainersUtils;
 
 import java.util.List;
 
@@ -64,12 +61,12 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @SpringBootTest
 
 @AutoConfigureWireMock(port = 0)
-@Testcontainers
-@Transactional
-@ActiveProfiles({"db-migration", "wiremock"})
+//@Testcontainers
+@Transactional // needs the test and prod to share the thread
+@ActiveProfiles({"db-mem", "wiremock"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc // use these!!
 // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 public class ProductApiTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
@@ -79,21 +76,14 @@ public class ProductApiTest {
   private SupplierRepo supplierRepo;
   @Autowired
   private ProductRepo productRepo;
-  @Container
-  static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
-
-  @DynamicPropertySource
-  public static void registerPgProperties(DynamicPropertyRegistry registry) {
-    TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
-  }
 
   protected Long supplierId;
-  protected ProductDto product;
+  protected ProductDto productDto;
 
   @BeforeEach
   public void persistReferenceData() {
     supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-    product = new ProductDto("productName", "safebar", supplierId, HOME);
+    productDto = new ProductDto("productName", "safebar", supplierId, HOME);
   }
 
   @Test
@@ -104,9 +94,9 @@ public class ProductApiTest {
     Product returnedProduct = productRepo.findAll().get(0);
     assertThat(returnedProduct.getName()).isEqualTo("Tree");
     assertThat(returnedProduct.getCreateDate()).isToday();
-    assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
-    assertThat(returnedProduct.getSupplier().getId()).isEqualTo(product.supplierId);
-    assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
+    assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
+    assertThat(returnedProduct.getSupplier().getId()).isEqualTo(productDto.supplierId);
+    assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
   }
 
   @Test
@@ -120,9 +110,9 @@ public class ProductApiTest {
     Long productId = results.get(0).getId();
 
     ProductDto returnedProduct = getProduct(productId); // call#3
-    assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
-    assertThat(returnedProduct.getSupplierId()).isEqualTo(product.supplierId);
-    assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
+    assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
+    assertThat(returnedProduct.getSupplierId()).isEqualTo(productDto.supplierId);
+    assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
     assertThat(returnedProduct.getCreateDate()).isToday();
   }
 
@@ -144,9 +134,10 @@ public class ProductApiTest {
                                       "    \"name\": \"%s\",\n" +
                                       "    \"supplierId\": \"%d\",\n" +
                                       "    \"category\" : \"%s\",\n" +
-                                      "    \"barcode\": \"safebar\"\n" +
+                                      "    \"barcode\": \"safebar\",\n" +
+                                      "    \"meetoo\": 1\n" +
                                       "}\n", name, supplierId, HOME);
-
+// instead of JSON in a string, use victor.testing.spring.web.OpenAPIFreezeTest
     mockMvc.perform(post("/product/create")
             .content(createJson)
             .contentType(APPLICATION_JSON))
@@ -154,19 +145,30 @@ public class ProductApiTest {
     ;
   }
 
-  // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze
+  // #2 ❤️ ❤️ ❤️ new DTO => JSON with jackson + Contract Test/Freeze
   void createProduct(String name) throws Exception {
-    product.setName(name)
+    productDto.setName(name)
         .setSupplierId(supplierId)
         .setCategory(HOME)
         .setBarcode("safebar");
 
-    mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(product))
-            .contentType(APPLICATION_JSON)) // can be set as default
+    performCreateProduct() // can be set as default
         .andExpect(status().is2xxSuccessful());
   }
 
+  @NotNull
+  private ResultActions performCreateProduct() throws Exception {
+    return mockMvc.perform(post("/product/create")
+        .content(jackson.writeValueAsString(productDto))
+        .contentType(APPLICATION_JSON));
+  }
+
+  @Test
+  void createFailsForProductWithNoName() throws Exception {
+    productDto.setName(null);
+
+    performCreateProduct().andExpect(status().is4xxClientError());
+  }
 
   private List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
     String responseJson = mockMvc.perform(post("/product/search")
@@ -192,17 +194,18 @@ public class ProductApiTest {
   @Test
   void createProduct_returnsHeader() throws Exception {
     mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(product))
+            .content(jackson.writeValueAsString(productDto))
             .contentType(APPLICATION_JSON))
         .andExpect(header().string("Location", "http://created-uri"))
         .andExpect(status().isCreated());
   }
 
+  // test authorization
   @Test
-  @WithMockUser // resets the credentials set at the class level
+  @WithMockUser(roles = "USER") // resets the credentials set at the class level
   public void createProductByNonAdmin_NotAuthorized() throws Exception {
     mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(product))
+            .content(jackson.writeValueAsString(productDto))
             .contentType(APPLICATION_JSON)
         )
         .andExpect(status().isForbidden());
@@ -210,10 +213,10 @@ public class ProductApiTest {
 
   @Test
   public void cannotCreateProductWithNullName() throws Exception {
-    product.setName(null); // triggers @Validated on controller method
+    productDto.setName(null); // triggers @Validated on controller method
 
     mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(product))
+            .content(jackson.writeValueAsString(productDto))
             .contentType(APPLICATION_JSON))
         .andExpect(status().is4xxClientError()); // see the @RestControllerAdvice
   }
