@@ -37,6 +37,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 @Transactional // every @Test runs in its own transaction, ROLLEDBACK automatically after each test
   // NOT working if 1) you use @Transactional(propagation=REQUIRES_NEW) in prod 2) you test multithreaded code 3) you do Transaction.start yoursef
 //@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) // for terrible PL/SQL database
+@Sql(scripts = "classpath:/sql/common-reference-data.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) // for terrible PL/SQL database
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // NEVER PUSH THIS ON GIT. only use it if you develop extensions to spring
 public class CreateProductTest {
   @MockBean // = creates a Mockito.mock for this type and replaces the real class in the context with this mock
@@ -66,7 +67,7 @@ public class CreateProductTest {
   @Test
   public void createOk() {
     // GIVEN
-    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    Long supplierId = -1L;//supplierRepo.save(new Supplier()).getId();
     when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
