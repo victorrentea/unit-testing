@@ -21,6 +21,8 @@ public class Product {
 
     private String name;
 
+//    private int pay;
+
     private ProductCategory category;
 
     private String barcode;

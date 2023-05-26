@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
@@ -13,14 +14,18 @@ import victor.testing.spring.web.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional
-public class ProductRepoTest {
+public class ProductRepoTest extends BaseDatabaseTest{
   @Autowired
   ProductRepo repo;
   @Autowired
   SupplierRepo supplierRepo;
+
+  // Extract DDL from existing API db.
+  // check that hibernate @Entity matches those tables. how?
+  // 1) paste DDL into /src/test/resources/schema.sql-> spring pick it up an tries to run it on H2 -> FAIL 'varchar2' wtf ?!
+    //   a) h2 compatibility mode to understand ora syntax jdbc:h2:~/test;MODE=Oracle;DEFAULT_NULL_ORDERING=HIGH
+  // 2) start an oracle into o docker in tests on Jenkins!!
+
 
   long supplierId;
 
