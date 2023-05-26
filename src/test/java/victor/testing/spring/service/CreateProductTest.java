@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -33,7 +34,8 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // - in a Docker just for tests (@Testcontainers ftw)
 @SpringBootTest
 @ActiveProfiles("db-mem")
-@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) // for terrible PL/SQL database
+@Transactional // every @Test runs in its own transaction, ROLLEDBACK automatically after each test
+//@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) // for terrible PL/SQL database
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // NEVER PUSH THIS ON GIT. only use it if you develop extensions to spring
 public class CreateProductTest {
   @MockBean // = creates a Mockito.mock for this type and replaces the real class in the context with this mock
