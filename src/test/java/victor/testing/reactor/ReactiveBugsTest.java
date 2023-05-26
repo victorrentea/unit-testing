@@ -23,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static reactor.test.publisher.PublisherProbe.empty;
 import static reactor.test.publisher.PublisherProbe.of;
+import static victor.testing.reactor.ReactiveBugs.*;
 
 @ExtendWith(MockitoExtension.class)
 class ReactiveBugsTest {
@@ -108,6 +109,23 @@ class ReactiveBugsTest {
 //    }
 
   // ======================================================
+
+  @Test
+  void faf() {
+    A a = new A(1);
+    when(dependencyMock.fetchA(1)).thenReturn(Mono.just(a));
+
+    target.fireAndForget(1).block();
+
+    verify(dependencyMock).auditA(a);
+  }
+
+
+
+
+
+
+
   @Test
   void fire() {
     when(dependencyMock.fetchA(ID)).thenReturn(probes.subscribeOnce(Mono.just(A)));
