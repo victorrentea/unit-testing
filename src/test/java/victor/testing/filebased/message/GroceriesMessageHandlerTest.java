@@ -38,10 +38,10 @@ class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
 
   public static List<FileTestCase> testData() throws IOException {
     Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.json");
-    return scanForFileTestCases("classpath:/test-cases/message/message*.in.json", inToOutFileName);
+    return scanForFileTestCases("classpath:/test-cases/message/*.in.json", inToOutFileName);
   }
 
-  @ParameterizedTest
+  @ParameterizedTest(name = "{0}")
   @MethodSource("testData")
   void handleRequest(FileTestCase testCase) throws IOException {
     Input input = jackson.readValue(testCase.getInputFile(), Input.class);

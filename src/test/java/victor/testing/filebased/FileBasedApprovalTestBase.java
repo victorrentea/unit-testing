@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import lombok.SneakyThrows;
 import lombok.Value;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -35,20 +36,23 @@ public class FileBasedApprovalTestBase {
       String inputFileName = inResource.getFilename();
       String outFileName = outputFileNameProvider.apply(inputFileName);
       Resource outResource = inResource.createRelative(outFileName);
+      String commonFileNamePrefix = StringUtils.getCommonPrefix(inputFileName, outFileName);
+      String testDisplayName = commonFileNamePrefix.replaceAll("-+"," ");
       if (!outResource.exists()) {
          throw new IllegalArgumentException("No matching file found for " + inResource.getFilename() + ". Expected out filename = " + outResource.getFile().getAbsolutePath());
       }
-      return new FileTestCase(inResource.getFile(), outResource.getFile());
+      return new FileTestCase(testDisplayName, inResource.getFile(), outResource.getFile());
    }
 
    @Value
    protected static class FileTestCase {
+      String displayName;
       File inputFile;
       File expectedOutputFile;
 
       @Override
       public String toString() {
-         return  inputFile.getName() + " --> " + expectedOutputFile.getName();
+         return  displayName + " ("+ inputFile.getName() + " -> " + expectedOutputFile.getName() + ")";
       }
    }
 }
