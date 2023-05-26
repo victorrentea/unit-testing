@@ -32,8 +32,9 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
-@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
-@AutoConfigureWireMock(port = 9999) // http server that responds the way I teach it
+//@ActiveProfiles("wiremock")
+//@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
+@AutoConfigureWireMock(port = 0) // http server that responds the way I teach it
 // it will automatically read http stubs from /src/test/resources/mappings/*.json
 public class CreateProductTest extends BaseTest{
 //  @MockBean // = creates a Mockito.mock for this type and replaces the real class in the context with this mock
