@@ -28,10 +28,7 @@ public class PriceService {
     Customer customer = customerRepo.findById(customerId);
     List<Product> products = productRepo.findAllById(productIds); // SELECT * FROM PRODUCT WHERE ID IN(?,?,?...)
     Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);
-
-    // apply coupons
-    ApplyCouponsResult result = applyCoupons(customer, products, resolvedPrices);
-
+    ApplyCouponsResult result = applyCoupons(products, resolvedPrices, customer.getCoupons());
     couponRepo.markUsedCoupons(customerId, result.usedCoupons());
     return result.finalPrices();
   }
@@ -39,13 +36,15 @@ public class PriceService {
   record ApplyCouponsResult(List<Coupon> usedCoupons, Map<Long, Double> finalPrices) {
   }
 
-  @VisibleForTesting
-  static ApplyCouponsResult applyCoupons(Customer customer, List<Product> products, Map<Long, Double> resolvedPrices) {
+  // subcutaneous tests
+  // a static function that does not change state of its params (and not uses time/random) IS PURE
+  @VisibleForTesting // PURE FUNCTION HOSTING most of my complexity : opened if for testing
+  static ApplyCouponsResult applyCoupons(List<Product> products, Map<Long, Double> resolvedPrices, List<Coupon> coupons) {
     List<Coupon> usedCoupons = new ArrayList<>();
     Map<Long, Double> finalPrices = new HashMap<>();
     for (Product product : products) {
       Double price = resolvedPrices.get(product.getId());
-      for (Coupon coupon : customer.getCoupons()) {      // 6 tests
+      for (Coupon coupon : coupons) {      // 6 tests
         if (coupon.autoApply()
             && coupon.isApplicableFor(product, price)
             && !usedCoupons.contains(coupon)) {

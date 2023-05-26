@@ -62,12 +62,12 @@ class PriceServiceTest {
    void computePrices_directlyThePURE_FUNCTION() {
       Coupon coupon1 = new Coupon(HOME, 2, Set.of(13L));
       Coupon coupon2 = new Coupon(ELECTRONICS, 4, Set.of(13L));
-      Customer customer = new Customer().setCoupons(List.of(coupon1, coupon2));
-      Product p1 = new Product().setId(1L).setCategory(HOME).setSupplier(new Supplier().setId(13L));
-      Product p2 = new Product().setId(2L).setCategory(KIDS).setSupplier(new Supplier().setId(13L));
+      List<Product> products = List.of(
+          new Product().setId(1L).setCategory(HOME).setSupplier(new Supplier().setId(13L)),
+          new Product().setId(2L).setCategory(KIDS).setSupplier(new Supplier().setId(13L)));
       Map<Long, Double> prices = Map.of(1L, 10d, 2L, 5d);
 
-      ApplyCouponsResult result = PriceService.applyCoupons(customer, List.of(p1,p2), prices);
+      ApplyCouponsResult result = PriceService.applyCoupons(products, prices, List.of(coupon1, coupon2));
 
       assertThat(result.usedCoupons()).containsExactly(coupon1);
       assertThat(result.finalPrices())
