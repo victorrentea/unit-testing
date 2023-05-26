@@ -14,7 +14,7 @@
     "/product/search": {
       "post": {
         "tags": [
-          "product-controller"
+          "product-api"
         ],
         "operationId": "search",
         "requestBody": {
@@ -30,6 +30,16 @@
         "responses": {
           "500": {
             "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -57,7 +67,7 @@
     "/product/create": {
       "post": {
         "tags": [
-          "product-controller"
+          "product-api"
         ],
         "operationId": "create",
         "requestBody": {
@@ -81,8 +91,69 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "tags": [
+          "product-api"
+        ],
+        "operationId": "get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDto"
+                }
+              }
+            }
           }
         }
       }
@@ -125,8 +196,15 @@
         }
       },
       "ProductDto": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
           "name": {
             "type": "string"
           },
@@ -146,6 +224,10 @@
               "HOME",
               "UNCATEGORIZED"
             ]
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date"
           }
         }
       }

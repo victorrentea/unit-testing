@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import victor.testing.spring.domain.Product;
+import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.service.ProductService;
 import victor.testing.spring.web.dto.ProductSearchCriteria;
 import victor.testing.spring.web.dto.ProductSearchResult;
@@ -37,5 +39,12 @@ public class ProductApi {
    public ProductDto get(@PathVariable long id) {
       return service.getProduct(id);
    }
+
+
+//   private final ProductRepo repo;
+//   @GetMapping("product-DONTEVER/{id}")
+//   public Product getTerrible(@PathVariable long id) {
+//      return repo.findById(id).get();
+//   }
 
 }
