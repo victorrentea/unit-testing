@@ -13,10 +13,12 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.web.dto.ProductDto;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static java.time.LocalDate.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
@@ -29,13 +31,12 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 public class CreateProductTest {
   @MockBean // = creates a Mockito.mock for this type and replaces the real class in the context with this mock
   SafetyClient mockSafetyClient;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
-  @MockBean
+  @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
-
   @Test
   public void createThrowsForUnsafeProduct() {
     when(mockSafetyClient.isSafe("bar")).thenReturn(false);
@@ -48,24 +49,20 @@ public class CreateProductTest {
   @Test
   public void createOk() {
     // GIVEN
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
 
     // THEN
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture());
-    Product product = productCaptor.getValue();
-
+    Product product = productRepo.findAll().get(0);
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("safebar");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
-    // assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS)); // uses Spring Magic
+     assertThat(product.getCreateDate()).isNotNull();
   }
 
 }
