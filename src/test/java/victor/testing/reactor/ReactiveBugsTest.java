@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 import reactor.test.StepVerifier;
 import reactor.test.publisher.PublisherProbe;
 import victor.testing.reactor.ReactiveBugs.A;
@@ -114,10 +115,17 @@ class ReactiveBugsTest {
   void faf() {
     A a = new A(1);
     when(dependencyMock.fetchA(1)).thenReturn(Mono.just(a));
+    PublisherProbe<Void> auditProbe = empty();
+    when(dependencyMock.auditA(a)).thenReturn(auditProbe.mono());
 
-    target.fireAndForget(1).block();
+    target.fireAndForget(1)
+        .subscribeOn(Schedulers.single())
+        .block(); // block hound finds places where you bloc the
+    // thread explicitly(.block())
+    // or implicitle (network/file in a lib)
 
-    verify(dependencyMock).auditA(a);
+//    verify(dependencyMock).auditA(a);
+    auditProbe.assertWasSubscribed();
   }
 
 

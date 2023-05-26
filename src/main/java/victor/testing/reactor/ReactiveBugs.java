@@ -107,7 +107,9 @@ public class ReactiveBugs {
    */
   public Mono<A> fireAndForget(int id) {
     return dependency.fetchA(id)
-        .doOnNext(a -> dependency.auditA(a))
+//        .doOnNext(a -> dependency.auditA(a).subscribe()) // bad practice: loses the cancellation signal and ReactorContext (ReactiveSecurityContextHolder, traceId, metadata)
+        .doOnNext(a -> dependency.auditA(a).block())// same but worse: you block NETTY's threads
+//        .doOnNext(a -> dependency.auditA(a).block())// same but worse: you block NETTY's threads
         ;
   }
 }
