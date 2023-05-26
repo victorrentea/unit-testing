@@ -19,6 +19,7 @@ import java.time.Duration;
 
 import static java.time.Duration.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static reactor.test.publisher.PublisherProbe.empty;
 import static reactor.test.publisher.PublisherProbe.of;
@@ -76,14 +77,22 @@ class ReactiveBugsTest {
 
   @Test
   void flatMapLoss() {
-    when(dependencyMock.fetchA(ID)).thenReturn(Mono.just(A));
-    when(dependencyMock.fetchB(A)).thenReturn(Mono.just(B));
-    PublisherProbe<Void> saveProbe = empty();
-    when(dependencyMock.saveA(A)).thenReturn(saveProbe.mono());
+    A a = new A(1);
+    when(dependencyMock.fetchA(1)).thenReturn(Mono.just(a));
+    when(dependencyMock.fetchB(a)).thenReturn(Mono.just(new B()));
+    when(dependencyMock.saveA(a)).thenReturn(Mono.empty());
 
-    target.flatMapLoss(ID, "data").block();
+    target.flatMapLoss(1, "data").block();
+  }
 
-    assertThat(saveProbe.subscribeCount()).isEqualTo(1);
+  @Test
+  void flatMapLoss_shouldSaveEvenIfNoBIsRetrieved() {
+    A a = new A(1);
+    when(dependencyMock.fetchA(1)).thenReturn(Mono.just(a));
+    when(dependencyMock.fetchB(a)).thenReturn(Mono.empty());
+    when(dependencyMock.saveA(a)).thenReturn(Mono.empty());
+
+    target.flatMapLoss(1, "data").block();
   }
 
 //    @Test

@@ -68,9 +68,10 @@ public class ReactiveBugs {
    */
   public Mono<Void> flatMapLoss(int id, String data) {
     return dependency.fetchA(id)
-        .zipWhen(a -> dependency.fetchB(a)) // never emits any value if fetchB returns empty()
+        .zipWhen(a -> dependency.fetchB(a)) // never emits any value if fetchB returns empty()//<-- when Mono<B> was returned empty() -> there is no data signal emited at this position
         .map(TupleUtils.function((a, b) -> logic(a, b, data)))
-        .flatMap(a -> dependency.saveA(a));
+        .flatMap(a -> dependency.saveA(a))
+        ;
   }
 
   @VisibleForTesting
