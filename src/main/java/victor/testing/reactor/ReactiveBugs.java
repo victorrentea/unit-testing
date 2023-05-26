@@ -6,6 +6,8 @@ import org.testcontainers.shaded.com.google.common.annotations.VisibleForTesting
 import reactor.core.publisher.Mono;
 import reactor.function.TupleUtils;
 
+import java.util.Optional;
+
 public class ReactiveBugs {
   private static final Logger log = LoggerFactory.getLogger(ReactiveBugs.class);
 
@@ -68,15 +70,19 @@ public class ReactiveBugs {
    */
   public Mono<Void> flatMapLoss(int id, String data) {
     return dependency.fetchA(id)
-        .zipWhen(a -> dependency.fetchB(a)) // never emits any value if fetchB returns empty()//<-- when Mono<B> was returned empty() -> there is no data signal emited at this position
+        .zipWhen(a -> dependency.fetchB(a)
+            .map(Optional::of)
+            .defaultIfEmpty(Optional.empty())) // never emits any value if fetchB returns empty()//<-- when Mono<B> was returned empty() -> there is no data signal emited at this position
         .map(TupleUtils.function((a, b) -> logic(a, b, data)))
         .flatMap(a -> dependency.saveA(a))
         ;
   }
 
-  @VisibleForTesting
-  A logic(A a, B b, String data) {
-    if (b != null) {
+  // my recommendation is to isolate any complexity to test from the REACTIVE HELL.
+  // in deep complexity no Publisher(MonoFlux) args or returns
+  @VisibleForTesting // to save tests of Reactive Hell
+  A logic(A a, Optional<B> b, String data) {
+    if (b.isPresent()) {
       // stuff with B
       System.out.println("Stuff with " + b);
     }
