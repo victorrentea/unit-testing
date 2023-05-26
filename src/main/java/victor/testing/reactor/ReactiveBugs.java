@@ -51,10 +51,17 @@ public class ReactiveBugs {
    */
   public Mono<C> triangleOfDeath(int id) {
     // TODO write the test; did we miss anything?
+//    Mono<A> monoA = dependency.fetchA(id).cache(); // fix#1, but a bit scary
+// fix#2: don't ever keep Mono/Flux in variables
+
     Mono<A> monoA = dependency.fetchA(id);
-    Mono<B> monoB = monoA.flatMap(a -> dependency.fetchB(a));
-    Mono<C> monoC = monoA.zipWith(monoB)
-        .flatMap(t2 -> dependency.fetchC(t2.getT1(), t2.getT2()));
+
+    Mono<C> monoC = monoA.flatMap(a -> {
+
+      Mono<B> monoB = dependency.fetchB(a);
+      return monoB.flatMap(b -> dependency.fetchC(a, b));
+    });
+
     return monoC;
   }
 
