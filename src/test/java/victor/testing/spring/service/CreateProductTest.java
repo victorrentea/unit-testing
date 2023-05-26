@@ -5,6 +5,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -29,6 +30,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // - in a Docker just for tests (@Testcontainers ftw)
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // NEVER PUSH THIS ON GIT. only use it if you develop extensions to spring
 public class CreateProductTest {
   @MockBean // = creates a Mockito.mock for this type and replaces the real class in the context with this mock
   SafetyClient mockSafetyClient;
