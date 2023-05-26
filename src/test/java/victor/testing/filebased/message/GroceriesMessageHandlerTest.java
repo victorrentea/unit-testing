@@ -38,8 +38,10 @@ class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
 
   public static List<FileTestCase> testData() throws IOException {
     Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.json");
-    return scanForFileTestCases("classpath:/test-cases/message/message*.in.json", inToOutFileName);
+    return scanForFileTestCases("classpath:/test-cases/message/*.in.json", inToOutFileName);
   }
+  // good: well defined input data (vs multiple @Test)
+  // bad: many large files. => what if the input/output data structure changes => have to change them all
 
   @ParameterizedTest
   @MethodSource("testData")
@@ -48,8 +50,10 @@ class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
     Output expectedOutput = jackson.readValue(testCase.getExpectedOutputFile(), Output.class);
     groceryRepo.saveAll(input.groceriesInDb);
 
+    // when
     target.handleRequest(input.request());
 
+    // soft assertions
     try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
       // all failures in the soft assertions bellow will be reported
 

@@ -1,0 +1,15 @@
+{
+  "request": {
+    "id": "a",
+    "groceries": [{
+      "grocery": "apple",
+      "count": 3
+    }]
+  },
+  "groceriesInDb": [
+    {
+      "name": "apple",
+      "price": 2
+    }
+  ]
+}
