@@ -88,7 +88,7 @@ public class ProductApiTest {
 
   @Test
   public void whiteBox() throws Exception {
-    createProductRawJson("Tree");
+    createProduct("Tree");
 
     // (A) white box = direct DB access
     Product returnedProduct = productRepo.findAll().get(0);
@@ -99,8 +99,8 @@ public class ProductApiTest {
     assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
   }
 
-  @Test
-  public void blackBoxFlow() throws Exception {
+  @Test // only targets the REST API < the most robust tests, in practice very hard to write
+  public void blackBoxFlow_userJourneyTest() throws Exception {
     createProduct("Tree"); // call#1
 
     // (B) black box = only API calls; more decoupled
@@ -110,6 +110,7 @@ public class ProductApiTest {
     Long productId = results.get(0).getId();
 
     ProductDto returnedProduct = getProduct(productId); // call#3
+//    assertThat(returnedProduct).ignorifFIelds("$.microcontroller.pins.[].id")
     assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
     assertThat(returnedProduct.getSupplierId()).isEqualTo(productDto.supplierId);
     assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
