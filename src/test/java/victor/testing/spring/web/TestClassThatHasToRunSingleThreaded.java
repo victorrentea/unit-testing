@@ -6,7 +6,7 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Execution(ExecutionMode.SAME_THREAD)
+@Execution(ExecutionMode.SAME_THREAD) // force this class in single thread when using parallel tests
 public class TestClassThatHasToRunSingleThreaded {
   static int x; // shared mutable state
 
