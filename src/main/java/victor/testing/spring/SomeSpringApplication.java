@@ -15,11 +15,13 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.format.DateTimeFormatter;
 
 @Slf4j
+@EnableScheduling
 @EnableCaching
 @SpringBootApplication
 public class SomeSpringApplication {

@@ -9,9 +9,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.product.domain.Product;
+import victor.testing.spring.product.domain.Supplier;
+import victor.testing.spring.product.repo.ProductRepo;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static victor.testing.spring.domain.ProductCategory.*;
+import static victor.testing.spring.product.domain.ProductCategory.*;
 
 @ExtendWith(MockitoExtension.class)
 class PriceServiceTest {

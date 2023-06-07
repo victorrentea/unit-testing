@@ -6,7 +6,7 @@ import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
 import victor.testing.mutation.CustomerValidator;
 import victor.testing.design.purity.CustomerRepo;
-import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.product.domain.ProductCategory;
 
 import java.util.List;
 import java.util.Set;
