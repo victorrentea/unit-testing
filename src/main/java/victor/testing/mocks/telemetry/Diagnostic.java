@@ -1,10 +1,11 @@
 package victor.testing.mocks.telemetry;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
@@ -32,11 +33,20 @@ public class Diagnostic {
 		client.configure(config);
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
-		diagnosticInfo = client.receive();
+		RequestObj requestObj = new RequestObj();
+		requestObj.a = 117;
+		requestObj.b = 246235;
+		requestObj.gCritical = "x";
+		diagnosticInfo = client.receive(null);
 	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
-
+//	private final Clock clock;
+//	private final RandomUUIDGenerator uuidGenerator;
 }
+
+
+// @Bean Clock clock() {}
+// @Bean RandomUUIDGenerator uuidGenerator() {}

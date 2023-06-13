@@ -86,7 +86,7 @@ public final class Client {
 		// here should go the real Send operation (not needed for this exercise)
 	}
 
-	public String receive() {
+	public String receive(RequestObj x) {
 		String message;
 
 		if (diagnosticMessageResult == null || "".equals(diagnosticMessageResult)) {

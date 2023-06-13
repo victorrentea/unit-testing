@@ -1,11 +1,9 @@
 package victor.testing.mocks.telemetry;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,7 +57,7 @@ public class DiagnosticTest {
   @Test
   void receives() {
     when(client.getOnlineStatus()).thenReturn(true);
-    when(client.receive()).thenReturn(DIAGNOSTIC_INFO); // stubbing a method ("mocking")
+    when(client.receive(argThat(r->r.gCritical.equals("x")))).thenReturn(DIAGNOSTIC_INFO); // stubbing a method ("mocking")
 
     diagnostic.checkTransmission(true);
 
