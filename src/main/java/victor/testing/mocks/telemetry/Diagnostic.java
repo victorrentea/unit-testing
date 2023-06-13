@@ -37,16 +37,16 @@ public class Diagnostic {
 		requestObj.a = 117;
 		requestObj.b = 246235;
 		requestObj.gCritical = "x";
-		diagnosticInfo = client.receive(null);
+		diagnosticInfo = client.receive(requestObj);
 	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
-//	private final Clock clock;
-//	private final RandomUUIDGenerator uuidGenerator;
 }
 
 
+//	private final Clock clock;
+//	private final RandomUUIDGenerator uuidGenerator;
 // @Bean Clock clock() {}
 // @Bean RandomUUIDGenerator uuidGenerator() {}

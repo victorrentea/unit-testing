@@ -44,6 +44,7 @@ public class DiagnosticTest {
   void throwsWhenNotOnline() {
     // reprogram the mock overrides the prev stubbing
     when(client.getOnlineStatus()).thenReturn(false); // keep even though it's the default
+//    doReturn(false).when(client).getOnlineStatus();
 
     assertThatThrownBy(()->diagnostic.checkTransmission(true))
         .isInstanceOf(IllegalStateException.class)
@@ -61,7 +62,9 @@ public class DiagnosticTest {
 
   @Test
   void receives() {
-    when(client.receive(argThat(r->r.gCritical.equals("x")))).thenReturn(DIAGNOSTIC_INFO); // stubbing a method ("mocking")
+//    when(client.receive(argThat(r->r.gCritical.equals("x")))).thenReturn(DIAGNOSTIC_INFO); // stubbing a method ("mocking")
+//    doReturn(DIAGNOSTIC_INFO).when(client).receive(any()); // REQUIRED for @Spy/@SpyBean - code smells
+    doReturn(1).when(client).receive(any()); // not type safe
 
     diagnostic.checkTransmission(true);
 
