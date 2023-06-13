@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,9 +27,13 @@ public class DiagnosticTest {
   @InjectMocks
   Diagnostic diagnostic;
 
+  @BeforeEach
+  final void before() {
+    when(client.getOnlineStatus()).thenReturn(true);
+  }
+
   @Test
   void disconnects() {
-    when(client.getOnlineStatus()).thenReturn(true);
 
     diagnostic.checkTransmission(true);
 
@@ -37,6 +42,7 @@ public class DiagnosticTest {
 
   @Test
   void throwsWhenNotOnline() {
+    // reprogram the mock overrides the prev stubbing
     when(client.getOnlineStatus()).thenReturn(false); // keep even though it's the default
 
     assertThatThrownBy(()->diagnostic.checkTransmission(true))
@@ -46,7 +52,6 @@ public class DiagnosticTest {
 
   @Test
   void sendsDiagnosticMessage() {
-    when(client.getOnlineStatus()).thenReturn(true);
 
     diagnostic.checkTransmission(true);
 
@@ -56,7 +61,6 @@ public class DiagnosticTest {
 
   @Test
   void receives() {
-    when(client.getOnlineStatus()).thenReturn(true);
     when(client.receive(argThat(r->r.gCritical.equals("x")))).thenReturn(DIAGNOSTIC_INFO); // stubbing a method ("mocking")
 
     diagnostic.checkTransmission(true);
