@@ -1,5 +1,6 @@
 package victor.testing.filebased.message;
 
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -12,7 +13,7 @@ public class GroceriesMessageHandler {
         this.groceryRepo = groceryRepo;
         this.kafkaSender = kafkaSender;
     }
-
+    @KafkaListener
     public void handleRequest(GroceriesRequestMessage requestMessage) {
         int total = 0;
         for (GroceryRequest groceryRequest : requestMessage.getGroceries()) {

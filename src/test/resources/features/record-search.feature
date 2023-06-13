@@ -31,7 +31,7 @@ Feature: Records Search
     #a1 is inactive in V2; a2 is inactive in V3
     #inactive=true + hist=false will return a result only if the rec is INACTIVE in the LAST version
     # the change of name is NOT deactivation of Record
-    Examples: 
+    Examples:
       | searchName | searchVerNo | includeHistorical | includeInactive | rowVersions |
       | b          |             | true              | true            |         3,4 |
       | b          |             | true              | false           |         3,4 |
