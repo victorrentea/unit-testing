@@ -25,4 +25,14 @@ public class TimeBasedLogic {
 
       return totalAmount > 100 || anyGenius;
    }
+
+//   protected LocalDate hackMe() { //
+//      return LocalDate.now();
+//   }
 }
+
+//class TimeProvider {
+//   public LocalDate today() {
+//      return LocalDate.now();
+//   }
+//}
