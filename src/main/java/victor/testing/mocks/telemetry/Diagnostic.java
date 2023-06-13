@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -10,11 +11,10 @@ import static java.util.UUID.randomUUID;
 
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
-
-	private Client client;
+	private final Client client;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(Client client) {
+	public Diagnostic(Client client) {
 		this.client = client;
 	}
 

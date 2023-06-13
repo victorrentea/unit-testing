@@ -1,25 +1,73 @@
 package victor.testing.mocks.telemetry;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
+// dark ages before Mocks
+//    Client client = new Client(){
+//      @Override
+//      public boolean getOnlineStatus() {
+//        return true;
+//      }
+//    };
+
+// if you add mockito-inline dependency killed PowerMock
+@ExtendWith(MockitoExtension.class) // or MockitoAnnotations.openMocks(this)
 public class DiagnosticTest {
+  public static final String DIAGNOSTIC_INFO = "123";
+  @Mock
+  Client client;
+  @InjectMocks
+  Diagnostic diagnostic;
 
   @Test
-  void checkTransmission_disconnects() {
-    Client client = Mockito.mock(Client.class);
-    Diagnostic diagnostic = new Diagnostic();
-    diagnostic.setTelemetryClient(client);
-    Mockito.when(client.getOnlineStatus()).thenReturn(true);
+  void disconnects() {
+    when(client.getOnlineStatus()).thenReturn(true);
 
     diagnostic.checkTransmission(true);
 
-    Mockito.verify(client).disconnect(true);
+    verify(client).disconnect(true);
   }
+
+  @Test
+  void throwsWhenNotOnline() {
+    when(client.getOnlineStatus()).thenReturn(false); // keep even though it's the default
+
+    assertThatThrownBy(()->diagnostic.checkTransmission(true))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("Unable to connect.");
+  }
+
+  @Test
+  void sendsDiagnosticMessage() {
+    when(client.getOnlineStatus()).thenReturn(true);
+
+    diagnostic.checkTransmission(true);
+
+//    verify(client).send(anyString()); // avoid whenever possible in verify()
+    verify(client).send(Client.DIAGNOSTIC_MESSAGE);
+  }
+
+  @Test
+  void receives() {
+    when(client.getOnlineStatus()).thenReturn(true);
+    when(client.receive()).thenReturn(DIAGNOSTIC_INFO); // stubbing a method ("mocking")
+
+    diagnostic.checkTransmission(true);
+
+//    verify(client).receive(); // redundant
+    // whenever you can check what happens without a mock, prefer it!
+    assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAGNOSTIC_INFO);
+  }
+
 }
-
-
-// @BeforeEach void init() {closeable = MockitoAnnotations.openMocks(this);
-// @AfterEach void closeService() throws Exception {closeable.close();}
 
 // doReturn
