@@ -16,7 +16,9 @@ public class TimeBasedLogic {
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
-      List<Order> recentOrders = orderRepo.findByCustomerIdAndCreatedOnBetween(customerId, sevenDaysAgo, now);
+      List<Order> recentOrders = orderRepo.findByCustomerIdAndCreatedOnBetween(
+          customerId,
+          sevenDaysAgo, now);
 
       double totalAmount = recentOrders.stream().mapToDouble(Order::getTotalAmount).sum();
       boolean anyGenius = recentOrders.stream().anyMatch(Order::isGenius);

@@ -21,10 +21,13 @@ class TimeBasedLogicTest {
    TimeBasedLogic target;
 
    @Test
-   @Disabled("flaky, time-based")
+//   @Disabled("flaky test, time-based")
    void isFrequentBuyer() {
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
-          13, parse("2021-09-01"), parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+          13,
+          parse("2023-06-06"),
+          parse("2023-06-13")))
+      .thenReturn(List.of(new Order().setTotalAmount(130d)));
 
       assertThat(target.isFrequentBuyer(13)).isTrue();
 

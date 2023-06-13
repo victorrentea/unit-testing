@@ -10,8 +10,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 // dark ages before Mocks
@@ -50,7 +51,7 @@ public class DiagnosticTest {
     when(client.getOnlineStatus()).thenReturn(false); // keep even though it's the default
 //    doReturn(false).when(client).getOnlineStatus();
 
-    assertThatThrownBy(()->diagnostic.checkTransmission(true))
+    assertThatThrownBy(() -> diagnostic.checkTransmission(true))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Unable to connect.");
   }
@@ -77,22 +78,26 @@ public class DiagnosticTest {
     assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAGNOSTIC_INFO);
   }
 
-@Test
-void configuresTheClient() {
-  diagnostic.checkTransmission(true);
+  @Test
+  void configuresTheClient() {
+    diagnostic.checkTransmission(true);
 
-  // use this if you're looking for ONE FIELD
-  verify(client).configure(argThat(config -> config.getAckMode() == NORMAL));
+    // use this if you're looking for ONE FIELD
+    verify(client).configure(argThat(config -> config.getAckMode() == NORMAL));
 
 //  ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
-  verify(client).configure(configCaptor.capture());
-  ClientConfiguration config = configCaptor.getValue();
-  assertThat(config.getAckMode()).isEqualTo(NORMAL);
-}
-@Captor
-ArgumentCaptor<ClientConfiguration> configCaptor;
+    verify(client).configure(configCaptor.capture());
+    ClientConfiguration config = configCaptor.getValue();
+    assertThat(config.getAckMode()).isEqualTo(NORMAL);
+//  assertThat(config.getSessionStart()).isEqualTo(LocalDateTime.now());// millis/nanos passed since prod
+    assertThat(config.getSessionStart()).isNotNull();
+    assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS)); // perfect when the prod code samples the current time
 
 
+  }
+
+  @Captor
+  ArgumentCaptor<ClientConfiguration> configCaptor;
 
 
 }
