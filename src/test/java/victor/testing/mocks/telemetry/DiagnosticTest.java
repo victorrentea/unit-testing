@@ -3,13 +3,17 @@ package victor.testing.mocks.telemetry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
+import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 // dark ages before Mocks
 //    Client client = new Client(){
 //      @Override
@@ -73,6 +77,22 @@ public class DiagnosticTest {
     assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAGNOSTIC_INFO);
   }
 
-}
+@Test
+void configuresTheClient() {
+  diagnostic.checkTransmission(true);
 
-// doReturn
+  // use this if you're looking for ONE FIELD
+  verify(client).configure(argThat(config -> config.getAckMode() == NORMAL));
+
+//  ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
+  verify(client).configure(configCaptor.capture());
+  ClientConfiguration config = configCaptor.getValue();
+  assertThat(config.getAckMode()).isEqualTo(NORMAL);
+}
+@Captor
+ArgumentCaptor<ClientConfiguration> configCaptor;
+
+
+
+
+}

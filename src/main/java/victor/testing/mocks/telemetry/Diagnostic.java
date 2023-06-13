@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.springframework.stereotype.Service;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -14,6 +15,12 @@ public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 	private final Client client;
 	private String diagnosticInfo = "";
+
+	//BAD: add more state just for testing
+//	private ClientConfiguration config;
+//	public Client getClient() {
+//		return client;
+//	}
 
 	public Diagnostic(Client client) {
 		this.client = client;
