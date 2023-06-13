@@ -15,4 +15,11 @@ public class Customer {
 	private Address address = new Address();
 	private Date createDate;
 	private List<Coupon> coupons = new ArrayList<>();
+
+
+	// chainable setters see lombok.config
+//	public Customer setName(String name) {
+//		this.name = name;
+//		return this;
+//	}
 }
