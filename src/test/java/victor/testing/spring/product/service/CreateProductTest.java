@@ -25,15 +25,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
+import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class CreateProductTest {
   @MockBean // @Mock + @Bean = wherever SafetyClient is injected, the mock is passed in
   SafetyClient mockSafetyClient;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
-  @MockBean
+  @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
@@ -50,24 +51,38 @@ public class CreateProductTest {
   @Test
   void createOk() {
     // GIVEN
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
 
     // THEN
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture());
-    Product product = productCaptor.getValue();
+    assertThat(productRepo.findAll()).hasSize(1);
+    Product product = productRepo.findAll().get(0);
 
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("safebar");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS)); // uses Spring Magic
+  }
+
+  @Test
+  void createOkUncategorized() {
+    // GIVEN
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
+
+    // WHEN
+    productService.createProduct(dto);
+
+    // THEN
+    assertThat(productRepo.findAll()).hasSize(1);
+    Product product = productRepo.findAll().get(0);
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
