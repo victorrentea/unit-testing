@@ -1,4 +1,4 @@
-package victor.testing.spring.email;
+package victor.testing.spring.scheduled;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
