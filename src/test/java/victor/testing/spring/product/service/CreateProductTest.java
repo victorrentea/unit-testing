@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -21,6 +22,8 @@ import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.service.ProductService;
 import victor.testing.spring.product.api.dto.ProductDto;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,6 +33,13 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
+//#2  external sql scrpit: use for DARK LARGE DBs
+@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@interface CleanupDB {
+}
+
+@CleanupDB
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class CreateProductTest {
@@ -44,13 +54,13 @@ public class CreateProductTest {
 
   // #1 before/after cleanup - JPA only solution
   // NEVER USE THIS for SQL-> only use for NON-transactional resources
-  @BeforeEach
-  @AfterEach
-  public void method() {
-    // impossible to run these tests anymore in parallel ! -> race condition
-    productRepo.deleteAll();// in the reverse FK order
-    supplierRepo.deleteAll();
-  }
+//  @BeforeEach
+//  @AfterEach
+//  public void method() {
+//    // impossible to run these tests anymore in parallel ! -> race condition
+//    productRepo.deleteAll();// in the reverse FK order
+//    supplierRepo.deleteAll();
+//  }
 
   @Test
   void createThrowsForUnsafeProduct() {
