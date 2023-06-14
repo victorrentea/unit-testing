@@ -2,7 +2,10 @@ package victor.testing.spring.product.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -23,6 +26,8 @@ public class ProductService {
   private final SupplierRepo supplierRepo;
   private final ProductMapper productMapper;
 
+//  @Async // loose the test thread -> you loose the tx
+  //@Transactional(propagation = Propagation.REQUIRES_NEW)
   public void createProduct(ProductDto productDto) {
     boolean safe = safetyClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {
@@ -37,7 +42,7 @@ public class ProductService {
     product.setBarcode(productDto.getBarcode());
     product.setCategory(productDto.getCategory());
     product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
-    productRepo.save(product);
+    productRepo.saveAndFlush(product);
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {

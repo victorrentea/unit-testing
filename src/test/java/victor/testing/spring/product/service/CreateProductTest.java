@@ -59,6 +59,10 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // + no need to manual cleanup
 // + can run in parallel
 // ⭐️THE BEST WAY TO TEST WITH A SQL DB
+
+// limitation: when the tested prod code:
+// - in prod code  @Transactional(propagation = Propagation.REQUIRES_NEW | NOT_SUPPORTED)
+// - when prod code runs a different thread than the test code (eg @Async)
 public class CreateProductTest {
   @MockBean // @Mock + @Bean = wherever SafetyClient is injected, the mock is passed in
   SafetyClient mockSafetyClient;
