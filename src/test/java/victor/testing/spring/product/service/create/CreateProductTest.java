@@ -59,6 +59,11 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // - different properties set manually
 //    @SpringBootTest(properties = "some.prop=diffvalue")
 //    @TestPropertySource(properties = "some.prop=diffvalue")
+
+// instead of recreating the DB for every test, write a beforeEach in the baseTestClass
+// that asserts that the database is empty - easier to trace where data leaks from
+// the IT after the one that leaks will crash in the before
+
 @Transactional // tell spring to start a separate transaction
 @SpringBootTest
 @ActiveProfiles({"db-mem", "bla"})
