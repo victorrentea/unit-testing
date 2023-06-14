@@ -11,9 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -22,6 +26,7 @@ import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.service.ProductMapper;
 import victor.testing.spring.product.service.ProductService;
 import victor.testing.spring.product.api.dto.ProductDto;
+import victor.testing.tools.TestcontainersUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -66,7 +71,8 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 @Transactional // tell spring to start a separate transaction
 @SpringBootTest
-@ActiveProfiles({"db-mem", "bum-new-spring"})
+@ActiveProfiles("db-migration")
+@Testcontainers // starts/stops docker images given you have docker daemon installed on CI
 public class CreateProductTest {
   @MockBean // @Mock + @Bean = wherever SafetyClient is injected, the mock is passed in
   SafetyClient mockSafetyClient;
@@ -78,6 +84,19 @@ public class CreateProductTest {
   ProductService productService;
   @Autowired
   ProductMapper mapper;
+
+  static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
+      "postgres:11");
+
+  @BeforeAll
+  public static void startTestcontainer() {
+    postgres.start();
+  }
+
+  @DynamicPropertySource
+  public static void registerPgProperties(DynamicPropertyRegistry registry) {
+    TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+  }
 
 
   // #1 before/after cleanup - JPA only solution
