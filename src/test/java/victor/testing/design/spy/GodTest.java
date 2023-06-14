@@ -14,13 +14,12 @@ import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
 @ExtendWith(MockitoExtension.class)
 class GodTest {
-
-   @Spy
+   @Spy // partial mock: some methods are real, others are mocked
    God god;
 
    @Test
    void high() { // + 5 more tests like this
-//      doNothing().when(god).low(any());
+      doNothing().when(god).low(any());
       Order order = new Order().setPaymentMethod(CARD);
 
       String result = god.high(order);
@@ -30,7 +29,7 @@ class GodTest {
 //
    @Test
    void low() { // + 5 more tests like this
-      Order oldOrder = new Order().setCreationDate(now().minusMonths(2));
+      Order oldOrder = new Order().setCreationDate(now().minusMonths(0));
       assertThatThrownBy(() -> god.low(oldOrder))
           .hasMessageContaining("old");
    }
