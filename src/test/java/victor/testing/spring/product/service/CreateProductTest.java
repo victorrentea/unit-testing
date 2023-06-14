@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -50,8 +51,14 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 // #3 nuke the entire Spring Context, force it to reboot, along with another fresh DB inside.
 //   problem: + 10 - 45 seconds more / @Test -> kills the CI 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 
+// #4
+@Transactional // tell spring to start a separate transaction
+// for each individual @Test and all its @BeforeEach and after the test issue a ROLLBACK
+// + no need to manual cleanup
+// + can run in parallel
+// ⭐️THE BEST WAY TO TEST WITH A SQL DB
 public class CreateProductTest {
   @MockBean // @Mock + @Bean = wherever SafetyClient is injected, the mock is passed in
   SafetyClient mockSafetyClient;
