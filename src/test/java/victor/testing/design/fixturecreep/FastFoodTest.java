@@ -12,7 +12,7 @@ import org.mockito.quality.Strictness;
 import static org.mockito.Mockito.*;
 
 
-@ExtendWith(MockitoExtension.class)
+/*@ExtendWith(MockitoExtension.class)
 //@MockitoSettings(strictness = Strictness.LENIENT)  // DON'T USE #1
 // // for migrating old tests allows again horror Before with 10+ when...then
 class FastFoodTest {
@@ -25,21 +25,46 @@ class FastFoodTest {
    final void before() {
       // test fixture creep
 //      lenient(). // #3 selectively allow one stubbing to be NOT used;
-          // acceptable when stubbing feature flags:
-              // lenient().when(featureService.hasFeature(TURK_KEBAB)).thenReturn(true);
-       when(dependency.isOnionAllowed()).thenReturn(true);
-       when(dependency.isCucumberAllowed()).thenReturn(true);
+      // acceptable when stubbing feature flags:
+      // lenient().when(featureService.hasFeature(TURK_KEBAB)).thenReturn(true);
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
-   @Test
-   void shawarmaTest() { // + 7 more tests
-      // ... complex
-      fastFood.makeShawarma();
+}*/
+
+@ExtendWith(MockitoExtension.class)
+class TzatzikiTest{
+   @Mock
+   Dependency dependency;
+   @InjectMocks
+   MakeTzatzikiService fastFood;
+   @BeforeEach
+   final void before() {
+      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
    void tzatzikiTest() { // + 5 more tests
       // ... complex
       fastFood.makeTzatziki();
+   }
+}
+
+@ExtendWith(MockitoExtension.class)
+class ShawarmaTest{
+   @Mock
+   Dependency dependency;
+   @InjectMocks
+   MakeShawarmaService fastFood;
+   @BeforeEach
+   final void before() {
+      when(dependency.isOnionAllowed()).thenReturn(true);
+   }
+
+   @Test
+   void shawarmaTest() { // + 5 more tests
+      // ... complex
+      fastFood.makeShawarma();
    }
 }
