@@ -1,17 +1,18 @@
 package victor.testing.design.spy;
 
-import com.google.common.annotations.VisibleForTesting;
 import lombok.Data;
-import org.mockito.Spy;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 
 import static java.time.LocalDate.now;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
-public class God {
+@RequiredArgsConstructor
+public class HighFacade {
+   private final Low low;
    public String high(Order order) {
-      low(order);
+      low.low(order);
       // complexity requiring 5+ tests
       if (order.getPaymentMethod() == CARD) {
          return "bonus";
@@ -22,8 +23,10 @@ public class God {
    // you enlarge the public api of this class JUST for test
    // tomorrow another PROD class will call this.
    // BUT THIS function was never intended to be called from outside of this class
-   @VisibleForTesting
-   void low(Order order) { // Package Protected
+}
+class Low {
+
+   public void low(Order order) { // Package Protected
       // complexity requiring 5+ tests
       if (order.getCreationDate().isAfter(now().minusMonths(1))) {
          throw new IllegalArgumentException("Order too old");
