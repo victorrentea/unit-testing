@@ -199,7 +199,7 @@ public class ProductApiTest {
   }
 
   @Test
-  @WithMockUser // resets the credentials set at the class level
+  @WithMockUser(roles = "USER") // resets the credentials set at the class level
   void createProductByNonAdmin_NotAuthorized() throws Exception {
     mockMvc.perform(post("/product/create")
             .content(jackson.writeValueAsString(product))

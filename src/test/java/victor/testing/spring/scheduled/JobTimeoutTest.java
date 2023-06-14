@@ -15,24 +15,22 @@ import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
 @ActiveProfiles("wiremock")
 @AutoConfigureWireMock(port = 0) // random port
-public class EmailSenderJobTimeoutTest extends BaseDatabaseTest {
+public class JobTimeoutTest extends BaseDatabaseTest {
   @Autowired
   EmailToSendRepo repo;
   @Autowired
   WireMockServer wireMock;
 
-  EmailToSend email = new EmailToSend()
-      .setRecipientEmail("to@example.com")
-      .setSubject("Sub")
-      .setBody("Bod");
-
   @Test
-  void explore() {
+  void insertAndWaitForScheduledToProcessItem() {
     wireMock.stubFor(post(urlMatching("/send-email.*"))
-        .willReturn(aResponse()
-//            .withFixedDelay(10) // may cause a race bug in tests
-        ));
-    Long id = repo.save(email).getId();
+        .willReturn(aResponse()));
+    EmailToSend email = new EmailToSend()
+        .setRecipientEmail("to@example.com")
+        .setSubject("Sub")
+        .setBody("Bod");
+
+    Long id = repo.save(email).getId(); // insert the data that will trigger the
 
     Awaitility.await().timeout(ofSeconds(2))
         .untilAsserted(() ->

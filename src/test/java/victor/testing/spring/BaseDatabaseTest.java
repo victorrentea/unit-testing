@@ -18,7 +18,8 @@ public class BaseDatabaseTest { // inherit from this test class
   // === The containers is reused across all subclasses ===
   static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
           "postgres:11");
-  // TODO in ~/.testcontainers.properties put testcontainers.reuse.enable=true
+
+  // TODO add in ~/.testcontainers.properties put testcontainers.reuse.enable=true
 
   @BeforeAll
   public static void startTestcontainer() {

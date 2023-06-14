@@ -46,6 +46,7 @@ public class GetProductSocialSpringTest {
             .setCreateDate(date)
             .setSupplier(new Supplier().setId(2L));
     when(productRepo.findById(1L)).thenReturn(Optional.of(product));
+    when(supplierRepo.findById(2L)).thenReturn(Optional.of(new Supplier().setId(2L)));
 
     ProductDto dto = productService.getProduct(1L);
 

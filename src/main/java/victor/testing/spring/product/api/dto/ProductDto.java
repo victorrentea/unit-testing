@@ -15,6 +15,7 @@ public class ProductDto {
 	public Long id;
 	@NotNull
 	public String name;
+	@NotNull
 	public String barcode;
 	public Long supplierId;
 	public ProductCategory category;

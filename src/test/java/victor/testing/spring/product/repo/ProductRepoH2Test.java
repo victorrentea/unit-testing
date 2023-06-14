@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
 import victor.testing.spring.product.domain.Supplier;
-import victor.testing.spring.product.repo.ProductRepo;
-import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 @Transactional
-public class ProductRepoTest {
+public class ProductRepoH2Test {
   @Autowired
   ProductRepo repo;
   @Autowired

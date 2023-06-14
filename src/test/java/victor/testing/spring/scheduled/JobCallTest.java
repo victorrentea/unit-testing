@@ -5,17 +5,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.BaseDatabaseTest;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
-@TestPropertySource(properties = "email.sender.cron=-")
 @ActiveProfiles("wiremock")
 @AutoConfigureWireMock(port = 0) // random port
-public class EmailSenderJobTest extends BaseDatabaseTest {
+@TestPropertySource(properties = "email.sender.cron=-")
+public class JobCallTest extends BaseDatabaseTest {
   @Autowired
   EmailToSendRepo repo;
   @Autowired
@@ -23,21 +23,19 @@ public class EmailSenderJobTest extends BaseDatabaseTest {
   @Autowired
   EmailSenderJob job;
 
-  EmailToSend email = new EmailToSend()
-      .setRecipientEmail("to@example.com")
-      .setSubject("Sub")
-      .setBody("Bod");
-
   @Test
-  void explore() {
+  void directCallOfScheduledMethod() {
     wireMock.stubFor(post(urlMatching("/send-email.*"))
-        .willReturn(aResponse()
-//            .withFixedDelay(10) // may cause a race bug in tests
-        ));
+        .willReturn(aResponse()));
+    EmailToSend email = new EmailToSend()
+        .setRecipientEmail("to@example.com")
+        .setSubject("Sub")
+        .setBody("Bod");
     Long id = repo.save(email).getId();
 
-    job.sendAllPendingEmails();
+    job.sendAllPendingEmails(); // direct call of the @Scheduled method
 
+    // no need to wait for another thread to complete
     assertThat(repo.findById(id).orElseThrow().getStatus()).isEqualTo(SUCCESS);
   }
 

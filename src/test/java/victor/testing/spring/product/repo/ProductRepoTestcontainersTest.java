@@ -19,8 +19,9 @@ public class ProductRepoTestcontainersTest extends BaseDatabaseTest {
     private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
     @BeforeEach
-    public void initialize() {
-        assertThat(repo.count()).isEqualTo(0); // good idea for larger projects
+    public void detectIncomingDataLeaks() {
+        // good idea for larger projects
+        assertThat(repo.count()).isEqualTo(0);
     }
 
     @Test
