@@ -6,28 +6,24 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import static org.mockito.Mockito.*;
 
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+//@MockitoSettings(strictness = Strictness.LENIENT)  // DON'T USE #1
+// // for migrating old tests allows again horror Before with 10+ when...then
 class FastFoodTest {
-   @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
-   Dependency dependency;
-   @InjectMocks
-   FastFood fastFood;
+//   @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
+   Dependency dependency = mock(Dependency.class); // not using @ for mockito allows a when..then not to be used
+//   @InjectMocks
+   FastFood fastFood = new FastFood(dependency);
 
    @BeforeEach
    final void before() {
       // test fixture creep
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
       when(dependency.isOnionAllowed()).thenReturn(true);
       when(dependency.isCucumberAllowed()).thenReturn(true);
    }
