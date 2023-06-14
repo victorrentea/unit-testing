@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.BaseDatabaseTest;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static victor.testing.spring.email.EmailToSend.Status.SUCCESS;
 
 @ActiveProfiles("wiremock")
+@TestPropertySource// (properties = "email.sender.cron=-")
 @AutoConfigureWireMock(port = 0) // random port
 public class EmailSenderJobTest extends BaseDatabaseTest {
   @Autowired
