@@ -11,22 +11,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.product.api.dto.ProductDto;
+import victor.testing.spring.product.api.dto.ProductSearchCriteria;
+import victor.testing.spring.product.api.dto.ProductSearchResult;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
-import victor.testing.spring.product.api.dto.ProductDto;
-import victor.testing.spring.product.api.dto.ProductSearchCriteria;
-import victor.testing.spring.product.api.dto.ProductSearchResult;
 import victor.testing.tools.HumanReadableTestNames;
-import victor.testing.tools.TestcontainersUtils;
 
 import java.util.List;
 
@@ -64,14 +59,13 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @SpringBootTest
 
 @AutoConfigureWireMock(port = 0)
-@Testcontainers
 @Transactional
 @ActiveProfiles({"db-migration", "wiremock"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
 @AutoConfigureMockMvc
 // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
-public class ProductApiTest {
+public class ProductApiTest extends BaseDatabaseTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
   MockMvc mockMvc;
@@ -79,13 +73,6 @@ public class ProductApiTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @Container
-  static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:11");
-
-  @DynamicPropertySource
-  public static void registerPgProperties(DynamicPropertyRegistry registry) {
-    TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
-  }
 
   Long supplierId;
   ProductDto product;

@@ -31,3 +31,9 @@ public class BaseDatabaseTest { // inherit from this test class
     TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
   }
 }
+
+//@SpringBootTest
+//@ActiveProfiles("db-testcontainers-playtika")
+//public class BaseDatabaseTest {
+//
+//}

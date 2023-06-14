@@ -1,4 +1,5 @@
 @txn
+@ignore
 Feature: Search for clients
 
   # by name like

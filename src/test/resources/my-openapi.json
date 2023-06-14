@@ -197,6 +197,7 @@
       },
       "ProductDto": {
         "required": [
+          "barcode",
           "name"
         ],
         "type": "object",

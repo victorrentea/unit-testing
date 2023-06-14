@@ -1,8 +1,8 @@
 package victor.testing.reactor;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.shaded.com.google.common.annotations.VisibleForTesting;
 import reactor.core.publisher.Mono;
 import reactor.function.TupleUtils;
 
