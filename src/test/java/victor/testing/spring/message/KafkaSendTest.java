@@ -38,7 +38,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
     "spring.kafka.consumer.auto-offset-reset=earliest" // avoid losing messages sent before listener connects
 })
 @EmbeddedKafka(topics = "product-created")
-public class CreateProductKafkaTest extends BaseDatabaseTest {
+public class KafkaSendTest extends BaseDatabaseTest {
   @MockBean
   SafetyClient mockSafetyClient;
   @Autowired
