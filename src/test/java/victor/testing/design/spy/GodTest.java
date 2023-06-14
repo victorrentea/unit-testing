@@ -20,7 +20,8 @@ class GodTest {
 
    @Test
    void high() { // + 5 more tests like this
-      doNothing().when(god).low(any());
+      doNothing().when(god).low(any()); // let's stop the high() method under test
+      // from calling low() since we already tested that
       Order order = new Order().setPaymentMethod(CARD);
 
       String result = god.high(order);
