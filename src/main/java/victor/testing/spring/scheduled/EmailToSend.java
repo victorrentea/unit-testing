@@ -1,9 +1,8 @@
-package victor.testing.spring.email;
+package victor.testing.spring.scheduled;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
