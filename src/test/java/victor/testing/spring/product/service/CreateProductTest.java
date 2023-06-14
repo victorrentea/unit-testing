@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.product.domain.Product;
@@ -39,9 +40,18 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 @interface CleanupDB {
 }
 
-@CleanupDB
+// same @SQL technique to insert static data into 'reference tables'
+
+//@CleanupDB
+
+
 @SpringBootTest
 @ActiveProfiles("db-mem")
+
+// #3 nuke the entire Spring Context, force it to reboot, along with another fresh DB inside.
+//   problem: + 10 - 45 seconds more / @Test -> kills the CI 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+
 public class CreateProductTest {
   @MockBean // @Mock + @Bean = wherever SafetyClient is injected, the mock is passed in
   SafetyClient mockSafetyClient;
