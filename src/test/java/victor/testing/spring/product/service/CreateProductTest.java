@@ -1,5 +1,8 @@
 package victor.testing.spring.product.service;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -38,6 +41,16 @@ public class CreateProductTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
+
+  // #1 before/after cleanup - JPA only solution
+  // NEVER USE THIS for SQL-> only use for NON-transactional resources
+  @BeforeEach
+  @AfterEach
+  public void method() {
+    // impossible to run these tests anymore in parallel ! -> race condition
+    productRepo.deleteAll();// in the reverse FK order
+    supplierRepo.deleteAll();
+  }
 
   @Test
   void createThrowsForUnsafeProduct() {
