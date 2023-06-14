@@ -208,6 +208,9 @@
           "name": {
             "type": "string"
           },
+          "extraDataInResponse": {
+            "type": "string"
+          },
           "barcode": {
             "type": "string"
           },

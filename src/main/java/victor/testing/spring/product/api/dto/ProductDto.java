@@ -7,14 +7,18 @@ import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 public class ProductDto {
 	public Long id;
-	@NotNull
+	@NotNull// (groups = ) only if involves polymorphism
 	public String name;
+	public String extraDataInResponse;
+//	@NotNull
+//	@Pattern(regexp = "\\d+")
 	public String barcode;
 	public Long supplierId;
 	public ProductCategory category;
