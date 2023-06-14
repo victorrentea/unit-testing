@@ -29,9 +29,15 @@ class GodTest {
    }
 
    @Test
+   void lowTooRecent() { // + 5 more tests like this
+      Order oldOrder = new Order().setCreationDate(now());
+      assertThatThrownBy(() -> god.low(oldOrder))
+          .hasMessageContaining("recent");
+   }
+   @Test
    void low() { // + 5 more tests like this
       Order oldOrder = new Order().setCreationDate(now().minusMonths(2));
-      assertThatThrownBy(() -> god.low(oldOrder))
-          .hasMessageContaining("old");
+      god.low(oldOrder);
+      // more assert/verify ..
    }
 }

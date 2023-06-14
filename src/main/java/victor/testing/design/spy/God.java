@@ -22,9 +22,10 @@ public class God {
    @VisibleForTesting
    void low(Order order) { // Package Protected
       // complexity requiring 5+ tests
-      if (order.getCreationDate().isBefore(now().minusMonths(1))) {
-         throw new IllegalArgumentException("Order too old");
+      if (order.getCreationDate().isAfter(now().minusMonths(1))) {
+         throw new IllegalArgumentException("Order too recent");
       }
+      // more stuff to test
    }
 }
 
