@@ -12,7 +12,7 @@ import org.mockito.quality.Strictness;
 import static org.mockito.Mockito.*;
 
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 //@MockitoSettings(strictness = Strictness.LENIENT)  // DON'T USE #1
 // // for migrating old tests allows again horror Before with 10+ when...then
 class FastFoodTest {
