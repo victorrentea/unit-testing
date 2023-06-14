@@ -69,7 +69,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @ActiveProfiles({"db-migration", "wiremock"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc// skip authorization filters (addFilters = false)
 // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
 public class ProductApiTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
@@ -134,7 +134,7 @@ public class ProductApiTest {
   }
 
   // #1 RAW JSON in test
-  // - cumbersome
+  // - cumbersome UGLY BAD.
   // + breaks on Dto structure change:
   //    * Prevent accidental changes to my API ==> OpenAPIFreezeTest
   //    * Keep consumer-provider in sync👌 ==> Pact / Spring Cloud Contract Tests
