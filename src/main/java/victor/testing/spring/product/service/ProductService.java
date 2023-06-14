@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-  private final SafetyClient safetyClient;
+  private final SafetyClient safetyClient; // class doing a NETWORK CALL outside ("adapter" pattern)
   private final ProductRepo productRepo;
   private final SupplierRepo supplierRepo;
   private final ProductMapper productMapper;

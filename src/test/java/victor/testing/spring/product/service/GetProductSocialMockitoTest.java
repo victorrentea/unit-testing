@@ -16,9 +16,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
+// interesting test 2 classes as a whole.
 public class GetProductSocialMockitoTest {
   private ProductRepo productRepo = mock(ProductRepo.class);
-  private ProductService productService = new ProductService(null, productRepo, null, new ProductMapper());
+  private ProductService productService = new ProductService(
+      null, productRepo, null,
+      new ProductMapper());
 
   @Test
   void service_plus_mapper() {

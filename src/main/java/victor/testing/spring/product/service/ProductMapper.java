@@ -7,6 +7,8 @@ import victor.testing.spring.product.api.dto.ProductDto;
 @Component
 public class ProductMapper {
   public ProductDto toDto(Product product) {
+    // stupid code - the price to pay for decoupling the API model
+    // from my precious Domain Model
     return new ProductDto()
             .setId(product.getId())
             .setSupplierId(product.getSupplier().getId())

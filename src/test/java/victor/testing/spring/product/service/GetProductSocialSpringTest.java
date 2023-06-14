@@ -30,8 +30,6 @@ public class GetProductSocialSpringTest {
   SafetyClient safetyClient;
   @MockBean
   private ProductRepo productRepo;
-  @MockBean
-  private SupplierRepo supplierRepo;
   @Autowired
   private ProductService productService;
 

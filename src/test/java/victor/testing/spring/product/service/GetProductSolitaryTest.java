@@ -17,6 +17,14 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
 public class GetProductSolitaryTest {
   @Test
+  // NO NO NO NO NO NO
+  // NO NO NO NO NO NO
+  // NO NO NO NO NO NO
+  // NO NO NO NO NO NO
+  // NO NO NO NO NO NO
+  // NO NO NO NO NO NO
+  // NO NO NO NO NO NO
+  // NO NO NO NO NO NO
   void whatAmITestingHere() {
     // DON'T DO THIS: mocking the mapper out
     ProductRepo repoMock = mock(ProductRepo.class);
