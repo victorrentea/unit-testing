@@ -18,6 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import victor.testing.spring.BaseDatabaseTest;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -70,10 +71,10 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // the IT after the one that leaks will crash in the before
 
 @Transactional // tell spring to start a separate transaction
-@SpringBootTest
-@ActiveProfiles("db-migration")
-@Testcontainers // starts/stops docker images given you have docker daemon installed on CI
-public class CreateProductTest {
+//@SpringBootTest
+//@ActiveProfiles("db-migration")
+//@Testcontainers // starts/stops docker images given you have docker daemon installed on CI
+public class CreateProductTest extends BaseDatabaseTest {
   @MockBean // @Mock + @Bean = wherever SafetyClient is injected, the mock is passed in
   SafetyClient mockSafetyClient;
   @Autowired
@@ -85,18 +86,18 @@ public class CreateProductTest {
   @Autowired
   ProductMapper mapper;
 
-  static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
-      "postgres:11");
-
-  @BeforeAll
-  public static void startTestcontainer() {
-    postgres.start();
-  }
-
-  @DynamicPropertySource
-  public static void registerPgProperties(DynamicPropertyRegistry registry) {
-    TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
-  }
+//  static public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
+//      "postgres:11");
+//
+//  @BeforeAll
+//  public static void startTestcontainer() {
+//    postgres.start();
+//  }
+//
+//  @DynamicPropertySource
+//  public static void registerPgProperties(DynamicPropertyRegistry registry) {
+//    TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
+//  }
 
 
   // #1 before/after cleanup - JPA only solution
