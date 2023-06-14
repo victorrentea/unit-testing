@@ -1,10 +1,12 @@
 package victor.testing.spring.product.service.create;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.product.api.dto.ProductDto;
@@ -53,11 +55,10 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // the IT after the one that leaks will crash in the before
 
 @Transactional // tell spring to start a separate transaction
-@SpringBootTest
-@ActiveProfiles({"db-mem"})
+@SpringBootTest//(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
+@ActiveProfiles({"db-mem","wiremock"})
+@AutoConfigureWireMock(port = 0) // random port assigned
 public class CreateProductXXTest {
-  @MockBean // @Mock + @Bean = wherever SafetyClient is injected, the mock is passed in
-  SafetyClient mockSafetyClient;
   @Autowired
   ProductRepo productRepo;
   @Autowired
@@ -78,14 +79,9 @@ public class CreateProductXXTest {
 //    supplierRepo.deleteAll();
 //  }
 
-  @BeforeEach
-  final void before() {
-
-  }
   @Test
   void createThrowsForUnsafeProduct() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -96,7 +92,6 @@ public class CreateProductXXTest {
   void createOk() {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
     // WHEN
@@ -117,7 +112,6 @@ public class CreateProductXXTest {
   void createOkUncategorized() {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
 
     // WHEN
