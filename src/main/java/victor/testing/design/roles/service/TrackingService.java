@@ -10,7 +10,8 @@ import java.util.List;
 public class TrackingService {
    private final TrackingProviderRepo trackingProviderRepo;
 
-   public void markDepartingWarehouse(String trackingNumber, int warehouseId, List<TrackingProvider> trackingProviders) {
+   public void markDepartingWarehouse(String trackingNumber, int warehouseId) {
+      List<TrackingProvider> trackingProviders = trackingProviderRepo.findByTrackingNumber(trackingNumber);
       for (TrackingProvider trackingProvider : trackingProviders) {
          System.out.println("Report "+trackingNumber+" departing warehouse " + warehouseId
                             + " to " + trackingProvider.getId());

@@ -20,14 +20,14 @@ class GodTest {
 
    @Test
    void high() { // + 5 more tests like this
-      doNothing().when(god).low(any());
+//      doNothing().when(god).low(any());
       Order order = new Order().setPaymentMethod(CARD);
 
       String result = god.high(order);
 
       assertThat(result).isEqualTo("bonus");
    }
-
+//
    @Test
    void low() { // + 5 more tests like this
       Order oldOrder = new Order().setCreationDate(now().minusMonths(2));

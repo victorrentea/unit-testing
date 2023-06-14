@@ -7,6 +7,7 @@ class InvoiceService {
       invoice += "Address: " + customer.getBillingAddress() + "\n";
       invoice += "For order " + order ;
       // more
+      System.out.println("Send email to " + customer.getEmail().toUpperCase());
       return invoice;
    }
 }

@@ -14,18 +14,15 @@ public class ParcelFacade {
    private final DisplayService displayService;
    private final PlatformService platformService;
    private final TrackingService trackingService;
-   private final TrackingProviderRepo trackingProviderRepo;
 
    public void processBarcode(String barcode, int warehouseId) {
       Parcel parcel = parcelRepo.findByBarcode(barcode);
 
       displayService.displayParcel(parcel);
-      if (parcel.isPartOfCompositeShipment()) {
-         displayService.displayMultiParcelWarning();
-      }
+
       platformService.addParcel(parcel);
-      List<TrackingProvider> trackingProviders = trackingProviderRepo.findByTrackingNumber(parcel.getTrackingNumber());
-      trackingService.markDepartingWarehouse(parcel.getTrackingNumber(), warehouseId, trackingProviders);
+
+      trackingService.markDepartingWarehouse(parcel.getTrackingNumber(), warehouseId);
    }
 
 }

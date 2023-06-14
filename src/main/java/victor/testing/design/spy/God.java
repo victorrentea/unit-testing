@@ -16,12 +16,45 @@ public class God {
       if (order.getPaymentMethod() == CARD) {
          return "bonus";
       }
+      if (order.getPaymentMethod() == CARD) {
+         return "bonus";
+      }
+      if (order.getPaymentMethod() == CARD) {
+         return "bonus";
+      }
+      if (order.getPaymentMethod() == CARD) {
+         return "bonus";
+      }
+      if (order.getPaymentMethod() == CARD) {
+         return "bonus";
+      }
+      if (order.getPaymentMethod() == CARD) {
+         return "bonus";
+      }
       return "regular";
    }
 
+   // you enlarge the public api of this class JUST for test
+   // tomorrow another PROD class will call this.
+   // BUT THIS function was never intended to be called from outside of this class
    @VisibleForTesting
    void low(Order order) { // Package Protected
       // complexity requiring 5+ tests
+      if (order.getCreationDate().isBefore(now().minusMonths(1))) {
+         throw new IllegalArgumentException("Order too old");
+      }
+      if (order.getCreationDate().isBefore(now().minusMonths(1))) {
+         throw new IllegalArgumentException("Order too old");
+      }
+      if (order.getCreationDate().isBefore(now().minusMonths(1))) {
+         throw new IllegalArgumentException("Order too old");
+      }
+      if (order.getCreationDate().isBefore(now().minusMonths(1))) {
+         throw new IllegalArgumentException("Order too old");
+      }
+      if (order.getCreationDate().isBefore(now().minusMonths(1))) {
+         throw new IllegalArgumentException("Order too old");
+      }
       if (order.getCreationDate().isBefore(now().minusMonths(1))) {
          throw new IllegalArgumentException("Order too old");
       }
