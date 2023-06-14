@@ -19,18 +19,27 @@ class FastFoodTest {
 
    @BeforeEach
    final void before() {
+      // test fixture creep
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
    void shawarmaTest() { // + 7 more tests
-      when(dependency.isOnionAllowed()).thenReturn(true);
       // ... complex
       fastFood.makeShawarma();
    }
 
    @Test
    void tzatzikiTest() { // + 5 more tests
-      when(dependency.isCucumberAllowed()).thenReturn(true);
       // ... complex
       fastFood.makeTzatziki();
    }

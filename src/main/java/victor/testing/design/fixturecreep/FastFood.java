@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 public class FastFood {
    private final Dependency dependency;
 
-   public void makeShawarma() {
+   public void makeShawarma() { // aka kebab
       if (!dependency.isOnionAllowed()) {
          throw new IllegalArgumentException();
       }
