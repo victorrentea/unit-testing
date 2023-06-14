@@ -1,4 +1,4 @@
-package victor.testing.spring.product.service;
+package victor.testing.spring.product.service.get;
 
 import org.junit.jupiter.api.Test;
 import victor.testing.spring.product.domain.Product;

@@ -1,4 +1,4 @@
-package victor.testing.spring.product.service;
+package victor.testing.spring.product.service.create;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -35,34 +35,25 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
-//#2  external sql scrpit: use for DARK LARGE DBs
-@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-@interface CleanupDB {
-}
-
 // same @SQL technique to insert static data into 'reference tables'
-
 //@CleanupDB
 
-
-@SpringBootTest
-@ActiveProfiles("db-mem")
-
 // #3 nuke the entire Spring Context, force it to reboot, along with another fresh DB inside.
-//   problem: + 10 - 45 seconds more / @Test -> kills the CI 
+//   problem: + 10 - 45 seconds more / @Test -> kills the CI
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 
-// #4
-@Transactional // tell spring to start a separate transaction
+// #4 @Transactional
 // for each individual @Test and all its @BeforeEach and after the test issue a ROLLBACK
 // + no need to manual cleanup
 // + can run in parallel
 // ⭐️THE BEST WAY TO TEST WITH A SQL DB
-
 // limitation: when the tested prod code:
 // - in prod code  @Transactional(propagation = Propagation.REQUIRES_NEW | NOT_SUPPORTED)
 // - when prod code runs a different thread than the test code (eg @Async)
+
+@Transactional // tell spring to start a separate transaction
+@SpringBootTest
+@ActiveProfiles("db-mem")
 public class CreateProductTest {
   @MockBean // @Mock + @Bean = wherever SafetyClient is injected, the mock is passed in
   SafetyClient mockSafetyClient;
