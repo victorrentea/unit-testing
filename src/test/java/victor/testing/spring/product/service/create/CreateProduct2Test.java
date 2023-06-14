@@ -1,35 +1,22 @@
 package victor.testing.spring.product.service.create;
 
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
-import victor.testing.spring.product.service.ProductMapper;
 import victor.testing.spring.product.service.ProductService;
-import victor.testing.spring.product.api.dto.ProductDto;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
@@ -50,19 +37,10 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // - in prod code  @Transactional(propagation = Propagation.REQUIRES_NEW | NOT_SUPPORTED)
 // - when prod code runs a different thread than the test code (eg @Async)
 
-// running the whole package as a test will only start spring ONCE
-// (thanks to SpringContextCache (see logs))
-// unless:
-// - @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-// - @MockBean sets
-// - other profile sets
-// - different properties set manually
-//    @SpringBootTest(properties = "some.prop=diffvalue")
-//    @TestPropertySource(properties = "some.prop=diffvalue")
 @Transactional // tell spring to start a separate transaction
 @SpringBootTest
-@ActiveProfiles({"db-mem", "bla"})
-public class CreateProductTest {
+@ActiveProfiles("db-mem")
+public class CreateProduct2Test {
   @MockBean // @Mock + @Bean = wherever SafetyClient is injected, the mock is passed in
   SafetyClient mockSafetyClient;
   @Autowired
@@ -71,9 +49,6 @@ public class CreateProductTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
-  @Autowired
-  ProductMapper mapper;
-
 
   // #1 before/after cleanup - JPA only solution
   // NEVER USE THIS for SQL-> only use for NON-transactional resources
@@ -85,13 +60,8 @@ public class CreateProductTest {
 //    supplierRepo.deleteAll();
 //  }
 
-  @BeforeEach
-  final void before() {
-
-  }
   @Test
   void createThrowsForUnsafeProduct() {
-    Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(mockSafetyClient.isSafe("bar")).thenReturn(false);
 
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
