@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -121,7 +122,7 @@ public class AssertionsShowcase {
       }
       @Test
       public void stringStarts() {
-         assertThat(oneSecAgo).isCloseTo(now(), byLessThan(1, MINUTES));
+         assertThat(oneSecAgo).isCloseTo(now(), byLessThan(1, ChronoUnit.MINUTES));
       }
    }
 

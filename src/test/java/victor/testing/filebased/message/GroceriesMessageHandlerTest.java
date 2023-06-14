@@ -26,7 +26,7 @@ import static org.mockito.Mockito.verify;
 class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
 
   @MockBean
-  private KafkaSender kafkaSender;
+  private KafkaMessageSender kafkaSender;
   @Autowired
   private GroceryRepo groceryRepo;
   @Autowired

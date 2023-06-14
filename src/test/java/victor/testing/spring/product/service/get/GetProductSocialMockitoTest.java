@@ -1,4 +1,4 @@
-package victor.testing.spring.product.service;
+package victor.testing.spring.product.service.get;
 
 import org.junit.jupiter.api.Test;
 import victor.testing.spring.product.domain.Product;
@@ -18,7 +18,12 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
 public class GetProductSocialMockitoTest {
   private ProductRepo productRepo = mock(ProductRepo.class);
-  private ProductService productService = new ProductService(null, productRepo, null, new ProductMapper());
+  private ProductService productService = new ProductService(
+      null,
+      productRepo,
+      null,
+      new ProductMapper(),
+      null);
 
   @Test
   void service_plus_mapper() {

@@ -1,4 +1,4 @@
-package victor.testing.spring.product.service;
+package victor.testing.spring.product.service.create;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -6,6 +6,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -25,7 +26,9 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
   @Mock
-  SafetyClient mockSafetyClient;
+  SafetyClient safetyClient;
+  @Mock
+  KafkaTemplate<String, String> kafkaTemplate;
   @Mock
   ProductRepo productRepo;
   @Mock
@@ -35,7 +38,7 @@ public class CreateProductTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(mockSafetyClient.isSafe("bar")).thenReturn(false);
+    when(safetyClient.isSafe("bar")).thenReturn(false);
 
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -47,7 +50,7 @@ public class CreateProductTest {
     // GIVEN
     Supplier supplier = new Supplier().setId(13L);
     when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
-    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
+    when(safetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
 
     // WHEN
@@ -62,7 +65,8 @@ public class CreateProductTest {
     assertThat(product.getBarcode()).isEqualTo("safebar");
     assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
     assertThat(product.getCategory()).isEqualTo(HOME);
-    // assertThat(product.getCreateDate()).isCloseTo(now(), byLessThan(1, SECONDS)); // uses Spring Magic
+    // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
+    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "NAME");
   }
 
 }

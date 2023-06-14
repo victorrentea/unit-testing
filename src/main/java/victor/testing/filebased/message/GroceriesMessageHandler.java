@@ -6,9 +6,9 @@ import java.util.Optional;
 @Component
 public class GroceriesMessageHandler {
     private final GroceryRepo groceryRepo;
-    private final KafkaSender kafkaSender;
+    private final KafkaMessageSender kafkaSender;
 
-    public GroceriesMessageHandler(GroceryRepo groceryRepo, KafkaSender kafkaSender) {
+    public GroceriesMessageHandler(GroceryRepo groceryRepo, KafkaMessageSender kafkaSender) {
         this.groceryRepo = groceryRepo;
         this.kafkaSender = kafkaSender;
     }

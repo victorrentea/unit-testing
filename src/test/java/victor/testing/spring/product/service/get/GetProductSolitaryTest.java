@@ -1,4 +1,4 @@
-package victor.testing.spring.product.service;
+package victor.testing.spring.product.service.get;
 
 import org.junit.jupiter.api.Test;
 import victor.testing.spring.product.domain.Product;
@@ -25,7 +25,7 @@ public class GetProductSolitaryTest {
     ProductMapper mapperMock = mock(ProductMapper.class);
     ProductDto dto = new ProductDto();
     when(mapperMock.toDto(product)).thenReturn(dto);
-    ProductService productService = new ProductService(null, repoMock, null, mapperMock);
+    ProductService productService = new ProductService(null, repoMock, null, mapperMock, null);
 
     ProductDto returnedDto = productService.getProduct(1L);
 
