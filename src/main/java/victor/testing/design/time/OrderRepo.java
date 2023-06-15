@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface OrderRepo extends JpaRepository<Order, Long> {
    List<Order> findByCustomerIdAndCreatedOnBetween(int customerId, LocalDate from, LocalDate to);
-
-   List<Order> findByActiveTrue();
 }
