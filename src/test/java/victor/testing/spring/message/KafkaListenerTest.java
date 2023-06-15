@@ -25,7 +25,6 @@ import static org.mockito.Mockito.verify;
 @TestPropertySource(properties = {
     "spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}",
     "spring.kafka.consumer.bootstrap-servers=${spring.embedded.kafka.brokers}",
-    "spring.kafka.consumer.group-id=test",
     "spring.kafka.consumer.auto-offset-reset=earliest" // avoid losing messages sent before listener connects
 })
 @EmbeddedKafka(topics = "${incoming.topic}")

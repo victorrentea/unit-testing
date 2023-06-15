@@ -1,6 +1,10 @@
 package victor.testing.spring.scheduled;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.http.Request;
+import com.github.tomakehurst.wiremock.http.RequestListener;
+import com.github.tomakehurst.wiremock.http.Response;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
@@ -9,34 +13,33 @@ import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.BaseDatabaseTest;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
 @ActiveProfiles("wiremock")
+@TestPropertySource(properties = "email.sender.cron=*/1 * * * * *") // every second
 @AutoConfigureWireMock(port = 0) // random port
-@TestPropertySource(properties = "email.sender.cron=-")
-public class JobCallTest extends BaseDatabaseTest {
+public class ScheduledAwaitTest extends BaseDatabaseTest {
   @Autowired
   EmailToSendRepo repo;
   @Autowired
   WireMockServer wireMock;
-  @Autowired
-  EmailSenderJob job;
 
   @Test
-  void directCallOfScheduledMethod() {
+  void insertAndWaitForScheduledToProcessItem() {
     wireMock.stubFor(post(urlMatching("/send-email.*"))
         .willReturn(aResponse()));
     EmailToSend email = new EmailToSend()
         .setRecipientEmail("to@example.com")
         .setSubject("Sub")
         .setBody("Bod");
-    Long id = repo.save(email).getId();
 
-    job.sendAllPendingEmails(); // direct call of the @Scheduled method
+    Long id = repo.save(email).getId(); // insert the data that will trigger the
 
-    // no need to wait for another thread to complete
-    assertThat(repo.findById(id).orElseThrow().getStatus()).isEqualTo(SUCCESS);
+    Awaitility.await().timeout(ofSeconds(2))
+        .untilAsserted(() ->
+            assertThat(repo.findById(id).orElseThrow().getStatus()).isEqualTo(SUCCESS));
   }
 
 }
