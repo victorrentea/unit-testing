@@ -44,7 +44,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@ExtendWith(MockitoExtension.class)
 //@ActiveProfiles("db-mem")
 //@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
-@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
 @Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
@@ -53,7 +53,8 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // NICIODATA pe git -> incetineste dramatic testele pe CI
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // DISTRUGE CONTEXTU DE SPRING CU TOT CU DB IN MEM CU TOT
 
-@AutoConfigureWireMock(port = 9999) // porneste un server HTTP din teste
+@AutoConfigureWireMock(port = 0) // porneste un server HTTP din teste
+// port random, multi-thread ready
 public class CreateProductTest extends BaseDatabaseTest {
 //  @MockBean
 //  SafetyClient safetyClient;
