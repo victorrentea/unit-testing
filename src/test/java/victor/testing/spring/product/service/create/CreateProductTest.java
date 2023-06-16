@@ -1,5 +1,8 @@
 package victor.testing.spring.product.service.create;
 
+import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -46,6 +49,13 @@ public class CreateProductTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
+
+  @BeforeEach
+  @AfterEach
+  final void before() { // cleanup programatic din tabele in ordinea FK
+      productRepo.deleteAll();
+      supplierRepo.deleteAll();
+  }
 
   @Test
   void createThrowsForUnsafeProduct() {
