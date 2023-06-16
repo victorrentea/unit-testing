@@ -6,7 +6,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -23,17 +28,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+@ActiveProfiles("db-mem")
+@SpringBootTest
 public class CreateProductTest {
-  @Mock
+  @MockBean
   SafetyClient safetyClient;
-  @Mock
+  @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
-  @Mock
+  @Autowired
   ProductRepo productRepo;
-  @Mock
+  @Autowired
   SupplierRepo supplierRepo;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   @Test
@@ -49,22 +56,19 @@ public class CreateProductTest {
   @Test
   void createOk() {
     // GIVEN
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("safebar")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
 
     // THEN
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture());
-    Product product = productCaptor.getValue();
-
+    assertThat(productRepo.findAll()).hasSize(1);
+    Product product = productRepo.findAll().get(0);
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("safebar");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");

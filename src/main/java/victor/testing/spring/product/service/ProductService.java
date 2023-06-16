@@ -21,8 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
   public static final String PRODUCT_CREATED_TOPIC = "product-created";
-  private final SafetyClient safetyClient;
-  private final ProductRepo productRepo;
+  private final SafetyClient safetyClient; // mock acum e injectat
+  private final ProductRepo productRepo; // mock acum e injectat
   private final SupplierRepo supplierRepo;
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
