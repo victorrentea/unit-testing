@@ -44,7 +44,8 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@ExtendWith(MockitoExtension.class)
 //@ActiveProfiles("db-mem")
 //@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
-@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
+//@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
+@ActiveProfiles("wiremock")
 @Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
