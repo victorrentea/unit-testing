@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.filebased.message.KafkaMessageSender;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
@@ -27,6 +29,7 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
 
+  @Transactional(propagation = Propagation.REQUIRES_NEW)// @Transactional nu mai merge
   public void createProduct(ProductDto productDto) {
     boolean safe = safetyClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {
@@ -42,6 +45,15 @@ public class ProductService {
     product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
+  }
+
+//  @Transactional // no strici @Test @Transaction:
+  // - pt ca inca propaga tx exista pe thread
+
+//  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  // e apel local, nu treci prin proxy. pui degeaba @Transactional
+  public void metoda(Product product) {
+    productRepo.save(product);
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {

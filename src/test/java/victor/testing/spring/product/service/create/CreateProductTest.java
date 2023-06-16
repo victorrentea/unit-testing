@@ -33,6 +33,8 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@ExtendWith(MockitoExtension.class)
 @ActiveProfiles("db-mem")
 @SpringBootTest
+//@Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
+// CAND NU MERGE?
 public class CreateProductTest {
   @MockBean
   SafetyClient safetyClient;
