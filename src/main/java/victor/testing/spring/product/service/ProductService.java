@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.testing.filebased.message.KafkaMessageSender;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
+import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
@@ -45,7 +46,8 @@ public class ProductService {
     product.setName(productDto.getName());
     product.setBarcode(productDto.getBarcode());
     product.setCategory(productDto.getCategory());
-    product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
+    product.setSupplier(new Supplier().setId(productDto.supplierId)); // testul de integrare ramane verde
+//    product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
   }

@@ -86,7 +86,7 @@ public class CreateProductTest extends BaseIntegrationTest {
     assertThat(product.getBarcode()).isEqualTo("safebar");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
-    // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
+    assertThat(product.getCreateDate()).isToday(); // << field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
   @Test
