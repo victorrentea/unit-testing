@@ -22,14 +22,11 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 @Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 
 public class CreateProduct2Test extends BaseIntegrationTest {
+  // cu @MockBean => 1 context pt ambele clase
+  // fara @MockBean => 2 contexte pt ambele clase (cate 1 / clasa)
 //  @MockBean
 //  KafkaTemplate<String, String> kafkaTemplate;
-//  @Autowired
-//  ProductRepo productRepo;
-//  @Autowired
-//  SupplierRepo supplierRepo;
-//  @Autowired
-//  ProductService productService;
+
   @Autowired
   SafetyClient safetyClient;
 

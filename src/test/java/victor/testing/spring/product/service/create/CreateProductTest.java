@@ -26,7 +26,6 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 //@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
 //@ActiveProfiles("wiremock")
-@Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 // pt insert de date 'statice' standard in db gol, mai poti defini un fisier /src/test/resources/data.sql pe care Spring il ruleaza automat dupa creerea bazei
@@ -36,9 +35,9 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 //@AutoConfigureWireMock(port = 0) // porneste un server HTTP din teste
 // port random, multi-thread ready
+
+@Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 public class CreateProductTest extends BaseIntegrationTest {
-//  @MockBean
-//  SafetyClient safetyClient;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
