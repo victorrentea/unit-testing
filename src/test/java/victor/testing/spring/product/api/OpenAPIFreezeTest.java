@@ -29,7 +29,7 @@ public class OpenAPIFreezeTest {
   @Value("classpath:/my-openapi.json")
   Resource myExpectedOpenAPI;
 
-  @Test
+  @Test // crapa daca iti strici contractu
   void myOpenAPIDidNotChange() throws Exception {
     String actualOpenAPIJson = mockMvc.perform(get("/v3/api-docs")).andReturn().getResponse().getContentAsString();
     String expectedOpenAPIJson = IOUtils.toString(myExpectedOpenAPI.getInputStream());

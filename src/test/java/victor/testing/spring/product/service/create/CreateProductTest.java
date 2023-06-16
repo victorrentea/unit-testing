@@ -1,5 +1,6 @@
 package victor.testing.spring.product.service.create;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,8 @@ public class CreateProductTest extends BaseIntegrationTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
+  @Autowired
+  WireMock wireMock;
   private Long supplierId;
 //  @BeforeEach
 //  @AfterEach
@@ -64,6 +67,8 @@ public class CreateProductTest extends BaseIntegrationTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
+
+
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
