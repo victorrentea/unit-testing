@@ -12,12 +12,12 @@ import java.net.URL;
 @Component
 @RequiredArgsConstructor
 public class SafetyClient {
-    private final RestTemplate rest;
+    private final RestTemplate restTemplate;
     @Value("${safety.service.url.base}")
     private URL baseUrl;
 
     public boolean isSafe(String barcode) {
-        SafetyReportDto response = rest.getForEntity(
+        SafetyReportDto response = restTemplate.getForEntity(
             baseUrl + "/product/{barcode}/safety",
             SafetyReportDto.class, barcode)
                 .getBody();
