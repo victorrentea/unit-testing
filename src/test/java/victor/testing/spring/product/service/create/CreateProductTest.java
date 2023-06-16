@@ -1,43 +1,23 @@
 package victor.testing.spring.product.service.create;
 
-import org.junit.After;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
-import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
-import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.service.ProductService;
 import victor.testing.spring.product.api.dto.ProductDto;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
@@ -45,7 +25,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@ActiveProfiles("db-mem")
 //@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 //@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
-@ActiveProfiles("wiremock")
+//@ActiveProfiles("wiremock")
 @Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
@@ -54,9 +34,9 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // NICIODATA pe git -> incetineste dramatic testele pe CI
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // DISTRUGE CONTEXTU DE SPRING CU TOT CU DB IN MEM CU TOT
 
-@AutoConfigureWireMock(port = 0) // porneste un server HTTP din teste
+//@AutoConfigureWireMock(port = 0) // porneste un server HTTP din teste
 // port random, multi-thread ready
-public class CreateProductTest extends BaseDatabaseTest {
+public class CreateProductTest extends BaseIntegrationTest {
 //  @MockBean
 //  SafetyClient safetyClient;
   @MockBean

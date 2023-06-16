@@ -13,7 +13,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
@@ -65,7 +65,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
 @AutoConfigureMockMvc
 // ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
-public class ProductApiTest extends BaseDatabaseTest {
+public class ProductApiTest extends BaseIntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
   MockMvc mockMvc;

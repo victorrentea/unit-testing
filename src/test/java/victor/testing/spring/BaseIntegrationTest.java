@@ -1,18 +1,14 @@
 package victor.testing.spring;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import victor.testing.tools.TestcontainersUtils;
 
 // #1 innocent Testcontainers test (online examples)
 @SpringBootTest
-@ActiveProfiles("db-mem")
-public class BaseDatabaseTest {
+@ActiveProfiles({"db-mem", "wiremock"})
+@AutoConfigureWireMock(port = 0) // porneste un server HTTP din teste
+public class BaseIntegrationTest {
 }
 
 // ==================================================================

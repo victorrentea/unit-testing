@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.TestPropertySource;
-import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -38,7 +38,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
     "spring.kafka.consumer.auto-offset-reset=earliest" // avoid losing messages sent before listener connects
 })
 @EmbeddedKafka(topics = "product-created")
-public class KafkaSendTest extends BaseDatabaseTest {
+public class KafkaSendTest extends BaseIntegrationTest {
   @MockBean
   SafetyClient mockSafetyClient;
   @Autowired

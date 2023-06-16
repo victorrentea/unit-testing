@@ -10,7 +10,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.product.repo.SupplierRepo;
 
 import java.util.concurrent.ExecutionException;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.verify;
     "spring.kafka.consumer.auto-offset-reset=earliest" // avoid losing messages sent before listener connects
 })
 @EmbeddedKafka(topics = "${incoming.topic}")
-public class KafkaListenerTest extends BaseDatabaseTest {
+public class KafkaListenerTest extends BaseIntegrationTest {
   @SpyBean
   MessageListener messageListener;
   @Autowired

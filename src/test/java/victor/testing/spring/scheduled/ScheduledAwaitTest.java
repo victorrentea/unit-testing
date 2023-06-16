@@ -1,16 +1,13 @@
 package victor.testing.spring.scheduled;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.http.Request;
-import com.github.tomakehurst.wiremock.http.RequestListener;
-import com.github.tomakehurst.wiremock.http.Response;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.BaseIntegrationTest;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.time.Duration.ofSeconds;
@@ -20,7 +17,7 @@ import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 @ActiveProfiles("wiremock")
 @TestPropertySource(properties = "email.sender.cron=*/1 * * * * *") // every second
 @AutoConfigureWireMock(port = 0) // random port
-public class ScheduledAwaitTest extends BaseDatabaseTest {
+public class ScheduledAwaitTest extends BaseIntegrationTest {
   @Autowired
   EmailToSendRepo repo;
   @Autowired
