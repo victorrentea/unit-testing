@@ -16,6 +16,10 @@ import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 @AutoConfigureWireMock(port = 0) // random port
 @TestPropertySource(properties = "email.sender.cron=-") // cron="-" means 'DISABLE'
 public class ScheduledCallTest extends BaseDatabaseTest {
+  public static final EmailToSend EMAIL = new EmailToSend()
+      .setRecipientEmail("to@example.com")
+      .setSubject("Sub")
+      .setBody("Bod");
   @Autowired
   EmailToSendRepo repo;
   @Autowired
@@ -25,13 +29,8 @@ public class ScheduledCallTest extends BaseDatabaseTest {
 
   @Test
   void directCallOfScheduledMethod() {
-    wireMock.stubFor(post(urlMatching("/send-email.*"))
-        .willReturn(aResponse()));
-    EmailToSend email = new EmailToSend()
-        .setRecipientEmail("to@example.com")
-        .setSubject("Sub")
-        .setBody("Bod");
-    Long id = repo.save(email).getId();
+    wireMock.stubFor(post(urlMatching("/send-email.*")).willReturn(aResponse()));
+    Long id = repo.save(EMAIL).getId();
 
     job.sendAllPendingEmails(); // direct call of the @Scheduled method
 

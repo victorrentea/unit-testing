@@ -18,9 +18,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
 @ActiveProfiles("wiremock")
-@TestPropertySource(properties = "email.sender.cron=*/1 * * * * *") // every second
+@TestPropertySource(properties = "email.sender.cron=*/1 * * * * *") // = every second
 @AutoConfigureWireMock(port = 0) // random port
 public class ScheduledAwaitTest extends BaseDatabaseTest {
+  public static final EmailToSend EMAIL = new EmailToSend()
+      .setRecipientEmail("to@example.com")
+      .setSubject("Sub")
+      .setBody("Bod");
   @Autowired
   EmailToSendRepo repo;
   @Autowired
@@ -28,14 +32,9 @@ public class ScheduledAwaitTest extends BaseDatabaseTest {
 
   @Test
   void insertAndWaitForScheduledToProcessItem() {
-    wireMock.stubFor(post(urlMatching("/send-email.*"))
-        .willReturn(aResponse()));
-    EmailToSend email = new EmailToSend()
-        .setRecipientEmail("to@example.com")
-        .setSubject("Sub")
-        .setBody("Bod");
+    wireMock.stubFor(post(urlMatching("/send-email.*")).willReturn(aResponse()));
 
-    Long id = repo.save(email).getId(); // insert the data that will trigger the
+    Long id = repo.save(EMAIL).getId(); // insert the data that will trigger the @Scheduled
 
     Awaitility.await().timeout(ofSeconds(2))
         .untilAsserted(() ->
