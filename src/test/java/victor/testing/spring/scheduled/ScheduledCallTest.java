@@ -14,8 +14,8 @@ import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
 @ActiveProfiles("wiremock")
 @AutoConfigureWireMock(port = 0) // random port
-@TestPropertySource(properties = "email.sender.cron=-")
-public class ScheduledCallTest extends BaseDatabaseTest {
+@TestPropertySource(properties = "email.sender.cron=-") // cron="-" means 'DISABLE'
+public class JobCallTest extends BaseDatabaseTest {
   @Autowired
   EmailToSendRepo repo;
   @Autowired
@@ -25,9 +25,6 @@ public class ScheduledCallTest extends BaseDatabaseTest {
 
   @Test
   void directCallOfScheduledMethod() {
-    // listener can pick elements from request to emulate stateful interaction with an API
-    wireMock.addMockServiceRequestListener((request, response) -> // listener only for this wiremock instance
-        System.out.println("Received request  " + request.getUrl()));
     wireMock.stubFor(post(urlMatching("/send-email.*"))
         .willReturn(aResponse()));
     EmailToSend email = new EmailToSend()
