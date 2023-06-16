@@ -98,7 +98,6 @@ public class CreateProductTest {
   }
   @Test
   void createOkCuCategoryNull() {
-    // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
