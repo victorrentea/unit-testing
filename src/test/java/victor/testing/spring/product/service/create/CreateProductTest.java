@@ -27,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
+import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
 //@ExtendWith(MockitoExtension.class)
 @ActiveProfiles("db-mem")
@@ -72,6 +73,21 @@ public class CreateProductTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+  @Test
+  void createOkCuCategoryNull() {
+    // GIVEN
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    when(safetyClient.isSafe("safebar")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
+
+    // WHEN
+    productService.createProduct(dto);
+
+    // THEN
+    assertThat(productRepo.findAll()).hasSize(1);
+    Product product = productRepo.findAll().get(0);
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
