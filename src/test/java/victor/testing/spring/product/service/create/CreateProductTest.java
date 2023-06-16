@@ -1,5 +1,6 @@
 package victor.testing.spring.product.service.create;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -48,7 +49,7 @@ public class CreateProductTest extends BaseIntegrationTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
-
+  private Long supplierId;
 //  @BeforeEach
 //  @AfterEach
 //  final void before() { // cleanup programatic din tabele in ordinea FK
@@ -56,9 +57,13 @@ public class CreateProductTest extends BaseIntegrationTest {
 //      supplierRepo.deleteAll();
 //  }
 
+  @BeforeEach
+  final void before() {
+    supplierId = supplierRepo.save(new Supplier()).getId(); // rollbacked la final
+  }
+
   @Test
   void createThrowsForUnsafeProduct() {
-//    when(safetyClient.isSafe("bar")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -69,8 +74,6 @@ public class CreateProductTest extends BaseIntegrationTest {
   @Test
   void createOk() {
     // GIVEN
-    Long supplierId = supplierRepo.save(new Supplier()).getId();
-//    when(safetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
     // WHEN
@@ -88,8 +91,6 @@ public class CreateProductTest extends BaseIntegrationTest {
   }
   @Test
   void createOkCuCategoryNull() {
-    Long supplierId = supplierRepo.save(new Supplier()).getId();
-//    when(safetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
 
     // WHEN
