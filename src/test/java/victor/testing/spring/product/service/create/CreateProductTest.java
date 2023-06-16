@@ -12,12 +12,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+import victor.testing.spring.BaseDatabaseTest;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -39,7 +42,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 //@ExtendWith(MockitoExtension.class)
 @ActiveProfiles("db-mem")
-@SpringBootTest
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:9999")
 @Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
@@ -47,9 +50,11 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 // NICIODATA pe git -> incetineste dramatic testele pe CI
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // DISTRUGE CONTEXTU DE SPRING CU TOT CU DB IN MEM CU TOT
+
+@AutoConfigureWireMock(port = 9999) // porneste un server HTTP din teste
 public class CreateProductTest {
-  @MockBean
-  SafetyClient safetyClient;
+//  @MockBean
+//  SafetyClient safetyClient;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
@@ -68,7 +73,7 @@ public class CreateProductTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyClient.isSafe("bar")).thenReturn(false);
+//    when(safetyClient.isSafe("bar")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -80,7 +85,7 @@ public class CreateProductTest {
   void createOk() {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(safetyClient.isSafe("safebar")).thenReturn(true);
+//    when(safetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
     // WHEN
@@ -99,7 +104,7 @@ public class CreateProductTest {
   @Test
   void createOkCuCategoryNull() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(safetyClient.isSafe("safebar")).thenReturn(true);
+//    when(safetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
 
     // WHEN

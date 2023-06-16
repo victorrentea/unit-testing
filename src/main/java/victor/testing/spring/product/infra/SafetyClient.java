@@ -19,8 +19,8 @@ public class SafetyClient {
     public boolean isSafe(String barcode) {
         SafetyReportDto response = rest.getForEntity(
             baseUrl + "/product/{barcode}/safety",
-            SafetyReportDto.class, barcode)
-                .getBody();
+            SafetyReportDto.class, barcode).getBody();
+//        SafetyReportDto response = rest.exchange(baseUrl + "/product/{barcode}/safety",SafetyReportDto.class, barcode).getBody();
 
         boolean safe = response.getEntries().stream()
                 .anyMatch(report -> "SAFE".equals(report.getCategory()));
