@@ -32,7 +32,7 @@ public class ProductService {
 
 
 //  @Async // alt thread => alta tranzactie
-  @Transactional(propagation = Propagation.REQUIRES_NEW)// @Transactional nu mai merge
+//  @Transactional(propagation = Propagation.REQUIRES_NEW)// @Transactional nu mai merge
   public void createProduct(ProductDto productDto) {
     boolean safe = safetyClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {

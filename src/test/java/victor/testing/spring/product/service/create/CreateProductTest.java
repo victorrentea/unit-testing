@@ -40,13 +40,13 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@ExtendWith(MockitoExtension.class)
 @ActiveProfiles("db-mem")
 @SpringBootTest
-//@Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
+@Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 // pt insert de date 'statice' standard in db gol, mai poti defini un fisier /src/test/resources/data.sql pe care Spring il ruleaza automat dupa creerea bazei
 
 // NICIODATA pe git -> incetineste dramatic testele pe CI
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // DISTRUGE CONTEXTU DE SPRING CU TOT CU DB IN MEM CU TOT
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // DISTRUGE CONTEXTU DE SPRING CU TOT CU DB IN MEM CU TOT
 public class CreateProductTest {
   @MockBean
   SafetyClient safetyClient;
