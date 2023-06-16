@@ -18,6 +18,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import static java.lang.Integer.MIN_VALUE;
 import static java.lang.System.currentTimeMillis;
 
+
+// Installation:
+// - in src/test/resources/META-INF/spring.factories:
+//    org.springframework.test.context.TestExecutionListener=victor.testing.spring.product.api.MonitorSpringTestStartupPerformance
+// - in src/test/resources/META-INF/services/org.junit.platform.launcher.TestExecutionListener:
+//    victor.testing.spring.product.api.MonitorSpringTestStartupPerformance
+
 @Component // place this in the packages of your app under your @SpringBootApplication to be picked up by Spring
 public class MonitorSpringTestStartupPerformance implements TestExecutionListener,
         org.springframework.test.context.TestExecutionListener, Ordered {
