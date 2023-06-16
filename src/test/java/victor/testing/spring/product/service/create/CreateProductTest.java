@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
@@ -30,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
@@ -38,6 +40,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 @SpringBootTest
 //@Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 // CAND NU MERGE?
+@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 public class CreateProductTest {
   @MockBean
   SafetyClient safetyClient;
@@ -50,12 +53,12 @@ public class CreateProductTest {
   @Autowired
   ProductService productService;
 
-  @BeforeEach
-  @AfterEach
-  final void before() { // cleanup programatic din tabele in ordinea FK
-      productRepo.deleteAll();
-      supplierRepo.deleteAll();
-  }
+//  @BeforeEach
+//  @AfterEach
+//  final void before() { // cleanup programatic din tabele in ordinea FK
+//      productRepo.deleteAll();
+//      supplierRepo.deleteAll();
+//  }
 
   @Test
   void createThrowsForUnsafeProduct() {
