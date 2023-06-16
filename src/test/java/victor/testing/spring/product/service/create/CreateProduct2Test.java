@@ -24,8 +24,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 public class CreateProduct2Test extends BaseIntegrationTest {
   // cu @MockBean => 1 context pt ambele clase
   // fara @MockBean => 2 contexte pt ambele clase (cate 1 / clasa)
-//  @MockBean
-//  KafkaTemplate<String, String> kafkaTemplate;
+
 
   @Autowired
   SafetyClient safetyClient;

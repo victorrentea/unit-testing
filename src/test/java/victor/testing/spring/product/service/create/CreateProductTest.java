@@ -38,8 +38,10 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 @Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 public class CreateProductTest extends BaseIntegrationTest {
-  @MockBean
-  KafkaTemplate<String, String> kafkaTemplate;
+//  @MockBean
+//  KafkaTemplate<String, String> kafkaTemplate;
+  // morala: daca eu aici imi pun un @MockBean doar eu, sau un profil/property doar pt clasa
+  // => + 30 sec / build
   @Autowired
   ProductRepo productRepo;
   @Autowired

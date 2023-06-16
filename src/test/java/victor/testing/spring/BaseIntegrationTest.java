@@ -1,7 +1,9 @@
 package victor.testing.spring;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 // #1 innocent Testcontainers test (online examples)
@@ -9,6 +11,8 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles({"db-mem", "wiremock"})
 @AutoConfigureWireMock(port = 0) // porneste un server HTTP din teste
 public class BaseIntegrationTest {
+  @MockBean
+  protected KafkaTemplate<String, String> kafkaTemplate;
 }
 
 // ==================================================================
