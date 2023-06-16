@@ -41,6 +41,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@Transactional // se comporta altfel ca atunci cand il pui in prod: la final da rollback
 // CAND NU MERGE?
 @Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
+// pt insert de date 'statice' standard in db gol, mai poti defini un fisier /src/test/resources/data.sql pe care Spring il ruleaza automat dupa creerea bazei
 public class CreateProductTest {
   @MockBean
   SafetyClient safetyClient;
