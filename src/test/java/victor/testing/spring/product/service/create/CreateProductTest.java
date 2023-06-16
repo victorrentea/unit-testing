@@ -39,10 +39,11 @@ public class CreateProductTest {
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("bar")).thenReturn(false);
-
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
+
     assertThatThrownBy(() -> productService.createProduct(dto))
-        .isInstanceOf(IllegalStateException.class);
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("Product is not safe: bar");
   }
 
   @Test
@@ -66,7 +67,7 @@ public class CreateProductTest {
     assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
-    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "NAME");
+    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
 }
