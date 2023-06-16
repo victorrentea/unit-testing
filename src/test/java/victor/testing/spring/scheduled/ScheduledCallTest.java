@@ -14,7 +14,7 @@ import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
 @ActiveProfiles("wiremock")
 @AutoConfigureWireMock(port = 0) // random port
-@TestPropertySource(properties = "email.sender.cron=-")
+@TestPropertySource(properties = "email.sender.cron=-") // cron="-" means 'DISABLE'
 public class ScheduledCallTest extends BaseDatabaseTest {
   @Autowired
   EmailToSendRepo repo;
