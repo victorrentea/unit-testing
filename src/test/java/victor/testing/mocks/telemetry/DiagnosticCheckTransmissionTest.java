@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -77,9 +78,10 @@ public class DiagnosticCheckTransmissionTest {
    void configuresClientCorrectly() {
       diagnostic.checkTransmission(true);
 
-      ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
       verify(clientMock).configure(configCaptor.capture());
       ClientConfiguration config = configCaptor.getValue();
       assertThat(config.getAckMode()).isEqualTo(NORMAL);
    }
+   @Captor
+   ArgumentCaptor<ClientConfiguration> configCaptor;
 }
