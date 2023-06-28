@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -20,5 +21,14 @@ public class DiagnosticCheckTransmissionTest {
       diagnostic.checkTransmission(true);
 
       verify(clientMock).disconnect(true); // asking the mock if disconnect was really called from tested code
+   }
+   @Test
+   void throwsWhenNotOnline() {
+      Client clientMock = mock(Client.class);
+      Diagnostic diagnostic = new Diagnostic(clientMock);
+      when(clientMock.getOnlineStatus()).thenReturn(false);
+
+      Assertions.assertThatThrownBy(() -> diagnostic.checkTransmission(true))
+          .isInstanceOf(IllegalStateException.class);
    }
 }
