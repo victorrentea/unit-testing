@@ -17,7 +17,7 @@ public class CustomerValidatorTest {
 
   private Customer customer = new Customer()
       .setName("::name::")
-      .setEmail("::email::")
+      .setEmail("         ")
       .setAddress(new Address()
           .setCity("::city::"));
 
@@ -37,7 +37,7 @@ public class CustomerValidatorTest {
 
     validator.validate(customer); // prod call
 
-//    assertEquals("name", customer.getAddress().getCity()); // never, not AssertJ jupiter.Assertions
+//    assertEquals("name", customer.getAddress().getCity()); // never, not AssertJ jupiter.Assertions; that's old....
 //    assertThat(customer.getAddress().getCity()).isEqualTo("  name    ".trim()); // repeats logic in prod; NO
     assertThat(customer.getAddress().getCity()).isEqualTo("name");
   }
@@ -83,7 +83,6 @@ public class CustomerValidatorTest {
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Address city too short");
   }
-
 
 
   // what if customer, or customer.address is null : not a product-relevant behavior-> not test IS REQUIRED
