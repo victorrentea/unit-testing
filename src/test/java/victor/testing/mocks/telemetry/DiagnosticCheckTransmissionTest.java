@@ -5,10 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
 import java.util.UUID;
 
@@ -16,7 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-   // Mockito creates a subclass of the Client.class
+import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
+// Mockito creates a subclass of the Client.class
 // (can't always do it 'final') unless you use
 // mockito-inline dependency in your pom, that deprecated PowerMock
 
@@ -33,25 +36,25 @@ public class DiagnosticCheckTransmissionTest {
    @InjectMocks
    Diagnostic diagnostic;
 
+   @BeforeEach
+   final void before() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+   }
    @Test
    void disconnects() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
-
       diagnostic.checkTransmission(true);
 
       verify(clientMock).disconnect(true); // asking the mock if disconnect was really called from tested code
    }
    @Test
    void throwsWhenNotOnline() {
-      when(clientMock.getOnlineStatus()).thenReturn(false);
+      when(clientMock.getOnlineStatus()).thenReturn(false); // reprograms the stubbed method
 
       assertThatThrownBy(() -> diagnostic.checkTransmission(true))
           .isInstanceOf(IllegalStateException.class);
    }
    @Test
    void sendsDiagnostic() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
-
       diagnostic.checkTransmission(true);
 
       verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE);
@@ -59,7 +62,6 @@ public class DiagnosticCheckTransmissionTest {
 
    @Test
    void receivesDiagnosticInfo() {
-      when(clientMock.getOnlineStatus()).thenReturn(true);
       when(clientMock.receive()).thenReturn(RECEIVED_VALUE);
 
       diagnostic.checkTransmission(true);
@@ -69,5 +71,15 @@ public class DiagnosticCheckTransmissionTest {
       // Exception: when you want to ENSURE the stubbed method is called exactyly ONCE - times(1)
       assertThat(diagnostic.getDiagnosticInfo())
           .isEqualTo(RECEIVED_VALUE);
+   }
+
+   @Test
+   void configuresClientCorrectly() {
+      diagnostic.checkTransmission(true);
+
+      ArgumentCaptor<ClientConfiguration> configCaptor = ArgumentCaptor.forClass(ClientConfiguration.class);
+      verify(clientMock).configure(configCaptor.capture());
+      ClientConfiguration config = configCaptor.getValue();
+      assertThat(config.getAckMode()).isEqualTo(NORMAL);
    }
 }
