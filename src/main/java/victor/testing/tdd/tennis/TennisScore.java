@@ -8,8 +8,8 @@ public class TennisScore {
   private static final Map<Integer, String> pointsToScore = Map.of(
       0, "Love",
       1, "Fifteen",
-      2, "Thirty"
-//      3, "Forty" // UNTESTED BEHAVIOR!!!!!!!!
+      2, "Thirty",
+      3, "Forty"
       );
 
   public String getScore() {
