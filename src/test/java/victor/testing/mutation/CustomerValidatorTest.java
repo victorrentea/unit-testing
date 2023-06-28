@@ -1,6 +1,7 @@
 package victor.testing.mutation;
 
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
@@ -21,7 +22,6 @@ public class CustomerValidatorTest {
     validator.validate(customer);
   }
 
-  @Test
 //  @DisplayName("if a customer with a null name is validated, it throw an exception")
   // "//comments are bad if you CAN refactor the code to be self-describing" <- Clean Code
   // they can become outdated. out of sync with the test
@@ -29,13 +29,26 @@ public class CustomerValidatorTest {
 //   void notValid_ifNameIsNull() {
 //  void invalidWhenNameIsNull() {
 //  void givenACustoemrWithNullName_validatioFails() {
+
+  @Test
   void throwForNullName() { // naming convention to start with the EFFECT expected
     Customer customer = new Customer();
     customer.setEmail("::email::");
     customer.setAddress(new Address());
     customer.getAddress().setCity("::city::");
 
-    validator.validate(customer);
+    Assertions.assertThatThrownBy(()->validator.validate(customer))
+        .isInstanceOf(IllegalArgumentException.class);
+  }
+
+  @Test
+  void throwForNullEmail() {
+    Customer customer = new Customer();
+    customer.setAddress(new Address());
+    customer.getAddress().setCity("::city::");
+
+    Assertions.assertThatThrownBy(()->validator.validate(customer))
+        .isInstanceOf(IllegalArgumentException.class);
   }
 
 
