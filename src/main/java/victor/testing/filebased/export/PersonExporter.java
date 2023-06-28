@@ -14,11 +14,13 @@ public class PersonExporter {
   // Therefore, it has no bugs. 🤞
   // Your plan to refactor it... 😱
   // How can you make sure you don't break the current behavior?
+  // I want to FREEZE its behavior, not find new bugs.
 
-  // You write CHARACTERIZATION TESTS:
-  // 1. You capture the relevant output of the code
-  // 2. Find proper inputs to go "everywhere" (use line coverage)
+  // You write CHARACTERIZATION TESTS: (1)
+  // 1. You capture the relevant output of the code (FILE, INSERT, MQ send, email, UPDATE)
+  // 2. Find proper inputs to go "everywhere" (use line coverage) (req, DB contents, SEQUENCES, time, )
   // 3. Save current output as tests along with the inputs
+  // NEXT LEVEL: record from production => "GOLDEN MASTER TECHNIQUE" (2)
   // These tests should stay green when refactoring the code.
 
   public void export(Writer writer) throws IOException {
