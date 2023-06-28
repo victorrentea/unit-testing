@@ -22,10 +22,9 @@ public class TennisScoreParameterizedTest {
     );
   }
 
-
   @ParameterizedTest(name = "When player 1 scored {0} points and player 2 scored {1} points, the score is ''{2}''")
   @MethodSource("testData")
-  void oneTestToRuleThemAll(int player1Points, int player2Points, String expectedScore) {
+  void oneTestToRuleThemAll(int player1Points, int player2Points, boolean expectedScore) {
     for (int i = 0; i < player1Points; i++) {
       tennisScore.player1Scored();
     }
