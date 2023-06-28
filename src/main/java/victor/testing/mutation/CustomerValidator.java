@@ -4,7 +4,8 @@ import java.util.function.Predicate;
 
 public class CustomerValidator {
 	public void validate(Customer customer) {
-		if (customer.getName() == null) {
+		if (customer.getName() == null || customer.getAddress() == null) {
+			// 50% covered line if you only try customer.name==null
 			throw new IllegalArgumentException("Missing customer name");
 		}
 		if (customer.getEmail() == null) {
