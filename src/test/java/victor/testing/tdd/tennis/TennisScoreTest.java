@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TennisScoreTest {
   TennisScore tennisScore = new TennisScore();
+  // Junit scrambles the test execution order so you don'y couple them together in a certain order (intentionally or by mistake)
 
   @Test
   void newGame() {

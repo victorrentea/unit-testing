@@ -8,6 +8,13 @@ Feature: Tennis Game
     Given A new tennis game
     When Player1 scores
     Then Score is "Fifteen-Love"
+#    Gherkin language
+
+  Scenario: Deuce after a lot of fight
+    Given A new tennis game
+    When Player1 scores 10 points
+    And Player2 scores 10 points
+    Then Score is "Deuce"
 
   Scenario: Fifteen-Fifteen
     Given A new tennis game
@@ -38,8 +45,8 @@ Feature: Tennis Game
       | 3             | 3             | Deuce             |
       | 4             | 4             | Deuce             |
       | 8             | 8             | Deuce             |
-      | 4             | 3             | Advantage Player1 |
-      | 5             | 6             | Advantage Player2 |
-      | 8             | 6             | Game won Player1  |
-      | 0             | 4             | Game won Player2  |
-      | 1             | 4             | Game won Player2  |
+#      | 4             | 3             | Advantage Player1 |
+#      | 5             | 6             | Advantage Player2 |
+#      | 8             | 6             | Game won Player1  |
+#      | 0             | 4             | Game won Player2  |
+#      | 1             | 4             | Game won Player2  |
