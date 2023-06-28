@@ -12,16 +12,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 //public class CustomerValidatorShould { // tends to scare devs out because they search CVT
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
-  private Customer customer;
 
-  @BeforeEach
-  final void before() {
-    customer = new Customer()
-        .setName("::name::")
-        .setEmail("::email::")
-        .setAddress(new Address()
-            .setCity("::city::"));
+  private Customer customer = new Customer()
+      .setName("::name::")
+      .setEmail("::email::")
+      .setAddress(new Address()
+          .setCity("::city::"));
 
+  public CustomerValidatorTest() {
+    System.out.println("By default JUnit instantiates the test class once per each @Test");
+    // moral: don't ever be afraid of leaving 'mutated/corrupted/dirty' data on fields
   }
 
   @Test
