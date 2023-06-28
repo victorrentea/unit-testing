@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
 
 @DisplayNameGeneration(HumanReadableTestNames.class)
-public class CustomerValidatorShould { // tends to scare devs out because they search CVT
+//public class CustomerValidatorShould { // tends to scare devs out because they search CVT
+public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
 
   @Test
