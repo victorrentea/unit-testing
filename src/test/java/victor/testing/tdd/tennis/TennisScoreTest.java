@@ -39,4 +39,12 @@ public class TennisScoreTest {
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Forty-Love");
   }
+
+  @Test
+  void loveFifteen_whenPlayer2Scores() {
+    tennisScore.player2Scored();
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Love-Fifteen");
+  }
+
 }
