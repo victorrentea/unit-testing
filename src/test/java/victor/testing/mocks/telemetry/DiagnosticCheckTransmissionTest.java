@@ -66,7 +66,7 @@ public class DiagnosticCheckTransmissionTest {
 
       verify(clientMock).receive(); // RULE: avoid, because:
       // we know already that receive was called, because of the next line
-      // Exception:
+      // Exception: when you want to ENSURE the stubbed method is called exactyly ONCE - times(1)
       assertThat(diagnostic.getDiagnosticInfo())
           .isEqualTo(RECEIVED_VALUE);
    }
