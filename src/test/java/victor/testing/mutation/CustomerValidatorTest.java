@@ -25,7 +25,6 @@ public class CustomerValidatorTest {
 //  @DisplayName("if a customer with a null name is validated, it throw an exception")
   // "//comments are bad if you CAN refactor the code to be self-describing" <- Clean Code
   // they can become outdated. out of sync with the test
-
 //   void notValid_ifNameIsNull() {
 //  void invalidWhenNameIsNull() {
 //  void givenACustoemrWithNullName_validatioFails() {
@@ -38,17 +37,20 @@ public class CustomerValidatorTest {
     customer.getAddress().setCity("::city::");
 
     Assertions.assertThatThrownBy(()->validator.validate(customer))
-        .isInstanceOf(IllegalArgumentException.class);
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Missing customer name");
   }
 
   @Test
   void throwForNullEmail() {
     Customer customer = new Customer();
+    customer.setName("someName");
     customer.setAddress(new Address());
     customer.getAddress().setCity("::city::");
 
     Assertions.assertThatThrownBy(()->validator.validate(customer))
-        .isInstanceOf(IllegalArgumentException.class);
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Missing customer email");
   }
 
 
