@@ -14,6 +14,9 @@ public class TennisScore {
       );
 
   public String getScore() {
+    if (player1Points == player2Points && player1Points >= 3) {
+      return "Deuce";
+    }
     return pointsToScore.get(player1Points) + "-" +
            pointsToScore.get(player2Points);
   }
