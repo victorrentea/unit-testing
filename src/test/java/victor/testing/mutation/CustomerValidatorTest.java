@@ -85,5 +85,15 @@ public class CustomerValidatorTest {
   }
 
 
+
+  //  This is what I thought you meant by a test that would fail if you remove the "trim" from production code (line 20 on validator):
+  @Test
+  void throwForAddressCityTooShortAfterTrimming() {
+    customer.getAddress().setCity(" a ");
+    assertThatThrownBy(() -> validator.validate(customer))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Address city too short");
+  }
+
   // what if customer, or customer.address is null : not a product-relevant behavior-> not test IS REQUIRED
 }
