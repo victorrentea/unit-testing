@@ -22,6 +22,7 @@ public class TennisScoreTest {
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Fifteen-Love");
   }
+
   @Test
   void thirtyLove_whenPlayer1Scores2Points() {
     tennisScore.player1Scored();
@@ -29,4 +30,12 @@ public class TennisScoreTest {
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Thirty-Love");
   }
+//  @Test
+//  void fortyLove_whenPlayer1Scores3Points() {
+//    tennisScore.player1Scored();
+//    tennisScore.player1Scored();
+//    tennisScore.player1Scored();
+//    String score = tennisScore.getScore();
+//    assertThat(score).isEqualTo("Forty-Love");
+//  }
 }

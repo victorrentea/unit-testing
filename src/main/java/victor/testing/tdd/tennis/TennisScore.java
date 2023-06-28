@@ -1,18 +1,22 @@
 package victor.testing.tdd.tennis;
 
+import java.util.Map;
+
 public class TennisScore {
 
-  private String score = "Love-Love";
+  private int player1Points = 0;
+  private static final Map<Integer, String> pointsToScore = Map.of(
+      0, "Love",
+      1, "Fifteen",
+      2, "Thirty"
+//      3, "Forty" // UNTESTED BEHAVIOR!!!!!!!!
+      );
 
   public String getScore() {
-    return score;
+    return pointsToScore.get(player1Points) + "-Love";
   }
 
   public void player1Scored() {
-    if (score.equals("Love-Love")) {
-      score = "Fifteen-Love";
-    } else {
-      score = "Thirty-Love";
-    }
+    player1Points++;
   }
 }
