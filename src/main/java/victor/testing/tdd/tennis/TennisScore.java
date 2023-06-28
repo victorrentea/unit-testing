@@ -2,13 +2,13 @@ package victor.testing.tdd.tennis;
 
 public class TennisScore {
 
-  private static String score = "Love-Love";
+  private String score = "Love-Love";
 
-  public static String getScore() {
+  public String getScore() {
     return score;
   }
 
-  public static void player1Scored() {
+  public void player1Scored() {
     score = "Fifteen-Love";
   }
 }
