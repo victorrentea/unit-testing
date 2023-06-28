@@ -6,7 +6,9 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(HumanReadableTestNames.class)
 //public class CustomerValidatorShould { // tends to scare devs out because they search CVT
@@ -27,6 +29,17 @@ public class CustomerValidatorTest {
   @Test
   void valid() {
     validator.validate(customer);
+  }
+
+  @Test
+  void trimsCityName() {
+    customer.getAddress().setCity("  name    ");
+
+    validator.validate(customer); // prod call
+
+//    assertEquals("name", customer.getAddress().getCity()); // never, not AssertJ jupiter.Assertions
+//    assertThat(customer.getAddress().getCity()).isEqualTo("  name    ".trim()); // repeats logic in prod; NO
+    assertThat(customer.getAddress().getCity()).isEqualTo("name");
   }
 
   //  @DisplayName("if a customer with a null name is validated, it throw an exception")
@@ -53,6 +66,25 @@ public class CustomerValidatorTest {
         .hasMessage("Missing customer email");
   }
 
+  @Test
+  void throwForNullAddressCity() {
+    customer.getAddress().setCity(null);
 
-  // what if customer.address is null
+    assertThatThrownBy(() -> validator.validate(customer))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Missing address city");
+  }
+
+  @Test
+  void throwForAddressCityTooShort() {
+    customer.getAddress().setCity("12");
+
+    assertThatThrownBy(() -> validator.validate(customer))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Address city too short");
+  }
+
+
+
+  // what if customer, or customer.address is null : not a product-relevant behavior-> not test IS REQUIRED
 }
