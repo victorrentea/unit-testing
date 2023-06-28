@@ -33,11 +33,8 @@ public class PersonExporter {
       // TODO CR: output all phones comma-separated
 
       writer.write(";");
-      if (person.getBirthDate() != null) {
-        writer.write(person.getBirthDate().toString()); // TODO CR: change format to "12 Nov 2021"
-      } else {
-        writer.write("N/A");
-      }
+      String birthStr = person.getBirthDate() != null ? person.getBirthDate().toString() : "N/A";
+      writer.write(birthStr); // TODO CR: change format to "12 Nov 2021"
       writer.write("\n");
     }
   }
