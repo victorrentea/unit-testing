@@ -255,7 +255,7 @@ public class MockitoShowcaseTest {
 
 	public static class SomeLibrary {
 		public static int heavyMethod(String x) {
-			throw new RuntimeException("Incomplete data, network, files, config, or another weird reason");
+			throw new RuntimeException("Incomplete testData, network, files, config, or another weird reason");
 		}
 	}
 

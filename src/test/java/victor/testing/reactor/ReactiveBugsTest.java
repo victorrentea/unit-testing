@@ -76,7 +76,7 @@ class ReactiveBugsTest {
         PublisherProbe<Void> saveProbe = empty();
         when(dependencyMock.saveA(A)).thenReturn(saveProbe.mono());
 
-        target.flatMapLoss(ID, "data").block();
+        target.flatMapLoss(ID, "testData").block();
 
         assertThat(saveProbe.subscribeCount()).isEqualTo(1);
     }
@@ -88,7 +88,7 @@ class ReactiveBugsTest {
         PublisherProbe<Void> saveProbe = empty();
         when(dependencyMock.saveA(A)).thenReturn(probes.subscribeOnce(saveProbe.mono()));
 
-        target.flatMapLoss(ID, "data").block();
+        target.flatMapLoss(ID, "testData").block();
 
         assertThat(saveProbe.subscribeCount()).isEqualTo(1);
     }

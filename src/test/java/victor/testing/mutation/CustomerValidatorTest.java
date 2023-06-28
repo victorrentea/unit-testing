@@ -23,7 +23,7 @@ public class CustomerValidatorTest {
 
   public CustomerValidatorTest() {
     System.out.println("By default JUnit instantiates the test class once per each @Test");
-    // moral: don't ever be afraid of leaving 'mutated/corrupted/dirty' data on fields
+    // moral: don't ever be afraid of leaving 'mutated/corrupted/dirty' testData on fields
   }
 
   @Test

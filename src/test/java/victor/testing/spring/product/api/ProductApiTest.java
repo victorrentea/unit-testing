@@ -51,7 +51,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
  * <li> Runs the flyway migration scripts against the empty DB
  * <li> Uses WireMock to stub the JSON responses from third party APIs
  * <li> Starts one @Transaction / @Test
- * <li> Fills some 'static' data in the database (Supplier)
+ * <li> Fills some 'static' testData in the database (Supplier)
  * <li> pre-autorizes the request as ROLE_ADMIN by default
  * <li> Emulates a JSON request against my API and checks the JSON response
  * <li> At the end of each test leaves the DB clean (by auto-rollback of @Transactional)

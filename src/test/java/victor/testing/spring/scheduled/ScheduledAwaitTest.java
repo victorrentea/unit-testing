@@ -35,7 +35,7 @@ public class ScheduledAwaitTest extends BaseDatabaseTest {
         .setSubject("Sub")
         .setBody("Bod");
 
-    Long id = repo.save(email).getId(); // insert the data that will trigger the
+    Long id = repo.save(email).getId(); // insert the testData that will trigger the
 
     Awaitility.await().timeout(ofSeconds(2))
         .untilAsserted(() ->
