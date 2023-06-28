@@ -10,6 +10,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
    // Mockito creates a subclass of the Client.class
@@ -22,6 +26,8 @@ import static org.mockito.Mockito.*;
 //@RunWith(MockitoJUnitRunner.class) // Junit4 RULES
 @ExtendWith(MockitoExtension.class) // Junit5
 public class DiagnosticCheckTransmissionTest {
+//   public static final String RECEIVED_VALUE = "anystring" + UUID.randomUUID();// to much!?!? confusing the reader of the test
+   public static final String RECEIVED_VALUE = "tataie238576";
    @Mock
    Client clientMock;
    @InjectMocks
@@ -39,7 +45,7 @@ public class DiagnosticCheckTransmissionTest {
    void throwsWhenNotOnline() {
       when(clientMock.getOnlineStatus()).thenReturn(false);
 
-      Assertions.assertThatThrownBy(() -> diagnostic.checkTransmission(true))
+      assertThatThrownBy(() -> diagnostic.checkTransmission(true))
           .isInstanceOf(IllegalStateException.class);
    }
    @Test
@@ -49,5 +55,19 @@ public class DiagnosticCheckTransmissionTest {
       diagnostic.checkTransmission(true);
 
       verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE);
+   }
+
+   @Test
+   void receivesDiagnosticInfo() {
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+      when(clientMock.receive()).thenReturn(RECEIVED_VALUE);
+
+      diagnostic.checkTransmission(true);
+
+      verify(clientMock).receive(); // RULE: avoid, because:
+      // we know already that receive was called, because of the next line
+      // Exception:
+      assertThat(diagnostic.getDiagnosticInfo())
+          .isEqualTo(RECEIVED_VALUE);
    }
 }
