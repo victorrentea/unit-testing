@@ -33,6 +33,14 @@ public class Diagnostic {
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = client.receive();
+		surpriseIn100LinesOfDarkLogic();
+	}
+
+	private void surpriseIn100LinesOfDarkLogic() {
+		// logic
+		// logic
+//		if try for
+			diagnosticInfo = client.receive();
 	}
 
 	public String getDiagnosticInfo() {
