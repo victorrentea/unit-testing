@@ -78,10 +78,21 @@ public class DiagnosticCheckTransmissionTest {
    void configuresClientCorrectly() {
       diagnostic.checkTransmission(true);
 
-      verify(clientMock).configure(configCaptor.capture());
-      ClientConfiguration config = configCaptor.getValue();
-      assertThat(config.getAckMode()).isEqualTo(NORMAL);
+//      verify(clientMock).configure(configCaptor.capture());
+//      ClientConfiguration config = configCaptor.getValue();
+//      assertThat(config.getAckMode()).isEqualTo(NORMAL);
+      // or, simpler, if you're after a single field
+      verify(clientMock).configure(argThat(config->config.getAckMode() == NORMAL));
    }
    @Captor
    ArgumentCaptor<ClientConfiguration> configCaptor;
 }
+
+// What's next tomorrow:
+// - mocking static methods
+// - partial mocks (@Spy)
+// - subcutaneous tests
+// - 10 design hints from using Mocks
+// LUNCH
+// Spring integration - the default way to start testign today a microservice
+
