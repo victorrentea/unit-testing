@@ -18,9 +18,15 @@ public class TennisScoreTest {
 
   @Test
   void fifteenLove_whenPlayer1Scores() {
-    //TODO how to make first Player score 1 point
     tennisScore.player1Scored();
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Fifteen-Love");
+  }
+  @Test
+  void thirtyLove_whenPlayer1Scores2Points() {
+    tennisScore.player1Scored();
+    tennisScore.player1Scored();
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Thirty-Love");
   }
 }

@@ -9,6 +9,10 @@ public class TennisScore {
   }
 
   public void player1Scored() {
-    score = "Fifteen-Love";
+    if (score.equals("Love-Love")) {
+      score = "Fifteen-Love";
+    } else {
+      score = "Thirty-Love";
+    }
   }
 }
