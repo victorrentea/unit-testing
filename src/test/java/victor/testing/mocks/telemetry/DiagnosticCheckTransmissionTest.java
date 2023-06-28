@@ -31,4 +31,14 @@ public class DiagnosticCheckTransmissionTest {
       Assertions.assertThatThrownBy(() -> diagnostic.checkTransmission(true))
           .isInstanceOf(IllegalStateException.class);
    }
+   @Test
+   void sendsDiagnostic() {
+      Client clientMock = mock(Client.class);
+      Diagnostic diagnostic = new Diagnostic(clientMock);
+      when(clientMock.getOnlineStatus()).thenReturn(true);
+
+      diagnostic.checkTransmission(true);
+
+      verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE);
+   }
 }
