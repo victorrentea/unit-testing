@@ -1,7 +1,5 @@
 package victor.testing.spring;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -13,18 +11,17 @@ import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilde
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.Executors;
 
 @Slf4j
 @EnableScheduling
 @EnableCaching
 @SpringBootApplication
-public class SomeSpringApplication {
+public class TestedApplication {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
         return builder -> {
@@ -38,7 +35,7 @@ public class SomeSpringApplication {
         new SpringApplicationBuilder()
             .profiles("insertDummyData")
             .initializers(new WaitForDatabase())
-            .sources(SomeSpringApplication.class).run(args);
+            .sources(TestedApplication.class).run(args);
     }
 
     @Autowired

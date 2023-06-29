@@ -1,15 +1,17 @@
 package victor.testing.design.time;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class TimeLogic2 {
    private final OrderRepo orderRepo;
+
+   public TimeLogic2(OrderRepo orderRepo) {
+      this.orderRepo = orderRepo;
+   }
 
    public boolean isFrequentBuyer(int customerId) {
       LocalDate now = LocalDate.now();

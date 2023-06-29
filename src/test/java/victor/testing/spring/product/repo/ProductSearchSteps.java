@@ -11,11 +11,9 @@ import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.SomeSpringApplication;
+import victor.testing.spring.TestedApplication;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
-import victor.testing.spring.product.repo.ProductRepo;
-import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
 import wiremock.org.apache.commons.lang3.StringUtils;
@@ -29,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@CucumberContextConfiguration // from io.cucumber:cucumber-spring:7.0.0 (commented out initially)
 @ActiveProfiles("db-mem")
 @ContextConfiguration(
-    classes = SomeSpringApplication.class,
+    classes = TestedApplication.class,
     loader = SpringBootContextLoader.class
 //    ,initializers = ProductSearchSteps.PostgresDBInitializer.class // uncomment for Testcontainers integration
 )

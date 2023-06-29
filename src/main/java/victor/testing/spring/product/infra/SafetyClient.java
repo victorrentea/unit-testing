@@ -14,7 +14,7 @@ import java.net.URL;
 public class SafetyClient {
   private final RestTemplate restTemplate;
   @Value("${safety.service.url.base}")
-  private URL baseUrl;
+  private URL baseUrl;1
 
   public boolean isSafe(String barcode) {
     SafetyReportDto response = restTemplate.getForEntity(
