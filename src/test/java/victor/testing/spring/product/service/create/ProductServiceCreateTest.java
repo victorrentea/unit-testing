@@ -9,6 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
@@ -26,8 +27,14 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 //@EmbeddedMongo or @Testcontainers⭐️⭐️⭐️⭐️ ?
 @SpringBootTest
+
+@Transactional // when put on a @Test/test class it tells Spring to
+// start a new Tx for each test, run all @BeforeEach in that Tx,
+// and  rollback it after the test
+
+
 @ActiveProfiles("db-mem")// in memory H2 db: SQL db in the JVM memory
-@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class ProductServiceCreateTest {
   @MockBean // replace the spring bean with a mockito mock placing it here for programming, auto-reset between tests
   SafetyClient safetyClient;
