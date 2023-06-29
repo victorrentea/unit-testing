@@ -8,12 +8,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.*;
+import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWARMA;
 
 
 @ExtendWith(MockitoExtension.class)
 class FastFoodTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
+   @Mock
+   FeatureFlags featureFlags;
    @InjectMocks
    FastFood fastFood;
 
@@ -24,6 +27,7 @@ class FastFoodTest {
    @Test
    void shawarmaTest() { // + 7 more tests
       when(dependency.isOnionAllowed()).thenReturn(true);
+      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
       // ... complex
       fastFood.makeShawarma();
    }
