@@ -1,5 +1,6 @@
 package victor.testing.design.purity;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import victor.testing.mutation.Coupon;
@@ -24,9 +25,7 @@ public class PriceService {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds); // where id IN (?,?..)
       Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);
-
       ComputePriceResult result = doComputePrice(products, resolvedPrices, customer.getCoupons());
-
       couponRepo.markUsedCoupons(customerId, result.usedCoupons());
       return result.finalPrices();
    }
@@ -38,7 +37,8 @@ public class PriceService {
    // pure functions should be static
    // if a static function does NOT mutate args => pure (if not time/random contact)
    // static means no dependecy contact => no network
-   private static ComputePriceResult doComputePrice(List<Product> products, Map<Long, Double> resolvedPrices, List<Coupon> coupons) {
+   @VisibleForTesting // this is a GOOD usage of it
+   static ComputePriceResult doComputePrice(List<Product> products, Map<Long, Double> resolvedPrices, List<Coupon> coupons) {
       List<Coupon> usedCoupons = new ArrayList<>();
       Map<Long, Double> finalPrices = new HashMap<>();
       for (Product product : products) {
