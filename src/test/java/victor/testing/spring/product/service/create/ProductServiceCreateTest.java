@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateProductTest {
+public class ProductServiceCreateTest {
   @Mock
   SafetyClient safetyClient;
   @Mock
@@ -37,7 +37,7 @@ public class CreateProductTest {
   ProductService productService;
 
   @Test
-  void createThrowsForUnsafeProduct() {
+  void throwsForUnsafeProduct() {
     when(safetyClient.isSafe("bar")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
@@ -47,11 +47,11 @@ public class CreateProductTest {
   }
 
   @Test
-  void createOk() {
+  void ok() {
     // GIVEN
+    when(safetyClient.isSafe("safebar")).thenReturn(true);
     Supplier supplier = new Supplier().setId(13L);
     when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
-    when(safetyClient.isSafe("safebar")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
 
     // WHEN
@@ -61,7 +61,6 @@ public class CreateProductTest {
     ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
     verify(productRepo).save(productCaptor.capture());
     Product product = productCaptor.getValue();
-
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("safebar");
     assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import victor.testing.filebased.message.KafkaMessageSender;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
+import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
@@ -39,7 +40,8 @@ public class ProductService {
     product.setName(productDto.getName());
     product.setBarcode(productDto.getBarcode());
     product.setCategory(productDto.getCategory());
-    product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
+    Supplier supplier = supplierRepo.findById(productDto.getSupplierId()).orElseThrow();
+    product.setSupplier(supplier);
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
   }
