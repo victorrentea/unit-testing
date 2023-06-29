@@ -38,6 +38,7 @@ public class ProductServiceCreateTest {
   @Autowired
   ProductService productService;
 
+  // the best cleanup for no SQL
   @BeforeEach
   @AfterEach
   final void before() {
