@@ -13,6 +13,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.BaseDatabaseTest;
 import victor.testing.spring.product.api.dto.ProductDto;
@@ -65,8 +66,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @ActiveProfiles({"db-migration", "wiremock","embedded-kafka"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
-@AutoConfigureMockMvc
-// ❤️ emulates HTTP request without starting a Tomcat => @Transactional works, as the whole test shares 1 single thread
+@AutoConfigureMockMvc // ❤️ process the HTTP request in a single thread, without starting a Tomcat => @Transactional works
 public class ProductApiTest extends BaseDatabaseTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
@@ -76,51 +76,62 @@ public class ProductApiTest extends BaseDatabaseTest {
   @Autowired
   ProductRepo productRepo;
 
+  ProductSearchCriteria criteria = new ProductSearchCriteria();
   Long supplierId;
-  ProductDto product;
+  ProductDto productDto;
 
   @BeforeEach
   void persistReferenceData() {
     supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-    product = new ProductDto("productName", "safebar", supplierId, HOME);
+    productDto = new ProductDto("productName", "safebar", supplierId, HOME);
   }
 
-  @Test
-  void whiteBox() throws Exception {
+  @Test // direct DB access
+  void grayBox() throws Exception {
+    // API call
     createProductRawJson("Tree");
 
-    // (A) white box = direct DB access
+    // DB SELECT
     Product returnedProduct = productRepo.findAll().get(0);
     assertThat(returnedProduct.getName()).isEqualTo("Tree");
     assertThat(returnedProduct.getCreateDate()).isToday();
-    assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
-    assertThat(returnedProduct.getSupplier().getId()).isEqualTo(product.supplierId);
-    assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
+    assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
+    assertThat(returnedProduct.getSupplier().getId()).isEqualTo(productDto.supplierId);
+    assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
   }
 
-  @Test
-  void blackBoxFlow() throws Exception {
-    createProduct("Tree"); // call#1
+  @Test // (B) only API calls
+  void blackBox() throws Exception {
+    // API call #1
+    createProduct("Tree");
 
-    // (B) black box = only API calls; more decoupled
-    List<ProductSearchResult> results = searchProduct(criteria().setName("Tree")); // call#2
+    // API call #2
+    List<ProductSearchResult> results = searchProduct(criteria.setName("Tree"));
     assertThat(results).hasSize(1);
     assertThat(results.get(0).getName()).isEqualTo("Tree");
+  }
+
+  @Test // (C) sequence of stateful API calls
+  void journey() throws Exception {
+    // API call #1
+    createProduct("Tree");
+
+    // API call #2
+    List<ProductSearchResult> results = searchProduct(criteria.setName("Tree"));
+    assertThat(results).hasSize(1)
+        .first().extracting(ProductSearchResult::getName).isEqualTo("Tree");
     Long productId = results.get(0).getId();
 
-    ProductDto returnedProduct = getProduct(productId); // call#3
-    assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
-    assertThat(returnedProduct.getSupplierId()).isEqualTo(product.supplierId);
-    assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
-    assertThat(returnedProduct.getCreateDate()).isToday();
+    // API call #3
+    ProductDto dto = getProduct(productId);
+    assertThat(dto.getCategory()).isEqualTo(productDto.category);
+    assertThat(dto.getSupplierId()).isEqualTo(productDto.supplierId);
+    assertThat(dto.getBarcode()).isEqualTo(productDto.barcode);
+    assertThat(dto.getCreateDate()).isToday();
   }
 
 
   // ==================== test-DSL (helper/framework) ======================
-
-  static ProductSearchCriteria criteria() {
-    return new ProductSearchCriteria();
-  }
 
   // #1 RAW JSON in test
   // - cumbersome
@@ -145,13 +156,13 @@ public class ProductApiTest extends BaseDatabaseTest {
 
   // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze
   void createProduct(String name) throws Exception {
-    product.setName(name)
+    productDto.setName(name)
         .setSupplierId(supplierId)
         .setCategory(HOME)
         .setBarcode("safebar");
 
     mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(product))
+            .content(jackson.writeValueAsString(productDto))
             .contentType(APPLICATION_JSON)) // can be set as default
         .andExpect(status().is2xxSuccessful());
   }
@@ -179,9 +190,22 @@ public class ProductApiTest extends BaseDatabaseTest {
   // ==================== More stuff you can test with MockMvc ======================
 
   @Test
+  void cannotCreateProductWithNullName() throws Exception {
+    productDto.setName(null); // triggers @Validated on controller method
+
+    MvcResult mvcResult = mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(productDto))
+            .contentType(APPLICATION_JSON))
+        // see the @RestControllerAdvice
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    assertThat(mvcResult.getResponse().getContentAsString()).contains("name");
+  }
+
+  @Test
   void createProduct_returnsHeader() throws Exception {
     mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(product))
+            .content(jackson.writeValueAsString(productDto))
             .contentType(APPLICATION_JSON))
         .andExpect(header().string("Location", "http://created-uri"))
         .andExpect(status().isCreated());
@@ -191,20 +215,10 @@ public class ProductApiTest extends BaseDatabaseTest {
   @WithMockUser(roles = "USER") // resets the credentials set at the class level
   void createProductByNonAdmin_NotAuthorized() throws Exception {
     mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(product))
+            .content(jackson.writeValueAsString(productDto))
             .contentType(APPLICATION_JSON)
         )
         .andExpect(status().isForbidden());
-  }
-
-  @Test
-  void cannotCreateProductWithNullName() throws Exception {
-    product.setName(null); // triggers @Validated on controller method
-
-    mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(product))
-            .contentType(APPLICATION_JSON))
-        .andExpect(status().is4xxClientError()); // see the @RestControllerAdvice
   }
 
 }

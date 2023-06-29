@@ -1,4 +1,4 @@
-package victor.testing.spring.product.api;
+package victor.testing.tricks;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;

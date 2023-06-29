@@ -1,11 +1,6 @@
-package victor.testing.spring.product.api;
+package victor.testing.spring;
 
-import org.junit.Test;
-import org.junit.jupiter.engine.config.DefaultJupiterConfiguration;
-import org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor;
-import org.junit.platform.engine.UniqueId;
 import org.junit.platform.launcher.TestExecutionListener;
-import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +21,9 @@ import static java.lang.System.currentTimeMillis;
 
 // Installation:
 // - in src/test/resources/META-INF/spring.factories:
-//    org.springframework.test.context.TestExecutionListener=victor.testing.spring.product.api.MonitorSpringTestStartupPerformance
+//    org.springframework.test.context.TestExecutionListener=victor.testing.spring.MonitorSpringTestStartupPerformance
 // - in src/test/resources/META-INF/services/org.junit.platform.launcher.TestExecutionListener:
-//    victor.testing.spring.product.api.MonitorSpringTestStartupPerformance
+//    victor.testing.spring.MonitorSpringTestStartupPerformance
 
 @Component // place this in the packages of your app under your @SpringBootApplication to be picked up by Spring
 public class MonitorSpringTestStartupPerformance implements TestExecutionListener,

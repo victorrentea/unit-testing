@@ -1,1 +1,1 @@
-org.springframework.test.context.TestExecutionListener=victor.testing.spring.product.api.MonitorSpringTestStartupPerformance
+org.springframework.test.context.TestExecutionListener=victor.testing.spring.MonitorSpringTestStartupPerformance

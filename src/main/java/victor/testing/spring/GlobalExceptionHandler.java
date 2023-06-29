@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -36,7 +37,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public String onJavaxValidationException(MethodArgumentNotValidException e) {
     String response = e.getAllErrors().stream()
-            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+            .map(ObjectError::toString)
             .collect(Collectors.joining(", \n"));
     log.error("Validation failed. Returning: " + response, e);
     return response;
