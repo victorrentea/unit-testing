@@ -32,6 +32,16 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // start a new Tx for each test, run all @BeforeEach in that Tx,
 // and  rollback it after the test
 
+// WHAT ARE THE LIMITATIONS of this technique: when does it NOT work?
+// - if the DB was already dirty => the @Transactional is NOT in them habit / someone else forgot
+//   -> FIX: extends BaseIntegrationTest @Transactional {
+// - when is it impossible to propagate the test @Transactional to a method ?
+//   a) @Transactional(propagation = Propagation.REQUIRES_NEW)
+//   b) calling that method async in a different thread (@Async or CompletableFuture..)
+
+// what bugs can @Transactional slip through? (false-negatives)
+//
+
 
 @ActiveProfiles("db-mem")// in memory H2 db: SQL db in the JVM memory
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -46,6 +56,11 @@ public class ProductServiceCreateTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
+
+  @BeforeEach
+  final void doIStartOnACleanDB() {
+    assertThat(productRepo.findAll()).isEmpty();
+  }
 
   // the best cleanup for no SQL
 //  @BeforeEach

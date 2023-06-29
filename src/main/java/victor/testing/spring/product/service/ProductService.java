@@ -3,7 +3,10 @@ package victor.testing.spring.product.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.filebased.message.KafkaMessageSender;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
@@ -28,6 +31,8 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
 
+//  @Async // extremely dangerous> my advice: Avoid testign code using multhreading
+//  @Transactional(propagation = Propagation.REQUIRES_NEW)// KO @Transactional TEst
   public void createProduct(ProductDto productDto) {
     boolean safe = safetyClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {
