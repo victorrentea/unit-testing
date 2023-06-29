@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.product.api.ProductApi;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
@@ -66,6 +69,15 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // - custom ORA types
 // - liquibase scripts for ORA will not work on H2
 // - usage of ORA specific SQL features (CONNECT BY) or package FUNCTIONS > native query
+
+//all the following force spring to start a dedicated context for this test class
+//@SpringBootTest(properties = "someProp=different")
+//@TestPropertySource(properties = "someProp=different")
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@ActiveProfiles("some")
+//@MockBean
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // Nuke spring > NEVER REACH "main" branch
+  // anti-social behavior. only for debugging
 public class ProductServiceCreateTest extends BaseDatabaseTest {
   @MockBean // replace the spring bean with a mockito mock placing it here for programming, auto-reset between tests
   SafetyClient safetyClient;
@@ -77,6 +89,11 @@ public class ProductServiceCreateTest extends BaseDatabaseTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
+
+//  @Autowired
+//  private ProductApi productApi; // same spring can be reused
+//  @MockBean
+//  private ProductApi productApi; // this is faked IN THIS CONTEXT
 
   @BeforeEach
   final void doIStartOnACleanDB() {
