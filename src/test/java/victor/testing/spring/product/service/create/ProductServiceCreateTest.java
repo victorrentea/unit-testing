@@ -11,6 +11,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import victor.testing.spring.BaseDatabaseTest;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
@@ -27,9 +29,9 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
 //@EmbeddedMongo or @Testcontainers⭐️⭐️⭐️⭐️ ?
-@SpringBootTest
+//@SpringBootTest
 
-@Transactional // when put on a @Test/test class it tells Spring to
+//@Transactional // when put on a @Test/test class it tells Spring to
 // start a new Tx for each test, run all @BeforeEach in that Tx,
 // and  rollback it after the test
 
@@ -55,9 +57,16 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // - [dark ages, old db] PRE_COMMIT trigger never run if you start the TX in test and never COMMIT
 
 
-@ActiveProfiles("db-mem")// in memory H2 db: SQL db in the JVM memory
+//@ActiveProfiles("db-mem")// in memory H2 db: SQL db in the JVM memory
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class ProductServiceCreateTest {
+
+// @Testcontainers is a bridge between JUnit and Docker
+// Why is it better to execute on a real SQL sever like in prod
+// - datatypes in H2 are different, when creating schema, even if you tell H2 ;MODE=Oracle
+// - custom ORA types
+// - liquibase scripts for ORA will not work on H2
+// - usage of ORA specific SQL features (CONNECT BY) or package FUNCTIONS > native query
+public class ProductServiceCreateTest extends BaseDatabaseTest {
   @MockBean // replace the spring bean with a mockito mock placing it here for programming, auto-reset between tests
   SafetyClient safetyClient;
   @MockBean
