@@ -11,11 +11,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.tools.TestcontainersUtils;
 
 // #1 innocent Testcontainers test (online examples)
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Transactional
-public class BaseDatabaseTest {
-}
+//@SpringBootTest
+//@ActiveProfiles("db-mem")
+//@Transactional
+//public class BaseDatabaseTest {
+//}
 
 // ==================================================================
 // #2 innocent Testcontainers test (online examples)
@@ -42,8 +42,9 @@ public class BaseDatabaseTest {
 
 // ==================================================================
 // #3 tuned Testcontainers test (like a platform team will ofer)
-//@SpringBootTest
-//@ActiveProfiles("db-testcontainers-playtika")
-//public class BaseDatabaseTest {
-//
-//}
+@SpringBootTest
+@ActiveProfiles("db-testcontainers-playtika")
+@Transactional
+public class BaseDatabaseTest {
+
+}
