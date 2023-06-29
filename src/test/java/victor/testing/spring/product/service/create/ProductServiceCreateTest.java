@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,8 +40,19 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //   a) @Transactional(propagation = Propagation.REQUIRES_NEW)
 //   b) calling that method async in a different thread (@Async or CompletableFuture..)
 
+// Benefits of @Transactional
+// - auto-cleanup
+// - parallel tests.
+
 // what bugs can @Transactional slip through? (false-negatives)
-//
+// https://dev.to/henrykeys/don-t-use-transactional-in-tests-40eb
+// - LAzy Loading throwin in PROD since no @Transactional in prod code, but working in @Test @Transactinal
+//   REALLY ?!
+// - Prod: no repo.save() nor @Transactional;
+//    But in test, if you prod.call() {product=repo.find()}; repo.findById(P_ID)-> Cart.items has the product
+// - Debugging a failure finds the DB empty (due to auto-rollback)
+//    Fix: @Rollback(false)
+// - [dark ages, old db] PRE_COMMIT trigger never run if you start the TX in test and never COMMIT
 
 
 @ActiveProfiles("db-mem")// in memory H2 db: SQL db in the JVM memory
