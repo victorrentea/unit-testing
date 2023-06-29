@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
+//@MockitoSettings(strictness = Strictness.LENIENT) // DON"T
 // tells mockito to allow you to stub methods that are NOT really called by
    // the prod code you are testing !?
 // WHAT'S WRONG WITH THAT?
@@ -30,21 +30,7 @@ class FastFoodTest {
       // WHich of these 20 lines of before is used by the FAILED test I'm investigating!?
       when(dependency.isOnionAllowed()).thenReturn(true);
       when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
+      // keep in the before ONLY stuff used by ALL tests below
    }
    //
 
