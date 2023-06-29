@@ -9,7 +9,7 @@ public class FastFood {
 
    public void makeShawarma() {
       if (!dependency.isOnionAllowed()) {
-         throw new IllegalArgumentException();
+         throw new IllegalArgumentException("NEVER!");
       }
       // complex logic: 7 ifs
    }
