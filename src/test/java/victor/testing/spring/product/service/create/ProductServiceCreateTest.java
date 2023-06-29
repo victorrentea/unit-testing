@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
@@ -78,9 +79,15 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@MockBean
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // Nuke spring > NEVER REACH "main" branch
   // anti-social behavior. only for debugging
+@AutoConfigureWireMock(port = 0)
+@ActiveProfiles("wiremock")
 public class ProductServiceCreateTest extends BaseDatabaseTest {
-  @MockBean // replace the spring bean with a mockito mock placing it here for programming, auto-reset between tests
-  SafetyClient safetyClient;
+//  @MockBean
+//  SafetyClient safetyClient;
+
+  // should I write most tests based on wiremock stubs, or should I @Mock[Bean] the Adapter?
+  // WIREMOCK: + you get to test the adapter 100%
+  // @Mock the Adapter: + you are never exposed to UGLY FOREIGN DTOs/APIs/ JWT, SSL, .... retry
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
@@ -110,7 +117,7 @@ public class ProductServiceCreateTest extends BaseDatabaseTest {
 
   @Test
   void throwsForUnsafeProduct() {
-    when(safetyClient.isSafe("bar")).thenReturn(false);
+//    when(safetyClient.isSafe("bar")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -121,7 +128,7 @@ public class ProductServiceCreateTest extends BaseDatabaseTest {
   @Test
   void ok() {
     // GIVEN
-    when(safetyClient.isSafe("safebar")).thenReturn(true);
+//    when(safetyClient.isSafe("safebar")).thenReturn(true);
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
@@ -144,7 +151,7 @@ public class ProductServiceCreateTest extends BaseDatabaseTest {
 
   @Test
   void missingCategoryDefaultsToUNCATEGORIZED() {
-    when(safetyClient.isSafe("safebar")).thenReturn(true);
+//    when(safetyClient.isSafe("safebar")).thenReturn(true);
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
 

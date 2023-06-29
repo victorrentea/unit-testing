@@ -3,13 +3,14 @@
     "method": "GET",
     "url": "/product/bar/safety"
   },
+
   "response": {
     "status": 200,
     "jsonBody": {
       "entries": [
         {
           "category": "DETERMINED",
-          "detailsUrl": "http://details.url/a/b"
+          "detailsUrl": "http://details.url/a/b this is picked up by wiremock automatically"
         }
       ]
     },
