@@ -12,10 +12,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 class GodTest {
 
-   God god = spy(God.class);
+   @Spy
+   God god;
 
    @Test
    void high() { // + 5 more tests like this
