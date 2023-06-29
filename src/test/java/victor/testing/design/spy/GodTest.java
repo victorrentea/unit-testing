@@ -12,17 +12,16 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
 class GodTest {
 
-   God god;
+   God god = new God();
 
    @Test
    void high() { // + 5 more tests like this
       // from calling low() since we already tested that
-      Order order = new Order().setPaymentMethod(CARD);
-
-      //PAIN: testing high() blows up just because it calls low. WHY!??! Not fair!! I've tested low() already
+      Order order = new Order().setPaymentMethod(CARD)
+          .setCreationDate(now().minusMonths(2)); // OBVIOUS WHY!??! Not fair!! I've tested low() already
       String result = god.high(order);
 
       assertThat(result).isEqualTo("bonus");
