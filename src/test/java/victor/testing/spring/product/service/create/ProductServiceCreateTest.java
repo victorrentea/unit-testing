@@ -6,7 +6,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -23,17 +28,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+//@EmbeddedMongo or @Testcontainers⭐️⭐️⭐️⭐️ ?
+@SpringBootTest
+@ActiveProfiles("db-mem")// in memory H2 db: SQL db in the JVM memory
 public class ProductServiceCreateTest {
-  @Mock
+  @MockBean // replace the spring bean with a mockito mock placing it here for programming, auto-reset between tests
   SafetyClient safetyClient;
-  @Mock
+  @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
-  @Mock
+  @MockBean
   ProductRepo productRepo;
-  @Mock
+  @MockBean
   SupplierRepo supplierRepo;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   @Test
