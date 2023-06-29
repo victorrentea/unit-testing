@@ -15,13 +15,14 @@ import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 //@ExtendWith(MockitoExtension.class)
 class GodTest {
 
-   God god = new God();
+   God god = spy(God.class);
 
    @Test
    void high() { // + 5 more tests like this
+      doNothing().when(god).low(any());
       // from calling low() since we already tested that
-      Order order = new Order().setPaymentMethod(CARD)
-          .setCreationDate(now().minusMonths(2)); // OBVIOUS WHY!??! Not fair!! I've tested low() already
+      Order order = new Order().setPaymentMethod(CARD);
+//          .setCreationDate(now().minusMonths(2)); // OBVIOUS WHY!??! Not fair!! I've tested low() already
       String result = god.high(order);
 
       assertThat(result).isEqualTo("bonus");
