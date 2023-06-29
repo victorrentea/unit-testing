@@ -46,7 +46,7 @@ class FastFoodTzatzikiTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
    @InjectMocks
-   FastFood fastFood;
+   Shawarma shawarma;
 
    @BeforeEach
    final void before() {
@@ -55,11 +55,11 @@ class FastFoodTzatzikiTest {
    @Test
    void tzatzikiTest() { // + 5 more tests
       // ... complex
-      fastFood.makeTzatziki();
+      shawarma.makeTzatziki();
    }
    @Test
    void tzatzikiTest2() { // + 5 more tests
       // ... complex
-      fastFood.makeTzatziki();
+      shawarma.makeTzatziki();
    }
 }

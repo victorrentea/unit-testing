@@ -13,11 +13,19 @@ public class FastFood {
          throw new IllegalArgumentException("NEVER!");
       }
 //      if (condition ) {
-         // STUFF 50%
+      // STUFF 50%
 //         if (features.hasFeature(....)){
 //         }
 //      }
       // complex logic: 7 ifs 50%
+   }
+
+}
+class Shawarma {
+   private final Dependency dependency;
+
+   Shawarma(Dependency dependency) {
+      this.dependency = dependency;
    }
 
    public void makeTzatziki() {
