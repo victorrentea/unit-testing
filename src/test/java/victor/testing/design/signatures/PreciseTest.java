@@ -9,12 +9,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PreciseTest {
    @Test
    @CaptureSystemOutput
+   // IMAGINE MANY TESTS LIKE THIS
    void sendSprintFinishedEmail(OutputCapture outputCapture) {
-      Project project = new Project();
-      project.setPoEmail("boss@my.corp");
+//      Project project = new Project("WTF?!", "WHY NAME"); // WHY???
+//      project.setPoEmail("boss@my.corp");
 
-      Precise.sendSprintFinishedEmail(project);
+      Precise.sendSprintFinishedEmail("boss@my.corp");
 
-      assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Sending email to boss@my.corp with subject 'Sprint Finished' and some body");
+      assertThat(outputCapture.toString())
+          .isEqualToIgnoringNewLines(
+              "Sending email to boss@my.corp with subject " +
+              "'Sprint Finished' and some body");
    }
 }

@@ -1,7 +1,6 @@
 package victor.testing.mutation;
 
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
@@ -15,11 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
 
-  private Customer customer = new Customer()
-      .setName("::name::")
-      .setEmail("         ")
-      .setAddress(new Address()
-          .setCity("::city::"));
+  private Customer customer = TestData.aCustomer();
 
   public CustomerValidatorTest() {
     System.out.println("By default JUnit instantiates the test class once per each @Test");
