@@ -36,9 +36,9 @@ public class ProductServiceCreateTest {
   SafetyClient safetyClient;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
-  @MockBean
+  @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
@@ -57,20 +57,21 @@ public class ProductServiceCreateTest {
   void ok() {
     // GIVEN
     when(safetyClient.isSafe("safebar")).thenReturn(true);
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
-    ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
 
     // THEN
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture());
-    Product product = productCaptor.getValue();
+//    Product product = productRepo.findById(id??) // #1 best
+//    Product product = productRepo.findByName("name"); // #2 use anoteher finder
+    assertThat(productRepo.findAll()).hasSize(1);
+    Product product = productRepo.findAll().get(0);// #3 simply assuming the DB is empty initially
+
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("safebar");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
