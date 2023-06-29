@@ -19,8 +19,7 @@ import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @TestPropertySource(properties = {
     "spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}",
@@ -38,13 +37,15 @@ public class KafkaListenerTest extends BaseDatabaseTest {
 
   @Test
   void kafkaMessageIsReceived() throws InterruptedException, ExecutionException {
+//    Latch
     doNothing().when(messageListener).onMessage(any());
 
     kafkaTemplate.send(topic, "halo");
 
-    Awaitility.await().timeout(ofSeconds(2))
-        .untilAsserted(() ->
-            verify(messageListener).onMessage(argThat(record -> "halo".equals(record.value()))));
+//    Awaitility.await().timeout(ofSeconds(2))
+//        .untilAsserted(() ->
+//            verify(messageListener).onMessage(argThat(record -> "halo".equals(record.value()))));
+    verify(messageListener, timeout(2000)).onMessage(argThat(record -> "halo".equals(record.value())));
   }
 
   @Autowired

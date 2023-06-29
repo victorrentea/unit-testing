@@ -2,6 +2,7 @@ package victor.testing.spring.product.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.apiguardian.api.API;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
@@ -96,11 +97,21 @@ public class ProductApiTest extends BaseDatabaseTest {
     assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
   }
 
+//  @Test
+//  void blackBoxFlow() throws Exception {
+//    productId = createProduct("Tree"); // call#1
+//
+//    ProductDto returnedProduct = getProduct(productId); // call#2
+//    assertThat(returnedProduct.getCategory()).isEqualTo(product.category);
+//    assertThat(returnedProduct.getSupplierId()).isEqualTo(product.supplierId);
+//    assertThat(returnedProduct.getBarcode()).isEqualTo(product.barcode);
+//    assertThat(returnedProduct.getCreateDate()).isToday();
+//  }
   @Test
-  void blackBoxFlow() throws Exception {
+  void userJourneyTest() throws Exception {
     createProduct("Tree"); // call#1
 
-    // (B) black box = only API calls; more decoupled
+//     (B) black box = only API calls; more decoupled
     List<ProductSearchResult> results = searchProduct(criteria().setName("Tree")); // call#2
     assertThat(results).hasSize(1);
     assertThat(results.get(0).getName()).isEqualTo("Tree");
@@ -151,7 +162,7 @@ public class ProductApiTest extends BaseDatabaseTest {
         .setBarcode("safebar");
 
     mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(product))
+            .content(jackson.writeValueAsString(product)) // serializing my own DTOs
             .contentType(APPLICATION_JSON)) // can be set as default
         .andExpect(status().is2xxSuccessful());
   }
@@ -188,6 +199,7 @@ public class ProductApiTest extends BaseDatabaseTest {
   }
 
   @Test
+  // this!
   @WithMockUser(roles = "USER") // resets the credentials set at the class level
   void createProductByNonAdmin_NotAuthorized() throws Exception {
     mockMvc.perform(post("/product/create")
