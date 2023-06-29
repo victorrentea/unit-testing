@@ -84,5 +84,4 @@ public class ProductServiceCreateTest {
     Product product = productRepo.findAll().get(0);// #3 simply assuming the DB is empty initially
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
-
 }
