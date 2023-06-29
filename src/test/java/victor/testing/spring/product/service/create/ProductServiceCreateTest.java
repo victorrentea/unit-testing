@@ -1,15 +1,9 @@
 package victor.testing.spring.product.service.create;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.product.domain.Product;
@@ -20,13 +14,12 @@ import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.service.ProductService;
 import victor.testing.spring.product.api.dto.ProductDto;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
+import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
 //@EmbeddedMongo or @Testcontainers⭐️⭐️⭐️⭐️ ?
 @SpringBootTest
@@ -75,6 +68,21 @@ public class ProductServiceCreateTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+
+
+
+  @Test
+  void missingCategoryDefaultsToUNCATEGORIZED() {
+    when(safetyClient.isSafe("safebar")).thenReturn(true);
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
+
+    productService.createProduct(dto);
+
+    assertThat(productRepo.findAll()).hasSize(1);
+    Product product = productRepo.findAll().get(0);// #3 simply assuming the DB is empty initially
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
