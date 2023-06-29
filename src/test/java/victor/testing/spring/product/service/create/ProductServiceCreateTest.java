@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
@@ -26,6 +27,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@EmbeddedMongo or @Testcontainers⭐️⭐️⭐️⭐️ ?
 @SpringBootTest
 @ActiveProfiles("db-mem")// in memory H2 db: SQL db in the JVM memory
+@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class ProductServiceCreateTest {
   @MockBean // replace the spring bean with a mockito mock placing it here for programming, auto-reset between tests
   SafetyClient safetyClient;
@@ -39,12 +41,12 @@ public class ProductServiceCreateTest {
   ProductService productService;
 
   // the best cleanup for no SQL
-  @BeforeEach
-  @AfterEach
-  final void before() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
+//  @BeforeEach
+//  @AfterEach
+//  final void before() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
 
   @Test
   void throwsForUnsafeProduct() {
