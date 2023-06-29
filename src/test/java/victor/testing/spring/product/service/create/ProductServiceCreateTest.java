@@ -1,5 +1,6 @@
 package victor.testing.spring.product.service.create;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +37,12 @@ public class ProductServiceCreateTest {
   @Autowired
   ProductService productService;
 
+  @AfterEach
+  public void cleanEverything() {
+    supplierRepo.deleteAll();
+    productRepo.deleteAll();
+  }
+
   @Test
   void throwsForUnsafeProduct() {
     when(safetyClient.isSafe("bar")).thenReturn(false);
@@ -69,8 +76,6 @@ public class ProductServiceCreateTest {
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
-
-
 
   @Test
   void missingCategoryDefaultsToUNCATEGORIZED() {
