@@ -37,7 +37,7 @@ public class PriceService {
    // pure functions should be static
    // if a static function does NOT mutate args => pure (if not time/random contact)
    // static means no dependecy contact => no network
-   @VisibleForTesting // this is a GOOD usage of it
+   @VisibleForTesting // this is a GOOD usage of it - subcutaneous test
    static ComputePriceResult doComputePrice(List<Product> products, Map<Long, Double> resolvedPrices, List<Coupon> coupons) {
       List<Coupon> usedCoupons = new ArrayList<>();
       Map<Long, Double> finalPrices = new HashMap<>();
