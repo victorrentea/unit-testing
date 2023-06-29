@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -59,8 +60,9 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @SpringBootTest
 
 @AutoConfigureWireMock(port = 0)
+@EmbeddedKafka(topics = "${incoming.topic}")
 @Transactional
-@ActiveProfiles({"db-migration", "wiremock"})
+@ActiveProfiles({"db-migration", "wiremock","embedded-kafka"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
 @AutoConfigureMockMvc

@@ -1,6 +1,11 @@
 package victor.testing.spring.product.api;
 
+import org.junit.Test;
+import org.junit.jupiter.engine.config.DefaultJupiterConfiguration;
+import org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor;
+import org.junit.platform.engine.UniqueId;
 import org.junit.platform.launcher.TestExecutionListener;
+import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +32,7 @@ import static java.lang.System.currentTimeMillis;
 
 @Component // place this in the packages of your app under your @SpringBootApplication to be picked up by Spring
 public class MonitorSpringTestStartupPerformance implements TestExecutionListener,
-        org.springframework.test.context.TestExecutionListener, Ordered {
+    org.springframework.test.context.TestExecutionListener, Ordered {
   private static final Logger log = LoggerFactory.getLogger(MonitorSpringTestStartupPerformance.class);
 
   private static long junitStartTime = currentTimeMillis();
@@ -66,12 +71,17 @@ public class MonitorSpringTestStartupPerformance implements TestExecutionListene
       Field f = DefaultCacheAwareContextLoaderDelegate.class.getDeclaredField("defaultContextCache");
       f.setAccessible(true);
       ContextCache cache = (ContextCache) f.get(null);
-      log.info("🏁🏁🏁 All tests took {} seconds, and used {} Spring contexts that started in {} seconds",
-              (currentTimeMillis() - junitStartTime) / 1000f,
-              cache.getMissCount(),
-              totalSpringStartupTime.get() / 1000f);
+      int springContextsStarted = cache.getMissCount();
+      log.info("🏁🏁🏁 All tests took {} seconds, and started {} Spring contexts in {} seconds",
+          (currentTimeMillis() - junitStartTime) / 1000f,
+          springContextsStarted,
+          totalSpringStartupTime.get() / 1000f);
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
       log.warn("Listener failed: " + e);
     }
+  }
+
+  public void check() {
+    System.out.println("HALO!");
   }
 }
