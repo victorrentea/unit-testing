@@ -1,19 +1,20 @@
 package victor.testing.spring.product.service.create;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.service.ProductService;
-import victor.testing.spring.product.api.dto.ProductDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -37,6 +38,12 @@ public class ProductServiceCreateTest {
   @Autowired
   ProductService productService;
 
+  @BeforeEach
+  @AfterEach
+  final void before() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
+  }
 
   @Test
   void throwsForUnsafeProduct() {
@@ -70,6 +77,19 @@ public class ProductServiceCreateTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+
+  @Test
+  void missingCategoryDefaultsToUNCATEGORIZED() {
+    when(safetyClient.isSafe("safebar")).thenReturn(true);
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    ProductDto dto = new ProductDto("name", "safebar", supplierId, null);
+
+    productService.createProduct(dto);
+
+    assertThat(productRepo.findAll()).hasSize(1);
+    Product product = productRepo.findAll().get(0);// #3 simply assuming the DB is empty initially
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
