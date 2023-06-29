@@ -3,6 +3,7 @@ package victor.testing.design.time;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -10,9 +11,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TimeLogic2 {
    private final OrderRepo orderRepo;
+   private final Clock clock; // @Bean Clock
 
    public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = LocalDate.now();
+      LocalDate now = LocalDate.now(clock);
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);

@@ -7,10 +7,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -19,16 +21,23 @@ class TimeLogic1Test {
    OrderRepo orderRepo;
    @InjectMocks
    TimeLogic1 target;
-
+// mockito inline statics
    @Test
-   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
+      LocalDate currentTime = parse("2023-06-23");
+
       when(orderRepo.findByCustomerIdAndCreatedOnBetween(
           13,
-          parse("2021-09-01"),
-          parse("2021-09-08"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
+          parse("2023-06-16"),
+          parse("2023-06-23"))).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
-      assertThat(target.isFrequentBuyer(13)).isTrue();
+      try (var staticMock = mockStatic(LocalDate.class)) {
+         staticMock.when(() -> LocalDate.now()).thenReturn(currentTime);
+         boolean result = target.isFrequentBuyer(13);
+
+         assertThat(result).isTrue();
+      }
+
    }
 }
 

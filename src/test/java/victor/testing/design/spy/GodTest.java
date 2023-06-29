@@ -2,6 +2,8 @@ package victor.testing.design.spy;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -15,12 +17,14 @@ import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 @ExtendWith(MockitoExtension.class)
 class GodTest {
 
-   @Spy
+   @InjectMocks
    God god;
+   @Mock
+   Low low;
 
    @Test
    void high() { // + 5 more tests like this
-      doNothing().when(god).low(any());
+//      doNothing().when(god).low(any());
       // from calling low() since we already tested that
       Order order = new Order().setPaymentMethod(CARD);
 //          .setCreationDate(now().minusMonths(2)); // OBVIOUS WHY!??! Not fair!! I've tested low() already
@@ -35,10 +39,22 @@ class GodTest {
 //      assertThatThrownBy(() -> god.low(oldOrder))
 //          .hasMessageContaining("recent");
 //   }
+}
+class LowTest {
    @Test
    void low() { // + 7 more tests like this
       Order oldOrder = new Order().setCreationDate(now().minusMonths(2));
-      god.low(oldOrder);
+      new Low().low(oldOrder);
       // more assert/verify ..
    }
 }
+
+// WHEN to do it ? when NOT to?
+
+
+// HOW to motivate people to do it?
+// hard! perhaps you need some prep-refactoring for the BIG CHANGES.
+//   Talking about such subtle changes in terrible codebases won't work.
+// Make it fun. Work together. Mob/Pair
+// Recruit the right people.
+// Rotate project.

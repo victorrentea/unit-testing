@@ -1,8 +1,6 @@
 package victor.testing.design.spy;
 
-import com.google.common.annotations.VisibleForTesting;
 import lombok.Data;
-import org.mockito.Spy;
 
 import java.time.LocalDate;
 
@@ -10,14 +8,22 @@ import static java.time.LocalDate.now;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
 public class God { // large class called directly from Controller/MQ listener
+   private final Low low;
+
+   public God(Low low) {
+      this.low = low;
+   }
+
    public String high(Order order) {
-      low(order);
+      low.low(order);
       // complexity requiring 5+ tests
       if (order.getPaymentMethod() == CARD) {
          return "bonus";
       }
       return "regular";
    }
+}
+class Low {
 
    // 100% mutation-level covered
    public void low(Order order) {

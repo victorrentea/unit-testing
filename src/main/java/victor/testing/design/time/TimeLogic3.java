@@ -1,5 +1,6 @@
 package victor.testing.design.time;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,12 @@ public class TimeLogic3 {
 
    public boolean isFrequentBuyer(int customerId) {
       LocalDate now = LocalDate.now();
+      return isFrequentBuyerInternal(customerId, now);
+   }
+
+   // package
+   @VisibleForTesting
+   boolean isFrequentBuyerInternal(int customerId, LocalDate now) {
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
