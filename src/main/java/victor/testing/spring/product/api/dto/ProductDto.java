@@ -30,6 +30,10 @@ public class ProductDto {
 		createDate = product.getCreateDate();
 	}
 
+	public String getNameUpper() {
+		return name.toUpperCase();
+	}
+
 	public ProductDto(String name, String barcode, Long supplierId, ProductCategory category) {
 		this.name = name;
 		this.barcode = barcode;

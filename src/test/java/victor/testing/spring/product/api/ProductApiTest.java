@@ -127,12 +127,14 @@ public class ProductApiTest extends BaseDatabaseTest {
   //    * Keep consumer-provider in sync👌 ==> Pact / Spring Cloud Contract Tests
   void createProductRawJson(String name) throws Exception {
     // language=json
-    String createJson = String.format("{\n" +
-                                      "    \"name\": \"%s\",\n" +
-                                      "    \"supplierId\": \"%d\",\n" +
-                                      "    \"category\" : \"%s\",\n" +
-                                      "    \"barcode\": \"safebar\"\n" +
-                                      "}\n", name, supplierId, HOME);
+    String createJson = String.format("""
+        {
+            "name": "%s",
+            "supplierId": "%d",
+            "category" : "%s",
+            "barcode": "safebar"
+        }
+        """, name, supplierId, HOME);
 
     mockMvc.perform(post("/product/create")
             .content(createJson)
