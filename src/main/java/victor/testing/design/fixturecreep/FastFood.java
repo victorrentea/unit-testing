@@ -6,12 +6,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FastFood {
    private final Dependency dependency;
+//   private final Features features;
 
    public void makeShawarma() {
       if (!dependency.isOnionAllowed()) {
          throw new IllegalArgumentException("NEVER!");
       }
-      // complex logic: 7 ifs
+//      if (condition ) {
+         // STUFF 50%
+//         if (features.hasFeature(....)){
+//         }
+//      }
+      // complex logic: 7 ifs 50%
    }
 
    public void makeTzatziki() {

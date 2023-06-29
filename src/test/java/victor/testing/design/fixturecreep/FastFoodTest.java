@@ -28,8 +28,10 @@ class FastFoodTest {
    final void before() {
       // 2 years laters, withe LENIENT MOCKS
       // WHich of these 20 lines of before is used by the FAILED test I'm investigating!?
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
+
+      // conscious 1-2 'optional stubs'
+      lenient().when(dependency.isOnionAllowed()).thenReturn(true);
+      lenient().when(dependency.isCucumberAllowed()).thenReturn(true);
       // keep in the before ONLY stuff used by ALL tests below
    }
    //
