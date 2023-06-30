@@ -59,6 +59,7 @@ public class ProductService {
 
   public ProductDto getProduct(long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
+    System.out.println("Phones=" + product.getPhones());
     return productMapper.toDto(product);
   }
 }

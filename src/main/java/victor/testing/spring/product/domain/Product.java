@@ -8,6 +8,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -29,6 +31,9 @@ public class Product {
 
     @CreatedDate // Spring MAGIC assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
     private LocalDate createDate;
+
+    @ElementCollection
+    private List<String> phones = new ArrayList<>();
 
     public Product(String name, String barcode, ProductCategory category) {
         this.name = name;
