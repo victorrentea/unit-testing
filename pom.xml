@@ -330,9 +330,11 @@
                 <configuration>
                     <targetClasses>
                         <param>victor.testing.mutation.*</param>
+                        <param>victor.testing.mocks.telemetry.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>victor.testing.mutation.*</param>
+                        <param>victor.testing.mocks.telemetry.*</param>
                     </targetTests>
                     <mutators>
                         <mutator>NON_VOID_METHOD_CALLS</mutator>
