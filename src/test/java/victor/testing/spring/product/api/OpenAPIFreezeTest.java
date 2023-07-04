@@ -31,9 +31,11 @@ public class OpenAPIFreezeTest {
 
   @Test
   void myOpenAPIDidNotChange() throws Exception {
-    String actualOpenAPIJson = mockMvc.perform(get("/v3/api-docs")).andReturn().getResponse().getContentAsString();
+    String actualOpenAPIJson = mockMvc.perform(get("/v3/api-docs")).andReturn()
+        .getResponse().getContentAsString();
     String expectedOpenAPIJson = IOUtils.toString(myExpectedOpenAPI.getInputStream());
-    assertThat(prettifyJsonString(actualOpenAPIJson)).isEqualTo(prettifyJsonString(expectedOpenAPIJson));
+    assertThat(prettifyJsonString(actualOpenAPIJson))
+        .isEqualTo(prettifyJsonString(expectedOpenAPIJson));
   }
 
   private String prettifyJsonString(String rawJson) throws JsonProcessingException {

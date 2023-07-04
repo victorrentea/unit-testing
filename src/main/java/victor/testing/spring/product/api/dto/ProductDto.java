@@ -36,4 +36,5 @@ public class ProductDto {
 		this.supplierId = supplierId;
 		this.category = category;
 	}
+
 }

@@ -12,4 +12,7 @@ public class ProductSearchResult {
     private String name;
 
 
+
+
+
 }
