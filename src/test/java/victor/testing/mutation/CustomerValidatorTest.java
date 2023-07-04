@@ -40,5 +40,14 @@ public class CustomerValidatorTest {
       Assertions.assertThrows(IllegalArgumentException.class,
           () -> validator.validate(customer));
    }
+   @Test
+   void throwsForNullEmail() {
+      Customer customer = new Customer();
+      customer.setName(":::name:::");
+      customer.setAddress(new Address());
+      customer.getAddress().setCity("::city::");
+      Assertions.assertThrows(IllegalArgumentException.class,
+          () -> validator.validate(customer));
+   }
 
 }
