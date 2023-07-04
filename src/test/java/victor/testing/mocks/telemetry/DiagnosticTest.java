@@ -36,7 +36,7 @@ class DiagnosticTest {
     // then
     verify(clientMock).disconnect(true); // verific
     verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE); // + mai compact cod
-//    verify(clientMock).receive(); // nu poate sa crape asta fara sa crape si linia urmatoare.
+    verify(clientMock).receive(); //are times(1) automat. asta crapa testele acum
     assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAG_INFO);
   }
 
