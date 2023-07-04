@@ -23,6 +23,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Client.*;
+import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.FLOOD;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 
 //@RunWith(MockitoJUnitRunner.class) // JUnit4 equivalent
@@ -56,7 +57,7 @@ class DiagnosticTest {
     when(clientMock.getOnlineStatus()).thenReturn(true);
     when(clientMock.getVersion()).thenReturn("ver");
 
-    diagnostic.checkTransmission(true);
+    diagnostic.checkTransmission(false);
 
     verify(clientMock).configure(configCaptor.capture());
     ClientConfiguration config = configCaptor.getValue();
@@ -67,6 +68,20 @@ class DiagnosticTest {
     assertThat(config.getSessionId())
         .startsWith("ver-")
         .hasSize(40);
+  }
+
+  @Test
+  void ackModeIsFloodForForceCheckTransmission() {
+    when(clientMock.getOnlineStatus()).thenReturn(true);
+
+    diagnostic.checkTransmission(true);
+
+//    verify(clientMock).configure(configCaptor.capture());
+//    ClientConfiguration config = configCaptor.getValue();
+//    assertThat(config.getAckMode()).isEqualTo(FLOOD);
+    // daca verifici un singur camp dintr-un argument, nu folosi captor ci:
+
+    verify(clientMock).configure(argThat(config -> config.getAckMode() == FLOOD));
   }
 
   // Traditional multe echipe injecteaza in singletoanele lor spring 2 dependinte stranii:

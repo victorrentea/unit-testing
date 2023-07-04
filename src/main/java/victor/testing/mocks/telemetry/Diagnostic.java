@@ -29,6 +29,7 @@ public class Diagnostic {
 				/*randomFactory.*/randomUUID());
 		config.setSessionStart(LocalDateTime.now(/*clock*/));
 		config.setAckMode(AckMode.NORMAL);
+		// daca param force = true, config.ackMode = FLOOD
 		client.configure(config);
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
