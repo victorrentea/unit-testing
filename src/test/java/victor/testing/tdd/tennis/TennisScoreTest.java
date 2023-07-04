@@ -30,11 +30,71 @@ public class TennisScoreTest {
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Fifteen:Fifteen");
   }
+  @Test
+  void thirtyLove() {
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Thirty:Love");
+  }
+  @Test
+  void fortyLove() {
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Forty:Love");
+  }
+  // Ati avut vreodata in spec/req "Exemple" de la biz ?
+  // toate acele "exemple" merg direct in Teste automate.
 
-  // The running score of each game is described in a manner peculiar to tennis:
-  // scores from zero to three points are described as
-  // “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
+  @Test
+  void fortyThirty() { // e direct verde, dar reprezinta exemplu de la Biz citire.
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.TWO);
+    tennisScore.addPoint(Player.TWO);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Forty:Thirty");
+  }
+
+  // If at least three points have been scored by each player,
+  // and the scores are equal, the score is “Deuce”.
+  @Test
+  void deuce() {
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.TWO);
+    tennisScore.addPoint(Player.TWO);
+    tennisScore.addPoint(Player.TWO);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Deuce");
+  }
+  @Test
+  void deuce6() {
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.TWO);
+    tennisScore.addPoint(Player.TWO);
+    tennisScore.addPoint(Player.TWO);
+    tennisScore.addPoint(Player.TWO);
+    tennisScore.addPoint(Player.TWO);
+    tennisScore.addPoint(Player.TWO);
+    String score = tennisScore.getScore();
+    assertThat(score).isEqualTo("Deuce");
+  }
+
+
+
 }
+
+
 
 
 // o sa fie enum ? Player class ?

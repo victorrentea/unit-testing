@@ -1,22 +1,39 @@
 package victor.testing.tdd.tennis;
 
 public class TennisScore {
-
-  private String score = "Love:Love";
+  private int player1Points = 0;
+  private int player2Points = 0;
 
   public String getScore() {
-    return score;
+    if (player1Points == player2Points &&
+        player1Points >= 3) {
+      return "Deuce";
+    }
+    return convert(player1Points) +
+           ":" + convert(player2Points);
+  }
+
+  private String convert(int points) {
+    switch (points) {
+      case 0:
+        return "Love";
+      case 1:
+        return "Fifteen";
+      case 2:
+        return "Thirty";
+      default:
+        return "Forty";
+    }
   }
 
   public void addPoint(Player player) {
     if (player == Player.ONE) {
-      score = "Fifteen:Love";
+      player1Points++;
     } else {
-      if (score.equals("Fifteen:Love")) {
-        score = "Fifteen:Fifteen";
-      } else {
-        score = "Love:Fifteen";
-      }
+      player2Points++;
     }
   }
 }
+//  private Player{int points; String name;} player1;
+
+// enum {LOVE,FIFTEEN,...}
