@@ -13,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static victor.testing.mocks.telemetry.Client.*;
+import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 
 //@RunWith(MockitoJUnitRunner.class) // JUnit4 equivalent
 @ExtendWith(MockitoExtension.class) // JUnit5 extension care se ocupa cu initializarea instantei ede clasa de test
@@ -35,9 +37,20 @@ class DiagnosticTest {
 
     // then
     verify(clientMock).disconnect(true); // verific
-    verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE); // + mai compact cod
+    verify(clientMock).send(DIAGNOSTIC_MESSAGE); // + mai compact cod
     verify(clientMock).receive(); //are times(1) automat. asta crapa testele acumBUM
     assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAG_INFO);
+  }
+  
+  @Test
+  void configuresClient() {
+    when(clientMock.getOnlineStatus()).thenReturn(true);
+
+    diagnostic.checkTransmission(true);
+
+    ClientConfiguration config = new ClientConfiguration();
+    config.setAckMode(NORMAL); // prima idee, perfect, dar nu merge aici
+    verify(clientMock).configure(config);
   }
 
 //  @Test
