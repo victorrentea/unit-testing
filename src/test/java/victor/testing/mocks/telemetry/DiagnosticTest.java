@@ -1,5 +1,6 @@
 package victor.testing.mocks.telemetry;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -8,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -24,12 +26,24 @@ class DiagnosticTest {
   @Test
   void disconnects() {
     // given
-    when(clientMock.getOnlineStatus()).thenReturn(true);
+    when(clientMock.getOnlineStatus()).thenReturn(true); // stubbing "eu stabuiesc o metoda"/ eu mockuiesc
 
     // when
     diagnostic.checkTransmission(true);
 
     // then
     verify(clientMock).disconnect(true);
+  }
+  @Test
+  void throwsWhenNotOnline() {
+    // given
+    when(clientMock.getOnlineStatus()).thenReturn(false); // stubbing "eu stabuiesc o metoda"/ eu mockuiesc
+
+    // when
+    // assertJ
+    assertThatThrownBy(()->diagnostic.checkTransmission(true))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("Unable to connect.");
+
   }
 }

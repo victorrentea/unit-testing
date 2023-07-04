@@ -58,6 +58,8 @@ public class CustomerValidatorTest {
   @Test
   void throwsForNullEmail3() {
     customer.setEmail(null);
+
+
     // mai jos sunt asertii facute cu org.junit (JUNIT4) sau org.jupiter (JUNIT5)
     // DE EVITAT
 //      IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, // NU FOLOSI
