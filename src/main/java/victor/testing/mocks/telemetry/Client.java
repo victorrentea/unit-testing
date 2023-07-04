@@ -63,7 +63,9 @@ public class Client {
 		onlineStatus = false;
 		throw new IllegalStateException("Performs some external remote call impossible/not desirable to call from automated tests.");
 	}
-
+enum EnumuColegului {
+		BERDE, ROSU
+}
 	public void send(String message) {
 		if (message == null || "".equals(message)) {
 			throw new IllegalArgumentException();
