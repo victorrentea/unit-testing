@@ -1,6 +1,7 @@
 package victor.testing.mutation;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,8 @@ public class CustomerValidatorTest {
       customer.setEmail("::email::");
       customer.setAddress(new Address());
       customer.getAddress().setCity("::city::");
-      validator.validate(customer);
+      Assertions.assertThrows(IllegalArgumentException.class,
+          () -> validator.validate(customer));
    }
 
 }
