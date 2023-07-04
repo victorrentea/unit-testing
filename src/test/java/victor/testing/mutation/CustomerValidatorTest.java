@@ -2,6 +2,7 @@ package victor.testing.mutation;
 
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
@@ -12,13 +13,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class CustomerValidatorTest {
    CustomerValidator validator = new CustomerValidator();
 
-   @Test
-   void valid() {
-      Customer customer = new Customer();
+   Customer customer;
+   @BeforeEach
+   final void before() {
+       customer = new Customer();
       customer.setName("::name::");
       customer.setEmail("::email::");
       customer.setAddress(new Address());
       customer.getAddress().setCity("::city::");
+   }
+   @Test
+   void valid() {
       validator.validate(customer);
    }
 //   @DisplayName("Un customer care vine cu numele null va face validatorul sa arunce o IllegalArgumentException cu mesajul .... bla bla")
@@ -33,20 +38,15 @@ public class CustomerValidatorTest {
 //   void throws_whenCustomerNameIsNull() {
    @Test//(expected = /junit4)
    void throwsForNullName() { // scurt dar la fel de semnificat
-      Customer customer = new Customer();
-      customer.setEmail("::email::");
-      customer.setAddress(new Address());
-      customer.getAddress().setCity("::city::");
+      customer.setName(null); // Genu proxim si diferenta specifica
+
       assertThatThrownBy(() -> validator.validate(customer)) // AssertJ ❤️ Doar AssertJ. Forever.
           .isInstanceOf(IllegalArgumentException.class)
           .hasMessage("Missing customer name"); // fluent assertions
    }
    @Test
    void throwsForNullEmail() {
-      Customer customer = new Customer();
-      customer.setName(":::name:::");
-      customer.setAddress(new Address());
-      customer.getAddress().setCity("::city::");
+      customer.setEmail(null);
       // mai jos sunt asertii facute cu org.junit (JUNIT4) sau org.jupiter (JUNIT5)
       // DE EVITAT
 //      IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, // NU FOLOSI
