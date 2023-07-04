@@ -63,33 +63,27 @@ public class TennisScoreTest {
   // and the scores are equal, the score is “Deuce”.
   @Test
   void deuce() {
-    tennisScore.addPoint(Player.ONE);
-    tennisScore.addPoint(Player.ONE);
-    tennisScore.addPoint(Player.ONE);
-    tennisScore.addPoint(Player.TWO);
-    tennisScore.addPoint(Player.TWO);
-    tennisScore.addPoint(Player.TWO);
+    addPoints(Player.ONE, 3);
+    addPoints(Player.TWO, 3);
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Deuce");
   }
   @Test
   void deuce6() {
-    tennisScore.addPoint(Player.ONE);
-    tennisScore.addPoint(Player.ONE);
-    tennisScore.addPoint(Player.ONE);
-    tennisScore.addPoint(Player.ONE);
-    tennisScore.addPoint(Player.ONE);
-    tennisScore.addPoint(Player.ONE);
-    tennisScore.addPoint(Player.TWO);
-    tennisScore.addPoint(Player.TWO);
-    tennisScore.addPoint(Player.TWO);
-    tennisScore.addPoint(Player.TWO);
-    tennisScore.addPoint(Player.TWO);
-    tennisScore.addPoint(Player.TWO);
+  // 2) modific API testat, DOAR pt folosul testelor = NU
+//    tennisScore.addPoint(Player.ONE,6);
+    // 1) for
+    addPoints(Player.ONE, 6);
+    addPoints(Player.TWO, 6);
     String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Deuce");
   }
-
+// mini testing framework sa ne faca testele mai citibile
+  private void addPoints(Player one, int points) {
+    for (int i = 0; i < points; i++) {
+      tennisScore.addPoint(one);
+    }
+  }
 
 
 }
