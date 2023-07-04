@@ -12,20 +12,19 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
 
-  Customer customer;
+   // scopul unui builder: sa populezi un obiect cu un constructor fff mare si scarbos (max 5)
+   Customer customer = new Customer()
+       .setName("::name::")
+       .setEmail("::email::") // lombok poate genera setteri sa intoarca 'this'. vezi lombok.config din src/main/java
+       .setAddress(new Address()
+           .setCity("::city::"));
 
   @BeforeEach
   final void before() {
-    // scopul unui builder: sa populezi un obiect cu un constructor fff mare si scarbos (max 5)
-    customer = new Customer()
-        .setName("::name::")
-        .setEmail("::email::") // lombok poate genera setteri sa intoarca 'this'. vezi lombok.config din src/main/java
-        .setAddress(new Address()
-            .setCity("::city::"));
   }
 
   @Test
-  void valid() {
+  void valid1() {
     validator.validate(customer);
   }
 
@@ -40,8 +39,7 @@ public class CustomerValidatorTest {
 //   void shouldThrow_whenCustomerNameIsNull() {
 //   void throws_whenCustomerNameIsNull() {
   @Test
-//(expected = /junit4)
-  void throwsForNullName() { // scurt dar la fel de semnificat
+  void throwsForNullName2() { // scurt dar la fel de semnificat
     customer.setName(null); // Genu proxim si diferenta specifica
 
     assertThatThrownBy(() -> validator.validate(customer)) // AssertJ ❤️ Doar AssertJ. Forever.
@@ -50,7 +48,7 @@ public class CustomerValidatorTest {
   }
 
   @Test
-  void throwsForNullEmail() {
+  void throwsForNullEmail3() {
     customer.setEmail(null);
     // mai jos sunt asertii facute cu org.junit (JUNIT4) sau org.jupiter (JUNIT5)
     // DE EVITAT
