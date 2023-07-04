@@ -3,6 +3,7 @@ package victor.testing.mocks.telemetry;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 import static java.util.UUID.randomUUID;
@@ -24,8 +25,9 @@ public class Diagnostic {
 		}
 
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + randomUUID());
-		config.setSessionStart(LocalDateTime.now());
+		config.setSessionId(client.getVersion() + "-" +
+				/*randomFactory.*/randomUUID());
+		config.setSessionStart(LocalDateTime.now(/*clock*/));
 		config.setAckMode(AckMode.NORMAL);
 		client.configure(config);
 
@@ -33,6 +35,7 @@ public class Diagnostic {
 		diagnosticInfo = client.receive();
 		// ce dob*toc ar face asta ?!!
 	}
+//	Clock clock; // injectat de spring, respectiv un @Mock in teste sau un Clock.fixed()
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
