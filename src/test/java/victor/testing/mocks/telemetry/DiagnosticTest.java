@@ -36,7 +36,7 @@ class DiagnosticTest {
     // then
     verify(clientMock).disconnect(true); // verific
     verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE); // + mai compact cod
-    verify(clientMock).receive(); //are times(1) automat. asta crapa testele acum
+    verify(clientMock).receive(); //are times(1) automat. asta crapa testele acumBUM
     assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAG_INFO);
   }
 
