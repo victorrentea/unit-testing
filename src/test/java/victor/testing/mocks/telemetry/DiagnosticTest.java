@@ -18,13 +18,12 @@ import static org.mockito.Mockito.*;
 class DiagnosticTest {
   @Mock
   Client clientMock;
-  @InjectMocks // stie sa injecteze cum stie si Spring:
-  // contructor/field privat
+  @InjectMocks // stie sa injecteze cum stie si Spring: contructor/field privat
 
   Diagnostic diagnostic;
 
   @Test
-  void disconnects() {
+  void disconnectsAndSends() {
     // given
     when(clientMock.getOnlineStatus()).thenReturn(true); // stubbing "eu stabuiesc o metoda"/ eu mockuiesc
 
@@ -33,14 +32,22 @@ class DiagnosticTest {
 
     // then
     verify(clientMock).disconnect(true);
+    verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE); // + mai compact cod
   }
+
+//  @Test
+//  void sendsDiagnostic() { // +e mai narrow ce testezi "Single Assert Rule"
+//    when(clientMock.getOnlineStatus()).thenReturn(true); // stubbing "eu stabuiesc o metoda"/ eu mockuiesc
+//
+//    diagnostic.checkTransmission(true);
+//
+//    verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE);
+//  }
+
   @Test
   void throwsWhenNotOnline() {
-    // given
     when(clientMock.getOnlineStatus()).thenReturn(false); // stubbing "eu stabuiesc o metoda"/ eu mockuiesc
 
-    // when
-    // assertJ
     assertThatThrownBy(()->diagnostic.checkTransmission(true))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Unable to connect.");
