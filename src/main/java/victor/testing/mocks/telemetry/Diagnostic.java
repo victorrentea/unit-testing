@@ -4,17 +4,15 @@ import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
-
-	private Client client;
+	private final Client client;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(Client client) {
+	public Diagnostic(Client client) {
 		this.client = client;
 	}
 
