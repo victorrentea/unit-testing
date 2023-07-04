@@ -19,6 +19,10 @@ public class CustomerValidatorTest {
        .setAddress(new Address()
            .setCity("::city::"));
 
+   public CustomerValidatorTest() {
+      System.out.println("De cate ori e o instanta din clasa de test creeata ?");
+   }
+
   @BeforeEach
   final void before() {
   }
