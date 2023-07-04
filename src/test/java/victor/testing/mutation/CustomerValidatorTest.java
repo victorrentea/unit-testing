@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayNameGeneration(HumanReadableTestNames.class) // extensie custom
@@ -23,13 +24,17 @@ public class CustomerValidatorTest {
       System.out.println("De cate ori e o instanta din clasa de test creeata ?");
    }
 
-  @BeforeEach
-  final void before() {
-  }
-
   @Test
   void valid1() {
     validator.validate(customer);
+  }
+  @Test
+  void trimsCityName() {
+    customer.getAddress().setCity(" Braila ");
+
+    validator.validate(customer);
+
+    assertThat(customer.getAddress().getCity()).isEqualTo("Braila");
   }
 
   //   @DisplayName("Un customer care vine cu numele null va face validatorul sa arunce o IllegalArgumentException cu mesajul .... bla bla")
@@ -50,7 +55,6 @@ public class CustomerValidatorTest {
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Missing customer name"); // fluent assertions
   }
-
   @Test
   void throwsForNullEmail3() {
     customer.setEmail(null);
@@ -77,5 +81,11 @@ public class CustomerValidatorTest {
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Address city too short");
   }
+//  @Test
+//  void throwsForNullAddress() {
+//     customer.setAddress(null)
+//    assertThatThrownBy(() -> validator.validate(customer)) // AssertJ ❤️ Doar AssertJ. Forever.
+//        .isInstanceOf(NullPointerException.class);
+//  }
 
 }
