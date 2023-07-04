@@ -1,5 +1,7 @@
 package victor.testing.mutation;
 
+import org.springframework.validation.annotation.Validated;
+
 import java.util.function.Predicate;
 
 public class CustomerValidator {
@@ -12,7 +14,7 @@ public class CustomerValidator {
 		}
 		validateAddress(customer.getAddress());
 	}
-	
+
 	private void validateAddress(Address address) {
 		if (address.getCity() == null) {
 			throw new IllegalArgumentException("Missing address city");
