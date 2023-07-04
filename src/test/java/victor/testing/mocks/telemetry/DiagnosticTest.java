@@ -1,14 +1,18 @@
 package victor.testing.mocks.telemetry;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -39,7 +43,7 @@ class DiagnosticTest {
     verify(clientMock).disconnect(true); // verific
     verify(clientMock).send(DIAGNOSTIC_MESSAGE); // + mai compact cod
     verify(clientMock).receive(); //are times(1) automat. asta crapa testele acumBUM
-    assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAG_INFO);
+    AssertionsForClassTypes.assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAG_INFO);
   }
   
   @Test
@@ -48,10 +52,12 @@ class DiagnosticTest {
 
     diagnostic.checkTransmission(true);
 
-    ClientConfiguration config = new ClientConfiguration();
-    config.setAckMode(NORMAL); // prima idee, perfect, dar nu merge aici
-    verify(clientMock).configure(config);
+    verify(clientMock).configure(configCaptor.capture());
+    ClientConfiguration config = configCaptor.getValue();
+    assertThat(config.getAckMode()).isEqualTo(NORMAL);
   }
+  @Captor
+  ArgumentCaptor<ClientConfiguration> configCaptor;
 
 //  @Test
 //  void sendsDiagnostic() { // +e mai narrow ce testezi "Single Assert Rule"
