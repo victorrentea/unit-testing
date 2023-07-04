@@ -63,5 +63,19 @@ public class CustomerValidatorTest {
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Missing customer email"); // fluent assertions
   }
+  @Test
+  void throwsForNullCity3() {
+     customer.getAddress().setCity(null);
+    assertThatThrownBy(() -> validator.validate(customer)) // AssertJ ❤️ Doar AssertJ. Forever.
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Missing address city");
+  }
+  @Test
+  void throwsForNullCityTooShort() {
+     customer.getAddress().setCity("12");
+    assertThatThrownBy(() -> validator.validate(customer)) // AssertJ ❤️ Doar AssertJ. Forever.
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Address city too short");
+  }
 
 }
