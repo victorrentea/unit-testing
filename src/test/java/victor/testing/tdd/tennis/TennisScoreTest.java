@@ -5,28 +5,29 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TennisScoreTest {
+  TennisScore tennisScore = new TennisScore(); // fiecare @Test are instanta separata de TenniScore cu state in el curat initial.
   @Test
   void loveLove() {
-    String score = TennisScore.getScore();
+    String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Love:Love");
   }
   @Test
   void fifteenLove() {
-    TennisScore.addPoint(Player.ONE);
-    String score = TennisScore.getScore();
+    tennisScore.addPoint(Player.ONE);
+    String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Fifteen:Love");
   }
   @Test
   void loveFifteen() {
-    TennisScore.addPoint(Player.TWO);
-    String score = TennisScore.getScore();
+    tennisScore.addPoint(Player.TWO);
+    String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Love:Fifteen");
   }
   @Test
   void fifteenFifteen() {
-    TennisScore.addPoint(Player.ONE);
-    TennisScore.addPoint(Player.TWO);
-    String score = TennisScore.getScore();
+    tennisScore.addPoint(Player.ONE);
+    tennisScore.addPoint(Player.TWO);
+    String score = tennisScore.getScore();
     assertThat(score).isEqualTo("Fifteen:Fifteen");
   }
 
