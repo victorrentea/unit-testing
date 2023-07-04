@@ -80,7 +80,6 @@ class DiagnosticTest {
 //    ClientConfiguration config = configCaptor.getValue();
 //    assertThat(config.getAckMode()).isEqualTo(FLOOD);
     // daca verifici un singur camp dintr-un argument, nu folosi captor ci:
-
     verify(clientMock).configure(argThat(config -> config.getAckMode() == FLOOD));
   }
 
