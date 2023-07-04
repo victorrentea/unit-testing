@@ -27,10 +27,11 @@ public class Diagnostic {
     config.setSessionId(client.getVersion() + "-" +
         /*randomFactory.*/randomUUID());
     config.setSessionStart(LocalDateTime.now(/*clock*/));
-    if (force)
-      config.setAckMode(AckMode.FLOOD);
-    else
-      config.setAckMode(AckMode.NORMAL);
+    if (force) {
+			config.setAckMode(AckMode.FLOOD);
+		} else {
+			config.setAckMode(AckMode.NORMAL);
+		}
     client.configure(config);
 
     client.send(Client.DIAGNOSTIC_MESSAGE);
