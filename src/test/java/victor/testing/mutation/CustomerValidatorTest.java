@@ -37,9 +37,6 @@ public class CustomerValidatorTest {
       customer.setEmail("::email::");
       customer.setAddress(new Address());
       customer.getAddress().setCity("::city::");
-//      Assertions.assertThrows(IllegalArgumentException.class,
-//          () -> validator.validate(customer));
-
       assertThatThrownBy(() -> validator.validate(customer)) // AssertJ ❤️ Doar AssertJ. Forever.
           .isInstanceOf(IllegalArgumentException.class)
           .hasMessage("Missing customer name"); // fluent assertions
@@ -55,7 +52,6 @@ public class CustomerValidatorTest {
 //      IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, // NU FOLOSI
 //          () -> validator.validate(customer));
 //      assertEquals("Missing customer email", e.getMessage()); // NU FOLOSI
-
       assertThatThrownBy(() -> validator.validate(customer)) // AssertJ ❤️ Doar AssertJ. Forever.
           .isInstanceOf(IllegalArgumentException.class)
           .hasMessage("Missing customer email"); // fluent assertions
