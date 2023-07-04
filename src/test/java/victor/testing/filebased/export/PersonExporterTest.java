@@ -35,15 +35,17 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    @ParameterizedTest(name = "{0}")
    @MethodSource("testData")
    public void convert(FileTestCase test) throws IOException {
+      // given
       log.info("Running {}", test);
       didacticLog(test);
       Person inputPerson = jackson.readValue(test.getInputFile(), Person.class);
       when(personRepo.findAll()).thenReturn(asList(inputPerson));
       StringWriter sw = new StringWriter();
 
-      // when
+      // when apel de prod
       exporter.export(sw);
 
+      // then asteptari/efecte
       String expectedContents = readFileToString(test.getExpectedOutputFile());
       assertThat(sw.toString()).isEqualToNormalizingNewlines(expectedContents);
    }

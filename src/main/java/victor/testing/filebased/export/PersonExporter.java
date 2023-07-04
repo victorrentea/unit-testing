@@ -1,5 +1,7 @@
 package victor.testing.filebased.export;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.io.Writer;
 
@@ -12,7 +14,7 @@ public class PersonExporter {
 
   // This legacy code is in production for 7 years.
   // Therefore, it has no bugs. 🤞
-  // Your plan to refactor it... 😱
+  // Your plan to refactor it... 😱 RISK !!
   // How can you make sure you don't break the current behavior?
 
   // You write CHARACTERIZATION TESTS:
@@ -31,12 +33,17 @@ public class PersonExporter {
       // TODO CR: output all phones comma-separated
 
       writer.write(";");
-      if (person.getBirthDate() != null) {
-        writer.write(person.getBirthDate().toString()); // TODO CR: change format to "12 Nov 2021"
-      } else {
-        writer.write("N/A");
-      }
+      writer.write(extractBirthDate(person));
       writer.write("\n");
+    }
+  }
+
+  @NotNull
+  private static String extractBirthDate(Person person) {
+    if (person.getBirthDate() != null) {
+      return person.getBirthDate().toString(); // TODO CR: change format to "12 Nov 2021"
+    } else {
+      return "N/A";
     }
   }
 }
