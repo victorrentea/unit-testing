@@ -35,6 +35,8 @@ class TimeProvider {
       return LocalDate.now();
    }
 
+}
+class RandomProvider {
    public String randomUUID() {
       return UUID.randomUUID().toString();
    }
