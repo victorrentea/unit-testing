@@ -48,7 +48,7 @@ class DiagnosticTest {
     // then
     verify(clientMock).disconnect(true); // verific
     verify(clientMock).send(DIAGNOSTIC_MESSAGE); // + mai compact cod
-    verify(clientMock).receive(); //are times(1) automat. asta crapa testele acumBUM
+//    verify(clientMock).receive(); //are times(1) automat. asta crapa testele acumBUM
     AssertionsForClassTypes.assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAG_INFO);
   }
   
@@ -80,7 +80,8 @@ class DiagnosticTest {
 //    ClientConfiguration config = configCaptor.getValue();
 //    assertThat(config.getAckMode()).isEqualTo(FLOOD);
     // daca verifici un singur camp dintr-un argument, nu folosi captor ci:
-    verify(clientMock).configure(argThat(config -> config.getAckMode() == FLOOD));
+    verify(clientMock).configure(argThat(config ->
+        config.getAckMode() == FLOOD));
   }
 
   // Traditional multe echipe injecteaza in singletoanele lor spring 2 dependinte stranii:

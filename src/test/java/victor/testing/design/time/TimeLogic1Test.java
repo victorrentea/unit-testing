@@ -10,14 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+// main stream
 class TimeLogic1Test {
-   OrderRepo orderRepoMock = mock(OrderRepo.class);
-   TimeLogic1 target = new TimeLogic1(orderRepoMock);
-
    public static final String TEST_DATE = "2021-09-08";
+   OrderRepo orderRepoMock = mock(OrderRepo.class);
+   TimeLogic1 target = new TimeLogic1(orderRepoMock,
+       TimeUtils.fixedClock(TEST_DATE));
 
    @Test
-   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
       when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
           13,

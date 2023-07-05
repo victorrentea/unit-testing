@@ -21,14 +21,13 @@ class TimeLogic4Test {
    public static final String TEST_DATE = "2021-09-08";
 
    @Test
-   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
       when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
           13,
           parse("2021-09-01"),
           parse(TEST_DATE))).thenReturn(List.of(new Order().setTotalAmount(130d)));
 
-      assertThat(target.isFrequentBuyer(13)).isTrue();
+      assertThat(target.isFrequentBuyer(13, parse(TEST_DATE))).isTrue();
    }
 }
 

@@ -2,10 +2,6 @@ package victor.testing.design.time;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
@@ -16,13 +12,14 @@ import static org.mockito.Mockito.when;
 
 class TimeLogic3Test {
    OrderRepo orderRepoMock = mock(OrderRepo.class);
-   TimeLogic3 target = new TimeLogic3(orderRepoMock);
+   TimeProvider timeProviderMock = mock(TimeProvider.class);
+   TimeLogic3 target = new TimeLogic3(orderRepoMock, timeProviderMock);
 
    public static final String TEST_DATE = "2021-09-08";
 
    @Test
-   @Disabled("flaky, time-based")
    void isFrequentBuyer() {
+      when(timeProviderMock.today()).thenReturn(parse(TEST_DATE));
       when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
           13,
           parse("2021-09-01"),
