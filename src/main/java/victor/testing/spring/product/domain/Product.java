@@ -21,7 +21,7 @@ public class Product {
 
     private ProductCategory category;
 
-    private String barcode;
+    private String sku;
 
     @ManyToOne
     private Supplier supplier;
@@ -29,9 +29,9 @@ public class Product {
     @CreatedDate // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
     private LocalDate createDate;
 
-    public Product(String name, String barcode, ProductCategory category) {
+    public Product(String name, String sku, ProductCategory category) {
         this.name = name;
-        this.barcode = barcode;
+        this.sku = sku;
         this.category = category;
     }
 

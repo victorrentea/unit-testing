@@ -11,7 +11,7 @@ public class ProductMapper {
             .setId(product.getId())
             .setSupplierId(product.getSupplier().getId())
             .setName(product.getName())
-            .setBarcode(product.getBarcode())
+            .setSku(product.getSku())
             .setCategory(product.getCategory())
             .setCreateDate(product.getCreateDate());
   }

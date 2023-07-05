@@ -1,14 +1,14 @@
 {
   "request": {
     "method": "GET",
-    "url": "/product/bar/safety"
+    "url": "/product/safe/safety"
   },
   "response": {
     "status": 200,
     "jsonBody": {
       "entries": [
         {
-          "category": "DETERMINED",
+          "category": "SAFE",
           "detailsUrl": "http://details.url/a/b"
         }
       ]

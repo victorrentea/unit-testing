@@ -16,10 +16,10 @@ public class SafetyClient {
   @Value("${safety.service.url.base}")
   private URL baseUrl;
 
-  public boolean isSafe(String barcode) {
+  public boolean isSafe(String sku) {
     SafetyReportDto response = restTemplate.getForEntity(
-            baseUrl + "/product/{barcode}/safety",
-            SafetyReportDto.class, barcode)
+            baseUrl + "/product/{sku}/safety",
+            SafetyReportDto.class, sku)
         .getBody();
 
     boolean safe = response.getEntries().stream()

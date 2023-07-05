@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
-public class Precise {
+public class Signatures {
    public static void sendSprintFinishedEmail(Project project) {
       System.out.println("Sending email to " + project.getPoEmail() + " with subject 'Sprint Finished' and some body");
    }

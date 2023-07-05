@@ -1,10 +1,9 @@
 package victor.testing.design.spy;
 
 public class AnotherClassInProd {
-    God god;
+  God god;
 
-    public void illegalAccessToVisibleForTesting() {
-        god.low(new Order());
-
-    }
+  public void illegalAccessToVisibleForTesting() {
+//        god.low(new Order());
+  }
 }

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.TestPropertySource;
-import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -38,7 +38,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
     "spring.kafka.consumer.auto-offset-reset=earliest" // avoid losing messages sent before listener connects
 })
 @EmbeddedKafka(topics = "product-created")
-public class KafkaSendTest extends BaseDatabaseTest {
+public class MessageSenderTest extends IntegrationTest {
   @MockBean
   SafetyClient mockSafetyClient;
   @Autowired
@@ -59,8 +59,8 @@ public class KafkaSendTest extends BaseDatabaseTest {
   void createSendsMessage() throws InterruptedException, ExecutionException {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(mockSafetyClient.isSafe("safebar")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
+    when(mockSafetyClient.isSafe("safe")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);

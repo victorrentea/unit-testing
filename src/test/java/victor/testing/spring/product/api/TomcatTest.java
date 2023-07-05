@@ -18,7 +18,6 @@ import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
-import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
 
@@ -31,7 +30,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT) // starts a real Tomcat in memory
 @ActiveProfiles({"db-mem", "embedded-kafka"})
-@EmbeddedKafka(topics = "${incoming.topic}")
+@EmbeddedKafka(topics = "${input.topic}")
 public class TomcatTest {
   @MockBean
   private SafetyClient safetyClient;
@@ -51,7 +50,7 @@ public class TomcatTest {
     Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
     Product productInDB = new Product()
         .setName("Tree")
-        .setBarcode("safebar")
+        .setSku("safe")
         .setSupplier(new Supplier().setId(supplierId))
         .setCategory(ProductCategory.ME);
     productRepo.save(productInDB);
@@ -59,7 +58,7 @@ public class TomcatTest {
 
   @Test
   public void testSearch() {
-    when(safetyClient.isSafe("safebar")).thenReturn(true);
+    when(safetyClient.isSafe("safe")).thenReturn(true);
 
     ProductSearchCriteria searchCriteria = criteria.setName("Tree");
 

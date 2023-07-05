@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import victor.testing.filebased.message.KafkaMessageSender;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -28,16 +27,17 @@ public class ProductService {
   private final KafkaTemplate<String, String> kafkaTemplate;
 
   public void createProduct(ProductDto productDto) {
-    boolean safe = safetyClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
+    log.info("Creating product " + productDto.getSku());
+    boolean safe = safetyClient.isSafe(productDto.getSku()); // ⚠️ REST call inside
     if (!safe) {
-      throw new IllegalStateException("Product is not safe: " + productDto.getBarcode());
+      throw new IllegalStateException("Product is not safe: " + productDto.getSku());
     }
     if (productDto.getCategory() == null) {
       productDto.setCategory(ProductCategory.UNCATEGORIZED); // untested line 😱
     }
     Product product = new Product();
     product.setName(productDto.getName());
-    product.setBarcode(productDto.getBarcode());
+    product.setSku(productDto.getSku());
     product.setCategory(productDto.getCategory());
     product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
     productRepo.save(product);

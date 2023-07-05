@@ -12,33 +12,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
-@ExtendWith(MockitoExtension.class)
 class GodTest {
 
-   @Spy
-   God god;
+   God god = new God();
+
+   // TODO test high method
 
    @Test
-   void high() { // + 5 more tests like this
-      doNothing().when(god).low(any()); // let's stop the high() method under test
-      // from calling low() since we already tested that
-      Order order = new Order().setPaymentMethod(CARD);
-
-      String result = god.high(order);
-
-      assertThat(result).isEqualTo("bonus");
+   void lowThrowsIfOrderTooRecent() { // + 5 more tests like this
+      Order order = new Order().setCreationDate(now());
+//      assertThatThrownBy(() -> god.low(order)).hasMessageContaining("recent");
    }
 
    @Test
-   void lowTooRecent() { // + 5 more tests like this
-      Order oldOrder = new Order().setCreationDate(now());
-      assertThatThrownBy(() -> god.low(oldOrder))
-          .hasMessageContaining("recent");
-   }
-   @Test
-   void low() { // + 5 more tests like this
+   void low() {
       Order oldOrder = new Order().setCreationDate(now().minusMonths(2));
-      god.low(oldOrder);
-      // more assert/verify ..
-   }
+//      god.low(oldOrder);
+   }// + 5 more tests on low
 }

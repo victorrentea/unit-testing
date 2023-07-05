@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.domain.Product;
 
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Transactional
-public class ProductRepoTestcontainersTest extends BaseDatabaseTest {
+public class ProductRepoTestcontainersTest extends IntegrationTest {
     @Autowired
     private ProductRepo repo;
 

@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
-public class GetProductSocialMockitoTest {
+public class GetProductSocialTest {
   private ProductRepo productRepo = mock(ProductRepo.class);
   private ProductService productService = new ProductService(
       null,
@@ -31,7 +31,7 @@ public class GetProductSocialMockitoTest {
     Product product = new Product()
             .setId(1L)
             .setName("name")
-            .setBarcode("bar")
+            .setSku("SKU")
             .setCategory(HOME)
             .setCreateDate(date)
             .setSupplier(new Supplier().setId(2L));
@@ -41,7 +41,7 @@ public class GetProductSocialMockitoTest {
 
     assertThat(dto.getId()).isEqualTo(1L);
     assertThat(dto.getName()).isEqualTo("name");
-    assertThat(dto.getBarcode()).isEqualTo("bar");
+    assertThat(dto.getSku()).isEqualTo("SKU");
     assertThat(dto.getCategory()).isEqualTo(HOME);
     assertThat(dto.getCreateDate()).isEqualTo(date);
     assertThat(dto.getSupplierId()).isEqualTo(2L);

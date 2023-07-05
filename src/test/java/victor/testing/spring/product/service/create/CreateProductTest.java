@@ -38,12 +38,12 @@ public class CreateProductTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyClient.isSafe("bar")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
+    when(safetyClient.isSafe("unsafe")).thenReturn(false);
+    ProductDto dto = new ProductDto("name", "unsafe", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
-        .hasMessage("Product is not safe: bar");
+        .hasMessage("Product is not safe: unsafe");
   }
 
   @Test
@@ -51,8 +51,8 @@ public class CreateProductTest {
     // GIVEN
     Supplier supplier = new Supplier().setId(13L);
     when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
-    when(safetyClient.isSafe("safebar")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
+    when(safetyClient.isSafe("safe")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "safe", supplier.getId(), HOME);
 
     // WHEN
     productService.createProduct(dto);
@@ -63,7 +63,7 @@ public class CreateProductTest {
     Product product = productCaptor.getValue();
 
     assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getBarcode()).isEqualTo("safebar");
+    assertThat(product.getSku()).isEqualTo("safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic

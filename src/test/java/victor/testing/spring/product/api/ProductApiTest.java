@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.BaseDatabaseTest;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
@@ -61,13 +61,13 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @SpringBootTest
 
 @AutoConfigureWireMock(port = 0)
-@EmbeddedKafka(topics = "${incoming.topic}")
+@EmbeddedKafka(topics = "${input.topic}")
 @Transactional
 @ActiveProfiles({"db-migration", "wiremock","embedded-kafka"})
 
 @WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
 @AutoConfigureMockMvc // ❤️ process the HTTP request in a single thread, without starting a Tomcat => @Transactional works
-public class ProductApiTest extends BaseDatabaseTest {
+public class ProductApiTest extends IntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
   MockMvc mockMvc;
@@ -83,7 +83,7 @@ public class ProductApiTest extends BaseDatabaseTest {
   @BeforeEach
   void persistReferenceData() {
     supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-    productDto = new ProductDto("productName", "safebar", supplierId, HOME);
+    productDto = new ProductDto("productName", "safe", supplierId, HOME);
   }
 
   @Test // direct DB access
@@ -97,7 +97,7 @@ public class ProductApiTest extends BaseDatabaseTest {
     assertThat(returnedProduct.getCreateDate()).isToday();
     assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
     assertThat(returnedProduct.getSupplier().getId()).isEqualTo(productDto.supplierId);
-    assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
+    assertThat(returnedProduct.getSku()).isEqualTo(productDto.sku);
   }
 
   @Test // (B) only API calls
@@ -126,7 +126,7 @@ public class ProductApiTest extends BaseDatabaseTest {
     ProductDto dto = getProduct(productId);
     assertThat(dto.getCategory()).isEqualTo(productDto.category);
     assertThat(dto.getSupplierId()).isEqualTo(productDto.supplierId);
-    assertThat(dto.getBarcode()).isEqualTo(productDto.barcode);
+    assertThat(dto.getSku()).isEqualTo(productDto.sku);
     assertThat(dto.getCreateDate()).isToday();
   }
 
@@ -144,7 +144,7 @@ public class ProductApiTest extends BaseDatabaseTest {
                                       "    \"name\": \"%s\",\n" +
                                       "    \"supplierId\": \"%d\",\n" +
                                       "    \"category\" : \"%s\",\n" +
-                                      "    \"barcode\": \"safebar\"\n" +
+                                      "    \"sku\": \"safe\"\n" +
                                       "}\n", name, supplierId, HOME);
 
     mockMvc.perform(post("/product/create")
@@ -159,7 +159,7 @@ public class ProductApiTest extends BaseDatabaseTest {
     productDto.setName(name)
         .setSupplierId(supplierId)
         .setCategory(HOME)
-        .setBarcode("safebar");
+        .setSku("safe");
 
     mockMvc.perform(post("/product/create")
             .content(jackson.writeValueAsString(productDto))

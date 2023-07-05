@@ -2,11 +2,8 @@ package victor.testing.design.time;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
@@ -15,25 +12,26 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class TimeLogic4Test {
-   OrderRepo orderRepoMock = mock(OrderRepo.class);
-   TimeLogic4 target = new TimeLogic4(orderRepoMock);
+  OrderRepo orderRepoMock = mock(OrderRepo.class);
+  TimeLogic4 target = new TimeLogic4(orderRepoMock);
 
-   public static final String TEST_DATE = "2021-09-08";
+  @Test
+  @Disabled("flaky, time-based")
+  void isFrequentBuyer() {
+    LocalDate today = parse("2023-01-08");
+    LocalDate oneWeekAgo = parse("2023-01-01");
+    Order order = new Order().setTotalAmount(130d);
+    when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
+        13, oneWeekAgo, today))
+        .thenReturn(List.of(order));
 
-   @Test
-   @Disabled("flaky, time-based")
-   void isFrequentBuyer() {
-      when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
-          13,
-          parse("2021-09-01"),
-          parse(TEST_DATE))).thenReturn(List.of(new Order().setTotalAmount(130d)));
-
-      assertThat(target.isFrequentBuyer(13)).isTrue();
-   }
+    assertThat(target.isFrequentBuyer(13)).isTrue();
+  }
 }
-
-// 1: inject a fixed Clock using TimeUtils
-// 2: pass current date as an argument to a package-protected method (subcutaneous test)
-// 3: mock statics LocalDate.now()
-// 4: interface TimeProvider { LocalDate today(); } as a smell: **indirection without abstraction**
-// 5: inject a Supplier<LocalDate>
+// Ways to control time from tests:
+// - inject a Clock dependency, pass a fixed Clock from tests (see TimeUtils)
+// - pass time as an argument to a package-protected method ("subcutaneous test")
+// - mock the static method LocalDate.now()
+// - inject an (Mock-able) object wrapping the static call: class TimeProvider { LocalDate today() {return LocalDate.now();} }
+//   - variation: Supplier<LocalDate>
+//   - variation: UUIDGenerator
