@@ -64,7 +64,6 @@ public class ProductServiceCreateTest {
     // PRESUPUNAND CA BAZA INITIAL A FOST GOALA
     assertThat(productRepo.findAll()).hasSize(1);
     Product product = productRepo.findAll().get(0);
-
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("safebar");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
