@@ -51,7 +51,8 @@ public class ProductServiceCreateTest {
   void ok() {
     when(safetyClient.isSafe("safebar")).thenReturn(true);
     Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    when(supplierRepo.findById(supplier.getId()))
+        .thenReturn(Optional.of(supplier));
     ProductDto dto = new ProductDto("name", "safebar", supplier.getId(), HOME);
 
     productService.createProduct(dto);
