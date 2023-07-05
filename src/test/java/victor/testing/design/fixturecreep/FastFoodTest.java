@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWARMA;
 
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) // exceptia apare doar daca folosesti @Mock / @InjectMock, nu =mock(
 class FastFoodTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
@@ -24,19 +24,6 @@ class FastFoodTest {
    final void before() {
       when(dependency.isOnionAllowed()).thenReturn(true);
       when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
       when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
