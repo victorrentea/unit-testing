@@ -37,6 +37,12 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 @Transactional // in teste porneste o tranzactie separata / @Test, care dupa test este ROLLBACKed
 // in acea tx ruleaza toate @Sql @BeforeEach (din super clase)
+// + nu mai ai nevoie deloc de cleanup
+// - nu merge daca codul testat nu lasa tranzactia de test sa intre:
+//    - propagation=REQUIRES_NEW/NOT_SUPPORTED
+//    - schimba threadul: @Async, executori, CompletableFuture, trimiti mesaj peste MQ
+//  ==> N-ai ce sa faci decat sa renunti la @Transactional de pe test -> @BeforeEach cleanup
+// - pericole: poti rata buguri: citeste : https://dev.to/henrykeys/don-t-use-transactional-in-tests-40eb
 public class ProductServiceCreate3Test {
   @MockBean // inlocuieste beanul real SafetyClient cu un Mockito.mock() pe care ti-l pune si aici sa-l configurezi, auto-reset intre @Teste
   SafetyClient safetyClient;

@@ -73,7 +73,7 @@ public class KafkaListenerTest extends BaseDatabaseTest {
   SupplierRepo supplierRepo;
 
   @Test
-  @Transactional
+  @Transactional // acum merge, ca raman cu onMessage in acelasi thread!!
     // works due to direct method call
   void messageHandlerLogic() {
     // ugly library internal class TODO abstract away
