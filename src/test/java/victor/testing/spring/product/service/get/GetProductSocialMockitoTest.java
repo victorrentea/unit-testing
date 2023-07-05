@@ -22,7 +22,7 @@ public class GetProductSocialMockitoTest {
       null,
       productRepo,
       null,
-      new ProductMapper(),
+      new ProductMapper(), // ❤️
       null);
 
   @Test

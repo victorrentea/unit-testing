@@ -50,6 +50,12 @@ public class ProductService {
 
   public ProductDto getProduct(long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    return productMapper.toDto(product);
+    return new ProductDto()
+        .setId(product.getId())
+        .setSupplierId(product.getSupplier().getId())
+        .setName(product.getName())
+        .setBarcode(product.getBarcode())
+        .setCategory(product.getCategory())
+        .setCreateDate(product.getCreateDate());
   }
 }

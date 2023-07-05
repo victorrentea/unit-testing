@@ -22,7 +22,7 @@ public class GetProductSolitaryTest {
     ProductRepo repoMock = mock(ProductRepo.class);
     Product product = new Product().setSupplier(new Supplier());
     when(repoMock.findById(1L)).thenReturn(Optional.of(product));
-    ProductMapper mapperMock = mock(ProductMapper.class);
+    ProductMapper mapperMock = mock(ProductMapper.class);  // RAU
     ProductDto dto = new ProductDto();
     when(mapperMock.toDto(product)).thenReturn(dto);
     ProductService productService = new ProductService(null, repoMock, null, mapperMock, null);

@@ -3,12 +3,15 @@ package victor.testing.design.roles.service;
 import victor.testing.design.roles.model.Parcel;
 
 public class DisplayService {
-   public void displayParcel(Parcel parcel){
-      System.out.println("Display barcode " + parcel.getBarcode());
-   }
+  public void displayParcel(Parcel parcel) {
+    if (parcel.isPartOfCompositeShipment()) {
+      displayMultiParcelWarning();
+    }
+    System.out.println("Display barcode " + parcel.getBarcode());
+  }
 
-   public void displayMultiParcelWarning(){
-      System.out.println("Display WARNING: MULTIPARCEL");
+  private void displayMultiParcelWarning() { // encapsulation ++
+    System.out.println("Display WARNING: MULTIPARCEL");
 
-   }
+  }
 }
