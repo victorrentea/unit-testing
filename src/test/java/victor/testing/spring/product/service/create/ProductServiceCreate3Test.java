@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.product.domain.Product;
@@ -26,7 +27,11 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 @SpringBootTest // porneste spring context
 @ActiveProfiles("db-mem")
 
-@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) //
+//@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) //
+
+// Nukes Spring // cel mai antisocial lucru pe care-l poti face in test integrare:
+// fiecare @Test adauga 30s la Jenkins build, ca reporneste spring cu tabelem ,,, hibern ,,,
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ProductServiceCreate3Test {
   @MockBean // inlocuieste beanul real SafetyClient cu un Mockito.mock() pe care ti-l pune si aici sa-l configurezi, auto-reset intre @Teste
   SafetyClient safetyClient;
@@ -47,7 +52,6 @@ public class ProductServiceCreate3Test {
 //    supplierRepo.deleteAll();
 //  }
 
-  @Disabled
   @Test
   void throwsForUnsafeProduct() {
     when(safetyClient.isSafe("bar")).thenReturn(false);
