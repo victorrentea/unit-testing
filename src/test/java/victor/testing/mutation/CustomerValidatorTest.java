@@ -26,7 +26,8 @@ public class CustomerValidatorTest {
   @Test
   void trimsCityName() {
     //aici ma manca grav sa am custmer cu email a@b.com
-    customer.getAddress().setCity(" Braila ");
+    customer.setEmail("a@b.com") // tweak the customer state in YOUR @Test
+        .getAddress().setCity(" Braila ");
 
     validator.validate(customer);
 
