@@ -22,29 +22,37 @@ class FastFoodTest {
 
    @BeforeEach
    final void before() {
+   }
+
+   private void prepareShawamaStubs() {
       when(dependency.isOnionAllowed()).thenReturn(true);
       when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
-      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
    void shawarmaTest() { // + 7 more tests
+      prepareShawamaStubs();
       // ... complex
       fastFood.makeShawarma();
    }
    @Test
    void shawarmaTest2() { // + 7 more tests
+      prepareShawamaStubs();
       // ... complex
       fastFood.makeShawarma();
    }
 
    @Test
    void tzatzikiTest() { // + 5 more tests
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+
       // ... complex
       fastFood.makeTzatziki();
    }
    @Test
    void tzatzikiTest2() { // + 5 more tests
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+
       // ... complex
       fastFood.makeTzatziki();
    }
