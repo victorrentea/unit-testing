@@ -1,5 +1,6 @@
 package victor.testing.design.fixturecreep;
 
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +13,7 @@ import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWA
 
 
 @ExtendWith(MockitoExtension.class) // exceptia apare doar daca folosesti @Mock / @InjectMock, nu =mock(
-class FastFoodTest {
+class FastFood_ShawarmaTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
    @Mock
@@ -22,37 +23,44 @@ class FastFoodTest {
 
    @BeforeEach
    final void before() {
-   }
-
-   private void prepareShawamaStubs() {
       when(dependency.isOnionAllowed()).thenReturn(true);
       when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
    }
 
    @Test
    void shawarmaTest() { // + 7 more tests
-      prepareShawamaStubs();
-      // ... complex
-      fastFood.makeShawarma();
-   }
-   @Test
-   void shawarmaTest2() { // + 7 more tests
-      prepareShawamaStubs();
       // ... complex
       fastFood.makeShawarma();
    }
 
    @Test
-   void tzatzikiTest() { // + 5 more tests
+   void shawarmaTest2() { // + 7 more tests
+      // ... complex
+      fastFood.makeShawarma();
+   }
+
+}
+
+@ExtendWith(MockitoExtension.class)
+class FastFood_TzatzikiTest {
+   @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
+   Dependency dependency;
+   @InjectMocks
+   FastFood fastFood;
+
+//   @Before // JUnit 4 nu ruleaza daca @Test e din jupiter
+   @BeforeEach // JUnit 5
+   public final void before() {
       when(dependency.isCucumberAllowed()).thenReturn(true);
+   }
+   @Test
+   void tzatzikiTest() { // + 5 more tests
 
       // ... complex
       fastFood.makeTzatziki();
    }
    @Test
    void tzatzikiTest2() { // + 5 more tests
-      when(dependency.isCucumberAllowed()).thenReturn(true);
-
       // ... complex
       fastFood.makeTzatziki();
    }
