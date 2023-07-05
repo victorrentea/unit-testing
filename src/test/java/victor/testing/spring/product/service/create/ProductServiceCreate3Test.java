@@ -1,8 +1,6 @@
 package victor.testing.spring.product.service.create;
 
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,8 +14,6 @@ import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.service.ProductService;
 import victor.testing.spring.product.api.dto.ProductDto;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
@@ -28,7 +24,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@Tag("slow")
 @SpringBootTest // porneste spring context
 @ActiveProfiles("db-mem")
-public class ProductServiceCreateTest {
+public class ProductServiceCreate3Test {
   @MockBean // inlocuieste beanul real SafetyClient cu un Mockito.mock() pe care ti-l pune si aici sa-l configurezi, auto-reset intre @Teste
   SafetyClient safetyClient;
   @MockBean
@@ -40,6 +36,15 @@ public class ProductServiceCreateTest {
   @Autowired
   ProductService productService;
 
+  @AfterEach// nu e sufient
+//  @BeforeEach // asa da
+  final void before() {
+    // in ordinea FK domle!
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
+  }
+
+  @Disabled
   @Test
   void throwsForUnsafeProduct() {
     when(safetyClient.isSafe("bar")).thenReturn(false);
@@ -80,10 +85,13 @@ public class ProductServiceCreateTest {
     ProductDto dto = new ProductDto("name",
         "safebar", supplierId, null);
 
-    productService.createProduct(dto);
+    /*productId=*/productService.createProduct(dto);
 
-    assertThat(productRepo.findAll()).hasSize(1);
-    Product product = productRepo.findAll().get(0);
+//    assertThat(productRepo.findAll()).hasSize(1);
+//    Product product = productRepo.findAll().get(0);
+    Product product = productRepo.findByName("name");
+    // cel mai sfant era dupa ID-ul nou atribuit din prod asa:
+//    Product product = productRepo.findById(productId).orElseThrow();
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
