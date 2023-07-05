@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.repo.SupplierRepo;
@@ -12,10 +13,10 @@ import victor.testing.spring.product.repo.SupplierRepo;
 @RequiredArgsConstructor
 @Service
 @ConditionalOnProperty(value = "kafka.enabled", havingValue = "true", matchIfMissing = true)
-public class KafkaListener {
+public class MyKafkaListener {
   private final SupplierRepo supplierRepo;
 
-  @org.springframework.kafka.annotation.KafkaListener(topics = "${incoming.topic}")
+  @KafkaListener(topics = "${incoming.topic}")
   public void onMessage(ConsumerRecord<String, String> record) {
     log.info("Received message: " + record);
     supplierRepo.save(new Supplier().setName(record.value()));
