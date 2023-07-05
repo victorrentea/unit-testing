@@ -2,6 +2,8 @@ package victor.testing.design.spy;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -14,9 +16,11 @@ import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
 @ExtendWith(MockitoExtension.class)
 class GodTest {
-//   God god = spy(God.class);
-   @Spy
+   //   God god = spy(God.class);
+   @InjectMocks
    God god;
+   @Mock
+   Low low;
 
    @Test
    void high() { // + 5 more tests like this
@@ -25,22 +29,27 @@ class GodTest {
       // Optiunea #1
 //      order.setCreationDate(now().minusMonths(2));
       // Optiunea #2 - RAU: partial mocks (spy) ==> break class
-      doNothing().when(god).low(any()); // blochez apel in aceeasi clasa testata
+//      doNothing().when(god).low(any()); // blochez apel in aceeasi clasa testata
 
       String result = god.high(order);
 
       assertThat(result).isEqualTo("bonus");
    }
 
+}
+class LowTest {
+
+   private Low low = new Low();
+
    @Test
    void throwsForOrderTooRecent() {
       Order recentOrder = new Order().setCreationDate(now());
-      assertThatThrownBy(() -> god.low(recentOrder));
+      assertThatThrownBy(() -> low.low(recentOrder));
    }
    @Test
    void throwsForOrderTooRecent7() {
       Order recentOrder = new Order().setCreationDate(now());
-      assertThatThrownBy(() -> god.low(recentOrder));
+      assertThatThrownBy(() -> low.low(recentOrder));
    }
 
 }
