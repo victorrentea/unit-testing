@@ -40,8 +40,8 @@ public class ProductService {
     product.setName(productDto.getName());
     product.setBarcode(productDto.getBarcode());
     product.setCategory(productDto.getCategory());
-//    Supplier supplier = supplierRepo.findById(productDto.getSupplierId()).orElseThrow();
-    Supplier supplier = supplierRepo.getReferenceById(productDto.getSupplierId());
+    Supplier supplier = supplierRepo.findById(productDto.getSupplierId()).orElseThrow();
+//    Supplier supplier = supplierRepo.getReferenceById(productDto.getSupplierId());
     product.setSupplier(supplier);
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
