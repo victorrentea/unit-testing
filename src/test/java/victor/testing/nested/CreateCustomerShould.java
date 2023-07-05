@@ -39,10 +39,11 @@ class CreateCustomerShould {
 
   Customer aValidCustomer = TestData.musk();
 
-  @BeforeEach
+  @BeforeEach // hierarchical test fixtures
   public final void before() {
     // social unit tests: testing ( Facade + Validator ) surrounded by mocks
     customerFacade = new CustomerFacade(new CustomerValidator(), customerRepo, emailClient);
+//    when()
   }
 
   @Nested
