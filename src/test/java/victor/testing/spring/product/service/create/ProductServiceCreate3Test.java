@@ -37,7 +37,7 @@ public class ProductServiceCreate3Test {
   ProductService productService;
 
   @AfterEach// nu e sufient
-//  @BeforeEach // asa da
+  @BeforeEach // asa da
   final void before() {
     // in ordinea FK domle!
     productRepo.deleteAll();
