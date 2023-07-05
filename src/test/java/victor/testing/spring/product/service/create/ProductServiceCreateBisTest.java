@@ -61,7 +61,7 @@ public class ProductServiceCreateBisTest extends BaseDatabaseTest {
 
   @Test
   void throwsForUnsafeProduct() {
-    when(safetyClient.isSafe("bar")).thenReturn(false);
+//    when(safetyClient.isSafe("bar")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "bar", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -71,7 +71,7 @@ public class ProductServiceCreateBisTest extends BaseDatabaseTest {
 
   @Test
   void ok() {
-    when(safetyClient.isSafe("safebar")).thenReturn(true);
+//    when(safetyClient.isSafe("safebar")).thenReturn(true);
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     ProductDto dto = new ProductDto("name", "safebar", supplierId, HOME);
 
@@ -94,7 +94,7 @@ public class ProductServiceCreateBisTest extends BaseDatabaseTest {
 
   @Test
   void missingCategoryDefaultsToUNCATEGORIZED() {
-    when(safetyClient.isSafe("safebar")).thenReturn(true);
+//    when(safetyClient.isSafe("safebar")).thenReturn(true);
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     ProductDto dto = new ProductDto("name",
         "safebar", supplierId, null);

@@ -15,8 +15,8 @@ import victor.testing.tools.TestcontainersUtils;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class BaseDatabaseTest {
-  @MockBean // inlocuieste beanul real SafetyClient cu un Mockito.mock() pe care ti-l pune si aici sa-l configurezi, auto-reset intre @Teste
-  protected SafetyClient safetyClient;
+//  @MockBean // inlocuieste beanul real SafetyClient cu un Mockito.mock() pe care ti-l pune si aici sa-l configurezi, auto-reset intre @Teste
+//  protected SafetyClient safetyClient;
 }
 
 // ==================================================================
