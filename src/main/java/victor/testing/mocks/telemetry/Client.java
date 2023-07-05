@@ -1,13 +1,14 @@
 package victor.testing.mocks.telemetry;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Random;
 
 public class Client {
 	public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
 
-    public static class ClientConfiguration {
+	public static class ClientConfiguration {
 		enum AckMode {NORMAL, TIMEBOXED, FLOOD};
 		private String sessionId;
 		private LocalDateTime sessionStart;
@@ -31,8 +32,19 @@ public class Client {
 		public void setAckMode(AckMode ackMode) {
 			this.ackMode = ackMode;
 		}
-		
-		
+
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) return true;
+			if (o == null || getClass() != o.getClass()) return false;
+			ClientConfiguration that = (ClientConfiguration) o;
+			return Objects.equals(sessionId, that.sessionId) && Objects.equals(sessionStart, that.sessionStart) && ackMode == that.ackMode;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(sessionId, sessionStart, ackMode);
+		}
 	}
 
 	private boolean onlineStatus;
