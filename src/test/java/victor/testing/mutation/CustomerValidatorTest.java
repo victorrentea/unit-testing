@@ -1,7 +1,6 @@
 package victor.testing.mutation;
 
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
@@ -14,13 +13,9 @@ public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
 
    // scopul unui builder: sa populezi un obiect cu un constructor fff mare si scarbos (max 5)
-   Customer customer = new Customer()
-       .setName("::name::")
-       .setEmail("::email::") // lombok poate genera setteri sa intoarca 'this'. vezi lombok.config din src/main/java
-       .setAddress(new Address()
-           .setCity("::city::"));
+   Customer customer = TestData.aCustomer();
 
-   public CustomerValidatorTest() {
+  public CustomerValidatorTest() {
       System.out.println("De cate ori e o instanta din clasa de test creeata ?");
    }
 
@@ -30,6 +25,7 @@ public class CustomerValidatorTest {
   }
   @Test
   void trimsCityName() {
+    //aici ma manca grav sa am custmer cu email a@b.com
     customer.getAddress().setCity(" Braila ");
 
     validator.validate(customer);

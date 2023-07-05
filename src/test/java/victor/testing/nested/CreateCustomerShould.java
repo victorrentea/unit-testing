@@ -37,13 +37,7 @@ class CreateCustomerShould {
 
   CustomerFacade customerFacade;
 
-  Customer aValidCustomer = new Customer() // each @Test has its own class instance
-      .setName("::name::")
-      .setEmail("::email::")
-      .setAddress(new Address()
-          .setCity("::city::")
-          .setCountry(Country.ROU)
-      );
+  Customer aValidCustomer = TestData.aCustomer();
 
   @BeforeEach
   public final void before() {
