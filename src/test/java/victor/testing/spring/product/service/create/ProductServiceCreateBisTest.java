@@ -43,7 +43,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // - pericole: poti rata buguri: citeste : https://dev.to/henrykeys/don-t-use-transactional-in-tests-40eb
 
 @AutoConfigureWireMock(port = 0) // ridica un server HTTP pe localhost pe port random
-// care raspunde automat pe baza fisierelor /src/test/resources/mappings/*.json
+// care raspunde automat pe baza fisierelor by default in /src/test/resources/mappings/*.json
 @TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
 public class ProductServiceCreateBisTest extends BaseDatabaseTest {
 

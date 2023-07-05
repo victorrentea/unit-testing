@@ -69,6 +69,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @AutoConfigureMockMvc // ❤️ process the HTTP request in a single thread, without starting a Tomcat => @Transactional works
 public class ProductApiTest extends BaseDatabaseTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
+
   @Autowired
   MockMvc mockMvc;
   @Autowired
