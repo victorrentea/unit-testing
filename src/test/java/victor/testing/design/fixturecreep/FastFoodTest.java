@@ -22,19 +22,42 @@ class FastFoodTest {
 
    @BeforeEach
    final void before() {
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
+      when(dependency.isOnionAllowed()).thenReturn(true);
+      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
+      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
    void shawarmaTest() { // + 7 more tests
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
+      // ... complex
+      fastFood.makeShawarma();
+   }
+   @Test
+   void shawarmaTest2() { // + 7 more tests
       // ... complex
       fastFood.makeShawarma();
    }
 
    @Test
    void tzatzikiTest() { // + 5 more tests
-      when(dependency.isCucumberAllowed()).thenReturn(true);
+      // ... complex
+      fastFood.makeTzatziki();
+   }
+   @Test
+   void tzatzikiTest2() { // + 5 more tests
       // ... complex
       fastFood.makeTzatziki();
    }
