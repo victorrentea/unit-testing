@@ -13,7 +13,7 @@ public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
 
    // scopul unui builder: sa populezi un obiect cu un constructor fff mare si scarbos (max 5)
-   Customer customer = TestData.aCustomer();
+   Customer customer = TestData.musk();
 
   public CustomerValidatorTest() {
       System.out.println("De cate ori e o instanta din clasa de test creeata ?");

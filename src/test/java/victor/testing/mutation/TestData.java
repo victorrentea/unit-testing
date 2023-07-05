@@ -4,7 +4,8 @@ package victor.testing.mutation;
 public class TestData {
   // o metoda static ce produce o instanta 'standard'
   // folosita de 120 de @Test
-  public static Customer aCustomer(/*String email*/) {
+  public static Customer musk(/*String email*/) {
+    //devin aceste obiecte "PERSONAS" = exemple reprezentative de biz, pe care le poti discuta cu BIZ
     return new Customer()
         .setName("::name::")
         .setEmail("::email::") // lombok poate genera setteri sa intoarca 'this'. vezi lombok.config din src/main/java

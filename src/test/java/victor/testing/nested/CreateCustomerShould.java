@@ -37,7 +37,7 @@ class CreateCustomerShould {
 
   CustomerFacade customerFacade;
 
-  Customer aValidCustomer = TestData.aCustomer();
+  Customer aValidCustomer = TestData.musk();
 
   @BeforeEach
   public final void before() {
