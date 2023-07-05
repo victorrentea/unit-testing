@@ -42,7 +42,8 @@ public class KafkaListenerTest extends BaseDatabaseTest {
     kafkaTemplate.send(topic, SUPPLIER_NAME);
 
     Awaitility.await()
-        .timeout(ofSeconds(2))
+        .timeout(ofSeconds(2)) // pt maxim 2 secunde dupa care exceptie
+        .pollInterval(ofMillis(10)) // retry la fiecare 10 millis
         .untilAsserted(() ->
             assertThat(supplierRepo.findAll()).hasSize(1)
                 .first()
