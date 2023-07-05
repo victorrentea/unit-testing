@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
-
+// am uitat sa rulez TOATE TESTELE DECENTE INAINTE DE COMIT
 //@Tag("slow")
 @SpringBootTest // porneste spring context
 @ActiveProfiles("db-mem")
