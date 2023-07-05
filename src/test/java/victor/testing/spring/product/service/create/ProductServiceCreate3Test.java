@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -24,6 +25,8 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@Tag("slow")
 @SpringBootTest // porneste spring context
 @ActiveProfiles("db-mem")
+
+@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) //
 public class ProductServiceCreate3Test {
   @MockBean // inlocuieste beanul real SafetyClient cu un Mockito.mock() pe care ti-l pune si aici sa-l configurezi, auto-reset intre @Teste
   SafetyClient safetyClient;
@@ -36,13 +39,13 @@ public class ProductServiceCreate3Test {
   @Autowired
   ProductService productService;
 
-  @AfterEach// nu e sufient
-  @BeforeEach // asa da
-  final void before() {
-    // in ordinea FK domle!
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
+//  @AfterEach// nu e sufient
+//  @BeforeEach // asa da
+//  final void before() {
+//    // in ordinea FK domle!
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
 
   @Disabled
   @Test
