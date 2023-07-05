@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.security.core.Transient;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.BaseDatabaseTest;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -26,8 +24,8 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 // am uitat sa rulez TOATE TESTELE DECENTE INAINTE DE COMIT
 //@Tag("slow")
-@SpringBootTest // porneste spring context
-@ActiveProfiles("db-mem")
+//@SpringBootTest // porneste spring context
+//@ActiveProfiles("db-mem")
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) //
 
@@ -43,7 +41,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //    - schimba threadul: @Async, executori, CompletableFuture, trimiti mesaj peste MQ
 //  ==> N-ai ce sa faci decat sa renunti la @Transactional de pe test -> @BeforeEach cleanup
 // - pericole: poti rata buguri: citeste : https://dev.to/henrykeys/don-t-use-transactional-in-tests-40eb
-public class ProductServiceCreate3Test {
+public class ProductServiceCreateTest extends BaseDatabaseTest {
   @MockBean // inlocuieste beanul real SafetyClient cu un Mockito.mock() pe care ti-l pune si aici sa-l configurezi, auto-reset intre @Teste
   SafetyClient safetyClient;
   @MockBean
