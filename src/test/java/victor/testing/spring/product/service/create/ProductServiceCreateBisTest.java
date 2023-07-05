@@ -3,7 +3,9 @@ package victor.testing.spring.product.service.create;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.BaseDatabaseTest;
 import victor.testing.spring.product.api.dto.ProductDto;
@@ -40,6 +42,9 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //  ==> N-ai ce sa faci decat sa renunti la @Transactional de pe test -> @BeforeEach cleanup
 // - pericole: poti rata buguri: citeste : https://dev.to/henrykeys/don-t-use-transactional-in-tests-40eb
 
+@AutoConfigureWireMock(port = 0) // ridica un server HTTP pe localhost pe port random
+// care raspunde automat pe baza fisierelor /src/test/resources/mappings/*.json
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
 public class ProductServiceCreateBisTest extends BaseDatabaseTest {
 
   @MockBean

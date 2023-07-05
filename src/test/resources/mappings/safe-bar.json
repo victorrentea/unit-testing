@@ -3,6 +3,7 @@
     "method": "GET",
     "url": "/product/bar/safety"
   },
+
   "response": {
     "status": 200,
     "jsonBody": {
