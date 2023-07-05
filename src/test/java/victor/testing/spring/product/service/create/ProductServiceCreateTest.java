@@ -23,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
+import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
 //@Tag("slow")
 @SpringBootTest // porneste spring context
@@ -70,6 +71,20 @@ public class ProductServiceCreateTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
      assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+
+  @Test
+  void missingCategoryDefaultsToUNCATEGORIZED() {
+    when(safetyClient.isSafe("safebar")).thenReturn(true);
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    ProductDto dto = new ProductDto("name",
+        "safebar", supplierId, null);
+
+    productService.createProduct(dto);
+
+    assertThat(productRepo.findAll()).hasSize(1);
+    Product product = productRepo.findAll().get(0);
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
