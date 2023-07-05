@@ -39,9 +39,9 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //    - schimba threadul: @Async, executori, CompletableFuture, trimiti mesaj peste MQ
 //  ==> N-ai ce sa faci decat sa renunti la @Transactional de pe test -> @BeforeEach cleanup
 // - pericole: poti rata buguri: citeste : https://dev.to/henrykeys/don-t-use-transactional-in-tests-40eb
+
 public class ProductServiceCreateBisTest extends BaseDatabaseTest {
-  @MockBean // inlocuieste beanul real SafetyClient cu un Mockito.mock() pe care ti-l pune si aici sa-l configurezi, auto-reset intre @Teste
-  SafetyClient safetyClient;
+
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired

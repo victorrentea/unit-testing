@@ -2,17 +2,21 @@ package victor.testing.spring;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.tools.TestcontainersUtils;
 
 // #1 innocent Testcontainers test (online examples)
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class BaseDatabaseTest {
+  @MockBean // inlocuieste beanul real SafetyClient cu un Mockito.mock() pe care ti-l pune si aici sa-l configurezi, auto-reset intre @Teste
+  protected SafetyClient safetyClient;
 }
 
 // ==================================================================
