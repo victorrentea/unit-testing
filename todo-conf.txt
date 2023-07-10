@@ -1,0 +1,5 @@
+TODO
+- slide cyclomatic
+- exemplu cu social unit (appservice+mapper)
+- onion
+- exemplu la immutables
