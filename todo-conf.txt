@@ -3,3 +3,12 @@ TODO
 - exemplu cu social unit (appservice+mapper)
 - onion
 - exemplu la immutables
+
+
+
+1: mocks (good+bad) + Signatures + Test Data + Onion
+2: spy, before, mock roles not objs -> honeycomb,  unit vs integration
+    demos de ce-s naspa unit (eg lazy loading)
+3: purity (30min) + immutables wrapup 10min + Q&A 5 min
+
+
