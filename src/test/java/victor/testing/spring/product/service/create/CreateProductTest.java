@@ -46,6 +46,12 @@ public class CreateProductTest {
   @Autowired
   ProductService productService;
 
+  @AfterEach
+  @BeforeEach
+  public void cleanup() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
+  }
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("unsafe")).thenReturn(false);
@@ -87,13 +93,6 @@ public class CreateProductTest {
 
     Product product = productRepo.findByName(PRODUCT_NAME);
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
-  }
-
-  @AfterEach
-  @BeforeEach
-  public void cleanup() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
   }
 
 }
