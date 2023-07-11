@@ -1,53 +1,37 @@
 package victor.testing.spring.product.service.create;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.service.ProductService;
-import victor.testing.spring.product.api.dto.ProductDto;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles({"db-mem"/*,"altu"*/})
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD) // #2
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #3 niciodata n-ar trebi sa treaca de code review. -> intarzie grav Jenkins
 @Transactional // #4 auto-rollback dupa @Test daca-l pui in @Test, tx pornita pt un test este ROLLBACKED intotdeauna dupa test.
-@TestPropertySource//(properties = "prop=altaValoare")
-public class CreateProductTest {
+public class CreateProduct2Test {
   public static final String PRODUCT_NAME = "name";
   @MockBean // inlocuieste in contextul spring pornit beanul real cu un mock de mockito
   SafetyClient safetyClient;
-//  @Autowired // config difera
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
