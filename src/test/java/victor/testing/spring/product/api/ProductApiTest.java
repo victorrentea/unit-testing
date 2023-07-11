@@ -150,10 +150,8 @@ public class ProductApiTest extends IntegrationTest {
     mockMvc.perform(post("/product/create")
             .content(createJson)
             .contentType(APPLICATION_JSON))
-        .andExpect(status().is2xxSuccessful())
-    ;
+        .andExpect(status().is2xxSuccessful());
   }
-
   // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze
   void createProduct(String name) throws Exception {
     productDto.setName(name)

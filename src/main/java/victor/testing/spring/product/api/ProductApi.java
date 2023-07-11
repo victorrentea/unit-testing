@@ -21,8 +21,8 @@ import java.util.List;
 public class ProductApi {
    private final ProductService service;
 
-   @PostMapping("product/create")
-   @Secured("ROLE_ADMIN")
+   @PostMapping("product/create") // test: URL + verb(GET
+   @Secured("ROLE_ADMIN") // test: ca daca esti doar USER, primesti 403/pica
    public ResponseEntity<Void> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException {
       service.createProduct(productDto);
       return ResponseEntity.created(new URI("http://created-uri")).build();

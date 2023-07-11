@@ -18,7 +18,7 @@ public class SafetyClient {
 
   public boolean isSafe(String sku) {
     SafetyReportDto response = restTemplate.getForEntity(
-            baseUrl + "/product/{sku}/safety",
+            baseUrl + "/product/unsafe/safety",
             SafetyReportDto.class, sku)
         .getBody();
 

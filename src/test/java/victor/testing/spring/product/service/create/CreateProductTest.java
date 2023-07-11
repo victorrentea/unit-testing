@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.annotation.DirtiesContext;
@@ -49,10 +50,12 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 // in loc sa pornesti ALTA DB (H2) decat cea din Prod (ORA),
 // poti porni DB ca-n prod intr-un docker pe local / Jenkins
+@AutoConfigureWireMock(port = 9999)
+@TestPropertySource(properties = "safety.service.url.base=http://localhost:9999")
 public class CreateProductTest extends IntegrationTest {
   public static final String PRODUCT_NAME = "name";
-  @MockBean // inlocuieste in contextul spring pornit beanul real cu un mock de mockito
-  SafetyClient safetyClient;
+//  @MockBean // inlocuieste in contextul spring pornit beanul real cu un mock de mockito
+//  SafetyClient safetyClient;
 //  @Autowired // config difera
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
@@ -77,7 +80,7 @@ public class CreateProductTest extends IntegrationTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyClient.isSafe("unsafe")).thenReturn(false);
+//    when(safetyClient.isSafe("unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto(PRODUCT_NAME, "unsafe", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -87,7 +90,7 @@ public class CreateProductTest extends IntegrationTest {
   @Test
   void createOk() {
     // GIVEN
-    when(safetyClient.isSafe("safe")).thenReturn(true);
+//    when(safetyClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto(PRODUCT_NAME, "safe", supplierId, HOME);
 
     // WHEN
@@ -106,7 +109,7 @@ public class CreateProductTest extends IntegrationTest {
   }
   @Test
   void defaultsCategoryToUNCATEGORIZED() {
-    when(safetyClient.isSafe("safe")).thenReturn(true);
+//    when(safetyClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto(PRODUCT_NAME, "safe", supplierId, null);
 
     productService.createProduct(dto);
