@@ -78,8 +78,7 @@ public class CreateProductTest {
   void createOk() {
     // GIVEN
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto(PRODUCT_NAME,
-        "safe", supplierId, HOME);
+    ProductDto dto = new ProductDto(PRODUCT_NAME, "safe", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
