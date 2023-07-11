@@ -1,5 +1,7 @@
 package victor.testing.spring.product.service.create;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -53,7 +55,6 @@ public class CreateProductTest {
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe: unsafe");
   }
-
   @Test
   void createOk() {
     // GIVEN
@@ -86,6 +87,13 @@ public class CreateProductTest {
 
     Product product = productRepo.findByName(PRODUCT_NAME);
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
+  }
+
+  @AfterEach
+  @BeforeEach
+  public void cleanup() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
   }
 
 }
