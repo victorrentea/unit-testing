@@ -27,7 +27,7 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
 
-  public Long createProduct(ProductDto productDto) {
+  public void createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getSku());
     boolean safe = safetyClient.isSafe(productDto.getSku()); // ⚠️ REST call inside
     if (!safe) {
@@ -45,7 +45,6 @@ public class ProductService {
     product.setSupplier(supplier);
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
-    return product.getId();
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {

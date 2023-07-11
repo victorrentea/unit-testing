@@ -31,6 +31,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class CreateProductTest {
+  public static final String PRODUCT_NAME = "name";
   @MockBean // inlocuieste in contextul spring pornit beanul real cu un mock de mockito
   SafetyClient safetyClient;
   @MockBean
@@ -45,7 +46,7 @@ public class CreateProductTest {
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "unsafe", -1L, HOME);
+    ProductDto dto = new ProductDto(PRODUCT_NAME, "unsafe", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
@@ -57,18 +58,17 @@ public class CreateProductTest {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name",
+    ProductDto dto = new ProductDto(PRODUCT_NAME,
         "safe", supplierId, HOME);
 
     // WHEN
-    Long productId = productService.createProduct(dto);
+    productService.createProduct(dto);
 
     // THEN
-//    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-//    verify(productRepo).save(productCaptor.capture());
-//    Product product = productCaptor.getValue();
-    Product product = productRepo.findById(productId).orElseThrow();
-    assertThat(product.getName()).isEqualTo("name");
+//    Product product = productRepo.findById(productId).orElseThrow(); // ideal asa ar fi
+    Product product = productRepo.findByName(PRODUCT_NAME);
+
+    assertThat(product.getName()).isEqualTo(PRODUCT_NAME);
     assertThat(product.getSku()).isEqualTo("safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
