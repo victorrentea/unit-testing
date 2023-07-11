@@ -53,14 +53,19 @@ public class CreateProductTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
-  private Long supplierId;
-
   //  @AfterEach // #1
 //  @BeforeEach
 //  public void cleanup() {
 //    productRepo.deleteAll();
 //    supplierRepo.deleteAll();
 //  }
+
+  Long supplierId;
+  @BeforeEach
+  final void insertSupplier() {
+    supplierId = supplierRepo.save(new Supplier()).getId();
+  }
+
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("unsafe")).thenReturn(false);
@@ -69,10 +74,6 @@ public class CreateProductTest {
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe: unsafe");
-  }
-  @BeforeEach
-  final void insertSupplier() {
-    supplierId = supplierRepo.save(new Supplier()).getId();
   }
   @Test
   void createOk() {
