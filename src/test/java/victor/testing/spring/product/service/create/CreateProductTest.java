@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -28,11 +29,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD) // #2
 public class CreateProductTest {
   public static final String PRODUCT_NAME = "name";
   @MockBean // inlocuieste in contextul spring pornit beanul real cu un mock de mockito
@@ -45,13 +48,12 @@ public class CreateProductTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
-
-  @AfterEach
-  @BeforeEach
-  public void cleanup() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
+  //  @AfterEach // #1
+//  @BeforeEach
+//  public void cleanup() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("unsafe")).thenReturn(false);
