@@ -17,7 +17,7 @@ public class EmailSenderJob {
   @Value("${email.sender.url}")
   private final String emailServerUrl;
 
-//  @Scheduled(cron = "${email.sender.cron}")
+  @Scheduled(cron = "${email.sender.cron}")
 //  @Transactional
   public void sendAllPendingEmails() {
     List<EmailToSend> emailsToSend = repo.findAllByStatus(EmailToSend.Status.TO_SEND);

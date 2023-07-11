@@ -18,6 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -37,13 +38,18 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
+//@SpringBootTest
+//@ActiveProfiles("db-mem")
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD) // #2
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #3 niciodata n-ar trebi sa treaca de code review. -> intarzie grav Jenkins
 @Transactional // #4 auto-rollback dupa @Test daca-l pui in @Test, tx pornita pt un test este ROLLBACKED intotdeauna dupa test.
-@TestPropertySource//(properties = "prop=altaValoare")
-public class CreateProductTest {
+//@TestPropertySource//(properties = "prop=altaValoare")
+
+// cand testezi cu H2: probleme= nu merg toate SQL, nu merg toate CREATE TABLE
+
+// in loc sa pornesti ALTA DB (H2) decat cea din Prod (ORA),
+// poti porni DB ca-n prod intr-un docker pe local / Jenkins
+public class CreateProductTest extends IntegrationTest {
   public static final String PRODUCT_NAME = "name";
   @MockBean // inlocuieste in contextul spring pornit beanul real cu un mock de mockito
   SafetyClient safetyClient;
