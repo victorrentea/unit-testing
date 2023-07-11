@@ -16,6 +16,8 @@ import victor.testing.spring.product.api.dto.ProductSearchResult;
 
 import java.util.List;
 
+import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class ProductService {
       throw new IllegalStateException("Product is not safe: " + productDto.getSku());
     }
     if (productDto.getCategory() == null) {
-      productDto.setCategory(ProductCategory.UNCATEGORIZED); // untested line 😱
+      productDto.setCategory(UNCATEGORIZED); // untested line 😱
     }
     Product product = new Product();
     product.setName(productDto.getName());
