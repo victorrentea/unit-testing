@@ -16,6 +16,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -38,7 +39,8 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 @SpringBootTest
 @ActiveProfiles("db-mem")
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD) // #2
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #3 niciodata n-ar trebi sa treaca de code review. -> intarzie grav Jenkins
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #3 niciodata n-ar trebi sa treaca de code review. -> intarzie grav Jenkins
+@Transactional // #4 auto-rollback dupa @Test daca-l pui in @Test, tx pornita pt un test este ROLLBACKED intotdeauna dupa test.
 public class CreateProductTest {
   public static final String PRODUCT_NAME = "name";
   @MockBean // inlocuieste in contextul spring pornit beanul real cu un mock de mockito
@@ -51,6 +53,8 @@ public class CreateProductTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
+  private Long supplierId;
+
   //  @AfterEach // #1
 //  @BeforeEach
 //  public void cleanup() {
@@ -66,10 +70,13 @@ public class CreateProductTest {
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe: unsafe");
   }
+  @BeforeEach
+  final void insertSupplier() {
+    supplierId = supplierRepo.save(new Supplier()).getId();
+  }
   @Test
   void createOk() {
     // GIVEN
-    Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto(PRODUCT_NAME,
         "safe", supplierId, HOME);
@@ -90,7 +97,6 @@ public class CreateProductTest {
   }
   @Test
   void defaultsCategoryToUNCATEGORIZED() {
-    Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto(PRODUCT_NAME, "safe", supplierId, null);
 
