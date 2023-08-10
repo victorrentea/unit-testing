@@ -13,6 +13,7 @@ import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
