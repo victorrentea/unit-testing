@@ -6,7 +6,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -23,7 +28,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
-public class CreateProductTest {
+// test slice does not start all spring but only 10% of it
+//@WebFluxTest// REST endpoints reactive
+//@DataMongoTest // mongo query
+//@WebAuthorizationTest // Pincic specific to only test @Secured
+
+//@Testcontainers // a java lib connecting the JVM process with the docker daemon on the OS, telling it to start images.
+@SpringBootTest // you boot up everything (the whole spring, 200 beans at least and 100+ autoconfiguration)
+public class CreateProductTest extends IntegrationTest {
   SafetyClient safetyClient = mock(SafetyClient.class);
   KafkaTemplate<String, String> kafkaTemplate = mock(KafkaTemplate.class);
   ProductRepo productRepo = mock(ProductRepo.class);
