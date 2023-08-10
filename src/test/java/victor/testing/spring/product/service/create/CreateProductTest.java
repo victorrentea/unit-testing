@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -27,14 +28,25 @@ import victor.testing.spring.product.service.ProductMapper;
 import victor.testing.spring.product.service.ProductService;
 import victor.testing.spring.product.api.dto.ProductDto;
 
+import java.lang.annotation.Retention;
 import java.util.Optional;
 
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
+
+@SpringBootTest
+@Transactional
+//@ExtendWith() // junit extensions
+@Retention(RUNTIME) // stops javac from removing it at compilation
+@interface VictorsTest {
+
+}
 
 // test slice does not start all spring but only 10% of it
 //@WebFluxTest// REST endpoints reactive
@@ -42,16 +54,21 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@WebAuthorizationTest // Pincic specific to only test @Secured
 
 //@Testcontainers // a java lib connecting the JVM process with the docker daemon on the OS, telling it to start images.
-@SpringBootTest // you boot up everything (the whole spring, 200 beans at least and 100+ autoconfiguration)
+//@SpringBootTest // you boot up everything (the whole spring, 200 beans at least and 100+ autoconfiguration)
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD) // #2
 
-@Transactional //#3 SQL, when placed on a Test, @Transactional ROLLS BACK everything after each test
+//@Transactional //#3 SQL, when placed on a Test, @Transactional ROLLS BACK everything after each test
 // starts each test in a tx already marked for rollback
 // + no need to worry WHAT you inserted in RDB
 // + you could run these tests in parallel, lowering the runtime of your Integration tests with up to 75%
 // - the test cannot cover @Async or @Transaction(NEW)
 // - you fail to see the TX commit (some DBchecks might not run in your tests)
+@VictorsTest
+// NUKES Spring, forcing a re-start of the Spring Boot for tests (+10..30 sec per @Test)
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // only use it for testing spring extension
+// does NOT work here because the PG in a 🐳 is OUTSIDE the spring.
+// cleans embeeded stuff (H2, Mongo, Kafka, Rabbit)
 
 public class CreateProductTest extends IntegrationTest {
   public static final String PRODUCT_NAME = "name";
