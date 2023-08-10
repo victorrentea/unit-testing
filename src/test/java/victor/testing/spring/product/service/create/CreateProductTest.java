@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.domain.Product;
@@ -42,7 +43,16 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 //@Testcontainers // a java lib connecting the JVM process with the docker daemon on the OS, telling it to start images.
 @SpringBootTest // you boot up everything (the whole spring, 200 beans at least and 100+ autoconfiguration)
+
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD) // #2
+
+@Transactional //#3 SQL, when placed on a Test, @Transactional ROLLS BACK everything after each test
+// starts each test in a tx already marked for rollback
+// + no need to worry WHAT you inserted in RDB
+// + you could run these tests in parallel, lowering the runtime of your Integration tests with up to 75%
+// - the test cannot cover @Async or @Transaction(NEW)
+// - you fail to see the TX commit (some DBchecks might not run in your tests)
+
 public class CreateProductTest extends IntegrationTest {
   public static final String PRODUCT_NAME = "name";
   @MockBean // put a mockito mock in Spring instead of the real bean implementation
