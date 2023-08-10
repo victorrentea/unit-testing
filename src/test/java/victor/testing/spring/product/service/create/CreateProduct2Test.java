@@ -1,43 +1,22 @@
 package victor.testing.spring.product.service.create;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
-import victor.testing.spring.product.service.ProductMapper;
 import victor.testing.spring.product.service.ProductService;
-import victor.testing.spring.product.api.dto.ProductDto;
 
-import java.lang.annotation.Retention;
-import java.util.Optional;
-
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
@@ -63,7 +42,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // does NOT work here because the PG in a 🐳 is OUTSIDE the spring.
 // cleans embeeded stuff (H2, Mongo, Kafka, Rabbit)
 //@ActiveProfiles("test")
-public class CreateProductTest extends IntegrationTest {
+public class CreateProduct2Test extends IntegrationTest {
   public static final String PRODUCT_NAME = "name";
   @MockBean // put a mockito mock in Spring instead of the real bean implementation
   SafetyClient safetyClient;
