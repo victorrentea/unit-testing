@@ -1,5 +1,7 @@
 package victor.testing.spring.product.service.create;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -59,6 +61,13 @@ public class CreateProductTest extends IntegrationTest {
   // c) mock the bean (Pro: you do not have to create JSON responses of external APIs)
 
   //  productRepo, supplierRepo, new ProductMapper(), kafkaTemplate);
+
+  @BeforeEach
+  @AfterEach
+  public void cleanup() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
+  }
 
   @Test
   void createThrowsForUnsafeProduct() {
