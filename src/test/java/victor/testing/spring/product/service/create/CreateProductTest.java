@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.domain.Product;
@@ -30,6 +31,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
@@ -40,6 +42,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 //@Testcontainers // a java lib connecting the JVM process with the docker daemon on the OS, telling it to start images.
 @SpringBootTest // you boot up everything (the whole spring, 200 beans at least and 100+ autoconfiguration)
+//@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD) // #2
 public class CreateProductTest extends IntegrationTest {
   public static final String PRODUCT_NAME = "name";
   @MockBean // put a mockito mock in Spring instead of the real bean implementation
@@ -62,12 +65,16 @@ public class CreateProductTest extends IntegrationTest {
 
   //  productRepo, supplierRepo, new ProductMapper(), kafkaTemplate);
 
-  @BeforeEach
-  @AfterEach
-  public void cleanup() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
+
+//  @BeforeEach // clean#1, also works for
+//    cleaning mongo doc,
+//    draining rabbit queues,
+//    clearing caches
+//  @AfterEach
+//  public void cleanup() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
 
   @Test
   void createThrowsForUnsafeProduct() {
