@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
+import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
 // test slice does not start all spring but only 10% of it
 //@WebFluxTest// REST endpoints reactive
@@ -87,6 +88,19 @@ public class CreateProductTest extends IntegrationTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+
+
+  @Test
+  void missingCategoryDefaultsToUNCATEGORIZED() {
+    Long supplierId = supplierRepo.save(new Supplier()).getId();// Test Data Factory (SupplierData.aSupplier())
+    when(safetyClient.isSafe("safe")).thenReturn(true);
+    ProductDto dto = new ProductDto(PRODUCT_NAME, "safe", supplierId, null);
+
+    productService.createProduct(dto);
+
+    Product product = productRepo.findByName(PRODUCT_NAME);
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
