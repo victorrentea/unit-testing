@@ -90,7 +90,6 @@ public class CreateProductTest extends IntegrationTest {
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
-
   @Test
   void missingCategoryDefaultsToUNCATEGORIZED() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();// Test Data Factory (SupplierData.aSupplier())
