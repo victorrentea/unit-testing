@@ -19,7 +19,9 @@ public class MessageListener {
   @KafkaListener(topics = "${input.topic}")
   public void onMessage(ConsumerRecord<String, String> record) {
     log.info("Received message: " + record);
+    // serious logic
     supplierRepo.save(new Supplier().setName(record.value()));
     log.info("Created supplier with name: " + record);
+//    rabbitTempplate.send()
   }
 }

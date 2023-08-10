@@ -19,10 +19,10 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 @ActiveProfiles("embedded-kafka")
-@EmbeddedKafka(topics = "${input.topic}")
+@EmbeddedKafka(topics = "${input.topic}") // or a Kafka in a Testcontainer docker
 public class MessageListenerSpyTest extends IntegrationTest {
   private static final String SUPPLIER_NAME = "supplier";
-  @SpyBean
+  @SpyBean // spy / partial mock ????
   MessageListener listener;
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;

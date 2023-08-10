@@ -42,7 +42,8 @@ public class MessageListenerBlackTest extends IntegrationTest {
 
     Awaitility.await().timeout(ofSeconds(2)) // throw after 2 seconds
         .pollInterval(ofMillis(100)) // retry every 100 millis
-        .untilAsserted(() -> assertThat(supplierRepo.findByName(SUPPLIER_NAME)).isNotNull());
+        .untilAsserted(() -> assertThat(
+                supplierRepo.findByName(SUPPLIER_NAME)).isNotNull());
   }
 
 }
