@@ -12,6 +12,7 @@ import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
+import victor.testing.spring.product.service.ProductMapper;
 import victor.testing.spring.product.service.ProductService;
 import victor.testing.spring.product.api.dto.ProductDto;
 
@@ -19,22 +20,15 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
-  @Mock
-  SafetyClient safetyClient;
-  @Mock
-  KafkaTemplate<String, String> kafkaTemplate;
-  @Mock
-  ProductRepo productRepo;
-  @Mock
-  SupplierRepo supplierRepo;
-  @InjectMocks
-  ProductService productService;
+  SafetyClient safetyClient = mock(SafetyClient.class);
+  KafkaTemplate<String, String> kafkaTemplate = mock(KafkaTemplate.class);
+  ProductRepo productRepo = mock(ProductRepo.class);
+  SupplierRepo supplierRepo = mock(SupplierRepo.class);
+  ProductService productService = new ProductService(safetyClient,productRepo, supplierRepo, new ProductMapper(), kafkaTemplate);
 
   @Test
   void createThrowsForUnsafeProduct() {
