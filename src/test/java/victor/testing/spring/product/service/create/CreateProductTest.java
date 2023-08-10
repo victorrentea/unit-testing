@@ -6,9 +6,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.IntegrationTest;
@@ -36,16 +38,31 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 //@Testcontainers // a java lib connecting the JVM process with the docker daemon on the OS, telling it to start images.
 @SpringBootTest // you boot up everything (the whole spring, 200 beans at least and 100+ autoconfiguration)
 public class CreateProductTest extends IntegrationTest {
-  SafetyClient safetyClient = mock(SafetyClient.class);
-  KafkaTemplate<String, String> kafkaTemplate = mock(KafkaTemplate.class);
-  ProductRepo productRepo = mock(ProductRepo.class);
-  SupplierRepo supplierRepo = mock(SupplierRepo.class);
-  ProductService productService = new ProductService(safetyClient,productRepo, supplierRepo, new ProductMapper(), kafkaTemplate);
+  public static final String PRODUCT_NAME = "name";
+  @MockBean // put a mockito mock in Spring instead of the real bean implementation
+  SafetyClient safetyClient;
+
+  @MockBean
+  KafkaTemplate<String, String> kafkaTemplate;// = mock(KafkaTemplate.class);
+
+  @Autowired
+  ProductRepo productRepo;
+  @Autowired
+  SupplierRepo supplierRepo;
+
+  @Autowired
+  ProductService productService;// = new ProductService(
+  // safetyClient :
+  // a) use the expections.json as you do in Component Tests
+  // b) manually program a MockServer writing java code
+  // c) mock the bean (Pro: you do not have to create JSON responses of external APIs)
+
+  //  productRepo, supplierRepo, new ProductMapper(), kafkaTemplate);
 
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "unsafe", -1L, HOME);
+    ProductDto dto = new ProductDto(PRODUCT_NAME, "unsafe", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
@@ -55,22 +72,18 @@ public class CreateProductTest extends IntegrationTest {
   @Test
   void createOk() {
     // GIVEN
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    Long supplierId = supplierRepo.save(new Supplier()).getId();// Test Data Factory (SupplierData.aSupplier())
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplier.getId(), HOME);
+    ProductDto dto = new ProductDto(PRODUCT_NAME, "safe", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
 
     // THEN
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture());
-    Product product = productCaptor.getValue();
-
-    assertThat(product.getName()).isEqualTo("name");
+    Product product = productRepo.findByName(PRODUCT_NAME);
+    assertThat(product.getName()).isEqualTo(PRODUCT_NAME);
     assertThat(product.getSku()).isEqualTo("safe");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");

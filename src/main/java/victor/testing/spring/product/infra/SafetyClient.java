@@ -11,12 +11,13 @@ import java.net.URL;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SafetyClient {
+public class SafetyClient { // Adapter design pattern
   private final RestTemplate restTemplate;
   @Value("${safety.service.url.base}")
   private URL baseUrl;
 
   public boolean isSafe(String sku) {
+    // external, EVIL DTO. not yours. (coming in the -client.jar you call)
     SafetyReportDto response = restTemplate.getForEntity(
             baseUrl + "/product/{sku}/safety",
             SafetyReportDto.class, sku)
