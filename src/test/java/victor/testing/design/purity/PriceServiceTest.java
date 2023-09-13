@@ -26,7 +26,7 @@ class PriceServiceTest {
    @Mock
    CustomerRepo customerRepo;
    @Mock
-   ThirdPartyPrices thirdPartyPrices;
+   ThirdPartyPricesApi thirdPartyPricesApi;
    @Mock
    CouponRepo couponRepo;
    @Mock
@@ -45,7 +45,7 @@ class PriceServiceTest {
       Product p1 = new Product().setId(1L).setCategory(HOME).setSupplier(new Supplier().setId(13L));
       Product p2 = new Product().setId(2L).setCategory(KIDS).setSupplier(new Supplier().setId(13L));
       when(productRepo.findAllById(List.of(1L, 2L))).thenReturn(List.of(p1, p2));
-      when(thirdPartyPrices.retrievePrice(2L)).thenReturn(5d);
+      when(thirdPartyPricesApi.fetchPrice(2L)).thenReturn(5d);
 
       Map<Long, Double> result = priceService.computePrices(13L, List.of(1L, 2L), Map.of(1L, 10d));
 

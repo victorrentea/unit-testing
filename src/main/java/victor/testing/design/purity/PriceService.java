@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PriceService {
    private final CustomerRepo customerRepo;
-   private final ThirdPartyPrices thirdPartyPrices;
+   private final ThirdPartyPricesApi thirdPartyPricesApi;
    private final CouponRepo couponRepo;
    private final ProductRepo productRepo;
 
@@ -27,7 +27,7 @@ public class PriceService {
       for (Product product : products) {
          Double price = internalPrices.get(product.getId());
          if (price == null) {
-            price = thirdPartyPrices.retrievePrice(product.getId());
+            price = thirdPartyPricesApi.fetchPrice(product.getId());
          }
          for (Coupon coupon : customer.getCoupons()) {
             if (coupon.autoApply()
