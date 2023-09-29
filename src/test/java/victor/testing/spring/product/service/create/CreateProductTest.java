@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -34,6 +35,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //    luand un bean ProductService de la Spring\
 @SpringBootTest // porneste o app Spring in procesul de JUnit
 @ActiveProfiles("db-mem")
+@Sql("classpath:/sql/cleanup.sql")// #2 inainte de fiecare @Test ruleaza script manual
 public class CreateProductTest {
   @MockBean
   SafetyClient safetyClient;
@@ -47,13 +49,13 @@ public class CreateProductTest {
   ProductService productService;
 
   // manual cleanup de DB cu deleteAll
-  @BeforeEach
-  @AfterEach
-  public void curatBaza() {
-    // in ordinea FK intai din Product si apoi din Supplier, pt ca Product--FK->Supplier
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
+//  @BeforeEach
+//  @AfterEach
+//  public void curatBaza() {
+//    // in ordinea FK intai din Product si apoi din Supplier, pt ca Product--FK->Supplier
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
 
   @Test
   void createThrowsForUnsafeProduct() {
