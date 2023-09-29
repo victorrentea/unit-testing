@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
@@ -80,6 +81,7 @@ public class CreateProductTest extends IntegrationTest {
   }
 
   @Test
+  @WithMockUser(username = "user") // creates a principal
   void createOk() {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
@@ -99,6 +101,7 @@ public class CreateProductTest extends IntegrationTest {
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
      assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
+     assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 

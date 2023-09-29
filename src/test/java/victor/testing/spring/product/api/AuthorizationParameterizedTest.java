@@ -28,7 +28,7 @@ public class AuthorizationParameterizedTest {
   @ParameterizedTest
   @CsvSource({
       "POST,/product/create,USER,false",
-      "POST,/product/create,ADMIN,false",
+      "POST,/product/create,ADMIN,true",
   })
   void createProductByNonAdmin_NotAuthorized(HttpMethod method, String url,
                                              String role, String accessAllowed) throws Exception {
