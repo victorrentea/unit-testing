@@ -67,13 +67,9 @@ public class CreateProductTest {
     productService.createProduct(dto);
 
     // THEN
-    // modalitatea in care poti obtine de la un mock valoarea
-    // parametrilor primiti in apelul suferit in codul testat chemat mai sus
-//    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-//    verify(productRepo).save(productCaptor.capture());
-//    Product product = productCaptor.getValue();
-
-    Product product = productRepo.findAll().get(0);
+    // presupun ca baza a fost goala inainte de testul asta
+//    Product product = productRepo.findAll().get(0);
+    Product product = productRepo.findByName("name");
 
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getSku()).isEqualTo("safe");
