@@ -21,7 +21,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-import java.util.concurrent.Executors;
 
 @Slf4j
 @EnableScheduling
@@ -30,47 +29,39 @@ import java.util.concurrent.Executors;
 @SpringBootApplication
 @EnableJpaAuditing
 public class TestedApplication {
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
-        return builder -> {
-            builder.modules(new JavaTimeModule());
-            builder.simpleDateFormat("yyyy-MM-dd");
-            builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            builder.serializers(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        };
-    }
-    public static void main(String[] args) {
-        new SpringApplicationBuilder()
-            .profiles("insertDummyData")
-            .initializers(new WaitForDatabase())
-            .sources(TestedApplication.class).run(args);
-    }
+  public static void main(String[] args) {
+    new SpringApplicationBuilder()
+        .profiles("insertDummyData")
+        .initializers(new WaitForDatabase())
+        .sources(TestedApplication.class).run(args);
+  }
 
-    @Autowired
-    public void printDatabaseUrl(@Value("${spring.datasource.url}") String dbUrl) {
-        log.info("Using database: {} <<<", dbUrl);
-    }
+  public static Optional<String> getUserOnCurrentThread() {
+    return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication().getName());
+  }
 
+  @Bean
+  public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
+    return builder -> {
+      builder.modules(new JavaTimeModule());
+      builder.simpleDateFormat("yyyy-MM-dd");
+      builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+      builder.serializers(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+    };
+  }
 
-    	@Bean
-	public AuditorAware<String> auditorProvider() {
-		return TestedApplication::getUserOnCurrentThread;
-	}
+  @Autowired
+  public void printDatabaseUrl(@Value("${spring.datasource.url}") String dbUrl) {
+    log.info("Using database: {} <<<", dbUrl);
+  }
 
-public static Optional<String> getUserOnCurrentThread() {
-		// SOLUTION (
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication==null) {
-			return Optional.of("sys"); // at start-up, there is no user logged in
-		} else {
-			return Optional.ofNullable(authentication.getName());
-		}
-		// SOLUTION )
-		// return "user1";//TODO in real apps, implemented via a thread-scoped bean/Spring security context // INITIAL
-	}
+  @Bean
+  public AuditorAware<String> auditorProvider() {
+    return TestedApplication::getUserOnCurrentThread;
+  }
 
-    @Bean
-    public RestTemplate rest() {
-        return new RestTemplate();
-    }
+  @Bean
+  public RestTemplate rest() {
+    return new RestTemplate();
+  }
 }

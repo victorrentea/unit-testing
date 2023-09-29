@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter @Setter
 @ToString
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class) // sau pui in orm.xml
 public class Product {
 
     @Id
