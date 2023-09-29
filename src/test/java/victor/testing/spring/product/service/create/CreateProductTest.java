@@ -6,6 +6,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
@@ -24,19 +27,20 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
 // TODO rulez testul asta cu Spring pornit,
-//    luand un bean ProductService de la Spring
+//    luand un bean ProductService de la Spring\
+@SpringBootTest // porneste o app Spring in procesul de JUnit
+//@ExtendWith(MockitoExtension.class)// Mockito avea grija de @Mock is @INjectMocks
 
-@ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
-  @Mock
+  @MockBean
   SafetyClient safetyClient;
-  @Mock
+  @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
-  @Mock
+  @MockBean
   ProductRepo productRepo;
-  @Mock
+  @MockBean
   SupplierRepo supplierRepo;
-  @InjectMocks // poate injecta prin contructor, campuri private @Autowired, setteri
+  @Autowired
   ProductService productService;
 
   @Test
