@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.client.RestTemplate;
 
+import java.security.Principal;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -37,7 +38,8 @@ public class TestedApplication {
   }
 
   public static Optional<String> getUserOnCurrentThread() {
-    return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication().getName());
+    return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+        .map(Principal::getName);
   }
 
   @Bean
