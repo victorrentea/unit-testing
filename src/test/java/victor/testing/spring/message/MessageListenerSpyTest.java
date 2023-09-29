@@ -42,7 +42,7 @@ public class MessageListenerSpyTest extends IntegrationTest {
         .onMessage(argThat(record -> SUPPLIER_NAME.equals(record.value())));
   }
 
-  @Test // for message processing logic
+  @Test // for message processing logic x 10 tests
   @Transactional // works since tested code stays in the same thread
   void listenerMethodLogic() {
     // ugly library class, todo can we abstract it away?

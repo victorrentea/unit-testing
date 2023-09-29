@@ -28,7 +28,7 @@ public class AsyncTest {
   }
 
   @Test
-  void asyncFireAndForget() throws InterruptedException {
+  void asyncFireAndForget_disablingAsync() throws InterruptedException {
     asyncService.asyncFireAndForget("sname");
     assertThat(supplierRepo.findAll()).hasSize(1)
         .first()
@@ -36,6 +36,7 @@ public class AsyncTest {
         .isEqualTo("sname");
   }
   @TestConfiguration
+  // Disable @Async for this test
   @EnableAsync(annotation = DisableAsync.NotUsed.class)
   public static class DisableAsync {
     @interface NotUsed {}

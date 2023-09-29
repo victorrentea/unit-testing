@@ -11,12 +11,15 @@ import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilde
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.client.RestTemplate;
 
+import java.security.Principal;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.Executors;
+import java.util.Optional;
 
 @Slf4j
 @EnableScheduling
@@ -49,4 +52,12 @@ public class TestedApplication {
     public RestTemplate rest() {
         return new RestTemplate();
     }
+
+    @Bean // used by @CreatedBy and @LastModifiedBy
+    public AuditorAware<String> auditorProvider() {
+        return () -> Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+            .map(Principal::getName);
+    }
+
+
 }

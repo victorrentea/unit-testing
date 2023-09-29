@@ -26,13 +26,13 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
   @Mock
-  SafetyClient safetyClient;
-  @Mock
-  KafkaTemplate<String, String> kafkaTemplate;
+  SupplierRepo supplierRepo;
   @Mock
   ProductRepo productRepo;
   @Mock
-  SupplierRepo supplierRepo;
+  SafetyClient safetyClient;
+  @Mock
+  KafkaTemplate<String, String> kafkaTemplate;
   @InjectMocks
   ProductService productService;
 
@@ -66,7 +66,8 @@ public class CreateProductTest {
     assertThat(product.getSku()).isEqualTo("safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
     assertThat(product.getCategory()).isEqualTo(HOME);
-    // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
+    // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
+    //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 

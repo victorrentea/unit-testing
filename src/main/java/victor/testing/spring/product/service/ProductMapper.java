@@ -13,6 +13,6 @@ public class ProductMapper {
             .setName(product.getName())
             .setSku(product.getSku())
             .setCategory(product.getCategory())
-            .setCreateDate(product.getCreateDate());
+            .setCreatedDate(product.getCreatedDate());
   }
 }

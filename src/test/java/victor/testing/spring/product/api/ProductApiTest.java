@@ -94,7 +94,7 @@ public class ProductApiTest extends IntegrationTest {
     // DB SELECT
     Product returnedProduct = productRepo.findAll().get(0);
     assertThat(returnedProduct.getName()).isEqualTo("Tree");
-    assertThat(returnedProduct.getCreateDate()).isToday();
+    assertThat(returnedProduct.getCreatedDate()).isToday();
     assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
     assertThat(returnedProduct.getSupplier().getId()).isEqualTo(productDto.supplierId);
     assertThat(returnedProduct.getSku()).isEqualTo(productDto.sku);
@@ -112,7 +112,7 @@ public class ProductApiTest extends IntegrationTest {
   }
 
   @Test // (C) sequence of stateful API calls
-  void journey() throws Exception {
+  void userJourney() throws Exception {
     // API call #1
     createProduct("Tree");
 
@@ -127,7 +127,7 @@ public class ProductApiTest extends IntegrationTest {
     assertThat(dto.getCategory()).isEqualTo(productDto.category);
     assertThat(dto.getSupplierId()).isEqualTo(productDto.supplierId);
     assertThat(dto.getSku()).isEqualTo(productDto.sku);
-    assertThat(dto.getCreateDate()).isToday();
+    assertThat(dto.getCreatedDate()).isToday();
   }
 
 

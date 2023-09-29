@@ -20,14 +20,14 @@ public class ProductDto {
 	public Long supplierId;
 	public ProductCategory category;
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	public LocalDate createDate;
+	public LocalDate createdDate;
 
 	public ProductDto(Product product) {
 		name = product.getName();
 		sku = product.getSku();
 		supplierId = product.getSupplier().getId();
 		category = product.getCategory();
-		createDate = product.getCreateDate();
+		createdDate = product.getCreatedDate();
 	}
 
 	public ProductDto(String name, String sku, Long supplierId, ProductCategory category) {

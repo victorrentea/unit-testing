@@ -40,7 +40,7 @@ public class GetProductSolitaryTest {
             .setName("name")
             .setSku("SKU")
             .setCategory(HOME)
-            .setCreateDate(date)
+            .setCreatedDate(date)
             .setSupplier(new Supplier().setId(2L));
 
     ProductDto dto = new ProductMapper().toDto(product);
@@ -49,7 +49,7 @@ public class GetProductSolitaryTest {
     assertThat(dto.getName()).isEqualTo("name");
     assertThat(dto.getSku()).isEqualTo("SKU");
     assertThat(dto.getCategory()).isEqualTo(HOME);
-    assertThat(dto.getCreateDate()).isEqualTo(date);
+    assertThat(dto.getCreatedDate()).isEqualTo(date);
     assertThat(dto.getSupplierId()).isEqualTo(2L);
   }
 }

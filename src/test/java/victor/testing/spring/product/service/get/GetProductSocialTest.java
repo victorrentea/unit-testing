@@ -33,7 +33,7 @@ public class GetProductSocialTest {
             .setName("name")
             .setSku("SKU")
             .setCategory(HOME)
-            .setCreateDate(date)
+            .setCreatedDate(date)
             .setSupplier(new Supplier().setId(2L));
     when(productRepo.findById(1L)).thenReturn(Optional.of(product));
 
@@ -43,7 +43,7 @@ public class GetProductSocialTest {
     assertThat(dto.getName()).isEqualTo("name");
     assertThat(dto.getSku()).isEqualTo("SKU");
     assertThat(dto.getCategory()).isEqualTo(HOME);
-    assertThat(dto.getCreateDate()).isEqualTo(date);
+    assertThat(dto.getCreatedDate()).isEqualTo(date);
     assertThat(dto.getSupplierId()).isEqualTo(2L);
   }
 

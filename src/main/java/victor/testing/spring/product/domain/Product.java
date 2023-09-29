@@ -3,6 +3,7 @@ package victor.testing.spring.product.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -27,7 +28,10 @@ public class Product {
     private Supplier supplier;
 
     @CreatedDate // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
-    private LocalDate createDate;
+    private LocalDate createdDate;
+
+    @CreatedBy // Spring assigns this at creation time from SecurityContext
+    private String createdBy;
 
     public Product(String name, String sku, ProductCategory category) {
         this.name = name;

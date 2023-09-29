@@ -20,9 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
   public static final String PRODUCT_CREATED_TOPIC = "product-created";
-  private final SafetyClient safetyClient;
-  private final ProductRepo productRepo;
   private final SupplierRepo supplierRepo;
+  private final ProductRepo productRepo;
+  private final SafetyClient safetyClient;
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
 
