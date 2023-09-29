@@ -1,39 +1,23 @@
 package victor.testing.spring.product.service.create;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
-import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.service.ProductService;
-import victor.testing.spring.product.api.dto.ProductDto;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
@@ -49,8 +33,9 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // daca @Transactional apare pe test atunci ruleaza fiecare test in propria tranzactie
 // si la final ii da ROLLBACK by default
 @AutoConfigureWireMock(port = 0)
-@ActiveProfiles("wiremock")
-public class CreateProductTest extends IntegrationTest {
+@ActiveProfiles({"wiremock","incaCeva"})
+
+public class CreateProductBisTest extends IntegrationTest {
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   // daca vrei sa trimiti pe bune mesaje pe Q =>
