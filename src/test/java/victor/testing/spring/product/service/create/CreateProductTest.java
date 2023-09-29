@@ -38,7 +38,7 @@ public class CreateProductTest {
   KafkaTemplate<String, String> kafkaTemplate;
   @MockBean
   ProductRepo productRepo;
-  @MockBean
+  @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductService productService;
@@ -58,10 +58,10 @@ public class CreateProductTest {
   @Test
   void createOk() {
     // GIVEN
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    //when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplier.getId(), HOME);
+    ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
@@ -73,7 +73,7 @@ public class CreateProductTest {
 
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getSku()).isEqualTo("safe");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
