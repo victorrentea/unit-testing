@@ -197,8 +197,8 @@
       },
       "ProductDto": {
         "required": [
-          "barcode",
-          "name"
+          "name",
+          "sku"
         ],
         "type": "object",
         "properties": {
@@ -209,7 +209,7 @@
           "name": {
             "type": "string"
           },
-          "barcode": {
+          "sku": {
             "type": "string"
           },
           "supplierId": {

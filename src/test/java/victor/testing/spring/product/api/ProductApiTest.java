@@ -112,7 +112,7 @@ public class ProductApiTest extends IntegrationTest {
   }
 
   @Test // (C) sequence of stateful API calls
-  void journey() throws Exception {
+  void userJourney() throws Exception {
     // API call #1
     createProduct("Tree");
 
