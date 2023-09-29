@@ -1,5 +1,7 @@
 package victor.testing.spring.product.service.create;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -44,6 +46,15 @@ public class CreateProductTest {
   @Autowired
   ProductService productService;
 
+  // manual cleanup de DB cu deleteAll
+  @BeforeEach
+  @AfterEach
+  public void curatBaza() {
+    // in ordinea FK intai din Product si apoi din Supplier, pt ca Product--FK->Supplier
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
+  }
+
   @Test
   void createThrowsForUnsafeProduct() {
     // aici invatam mockul ce sa raspunda:
@@ -78,7 +89,6 @@ public class CreateProductTest {
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
-
 
   @Test
   void categoryDefaultsToUNCATEGORIZED() {
