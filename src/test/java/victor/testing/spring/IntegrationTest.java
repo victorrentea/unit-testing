@@ -2,10 +2,17 @@ package victor.testing.spring;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import victor.testing.tools.TestcontainersUtils;
 
 // #1 innocent Testcontainers test (online examples)
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Transactional
 public abstract class IntegrationTest {
 }
 

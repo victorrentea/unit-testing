@@ -16,6 +16,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -36,16 +37,16 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 // TODO rulez testul asta cu Spring pornit,
 //    luand un bean ProductService de la Spring\
-@SpringBootTest // porneste o app Spring in procesul de JUnit
-@ActiveProfiles("db-mem")
+//@SpringBootTest // porneste o app Spring in procesul de JUnit
+//@ActiveProfiles("db-mem")
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) //#3 bubuie Spring cu toto la fiecare @Test
 
 //@Sql("classpath:/sql/cleanup.sql")// #2 inainte de fiecare @Test ruleaza script manual
 
-@Transactional// #4 cea mai simpla solutie pt a curata randuri ramase intr-o baza SQL
+//@Transactional// #4 cea mai simpla solutie pt a curata randuri ramase intr-o baza SQL
 // daca @Transactional apare pe test atunci ruleaza fiecare test in propria tranzactie
 // si la final ii da ROLLBACK by default
-public class CreateProductTest {
+public class CreateProductTest extends IntegrationTest {
   @MockBean
   SafetyClient safetyClient;
   @MockBean
