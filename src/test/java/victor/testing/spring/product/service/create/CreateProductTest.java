@@ -97,7 +97,7 @@ public class CreateProductTest {
     assertThat(product.getSku()).isEqualTo("safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
-    // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
+     assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
