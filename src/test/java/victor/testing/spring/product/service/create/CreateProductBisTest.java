@@ -33,7 +33,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // daca @Transactional apare pe test atunci ruleaza fiecare test in propria tranzactie
 // si la final ii da ROLLBACK by default
 @AutoConfigureWireMock(port = 0)
-@ActiveProfiles({"wiremock","incaCeva"})
+@ActiveProfiles({"wiremock"})
 
 public class CreateProductBisTest extends IntegrationTest {
   @MockBean
