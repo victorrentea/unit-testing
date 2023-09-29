@@ -26,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
+import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
 // TODO rulez testul asta cu Spring pornit,
 //    luand un bean ProductService de la Spring\
@@ -70,13 +71,25 @@ public class CreateProductTest {
     // presupun ca baza a fost goala inainte de testul asta
 //    Product product = productRepo.findAll().get(0);
     Product product = productRepo.findByName("name");
-
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getSku()).isEqualTo("safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreateDate()).isToday(); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+
+
+  @Test
+  void categoryDefaultsToUNCATEGORIZED() {
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    when(safetyClient.isSafe("safe")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "safe", supplierId, null);
+
+    productService.createProduct(dto);
+
+    Product product = productRepo.findByName("name");
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
