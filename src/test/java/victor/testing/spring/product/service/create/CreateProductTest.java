@@ -23,6 +23,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
+// TODO rulez testul asta cu Spring pornit,
+//    luand un bean ProductService de la Spring
+
 @ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
   @Mock
@@ -33,11 +36,13 @@ public class CreateProductTest {
   ProductRepo productRepo;
   @Mock
   SupplierRepo supplierRepo;
-  @InjectMocks
+  @InjectMocks // poate injecta prin contructor, campuri private @Autowired, setteri
   ProductService productService;
 
   @Test
   void createThrowsForUnsafeProduct() {
+    // aici invatam mockul ce sa raspunda:
+    // cand te cheama .isSafe cu param "unsafe" sa raspunzi cu "true"
     when(safetyClient.isSafe("unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "unsafe", -1L, HOME);
 
