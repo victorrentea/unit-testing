@@ -51,10 +51,13 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 @AutoConfigureWireMock(port = 0)
 @ActiveProfiles("wiremock")
 public class CreateProductTest extends IntegrationTest {
-//  @MockBean
-//  SafetyClient safetyClient;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
+  // daca vrei sa trimiti pe bune mesaje pe Q =>
+  // pornesti un Q in-mem
+  // chemi produ sa trimita mesaju
+  // te abonezi cu testu la Q cu timeout asteptand mesajul
+
   @Autowired
   ProductRepo productRepo;
   @Autowired

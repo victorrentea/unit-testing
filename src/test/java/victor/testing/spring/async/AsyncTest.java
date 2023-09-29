@@ -36,6 +36,7 @@ public class AsyncTest {
         .isEqualTo("sname");
   }
   @TestConfiguration
+  // this line disables the @Async annotation -> the call is not sync to avoid repeatedly looking in DB to find the result
   @EnableAsync(annotation = DisableAsync.NotUsed.class)
   public static class DisableAsync {
     @interface NotUsed {}
