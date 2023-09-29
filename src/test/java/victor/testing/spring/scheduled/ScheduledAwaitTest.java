@@ -29,7 +29,10 @@ public class ScheduledAwaitTest extends IntegrationTest {
 
   @Test
   void insertAndWaitForScheduledToProcessItem() {
-    wireMock.stubFor(post(urlMatching("/send-email.*")).willReturn(aResponse()));
+    wireMock.stubFor(post(urlMatching("/send-email.*"))
+        .willReturn(aResponse().withBody("""
+            { copy din postman }
+            """)));
 
     Long id = repo.save(EMAIL).getId(); // insert the data that will trigger the @Scheduled
 

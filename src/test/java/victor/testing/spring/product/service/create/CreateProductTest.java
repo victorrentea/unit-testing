@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
@@ -47,9 +48,11 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 //@Transactional// #4 cea mai simpla solutie pt a curata randuri ramase intr-o baza SQL
 // daca @Transactional apare pe test atunci ruleaza fiecare test in propria tranzactie
 // si la final ii da ROLLBACK by default
+@AutoConfigureWireMock(port = 0)
+@ActiveProfiles("wiremock")
 public class CreateProductTest extends IntegrationTest {
-  @MockBean
-  SafetyClient safetyClient;
+//  @MockBean
+//  SafetyClient safetyClient;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
@@ -72,8 +75,8 @@ public class CreateProductTest extends IntegrationTest {
   void createThrowsForUnsafeProduct() {
     // aici invatam mockul ce sa raspunda:
     // cand te cheama .isSafe cu param "unsafe" sa raspunzi cu "true"
-    when(safetyClient.isSafe("unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "unsafe", -1L, HOME);
+//    when(safetyClient.isSafe("unsafeXYZ")).thenReturn(false);
+    ProductDto dto = new ProductDto("name", "unsafeXYZ", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
@@ -86,7 +89,7 @@ public class CreateProductTest extends IntegrationTest {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     //when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
-    when(safetyClient.isSafe("safe")).thenReturn(true);
+//    when(safetyClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
 
     // WHEN
@@ -108,7 +111,7 @@ public class CreateProductTest extends IntegrationTest {
   @Test
   void categoryDefaultsToUNCATEGORIZED() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(safetyClient.isSafe("safe")).thenReturn(true);
+//    when(safetyClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safe", supplierId, null);
 
     productService.createProduct(dto);

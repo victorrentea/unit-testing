@@ -22,6 +22,8 @@ public class SafetyClient {
             SafetyReportDto.class, sku)
         .getBody();
 
+    // to avoid bugs here, IBNCLUDE THIS In our tests
+    // somy parsing logic of their response body
     boolean safe = response.getEntries().stream()
         .anyMatch(report -> "SAFE".equals(report.getCategory()));
     log.info("Product is safe: " + safe);
