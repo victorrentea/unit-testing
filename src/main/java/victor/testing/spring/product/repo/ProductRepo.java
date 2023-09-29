@@ -9,7 +9,12 @@ public interface ProductRepo extends ProductRepoSearch, JpaRepository<Product, L
 //   @Query("SELECT p FROM Product p where p.name = :name")
 //   Product findByName(@Param("name") String name); // foloseste-o pt multi parametrii
 
-   @Query("SELECT p FROM Product p where p.name = ?1")
+//   @Query("SELECT p FROM Product p where p.name = ?1")
+
+   // genereaza automat query de mai sus pe baza de naming
    Product findByName(String name);
+
+//   Product findBySupplierId(Long supplierId);
+   Product findBySupplierName(String name);
 
 }
