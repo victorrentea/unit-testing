@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -29,8 +30,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 // TODO rulez testul asta cu Spring pornit,
 //    luand un bean ProductService de la Spring\
 @SpringBootTest // porneste o app Spring in procesul de JUnit
-//@ExtendWith(MockitoExtension.class)// Mockito avea grija de @Mock is @INjectMocks
-
+@ActiveProfiles("db-mem")
 public class CreateProductTest {
   @MockBean
   SafetyClient safetyClient;
