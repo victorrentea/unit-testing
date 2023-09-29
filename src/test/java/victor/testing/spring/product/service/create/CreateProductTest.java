@@ -36,7 +36,7 @@ public class CreateProductTest {
   SafetyClient safetyClient;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
   @Autowired
   SupplierRepo supplierRepo;
@@ -67,9 +67,13 @@ public class CreateProductTest {
     productService.createProduct(dto);
 
     // THEN
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture());
-    Product product = productCaptor.getValue();
+    // modalitatea in care poti obtine de la un mock valoarea
+    // parametrilor primiti in apelul suferit in codul testat chemat mai sus
+//    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+//    verify(productRepo).save(productCaptor.capture());
+//    Product product = productCaptor.getValue();
+
+    Product product = productRepo.findAll().get(0);
 
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getSku()).isEqualTo("safe");
