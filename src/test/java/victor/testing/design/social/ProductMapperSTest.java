@@ -11,9 +11,8 @@ import static org.mockito.Mockito.mock;
 import static victor.testing.design.app.domain.ProductCategory.HOME;
 
 public class ProductMapperSTest {
-
   @Test
-  void mapperTest() {
+  void mapperTest() { // AI this
 
   }
 }
