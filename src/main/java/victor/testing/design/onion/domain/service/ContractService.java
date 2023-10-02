@@ -16,11 +16,11 @@ import static java.time.LocalDateTime.now;
 
 @Service
 @RequiredArgsConstructor
-public class ContractsService {
+public class ContractService {
   @Value("${warning.threshold}") // from application.properties
-  public double warningThreshold;
+  public Double warningThreshold;
 
-  public void exportExcel(List<Contract> contracts)  {
+  public void exportContracts(List<Contract> contracts)  {
     try (Workbook workbook = createWorkbook()) {
       Sheet sheet = workbook.createSheet("Contracts");
       sheet.setColumnWidth(0, 6000);
