@@ -2,6 +2,7 @@ package victor.testing.design.social;
 
 import org.junit.jupiter.api.Test;
 import victor.testing.design.app.domain.Product;
+import victor.testing.design.app.domain.ProductCategory;
 import victor.testing.design.app.domain.Supplier;
 import victor.testing.design.app.repo.ProductRepo;
 
@@ -13,18 +14,20 @@ import static org.mockito.Mockito.when;
 public class ProductServiceSTest {
   @Test
   void whatAmITestingHere() {
-    // DON'T DO THIS: mocking the mapper out
-    ProductRepo repoMock = mock(ProductRepo.class);
-    Product product = new Product().setSupplier(new Supplier());
-    when(repoMock.findById(1L)).thenReturn(of(product));
-    ProductMapper mapperMock = mock(ProductMapper.class);
+    ProductRepo productRepoMock = mock(ProductRepo.class);
+    Product product = new Product();
+    when(productRepoMock.findById(1L)).thenReturn(of(product));
+    ProductMapper productMapperMock = mock(ProductMapper.class);
     ProductDto dto = new ProductDto();
-    when(mapperMock.toDto(product)).thenReturn(dto);
-    ProductService productService = new ProductService(repoMock, mapperMock);
+    when(productMapperMock.toDto(product)).thenReturn(dto);
 
-    ProductDto returnedDto = productService.getProduct(1L);
+    ProductService productService = new ProductService(
+        productRepoMock,
+        productMapperMock);
 
-    assertThat(returnedDto).isSameAs(dto);
+    ProductDto result = productService.getProduct(1L);
+
+    assertThat(result).isSameAs(dto);
   }
 
 }
