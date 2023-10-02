@@ -1,9 +1,13 @@
 package victor.testing.design.purity;
 
 import lombok.RequiredArgsConstructor;
-import victor.testing.design.purity.model.Coupon;
-import victor.testing.design.purity.model.Customer;
-import victor.testing.design.purity.model.Product;
+import victor.testing.design.app.domain.Coupon;
+import victor.testing.design.app.domain.Customer;
+import victor.testing.design.app.domain.Product;
+import victor.testing.design.app.infra.ThirdPartyPricesApi;
+import victor.testing.design.app.repo.CouponRepo;
+import victor.testing.design.app.repo.CustomerRepo;
+import victor.testing.design.app.repo.ProductRepo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,6 +1,6 @@
-package victor.testing.design.purity;
+package victor.testing.design.app.repo;
 
-import victor.testing.design.purity.model.Coupon;
+import victor.testing.design.app.domain.Coupon;
 
 import java.util.List;
 

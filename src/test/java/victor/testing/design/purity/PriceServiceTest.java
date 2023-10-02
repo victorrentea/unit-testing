@@ -7,10 +7,14 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.design.purity.model.Coupon;
-import victor.testing.design.purity.model.Customer;
-import victor.testing.design.purity.model.Product;
-import victor.testing.design.purity.model.Supplier;
+import victor.testing.design.app.domain.Coupon;
+import victor.testing.design.app.domain.Customer;
+import victor.testing.design.app.domain.Product;
+import victor.testing.design.app.domain.Supplier;
+import victor.testing.design.app.infra.ThirdPartyPricesApi;
+import victor.testing.design.app.repo.CouponRepo;
+import victor.testing.design.app.repo.CustomerRepo;
+import victor.testing.design.app.repo.ProductRepo;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +22,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static victor.testing.design.purity.model.ProductCategory.*;
+import static victor.testing.design.app.domain.ProductCategory.*;
 
 @ExtendWith(MockitoExtension.class)
 class PriceServiceTest {

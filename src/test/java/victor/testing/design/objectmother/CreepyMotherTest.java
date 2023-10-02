@@ -1,6 +1,11 @@
 package victor.testing.design.objectmother;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,5 +47,20 @@ class TestData {
             .name("Joe")
             .shippingAddress("Romania")
             .billingAddress("BillingAddress");
+  }
+
+
+  public static Customer.CustomerBuilder joeJson() {
+    try (InputStream is = TestData.class.getClassLoader().getResourceAsStream("customer.json")) {
+      Customer customer = new ObjectMapper().readValue(is, Customer.class);
+      return customer.toBuilder();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public static void main(String[] args) throws JsonProcessingException {
+//    System.out.println(new ObjectMapper().writeValueAsString(joe().build()));
+    System.out.println(joeJson());
   }
 }

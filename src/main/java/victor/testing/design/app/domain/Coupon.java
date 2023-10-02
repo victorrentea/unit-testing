@@ -1,4 +1,4 @@
-package victor.testing.design.purity.model;
+package victor.testing.design.app.domain;
 
 import lombok.EqualsAndHashCode;
 
