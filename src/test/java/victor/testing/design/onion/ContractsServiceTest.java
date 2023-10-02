@@ -46,7 +46,7 @@ public class ContractsServiceTest {
     when(rowMock.createCell(1)).thenReturn(contractNameCell);
     when(rowMock.createCell(0)).thenReturn(contractNumberCell);
 
-    sut.warningAmountThreshold = WARNING_AMOUNT_THRESHOLD;
+    sut.warningThreshold = WARNING_AMOUNT_THRESHOLD;
   }
 
   @Test
