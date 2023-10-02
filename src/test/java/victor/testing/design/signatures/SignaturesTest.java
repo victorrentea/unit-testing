@@ -15,6 +15,6 @@ class SignaturesTest {
 
       Signatures.sendSprintFinishedEmail(project);
 
-      assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Sending email to boss@my.corp with subject 'Sprint Finished' and some body");
+      assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Sending email to boss@my.corp with subject 'Sprint Finished' ... ");
    }
 }

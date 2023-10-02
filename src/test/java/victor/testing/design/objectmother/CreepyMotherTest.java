@@ -13,18 +13,18 @@ class ShippingServiceTest {
   // ??? = unnecessary information
   @Test
   void estimateShippingCosts() {
-    Customer customer = new Customer("???", "Romania", "???");
+    Customer customer = new Customer("???", "Belgium", "???");
     int cost = new ShippingService().estimateShippingCosts(customer);
     assertThat(cost).isEqualTo(30);
   }
 
   @Test
   void printShippingSlip() {
-    Customer customer = new Customer("Joe", "Romania", "???");
+    Customer customer = new Customer("Joe", "Belgium", "???");
     String shippingSlip = new ShippingService().printShippingSlip(customer);
     assertThat(shippingSlip).isEqualTo("""
             Recipient name: Joe
-            Address: Romania""");
+            Address: Belgium""");
   }
 }
 
@@ -45,7 +45,7 @@ class TestData {
   public static Customer.CustomerBuilder joe() {
     return Customer.builder()
             .name("Joe")
-            .shippingAddress("Romania")
+            .shippingAddress("Belgium")
             .billingAddress("BillingAddress");
   }
 

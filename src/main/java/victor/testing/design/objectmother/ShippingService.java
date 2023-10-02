@@ -2,7 +2,7 @@ package victor.testing.design.objectmother;
 
 class ShippingService {
    public int estimateShippingCosts(Customer customer) {
-      if (customer.getShippingAddress().contains("Romania")) {
+      if (customer.getShippingAddress().contains("Belgium")) {
          return 30;
       }
       // more logic

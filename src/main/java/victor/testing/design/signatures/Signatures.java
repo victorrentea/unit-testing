@@ -6,7 +6,8 @@ import java.time.LocalDate;
 
 public class Signatures {
    public static void sendSprintFinishedEmail(Project project) {
-      System.out.println("Sending email to " + project.getPoEmail() + " with subject 'Sprint Finished' and some body");
+      System.out.println("Sending email to " + project.getPoEmail() +
+          " with subject 'Sprint Finished' ... ");
    }
 }
 
