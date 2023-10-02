@@ -1,10 +1,9 @@
 package victor.testing.design.purity;
 
 import lombok.RequiredArgsConstructor;
-import victor.testing.mutation.Coupon;
-import victor.testing.mutation.Customer;
-import victor.testing.spring.product.domain.Product;
-import victor.testing.spring.product.repo.ProductRepo;
+import victor.testing.design.purity.model.Coupon;
+import victor.testing.design.purity.model.Customer;
+import victor.testing.design.purity.model.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;

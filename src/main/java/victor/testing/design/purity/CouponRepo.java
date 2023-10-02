@@ -1,6 +1,6 @@
 package victor.testing.design.purity;
 
-import victor.testing.mutation.Coupon;
+import victor.testing.design.purity.model.Coupon;
 
 import java.util.List;
 

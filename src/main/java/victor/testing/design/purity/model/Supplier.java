@@ -1,4 +1,4 @@
-package victor.testing.spring.product.domain;
+package victor.testing.design.purity.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

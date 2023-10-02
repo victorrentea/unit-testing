@@ -1,8 +1,8 @@
 package victor.testing.design.signatures;
 
 import org.junit.jupiter.api.Test;
-import victor.testing.tools.CaptureSystemOutput;
-import victor.testing.tools.CaptureSystemOutput.OutputCapture;
+import victor.testing.design.tools.CaptureSystemOutput;
+import victor.testing.design.tools.CaptureSystemOutput.OutputCapture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,4 +1,4 @@
-package victor.testing.mutation;
+package victor.testing.design.purity.model;
 
 import lombok.Data;
 

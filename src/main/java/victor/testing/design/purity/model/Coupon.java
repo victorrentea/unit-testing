@@ -1,8 +1,6 @@
-package victor.testing.mutation;
+package victor.testing.design.purity.model;
 
 import lombok.EqualsAndHashCode;
-import victor.testing.spring.product.domain.Product;
-import victor.testing.spring.product.domain.ProductCategory;
 
 import java.util.Set;
 

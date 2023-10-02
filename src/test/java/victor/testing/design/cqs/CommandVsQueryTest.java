@@ -5,8 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.tools.CaptureSystemOutput;
-import victor.testing.tools.CaptureSystemOutput.OutputCapture;
+import victor.testing.design.tools.CaptureSystemOutput;
+import victor.testing.design.tools.CaptureSystemOutput.OutputCapture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;

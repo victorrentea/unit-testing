@@ -1,4 +1,4 @@
-package victor.testing.spring.product.domain;
+package victor.testing.design.purity.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package victor.testing.tools;
+package victor.testing.design.tools;
 
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.extension.*;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
-import victor.testing.tools.CaptureSystemOutput.Extension;
+import victor.testing.design.tools.CaptureSystemOutput.Extension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
