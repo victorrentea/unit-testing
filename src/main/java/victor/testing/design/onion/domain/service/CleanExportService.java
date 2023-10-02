@@ -1,9 +1,9 @@
-package victor.testing.design.onion.lib.clean.domain;
+package victor.testing.design.onion.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import victor.testing.design.onion.lib.Contract;
-import victor.testing.design.onion.lib.Contract.Status;
+import victor.testing.design.onion.domain.model.ContractForExport;
+import victor.testing.design.onion.domain.model.Contract;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +23,7 @@ public class CleanExportService {
   }
 
   private ContractForExport toExport(Contract contract) {
-    boolean showWarning = contract.getStatus() == Status.ACTIVE
+    boolean showWarning = contract.getStatus() == Contract.Status.ACTIVE
                           && contract.getLastPayment().isBefore(now().minusDays(60))
                           && contract.getRemainingValue() > warningAmountThreshold;
     return new ContractForExport(

@@ -1,7 +1,8 @@
-package victor.testing.design.onion.lib.dirty;
+package victor.testing.design.onion;
 
-import victor.testing.design.onion.lib.Contract;
-import victor.testing.design.onion.lib.Contract.Status;
+import victor.testing.design.onion.domain.model.Contract;
+import victor.testing.design.onion.domain.model.Contract.Status;
+import victor.testing.design.onion.domain.service.ContractsExcelService;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +18,7 @@ public class DirtyExportMain {
             .setStatus(Status.ACTIVE)
             .setRemainingValue(14_000d);
 
-    DirtyExport sut = new DirtyExport();
+    ContractsExcelService sut = new ContractsExcelService();
     sut.warningAmountThreshold = 10_000;
     sut.exportExcel(List.of(contract));
   }

@@ -1,4 +1,4 @@
-package victor.testing.design.onion.lib.dirty;
+package victor.testing.design.onion;
 
 import org.apache.poi.ss.usermodel.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.design.onion.lib.Contract;
-import victor.testing.design.onion.lib.Contract.Status;
+import victor.testing.design.onion.domain.model.Contract;
+import victor.testing.design.onion.domain.model.Contract.Status;
+import victor.testing.design.onion.domain.service.ContractsExcelService;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,11 +19,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class DirtyTestCoupledToLib {
+class ContractsExcelServiceTest {
   public static final int WARNING_AMOUNT_THRESHOLD = 10_000;
   public static final double AMOUNT_OVER_WARNING_THRESHOLD = 10_001d;
   @Spy // antiparttern
-  DirtyExport sut;
+  ContractsExcelService sut;
   @Mock
   Workbook workbookMock; // anti-pattern: mocking a complex lib
   @Mock

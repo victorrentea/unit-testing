@@ -5,14 +5,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.design.onion.lib.Contract;
-import victor.testing.design.onion.lib.Contract.Status;
+import victor.testing.design.onion.domain.service.CleanExportService;
+import victor.testing.design.onion.domain.model.Contract;
+import victor.testing.design.onion.domain.model.Contract.Status;
+import victor.testing.design.onion.domain.model.ContractForExport;
+import victor.testing.design.onion.domain.service.GenerateExcel;
 
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
