@@ -12,8 +12,7 @@ import java.util.List;
 
 import static java.time.LocalDateTime.now;
 
-public class ContractsExcelService {
-
+public class ContractsService {
   @Value("${warning.amount.threshold}") // from application.properties
   public double warningAmountThreshold;
 

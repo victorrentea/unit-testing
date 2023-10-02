@@ -8,7 +8,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.design.onion.domain.model.Contract;
 import victor.testing.design.onion.domain.model.Contract.Status;
-import victor.testing.design.onion.domain.service.ContractsExcelService;
+import victor.testing.design.onion.domain.service.ContractsService;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,19 +19,15 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ContractsExcelServiceTest {
+public class ContractsServiceTest {
   public static final int WARNING_AMOUNT_THRESHOLD = 10_000;
   public static final double AMOUNT_OVER_WARNING_THRESHOLD = 10_001d;
-  @Spy // antiparttern
-  ContractsExcelService sut;
-  @Mock
-  Workbook workbookMock; // anti-pattern: mocking a complex lib
-  @Mock
-  Sheet sheetMock;
-  @Mock
-  Row rowMock;
-  @Mock
-  Cell cell0Mock;
+  @Spy ContractsService sut;
+  @Mock Workbook workbookMock; // anti-pattern: mocking a complex lib
+  @Mock Sheet sheetMock;
+  @Mock Row rowMock;
+  @Mock Cell contractNumberCell;
+  @Mock Cell contractNameCell;
   private CellStyle warningStyle;
 
   @BeforeEach
@@ -47,33 +43,42 @@ class ContractsExcelServiceTest {
     when(sheetMock.createRow(0)).thenReturn(headerRow);
     when(headerRow.createCell(anyInt())).thenReturn(mock(Cell.class));
     when(sheetMock.createRow(1)).thenReturn(rowMock);
-    when(rowMock.createCell(anyInt())).thenReturn(mock(Cell.class));
-    when(rowMock.createCell(0)).thenReturn(cell0Mock);
+    when(rowMock.createCell(1)).thenReturn(contractNameCell);
+    when(rowMock.createCell(0)).thenReturn(contractNumberCell);
 
     sut.warningAmountThreshold = WARNING_AMOUNT_THRESHOLD;
   }
 
   @Test
-  void warningForOverduePayments() throws IOException {
+  void normalContents() throws IOException {
+    Contract contract = new Contract()
+        .setName("name")
+        .setNumber("number");
+    sut.exportExcel(List.of(contract));
 
+    verify(contractNumberCell).setCellValue("number");
+    verify(contractNameCell).setCellValue("name");
+  }
+  @Test
+  void warning_overduePayments() throws IOException {
     Contract contract = new Contract()
             .setStatus(Status.ACTIVE)
             .setLastPayment(now().minusDays(80))
             .setRemainingValue(AMOUNT_OVER_WARNING_THRESHOLD);
     sut.exportExcel(List.of(contract));
 
-    verify(cell0Mock).setCellStyle(warningStyle);
+    verify(contractNumberCell).setCellStyle(warningStyle);
   }
 
   @Test
-  void noWarningForPaymentsLessThan60DaysAgo() throws IOException {
+  void noWarning_paymentsLessThan60DaysAgo() throws IOException {
     Contract contract = new Contract()
             .setStatus(Status.ACTIVE)
             .setLastPayment(now().minusDays(59))
             .setRemainingValue(AMOUNT_OVER_WARNING_THRESHOLD);
     sut.exportExcel(List.of(contract));
 
-    verify(cell0Mock,never()).setCellStyle(any());
+    verify(contractNumberCell,never()).setCellStyle(any());
   }
 
   @Test
@@ -84,6 +89,6 @@ class ContractsExcelServiceTest {
             .setRemainingValue(AMOUNT_OVER_WARNING_THRESHOLD);
     sut.exportExcel(List.of(contract));
 
-    verify(cell0Mock,never()).setCellStyle(any());
+    verify(contractNumberCell,never()).setCellStyle(any());
   }
 }
