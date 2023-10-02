@@ -12,7 +12,6 @@ public class Customer {
 	private String name;
 	private String email;
 	private List<String> labels = new ArrayList<>();
-	private Address address = new Address();
 	private Date createDate;
 	private List<Coupon> coupons = new ArrayList<>();
 }

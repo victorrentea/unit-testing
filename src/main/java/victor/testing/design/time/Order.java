@@ -1,15 +1,13 @@
 package victor.testing.design.time;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
-@Entity
 @Getter
 @Setter
 @Table(name="ORDERS")
