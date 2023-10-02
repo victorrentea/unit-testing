@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>victor.training</groupId>
     <artifactId>unit-testing</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -51,26 +51,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-        <dependency>
-            <!-- swagger/openapi3 -->
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.6</version>
-        </dependency>
-        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.1.212</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8-standalone</artifactId>
-            <version>2.26.3</version>
-            <scope>test</scope>
-        </dependency>-->
         <dependency>
             <!-- for withSettings().strictness(Strictness.STRICT_STUBS) -->
             <groupId>org.mockito</groupId>
@@ -89,20 +73,6 @@
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
             <version>3.0.0</version>
-        </dependency>
-        <dependency>
-            <!-- @AutoConfigureWireMock -->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
-            <version>2.2.4.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka-test</artifactId>
         </dependency>
 
 
@@ -130,78 +100,14 @@
             <version>5.2.2</version>
         </dependency>
 
-
-        <!-- WARNING: requires in every glue code path to include a package containing a class with @CucumberContextConfiguration -->
-        <!-- <dependency>
-             <groupId>io.cucumber</groupId>
-             <artifactId>cucumber-spring</artifactId>
-             <version>${cucumber-java.version}</version>
-             <scope>test</scope>
-         </dependency>-->
-
-
-        <!--Enable blockhound test listener to detect blocking calls in non-blocking threads-->
-        <!--
-                <dependency>
-                    <groupId>io.projectreactor.tools</groupId>
-                    <artifactId>blockhound-junit-platform</artifactId>
-                    <version>1.0.6.RELEASE</version>
-                    <scope>test</scope>
-                </dependency>
-        -->
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- testcontainers: initial/standard style  -->
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>1.17.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>1.15.2</version>
-        </dependency>
-        <!-- testcontainers: Playtika OSS libraries https://github.com/PlaytikaOSS/testcontainers-spring-boot -->
-        <!--<dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.playtika.testcontainers</groupId>
-            <artifactId>embedded-postgresql</artifactId>
-            <version>2.3.2</version>
-            <scope>test</scope>
-        </dependency>
-            -->
-        <!-- testcontainers: end -->
-
-        <dependency>
-            <!-- Only needed on MacBook M1 chips to connect to local Docker service -->
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
-            <version>5.11.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.3.3</version>
-        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>
-        <dependency>
-            <!-- needed for victor.testing.spring.web.MonitorSpringTestStartupPerformance -->
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
         </dependency>
 
         <!--<dependency>
@@ -210,16 +116,6 @@
             <artifactId>mockito-inline</artifactId>
             <scope>test</scope>
         </dependency>-->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>mockwebserver</artifactId>
-            <version>5.0.0-alpha.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.awaitility</groupId>
-            <artifactId>awaitility</artifactId>
-        </dependency>
-
     </dependencies>
 
     <dependencyManagement>
@@ -236,75 +132,6 @@
 
     <build>
         <plugins>
-
-            <!-- Typically: runs after every commit, takes 10-20 minutes, runs mockito-only, in-memory tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <!-- folder pattern -->
-                    <excludes>
-                        <exclude>**/spring/**</exclude>
-                    </excludes>
-                    <!-- or: -->
-                    <excludedGroups>integration</excludedGroups>
-                    <argLine>-XX:+AllowRedefinitionToAddDeleteMethods</argLine>
-                </configuration>
-            </plugin>
-            <!-- Typically: runs during nighly build, takes 10-2000 minutes. Typically startup Spring, Databases, Dockers, Wiremocks -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <!-- by default the test class names must end in IT -->
-                        <include>**/*</include>
-                    </includes>
-                    <!-- or -->
-                    <groups>integration</groups>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.7.2</version>
-
-                <!-- adds support for JUnit5 -->
-                <dependencies>
-                    <dependency>
-                        <groupId>org.pitest</groupId>
-                        <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>0.14</version>
-                    </dependency>
-                </dependencies>
-
-                <executions>
-                    <execution>
-                        <id>pit-report</id>
-                        <!-- optional -->
-                        <phase>test</phase>
-                        <goals>
-                            <goal>mutationCoverage</goal>
-                            <!-- only run mutation coverage on changed FILES -->
-                            <!-- https://twitter.com/_HamzaBlm/status/1449529008501272579?s=20 -->
-                            <!-- mvn org.pitest:pitest-maven:scmMutationCoverage -Dinclude=ADDED,UNKNOWN -DmutationThreshold=85 -DoriginalBranch & -DdestinationBranch-->
-                        </goals>
-                    </execution>
-                </executions>
-
-                <configuration>
-                    <targetClasses>
-                        <param>victor.testing.mutation.*</param>
-                    </targetClasses>
-                    <targetTests>
-                        <param>victor.testing.mutation.*</param>
-                    </targetTests>
-                    <mutators>
-                        <mutator>NON_VOID_METHOD_CALLS</mutator>
-                    </mutators>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.1.2</version>

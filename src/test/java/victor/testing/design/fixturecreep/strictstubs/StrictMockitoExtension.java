@@ -1,6 +1,5 @@
 package victor.testing.design.fixturecreep.strictstubs;
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.extension.*;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.mockito.MockitoSession;
@@ -31,7 +30,6 @@ public class StrictMockitoExtension implements TestInstanceFactory, AfterEachCal
     mockitoSession.finishMocking();
   }
 
-  @NotNull
   private static Object doCreateTestInstance(TestInstanceFactoryContext factoryContext) {
     try {
       Optional<Object> outerInstance = factoryContext.getOuterInstance();
