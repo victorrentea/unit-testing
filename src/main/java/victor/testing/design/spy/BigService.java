@@ -15,8 +15,7 @@ public class BigService {
     return "regular";
   }
 
-  @VisibleForTesting
-  void low(Order order) {
+  private void low(Order order) {
     if (order.getCreationDate().isBefore(now().minusMonths(1))) {
       throw new IllegalArgumentException("Order too old");
     }
