@@ -1,4 +1,4 @@
-package victor.testing.design.onion.lib.clean.domain;
+package victor.testing.design.onion;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
