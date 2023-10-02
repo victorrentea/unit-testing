@@ -1,5 +1,7 @@
 package victor.testing.design.spy;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import static java.time.LocalDate.now;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
@@ -13,7 +15,8 @@ public class BigService {
     return "regular";
   }
 
-  private void low(Order order) {
+  @VisibleForTesting
+  void low(Order order) {
     if (order.getCreationDate().isBefore(now().minusMonths(1))) {
       throw new IllegalArgumentException("Order too old");
     }

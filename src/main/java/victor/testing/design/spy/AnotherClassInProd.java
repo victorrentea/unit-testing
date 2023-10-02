@@ -4,6 +4,6 @@ public class AnotherClassInProd {
   BigService bigService;
 
   public void illegalAccessToVisibleForTesting() {
-//        god.low(new Order());
+//    bigService.low(new Order());
   }
 }
