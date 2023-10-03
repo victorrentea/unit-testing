@@ -2,13 +2,11 @@ package victor.testing.spring.product.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
-import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
@@ -24,7 +22,7 @@ public class ProductService {
   private final SafetyClient safetyClient;
   private final ProductMapper productMapper;
 
-  public void createProduct(ProductDto productDto) {
+  public Long createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getSku());
     boolean safe = safetyClient.isSafe(productDto.getSku()); // ⚠️ REST call inside
     if (!safe) {
@@ -37,7 +35,7 @@ public class ProductService {
     product.setName(productDto.getName());
     product.setSku(productDto.getSku());
     product.setCategory(productDto.getCategory());
-    productRepo.save(product);
+    return productRepo.save(product).getId();
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
