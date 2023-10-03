@@ -14,18 +14,16 @@ import java.net.URL;
 public class SafetyClient {
   private final RestTemplate restTemplate;
   @Value("${safety.service.url.base}")
-  private URL baseUrl;
+  private final URL baseUrl;
 
-  public boolean isSafe(String sku) {
-    SafetyReportDto response = restTemplate.getForEntity(
-            baseUrl + "/product/{sku}/safety",
-            SafetyReportDto.class, sku)
-        .getBody();
-
-    boolean safe = response.getEntries().stream()
-        .anyMatch(report -> "SAFE".equals(report.getCategory()));
-    log.info("Product is safe: " + safe);
-    return safe;
+  public record SafetyResponse(String category, String detailsUrl) {
   }
 
+  public boolean isSafe(String sku) {
+    SafetyResponse response = restTemplate.getForEntity(
+            baseUrl + "/product/{sku}/safety",
+            SafetyResponse.class, sku)
+        .getBody();
+    return "SAFE".equals(response.category());
+  }
 }

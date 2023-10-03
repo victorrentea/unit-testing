@@ -28,8 +28,9 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @ActiveProfiles("db-mem")
 public class CreateProductTest {
   public static final String PRODUCT_NAME = "name";
-  public static final String SKU_SAFE = "safe";
-  public static final String SKU_UNSAFE = "unsafe";
+  public static final String SKU_SAFE = "sku-safe";
+  public static final String SKU_UNSAFE = "sku-unsafe";
+  public static final String CURRENT_USERNAME = "user";
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
@@ -45,7 +46,6 @@ public class CreateProductTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-//    WireMock.stubFor()
     when(safetyClient.isSafe(SKU_UNSAFE)).thenReturn(false);
     ProductDto dto = new ProductDto(PRODUCT_NAME, SKU_UNSAFE, -1L, HOME);
 
@@ -72,8 +72,8 @@ public class CreateProductTest {
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
-    //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
-    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "key", "NAME");
+    assertThat(product.getCreatedBy()).isEqualTo(CURRENT_USERNAME); // field set via Spring Magic
+    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "key", PRODUCT_NAME);
   }
 
 }

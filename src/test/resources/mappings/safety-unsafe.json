@@ -1,17 +1,13 @@
 {
   "request": {
     "method": "GET",
-    "url": "/product/unsafe/safety"
+    "url": "/product/sku-unsafe/safety"
   },
   "response": {
     "status": 200,
     "jsonBody": {
-      "entries": [
-        {
-          "category": "DETERMINED",
-          "detailsUrl": "http://details.url/a/b"
-        }
-      ]
+      "category": "DETERMINED",
+      "detailsUrl": "http://details.url/a/b"
     },
     "headers": {
       "Content-Type": "application/json"
