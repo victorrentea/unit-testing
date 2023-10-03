@@ -5,8 +5,8 @@ import lombok.Data;
 import java.time.LocalDate;
 
 public class Signatures {
-   public static void sendSprintFinishedEmail(Project project) {
-      System.out.println("Sending email to " + project.getPoEmail() +
+   public static void sendSprintFinishedEmail(String poEmail) {
+      System.out.println("Sending email to " + poEmail +
           " with subject 'Sprint Finished' ... ");
    }
 }

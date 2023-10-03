@@ -1,6 +1,7 @@
 package victor.testing.design.roles.service;
 
 import lombok.RequiredArgsConstructor;
+import victor.testing.design.roles.model.Parcel;
 import victor.testing.design.roles.model.TrackingProvider;
 import victor.testing.design.roles.repo.TrackingProviderRepo;
 
@@ -10,10 +11,12 @@ import java.util.List;
 public class TrackingService {
    private final TrackingProviderRepo trackingProviderRepo;
 
-   public void markDepartingWarehouse(String trackingNumber, int warehouseId, List<TrackingProvider> trackingProviders) {
+   public void markDepartingWarehouse(int warehouseId, Parcel parcel) {
+      List<TrackingProvider> trackingProviders = trackingProviderRepo.findByTrackingNumber(parcel.getTrackingNumber());
+
       for (TrackingProvider trackingProvider : trackingProviders) {
-         System.out.println("Report "+trackingNumber+" departing warehouse " + warehouseId
-                            + " to " + trackingProvider.getId());
+         System.out.println("Report " + parcel.getTrackingNumber() + " departing warehouse " + warehouseId
+             + " to " + trackingProvider.getId());
       }
    }
 }

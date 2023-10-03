@@ -21,16 +21,10 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ParcelFacadeTest {
-   @Mock
-   ParcelRepo parcelRepo;
-   @Mock
-   DisplayService displayService;
-   @Mock
-   PlatformService platformService;
-   @Mock
-   TrackingService trackingService;
-   @Mock
-   TrackingProviderRepo trackingProviderRepo;
+   @Mock ParcelRepo parcelRepo;
+   @Mock DisplayService displayService;
+   @Mock PlatformService platformService;
+   @Mock TrackingService trackingService;
    @InjectMocks
    ParcelFacade target;
 
@@ -41,14 +35,11 @@ class ParcelFacadeTest {
           .setTrackingNumber("AWB")
           .setPartOfCompositeShipment(true);
       when(parcelRepo.findByBarcode("BARCODE")).thenReturn(parcel);
-      List<TrackingProvider> trackingProviders = List.of(new TrackingProvider());
-      when(trackingProviderRepo.findByTrackingNumber("AWB")).thenReturn(trackingProviders);
 
       target.processBarcode("BARCODE", 99);
 
       verify(displayService).displayParcel(parcel);
-      verify(displayService).displayMultiParcelWarning();
       verify(platformService).addParcel(parcel);
-      verify(trackingService).markDepartingWarehouse("AWB", 99, trackingProviders);
+      verify(trackingService).markDepartingWarehouse(99, parcel);
    }
 }
