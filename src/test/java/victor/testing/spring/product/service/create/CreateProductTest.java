@@ -1,8 +1,12 @@
 package victor.testing.spring.product.service.create;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,22 +28,21 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
+@ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
   public static final String PRODUCT_NAME = "name";
   public static final String SKU_SAFE = "sku-safe";
   public static final String SKU_UNSAFE = "sku-unsafe";
   public static final String CURRENT_USERNAME = "user";
-  @Autowired
+  @Mock
   SupplierRepo supplierRepo;
-  @Autowired
+  @Mock
   ProductRepo productRepo;
-  @MockBean
+  @Mock
   SafetyClient safetyClient;
-  @MockBean
+  @Mock
   KafkaTemplate<String, String> kafkaTemplate;
-  @Autowired
+  @InjectMocks
   ProductService productService;
   @Captor
   ArgumentCaptor<Product> productCaptor;
