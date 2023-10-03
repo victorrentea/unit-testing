@@ -2,7 +2,6 @@ package victor.testing.spring.product.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class OpenAPIFreezeTest {
   @Test
   void myOpenAPIDidNotChange() throws Exception {
     String actualOpenAPIJson = mockMvc.perform(get("/v3/api-docs")).andReturn().getResponse().getContentAsString();
-    String expectedOpenAPIJson = IOUtils.toString(myExpectedOpenAPI.getInputStream());
+    String expectedOpenAPIJson = new String(myExpectedOpenAPI.getInputStream().readAllBytes());
     assertThat(prettifyJsonString(actualOpenAPIJson)).isEqualTo(prettifyJsonString(expectedOpenAPIJson));
   }
 

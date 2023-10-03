@@ -10,7 +10,7 @@ public abstract class IntegrationTest {
 }
 
 // ==================================================================
-// #2 innocent Testcontainers test (online examples)
+// #2 Testcontainers test (online examples)
 //@SpringBootTest
 //@Testcontainers
 //public abstract class BaseDatabaseTest {
@@ -30,12 +30,4 @@ public abstract class IntegrationTest {
 //  public static void registerPgProperties(DynamicPropertyRegistry registry) {
 //    TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
 //  }
-//}
-
-// ==================================================================
-// #3 tuned Testcontainers test (like a platform team will ofer)
-//@SpringBootTest
-//@ActiveProfiles("db-testcontainers-playtika")
-//public abstract class BaseDatabaseTest {
-//
 //}

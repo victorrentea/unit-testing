@@ -212,10 +212,6 @@
           "sku": {
             "type": "string"
           },
-          "supplierId": {
-            "type": "integer",
-            "format": "int64"
-          },
           "category": {
             "type": "string",
             "enum": [
@@ -226,7 +222,7 @@
               "UNCATEGORIZED"
             ]
           },
-          "createDate": {
+          "createdDate": {
             "type": "string",
             "format": "date"
           }
