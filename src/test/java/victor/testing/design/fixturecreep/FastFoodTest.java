@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWARMA;
 
 
-@MockitoSettings(strictness = Strictness.LENIENT) // dont !!
+//@MockitoSettings(strictness = Strictness.LENIENT) // dont !!
 @ExtendWith(MockitoExtension.class)
 class FastFoodTeRst {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
@@ -26,7 +26,7 @@ class FastFoodTeRst {
    @BeforeEach
    final void before() {
       when(dependency.isOnionAllowed()).thenReturn(true);
-      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
+      lenient().when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(false);
       when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
