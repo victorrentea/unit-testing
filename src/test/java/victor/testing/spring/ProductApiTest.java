@@ -2,7 +2,6 @@ package victor.testing.spring;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.repo.ProductRepo;
-import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.tools.HumanReadableTestNames;
 
 import java.util.List;
@@ -71,22 +68,16 @@ public class ProductApiTest extends IntegrationTest {
   @Autowired
   MockMvc mockMvc;
   @Autowired
-  SupplierRepo supplierRepo;
-  @Autowired
   ProductRepo productRepo;
 
   ProductSearchCriteria criteria = new ProductSearchCriteria();
-  ProductDto productDto;
 
-  @BeforeEach
-  void persistReferenceData() {
-    productDto = new ProductDto("productName", "sku-safe", HOME);
-  }
+  ProductDto productDto = new ProductDto("Tree", "sku-safe", HOME);
 
-  @Test // direct DB access
+  @Test
   void grayBox() throws Exception {
     // API call
-    createProductRawJson("Tree");
+    createProduct("Tree");
 
     // DB SELECT
     Product returnedProduct = productRepo.findAll().get(0);
@@ -96,7 +87,7 @@ public class ProductApiTest extends IntegrationTest {
     assertThat(returnedProduct.getSku()).isEqualTo(productDto.sku);
   }
 
-  @Test // (B) only API calls
+  @Test
   void blackBox() throws Exception {
     // API call #1
     createProduct("Tree");
@@ -107,15 +98,15 @@ public class ProductApiTest extends IntegrationTest {
     assertThat(results.get(0).getName()).isEqualTo("Tree");
   }
 
-  @Test // (C) sequence of stateful API calls
+  @Test
   void userJourney() throws Exception {
     // API call #1
     createProduct("Tree");
 
     // API call #2
     List<ProductSearchResult> results = searchProduct(criteria.setName("Tree"));
-    assertThat(results).hasSize(1)
-        .first().extracting(ProductSearchResult::getName).isEqualTo("Tree");
+    assertThat(results).hasSize(1);
+    assertThat(results.stream().map(ProductSearchResult::getName)).containsExactly("Tree");
     Long productId = results.get(0).getId();
 
     // API call #3
@@ -128,28 +119,7 @@ public class ProductApiTest extends IntegrationTest {
 
   // ==================== test-DSL (helper/framework) ======================
 
-  // #1 RAW JSON in test
-  // - cumbersome
-  // + breaks on Dto structure change:
-  //    * Prevent accidental changes to my API ==> OpenAPIFreezeTest
-  //    * Keep consumer-provider in sync👌 ==> Pact / Spring Cloud Contract Tests
-  void createProductRawJson(String name) throws Exception {
-    // language=json
-    String createJson = String.format("{\n" +
-                                      "    \"name\": \"%s\",\n" +
-                                      "    \"category\" : \"%s\",\n" +
-                                      "    \"sku\": \"sku-safe\"\n" +
-                                      "}\n", name, HOME);
-
-    mockMvc.perform(post("/product/create")
-            .content(createJson)
-            .contentType(APPLICATION_JSON))
-        .andExpect(status().is2xxSuccessful())
-    ;
-  }
-
-  // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze
-  void createProduct(String name) throws Exception {
+  private void createProduct(String name) throws Exception {
     productDto.setName(name)
         .setCategory(HOME)
         .setSku("sku-safe");
@@ -161,7 +131,7 @@ public class ProductApiTest extends IntegrationTest {
   }
 
 
-  List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
+  private List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
     String responseJson = mockMvc.perform(post("/product/search")
             .content(jackson.writeValueAsString(criteria))
             .contentType(APPLICATION_JSON)
@@ -173,7 +143,7 @@ public class ProductApiTest extends IntegrationTest {
     return List.of(jackson.readValue(responseJson, ProductSearchResult[].class)); // trick to unmarshall a collection<obj>
   }
 
-  ProductDto getProduct(long productId) throws Exception {
+  private ProductDto getProduct(long productId) throws Exception {
     String responseJson = mockMvc.perform(get("/product/{id}", productId))
         .andExpect(status().is2xxSuccessful())
         .andReturn().getResponse().getContentAsString();
@@ -185,14 +155,23 @@ public class ProductApiTest extends IntegrationTest {
   @Test
   void cannotCreateProductWithNullName() throws Exception {
     productDto.setName(null); // triggers @Validated on controller method
+    createProduct_failsValidation("name");
+  }
+  @Test
+  void cannotCreateProductWithNullSku() throws Exception {
+    productDto.setSku(null); // triggers @Validated on controller method
 
+    createProduct_failsValidation("sku");
+  }
+
+  private void createProduct_failsValidation(String fieldName) throws Exception {
     MvcResult mvcResult = mockMvc.perform(post("/product/create")
             .content(jackson.writeValueAsString(productDto))
             .contentType(APPLICATION_JSON))
         // see the @RestControllerAdvice
         .andExpect(status().is4xxClientError())
         .andReturn();
-    assertThat(mvcResult.getResponse().getContentAsString()).contains("name");
+    assertThat(mvcResult.getResponse().getContentAsString()).contains(fieldName);
   }
 
   @Test
