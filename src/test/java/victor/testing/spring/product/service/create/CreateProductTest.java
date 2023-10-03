@@ -1,13 +1,8 @@
 package victor.testing.spring.product.service.create;
 
-import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,6 +27,9 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class CreateProductTest {
+  public static final String PRODUCT_NAME = "name";
+  public static final String SKU_SAFE = "safe";
+  public static final String SKU_UNSAFE = "unsafe";
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
@@ -48,8 +46,8 @@ public class CreateProductTest {
   @Test
   void createThrowsForUnsafeProduct() {
 //    WireMock.stubFor()
-    when(safetyClient.isSafe("unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "unsafe", -1L, HOME);
+    when(safetyClient.isSafe(SKU_UNSAFE)).thenReturn(false);
+    ProductDto dto = new ProductDto(PRODUCT_NAME, SKU_UNSAFE, -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
@@ -61,8 +59,8 @@ public class CreateProductTest {
     Supplier supplier = new Supplier().setId(13L);
     Long supplierId = supplier.getId();
     when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
-    when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
+    when(safetyClient.isSafe(SKU_SAFE)).thenReturn(true);
+    ProductDto dto = new ProductDto(PRODUCT_NAME, SKU_SAFE, supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
@@ -71,8 +69,8 @@ public class CreateProductTest {
     verify(productRepo).save(productCaptor.capture());
     Product product = productCaptor.getValue();
 
-    assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getSku()).isEqualTo("safe");
+    assertThat(product.getName()).isEqualTo(PRODUCT_NAME);
+    assertThat(product.getSku()).isEqualTo(SKU_SAFE);
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
