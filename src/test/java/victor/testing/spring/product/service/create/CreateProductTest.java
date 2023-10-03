@@ -65,17 +65,15 @@ public class CreateProductTest {
     // WHEN
     productService.createProduct(dto);
 
-    // THEN
     verify(productRepo).save(productCaptor.capture());
     Product product = productCaptor.getValue();
-
     assertThat(product.getName()).isEqualTo(PRODUCT_NAME);
     assertThat(product.getSku()).isEqualTo(SKU_SAFE);
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
-    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "key", "NAME");
   }
 
 }
