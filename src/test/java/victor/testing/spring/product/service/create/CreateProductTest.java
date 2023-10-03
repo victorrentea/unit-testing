@@ -49,7 +49,7 @@ public class CreateProductTest {
 
     verify(productRepo).save(productCaptor.capture());
     Product product = productCaptor.getValue();
-    assertThat(product.getName()).isEqualTo("name");
+    assertThat(product.getName()).isEqualTo("product-name");
     assertThat(product.getSku()).isEqualTo("sku-safe");
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic

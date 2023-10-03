@@ -77,13 +77,11 @@ public class ProductApiTest extends IntegrationTest {
   ProductRepo productRepo;
 
   ProductSearchCriteria criteria = new ProductSearchCriteria();
-  Long supplierId;
   ProductDto productDto;
 
   @BeforeEach
   void persistReferenceData() {
-    supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-    productDto = new ProductDto("productName", "safe", HOME);
+    productDto = new ProductDto("productName", "sku-safe", HOME);
   }
 
   @Test // direct DB access
@@ -140,10 +138,9 @@ public class ProductApiTest extends IntegrationTest {
     // language=json
     String createJson = String.format("{\n" +
                                       "    \"name\": \"%s\",\n" +
-                                      "    \"supplierId\": \"%d\",\n" +
                                       "    \"category\" : \"%s\",\n" +
-                                      "    \"sku\": \"safe\"\n" +
-                                      "}\n", name, supplierId, HOME);
+                                      "    \"sku\": \"sku-safe\"\n" +
+                                      "}\n", name, HOME);
 
     mockMvc.perform(post("/product/create")
             .content(createJson)
@@ -156,7 +153,7 @@ public class ProductApiTest extends IntegrationTest {
   void createProduct(String name) throws Exception {
     productDto.setName(name)
         .setCategory(HOME)
-        .setSku("safe");
+        .setSku("sku-safe");
 
     mockMvc.perform(post("/product/create")
             .content(jackson.writeValueAsString(productDto))
