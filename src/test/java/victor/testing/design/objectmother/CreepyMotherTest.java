@@ -28,11 +28,11 @@ class ShippingServiceTest {
   }
 }
 
-class InvoiceServiceTest {
+class InvoicingServiceTest {
   @Test
   void invoice() {
     Customer customer = new Customer("Mr Bean", "???", "BillingAddress");
-    String invoice = new InvoiceService().generateInvoice(customer, "Order1");
+    String invoice = new InvoicingService().generateInvoice(customer, "Order1");
     assertThat(invoice).isEqualTo("""
             Invoice
             Buyer name: Mr Bean
