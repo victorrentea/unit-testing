@@ -5,10 +5,20 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
 class BigServiceTest {
 
+  @Test
+  void high() { // + 5 more tests like this
+    Order order = new Order()
+        .setPaymentMethod(CARD)
+        .setCreationDate(LocalDate.now());
+    String result = new BigService().high(order);
+    assertThat(result).isEqualTo("bonus");
+  }
 
 
   @Test
