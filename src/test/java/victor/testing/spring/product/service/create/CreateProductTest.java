@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -41,6 +42,8 @@ public class CreateProductTest {
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   ProductService productService;
+  @Captor
+  ArgumentCaptor<Product> productCaptor;
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -55,23 +58,22 @@ public class CreateProductTest {
 
   @Test
   void createOk() {
-    // GIVEN
     Supplier supplier = new Supplier().setId(13L);
+    Long supplierId = supplier.getId();
     when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplier.getId(), HOME);
+    ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
 
     // THEN
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
     verify(productRepo).save(productCaptor.capture());
     Product product = productCaptor.getValue();
 
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getSku()).isEqualTo("safe");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
