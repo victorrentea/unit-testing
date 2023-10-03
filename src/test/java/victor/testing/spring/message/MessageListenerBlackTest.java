@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("embedded-kafka")
 @EmbeddedKafka(topics = "supplier-created-event")
-public class MessageListenerTest extends IntegrationTest {
+public class MessageListenerBlackTest extends IntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
