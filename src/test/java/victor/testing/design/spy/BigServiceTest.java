@@ -3,6 +3,8 @@ package victor.testing.design.spy;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -18,25 +20,28 @@ import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
 @ExtendWith(MockitoExtension.class)
 class BigServiceTest {
-  @Spy
+  @InjectMocks
   BigService bigService;
+  @Mock
+  LowService low;
 
   @Test
   void high() { // + 5 more tests like this
-    doNothing().when(bigService).low(any());
     Order order = new Order()
         .setPaymentMethod(CARD);
     String result = bigService.high(order);
     assertThat(result).isEqualTo("bonus");
   }
 
+}
+class LowTest {
 
   @Test
   void low() { // +7 more tests (pretend)
     LocalDate longAgo = LocalDate.now().minusMonths(2);
     Order order = new Order().setCreationDate(longAgo);
 
-    Assertions.assertThatThrownBy(() -> new BigService().low(order))
+    Assertions.assertThatThrownBy(() -> new LowService().low(order))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Order too old");
   }
