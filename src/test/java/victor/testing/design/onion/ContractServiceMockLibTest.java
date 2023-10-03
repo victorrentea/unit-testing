@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ContractServiceTest {
+public class ContractServiceMockLibTest {
   public static final double WARNING_AMOUNT_THRESHOLD = 10_000;
   public static final double AMOUNT_OVER_WARNING_THRESHOLD = 10_001d;
   @Spy
