@@ -1,4 +1,4 @@
-package victor.testing.tools;
+package victor.testing.spring.tools;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.test.context.DynamicPropertyRegistry;

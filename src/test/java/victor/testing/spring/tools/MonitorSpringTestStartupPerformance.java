@@ -1,4 +1,4 @@
-package victor.testing.spring;
+package victor.testing.spring.tools;
 
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestPlan;
@@ -21,9 +21,9 @@ import static java.lang.System.currentTimeMillis;
 
 // Installation:
 // - in src/test/resources/META-INF/spring.factories:
-//    org.springframework.test.context.TestExecutionListener=victor.testing.spring.MonitorSpringTestStartupPerformance
+//    org.springframework.test.context.TestExecutionListener=victor.testing.spring.tools.MonitorSpringTestStartupPerformance
 // - in src/test/resources/META-INF/services/org.junit.platform.launcher.TestExecutionListener:
-//    victor.testing.spring.MonitorSpringTestStartupPerformance
+//    victor.testing.spring.tools.MonitorSpringTestStartupPerformance
 
 @Component // place this in the packages of your app under your @SpringBootApplication to be picked up by Spring
 public class MonitorSpringTestStartupPerformance implements TestExecutionListener,

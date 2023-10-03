@@ -1,4 +1,4 @@
-package victor.testing.tools;
+package victor.testing.spring.tools;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

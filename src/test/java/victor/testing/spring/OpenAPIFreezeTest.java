@@ -1,4 +1,4 @@
-package victor.testing.spring.product.api;
+package victor.testing.spring;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

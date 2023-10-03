@@ -1,4 +1,4 @@
-package victor.testing.spring.message;
+package victor.testing.spring;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

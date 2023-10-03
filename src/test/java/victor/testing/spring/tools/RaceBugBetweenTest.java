@@ -1,9 +1,10 @@
-package victor.testing.spring;
+package victor.testing.spring.tools;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -19,7 +20,7 @@ import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
 // without the followin annotation, running tests in parallel causes flaky tests
 //@Execution(ExecutionMode.SAME_THREAD) // force all @Test in this class to run single thread when using parallel tests
-public class RaceBugBetweenTest extends IntegrationTest{
+public class RaceBugBetweenTest extends IntegrationTest {
   @MockBean
   SafetyClient safetyClient;
   @MockBean

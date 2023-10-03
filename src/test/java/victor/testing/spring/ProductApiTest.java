@@ -1,4 +1,4 @@
-package victor.testing.spring.product.api;
+package victor.testing.spring;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -20,10 +20,9 @@ import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
 import victor.testing.spring.product.domain.Product;
-import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
-import victor.testing.tools.HumanReadableTestNames;
+import victor.testing.spring.tools.HumanReadableTestNames;
 
 import java.util.List;
 
