@@ -17,9 +17,9 @@ public class MessageListener {
   private final SupplierRepo supplierRepo;
 
   @KafkaListener(topics = "supplier-created-event")
-  public void onMessage(String record) {
-    log.info("Received message: " + record);
-    supplierRepo.save(new Supplier().setName(record));
-    log.info("Created supplier with name: " + record);
+  public void onMessage(String supplierName) {
+    log.info("Received message: " + supplierName);
+    supplierRepo.save(new Supplier().setName(supplierName));
+    log.info("Created supplier with name: " + supplierName);
   }
 }
