@@ -13,6 +13,5 @@ import static victor.testing.design.app.domain.ProductCategory.HOME;
 public class ProductMapperSTest {
   @Test
   void mapperTest() { // AI this
-
   }
 }
