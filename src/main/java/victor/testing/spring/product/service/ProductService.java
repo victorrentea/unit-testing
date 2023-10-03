@@ -30,7 +30,7 @@ public class ProductService {
     log.info("Creating product " + productDto.getSku());
     boolean safe = safetyClient.isSafe(productDto.getSku()); // ⚠️ REST call inside
     if (!safe) {
-      throw new IllegalStateException("Product is not safe: " + productDto.getSku());
+      throw new IllegalStateException("Product is not safe!");
     }
     if (productDto.getCategory() == null) {
       productDto.setCategory(ProductCategory.UNCATEGORIZED); // untested line 😱

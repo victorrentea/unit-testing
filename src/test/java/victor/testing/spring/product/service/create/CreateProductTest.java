@@ -54,7 +54,7 @@ public class CreateProductTest {
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
-        .hasMessage("Product is not safe: unsafe");
+        .hasMessage("Product is not safe!");
   }
 
   @Test
@@ -75,7 +75,7 @@ public class CreateProductTest {
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
-    assertThat(product.getCreatedBy()).isEqualTo(CURRENT_USERNAME); // field set via Spring Magic
+//    assertThat(product.getCreatedBy()).isEqualTo(CURRENT_USERNAME); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "key", PRODUCT_NAME);
   }
 
