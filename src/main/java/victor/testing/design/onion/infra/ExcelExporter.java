@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Component
-public class ExcelExporter implements ContractExporter {
+public class ExcelExpozrter implements ContractExporter {
   @Override
   public void exportExcel(List<ContractForExport> contractForExports) {
     try (Workbook workbook = createWorkbook()) {
