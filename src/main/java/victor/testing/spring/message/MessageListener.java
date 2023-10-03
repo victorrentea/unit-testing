@@ -16,10 +16,10 @@ import victor.testing.spring.product.repo.SupplierRepo;
 public class MessageListener {
   private final SupplierRepo supplierRepo;
 
-  @KafkaListener(topics = "${input.topic}")
-  public void onMessage(ConsumerRecord<String, String> record) {
+  @KafkaListener(topics = "supplier-created-event")
+  public void onMessage(String record) {
     log.info("Received message: " + record);
-    supplierRepo.save(new Supplier().setName(record.value()));
+    supplierRepo.save(new Supplier().setName(record));
     log.info("Created supplier with name: " + record);
   }
 }
