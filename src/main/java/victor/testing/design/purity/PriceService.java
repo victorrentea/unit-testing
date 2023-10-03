@@ -1,6 +1,8 @@
 package victor.testing.design.purity;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import victor.testing.design.app.domain.Coupon;
 import victor.testing.design.app.domain.Customer;
 import victor.testing.design.app.domain.Product;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
+@Service
 public class PriceService {
    private final CustomerRepo customerRepo;
    private final ThirdPartyPricesApi thirdPartyPricesApi;
@@ -25,14 +28,26 @@ public class PriceService {
                                           Map<Long, Double> internalPrices) {
       Customer customer = customerRepo.findById(customerId);
       List<Product> products = productRepo.findAllById(productIds);
-      List<Coupon> usedCoupons = new ArrayList<>();
+      Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);
+      PriceCalculationResult result = doComputePrices(products, resolvedPrices, customer.getCoupons());
+      couponRepo.markUsedCoupons(customerId, result.usedCoupons());
+      return result.finalPrices();
+   }
+
+   public record PriceCalculationResult(Map<Long, Double> finalPrices, List<Coupon> usedCoupons) {
+   }
+
+   // static means: no NETWORKING
+   // PURE
+   @VisibleForTesting
+   static PriceCalculationResult doComputePrices(List<Product> products,
+                                                 Map<Long, Double> resolvedPrices,
+                                                 List<Coupon> coupons) {
       Map<Long, Double> finalPrices = new HashMap<>();
+      List<Coupon> usedCoupons = new ArrayList<>();
       for (Product product : products) {
-         Double price = internalPrices.get(product.getId());
-         if (price == null) {
-            price = thirdPartyPricesApi.fetchPrice(product.getId());
-         }
-         for (Coupon coupon : customer.getCoupons()) {
+         Double price = resolvedPrices.get(product.getId());
+         for (Coupon coupon : coupons) {
             if (coupon.autoApply()
                 && coupon.isApplicableFor(product, price)
                 && !usedCoupons.contains(coupon)) {
@@ -42,8 +57,19 @@ public class PriceService {
          }
          finalPrices.put(product.getId(), price);
       }
-      couponRepo.markUsedCoupons(customerId, usedCoupons);
-      return finalPrices;
+      return new PriceCalculationResult(finalPrices, usedCoupons);
+   }
+
+   private Map<Long, Double> resolvePrices(Map<Long, Double> internalPrices, List<Product> products) {
+      Map<Long, Double> resolvedPrices = new HashMap<>();
+      for (Product product : products) {
+         Double price = internalPrices.get(product.getId());
+         if (price == null) {
+            price = thirdPartyPricesApi.fetchPrice(product.getId());
+         }
+         resolvedPrices.put(product.getId(), price);
+      }
+      return resolvedPrices;
    }
 
 }
