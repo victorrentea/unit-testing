@@ -36,7 +36,7 @@ public class MessageListenerBlackTest extends IntegrationTest {
   void supplierIsCreatedOnMessageReceived() throws InterruptedException {
     kafkaTemplate.send("supplier-created-event", SUPPLIER_NAME);
 
-    Thread.sleep(50);
+    Thread.sleep(40);
     assertThat(supplierRepo.findByName(SUPPLIER_NAME)).isNotNull();
   }
   // TODO Awaitility
