@@ -16,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("embedded-kafka")
 @EmbeddedKafka(topics = "supplier-created-event")
 public class MessageListenerTest extends IntegrationTest {
-  private static final String SUPPLIER_NAME = "supplier";
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
@@ -30,10 +29,10 @@ public class MessageListenerTest extends IntegrationTest {
 
   @Test
   void supplierIsCreatedOnMessageReceived() throws InterruptedException {
-    kafkaTemplate.send("supplier-created-event", SUPPLIER_NAME);
+    kafkaTemplate.send("supplier-created-event", "supplier");
 
     Thread.sleep(40); // works on my machine
-    assertThat(supplierRepo.findByName(SUPPLIER_NAME)).isNotNull();
+    assertThat(supplierRepo.findByName("supplier")).isNotNull();
   }
 
 }
