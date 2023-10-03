@@ -13,7 +13,7 @@ public abstract class IntegrationTest {
 // #2 innocent Testcontainers test (online examples)
 //@SpringBootTest
 //@Testcontainers
-//public abstract class BaseDatabaseTest {
+//public abstract class IntegrationTest {
 //  // https://stackoverflow.com/questions/62425598/how-to-reuse-testcontainers-between-multiple-springboottests
 //  // === The containers is reused across all subclasses ===
 //  static public PostgreSQLContainer<?> postgres =
@@ -36,6 +36,6 @@ public abstract class IntegrationTest {
 // #3 tuned Testcontainers test (like a platform team will ofer)
 //@SpringBootTest
 //@ActiveProfiles("db-testcontainers-playtika")
-//public abstract class BaseDatabaseTest {
+//public abstract class IntegrationTest {
 //
 //}
