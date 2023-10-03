@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWARMA;
 
 @RequiredArgsConstructor
-public class FastFood {
+public class ShawarmaService {// THE ProductService
    private final Dependency dependency;
    private final FeatureFlags featureFlags;
 
@@ -20,10 +20,5 @@ public class FastFood {
       // complex logic: 7 ifs
    }
 
-   public void makeTzatziki() {
-      if (!dependency.isCucumberAllowed()) {
-         throw new IllegalArgumentException();
-      }
-      // complex logic: 5 ifs
-   }
 }
+

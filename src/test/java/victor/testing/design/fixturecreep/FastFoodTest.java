@@ -6,8 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 
 import static org.mockito.Mockito.*;
 import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWARMA;
@@ -21,7 +19,7 @@ class ShawarmaTest {
    @Mock
    FeatureFlags featureFlags;
    @InjectMocks
-   FastFood fastFood;
+   ShawarmaService fastFood;
 
    @BeforeEach
    final void before() {
@@ -53,7 +51,7 @@ class TzatzikiTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
    @InjectMocks
-   FastFood fastFood;
+   TzatzikiService tzatzikiService;
 
    @BeforeEach
    final void before() {
@@ -63,16 +61,16 @@ class TzatzikiTest {
    @Test
    void tzatzikiTest() { // + 5 more tests
       // ... complex
-      fastFood.makeTzatziki();
+      tzatzikiService.makeTzatziki();
    }
    @Test
    void tzatzikiTest2() { // + 5 more tests
       // ... complex
-      fastFood.makeTzatziki();
+      tzatzikiService.makeTzatziki();
    }
    @Test
    void tzatzikiTest3() { // + 5 more tests
       // ... complex
-      fastFood.makeTzatziki();
+      tzatzikiService.makeTzatziki();
    }
 }
