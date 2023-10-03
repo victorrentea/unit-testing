@@ -31,7 +31,6 @@ public class ProductRepoH2Test {
     supplierId = supplierRepo.save(new Supplier()).getId();
     repo.save(new Product()
             .setName("AbCd")
-            .setSupplier(supplierRepo.getReferenceById(supplierId))
             .setCategory(ProductCategory.HOME)
     );
   }

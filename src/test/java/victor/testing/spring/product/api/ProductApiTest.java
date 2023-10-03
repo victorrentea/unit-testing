@@ -83,7 +83,7 @@ public class ProductApiTest extends IntegrationTest {
   @BeforeEach
   void persistReferenceData() {
     supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-    productDto = new ProductDto("productName", "safe", supplierId, HOME);
+    productDto = new ProductDto("productName", "safe", HOME);
   }
 
   @Test // direct DB access
@@ -96,7 +96,6 @@ public class ProductApiTest extends IntegrationTest {
     assertThat(returnedProduct.getName()).isEqualTo("Tree");
     assertThat(returnedProduct.getCreatedDate()).isToday();
     assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
-    assertThat(returnedProduct.getSupplier().getId()).isEqualTo(productDto.supplierId);
     assertThat(returnedProduct.getSku()).isEqualTo(productDto.sku);
   }
 
@@ -125,7 +124,6 @@ public class ProductApiTest extends IntegrationTest {
     // API call #3
     ProductDto dto = getProduct(productId);
     assertThat(dto.getCategory()).isEqualTo(productDto.category);
-    assertThat(dto.getSupplierId()).isEqualTo(productDto.supplierId);
     assertThat(dto.getSku()).isEqualTo(productDto.sku);
     assertThat(dto.getCreatedDate()).isToday();
   }
@@ -157,7 +155,6 @@ public class ProductApiTest extends IntegrationTest {
   // #2 ❤️ new DTO => JSON with jackson + Contract Test/Freeze
   void createProduct(String name) throws Exception {
     productDto.setName(name)
-        .setSupplierId(supplierId)
         .setCategory(HOME)
         .setSku("safe");
 

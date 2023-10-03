@@ -51,7 +51,6 @@ public class TomcatTest {
     Product productInDB = new Product()
         .setName("Tree")
         .setSku("safe")
-        .setSupplier(new Supplier().setId(supplierId))
         .setCategory(ProductCategory.ME);
     productRepo.save(productInDB);
   }

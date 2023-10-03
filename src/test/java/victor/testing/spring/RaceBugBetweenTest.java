@@ -34,7 +34,7 @@ public class RaceBugBetweenTest extends IntegrationTest{
   @Test
   void throwsEx() throws InterruptedException {
     when(safetyClient.isSafe("unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "unsafe", -1L, HOME);
+    ProductDto dto = new ProductDto("name", "unsafe", HOME);
 
     Thread.sleep(50); // imagine some delay in tested code
     assertThatThrownBy(() -> productService.createProduct(dto));
@@ -44,7 +44,7 @@ public class RaceBugBetweenTest extends IntegrationTest{
   void ok() throws InterruptedException {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
+    ProductDto dto = new ProductDto("name", "safe", HOME);
 
     Thread.sleep(50); // imagine some delay in tested code
     productService.createProduct(dto);

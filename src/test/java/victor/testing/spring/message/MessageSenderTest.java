@@ -60,7 +60,7 @@ public class MessageSenderTest extends IntegrationTest {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(mockSafetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
+    ProductDto dto = new ProductDto("name", "safe", HOME);
 
     // WHEN
     productService.createProduct(dto);

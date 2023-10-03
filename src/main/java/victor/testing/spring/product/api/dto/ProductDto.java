@@ -17,7 +17,6 @@ public class ProductDto {
 	public String name;
 	@NotNull
 	public String sku;
-	public Long supplierId;
 	public ProductCategory category;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	public LocalDate createdDate;
@@ -25,15 +24,13 @@ public class ProductDto {
 	public ProductDto(Product product) {
 		name = product.getName();
 		sku = product.getSku();
-		supplierId = product.getSupplier().getId();
 		category = product.getCategory();
 		createdDate = product.getCreatedDate();
 	}
 
-	public ProductDto(String name, String sku, Long supplierId, ProductCategory category) {
+	public ProductDto(String name, String sku, ProductCategory category) {
 		this.name = name;
 		this.sku = sku;
-		this.supplierId = supplierId;
 		this.category = category;
 	}
 }

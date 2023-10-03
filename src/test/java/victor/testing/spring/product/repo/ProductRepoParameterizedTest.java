@@ -36,7 +36,6 @@ public class ProductRepoParameterizedTest {
     supplierId = supplierRepo.save(new Supplier()).getId();
     repo.save(new Product()
             .setName("AbCd")
-            .setSupplier(supplierRepo.getReferenceById(supplierId))
             .setCategory(HOME)
     );
   }
