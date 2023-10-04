@@ -21,4 +21,5 @@ public class MessageListener {
     supplierRepo.save(new Supplier().setName(supplierName));
     log.info("Created supplier with name: " + supplierName);
   }
+  scrie celelalte 2 teste deje
 }
