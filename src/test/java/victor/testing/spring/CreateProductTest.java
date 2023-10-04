@@ -15,6 +15,7 @@ import victor.testing.spring.product.api.dto.ProductDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
@@ -43,10 +44,12 @@ public class CreateProductTest {
   @Test
   void happy() {
     when(safetyClient.isSafe("sku-safe")).thenReturn(true);
+    when(productRepo.save(any())).thenReturn(42L);
     ProductDto dto = new ProductDto("product-name", "sku-safe", HOME);
 
-    productService.createProduct(dto);
+    Long newId = productService.createProduct(dto);
 
+    assertThat(newId).isNotNull();
     verify(productRepo).save(productCaptor.capture());
     Product product = productCaptor.getValue();
     assertThat(product.getName()).isEqualTo("product-name");

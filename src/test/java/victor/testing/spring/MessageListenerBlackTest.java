@@ -32,7 +32,9 @@ public class MessageListenerBlackTest extends IntegrationTest {
     kafkaTemplate.send("supplier-created-event", "supplier");
 
     Thread.sleep(150); // works on my machine
-    assertThat(supplierRepo.findByName("supplier")).isNotNull();
+    assertThat(supplierRepo.findByName("supplier"))
+        .describedAs("Supplier was inserted")
+        .isNotNull();
   }
 
 }
