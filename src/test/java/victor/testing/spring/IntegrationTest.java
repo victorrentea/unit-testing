@@ -8,8 +8,6 @@ import org.springframework.test.context.ActiveProfiles;
 public abstract class IntegrationTest {
 }
 
-// ==================================================================
-// #2 Testcontainers test (online examples)
 //@SpringBootTest
 //@Testcontainers
 //public abstract class IntegrationTest {
