@@ -22,20 +22,20 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
   @Mock
-  ProductRepo productRepo;
+  ProductRepo repo;
   @Mock
   SafetyClient safetyClient;
   @InjectMocks
-  ProductService productService;
+  ProductService service;
   @Captor
-  ArgumentCaptor<Product> productCaptor;
+  ArgumentCaptor<Product> captor;
 
   @Test
   void throwsForUnsafeProduct() {
     when(safetyClient.isSafe("sku-unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("product-name", "sku-unsafe", HOME);
 
-    assertThatThrownBy(() -> productService.createProduct(dto))
+    assertThatThrownBy(() -> service.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
   }
@@ -43,14 +43,14 @@ public class CreateProductTest {
   @Test
   void happy() {
     when(safetyClient.isSafe("sku-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(42L));
+    when(repo.save(any())).thenReturn(new Product().setId(42L));
     ProductDto dto = new ProductDto("product-name", "sku-safe", HOME);
 
-    Long newId = productService.createProduct(dto);
+    Long newId = service.createProduct(dto);
 
     assertThat(newId).isNotNull();
-    verify(productRepo).save(productCaptor.capture());
-    Product product = productCaptor.getValue();
+    verify(repo).save(captor.capture());
+    Product product = captor.getValue();
     assertThat(product.getName()).isEqualTo("product-name");
     assertThat(product.getSku()).isEqualTo("sku-safe");
     assertThat(product.getCategory()).isEqualTo(HOME);
