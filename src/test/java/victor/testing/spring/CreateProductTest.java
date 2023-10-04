@@ -46,7 +46,7 @@ public class CreateProductTest {
   void happy() {
     when(safetyClient.isSafe("sku-safe"))
         .thenReturn(true);
-    when(productRepo.save(any())).thenReturn(42L);
+    when(productRepo.save(any())).thenReturn(new Product().setId(42L));
     ProductDto dto = new ProductDto("product-name", "sku-safe", HOME);
 
     Long newId = productService.createProduct(dto);
