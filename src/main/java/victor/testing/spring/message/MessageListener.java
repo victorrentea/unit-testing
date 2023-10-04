@@ -11,7 +11,7 @@ import victor.testing.spring.repo.SupplierRepo;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@ConditionalOnProperty(value = "kafka.enabled", havingValue = "true", matchIfMissing = true)
+//@ConditionalOnProperty(value = "kafka.enabled", havingValue = "true", matchIfMissing = true)
 public class MessageListener {
   private final SupplierRepo supplierRepo;
 
@@ -21,5 +21,4 @@ public class MessageListener {
     supplierRepo.save(new Supplier().setName(supplierName));
     log.info("Created supplier with name: " + supplierName);
   }
-  scrie celelalte 2 teste deje
 }
