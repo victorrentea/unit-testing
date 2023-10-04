@@ -33,7 +33,8 @@ public class CreateProductTest {
 
   @Test
   void throwsForUnsafeProduct() {
-    when(safetyClient.isSafe("sku-unsafe")).thenReturn(false);
+    when(safetyClient.isSafe("sku-unsafe"))
+        .thenReturn(false);
     ProductDto dto = new ProductDto("product-name", "sku-unsafe", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -43,7 +44,8 @@ public class CreateProductTest {
 
   @Test
   void happy() {
-    when(safetyClient.isSafe("sku-safe")).thenReturn(true);
+    when(safetyClient.isSafe("sku-safe"))
+        .thenReturn(true);
     when(productRepo.save(any())).thenReturn(42L);
     ProductDto dto = new ProductDto("product-name", "sku-safe", HOME);
 

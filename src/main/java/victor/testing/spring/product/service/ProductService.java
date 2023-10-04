@@ -37,6 +37,9 @@ public class ProductService {
     return productRepo.save(product).getId();
   }
 
+
+
+
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
     return productRepo.search(criteria);
   }
