@@ -1,4 +1,4 @@
-package victor.testing.spring;
+package victor.testing.spring.message;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +8,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.IntegrationTest;
-import victor.testing.spring.product.repo.SupplierRepo;
+import victor.testing.spring.repo.SupplierRepo;
 
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;

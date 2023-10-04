@@ -1,4 +1,4 @@
-package victor.testing.spring;
+package victor.testing.spring.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,11 +15,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.product.api.dto.ProductDto;
-import victor.testing.spring.product.api.dto.ProductSearchCriteria;
-import victor.testing.spring.product.api.dto.ProductSearchResult;
-import victor.testing.spring.product.domain.Product;
-import victor.testing.spring.product.repo.ProductRepo;
+import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.api.dto.ProductDto;
+import victor.testing.spring.api.dto.ProductSearchCriteria;
+import victor.testing.spring.api.dto.ProductSearchResult;
+import victor.testing.spring.domain.Product;
+import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.tools.HumanReadableTestNames;
 
 import java.util.List;
@@ -30,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static victor.testing.spring.product.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.HOME;
 
 
 @DisplayNameGeneration(HumanReadableTestNames.class) // makes test names look nice

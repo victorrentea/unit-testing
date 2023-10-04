@@ -1,4 +1,4 @@
-package victor.testing.spring.product.infra;
+package victor.testing.spring.infra;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

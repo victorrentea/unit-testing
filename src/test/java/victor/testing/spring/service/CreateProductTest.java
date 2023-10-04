@@ -7,18 +7,17 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.spring.product.domain.Product;
-import victor.testing.spring.product.infra.SafetyClient;
-import victor.testing.spring.product.repo.ProductRepo;
-import victor.testing.spring.product.service.ProductService;
-import victor.testing.spring.product.api.dto.ProductDto;
+import victor.testing.spring.domain.Product;
+import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.api.dto.ProductDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static victor.testing.spring.product.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateProductTest {

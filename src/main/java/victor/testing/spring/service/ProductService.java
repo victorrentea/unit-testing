@@ -1,15 +1,15 @@
-package victor.testing.spring.product.service;
+package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import victor.testing.spring.product.domain.Product;
-import victor.testing.spring.product.domain.ProductCategory;
-import victor.testing.spring.product.infra.SafetyClient;
-import victor.testing.spring.product.repo.ProductRepo;
-import victor.testing.spring.product.api.dto.ProductDto;
-import victor.testing.spring.product.api.dto.ProductSearchCriteria;
-import victor.testing.spring.product.api.dto.ProductSearchResult;
+import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.domain.Product;
+import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.api.dto.ProductDto;
+import victor.testing.spring.api.dto.ProductSearchCriteria;
+import victor.testing.spring.api.dto.ProductSearchResult;
 
 import java.util.List;
 

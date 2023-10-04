@@ -1,4 +1,4 @@
-package victor.testing.spring.product.api.dto;
+package victor.testing.spring.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

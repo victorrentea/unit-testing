@@ -1,8 +1,8 @@
-package victor.testing.spring.product.service;
+package victor.testing.spring.service;
 
 import org.springframework.stereotype.Component;
-import victor.testing.spring.product.domain.Product;
-import victor.testing.spring.product.api.dto.ProductDto;
+import victor.testing.spring.domain.Product;
+import victor.testing.spring.api.dto.ProductDto;
 
 @Component
 public class ProductMapper {

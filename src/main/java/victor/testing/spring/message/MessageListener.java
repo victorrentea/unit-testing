@@ -2,12 +2,11 @@ package victor.testing.spring.message;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import victor.testing.spring.product.domain.Supplier;
-import victor.testing.spring.product.repo.SupplierRepo;
+import victor.testing.spring.domain.Supplier;
+import victor.testing.spring.repo.SupplierRepo;
 
 @Slf4j
 @RequiredArgsConstructor

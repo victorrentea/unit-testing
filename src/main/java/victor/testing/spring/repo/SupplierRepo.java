@@ -1,7 +1,7 @@
-package victor.testing.spring.product.repo;
+package victor.testing.spring.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import victor.testing.spring.product.domain.Supplier;
+import victor.testing.spring.domain.Supplier;
 
 public interface SupplierRepo extends JpaRepository<Supplier, Long> {
    Supplier findByName(String supplierName);
