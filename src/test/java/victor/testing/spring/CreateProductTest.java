@@ -58,7 +58,7 @@ public class CreateProductTest {
     assertThat(product.getSku()).isEqualTo("sku-safe");
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
-//    assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
+//    assertThat(product.getCreatedBy()).isEqualTo("jdoe"); // field set via Spring Magic
   }
 
 }
