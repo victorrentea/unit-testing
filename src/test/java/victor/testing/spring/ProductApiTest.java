@@ -1,5 +1,6 @@
 package victor.testing.spring;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -12,7 +13,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
@@ -32,37 +33,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 
 
-// WHY to test a controller?
-// - Logic ==> @Autowire the controller and call its methods!
-// - Contract: url, POST.., DTO structure
-
-
-// - HTTP Status Code, @RestControllerAdvice ==> does the code matter?
-// - @Validated on params of @RestController methods
-// - Security: @Secured, @PreAuthorized, mvcMatcher("/admin/**), SecurityContextHolder usage
-
 @DisplayNameGeneration(HumanReadableTestNames.class) // makes test names look nice
 
-
-/**
- * <li> Connects to a production-like DB in a Docker image
- * <li> Runs the flyway migration scripts against the empty DB
- * <li> Uses WireMock to stub the JSON responses from third party APIs
- * <li> Starts one @Transaction / @Test
- * <li> Fills some 'static' data in the database (Supplier)
- * <li> pre-autorizes the request as ROLE_ADMIN by default
- * <li> Emulates a JSON request against my API and checks the JSON response
- * <li> At the end of each test leaves the DB clean (by auto-rollback of @Transactional)
- */
 @SpringBootTest
 
-@AutoConfigureWireMock(port = 0)
-@EmbeddedKafka(topics = "${input.topic}")
-@Transactional
+@AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
+@EmbeddedKafka(topics = "${input.topic}") // start up an in-mem Kafka
+@Transactional // ROLLBACK after each @Test
 @ActiveProfiles({"db-migration", "wiremock","embedded-kafka"})
 
-@WithMockUser(roles = "ADMIN") // current thread is ROLE_ADMIN
-@AutoConfigureMockMvc // ❤️ process the HTTP request in a single thread, without starting a Tomcat => @Transactional works
+@WithMockUser(roles = "ADMIN") // grant the current thread the 'ROLE_ADMIN'
+@AutoConfigureMockMvc // process HTTP requests in current thread, without a Tomcat
 public class ProductApiTest extends IntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
@@ -70,14 +51,14 @@ public class ProductApiTest extends IntegrationTest {
   @Autowired
   ProductRepo productRepo;
 
+  // Dtos with 'default' values (ObjectMother style)
   ProductSearchCriteria criteria = new ProductSearchCriteria();
-
   ProductDto productDto = new ProductDto("Tree", "sku-safe", HOME);
 
   @Test
   void grayBox() throws Exception {
     // API call
-    createProduct("Tree");
+    createProduct(productDto.setName("Tree"));
 
     // DB SELECT
     Product returnedProduct = productRepo.findAll().get(0);
@@ -90,7 +71,7 @@ public class ProductApiTest extends IntegrationTest {
   @Test
   void blackBox() throws Exception {
     // API call #1
-    createProduct("Tree");
+    createProduct(productDto.setName("Tree"));
 
     // API call #2
     List<ProductSearchResult> results = searchProduct(criteria.setName("Tree"));
@@ -101,7 +82,7 @@ public class ProductApiTest extends IntegrationTest {
   @Test
   void userJourney() throws Exception {
     // API call #1
-    createProduct("Tree");
+    createProduct(productDto.setName("Tree"));
 
     // API call #2
     List<ProductSearchResult> results = searchProduct(criteria.setName("Tree"));
@@ -119,17 +100,16 @@ public class ProductApiTest extends IntegrationTest {
 
   // ==================== test-DSL (helper/framework) ======================
 
-  private void createProduct(String name) throws Exception {
-    productDto.setName(name)
-        .setCategory(HOME)
-        .setSku("sku-safe");
-
-    mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(productDto))
-            .contentType(APPLICATION_JSON)) // can be set as default
-        .andExpect(status().is2xxSuccessful());
+  private void createProduct(ProductDto request) throws Exception {
+    mockMvc.perform(createProductRequest(request)) // can be set as default
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(header().exists("Location"));
   }
-
+  private MockHttpServletRequestBuilder createProductRequest(ProductDto request) throws JsonProcessingException {
+    return post("/product/create")
+        .content(jackson.writeValueAsString(request))
+        .contentType(APPLICATION_JSON);
+  }
 
   private List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
     String responseJson = mockMvc.perform(post("/product/search")
@@ -150,46 +130,33 @@ public class ProductApiTest extends IntegrationTest {
     return jackson.readValue(responseJson, ProductDto.class);
   }
 
-  // ==================== More stuff you can test with MockMvc ======================
+  // ====== test @Validated
 
   @Test
-  void cannotCreateProductWithNullName() throws Exception {
-    productDto.setName(null); // triggers @Validated on controller method
-    createProduct_failsValidation("name");
-  }
-  @Test
-  void cannotCreateProductWithNullSku() throws Exception {
-    productDto.setSku(null); // triggers @Validated on controller method
-
-    createProduct_failsValidation("sku");
-  }
-
-  private void createProduct_failsValidation(String fieldName) throws Exception {
-    MvcResult mvcResult = mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(productDto))
-            .contentType(APPLICATION_JSON))
-        // see the @RestControllerAdvice
-        .andExpect(status().is4xxClientError())
-        .andReturn();
-    assertThat(mvcResult.getResponse().getContentAsString()).contains(fieldName);
+  void createProduct_failsForMissingName() throws Exception {
+    createProduct_failsValidation(productDto.setName(null), "name");
   }
 
   @Test
-  void createProduct_returnsHeader() throws Exception {
-    mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(productDto))
-            .contentType(APPLICATION_JSON))
-        .andExpect(header().string("Location", "http://created-uri"))
-        .andExpect(status().isCreated());
+  void createProduct_failsForMissingSku() throws Exception {
+    createProduct_failsValidation(productDto.setSku(null), "sku");
   }
+
+  private void createProduct_failsValidation(ProductDto request, String fieldName) throws Exception {
+    String errorBody = mockMvc.perform(createProductRequest(request))
+        .andExpect(status().is4xxClientError()) // thanks to @RestControllerAdvice
+        .andReturn()
+        .getResponse()
+        .getContentAsString();
+    assertThat(errorBody).contains(fieldName); // reports the field name in error
+  }
+
+  // ====== test authorization
 
   @Test
   @WithMockUser(roles = "USER") // resets the credentials set at the class level
-  void createProductByNonAdmin_NotAuthorized() throws Exception {
-    mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(productDto))
-            .contentType(APPLICATION_JSON)
-        )
+  void createProductRegularUser_NotAuthorized() throws Exception {
+    mockMvc.perform(createProductRequest(productDto))
         .andExpect(status().isForbidden());
   }
 

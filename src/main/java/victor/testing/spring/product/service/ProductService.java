@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-  public static final String PRODUCT_CREATED_TOPIC = "product-created";
   private final ProductRepo productRepo;
   private final SafetyClient safetyClient;
   private final ProductMapper productMapper;
