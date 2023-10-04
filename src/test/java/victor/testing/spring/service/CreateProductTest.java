@@ -1,4 +1,4 @@
-package victor.testing.spring;
+package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
