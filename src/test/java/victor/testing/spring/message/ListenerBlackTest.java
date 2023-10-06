@@ -1,5 +1,6 @@
 package victor.testing.spring.message;
 
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.repo.SupplierRepo;
 
+import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,10 +33,14 @@ public class ListenerBlackTest extends IntegrationTest {
   void supplierIsCreatedOnMessageReceived() throws InterruptedException {
     kafkaTemplate.send("supplier-created-event", "supplier");
 
-    Thread.sleep(150); // works on my machine
-    assertThat(supplierRepo.findByName("supplier"))
-        .describedAs("Supplier was inserted")
-        .isNotNull();
+//    Thread.sleep(50); // works on my machine
+    Awaitility.await()
+        .atMost(ofSeconds(1))
+        .pollInterval(ofMillis(20))
+        .untilAsserted(() ->
+            assertThat(supplierRepo.findByName("supplier"))
+                .describedAs("Supplier was inserted")
+                .isNotNull());
   }
 
 }

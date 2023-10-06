@@ -1,34 +1,18 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.infra.SafetyClient;
-import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.api.dto.ProductDto;
+import victor.testing.spring.domain.Product;
+import victor.testing.spring.repo.ProductRepo;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
@@ -36,7 +20,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 @ActiveProfiles("wiremock")
 //@Sql("classpath:/sql/cleanup.sql")
 @Transactional
-public class CreateProductTest extends IntegrationTest {
+public class CreateProductBisTest extends IntegrationTest {
   @Autowired
   ProductRepo repo;
   @Autowired
@@ -76,11 +60,11 @@ public class CreateProductTest extends IntegrationTest {
   @Test
   @WithMockUser("jdoe")
   void defaultToUncategorizedForMissingCategory() {
-    ProductDto dto = new ProductDto("product-name", "sku-safe", null);
+    ProductDto dto = new ProductDto("product-name2", "sku-safe", null);
 
     service.createProduct(dto);
 
-    Product product = repo.findByName("product-name");
+    Product product = repo.findByName("product-name2");
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 }
