@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.ProductCategory;
 import victor.testing.spring.product.infra.SafetyClient;
@@ -27,8 +29,8 @@ public class ProductService {
   private final SafetyClient safetyClient;
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
-
-  public void createProduct(ProductDto productDto) {
+//@Transactional(propagation = Propagation.REQUIRES_NEW)
+  public  void createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getSku());
     boolean safe = safetyClient.isSafe(productDto.getSku()); // ⚠️ REST call inside
     if (!safe) {

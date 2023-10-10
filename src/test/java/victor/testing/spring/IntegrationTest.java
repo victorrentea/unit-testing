@@ -1,12 +1,29 @@
 package victor.testing.spring;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.product.domain.Supplier;
+import victor.testing.spring.product.repo.SupplierRepo;
 
 // #1 innocent Testcontainers test (online examples)
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Transactional
+//@Sql
 public abstract class IntegrationTest {
+  @Autowired
+  private SupplierRepo supplierRepo;
+
+  protected Long supplierId;
+  @BeforeEach
+  final void initData() {
+    supplierId = supplierRepo.save(new Supplier()).getId();
+  }
+
+
 }
 
 // ==================================================================
