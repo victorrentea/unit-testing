@@ -3,8 +3,8 @@ package victor.testing.design.purity;
 import lombok.RequiredArgsConstructor;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
-import victor.testing.spring.product.domain.Product;
-import victor.testing.spring.product.repo.ProductRepo;
+import victor.testing.spring.domain.Product;
+import victor.testing.spring.repo.ProductRepo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

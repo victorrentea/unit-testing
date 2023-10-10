@@ -4,18 +4,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
-import victor.testing.spring.product.api.dto.ProductDto;
-import victor.testing.spring.product.domain.Supplier;
-import victor.testing.spring.product.infra.SafetyClient;
-import victor.testing.spring.product.repo.ProductRepo;
-import victor.testing.spring.product.repo.SupplierRepo;
-import victor.testing.spring.product.service.ProductService;
+import victor.testing.spring.api.dto.ProductDto;
+import victor.testing.spring.domain.Supplier;
+import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static victor.testing.spring.product.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.HOME;
 
 // without the followin annotation, running tests in parallel causes flaky tests
 //@Execution(ExecutionMode.SAME_THREAD) // force all @Test in this class to run single thread when using parallel tests

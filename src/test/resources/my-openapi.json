@@ -198,7 +198,7 @@
       "ProductDto": {
         "required": [
           "name",
-          "sku"
+          "upc"
         ],
         "type": "object",
         "properties": {
@@ -209,7 +209,7 @@
           "name": {
             "type": "string"
           },
-          "sku": {
+          "upc": {
             "type": "string"
           },
           "supplierId": {
@@ -226,7 +226,7 @@
               "UNCATEGORIZED"
             ]
           },
-          "createDate": {
+          "createdDate": {
             "type": "string",
             "format": "date"
           }

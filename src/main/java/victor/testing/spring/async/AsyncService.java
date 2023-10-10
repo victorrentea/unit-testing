@@ -3,8 +3,8 @@ package victor.testing.spring.async;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import victor.testing.spring.product.domain.Supplier;
-import victor.testing.spring.product.repo.SupplierRepo;
+import victor.testing.spring.domain.Supplier;
+import victor.testing.spring.repo.SupplierRepo;
 
 import java.util.concurrent.CompletableFuture;
 

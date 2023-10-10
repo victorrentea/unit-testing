@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.design.purity.CustomerRepo;
 import victor.testing.mutation.*;
-import victor.testing.spring.product.domain.ProductCategory;
+import victor.testing.spring.domain.ProductCategory;
 import victor.testing.tools.HumanReadableTestNames;
 
 import java.util.Set;
