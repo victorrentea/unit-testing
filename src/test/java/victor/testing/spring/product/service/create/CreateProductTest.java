@@ -38,6 +38,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 // NU MERGE DACA codul testat face @Async/CompletableFuture/THreadPool sau @Transactional(propagation = Propagation.REQUIRES_NEW)
 // POATE SA NU VADA BUGURI pt ca nu se intampla niciodata COMMIT in DB
 
+@ActiveProfiles("sieu")
 @TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
 @AutoConfigureWireMock(port = 0) // publica in Spring o proprietate numita ${wiremock.server.port}
 public class CreateProductTest extends IntegrationTest {
