@@ -9,7 +9,7 @@ import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
-import victor.testing.spring.product.service.ProductService;
+import victor.testing.spring.product.service.create.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

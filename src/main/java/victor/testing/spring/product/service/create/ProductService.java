@@ -1,4 +1,4 @@
-package victor.testing.spring.product.service;
+package victor.testing.spring.product.service.create;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,9 @@ import victor.testing.spring.product.repo.SupplierRepo;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
+import victor.testing.spring.product.service.ProductMapper;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j

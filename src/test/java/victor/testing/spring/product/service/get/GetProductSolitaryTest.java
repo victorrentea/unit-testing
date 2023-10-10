@@ -5,7 +5,7 @@ import victor.testing.spring.product.domain.Product;
 import victor.testing.spring.product.domain.Supplier;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.service.ProductMapper;
-import victor.testing.spring.product.service.ProductService;
+import victor.testing.spring.product.service.create.ProductService;
 import victor.testing.spring.product.api.dto.ProductDto;
 
 import java.time.LocalDate;

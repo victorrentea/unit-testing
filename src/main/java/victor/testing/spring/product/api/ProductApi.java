@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import victor.testing.spring.product.service.ProductService;
+import victor.testing.spring.product.service.create.ProductService;
 import victor.testing.spring.product.api.dto.ProductSearchCriteria;
 import victor.testing.spring.product.api.dto.ProductSearchResult;
 import victor.testing.spring.product.api.dto.ProductDto;
