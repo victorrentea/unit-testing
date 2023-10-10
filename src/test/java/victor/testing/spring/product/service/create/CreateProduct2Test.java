@@ -5,12 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.product.api.dto.ProductDto;
 import victor.testing.spring.product.domain.Product;
-import victor.testing.spring.product.infra.SafetyClient;
 import victor.testing.spring.product.repo.ProductRepo;
 import victor.testing.spring.product.repo.SupplierRepo;
 
@@ -18,7 +16,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static victor.testing.spring.product.domain.ProductCategory.HOME;
 import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED;
 
@@ -40,7 +37,7 @@ import static victor.testing.spring.product.domain.ProductCategory.UNCATEGORIZED
 
 @TestPropertySource(properties = "safety.service.url.base=http://localhost:${wiremock.server.port}")
 @AutoConfigureWireMock(port = 0) // publica in Spring o proprietate numita ${wiremock.server.port}
-public class CreateProductTest extends IntegrationTest {
+public class CreateProduct2Test extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired

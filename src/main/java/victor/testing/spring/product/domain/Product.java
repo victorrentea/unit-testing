@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,6 +35,13 @@ public class Product {
 
     @CreatedBy // Spring assigns this at creation time from SecurityContext
     private String createdBy;
+
+    @LastModifiedDate
+    // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
+    private LocalDate modifiedDate;
+
+    @LastModifiedBy // Spring assigns this at creation time from SecurityContext
+    private String modifiedBy;
 
     public Product(String name, String sku, ProductCategory category) {
         this.name = name;
