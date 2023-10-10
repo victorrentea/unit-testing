@@ -1,4 +1,4 @@
-package victor.testing.design.onion.lib;
+package victor.testing.design.onion.domain.model;
 
 import lombok.Data;
 
