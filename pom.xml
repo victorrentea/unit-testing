@@ -134,7 +134,6 @@
             <!-- @AutoConfigureWireMock -->
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
-            <version>2.2.4.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.kafka</groupId>
