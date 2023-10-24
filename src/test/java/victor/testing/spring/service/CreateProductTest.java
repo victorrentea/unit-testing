@@ -45,8 +45,6 @@ public class CreateProductTest {
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   ProductService productService;
-//  @Captor
-//  ArgumentCaptor<Product> productCaptor;
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -83,7 +81,8 @@ public class CreateProductTest {
   void defaultsToUncategorizedWhenMissingCategory() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    String name = "name" + UUID.randomUUID(); // separate data sets per test. powerful in E2E
+    String name = "name" + UUID.randomUUID(); // Option1: separate data sets per test. powerful in E2E
+    // option2: clean the DB in between @Tests:
     ProductDto dto = new ProductDto(name, "safe", supplierId, null);
 
     productService.createProduct(dto);
