@@ -6,11 +6,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -22,12 +26,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
-@Sql(scripts = "classpath:/sql/cleanup.sql") //#2 for monster DB schemas
+//@Sql(scripts = "classpath:/sql/cleanup.sql") //#2 for monster DB schemas
+
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #3 NUKE Spring before each @Test
+//  avoid it by all means, it hurts the entire team. don't have on CI
+
+@Transactional // starts a tx for each @Test, runs all @BeforeEach in the same tx
+// unlike production, after each test method, tx rollsback automatically
+// + very simple
+// - NOT works IF @Transactional(propagation = REQUIRES_NEW) @Async
+// - MISS STUFF ('false positive test') because you never see the COMMIT:
+//     - jpa flush (UQ violation)🤔. if in your @Test after the prod call you run any SELECT, this forces JPA to auto-flush oending changes
+//     - @TransactionEventListener(AFTER_COMMIT)
 public class CreateProductTest {
   @Autowired // it replaces in the spring context the real repo with a mock that you can configure
   SupplierRepo supplierRepo;
@@ -53,6 +69,11 @@ public class CreateProductTest {
 //  @Autowired
 //  private CacheManager cacheManager;
 
+  // disable @Async multithreading for this test class
+//  @TestConfiguration
+//  @EnableAsync(annotation = DirtiesContext.class)
+//  static class DisableAsync{}
+
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
@@ -72,9 +93,11 @@ public class CreateProductTest {
     // WHEN
     productService.createProduct(dto);
 
+    System.out.println("After prod call");
+
 ////    productRepo.findById(createdId) // ideal
 ////    List<Product> list = productRepo.findAll(); // .get(0);
-    Product product = productRepo.findByName("name"); // RISK Unique?
+    Product product = productRepo.findByName("name"); // causes JPA to flush dirty changes RISK Unique?
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getUpc()).isEqualTo("safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
