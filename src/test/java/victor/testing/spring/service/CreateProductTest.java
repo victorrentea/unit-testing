@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
@@ -65,9 +66,8 @@ public class CreateProductTest {
     // WHEN
     productService.createProduct(dto);
 
-
-//    productRepo.findById(createdId) // ideal
-//    List<Product> list = productRepo.findAll(); // .get(0);
+////    productRepo.findById(createdId) // ideal
+////    List<Product> list = productRepo.findAll(); // .get(0);
     Product product = productRepo.findByName("name"); // RISK Unique?
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getUpc()).isEqualTo("safe");
@@ -76,6 +76,18 @@ public class CreateProductTest {
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+
+  @Test
+  void defaultsToUncategorizedWhenMissingCategory() {
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    when(safetyClient.isSafe("safe")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "safe", supplierId, null);
+
+    productService.createProduct(dto);
+
+    Product product = productRepo.findByName("name"); // RISK Unique?
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
