@@ -301,6 +301,9 @@
                     </includes>
                     <!-- or -->
                     <groups>integration</groups>
+                    <!-- run these tests on multiple processes forked -->
+                    <!-- exercise for you! -->
+
                 </configuration>
             </plugin>
 

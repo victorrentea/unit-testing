@@ -105,6 +105,9 @@ public class CreateProductTest {
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+
+    // @MockBean stubbing race condition
+    // the same Mockito mock is ran on 3 threads, verifying would compete with others verifiy
   }
 
   @Test
