@@ -19,7 +19,8 @@ import victor.testing.tools.TestcontainersUtils;
 @SpringBootTest
 @Testcontainers
 @Sql(scripts = "classpath:/sql/cleanup.sql") //#2 for monster DB schemas
-@AutoConfigureWireMock(port = 0) // random port
+@AutoConfigureWireMock(port = 0)
+// random port added to my spring properties as 'wiremock.server.port'
 public abstract class IntegrationTest {
 //  @MockBean
 //  protected SafetyClient safetyClient;
