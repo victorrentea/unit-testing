@@ -8,6 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -22,20 +23,12 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
-@SpringBootTest(properties = "becauseICan=forTestOnly")// ** have to be identical across test classes to reuse Test Spring Context
-@ActiveProfiles("db-mem")
-//@ActiveProfiles({"db-mem", "me-too"}) // ** have to be identical across test classes to reuse Test Spring Context
-//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Sql(scripts = "classpath:/sql/cleanup.sql") //#2 for monster DB schemas
-public class CreateProductBisTest {
+
+public class CreateProductBisTest extends IntegrationTest {
   @Autowired // it replaces in the spring context the real repo with a mock that you can configure
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockBean // ** have to be identical across test classes to reuse Test Spring Context
-  SafetyClient safetyClient;
-  @MockBean
-  KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   ProductService productService;
 

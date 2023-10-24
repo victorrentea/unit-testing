@@ -1,24 +1,11 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.cache.CacheManager;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 
@@ -26,13 +13,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Sql(scripts = "classpath:/sql/cleanup.sql") //#2 for monster DB schemas
+//@SpringBootTest
+//@ActiveProfiles("db-mem")
+//@Sql(scripts = "classpath:/sql/cleanup.sql") //#2 for monster DB schemas
 
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #3 NUKE Spring before each @Test
 //  avoid it by all means, it hurts the entire team. don't have on CI
@@ -43,15 +29,11 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // - MISS STUFF ('false positive test') because you never see the COMMIT:
 //     - jpa flush (UQ violation)🤔. if in your @Test after the prod call you run any SELECT, this forces JPA to auto-flush oending changes
 //     - @TransactionEventListener(AFTER_COMMIT)
-public class CreateProductTest {
+public class CreateProductTest extends IntegrationTest {
   @Autowired // it replaces in the spring context the real repo with a mock that you can configure
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockBean
-  SafetyClient safetyClient;
-  @MockBean
-  KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   ProductService productService;
 

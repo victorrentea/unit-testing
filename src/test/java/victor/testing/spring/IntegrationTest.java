@@ -1,12 +1,21 @@
 package victor.testing.spring;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import victor.testing.spring.infra.SafetyClient;
 
 // #1 innocent Testcontainers test (online examples)
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Sql(scripts = "classpath:/sql/cleanup.sql") //#2 for monster DB schemas
 public abstract class IntegrationTest {
+  @MockBean
+  protected SafetyClient safetyClient;
+  @MockBean
+  protected KafkaTemplate<String, String> kafkaTemplate;
 }
 
 // ==================================================================
