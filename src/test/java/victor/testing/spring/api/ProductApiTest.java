@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
 
-@DisplayNameGeneration(HumanReadableTestNames.class) // makes test names look nice
+@DisplayNameGeneration(HumanReadableTestNames.class)
 
 @SpringBootTest
 
