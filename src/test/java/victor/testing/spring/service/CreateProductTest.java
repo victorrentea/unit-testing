@@ -23,6 +23,7 @@ import victor.testing.spring.api.dto.ProductDto;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -82,11 +83,12 @@ public class CreateProductTest {
   void defaultsToUncategorizedWhenMissingCategory() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplierId, null);
+    String name = "name" + UUID.randomUUID(); // separate data sets per test. powerful in E2E
+    ProductDto dto = new ProductDto(name, "safe", supplierId, null);
 
     productService.createProduct(dto);
 
-    Product product = productRepo.findByName("name"); // RISK Unique?
+    Product product = productRepo.findByName(name); // RISK Unique?
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
