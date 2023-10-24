@@ -12,6 +12,8 @@ import java.net.URL;
 @Component
 @RequiredArgsConstructor
 public class SafetyClient {
+  private final SafetyFeignClient safetyFeignClient; // TODO use
+
   private final RestTemplate restTemplate;
   @Value("${safety.service.url.base}")
   private final URL baseUrl;
