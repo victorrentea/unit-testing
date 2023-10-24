@@ -7,7 +7,12 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -24,24 +29,25 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("db-mem")
 public class CreateProductTest {
-  @Mock
+  @MockBean // it replaces in the spring context the real repo with a mock that you can configure
   SupplierRepo supplierRepo;
-  @Mock
+  @MockBean
   ProductRepo productRepo;
-  @Mock
+  @MockBean
   SafetyClient safetyClient;
-  @Mock
+  @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
-  @InjectMocks
+  @Autowired
   ProductService productService;
-  @Captor
-  ArgumentCaptor<Product> productCaptor;
+//  @Captor
+//  ArgumentCaptor<Product> productCaptor;
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyClient.isSafe("unsafe")).thenReturn(false);
+    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "upc-unsafe", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -51,7 +57,6 @@ public class CreateProductTest {
 
   @Test
   void createOk() {
-    // GIVEN
     Supplier supplier = new Supplier().setId(13L);
     when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
     when(safetyClient.isSafe("safe")).thenReturn(true);
@@ -60,10 +65,9 @@ public class CreateProductTest {
     // WHEN
     productService.createProduct(dto);
 
-    // THEN
+    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
     verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
     Product product = productCaptor.getValue();
-
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getUpc()).isEqualTo("safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());

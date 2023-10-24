@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
@@ -40,6 +41,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @DisplayNameGeneration(HumanReadableTestNames.class) // makes test names look nice
 
 @SpringBootTest
+//@DataJpaTest //slice tests
 
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
 @EmbeddedKafka(topics = "${input.topic}") // start up an in-mem Kafka
@@ -70,10 +72,10 @@ public class ProductApiTest extends IntegrationTest {
 
   @Test
   void grayBox() throws Exception {
-    // API call
+    // API call - black
     createProduct(productDto.setName("Tree"));
 
-    // DB SELECT
+    // DB SELECT - white
     Product returnedProduct = productRepo.findAll().get(0);
     assertThat(returnedProduct.getName()).isEqualTo("Tree");
     assertThat(returnedProduct.getCreatedDate()).isToday();
