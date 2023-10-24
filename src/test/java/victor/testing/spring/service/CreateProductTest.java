@@ -21,6 +21,7 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductService;
 import victor.testing.spring.api.dto.ProductDto;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,9 +33,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class CreateProductTest {
-  @MockBean // it replaces in the spring context the real repo with a mock that you can configure
+  @Autowired // it replaces in the spring context the real repo with a mock that you can configure
   SupplierRepo supplierRepo;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
   @MockBean
   SafetyClient safetyClient;
@@ -57,20 +58,20 @@ public class CreateProductTest {
 
   @Test
   void createOk() {
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplier.getId(), HOME);
+    ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
 
     // WHEN
     productService.createProduct(dto);
 
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+
+//    productRepo.findById(createdId) // ideal
+//    List<Product> list = productRepo.findAll(); // .get(0);
+    Product product = productRepo.findByName("name"); // RISK Unique?
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getUpc()).isEqualTo("safe");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
