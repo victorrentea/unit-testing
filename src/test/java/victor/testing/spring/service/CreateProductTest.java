@@ -2,6 +2,7 @@ package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
@@ -66,6 +67,7 @@ public class CreateProductTest extends IntegrationTest {
   }
 
   @Test
+  @WithMockUser(username = "jdoe")
   void createOk() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
 //    when(safetyClient.isSafe("safe")).thenReturn(true);
@@ -83,8 +85,8 @@ public class CreateProductTest extends IntegrationTest {
     assertThat(product.getUpc()).isEqualTo("safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
-    // assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
-    //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
+     assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
+    assertThat(product.getCreatedBy()).isEqualTo("jdoe"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
 
     // @MockBean stubbing race condition

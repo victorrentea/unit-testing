@@ -229,6 +229,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <!-- @FeignClient -->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.3.3</version>

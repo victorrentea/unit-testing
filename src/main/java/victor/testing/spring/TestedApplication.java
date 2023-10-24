@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.AuditorAware;
@@ -31,6 +32,7 @@ import java.util.Optional;
 @EnableAsync
 @SpringBootApplication
 @EnableJpaAuditing
+@EnableFeignClients
 public class TestedApplication {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
