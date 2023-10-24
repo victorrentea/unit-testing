@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -26,6 +27,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Sql(scripts = "classpath:/sql/cleanup.sql") //#2 for monster DB schemas
 public class CreateProductTest {
   @Autowired // it replaces in the spring context the real repo with a mock that you can configure
   SupplierRepo supplierRepo;
@@ -39,17 +41,17 @@ public class CreateProductTest {
   ProductService productService;
 
   // #1 before/after manual cleanup - good for noSQL
-  @BeforeEach
-  @AfterEach
-  final void before() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll(); // in the correct FK direction
-    for (String cacheName : cacheManager.getCacheNames()) {
-      cacheManager.getCache(cacheName).clear();
-    }
-  }
-  @Autowired
-  private CacheManager cacheManager;
+//  @BeforeEach
+//  @AfterEach
+//  final void before() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll(); // in the correct FK direction
+//    for (String cacheName : cacheManager.getCacheNames()) {
+//      cacheManager.getCache(cacheName).clear();
+//    }
+//  }
+//  @Autowired
+//  private CacheManager cacheManager;
 
   @Test
   void createThrowsForUnsafeProduct() {
