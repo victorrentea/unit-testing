@@ -36,7 +36,6 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #3 NUKE Spring before each @Test
 //  avoid it by all means, it hurts the entire team. don't have on CI
-
 //@Transactional // starts a tx for each @Test, runs all @BeforeEach in the same tx
 // unlike production, after each test method, tx rollsback automatically
 // + very simple

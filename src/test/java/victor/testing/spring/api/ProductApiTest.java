@@ -72,7 +72,7 @@ public class ProductApiTest extends IntegrationTest {
 
   @Test
   void grayBox() throws Exception {
-    // API call - black
+    // REST API call - black
     createProduct(productDto.setName("Tree"));
 
     // DB SELECT - white
