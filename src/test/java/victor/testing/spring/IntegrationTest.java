@@ -3,6 +3,7 @@ package victor.testing.spring;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -14,12 +15,14 @@ import victor.testing.spring.infra.SafetyClient;
 import victor.testing.tools.TestcontainersUtils;
 
 // #1 innocent Testcontainers test (online examples)
+@ActiveProfiles("wiremock")
 @SpringBootTest
 @Testcontainers
 @Sql(scripts = "classpath:/sql/cleanup.sql") //#2 for monster DB schemas
+@AutoConfigureWireMock(port = 0) // random port
 public abstract class IntegrationTest {
-  @MockBean
-  protected SafetyClient safetyClient;
+//  @MockBean
+//  protected SafetyClient safetyClient;
   @MockBean
   protected KafkaTemplate<String, String> kafkaTemplate;
 

@@ -35,7 +35,7 @@ public class CreateProductBisTest extends IntegrationTest {
   @Test
   void defaultsToUncategorizedWhenMissingCategory() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(safetyClient.isSafe("safe")).thenReturn(true);
+//    when(safetyClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safe", supplierId, null);
 
     productService.createProduct(dto);

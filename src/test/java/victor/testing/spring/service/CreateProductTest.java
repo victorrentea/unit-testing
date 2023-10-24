@@ -57,7 +57,7 @@ public class CreateProductTest extends IntegrationTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
+//    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "upc-unsafe", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -68,7 +68,7 @@ public class CreateProductTest extends IntegrationTest {
   @Test
   void createOk() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(safetyClient.isSafe("safe")).thenReturn(true);
+//    when(safetyClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
 
     // WHEN
@@ -94,7 +94,7 @@ public class CreateProductTest extends IntegrationTest {
   @Test
   void defaultsToUncategorizedWhenMissingCategory() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(safetyClient.isSafe("safe")).thenReturn(true);
+//    when(safetyClient.isSafe("safe")).thenReturn(true);
     // Option1: separate data sets per test. powerful in E2E
     // option2: clean the DB in between @Tests:
     ProductDto dto = new ProductDto("name", "safe", supplierId, null);
