@@ -70,10 +70,12 @@ public class ProductApiTest extends IntegrationTest {
 
   @Test
   void grayBox() throws Exception {
-    // API call
-    createProduct(productDto.setName("Tree"));
+    // repo.save(..); Given
 
-    // DB SELECT
+    // API call (when)
+    createProductApi(productDto.setName("Tree"));
+
+    // direct DB SELECT (then)
     Product returnedProduct = productRepo.findAll().get(0);
     assertThat(returnedProduct.getName()).isEqualTo("Tree");
     assertThat(returnedProduct.getCreatedDate()).isToday();
@@ -84,10 +86,10 @@ public class ProductApiTest extends IntegrationTest {
   @Test
   void blackBox() throws Exception {
     // API call #1
-    createProduct(productDto.setName("Tree"));
+    createProductApi(productDto.setName("Tree"));
 
     // API call #2
-    List<ProductSearchResult> results = searchProduct(criteria.setName("Tree"));
+    List<ProductSearchResult> results = searchProductApi(criteria.setName("Tree"));
     assertThat(results).hasSize(1);
     assertThat(results.get(0).getName()).isEqualTo("Tree");
   }
@@ -95,16 +97,16 @@ public class ProductApiTest extends IntegrationTest {
   @Test
   void userJourney() throws Exception {
     // API call #1
-    createProduct(productDto.setName("Tree"));
+    createProductApi(productDto.setName("Tree"));
 
     // API call #2
-    List<ProductSearchResult> results = searchProduct(criteria.setName("Tree"));
+    List<ProductSearchResult> results = searchProductApi(criteria.setName("Tree"));
     assertThat(results).hasSize(1);
     assertThat(results.stream().map(ProductSearchResult::getName)).containsExactly("Tree");
     Long productId = results.get(0).getId();
 
     // API call #3
-    ProductDto dto = getProduct(productId);
+    ProductDto dto = getProductApi(productId);
     assertThat(dto.getCategory()).isEqualTo(productDto.category);
     assertThat(dto.getUpc()).isEqualTo(productDto.getUpc());
     assertThat(dto.getCreatedDate()).isToday();
@@ -113,7 +115,7 @@ public class ProductApiTest extends IntegrationTest {
 
   // ==================== test-DSL (helper/framework) ======================
 
-  private void createProduct(ProductDto request) throws Exception {
+  private void createProductApi(ProductDto request) throws Exception {
     mockMvc.perform(createProductRequest(request)) // can be set as default
         .andExpect(status().is2xxSuccessful())
         .andExpect(header().exists("Location"));
@@ -124,7 +126,7 @@ public class ProductApiTest extends IntegrationTest {
         .contentType(APPLICATION_JSON);
   }
 
-  private List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) throws Exception {
+  private List<ProductSearchResult> searchProductApi(ProductSearchCriteria criteria) throws Exception {
     String responseJson = mockMvc.perform(post("/product/search")
             .content(jackson.writeValueAsString(criteria))
             .contentType(APPLICATION_JSON)
@@ -136,7 +138,7 @@ public class ProductApiTest extends IntegrationTest {
     return List.of(jackson.readValue(responseJson, ProductSearchResult[].class)); // trick to unmarshall a collection<obj>
   }
 
-  private ProductDto getProduct(long productId) throws Exception {
+  private ProductDto getProductApi(long productId) throws Exception {
     String responseJson = mockMvc.perform(get("/product/{id}", productId))
         .andExpect(status().is2xxSuccessful())
         .andReturn().getResponse().getContentAsString();
