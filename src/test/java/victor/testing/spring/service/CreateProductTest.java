@@ -69,6 +69,7 @@ public class CreateProductTest {
     productService.createProduct(dto);
 
     log.info("THEN: verificarile de dupa");
+    assertThat(productRepo.count()).isEqualTo(1);
     Product product = productRepo.findByName("name").get(0); // SELECT
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getUpc()).isEqualTo("upc-safe");
@@ -89,6 +90,7 @@ public class CreateProductTest {
 
     productService.createProduct(dto);
 
+    assertThat(productRepo.count()).isEqualTo(1);
     Product product = productRepo.findByName("name").get(0); // SELECT
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
