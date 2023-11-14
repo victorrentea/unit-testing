@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
@@ -87,6 +88,7 @@ public class CreateProductTest {
   }
 
   @Test
+  @WithMockUser(username = "user")
   void createOk() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);// INSERT
@@ -102,8 +104,8 @@ public class CreateProductTest {
     assertThat(product.getUpc()).isEqualTo("upc-safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
-    //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
-    //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
+    assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
+    assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
 
     // intreaba mockul daca s-a chemat metoda #send
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");

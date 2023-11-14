@@ -31,7 +31,7 @@ public class Product {
     private LocalDate createdDate;
 
     @CreatedBy // Spring assigns this at creation time from SecurityContext
-    private String createdBy;
+    private String createdBy; // fitza, magie
 
     public Product(String name, String upc, ProductCategory category) {
         this.name = name;
