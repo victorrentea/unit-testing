@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -37,6 +38,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 @Slf4j
 @SpringBootTest
 @ActiveProfiles("db-mem") // H2 in-memory
+@Sql(scripts = "/sql/cleanup.sql")
 public class CreateProductTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -50,12 +52,12 @@ public class CreateProductTest {
   ProductService productService;
 
   // #1 cleanup manual JPA
-  @BeforeEach
-  @AfterEach
-  final void cleanup() {
-    productRepo.deleteAll(); //in ordinea FK
-    supplierRepo.deleteAll();
-  }
+//  @BeforeEach
+//  @AfterEach
+//  final void cleanup() {
+//    productRepo.deleteAll(); //in ordinea FK
+//    supplierRepo.deleteAll();
+//  }
 
   @Test
   void createThrowsForUnsafeProduct() {
