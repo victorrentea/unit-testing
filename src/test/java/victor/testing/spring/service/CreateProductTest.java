@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -30,12 +31,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
+@Slf4j
 @SpringBootTest
 @ActiveProfiles("db-mem") // H2 in-memory
 public class CreateProductTest {
-  @MockBean
+  @Autowired
   SupplierRepo supplierRepo;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
   @MockBean
   SafetyClient safetyClient;
@@ -58,22 +60,18 @@ public class CreateProductTest {
 
   @Test
   void createOk() {
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId()))
-        .thenReturn(Optional.of(supplier));
-    when(safetyClient.isSafe("upc-safe"))
-        .thenReturn(true);
-    ProductDto dto = new ProductDto("name", "upc-safe", supplier.getId(), HOME);
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    when(safetyClient.isSafe("upc-safe")).thenReturn(true);// INSERT
+    ProductDto dto = new ProductDto("name", "upc-safe", supplierId, HOME);
 
-    // WHEN
+    // "WHEN" = call to code under test
     productService.createProduct(dto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    log.info("THEN: verificarile de dupa");
+    Product product = productRepo.findByName("name").get(0); // SELECT
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getUpc()).isEqualTo("upc-safe");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic

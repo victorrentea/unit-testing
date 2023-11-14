@@ -26,6 +26,7 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
 
+  // TODO nice to have :return new ID
   public void createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getUpc());
     boolean safe = safetyClient.isSafe(productDto.getUpc()); // ⚠️ REST call inside
