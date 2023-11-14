@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -41,7 +42,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @Slf4j
 @SpringBootTest
-@ActiveProfiles("db-mem") // H2 in-memory
+@ActiveProfiles({"db-mem","wiremock"}) // H2 in-memory
 //@Sql(scripts = "/sql/cleanup.sql") // #2
 
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #3 CEA MAI PROASTA
@@ -55,13 +56,14 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // 1 propagation=REQUIRES_NEW
 // 2 @Async
 // 3 PL/SQL chemat da COMMIT el de capul lui pe tx ta
+@AutoConfigureWireMock(port = 0) // start a http server locally on a random port
 public class CreateProductTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockBean
-  SafetyClient safetyClient;
+//  @MockBean
+//  SafetyClient safetyClient;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
@@ -78,8 +80,7 @@ public class CreateProductTest {
   @Test
   void createThrowsForUnsafeProduct() {
     // programezi mockul ce sa raspunda
-    when(safetyClient.isSafe("upc-unsafe"))
-        .thenReturn(false);
+//    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "upc-unsafe", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -91,7 +92,7 @@ public class CreateProductTest {
   @WithMockUser(username = "user")
   void createOk() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(safetyClient.isSafe("upc-safe")).thenReturn(true);// INSERT
+//    when(safetyClient.isSafe("upc-safe")).thenReturn(true);// INSERT
     ProductDto dto = new ProductDto("name", "upc-safe", supplierId, HOME);
 
     // "WHEN" = call to code under test
@@ -114,7 +115,7 @@ public class CreateProductTest {
   @Test
   void nullCategoryDefaultToUncategorized() {
     Long supplierId = supplierRepo.save(new Supplier()).getId();
-    when(safetyClient.isSafe("upc-safe")).thenReturn(true);// INSERT
+//    when(safetyClient.isSafe("upc-safe")).thenReturn(true);// INSERT
     ProductDto dto = new ProductDto("name", "upc-safe", supplierId, null);
 
     productService.createProduct(dto);
