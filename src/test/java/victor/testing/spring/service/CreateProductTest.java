@@ -7,7 +7,12 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -25,17 +30,18 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("db-mem") // H2 in-memory
 public class CreateProductTest {
-  @Mock // un obiect fals pe care il pot
+  @MockBean
   SupplierRepo supplierRepo;
-  @Mock
+  @MockBean
   ProductRepo productRepo;
-  @Mock
+  @MockBean
   SafetyClient safetyClient;
-  @Mock
+  @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   @Test
