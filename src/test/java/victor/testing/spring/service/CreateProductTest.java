@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -38,7 +39,14 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 @Slf4j
 @SpringBootTest
 @ActiveProfiles("db-mem") // H2 in-memory
-@Sql(scripts = "/sql/cleanup.sql")
+//@Sql(scripts = "/sql/cleanup.sql") // #2
+@Transactional // spre deosebire de codu de prod, @Transactional pe teste da ROLLBACK dupa test#4
+// porneste o tranzactie noua pentru fiecare @Test, in ea se face INSERT, SELECT assert, dupa test : ROLLBACK
+//   tx de test se propaga in codul testat
+// Limitari:
+// 1 propagation=REQUIRES_NEW
+// 2 @Async
+// 3 PL/SQL chemat da COMMIT el de capul lui pe tx ta
 public class CreateProductTest {
   @Autowired
   SupplierRepo supplierRepo;
