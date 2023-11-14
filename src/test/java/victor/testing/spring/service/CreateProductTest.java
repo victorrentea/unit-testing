@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
@@ -40,7 +42,12 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 @SpringBootTest
 @ActiveProfiles("db-mem") // H2 in-memory
 //@Sql(scripts = "/sql/cleanup.sql") // #2
-@Transactional // spre deosebire de codu de prod, @Transactional pe teste da ROLLBACK dupa test#4
+
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #3 CEA MAI PROASTA
+// rebuteaza Springul inainte de fiecare test; daca db e in-mem, bubuie si ea.
+// MANANCA TIMP 30 sec x cate @Teste ai in clasa. eg 10 teste x 30s = +5 min pe CI = crima
+
+@Transactional // #4 spre deosebire de codu de prod, @Transactional pe teste da ROLLBACK dupa test#4
 // porneste o tranzactie noua pentru fiecare @Test, in ea se face INSERT, SELECT assert, dupa test : ROLLBACK
 //   tx de test se propaga in codul testat
 // Limitari:
