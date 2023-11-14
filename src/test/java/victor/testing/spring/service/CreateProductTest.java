@@ -30,6 +30,7 @@ import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @Slf4j
 @SpringBootTest
@@ -78,6 +79,18 @@ public class CreateProductTest {
 
     // intreaba mockul daca s-a chemat metoda #send
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+
+  @Test
+  void nullCategoryDefaultToUncategorized() {
+    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    when(safetyClient.isSafe("upc-safe")).thenReturn(true);// INSERT
+    ProductDto dto = new ProductDto("name", "upc-safe", supplierId, null);
+
+    productService.createProduct(dto);
+
+    Product product = productRepo.findByName("name").get(0); // SELECT
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
