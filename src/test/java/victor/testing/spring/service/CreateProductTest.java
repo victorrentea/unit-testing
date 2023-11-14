@@ -27,7 +27,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
-  @Mock
+  @Mock // un obiect fals pe care il pot
   SupplierRepo supplierRepo;
   @Mock
   ProductRepo productRepo;
@@ -40,7 +40,9 @@ public class CreateProductTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
+    // programezi mockul ce sa raspunda
+    when(safetyClient.isSafe("upc-unsafe"))
+        .thenReturn(false);
     ProductDto dto = new ProductDto("name", "upc-unsafe", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -51,8 +53,10 @@ public class CreateProductTest {
   @Test
   void createOk() {
     Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
-    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
+    when(supplierRepo.findById(supplier.getId()))
+        .thenReturn(Optional.of(supplier));
+    when(safetyClient.isSafe("upc-safe"))
+        .thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", supplier.getId(), HOME);
 
     // WHEN
@@ -67,6 +71,8 @@ public class CreateProductTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
+
+    // intreaba mockul daca s-a chemat metoda #send
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
