@@ -37,7 +37,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 @AutoConfigureWireMock(port = 0)
 @ActiveProfiles("wiremock")
 //@Sql("classpath:/sql/cleanup.sql") //#2
-//@Transactional //#3
+@Transactional //#3
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #4 - time waste
 public class CreateProductTest extends IntegrationTest {
   @Autowired

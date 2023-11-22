@@ -21,7 +21,7 @@ import java.util.List;
 public class ProductApi {
    private final ProductService service;
 
-   @PostMapping("product/create")
+   @PostMapping("product/creates")
    @Secured("ROLE_ADMIN")
    public ResponseEntity<Long> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException {
       Long id = service.createProduct(productDto);

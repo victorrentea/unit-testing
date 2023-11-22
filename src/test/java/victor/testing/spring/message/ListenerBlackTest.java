@@ -34,10 +34,15 @@ public class ListenerBlackTest extends IntegrationTest {
   void supplierIsCreatedOnMessageReceived() throws InterruptedException {
     kafkaTemplate.send("supplier-created-event", "supplier");
 
-//    Thread.sleep(50); // works on my machine
-    assertThat(supplierRepo.findByName("supplier"))
-        .describedAs("Supplier was inserted")
-        .isNotNull();
+//    Thread.sleep(70); // works on my machine
+    Awaitility.await()
+        .atMost(ofSeconds(1))
+        .pollInterval(ofMillis(20))
+        .untilAsserted(() ->
+            assertThat(supplierRepo.findByName("supplier"))
+                .describedAs("Supplier was inserted")
+                .isNotNull()
+        );
   }
 
 }
