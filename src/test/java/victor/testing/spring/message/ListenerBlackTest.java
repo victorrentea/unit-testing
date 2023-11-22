@@ -34,13 +34,9 @@ public class ListenerBlackTest extends IntegrationTest {
     kafkaTemplate.send("supplier-created-event", "supplier");
 
 //    Thread.sleep(50); // works on my machine
-    Awaitility.await()
-        .atMost(ofSeconds(1))
-        .pollInterval(ofMillis(20))
-        .untilAsserted(() ->
-            assertThat(supplierRepo.findByName("supplier"))
-                .describedAs("Supplier was inserted")
-                .isNotNull());
+    assertThat(supplierRepo.findByName("supplier"))
+        .describedAs("Supplier was inserted")
+        .isNotNull();
   }
 
 }

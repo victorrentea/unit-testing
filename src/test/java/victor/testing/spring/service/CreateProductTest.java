@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,13 +30,15 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @AutoConfigureWireMock(port = 0)
 @ActiveProfiles("wiremock")
-//@Sql("classpath:/sql/cleanup.sql")
-@Transactional
+//@Sql("classpath:/sql/cleanup.sql") //#2
+//@Transactional //#3
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #4 - time waste
 public class CreateProductTest extends IntegrationTest {
   @Autowired
   ProductRepo repo;
@@ -45,7 +48,7 @@ public class CreateProductTest extends IntegrationTest {
 //  @AfterEach
 //  @BeforeEach
 //  final void cleanup() {
-//    repo.deleteAll();
+//    repo.deleteAll(); //#1
 //  }
 
   @Test
@@ -69,7 +72,7 @@ public class CreateProductTest extends IntegrationTest {
     assertThat(product.getName()).isEqualTo("product-name");
     assertThat(product.getSku()).isEqualTo("sku-safe");
     assertThat(product.getCategory()).isEqualTo(HOME);
-     assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
+    assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
     assertThat(product.getCreatedBy()).isEqualTo("jdoe"); // field set via Spring Magic
   }
 

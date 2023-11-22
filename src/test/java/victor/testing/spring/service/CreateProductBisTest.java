@@ -16,21 +16,15 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
+// another test class using an IDENTICAL Spring Config
 @AutoConfigureWireMock(port = 0)
 @ActiveProfiles("wiremock")
-//@Sql("classpath:/sql/cleanup.sql")
 @Transactional
 public class CreateProductBisTest extends IntegrationTest {
   @Autowired
   ProductRepo repo;
   @Autowired
   ProductService service;
-
-//  @AfterEach
-//  @BeforeEach
-//  final void cleanup() {
-//    repo.deleteAll();
-//  }
 
   @Test
   void throwsForUnsafeProduct() {
@@ -39,32 +33,5 @@ public class CreateProductBisTest extends IntegrationTest {
     assertThatThrownBy(() -> service.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
-  }
-
-  @Test
-  @WithMockUser("jdoe")
-  void happy() {
-    ProductDto dto = new ProductDto("product-name", "sku-safe", HOME);
-
-    Long newId = service.createProduct(dto);
-
-    assertThat(newId).isNotNull();
-    Product product = repo.findByName("product-name");
-    assertThat(product.getName()).isEqualTo("product-name");
-    assertThat(product.getSku()).isEqualTo("sku-safe");
-    assertThat(product.getCategory()).isEqualTo(HOME);
-     assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic
-    assertThat(product.getCreatedBy()).isEqualTo("jdoe"); // field set via Spring Magic
-  }
-
-  @Test
-  @WithMockUser("jdoe")
-  void defaultToUncategorizedForMissingCategory() {
-    ProductDto dto = new ProductDto("product-name2", "sku-safe", null);
-
-    service.createProduct(dto);
-
-    Product product = repo.findByName("product-name2");
-    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 }
