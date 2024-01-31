@@ -1,10 +1,15 @@
 package victor.testing.kata.demo;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.InvocationInterceptor;
+import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.MockedStatic;
 
+import java.lang.reflect.Method;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -262,18 +267,19 @@ public class MockitoShowcaseTest {
 
 	@Test
 	public void mockStaticTime() {
-		LocalDateTime fixed = LocalDateTime.parse("2019-09-29T23:07:01");
-		LocalDateTime nowFromTestedCode;
-		try (MockedStatic<LocalDateTime> mock = mockStatic(LocalDateTime.class)) {
-			mock.when(LocalDateTime::now).thenReturn(fixed);
+		LocalDate fixed = LocalDate.parse("2019-09-29");
+		// also see TimeExtensionTest
+		try (MockedStatic<LocalDate> mock = mockStatic(LocalDate.class)) {
+			// given
+			mock.when(LocalDate::now).thenReturn(fixed);
 
-			// tested code
-			nowFromTestedCode = LocalDateTime.now();
+			// when (tested code)
+    	String actual = "Current date is " + LocalDate.now();
+
+			// then
+			System.out.println(actual);
+			assertThat(actual).isEqualTo("Current date is 2019-09-29");
 		}
-		// back in tests
-		System.out.println(nowFromTestedCode);
-		assertThat(nowFromTestedCode.getYear()).isLessThan(2021);
-		// Note: you CANNOT use this technique to mock System.currentTimeMillis() used internally by `new Date()`
 	}
 
 }
