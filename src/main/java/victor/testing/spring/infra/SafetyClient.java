@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URL;
 
 @Slf4j
-@Component
+@Component // Adapter design pattern
 @RequiredArgsConstructor
 public class SafetyClient {
   private final SafetyFeignClient safetyFeignClient; // TODO use
@@ -17,6 +17,7 @@ public class SafetyClient {
   private final RestTemplate restTemplate;
   @Value("${safety.service.url.base}")
   private final URL baseUrl;
+//  private final DeliveryService deliveryService; // interface fro mthe api jar
 
   public record SafetyResponse(String category, String detailsUrl) {
   }
