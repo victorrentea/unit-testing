@@ -22,7 +22,7 @@ public class ProductApi {
    private final ProductService service;
 
    @PostMapping("product/create")
-   @Secured("ROLE_ADMIN")
+   @Secured("ROLE_ADMIN") // THIS
    public ResponseEntity<Void> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException {
       service.createProduct(productDto);
       return ResponseEntity.created(new URI("http://created-uri")).build();
