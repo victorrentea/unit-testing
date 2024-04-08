@@ -9,8 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
-import static java.time.LocalDateTime.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
@@ -29,7 +29,7 @@ class DiagnosticTest {
         .thenReturn(true);
     when(clientMock.receive()).thenReturn("diagnostic info ceva");
 
-    sut.checkTransmission(true, now());
+    sut.checkTransmission(true);
 
     verify(clientMock).disconnect(true);
     verify(clientMock).send(Client.DIAGNOSTIC_MESSAGE);
@@ -42,23 +42,24 @@ class DiagnosticTest {
     when(clientMock.getOnlineStatus())
         .thenReturn(false);
 
-    assertThatThrownBy(() -> sut.checkTransmission(true, now()));
+    assertThatThrownBy(() -> sut.checkTransmission(true));
   }
 
   @Test
   void experiment() {
     when(clientMock.getOnlineStatus())
         .thenReturn(true);
-    LocalDateTime NOW = now();
 
-    sut.checkTransmission(true, NOW);
+    sut.checkTransmission(true);
 
     var captor =
         ArgumentCaptor.forClass(ClientConfiguration.class);
     verify(clientMock).configure(captor.capture());
     ClientConfiguration config = captor.getValue();
     assertThat(config.getAckMode()).isEqualTo(NORMAL);
-    assertThat(config.getSessionStart()).isEqualTo(NOW);
+    assertThat(config.getSessionStart())
+//        .isEqualTo(LocalDateTime.now());
+        .isCloseTo(LocalDateTime.now(), byLessThan(1, ChronoUnit.SECONDS));
   }
 
 //  @AfterEach

@@ -5,6 +5,7 @@ import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
@@ -17,7 +18,7 @@ public class Diagnostic {
 		this.client = client;
 	}
 
-	public void checkTransmission(boolean force, LocalDateTime now) {
+	public void checkTransmission(boolean force) {
 		client.disconnect(force);
 
 		if (! client.getOnlineStatus()) {
@@ -26,7 +27,7 @@ public class Diagnostic {
 
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + randomUUID());
-		config.setSessionStart(now);
+		config.setSessionStart(LocalDateTime.now());
 		config.setAckMode(AckMode.NORMAL);
 		client.configure(config);
 
