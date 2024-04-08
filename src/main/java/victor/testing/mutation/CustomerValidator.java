@@ -1,12 +1,17 @@
 package victor.testing.mutation;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.Predicate;
 
+@Slf4j
 public class CustomerValidator {
 	public void validate(Customer customer) {
 		if (customer.getName() == null) {
-			throw new IllegalArgumentException("Missing customer name");
+//			log.error("Missing customer name"); // mai bine pune mesajul in exceptie
+			throw new IllegalArgumentException();
 		}
+		customer.setName(customer.getName().trim()); // mutate this
 		if (customer.getEmail() == null) {
 			throw new IllegalArgumentException("Missing customer email");
 		}
