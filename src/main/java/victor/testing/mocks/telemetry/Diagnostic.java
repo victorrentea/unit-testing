@@ -9,8 +9,6 @@ import java.util.UUID;
 import static java.util.UUID.randomUUID;
 
 public class Diagnostic {
-	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
-
 	private Client client;
 	private String diagnosticInfo = "";
 
