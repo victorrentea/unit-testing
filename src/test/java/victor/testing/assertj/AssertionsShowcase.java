@@ -122,7 +122,7 @@ public class AssertionsShowcase {
       }
       @Test
       public void stringStarts() {
-         assertThat(oneSecAgo).isCloseTo(now(), byLessThan(1, ChronoUnit.MINUTES));
+         assertThat(oneSecAgo).isCloseTo(now(), byLessThan(1, ChronoUnit.MICROS));
       }
    }
 

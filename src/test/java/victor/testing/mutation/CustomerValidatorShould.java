@@ -1,7 +1,6 @@
 package victor.testing.mutation;
 
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.tools.HumanReadableTestNames;
@@ -16,23 +15,15 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 public class CustomerValidatorShould {
   CustomerValidator validator = new CustomerValidator();
 
-  private Customer validCustomer() {
-    return new Customer()
-        .setName("::name::")
-        .setEmail("::email::")
-        .setAddress(new Address()
-            .setCity("::city::"));
-  }
-
   @Test
   void happy() {
-    Customer customer = validCustomer();
+    Customer customer = TestData.validCustomer();
 
     assertDoesNotThrow(() -> validator.validate(customer));
   }
   @Test
   void trimsCity() {
-    Customer customer = validCustomer()
+    Customer customer = TestData.validCustomer()
         .setAddress(new Address()
             .setCity("  ::city:: "));
 
@@ -43,7 +34,7 @@ public class CustomerValidatorShould {
   }
   @Test
   void trimsName() {
-    Customer customer = validCustomer().setName(" ::name::  ");
+    Customer customer = TestData.validCustomer().setName(" ::name::  ");
 
     validator.validate(customer);
 
@@ -53,7 +44,7 @@ public class CustomerValidatorShould {
 
   @Test
   void throwsDueToMissingName() {
-    Customer customer = validCustomer().setName(null);
+    Customer customer = TestData.validCustomer().setName(null);
 
     assertThatThrownBy(() -> validator.validate(customer))
         .isInstanceOf(IllegalArgumentException.class);
@@ -61,7 +52,7 @@ public class CustomerValidatorShould {
 
   @Test
   void throwsDueToMissingEmail() {
-    Customer customer = validCustomer().setEmail(null);
+    Customer customer = TestData.validCustomer().setEmail(null);
 
     assertThatThrownBy(() -> validator.validate(customer))
         .isInstanceOf(IllegalArgumentException.class)
@@ -69,7 +60,7 @@ public class CustomerValidatorShould {
   }
   @Test
   void throwsDueToMissingAddressCity() {
-    Customer customer = validCustomer()
+    Customer customer = TestData.validCustomer()
         .setAddress(new Address()
             .setCity(null));
 
@@ -78,7 +69,7 @@ public class CustomerValidatorShould {
   }
   @Test
   void throwsDueToAddressCityTooShort() {
-    Customer customer = validCustomer()
+    Customer customer = TestData.validCustomer()
         .setAddress(new Address()
             .setCity("AB"));
 
