@@ -45,7 +45,10 @@ public class TennisGameParameterized5Test {
 
    @ParameterizedTest(name = "Given player 1 scored {0} point(s) and player 2 scored {1} point((s), the score should be {2}")
    @MethodSource("data")
-   void theTest(int player1Score, int player2Score, String expectedValue) {
+   void theTest(int player1Score, int player2Score, String expectedValue,
+                boolean featureFlag45
+                ) {
+
       // given
       String actual = translateScore(player1Score, player2Score);
 
