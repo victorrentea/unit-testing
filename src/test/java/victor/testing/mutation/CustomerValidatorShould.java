@@ -39,6 +39,7 @@ public class CustomerValidatorShould {
 @Test
    void throwsDueToNullEmail() {
       Customer customer = new Customer();
+      customer.setName("::name::");
       customer.setAddress(new Address());
       customer.getAddress().setCity("  ::city:: ");
 
