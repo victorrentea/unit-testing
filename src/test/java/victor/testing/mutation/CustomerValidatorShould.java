@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 
 
@@ -23,6 +24,17 @@ public class CustomerValidatorShould {
 
       assertThat(customer.getAddress().getCity())
           .isEqualTo("::city::");
+   }
+
+    @Test
+   void throwsDueToNullName() {
+      Customer customer = new Customer();
+      customer.setEmail("::email::");
+      customer.setAddress(new Address());
+      customer.getAddress().setCity("  ::city:: ");
+
+      assertThatThrownBy(()->validator.validate(customer))
+          .isInstanceOf(IllegalArgumentException.class);
    }
 
 }
