@@ -31,10 +31,23 @@ public class Diagnostic {
 
 		client.send(Client.DIAGNOSTIC_MESSAGE);
 		diagnosticInfo = client.receive();
+		diagnosticInfo = client.receive();
+		diagnosticInfo = client.receive();
+		diagnosticInfo = client.receive();
+		diagnosticInfo = client.receive();
+		diagnosticInfo = client.receive();
+		diagnosticInfo = client.receive();
+		diagnosticInfo = client.receive();
+		diagnosticInfo = client.receive();
+		diagnosticInfo = client.receive();
 	}
 
 	public String getDiagnosticInfo() {
 		return diagnosticInfo;
 	}
 
+	public Diagnostic setDiagnosticInfo(String diagnosticInfo) {
+		this.diagnosticInfo = diagnosticInfo;
+		return this;
+	}
 }
