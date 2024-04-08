@@ -26,7 +26,7 @@ public class CustomerValidatorShould {
           .isEqualTo("::city::");
    }
 
-    @Test
+   @Test
    void throwsDueToNullName() {
       Customer customer = new Customer();
       customer.setEmail("::email::");
@@ -36,5 +36,14 @@ public class CustomerValidatorShould {
       assertThatThrownBy(()->validator.validate(customer))
           .isInstanceOf(IllegalArgumentException.class);
    }
+@Test
+   void throwsDueToNullEmail() {
+      Customer customer = new Customer();
+      customer.setAddress(new Address());
+      customer.getAddress().setCity("  ::city:: ");
 
+      assertThatThrownBy(()->validator.validate(customer))
+          .isInstanceOf(IllegalArgumentException.class)
+          .hasMessage("Missing customer email");
+   }
 }
