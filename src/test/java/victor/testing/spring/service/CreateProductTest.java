@@ -9,6 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.api.dto.ProductDto;
@@ -25,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
@@ -35,6 +37,17 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
+
+//@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
+// comportament anti-social: iti ranesti semenii care stau
+// sa astepte 30 min dupa build. A NU SE PUNE PE GIT
+// decat cu un eseu de 3 paragrafe/300 cuvinte DE CE AI NEVOIE
+
+// cand se foloseste totusi:
+//- cand vrei sa testezi extensii de spring / lucruri de la bootup de spring
+//- cand ai beanuri stateful (counteri...)
+// cacheuri
+
 @Transactional // pe clasa = pe toate metodele; ca tot @Test + @BeforeEach dinainte
 // ruleaza intr-o tranzactie. daca pleci din @Test, se face ROLLBACK nu commit
 // foarte sexy, curata automat tot ce ai pus, dar poti rata:
