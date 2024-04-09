@@ -1,34 +1,24 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.spring.service.ProductService;
-import victor.testing.spring.api.dto.ProductDto;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
@@ -41,6 +31,20 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Transactional // pe clasa = pe toate metodele; ca tot @Test + @BeforeEach dinainte
+// ruleaza intr-o tranzactie. daca pleci din @Test, se face ROLLBACK nu commit
+// foarte sexy, curata automat tot ce ai pus, dar poti rata:
+// - UQ la insert/update
+// - FK violation
+// - not null
+// - triggeri de DB
+// limitari: nu poti testa asa cod care foloseste:
+// - @Async
+// - @Transactional(REQUIRES_NEW)
+
+
+
+//@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 public class CreateProductTest {
   @Autowired // creeaza un Mock cu mockito pe care il pune ca si bean in Spring
   SupplierRepo supplierRepo;
@@ -53,12 +57,12 @@ public class CreateProductTest {
   @Autowired
   ProductService productService;
 
-  @BeforeEach
-  @AfterEach
-  public void cleanupDB() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
+//  @BeforeEach
+//  @AfterEach
+//  public void cleanupDB() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -71,6 +75,7 @@ public class CreateProductTest {
   }
 
   @Test
+  @WithMockUser(username = "user", roles = "ADMIN")
   void createOk() {
     Supplier supplier = supplierRepo.save(new Supplier());
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
@@ -78,6 +83,7 @@ public class CreateProductTest {
 
     // WHEN
     productService.createProduct(dto);
+    System.out.println("inapoi");
 
     // a)
     List<Product> tate = productRepo.findAll();
@@ -90,8 +96,8 @@ public class CreateProductTest {
     assertThat(product.getUpc()).isEqualTo("upc-safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
     assertThat(product.getCategory()).isEqualTo(HOME);
-    //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
-    //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
+    assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
+    assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
@@ -102,12 +108,9 @@ public class CreateProductTest {
     ProductDto dto = new ProductDto("name", "upc-safe", supplier.getId(), null);
 
     // WHEN
-    productService.createProduct(dto);
+    Long id = productService.createProduct(dto);
 
-    List<Product> tate = productRepo.findAll();
-    assertThat(tate).hasSize(1);
-    Product product = tate.get(0);
-
+    Product product = productRepo.findById(id).orElseThrow();
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
