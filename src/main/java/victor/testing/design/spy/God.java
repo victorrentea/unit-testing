@@ -19,8 +19,9 @@ public class God {
       return "regular";
    }
 
-   private  void low(Order order) { // Package Protected
-      // complexity requiring 5+ tests
+   @VisibleForTesting // rupt incapsularea doar pt teste
+   void low(Order order) { // package-private
+      // complexity requiring 15+ tests
       if (order.getCreationDate().isAfter(now().minusMonths(1))) {
          throw new IllegalArgumentException("Order too recent");
       }

@@ -19,9 +19,10 @@ class GodTest {
    // TODO test high method
 
    @Test
-   void lowThrowsIfOrderTooRecent() { // + 5 more tests like this
+   void lowThrowsIfOrderTooRecent() { // + 15 more tests like this
       Order order = new Order().setCreationDate(now());
-//      assertThatThrownBy(() -> god.low(order)).hasMessageContaining("recent");
+      assertThatThrownBy(() -> god.low(order))
+          .hasMessageContaining("recent");
    }
 
    @Test
