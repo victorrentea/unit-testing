@@ -1,6 +1,7 @@
 package victor.testing.mocks.telemetry;
 
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -21,6 +22,7 @@ public class Diagnostic {
 	public void checkTransmission(boolean force) {
 		client.disconnect(force);
 
+		System.out.println("Ora curenta este : " + LocalDateTime.now());
 		if (! client.getOnlineStatus()) {
 			throw new IllegalStateException("Unable to connect.");
 		}
@@ -36,3 +38,5 @@ public class Diagnostic {
 	}
 
 }
+
+
