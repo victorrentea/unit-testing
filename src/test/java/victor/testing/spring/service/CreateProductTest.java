@@ -30,6 +30,7 @@ import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 // sa testam cu app pornita
 // - @SpringBootTest
@@ -82,6 +83,22 @@ public class CreateProductTest {
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+
+  @Test
+  void createWithoutCategory() {
+    Supplier supplier = supplierRepo.save(new Supplier());
+    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "upc-safe", supplier.getId(), null);
+
+    // WHEN
+    productService.createProduct(dto);
+
+    List<Product> tate = productRepo.findAll();
+    assertThat(tate).hasSize(1);
+    Product product = tate.get(0);
+
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
