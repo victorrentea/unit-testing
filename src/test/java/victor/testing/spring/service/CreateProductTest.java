@@ -21,6 +21,7 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductService;
 import victor.testing.spring.api.dto.ProductDto;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,9 +39,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class CreateProductTest {
-  @MockBean // creeaza un Mock cu mockito pe care il pune ca si bean in Spring
+  @Autowired // creeaza un Mock cu mockito pe care il pune ca si bean in Spring
   SupplierRepo supplierRepo;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
   @MockBean
   SafetyClient safetyClient;
@@ -48,7 +49,6 @@ public class CreateProductTest {
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   ProductService productService;
-
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
@@ -61,17 +61,20 @@ public class CreateProductTest {
 
   @Test
   void createOk() {
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    Supplier supplier = supplierRepo.save(new Supplier());
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", supplier.getId(), HOME);
 
     // WHEN
     productService.createProduct(dto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    // a)
+    List<Product> tate = productRepo.findAll();
+    assertThat(tate).hasSize(1);
+    Product product = tate.get(0);
+    // b) product = repo.findByName("name")
+    // c) productId = productService.createProduct(dto);   product = repo.findById(productId);
+
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getUpc()).isEqualTo("upc-safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
