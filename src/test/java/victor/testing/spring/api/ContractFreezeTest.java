@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @ActiveProfiles("db-mem")
 @AutoConfigureMockMvc
+@AutoConfigureWireMock(port = 0)
 public class ContractFreezeTest {
   @Autowired
   MockMvc mockMvc;
@@ -29,12 +31,15 @@ public class ContractFreezeTest {
 
   @Test
   void my_contract_did_not_change() throws Exception {
-    String previousOpenAPIJson = Files.readString(myPreviousContractResource.getFile().toPath());
+    String previousOpenAPIJson = Files.readString(
+        myPreviousContractResource.getFile().toPath());
 
-    String currentOpenAPIJson = mockMvc.perform(get("/v3/api-docs"))
+    String currentOpenAPIJson = mockMvc.perform(get(
+        "/v3/api-docs"))
                     .andReturn().getResponse().getContentAsString();
 
-    ChangedOpenApi diff = OpenApiCompare.fromContents(previousOpenAPIJson, currentOpenAPIJson);
+    ChangedOpenApi diff = OpenApiCompare.fromContents(
+        previousOpenAPIJson, currentOpenAPIJson);
 
     assertThat(diff.isCompatible())
         .describedAs("Exposed OpenAPI should not have breaking changes:\n" + new MarkdownRender().render(diff))

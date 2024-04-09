@@ -51,7 +51,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 public class ProductApiTest extends IntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
-  MockMvc mockMvc;
+  MockMvc mockMvc; // permite sa emulezi requesturi REST catre app
   @Autowired
   ProductRepo productRepo;
   @Autowired

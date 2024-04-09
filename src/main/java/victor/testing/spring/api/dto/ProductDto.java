@@ -7,6 +7,7 @@ import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
@@ -15,7 +16,7 @@ public class ProductDto {
 	public Long id;
 	@NotNull
 	public String name;
-	@NotNull
+	@NotNull //@Size(min=6, max=6)
 	public String upc;
 	public Long supplierId;
 	public ProductCategory category;
