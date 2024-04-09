@@ -1,9 +1,12 @@
 package victor.testing.spring.service;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.http.Body;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,6 +20,7 @@ import victor.testing.spring.repo.SupplierRepo;
 
 import java.util.List;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
@@ -43,15 +47,13 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // - @Transactional(REQUIRES_NEW)
 
 
-
+@AutoConfigureWireMock(port = 9999)
 //@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 public class CreateProductTest {
   @Autowired // creeaza un Mock cu mockito pe care il pune ca si bean in Spring
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockBean
-  SafetyClient safetyClient;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
@@ -63,10 +65,19 @@ public class CreateProductTest {
 //    productRepo.deleteAll();
 //    supplierRepo.deleteAll();
 //  }
-
+  @Autowired
+  WireMockServer wireMock;
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
+    wireMock.stubFor(get(urlMatching("/product/upc-unsafe/safety"))
+        .willReturn(jsonResponse("""
+            {
+              "category": "DETERMINED",
+              "detailsUrl": "http://details.url/a/b"
+            }
+            """, 200)));
+
+    //when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "upc-unsafe", -1L, HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -78,7 +89,7 @@ public class CreateProductTest {
   @WithMockUser(username = "user", roles = "ADMIN")
   void createOk() {
     Supplier supplier = supplierRepo.save(new Supplier());
-    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
+    //when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", supplier.getId(), HOME);
 
     // WHEN
@@ -104,7 +115,7 @@ public class CreateProductTest {
   @Test
   void createWithoutCategory() {
     Supplier supplier = supplierRepo.save(new Supplier());
-    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
+    //when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", supplier.getId(), null);
 
     // WHEN
