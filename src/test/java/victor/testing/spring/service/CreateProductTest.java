@@ -7,7 +7,10 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
@@ -35,15 +38,15 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public class CreateProductTest {
-  @Mock
+  @MockBean // creeaza un Mock cu mockito pe care il pune ca si bean in Spring
   SupplierRepo supplierRepo;
-  @Mock
+  @MockBean
   ProductRepo productRepo;
-  @Mock
+  @MockBean
   SafetyClient safetyClient;
-  @Mock
+  @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   @Test
