@@ -55,7 +55,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // - @Transactional(REQUIRES_NEW)
 
 
-@AutoConfigureWireMock(port = 9999)
+@AutoConfigureWireMock(port = 0)
 //@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 public class CreateProduct2Test {
   @Autowired // creeaza un Mock cu mockito pe care il pune ca si bean in Spring
