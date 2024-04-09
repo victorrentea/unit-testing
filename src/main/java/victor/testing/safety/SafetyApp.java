@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SafetyApp {
    public static void main(String[] args) {
-      SpringApplication.run(SafetyApp.class, "--server.port=8090");
+//      SpringApplication.run(SafetyApp.class, "--server.port=8090");
+      SpringApplication.run(SafetyApp.class);
    }
 
    @GetMapping

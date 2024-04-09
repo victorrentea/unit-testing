@@ -7,7 +7,9 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -25,7 +27,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+// sa testam cu app pornita
+// - @SpringBootTest
+// - porniti o DB in memorie
+// - @Mock->@MockBean
+
+@SpringBootTest
+@ActiveProfiles("db-mem")
 public class CreateProductTest {
   @Mock
   SupplierRepo supplierRepo;
