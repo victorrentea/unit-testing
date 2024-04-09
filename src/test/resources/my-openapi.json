@@ -1,61 +1,98 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "OpenAPI definition",
-    "version": "v0"
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OpenAPI definition",
+    "version" : "v0"
   },
-  "servers": [
-    {
-      "url": "http://localhost",
-      "description": "Generated server url"
-    }
-  ],
-  "paths": {
-    "/product/search": {
-      "post": {
-        "tags": [
-          "product-api"
-        ],
-        "operationId": "search",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductSearchCriteria"
+  "servers" : [ {
+    "url" : "http://localhost",
+    "description" : "Generated server url"
+  } ],
+  "paths" : {
+    "/product" : {
+      "post" : {
+        "tags" : [ "product-api" ],
+        "operationId" : "create",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ProductDto"
               }
             }
           },
-          "required": true
+          "required" : true
         },
-        "responses": {
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
                 }
               }
             }
           },
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProductSearchResult"
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/product/search" : {
+      "post" : {
+        "tags" : [ "product-api" ],
+        "operationId" : "search",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ProductSearchCriteria"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProductSearchResult"
                   }
                 }
               }
@@ -64,93 +101,46 @@
         }
       }
     },
-    "/product/create": {
-      "post": {
-        "tags": [
-          "product-api"
-        ],
-        "operationId": "create",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK"
+    "/product/{id}" : {
+      "get" : {
+        "tags" : [ "product-api" ],
+        "operationId" : "get",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
           }
-        }
-      }
-    },
-    "/product/{id}": {
-      "get": {
-        "tags": [
-          "product-api"
-        ],
-        "operationId": "get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
+        } ],
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
                 }
               }
             }
           },
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProductDto"
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProductDto"
                 }
               }
             }
@@ -159,76 +149,61 @@
       }
     }
   },
-  "components": {
-    "schemas": {
-      "ProductSearchCriteria": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
+  "components" : {
+    "schemas" : {
+      "ProductDto" : {
+        "required" : [ "name", "upc" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
           },
-          "category": {
-            "type": "string",
-            "enum": [
-              "ELECTRONICS",
-              "KIDS",
-              "ME",
-              "HOME",
-              "UNCATEGORIZED"
-            ]
+          "name" : {
+            "type" : "string"
           },
-          "supplierId": {
-            "type": "integer",
-            "format": "int64"
+          "upc" : {
+            "type" : "string"
+          },
+          "supplierId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "category" : {
+            "type" : "string",
+            "enum" : [ "ELECTRONICS", "KIDS", "ME", "HOME", "UNCATEGORIZED" ]
+          },
+          "createdDate" : {
+            "type" : "string",
+            "format" : "date"
           }
         }
       },
-      "ProductSearchResult": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
+      "ProductSearchCriteria" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
           },
-          "name": {
-            "type": "string"
+          "category" : {
+            "type" : "string",
+            "enum" : [ "ELECTRONICS", "KIDS", "ME", "HOME", "UNCATEGORIZED" ]
+          },
+          "supplierId" : {
+            "type" : "integer",
+            "format" : "int64"
           }
         }
       },
-      "ProductDto": {
-        "required": [
-          "name",
-          "upc"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
+      "ProductSearchResult" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
           },
-          "name": {
-            "type": "string"
-          },
-          "upc": {
-            "type": "string"
-          },
-          "supplierId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "category": {
-            "type": "string",
-            "enum": [
-              "ELECTRONICS",
-              "KIDS",
-              "ME",
-              "HOME",
-              "UNCATEGORIZED"
-            ]
-          },
-          "createdDate": {
-            "type": "string",
-            "format": "date"
+          "name" : {
+            "type" : "string"
           }
         }
       }

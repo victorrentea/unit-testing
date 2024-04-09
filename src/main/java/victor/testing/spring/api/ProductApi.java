@@ -23,7 +23,7 @@ import java.util.List;
 public class ProductApi {
    private final ProductService service;
 
-   @PostMapping("product/create")
+   @PostMapping("product")
    @Secured("ROLE_ADMIN")
    public ResponseEntity<Void> create(@RequestBody @Valid ProductDto productDto) throws URISyntaxException {
       service.createProduct(productDto);
