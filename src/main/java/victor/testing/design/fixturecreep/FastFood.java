@@ -10,16 +10,18 @@ public class FastFood {
    private final Dependency dependency;
    private final FeatureFlags featureFlags;
 
-   public void makeShawarma() {
+   public void makeShawarma(boolean withMeat) {
       if (!dependency.isOnionAllowed()) {
          throw new IllegalArgumentException();
       }
-      if (featureFlags.isActive(PORK_SHAWARMA)) {
-         // stuff
-      }
+      if (withMeat) {
+         if (featureFlags.isActive(PORK_SHAWARMA)) {
+            // stuff
+         }
       // complex logic: 7 ifs
+      }
    }
-
+// TODO taie aici---------
    public void makeTzatziki() {
       if (!dependency.isCucumberAllowed()) {
          throw new IllegalArgumentException();
