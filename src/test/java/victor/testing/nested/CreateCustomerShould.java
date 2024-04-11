@@ -109,7 +109,7 @@ class CreateCustomerShould {
 
     @Nested
     class WithDiscountedCountry {
-      @ParameterizedTest
+      @ParameterizedTest(name = "for {0} category")
       @ValueSource(strings = {"HOME", "ELECTRONICS"})
       void receivesCoupon(ProductCategory category) {
         customerFacade.createCustomer(aValidCustomer);
