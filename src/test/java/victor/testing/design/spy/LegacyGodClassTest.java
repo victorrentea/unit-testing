@@ -25,8 +25,7 @@ class LegacyGodClassTest {
    @Test
    void highTest() { // + 5 more tests like this
 //      doReturn("blabla").when(legacyGodClass).low(any());
-      Order order = new Order()
-          .setCreationDate(now().minusMonths(2)) // more test data. that has nothing to do with the complexity udner test.
+      Order order = TestData.oldOrder() // more test data. that has nothing to do with the complexity udner test.
           .setPaymentMethod(Order.PaymentMethod.CARD);
 //      doNothing().when(legacyGodClass).low(order);
 
@@ -35,7 +34,7 @@ class LegacyGodClassTest {
       assertThat(result).isEqualTo("bonus");
    }
 
-   @Test
+  @Test
     void highTestRegular() {
         Order order = new Order()
             .setPaymentMethod(Order.PaymentMethod.CASH_ON_DELIVERY);
@@ -50,8 +49,7 @@ class LegacyGodClassTest {
 
    @Test
    void low() {
-      LocalDate twoMonthsAgo = now().minusMonths(2);
-      Order oldOrder = new Order().setCreationDate(twoMonthsAgo);
+      Order oldOrder = TestData.oldOrder();
       legacyGodClass.low(oldOrder);
    }// + 5 more tests on low
 
