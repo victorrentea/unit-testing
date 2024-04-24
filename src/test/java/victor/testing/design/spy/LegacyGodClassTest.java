@@ -38,6 +38,8 @@ class LegacyGodClassTest {
     void highTestRegular() {
         Order order = new Order()
             .setPaymentMethod(Order.PaymentMethod.CASH_ON_DELIVERY);
+        doNothing().when(legacyGodClass).low(order);
+
         String result = legacyGodClass.high(order);
 
         assertThat(result).isEqualTo("regular");
