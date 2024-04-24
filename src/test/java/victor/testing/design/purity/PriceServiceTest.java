@@ -24,14 +24,14 @@ import static victor.testing.spring.domain.ProductCategory.*;
 
 @ExtendWith(MockitoExtension.class)
 class PriceServiceTest {
-   @Mock
-   CustomerRepo customerRepo;
-   @Mock
-   ThirdPartyPricesApi thirdPartyPricesApi;
-   @Mock
-   CouponRepo couponRepo;
-   @Mock
-   ProductRepo productRepo;
+  @Mock
+  CustomerRepo customerRepo;
+  @Mock
+  ThirdPartyPricesApi thirdPartyPricesApi;
+  @Mock
+  CouponRepo couponRepo;
+  @Mock
+  ProductRepo productRepo;
    @InjectMocks
    PriceService priceService;
    @Captor
