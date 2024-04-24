@@ -8,8 +8,14 @@ import static java.time.LocalDate.now;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
 public class LegacyGodClass {
-   public String high(Order order) { // ... level logic
-      low(order);
+   private final LowLevel lowLevel;
+
+  public LegacyGodClass(LowLevel lowLevel) {
+    this.lowLevel = lowLevel;
+  }
+
+  public String high(Order order) { // ... level logic
+      lowLevel.low(order);
       // complexity requiring 5+ tests
       if (order.getPaymentMethod() == CARD) {
          return "bonus";
@@ -17,8 +23,10 @@ public class LegacyGodClass {
       return "regular";
    }
 
-
-   void low(Order order) {  // low-level detail
+}
+// split the class by layers of abstraction
+class LowLevel {
+   public void low(Order order) {  // low-level detail
       // complexity requiring 5+ tests
       if (order.getCreationDate().isAfter(now()
           .minusMonths(1))) {
