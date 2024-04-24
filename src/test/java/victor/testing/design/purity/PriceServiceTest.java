@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
@@ -56,5 +57,30 @@ class PriceServiceTest {
           .containsEntry(1L, 8d)
           .containsEntry(2L, 5d);
    }
+   @Test // even one day you can turn this into a .feature file to get BA/PO/biz sign off
+   void computePricesToPureDirectly() { // no mocks involved, data-in-data-out
+      Coupon coupon1 = new Coupon(HOME, 2, Set.of(13L));
+      Coupon coupon2 = new Coupon(ELECTRONICS, 4, Set.of(13L));
+      Product p1 = new Product().setId(1L).setCategory(HOME).setSupplier(new Supplier().setId(13L));
+      Product p2 = new Product().setId(2L).setCategory(KIDS).setSupplier(new Supplier().setId(13L));
+      Map<Long, Double> initialPrices = Map.of(p1.getId(), 10d, p2.getId(), 5d);
 
+      PriceService.DiscountResult result = PriceService.applyCoupons(
+          List.of(p1, p2),
+          initialPrices,
+          List.of(coupon1, coupon2));
+
+      assertThat(result.finalPrices())
+          .containsEntry(1L, 8d)
+          .containsEntry(2L, 5d);
+      assertThat(result.usedCoupons()).containsExactly(coupon1);
+   }
+
+   @Test
+   void throwsExceptionIfCustomerRepoThrewException() {
+      when(customerRepo.findById(13L)).thenThrow(new RuntimeException("DB down"));
+
+      // using assertThrows:
+      assertThatThrownBy(() -> priceService.computePrices(13L, List.of(1L, 2L), Map.of(1L, 10d)));
+   }
 }
