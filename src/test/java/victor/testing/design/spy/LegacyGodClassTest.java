@@ -26,8 +26,9 @@ class LegacyGodClassTest {
    void highTest() { // + 5 more tests like this
 //      doReturn("blabla").when(legacyGodClass).low(any());
       Order order = new Order()
+          .setCreationDate(now().minusMonths(2)) // more test data. that has nothing to do with the complexity udner test.
           .setPaymentMethod(Order.PaymentMethod.CARD);
-      doNothing().when(legacyGodClass).low(order);
+//      doNothing().when(legacyGodClass).low(order);
 
       String result = legacyGodClass.high(order);
 
