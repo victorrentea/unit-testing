@@ -1,6 +1,9 @@
 package victor.testing.design.spy;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 
@@ -8,21 +11,24 @@ import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class LegacyGodClassTest {
 
-   LegacyGodClass legacyGodClass = new LegacyGodClass(){
-      @Override
-      void low(Order order) {
-      }
-   };
+   // temporary tests
+   @Spy // too to use to write "FREEZE-TESTS" on legacy code to refactor a bit of it out
+   LegacyGodClass legacyGodClass;// = spy(new LegacyGodClass());
 
    // TODO test high method
 
    @Test
    void highTest() { // + 5 more tests like this
+//      doReturn("blabla").when(legacyGodClass).low(any());
       Order order = new Order()
           .setPaymentMethod(Order.PaymentMethod.CARD);
+      doNothing().when(legacyGodClass).low(order);
+
       String result = legacyGodClass.high(order);
 
       assertThat(result).isEqualTo("bonus");
