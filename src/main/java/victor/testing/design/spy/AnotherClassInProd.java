@@ -1,7 +1,7 @@
 package victor.testing.design.spy;
 
 public class AnotherClassInProd {
-  God god;
+  LegacyGodClass legacyGodClass;
 
   public void illegalAccessToVisibleForTesting() {
 //        god.low(new Order());
