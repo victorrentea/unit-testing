@@ -13,35 +13,40 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 public class PriceService {
-   private final CustomerRepo customerRepo;
-   private final ThirdPartyPricesApi thirdPartyPricesApi;
-   private final CouponRepo couponRepo;
-   private final ProductRepo productRepo;
+  private final CustomerRepo customerRepo;
+  private final ThirdPartyPricesApi thirdPartyPricesApi;
+  private final CouponRepo couponRepo;
+  private final ProductRepo productRepo;
 
-   public Map<Long, Double> computePrices(long customerId, List<Long> productIds,
-                                          Map<Long, Double> internalPrices) {
-      Customer customer = customerRepo.findById(customerId);
-      List<Product> products = productRepo.findAllById(productIds);
-      List<Coupon> usedCoupons = new ArrayList<>();
-      Map<Long, Double> finalPrices = new HashMap<>();
-      for (Product product : products) {
-         Double price = internalPrices.get(product.getId());
-         if (price == null) {
-            price = thirdPartyPricesApi.fetchPrice(product.getId());
-         }
-         for (Coupon coupon : customer.getCoupons()) {
-            if (coupon.autoApply()
-                && coupon.isApplicableFor(product, price)
-                && !usedCoupons.contains(coupon)) {
-               price = coupon.apply(product, price);
-               usedCoupons.add(coupon);
-            }
-         }
-         finalPrices.put(product.getId(), price);
+  public Map<Long, Double> computePrices(
+      long customerId,
+      List<Long> productIds,
+      Map<Long, Double> internalPrices) {
+    Customer customer = customerRepo.findById(customerId);
+    List<Product> products = productRepo.findAllById(productIds);
+
+    List<Coupon> usedCoupons = new ArrayList<>();
+    Map<Long, Double> finalPrices = new HashMap<>();
+    for (Product product : products) {
+      // resolve price
+      Double price = internalPrices.get(product.getId());
+      if (price == null) {
+        price = thirdPartyPricesApi.fetchPrice(product.getId());
       }
-      couponRepo.markUsedCoupons(customerId, usedCoupons);
-      return finalPrices;
-   }
+      // apply coupons
+      for (Coupon coupon : customer.getCoupons()) {
+        if (coupon.autoApply()
+            && coupon.isApplicableFor(product, price)
+            && !usedCoupons.contains(coupon)) {
+          price = coupon.apply(product, price);
+          usedCoupons.add(coupon);
+        }
+      }
+      finalPrices.put(product.getId(), price);
+    }
+    couponRepo.markUsedCoupons(customerId, usedCoupons);
+    return finalPrices;
+  }
 
 }
 
