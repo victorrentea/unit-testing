@@ -86,7 +86,7 @@ public class ProductApiTest extends IntegrationTest {
   @Test
   void blackBox() throws Exception {
     // API call #1
-    createProductApi(productDto.setName("Tree"));
+    createProductApi(productDto.setName("TreeX"));
 
     // API call #2
     List<ProductSearchResult> results = searchProductApi(criteria.setName("Tree"));

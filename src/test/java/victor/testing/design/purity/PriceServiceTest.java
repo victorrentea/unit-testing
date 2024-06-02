@@ -1,60 +1,113 @@
 package victor.testing.design.purity;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static victor.testing.spring.domain.ProductCategory.*;
 
 @ExtendWith(MockitoExtension.class)
-class PriceServiceTest {
-   @Mock
-   CustomerRepo customerRepo;
-   @Mock
-   ThirdPartyPricesApi thirdPartyPricesApi;
-   @Mock
-   CouponRepo couponRepo;
-   @Mock
-   ProductRepo productRepo;
-   @InjectMocks
-   PriceService priceService;
-   @Captor
-   ArgumentCaptor<List<Coupon>> couponCaptor;
+public class PriceServiceTest {
 
-   @Test
-   void computePrices() {
-      Coupon coupon1 = new Coupon(HOME, 2, Set.of(13L));
-      Coupon coupon2 = new Coupon(ELECTRONICS, 4, Set.of(13L));
-      Customer customer = new Customer().setCoupons(List.of(coupon1, coupon2));
-      when(customerRepo.findById(13L)).thenReturn(customer);
-      Product p1 = new Product().setId(1L).setCategory(HOME).setSupplier(new Supplier().setId(13L));
-      Product p2 = new Product().setId(2L).setCategory(KIDS).setSupplier(new Supplier().setId(13L));
-      when(productRepo.findAllById(List.of(1L, 2L))).thenReturn(List.of(p1, p2));
-      when(thirdPartyPricesApi.fetchPrice(2L)).thenReturn(5d);
+    @Mock
+    private CustomerRepo customerRepo;
 
-      Map<Long, Double> result = priceService.computePrices(13L, List.of(1L, 2L), Map.of(1L, 10d));
+    @Mock
+    private ThirdPartyPricesApi thirdPartyPricesApi;
 
-      verify(couponRepo).markUsedCoupons(eq(13L), couponCaptor.capture());
-      assertThat(couponCaptor.getValue()).containsExactly(coupon1);
+    @Mock
+    private CouponRepo couponRepo;
 
-      assertThat(result)
-          .containsEntry(1L, 8d)
-          .containsEntry(2L, 5d);
-   }
+    @Mock
+    private ProductRepo productRepo;
 
+    @InjectMocks
+    private PriceService priceService;
+
+    @Test
+    public void computesPricesWithInternalAndThirdPartyPrices() {
+        // Given
+        long customerId = 1L;
+        List<Long> productIds = Arrays.asList(1L, 2L);
+        Map<Long, Double> internalPrices = new HashMap<>();
+        internalPrices.put(1L, 100.0);
+        internalPrices.put(2L, 200.0);
+
+        when(customerRepo.findById(customerId)).thenReturn(new Customer());
+        when(productRepo.findAllById(productIds)).thenReturn(Arrays.asList(new Product(), new Product()));
+        when(thirdPartyPricesApi.fetchPrice(1L)).thenReturn(150.0);
+        when(thirdPartyPricesApi.fetchPrice(2L)).thenReturn(250.0);
+
+        // When
+        Map<Long, Double> prices = priceService.computePrices(customerId, productIds, internalPrices);
+
+        // Then
+        assertEquals(2, prices.size());
+        assertEquals(100.0, prices.get(1L));
+        assertEquals(200.0, prices.get(2L));
+    }
+
+    @Test
+    public void appliesAutoApplyCoupons() {
+        // Given
+        long customerId = 1L;
+        List<Long> productIds = Arrays.asList(1L);
+        Map<Long, Double> internalPrices = new HashMap<>();
+        internalPrices.put(1L, 100.0);
+
+        Customer customer = new Customer();
+        Coupon coupon = mock(Coupon.class);
+        when(coupon.autoApply()).thenReturn(true);
+        when(coupon.isApplicableFor(any(), anyDouble())).thenReturn(true);
+        when(coupon.apply(any(), anyDouble())).thenReturn(80.0);
+        customer.getCoupons().add(coupon);
+
+        when(customerRepo.findById(customerId)).thenReturn(customer);
+        when(productRepo.findAllById(productIds)).thenReturn(Arrays.asList(new Product()));
+
+        // When
+        Map<Long, Double> prices = priceService.computePrices(customerId, productIds, internalPrices);
+
+        // Then
+        assertEquals(1, prices.size());
+        assertEquals(80.0, prices.get(1L));
+    }
+
+    @Test
+    public void doesNotApplyNonAutoApplyCoupons() {
+        // Given
+        long customerId = 1L;
+        List<Long> productIds = Arrays.asList(1L);
+        Map<Long, Double> internalPrices = new HashMap<>();
+        internalPrices.put(1L, 100.0);
+
+        Customer customer = new Customer();
+        Coupon coupon = mock(Coupon.class);
+        when(coupon.autoApply()).thenReturn(false);
+        customer.getCoupons().add(coupon);
+
+        when(customerRepo.findById(customerId)).thenReturn(customer);
+        when(productRepo.findAllById(productIds)).thenReturn(Arrays.asList(new Product()));
+
+        // When
+        Map<Long, Double> prices = priceService.computePrices(customerId, productIds, internalPrices);
+
+        // Then
+        assertEquals(1, prices.size());
+        assertEquals(100.0, prices.get(1L));
+    }
 }

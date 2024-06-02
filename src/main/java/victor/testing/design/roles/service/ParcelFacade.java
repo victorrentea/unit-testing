@@ -20,9 +20,7 @@ public class ParcelFacade {
       Parcel parcel = parcelRepo.findByBarcode(barcode);
 
       displayService.displayParcel(parcel);
-      if (parcel.isPartOfCompositeShipment()) {
-         displayService.displayMultiParcelWarning();
-      }
+
       platformService.addParcel(parcel);
       List<TrackingProvider> trackingProviders = trackingProviderRepo.findByTrackingNumber(parcel.getTrackingNumber());
       trackingService.markDepartingWarehouse(parcel.getTrackingNumber(), warehouseId, trackingProviders);

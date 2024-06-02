@@ -78,7 +78,8 @@ public class AssertionsShowcase {
       }
       @Test
       public void subsetAttributesOfElements() {
-         assertThat(fellowship).extracting("name", "age", "race.name")
+         assertThat(fellowship)
+             .extracting("name", "age", "race.name")
              .contains(
                  tuple("Frodo", 20, "Hobbit"),
                  tuple("Aragorn", 39, "Man"),
