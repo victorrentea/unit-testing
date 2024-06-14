@@ -37,7 +37,7 @@ public class ProductService {
     product.setName(productDto.getName());
     product.setUpc(productDto.getUpc());
     product.setCategory(productDto.getCategory());
-    product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
+    product.setSupplier(supplierRepo.findByName(productDto.getSupplierName()));
     productRepo.save(product);
     return product.getId();
   }

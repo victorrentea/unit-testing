@@ -9,7 +9,7 @@ public class ProductMapper {
   public ProductDto toDto(Product product) {
     return new ProductDto()
             .setId(product.getId())
-            .setSupplierId(product.getSupplier().getId())
+            .setSupplierName(product.getSupplier().getName())
             .setName(product.getName())
             .setUpc(product.getUpc())
             .setCategory(product.getCategory())

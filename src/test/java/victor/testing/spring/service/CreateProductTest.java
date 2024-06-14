@@ -46,23 +46,19 @@ public class CreateProductTest {
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "upc-unsafe", -1L, HOME);
+    ProductDto dto = new ProductDto("name", "upc-unsafe", "-1L", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
   }
 
-  // mai poti testa si:
-  // @Cacheable, @Secured, @Transactional, @Scheduled, @EventListener,
-  // @Async, @Retryable, @CircuitBreaker, @KafkaListener
   @Test
   @WithMockUser(username = "user")
   void createOk() {
-    long supplierId = supplierRepo.save(new Supplier()).getId(); // ca pe bune in realitate
-//    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    long supplierId = supplierRepo.save(new Supplier().setName("S")).getId(); // ca pe bune in realitate
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto dto = aProduct(supplierId);
+    ProductDto dto = aProduct("S");
 
     // WHEN
     long productId = productService.createProduct(dto);
@@ -76,15 +72,15 @@ public class CreateProductTest {
     assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
   }
 
-  private @NonNull ProductDto aProduct(long supplierId) {
-    return new ProductDto("name", "upc-safe", supplierId, HOME);
+  private @NonNull ProductDto aProduct(String supplierName) {
+    return new ProductDto("name", "upc-safe", supplierName, HOME);
   }
 
   @Test
   void createOkCuCategoriaNull() {
-    long supplierId = supplierRepo.save(new Supplier()).getId(); // ca pe bune in realitate
+    long supplierId = supplierRepo.save(new Supplier().setName("S")).getId(); // ca pe bune in realitate
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto dto = aProduct(supplierId).setCategory(null);
+    ProductDto dto = aProduct("S").setCategory(null);
 
     long productId = productService.createProduct(dto);
 
