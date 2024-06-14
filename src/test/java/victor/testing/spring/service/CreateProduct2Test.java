@@ -2,43 +2,25 @@ package victor.testing.spring.service;
 
 import lombok.NonNull;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.spring.service.ProductService;
-import victor.testing.spring.api.dto.ProductDto;
-
-import java.util.Optional;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.*;
+import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
@@ -51,10 +33,10 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 //@Sql(value = "/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
 
 //@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD) // ANTI-PATTERN
-@ActiveProfiles({"test"})
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT) // test de integrare cu spring pornit
 @Transactional // #3 daca o pui in teste, spring intelege sa faca auto-rollback
-public class CreateProductTest {
+public class CreateProduct2Test {
   @Autowired // inlocuieste bean-ul real cu un mock Mockito in Spring
   SupplierRepo supplierRepo;
   @Autowired
@@ -68,7 +50,6 @@ public class CreateProductTest {
   private @NonNull ProductDto aProduct(String supplierName) {
     return new ProductDto("name", "upc-safe", supplierName, HOME);
   }
-
   @AfterEach
   public void trageApa() {
     productRepo.flush(); // flush nu inseamna commit.
