@@ -28,6 +28,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @ActiveProfiles("test")
 @SpringBootTest // test de integrare cu spring pornit
@@ -70,6 +71,25 @@ public class CreateProductTest {
     assertThat(product.getUpc()).isEqualTo("upc-safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
+    assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
+    assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
+  }
+  @Test
+  @WithMockUser(username = "user")
+  void createOkCuCategoriaNull() {
+    long supplierId = supplierRepo.save(new Supplier()).getId(); // ca pe bune in realitate
+//    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
+    ProductDto dto = new ProductDto("name", "upc-safe", supplierId, null);
+
+    // WHEN
+    long productId = productService.createProduct(dto);
+
+    Product product = productRepo.findById(productId).orElseThrow();
+    assertThat(product.getName()).isEqualTo("name");
+    assertThat(product.getUpc()).isEqualTo("upc-safe");
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
     assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
   }
