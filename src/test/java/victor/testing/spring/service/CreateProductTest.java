@@ -23,6 +23,7 @@ import victor.testing.spring.service.ProductService;
 import victor.testing.spring.api.dto.ProductDto;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -56,9 +57,10 @@ public class CreateProductTest {
   @Test
   @WithMockUser(username = "user")
   void createOk() {
-    long supplierId = supplierRepo.save(new Supplier().setName("S")).getId(); // ca pe bune in realitate
+    String s2 = "S2" + UUID.randomUUID();
+    long supplierId = supplierRepo.save(new Supplier().setName(s2)).getId(); // ca pe bune in realitate
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto dto = aProduct("S");
+    ProductDto dto = aProduct(s2);
 
     // WHEN
     long productId = productService.createProduct(dto);
