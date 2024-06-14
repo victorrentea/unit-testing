@@ -57,10 +57,9 @@ public class CreateProductTest {
   @Test
   @WithMockUser(username = "user")
   void createOk() {
-    String s2 = "S2" + UUID.randomUUID();
-    long supplierId = supplierRepo.save(new Supplier().setName(s2)).getId(); // ca pe bune in realitate
+    long supplierId = supplierRepo.save(new Supplier().setName("S")).getId(); // ca pe bune in realitate
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto dto = aProduct(s2);
+    ProductDto dto = aProduct("S");
 
     // WHEN
     long productId = productService.createProduct(dto);
