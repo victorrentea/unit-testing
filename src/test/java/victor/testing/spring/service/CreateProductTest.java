@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
@@ -34,6 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
@@ -41,7 +43,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 @ActiveProfiles("test")
 @SpringBootTest // test de integrare cu spring pornit
 
-@Transactional // daca o pui in teste, spring intelege sa faca auto-rollback
+//@Transactional // #3 daca o pui in teste, spring intelege sa faca auto-rollback
 // si tranzactia de test ("fantomitza rosie") se propga catre codul testat
 // NU acopera flush()->UQ/NOT NULL/FK violation
 // NU merge daca procedura face COMMIT in ea
@@ -49,6 +51,8 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 // #2 sql manual de insert/cleanup
 //@Sql(value = "/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
+
+@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD) // ANTI-PATTERN
 public class CreateProductTest {
   @Autowired // inlocuieste bean-ul real cu un mock Mockito in Spring
   SupplierRepo supplierRepo;
@@ -76,7 +80,7 @@ public class CreateProductTest {
 
   @Test
 //  @Sql
-  void createThrowsForUnsafeProduct() b{
+  void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "upc-unsafe", "-1L", HOME);
 
