@@ -16,6 +16,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -31,11 +34,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @ActiveProfiles("test")
 @SpringBootTest // test de integrare cu spring pornit
+
+@Transactional // daca o pui in teste, spring intelege sa faca auto-rollback
+// si tranzactia de test ("fantomitza rosie") se propga catre codul testat
+// NU acopera flush()->UQ/NOT NULL/FK violation
+// NU merge daca procedura face COMMIT in ea
+// NU Merge daca codul testat e @Async sau @Transactional(propagation = REQUIRES_NEW)
+
+// #2 sql manual de insert/cleanup
+//@Sql(value = "/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
 public class CreateProductTest {
   @Autowired // inlocuieste bean-ul real cu un mock Mockito in Spring
   SupplierRepo supplierRepo;
@@ -49,15 +62,21 @@ public class CreateProductTest {
     return new ProductDto("name", "upc-safe", supplierName, HOME);
   }
 
-  @BeforeEach
   @AfterEach
-  public void cleanDB() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll(); // nuschimba ordinea
+  public void trageApa() {
+    productRepo.flush(); // flush nu inseamna commit.
   }
+  //#1 manual delete
+//  @BeforeEach
+//  @AfterEach
+//  public void cleanDB() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll(); // nuschimba ordinea
+//  }
 
   @Test
-  void createThrowsForUnsafeProduct() {
+//  @Sql
+  void createThrowsForUnsafeProduct() b{
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "upc-unsafe", "-1L", HOME);
 
