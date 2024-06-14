@@ -31,9 +31,9 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @ActiveProfiles("test")
 @SpringBootTest // test de integrare cu spring pornit
 public class CreateProductTest {
-  @MockBean // inlocuieste bean-ul real cu un mock Mockito in Spring
+  @Autowired // inlocuieste bean-ul real cu un mock Mockito in Spring
   SupplierRepo supplierRepo;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
   @MockBean
   SafetyClient safetyClient;
@@ -52,20 +52,18 @@ public class CreateProductTest {
 
   @Test
   void createOk() {
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    long supplierId = supplierRepo.save(new Supplier()).getId(); // ca pe bune in realitate
+//    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "upc-safe", supplier.getId(), HOME);
+    ProductDto dto = new ProductDto("name", "upc-safe", supplierId, HOME);
 
     // WHEN
-    productService.createProduct(dto);
+    long productId = productService.createProduct(dto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    Product product = productRepo.findById(productId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getUpc()).isEqualTo("upc-safe");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic

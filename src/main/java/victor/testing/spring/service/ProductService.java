@@ -24,7 +24,7 @@ public class ProductService {
   private final SafetyClient safetyClient;
   private final ProductMapper productMapper;
 
-  public void createProduct(ProductDto productDto) {
+  public long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto.getUpc());
     boolean safe = safetyClient.isSafe(productDto.getUpc()); // ⚠️ REST call inside
     if (!safe) {
@@ -39,6 +39,7 @@ public class ProductService {
     product.setCategory(productDto.getCategory());
     product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
     productRepo.save(product);
+    return product.getId();
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
