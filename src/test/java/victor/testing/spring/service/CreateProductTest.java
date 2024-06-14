@@ -21,11 +21,10 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) // face sa mearga @Mock si @InjectMocks
 public class CreateProductTest {
   @Mock
   SupplierRepo supplierRepo;
@@ -33,8 +32,6 @@ public class CreateProductTest {
   ProductRepo productRepo;
   @Mock
   SafetyClient safetyClient;
-  @Mock
-  KafkaTemplate<String, String> kafkaTemplate;
   @InjectMocks
   ProductService productService;
 
@@ -68,5 +65,4 @@ public class CreateProductTest {
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
   }
-
 }

@@ -25,7 +25,7 @@ public class ProductService {
   private final ProductMapper productMapper;
 
   public void createProduct(ProductDto productDto) {
-    log.info("Creating product " + productDto.getUpc());
+    log.info("Creating product {}", productDto.getUpc());
     boolean safe = safetyClient.isSafe(productDto.getUpc()); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
