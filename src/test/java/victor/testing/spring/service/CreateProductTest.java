@@ -51,6 +51,9 @@ public class CreateProductTest {
         .hasMessage("Product is not safe!");
   }
 
+  // mai poti testa si:
+  // @Cacheable, @Secured, @Transactional, @Scheduled, @EventListener,
+  // @Async, @Retryable, @CircuitBreaker, @KafkaListener
   @Test
   @WithMockUser(username = "user")
   void createOk() {
