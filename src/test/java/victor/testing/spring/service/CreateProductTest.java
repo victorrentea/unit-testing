@@ -67,7 +67,6 @@ public class CreateProductTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
-    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
 }

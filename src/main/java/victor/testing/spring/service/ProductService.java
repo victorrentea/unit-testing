@@ -19,12 +19,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-  public static final String PRODUCT_CREATED_TOPIC = "product-created";
   private final SupplierRepo supplierRepo;
   private final ProductRepo productRepo;
   private final SafetyClient safetyClient;
   private final ProductMapper productMapper;
-  private final KafkaTemplate<String, String> kafkaTemplate;
 
   public void createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getUpc());
@@ -41,7 +39,6 @@ public class ProductService {
     product.setCategory(productDto.getCategory());
     product.setSupplier(supplierRepo.findById(productDto.getSupplierId()).orElseThrow());
     productRepo.save(product);
-    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
