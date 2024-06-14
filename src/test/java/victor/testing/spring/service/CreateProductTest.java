@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -51,6 +52,7 @@ public class CreateProductTest {
   }
 
   @Test
+  @WithMockUser(username = "user")
   void createOk() {
     long supplierId = supplierRepo.save(new Supplier()).getId(); // ca pe bune in realitate
 //    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
@@ -65,7 +67,7 @@ public class CreateProductTest {
     assertThat(product.getUpc()).isEqualTo("upc-safe");
     assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(HOME);
-    //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
-    //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
+    assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
+    assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
   }
 }
