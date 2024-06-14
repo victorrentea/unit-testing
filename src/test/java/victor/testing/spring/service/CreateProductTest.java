@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import lombok.NonNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -61,7 +62,7 @@ public class CreateProductTest {
     long supplierId = supplierRepo.save(new Supplier()).getId(); // ca pe bune in realitate
 //    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "upc-safe", supplierId, HOME);
+    ProductDto dto = aProduct(supplierId);
 
     // WHEN
     long productId = productService.createProduct(dto);
@@ -74,23 +75,20 @@ public class CreateProductTest {
     assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
   }
+
+  private @NonNull ProductDto aProduct(long supplierId) {
+    return new ProductDto("name", "upc-safe", supplierId, HOME);
+  }
+
   @Test
-  @WithMockUser(username = "user")
   void createOkCuCategoriaNull() {
     long supplierId = supplierRepo.save(new Supplier()).getId(); // ca pe bune in realitate
-//    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "upc-safe", supplierId, null);
+    ProductDto dto = aProduct(supplierId).setCategory(null);
 
-    // WHEN
     long productId = productService.createProduct(dto);
 
     Product product = productRepo.findById(productId).orElseThrow();
-    assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getUpc()).isEqualTo("upc-safe");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplierId);
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
-    assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
-    assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
   }
 }
