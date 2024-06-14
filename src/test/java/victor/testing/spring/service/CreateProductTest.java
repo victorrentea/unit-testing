@@ -43,7 +43,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 @ActiveProfiles("test")
 @SpringBootTest // test de integrare cu spring pornit
 
-//@Transactional // #3 daca o pui in teste, spring intelege sa faca auto-rollback
+@Transactional // #3 daca o pui in teste, spring intelege sa faca auto-rollback
 // si tranzactia de test ("fantomitza rosie") se propga catre codul testat
 // NU acopera flush()->UQ/NOT NULL/FK violation
 // NU merge daca procedura face COMMIT in ea
@@ -52,7 +52,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // #2 sql manual de insert/cleanup
 //@Sql(value = "/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
 
-@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD) // ANTI-PATTERN
+//@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD) // ANTI-PATTERN
 public class CreateProductTest {
   @Autowired // inlocuieste bean-ul real cu un mock Mockito in Spring
   SupplierRepo supplierRepo;
