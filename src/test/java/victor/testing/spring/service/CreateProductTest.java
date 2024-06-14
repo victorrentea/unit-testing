@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import lombok.NonNull;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -43,6 +44,15 @@ public class CreateProductTest {
   SafetyClient safetyClient;
   @Autowired
   ProductService productService;
+  private @NonNull ProductDto aProduct(String supplierName) {
+    return new ProductDto("name", "upc-safe", supplierName, HOME);
+  }
+
+  @AfterEach
+  public void cleanDB() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll(); // nuschimba ordinea
+  }
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -71,10 +81,6 @@ public class CreateProductTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
-  }
-
-  private @NonNull ProductDto aProduct(String supplierName) {
-    return new ProductDto("name", "upc-safe", supplierName, HOME);
   }
 
   @Test
