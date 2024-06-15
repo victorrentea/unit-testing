@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class EmailSenderJob {
   @Value("${email.sender.url}")
   private final String emailServerUrl;
 
-//  @Scheduled(cron = "${email.sender.cron}")
-//  @Transactional
+  @Scheduled(cron = "${email.sender.cron}")
+  @Transactional
   public void sendAllPendingEmails() {
     List<EmailToSend> emailsToSend = repo.findAllByStatus(EmailToSend.Status.TO_SEND);
     log.info("Email job START");
