@@ -212,9 +212,8 @@
           "upc": {
             "type": "string"
           },
-          "supplierId": {
-            "type": "integer",
-            "format": "int64"
+          "supplierCode": {
+            "type": "string"
           },
           "category": {
             "type": "string",

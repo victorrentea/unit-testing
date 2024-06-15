@@ -58,9 +58,9 @@ public class SenderBlackTest extends IntegrationTest {
   @Test
   void createSendsMessage() throws InterruptedException, ExecutionException {
     // GIVEN
-    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    Long supplierId = supplierRepo.save(new Supplier().setCode("S")).getId();
     when(mockSafetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
+    ProductDto dto = new ProductDto("name", "safe", "S", HOME);
 
     // WHEN
     productService.createProduct(dto);

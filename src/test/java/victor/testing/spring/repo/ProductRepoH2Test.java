@@ -30,6 +30,8 @@ public class ProductRepoH2Test {
 
   @BeforeEach
   final void before() {
+    repo.deleteAll();
+    supplierRepo.deleteAll();
     supplierId = supplierRepo.save(new Supplier()).getId();
     repo.save(new Product()
             .setName("AbCd")

@@ -60,12 +60,11 @@ public class ProductApiTest extends IntegrationTest {
   // Dtos with 'default' values (ObjectMother style)
   ProductSearchCriteria criteria = new ProductSearchCriteria();
   ProductDto productDto;
-  Long supplierId;
 
   @BeforeEach
   void persistReferenceData() {
-    supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
-    productDto = new ProductDto("Tree", "upc-safe", supplierId, HOME);
+    supplierRepo.save(new Supplier().setCode("S").setActive(true));
+    productDto = new ProductDto("Tree", "upc-safe", "S", HOME);
   }
 
   @Test

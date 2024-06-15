@@ -17,7 +17,7 @@ public class ProductDto {
 	public String name;
 	@NotNull
 	public String upc;
-	public Long supplierId;
+	public String supplierCode;
 	public ProductCategory category;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	public LocalDate createdDate;
@@ -25,15 +25,15 @@ public class ProductDto {
 	public ProductDto(Product product) {
 		name = product.getName();
 		upc = product.getUpc();
-		supplierId = product.getSupplier().getId();
+		supplierCode = product.getSupplier().getCode();
 		category = product.getCategory();
 		createdDate = product.getCreatedDate();
 	}
 
-	public ProductDto(String name, String upc, Long supplierId, ProductCategory category) {
+	public ProductDto(String name, String upc, String supplierCode, ProductCategory category) {
 		this.name = name;
 		this.upc = upc;
-		this.supplierId = supplierId;
+		this.supplierCode = supplierCode;
 		this.category = category;
 	}
 }

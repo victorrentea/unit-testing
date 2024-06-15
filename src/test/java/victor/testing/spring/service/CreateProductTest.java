@@ -41,7 +41,7 @@ public class CreateProductTest {
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "upc-unsafe", -1L, HOME);
+    ProductDto dto = new ProductDto("name", "upc-unsafe", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
@@ -50,10 +50,9 @@ public class CreateProductTest {
 
   @Test
   void createOk() {
-    Supplier supplier = new Supplier().setId(13L);
-    when(supplierRepo.findById(supplier.getId())).thenReturn(Optional.of(supplier));
+    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "upc-safe", supplier.getId(), HOME);
+    ProductDto dto = new ProductDto("name", "upc-safe", "S", HOME);
 
     // WHEN
     productService.createProduct(dto);
@@ -63,7 +62,7 @@ public class CreateProductTest {
     Product product = productCaptor.getValue();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getUpc()).isEqualTo("upc-safe");
-    assertThat(product.getSupplier().getId()).isEqualTo(supplier.getId());
+    assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic

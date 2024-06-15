@@ -86,7 +86,7 @@ public class ProductSearchSteps {
    @And("That product has supplier {string}")
    public void thatProductHasSupplier(String supplierName) {
       if (StringUtils.isNotBlank(supplierName)) {
-         product.setSupplier(supplierRepo.findByName(supplierName));
+         product.setSupplier(supplierRepo.findByName(supplierName).orElseThrow());
       }
    }
 
@@ -98,7 +98,7 @@ public class ProductSearchSteps {
    @And("The search criteria supplier is {string}")
    public void theSearchCriteriaSupplierIs(String supplierName) {
       if (StringUtils.isNotBlank(supplierName)) {
-         criteria.supplierId = supplierRepo.findByName(supplierName).getId();
+         criteria.supplierId = supplierRepo.findByName(supplierName).orElseThrow().getId();
       }
    }
 

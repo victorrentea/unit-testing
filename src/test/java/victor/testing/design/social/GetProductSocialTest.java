@@ -34,7 +34,7 @@ public class GetProductSocialTest {
             .setUpc("UPC")
             .setCategory(HOME)
             .setCreatedDate(date)
-            .setSupplier(new Supplier().setId(2L));
+            .setSupplier(new Supplier().setCode("S"));
     when(productRepo.findById(1L)).thenReturn(Optional.of(product));
 
     ProductDto dto = productService.getProduct(1L);
@@ -44,7 +44,7 @@ public class GetProductSocialTest {
     assertThat(dto.getUpc()).isEqualTo("UPC");
     assertThat(dto.getCategory()).isEqualTo(HOME);
     assertThat(dto.getCreatedDate()).isEqualTo(date);
-    assertThat(dto.getSupplierId()).isEqualTo(2L);
+    assertThat(dto.getSupplierCode()).isEqualTo("S");
   }
 
 }

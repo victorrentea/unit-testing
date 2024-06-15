@@ -36,8 +36,13 @@ public class ContractFreezeTest {
 
     ChangedOpenApi diff = OpenApiCompare.fromContents(previousOpenAPIJson, currentOpenAPIJson);
 
-    assertThat(diff.isCompatible())
-        .describedAs("Exposed OpenAPI should not have breaking changes:\n" + new MarkdownRender().render(diff))
-        .isTrue();
+    if (!diff.isCompatible()) {
+      String render = new MarkdownRender().render(diff);
+      System.err.println(render);
+
+      assertThat(currentOpenAPIJson)
+          .describedAs("Exposed OpenAPI should not have changed")
+          .isEqualTo(previousOpenAPIJson);
+    }
   }
 }

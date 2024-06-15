@@ -1,5 +1,6 @@
 package victor.testing.spring.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,22 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+@Data
 public class Supplier {
-
     @Id
     @GeneratedValue
-    @Getter @Setter
     private Long id;
-    @Getter @Setter
+    private String code;
     private String name;
-
-    @Getter @Setter
     private boolean active;
-
-    public Supplier() {}
-
-    public Supplier(String name) {
-        this.name = name;
-    }
-
 }

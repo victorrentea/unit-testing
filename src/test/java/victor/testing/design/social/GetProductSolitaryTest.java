@@ -41,7 +41,7 @@ public class GetProductSolitaryTest {
             .setUpc("UPC")
             .setCategory(HOME)
             .setCreatedDate(date)
-            .setSupplier(new Supplier().setId(2L));
+            .setSupplier(new Supplier().setCode("S"));
 
     ProductDto dto = new ProductMapper().toDto(product);
 
@@ -50,6 +50,6 @@ public class GetProductSolitaryTest {
     assertThat(dto.getUpc()).isEqualTo("UPC");
     assertThat(dto.getCategory()).isEqualTo(HOME);
     assertThat(dto.getCreatedDate()).isEqualTo(date);
-    assertThat(dto.getSupplierId()).isEqualTo(2L);
+    assertThat(dto.getSupplierCode()).isEqualTo("S");
   }
 }

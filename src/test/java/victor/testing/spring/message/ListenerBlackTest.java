@@ -2,6 +2,7 @@ package victor.testing.spring.message;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -30,13 +31,14 @@ public class ListenerBlackTest extends IntegrationTest {
   }
 
   @Test
+  @Disabled("flaky")
   void supplierIsCreated_sleep_flaky() throws InterruptedException {
     kafkaTemplate.send("supplier-created-event", "supplier");
 
     Thread.sleep(150); // works on my machine™️, but my colleague requires 200ms
     assertThat(supplierRepo.findByName("supplier"))
         .describedAs("Supplier was inserted")
-        .isNotNull();
+        .isNotEmpty();
   }
 
   @Test
@@ -49,7 +51,7 @@ public class ListenerBlackTest extends IntegrationTest {
         .untilAsserted(() ->
             assertThat(supplierRepo.findByName("supplier"))
                 .describedAs("Supplier was inserted")
-                .isNotNull());
+                .isNotEmpty());
   }
 
 }

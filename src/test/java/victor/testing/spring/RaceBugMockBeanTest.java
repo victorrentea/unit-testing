@@ -32,9 +32,9 @@ public class RaceBugMockBeanTest extends IntegrationTest{
   ProductService productService;
 
   @Test
-  void throwsEx() throws InterruptedException {
+  void throwsExForUnsafe() throws InterruptedException {
     when(safetyClient.isSafe("unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "unsafe", -1L, HOME);
+    ProductDto dto = new ProductDto("name", "unsafe", "S", HOME);
 
     Thread.sleep(50); // imagine some delay in tested code
     assertThatThrownBy(() -> productService.createProduct(dto));
@@ -42,9 +42,9 @@ public class RaceBugMockBeanTest extends IntegrationTest{
 
   @Test
   void ok() throws InterruptedException {
-    Long supplierId = supplierRepo.save(new Supplier()).getId();
+    Long supplierId = supplierRepo.save(new Supplier().setCode("S")).getId();
     when(safetyClient.isSafe("safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "safe", supplierId, HOME);
+    ProductDto dto = new ProductDto("name", "safe", "S", HOME);
 
     Thread.sleep(50); // imagine some delay in tested code
     productService.createProduct(dto);

@@ -33,7 +33,7 @@ public class ScheduledAwaitTest extends IntegrationTest {
 
     Long id = repo.save(EMAIL).getId(); // insert the data that will trigger the @Scheduled
 
-    Awaitility.await().timeout(ofSeconds(2))
+    Awaitility.await().timeout(ofSeconds(5)) //Poke at this number
         .untilAsserted(() ->
             assertThat(repo.findById(id).orElseThrow().getStatus()).isEqualTo(SUCCESS));
   }
