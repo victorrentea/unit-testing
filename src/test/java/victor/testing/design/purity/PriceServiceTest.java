@@ -60,8 +60,8 @@ public class PriceServiceTest {
     assertEquals(200.0, prices.get(2L));
   }
 
-  @Test
-  public void appliesAutoApplyCoupons() {
+@Test
+public void appliesAutoApplyCoupons() {
     long customerId = 1L;
     List<Long> productIds = Arrays.asList(1L);
     Map<Long, Double> internalPrices = new HashMap<>();
@@ -81,8 +81,10 @@ public class PriceServiceTest {
 
     assertEquals(1, prices.size());
     assertNull(prices.get(1L));
-  }
 
+    // Verify that markUsedCoupons was called with the correct parameters
+    verify(couponRepo).markUsedCoupons(customerId, Arrays.asList(coupon));
+}
   @Test
   public void doesNotApplyNonAutoApplyCoupons() {
     long customerId = 1L;
