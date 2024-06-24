@@ -354,7 +354,7 @@
                         <param>victor.testing.design.purity.*</param>
                     </targetTests>
                     <mutators>
-                        <mutator>NON_VOID_METHOD_CALLS</mutator>
+                        <mutator>STRONGER</mutator>
                     </mutators>
                 </configuration>
             </plugin>

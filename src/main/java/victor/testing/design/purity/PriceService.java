@@ -45,6 +45,4 @@ public class PriceService {
     couponRepo.markUsedCoupons(customerId, usedCoupons);
     return finalPrices;
   }
-
 }
-

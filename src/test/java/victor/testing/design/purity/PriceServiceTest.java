@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
@@ -59,6 +60,8 @@ public void computesPricesWithInternalAndThirdPartyPrices() {
     assertEquals(2, prices.size());
     assertEquals(100.0, prices.get(1L)); // The price for the first product comes from the internalPrices map
     assertEquals(200.0, prices.get(2L)); // The price for the second product comes from the fetchPrice method
+
+    assertThat(prices).containsEntry(1L, 100.0).containsEntry(2L, 200.0);
 }
 @Test
 public void appliesAutoApplyCoupons() {
