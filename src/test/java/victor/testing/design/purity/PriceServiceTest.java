@@ -37,13 +37,12 @@ public class PriceServiceTest {
   @InjectMocks
   private PriceService priceService;
 
-  @Test
-  public void computesPricesWithInternalAndThirdPartyPrices() {
+@Test
+public void computesPricesWithInternalAndThirdPartyPrices() {
     long customerId = 1L;
     List<Long> productIds = Arrays.asList(1L, 2L);
     Map<Long, Double> internalPrices = new HashMap<>();
-    internalPrices.put(1L, 100.0);
-    internalPrices.put(2L, 200.0);
+    internalPrices.put(1L, 100.0); // Only add a price for the first product
 
     when(customerRepo.findById(customerId)).thenReturn(new Customer());
 
@@ -53,13 +52,14 @@ public class PriceServiceTest {
     product2.setId(2L);
     when(productRepo.findAllById(productIds)).thenReturn(Arrays.asList(product1, product2));
 
+    when(thirdPartyPricesApi.fetchPrice(2L)).thenReturn(200.0); // Add a stubbing for the fetchPrice method
+
     Map<Long, Double> prices = priceService.computePrices(customerId, productIds, internalPrices);
 
     assertEquals(2, prices.size());
-    assertEquals(100.0, prices.get(1L));
-    assertEquals(200.0, prices.get(2L));
-  }
-
+    assertEquals(100.0, prices.get(1L)); // The price for the first product comes from the internalPrices map
+    assertEquals(200.0, prices.get(2L)); // The price for the second product comes from the fetchPrice method
+}
 @Test
 public void appliesAutoApplyCoupons() {
     long customerId = 1L;

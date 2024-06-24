@@ -347,9 +347,11 @@
                 <configuration>
                     <targetClasses>
                         <param>victor.testing.mutation.*</param>
+                        <param>victor.testing.design.purity.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>victor.testing.mutation.*</param>
+                        <param>victor.testing.design.purity.*</param>
                     </targetTests>
                     <mutators>
                         <mutator>NON_VOID_METHOD_CALLS</mutator>
