@@ -55,6 +55,9 @@ public class PriceServiceTest {
 
     Map<Long, Double> prices = priceService.computePrices(customerId, productIds, internalPrices);
 
+    assertEquals(2, prices.size());
+    assertEquals(100.0, prices.get(1L));
+    assertEquals(200.0, prices.get(2L));
   }
 
   @Test
@@ -76,6 +79,8 @@ public class PriceServiceTest {
 
     Map<Long, Double> prices = priceService.computePrices(customerId, productIds, internalPrices);
 
+    assertEquals(1, prices.size());
+    assertNull(prices.get(1L));
   }
 
   @Test
@@ -95,6 +100,8 @@ public class PriceServiceTest {
 
     Map<Long, Double> prices = priceService.computePrices(customerId, productIds, internalPrices);
 
+    assertEquals(1, prices.size());
+    assertNull(prices.get(1L));
   }
 
   @Test
@@ -123,6 +130,9 @@ public class PriceServiceTest {
 
     Map<Long, Double> prices = priceService.computePrices(customerId, productIds, internalPrices);
 
+    assertEquals(2, prices.size());
+    assertEquals(80.0, prices.get(1L)); // The coupon is applied to the first product
+    assertEquals(200.0, prices.get(2L)); // The coupon is not applied to the second product because it's already used
   }
 
   @Test
@@ -146,5 +156,7 @@ public void doesNotApplyInapplicableCoupon() {
 
     Map<Long, Double> prices = priceService.computePrices(customerId, productIds, internalPrices);
 
+    assertEquals(1, prices.size());
+    assertEquals(100.0, prices.get(1L)); // The price remains the same because the coupon is not applied
 }
 }
