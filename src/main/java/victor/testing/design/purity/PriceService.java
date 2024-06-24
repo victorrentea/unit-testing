@@ -28,12 +28,10 @@ public class PriceService {
     List<Coupon> usedCoupons = new ArrayList<>();
     Map<Long, Double> finalPrices = new HashMap<>();
     for (Product product : products) {
-      // resolve price
       Double price = internalPrices.get(product.getId());
       if (price == null) {
         price = thirdPartyPricesApi.fetchPrice(product.getId());
       }
-      // apply coupons
       for (Coupon coupon : customer.getCoupons()) {
         if (coupon.autoApply()
             && coupon.isApplicableFor(product, price)
