@@ -6,6 +6,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.infra.SafetyClient;
@@ -29,6 +31,8 @@ public class ProductService {
   private final KafkaTemplate<String, String> kafkaTemplate;
 
   @Secured("ROLE_ADMIN")
+//  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  // @Async
   public void createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getUpc());
     boolean safe = safetyClient.isSafe(productDto.getUpc()); // ⚠️ REST call inside

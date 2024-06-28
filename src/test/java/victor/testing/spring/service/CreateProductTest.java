@@ -19,6 +19,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -46,14 +47,18 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // pentru cei care in tacere sufera eroic cu o DB legacy de 667 de
 // tabele si muuuulst SuQiLi mostenit de la parintii firmei. de obicei ai si 50k de linii de PL/SQL
 // nu ai JPA
-@Sql(scripts = "classpath:sql/cleanup.sql",executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+//@Sql(scripts = "classpath:sql/cleanup.sql",executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+
+@Transactional // #4 pe teste se face rollback automat la final
+// + foate simplu : se curata magic tot dupa tine si @Before-urile dinainte ta
+// - nu se face commit niciodata => @TransactionalEventListener nu merge
+// - nu merge daca codul testat face @Transactional(propagation = REQUIRES_NEW|NOT_SUPPORTED) << DE EVITAT
 
 @WithMockUser(username = "user", roles = "ADMIN")
 public class CreateProductTest extends IntegrationTest {
   @Autowired
   ProductService productService;
-  @Autowired
-  protected SupplierRepo supplierRepo;
+
   @Autowired
   protected ProductRepo productRepo;
 
@@ -63,6 +68,8 @@ public class CreateProductTest extends IntegrationTest {
 //    productRepo.deleteAll();
 //    supplierRepo.deleteAll();
 //  }
+
+
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
@@ -74,7 +81,6 @@ public class CreateProductTest extends IntegrationTest {
   }
   @Test
   void createOk() {
-    supplierRepo.save(new Supplier().setCode("s"));
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", "S", HOME);
 
@@ -92,7 +98,6 @@ public class CreateProductTest extends IntegrationTest {
   }
   @Test
   void createUncategorized() {
-    supplierRepo.save(new Supplier().setCode("s"));
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name",
         "upc-safe", "S", null);

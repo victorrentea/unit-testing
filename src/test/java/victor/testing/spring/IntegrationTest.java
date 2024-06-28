@@ -1,19 +1,15 @@
 package victor.testing.spring;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
-import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductMapper;
-import victor.testing.tools.TestcontainersUtils;
 
 // #1 in-mem H2 database (traditional)
 @SpringBootTest
@@ -25,6 +21,21 @@ public abstract class IntegrationTest {
   protected ProductMapper productMapper;
   @MockBean
   protected KafkaTemplate<String, String> kafkaTemplate;
+  @Autowired
+  protected SupplierRepo supplierRepo;
+
+  @BeforeEach
+  void insertReferenceData() { // tot in aceeasi tx cu @Test
+    supplierRepo.save(new Supplier().setCode("s"));
+  }
+
+
+  @BeforeEach
+  void checkAllTablesAreEmpty() { // testul imediat dupa unul vinovat va crapa
+    if(supplierRepo.count() != 0) {
+      throw new IllegalStateException("Tables are not empty");
+    }
+  }
 }
 
 // ==================================================================
