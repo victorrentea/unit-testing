@@ -15,7 +15,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -31,8 +34,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
+
+
+//@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD) // #2 dupa fiecare @Test distruge Springu cu tot cu DB H2 in-mem
+// ⚠️ distruge performanta - testele ruleaza muuuuuuuuuuuuuuuuuuuuuuuuuuuuuuult
+// e de folosit doar ca 1) debug tool sau 2) cand testezi extensii/@ConditionalOn....ceva care modifica BEANUrile
+
+// pentru cei care in tacere sufera eroic cu o DB legacy de 667 de
+// tabele si muuuulst SuQiLi mostenit de la parintii firmei. de obicei ai si 50k de linii de PL/SQL
+// nu ai JPA
+@Sql(scripts = "classpath:sql/cleanup.sql",executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 
 @WithMockUser(username = "user", roles = "ADMIN")
 public class CreateProductTest extends IntegrationTest {
@@ -42,12 +56,13 @@ public class CreateProductTest extends IntegrationTest {
   protected SupplierRepo supplierRepo;
   @Autowired
   protected ProductRepo productRepo;
-  @BeforeEach // #1 repo.deleteAll
-  @AfterEach
-  public void cleanupDB() {
-    productRepo.deleteAll();;
-    supplierRepo.deleteAll();
-  }
+
+//  @BeforeEach // #1 repo.deleteAll f buna pt JPA
+//  @AfterEach
+//  public void cleanupDB() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
