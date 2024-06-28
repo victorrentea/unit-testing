@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
+@TestPropertySource(properties = "spring.main.allow-bean-definition-overriding=true")
 public class CreateProduct2Test extends IntegrationTest {
   @Autowired
   ProductService productService;
@@ -39,14 +41,14 @@ public class CreateProduct2Test extends IntegrationTest {
   }
 
   @Test
-  void createOk() {
+  void createOk() throws InterruptedException {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", "S", HOME);
 
     // WHEN
     productService.createProduct(dto);
-
+  Thread.sleep(5000);
     ArgumentCaptor<Product> productCaptor = forClass(Product.class);
     verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
     Product product = productCaptor.getValue();
