@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.domain.Product;
@@ -30,6 +31,7 @@ import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
+@WithMockUser(username = "user", roles = "ADMIN")
 public class CreateProductTest extends IntegrationTest {
   @Autowired
   ProductService productService;
@@ -61,8 +63,8 @@ public class CreateProductTest extends IntegrationTest {
     assertThat(product.getUpc()).isEqualTo("upc-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("s");
     assertThat(product.getCategory()).isEqualTo(HOME);
-    //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
-    //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
+    assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
+    assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 

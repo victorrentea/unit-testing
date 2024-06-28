@@ -3,6 +3,8 @@ package victor.testing.spring.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
@@ -26,6 +28,7 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
 
+  @Secured("ROLE_ADMIN")
   public void createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getUpc());
     boolean safe = safetyClient.isSafe(productDto.getUpc()); // ⚠️ REST call inside
@@ -40,6 +43,7 @@ public class ProductService {
     product.setUpc(productDto.getUpc());
     product.setCategory(productDto.getCategory());
     product.setSupplier(supplierRepo.findByCodeIgnoreCase(productDto.getSupplierCode()).orElseThrow());
+//    product.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());// in mod normal fara magie
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
     // return product.getId();
