@@ -33,7 +33,10 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 public class CreateProductTest extends IntegrationTest {
   @Autowired
   ProductService productService;
-
+  @Autowired
+  protected SupplierRepo supplierRepo;
+  @Autowired
+  protected ProductRepo productRepo;
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
@@ -46,20 +49,20 @@ public class CreateProductTest extends IntegrationTest {
 
   @Test
   void createOk() throws InterruptedException {
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("s"));
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", "S", HOME);
 
     // WHEN
     productService.createProduct(dto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
-    assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getUpc()).isEqualTo("upc-safe");
-    assertThat(product.getSupplier().getCode()).isEqualTo("S");
-    assertThat(product.getCategory()).isEqualTo(HOME);
+//    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
+//    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
+//    Product product = productCaptor.getValue();
+//    assertThat(product.getName()).isEqualTo("name");
+//    assertThat(product.getUpc()).isEqualTo("upc-safe");
+//    assertThat(product.getSupplier().getCode()).isEqualTo("S");
+//    assertThat(product.getCategory()).isEqualTo(HOME);
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");

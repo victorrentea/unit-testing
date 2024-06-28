@@ -39,7 +39,7 @@ public class ProductService {
     product.setName(productDto.getName());
     product.setUpc(productDto.getUpc());
     product.setCategory(productDto.getCategory());
-    product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
+    product.setSupplier(supplierRepo.findByCodeIgnoreCase(productDto.getSupplierCode()).orElseThrow());
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
   }

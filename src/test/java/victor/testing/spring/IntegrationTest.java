@@ -19,10 +19,6 @@ import victor.testing.tools.TestcontainersUtils;
 @SpringBootTest
 @ActiveProfiles("test")
 public abstract class IntegrationTest {
-  @MockBean // inlocuieste bean-ul din context cu un mock
-  protected SupplierRepo supplierRepo;
-  @MockBean
-  protected ProductRepo productRepo;
   @MockBean
   protected SafetyClient safetyClient;
   @MockBean // in plus fata de cealalta clasa
