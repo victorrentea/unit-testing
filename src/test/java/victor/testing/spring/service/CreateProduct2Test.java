@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -23,20 +24,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
-//@ExtendWith(MockitoExtension.class)
-@SpringBootTest // porneste un container de spring in cadrul testului
-@ActiveProfiles({"db-mem"})
-public class CreateProduct2Test {
-  @MockBean // inlocuieste bean-ul din context cu un mock
-  SupplierRepo supplierRepo;
-  @MockBean
-  ProductRepo productRepo;
-  @MockBean
-  SafetyClient safetyClient;
-  @MockBean // in plus fata de cealalta clasa
-  ProductMapper productMapper;
-  @MockBean
-  KafkaTemplate<String, String> kafkaTemplate;
+public class CreateProduct2Test extends IntegrationTest {
+
   @Autowired
   ProductService productService;
 

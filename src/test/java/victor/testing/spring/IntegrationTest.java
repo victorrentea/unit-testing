@@ -2,17 +2,33 @@ package victor.testing.spring;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.ProductMapper;
 import victor.testing.tools.TestcontainersUtils;
 
 // #1 in-mem H2 database (traditional)
 @SpringBootTest
 @ActiveProfiles("db-mem")
 public abstract class IntegrationTest {
+   @MockBean // inlocuieste bean-ul din context cu un mock
+  protected SupplierRepo supplierRepo;
+  @MockBean
+  protected ProductRepo productRepo;
+  @MockBean
+  protected SafetyClient safetyClient;
+  @MockBean // in plus fata de cealalta clasa
+  protected ProductMapper productMapper;
+  @MockBean
+  protected KafkaTemplate<String, String> kafkaTemplate;
 }
 
 // ==================================================================
