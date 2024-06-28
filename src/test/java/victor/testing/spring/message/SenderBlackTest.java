@@ -14,7 +14,7 @@ import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductService;
@@ -40,7 +40,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @EmbeddedKafka(topics = "product-created")
 public class SenderBlackTest extends IntegrationTest {
   @MockBean
-  SafetyClient mockSafetyClient;
+  SafetyApiClient mockSafetyApiClient;
   @Autowired
   ProductRepo productRepo;
   @Autowired
@@ -59,7 +59,7 @@ public class SenderBlackTest extends IntegrationTest {
   void createSendsMessage() throws InterruptedException, ExecutionException {
     // GIVEN
     Long supplierId = supplierRepo.save(new Supplier().setCode("S")).getId();
-    when(mockSafetyClient.isSafe("safe")).thenReturn(true);
+    when(mockSafetyApiClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safe", "S", HOME);
 
     // WHEN

@@ -3,17 +3,15 @@ package victor.testing.spring.service;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.spring.service.ProductService;
 import victor.testing.spring.api.dto.ProductDto;
 
 import java.util.Optional;
@@ -32,7 +30,7 @@ public class CreateProductTest {
   @Mock
   ProductRepo productRepo;
   @Mock
-  SafetyClient safetyClient;
+  SafetyApiClient safetyApiClient;
   @Mock
   KafkaTemplate<String, String> kafkaTemplate;
   @InjectMocks
@@ -40,7 +38,7 @@ public class CreateProductTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
+    when(safetyApiClient.isSafe("upc-unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "upc-unsafe", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
@@ -51,7 +49,7 @@ public class CreateProductTest {
   @Test
   void createOk() {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
-    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
+    when(safetyApiClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", "S", HOME);
 
     // WHEN

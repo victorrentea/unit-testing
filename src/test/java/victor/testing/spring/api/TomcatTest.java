@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyClient;
+import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.api.dto.ProductSearchCriteria;
@@ -33,7 +33,7 @@ import static org.springframework.http.HttpStatus.OK;
 @EmbeddedKafka(topics = "${input.topic}")
 public class TomcatTest {
   @MockBean
-  private SafetyClient safetyClient;
+  private SafetyApiClient safetyApiClient;
   @Autowired
   private SupplierRepo supplierRepo;
   @Autowired
@@ -58,7 +58,7 @@ public class TomcatTest {
 
   @Test
   public void testSearch() {
-    when(safetyClient.isSafe("safe")).thenReturn(true);
+    when(safetyApiClient.isSafe("safe")).thenReturn(true);
 
     ProductSearchCriteria searchCriteria = criteria.setName("Tree");
 
