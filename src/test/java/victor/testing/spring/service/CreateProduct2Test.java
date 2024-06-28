@@ -25,7 +25,6 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
 public class CreateProduct2Test extends IntegrationTest {
-
   @Autowired
   ProductService productService;
 

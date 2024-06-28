@@ -17,9 +17,9 @@ import victor.testing.tools.TestcontainersUtils;
 
 // #1 in-mem H2 database (traditional)
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("test")
 public abstract class IntegrationTest {
-   @MockBean // inlocuieste bean-ul din context cu un mock
+  @MockBean // inlocuieste bean-ul din context cu un mock
   protected SupplierRepo supplierRepo;
   @MockBean
   protected ProductRepo productRepo;
