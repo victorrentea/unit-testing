@@ -30,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 @WithMockUser(username = "user", roles = "ADMIN")
 public class CreateProductTest extends IntegrationTest {
@@ -48,9 +49,8 @@ public class CreateProductTest extends IntegrationTest {
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
   }
-
   @Test
-  void createOk() throws InterruptedException {
+  void createOk() {
     supplierRepo.save(new Supplier().setCode("s"));
     when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", "S", HOME);
@@ -66,6 +66,19 @@ public class CreateProductTest extends IntegrationTest {
     assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+  @Test
+  void createUncategorized() {
+    supplierRepo.save(new Supplier().setCode("s"));
+    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
+    ProductDto dto = new ProductDto("name",
+        "upc-safe", "S", null);
+
+    // WHEN
+    productService.createProduct(dto);
+
+    Product product = productRepo.findByName("name");
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
