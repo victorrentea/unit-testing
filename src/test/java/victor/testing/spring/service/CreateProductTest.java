@@ -1,5 +1,7 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -40,6 +42,12 @@ public class CreateProductTest extends IntegrationTest {
   protected SupplierRepo supplierRepo;
   @Autowired
   protected ProductRepo productRepo;
+  @BeforeEach // #1 repo.deleteAll
+  @AfterEach
+  public void cleanupDB() {
+    productRepo.deleteAll();;
+    supplierRepo.deleteAll();
+  }
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
