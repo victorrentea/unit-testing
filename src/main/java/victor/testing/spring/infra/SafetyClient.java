@@ -27,7 +27,7 @@ public class SafetyClient {
             baseUrl + "/product/{upc}/safety",
             SafetyResponse.class, upc)
         .getBody();
-    return "SAFE___c".equals(response.category());
+    return "SAFE".equals(response.category());
   }
   // a) si b) pot fi evitate daca iti generezi clientul de HTTP
   // din OpenAPI/swagger expus de serviciul extern

@@ -1,41 +1,21 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyClient;
-import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.spring.service.ProductService;
 import victor.testing.spring.api.dto.ProductDto;
+import victor.testing.spring.domain.Product;
+import victor.testing.spring.repo.ProductRepo;
 
-import java.util.Optional;
-
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
+import static org.mockito.Mockito.verify;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
@@ -55,6 +35,7 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 // - nu merge daca codul testat face @Transactional(propagation = REQUIRES_NEW|NOT_SUPPORTED) << DE EVITAT
 
 @WithMockUser(username = "user", roles = "ADMIN")
+@AutoConfigureWireMock(port = 0) // #3 porneste un server WireMock pe un port random
 public class CreateProductTest extends IntegrationTest {
   @Autowired
   ProductService productService;
@@ -69,19 +50,33 @@ public class CreateProductTest extends IntegrationTest {
 //    supplierRepo.deleteAll();
 //  }
 
+  //  @Autowired
+//  WireMock wireMock;
+  @Autowired
+  WireMockServer wireMockServer;
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "upc-unsafe", "S", HOME);
+    wireMockServer.stubFor(get("/product/upc-unZZZ/safety")
+        .willReturn(okJson("""
+            {
+             "category": "NOT SAFE",
+             "detailsUrl": "http://details.url/a/b"
+            }
+            """)));
+
+
+//    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
+    ProductDto dto = new ProductDto("name", "upc-unZZZ", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
   }
+
   @Test
   void createOk() {
-    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
+//    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "upc-safe", "S", HOME);
 
     // WHEN
@@ -96,9 +91,10 @@ public class CreateProductTest extends IntegrationTest {
     assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
+
   @Test
   void createUncategorized() {
-    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
+//    when(safetyClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name",
         "upc-safe", "S", null);
 

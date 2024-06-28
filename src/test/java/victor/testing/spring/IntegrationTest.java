@@ -15,8 +15,8 @@ import victor.testing.spring.service.ProductMapper;
 @SpringBootTest
 @ActiveProfiles("test")
 public abstract class IntegrationTest {
-  @MockBean
-  protected SafetyClient safetyClient;
+//  @MockBean
+//  protected SafetyClient safetyClient;
   @MockBean // in plus fata de cealalta clasa
   protected ProductMapper productMapper;
   @MockBean
