@@ -18,16 +18,16 @@ public class SafetyClient {
   @Value("${safety.service.url.base}")
   private final URL baseUrl;
 
-  public record SafetyResponse(String category___a, String detailsUrl) {
+  public record SafetyResponse(String category, String detailsUrl) {
   }
 
   // asta e un ADapter pattern ( o clasa care intermediaza accesul la apiuri externe)
   public boolean isSafe(String upc) {
     SafetyResponse response = restTemplate.getForEntity(
-            baseUrl + "/product/{upc}/safety___b",
+            baseUrl + "/product/{upc}/safety",
             SafetyResponse.class, upc)
         .getBody();
-    return "SAFE___c".equals(response.category___a());
+    return "SAFE___c".equals(response.category());
   }
   // a) si b) pot fi evitate daca iti generezi clientul de HTTP
   // din OpenAPI/swagger expus de serviciul extern
