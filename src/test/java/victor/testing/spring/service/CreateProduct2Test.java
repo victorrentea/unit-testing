@@ -25,7 +25,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 //@ExtendWith(MockitoExtension.class)
 @SpringBootTest // porneste un container de spring in cadrul testului
-@ActiveProfiles({"db-mem", "alt"})
+@ActiveProfiles({"db-mem"})
 public class CreateProduct2Test {
   @MockBean // inlocuieste bean-ul din context cu un mock
   SupplierRepo supplierRepo;
@@ -33,6 +33,8 @@ public class CreateProduct2Test {
   ProductRepo productRepo;
   @MockBean
   SafetyClient safetyClient;
+  @MockBean // in plus fata de cealalta clasa
+  ProductMapper productMapper;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
