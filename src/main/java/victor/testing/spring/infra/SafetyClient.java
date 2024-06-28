@@ -18,14 +18,15 @@ public class SafetyClient {
   @Value("${safety.service.url.base}")
   private final URL baseUrl;
 
-  public record SafetyResponse(String category, String detailsUrl) {
+  public record SafetyResponse(String category___, String detailsUrl) {
   }
 
+  // asta e un ADapter pattern ( o clasa care intermediaza accesul la apiuri externe)
   public boolean isSafe(String upc) {
     SafetyResponse response = restTemplate.getForEntity(
-            baseUrl + "/product/{upc}/safety",
+            baseUrl + "/product/{upc}/safety___",
             SafetyResponse.class, upc)
         .getBody();
-    return "SAFE".equals(response.category());
+    return "SAFE___".equals(response.category___());
   }
 }

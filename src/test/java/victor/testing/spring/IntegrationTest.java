@@ -21,6 +21,8 @@ public abstract class IntegrationTest {
   protected ProductMapper productMapper;
   @MockBean
   protected KafkaTemplate<String, String> kafkaTemplate;
+
+
   @Autowired
   protected SupplierRepo supplierRepo;
 
