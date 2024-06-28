@@ -81,4 +81,5 @@ public class CreateProductTest extends IntegrationTest {
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
+
 }
