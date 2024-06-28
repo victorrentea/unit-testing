@@ -42,6 +42,7 @@ public class ProductService {
     product.setSupplier(supplierRepo.findByCodeIgnoreCase(productDto.getSupplierCode()).orElseThrow());
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
+    // return product.getId();
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {

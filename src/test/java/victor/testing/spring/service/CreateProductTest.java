@@ -56,13 +56,11 @@ public class CreateProductTest extends IntegrationTest {
     // WHEN
     productService.createProduct(dto);
 
-//    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-//    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-//    Product product = productCaptor.getValue();
-//    assertThat(product.getName()).isEqualTo("name");
-//    assertThat(product.getUpc()).isEqualTo("upc-safe");
-//    assertThat(product.getSupplier().getCode()).isEqualTo("S");
-//    assertThat(product.getCategory()).isEqualTo(HOME);
+    Product product = productRepo.findByName("name");
+    assertThat(product.getName()).isEqualTo("name");
+    assertThat(product.getUpc()).isEqualTo("upc-safe");
+    assertThat(product.getSupplier().getCode()).isEqualTo("s");
+    assertThat(product.getCategory()).isEqualTo(HOME);
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
