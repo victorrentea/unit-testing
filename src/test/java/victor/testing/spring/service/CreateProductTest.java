@@ -53,7 +53,6 @@ public class CreateProductTest extends IntegrationTest {
     // WHEN
     productService.createProduct(dto);
 
-    Thread.sleep(5000);
     ArgumentCaptor<Product> productCaptor = forClass(Product.class);
     verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
     Product product = productCaptor.getValue();
