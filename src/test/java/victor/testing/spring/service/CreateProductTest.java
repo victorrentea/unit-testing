@@ -7,7 +7,12 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyClient;
@@ -21,21 +26,22 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+@SpringBootTest // porneste un container de spring in cadrul testului
+@ActiveProfiles("db-mem")
 public class CreateProductTest {
-  @Mock
+  @MockBean // inlocuieste bean-ul din context cu un mock
   SupplierRepo supplierRepo;
-  @Mock
+  @MockBean
   ProductRepo productRepo;
-  @Mock
+  @MockBean
   SafetyClient safetyClient;
-  @Mock
+  @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   @Test
