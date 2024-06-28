@@ -39,9 +39,9 @@ public class CreateProductTest {
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyApiClient.isSafe("upc-unsafe")).thenReturn(false);
-    ProductDto dto = new ProductDto("name", "upc-unsafe", "S", HOME);
+    ProductDto productDto = new ProductDto("name", "upc-unsafe", "S", HOME);
 
-    assertThatThrownBy(() -> productService.createProduct(dto))
+    assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
   }
@@ -50,10 +50,10 @@ public class CreateProductTest {
   void createOk() {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
     when(safetyApiClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto dto = new ProductDto("name", "upc-safe", "S", HOME);
+    ProductDto productDto = new ProductDto("name", "upc-safe", "S", HOME);
 
     // WHEN
-    productService.createProduct(dto);
+    productService.createProduct(productDto);
 
     ArgumentCaptor<Product> productCaptor = forClass(Product.class);
     verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
@@ -68,3 +68,13 @@ public class CreateProductTest {
   }
 
 }
+
+/*
+wireMockServer.stubFor(get("/product/upc-unsafe/safety")
+  .willReturn(okJson("""
+      {
+       "category": "NOT SAFE",
+       "detailsUrl": "http://details.url/a/b"
+      }
+      """)));
+ */
