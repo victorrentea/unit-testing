@@ -72,7 +72,12 @@ public class ProductApiTest extends IntegrationTest {
     // repo.save(..); Given
 
     // API call (when)
-    createProductApi(productDto.setName("Tree"));
+    ProductDto request = productDto.setName("Tree");
+    mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(request))
+            .contentType(APPLICATION_JSON)) // can be set as default
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(header().exists("Location"));
 
     // direct DB SELECT (then)
     Product returnedProduct = productRepo.findAll().get(0);
@@ -148,12 +153,14 @@ public class ProductApiTest extends IntegrationTest {
 
   @Test
   void createProduct_failsForMissingName() throws Exception {
-    createProduct_failsValidation(productDto.setName(null), "name");
+    createProduct_failsValidation(
+        productDto.setName(null), "name");
   }
 
   @Test
   void createProduct_failsForMissingUPC() throws Exception {
-    createProduct_failsValidation(productDto.setUpc(null), "upc");
+    createProduct_failsValidation(
+        productDto.setUpc(null), "upc");
   }
 
   private void createProduct_failsValidation(ProductDto request, String fieldName) throws Exception {

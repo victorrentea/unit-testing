@@ -65,8 +65,6 @@ public class CreateProductTest extends IntegrationTest {
             }
             """)));
 
-
-//    when(safetyClient.isSafe("upc-unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "upc-unZZZ", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(dto))

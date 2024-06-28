@@ -45,9 +45,13 @@ public class ListenerBlackTest extends IntegrationTest {
   void supplierIsCreated_polling() {
     kafkaTemplate.send("supplier-created-event", "supplier");
 
+    // Awaitility is a library that allows you to express expectations in a more concise way.
+    // modul recomandat de a scrie verificari pe efect asincrone cu POLLING
+
+    // tot as vei putea testa si @Scheduled
     Awaitility.await()
-        .pollInterval(Duration.ofMillis(10))
         .timeout(Duration.ofSeconds(1))
+        .pollInterval(Duration.ofMillis(10))
         .untilAsserted(() ->
             assertThat(supplierRepo.findByName("supplier"))
                 .describedAs("Supplier was inserted")
