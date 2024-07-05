@@ -1,6 +1,7 @@
 package victor.testing.spring.message;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -15,6 +16,11 @@ import victor.testing.spring.repo.SupplierRepo;
 public class MessageListener {
   private final SupplierRepo supplierRepo;
 
+  // @Scheduled
+  // fire-and-forget:
+  //   - CompletableFuture.runAsync(() -> { ... }) la care nu faci get
+  //   - @Async void f() {}
+  @SneakyThrows
   @KafkaListener(topics = "supplier-created-event")
   public void onMessage(String supplierName) {
     log.info("Received message: " + supplierName);

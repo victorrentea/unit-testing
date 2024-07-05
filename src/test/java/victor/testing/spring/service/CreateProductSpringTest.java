@@ -24,9 +24,9 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 //@Tag("flaky") // ca sa nu rupi increderea echipei in CI
 //@Tag("slow") // ca sa termine testele in 15m
 //@ActiveProfiles("sipasta") // PRAF
-//@TestPropertySource  // PRAF
+@TestPropertySource(properties = "a=b")  // PRAF
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD) // PRAF
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD) // PRAF
 public class CreateProductSpringTest extends IntegrationTest {
   @MockBean
   SafetyApiClient safetyApiClient;
