@@ -18,6 +18,7 @@ import victor.testing.spring.repo.SupplierRepo;
 
 import java.util.ArrayDeque;
 import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,7 +38,7 @@ public class ListenerLogicTest extends IntegrationTest {
 
   @Test
 //  @RepeatedTest(100)
-  void listenerLogic() {
+  void listenerLogic() throws InterruptedException {
     // apel de metoda clasic
     String supplier = "supplier" + UUID.randomUUID();
     messageListener.onMessage(supplier);
@@ -46,12 +47,12 @@ public class ListenerLogicTest extends IntegrationTest {
         .describedAs("Supplier was inserted")
         .isNotNull();
     // eroarea apare in failure error. ca e in th JUnit nu undeva pe alt thread.
-    String receivedMessage = receivedMessages.poll();
+    String receivedMessage = receivedMessages.take();
     assertThat(receivedMessage).isEqualTo("dragoste💖 "+supplier);
     System.out.println(" NUTECRED");
   }
 
-  static ArrayDeque<String> receivedMessages = new ArrayDeque<>();
+  static ArrayBlockingQueue<String> receivedMessages = new ArrayBlockingQueue<>(100);
   @TestConfiguration
   public static class ChestiiSpringInPlusPtTeste {
     @Bean
