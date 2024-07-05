@@ -1,3 +1,2 @@
 
--- reference data
--- insert into supplier (id, active, name) values (1, true, 'S');
+-- insert into supplier (id, active, code) values (1, true, 'S');
