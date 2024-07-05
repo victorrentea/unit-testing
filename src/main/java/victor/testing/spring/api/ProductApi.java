@@ -23,6 +23,7 @@ public class ProductApi {
 
    @PostMapping("product/create")
    @Secured("ROLE_ADMIN")
+   // TODO vrentea 05.07.2024: OARE DACA DIN CURL vii fara body, intri cu NULL ?
    public ResponseEntity<Void> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException {
       service.createProduct(productDto);
       return ResponseEntity.created(new URI("http://created-uri")).build();

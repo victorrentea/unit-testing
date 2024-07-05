@@ -13,6 +13,8 @@ import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -43,7 +46,8 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
 @EmbeddedKafka(topics = "${input.topic}") // start up an in-mem Kafka
-@Transactional // ROLLBACK after each @Test
+//@Transactional // ROLLBACK after each @Test
+@Sql(value = "classpath:/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
 @ActiveProfiles({"db-migration", "wiremock","embedded-kafka"})
 
 @WithMockUser(roles = "ADMIN") // grant the current thread the 'ROLE_ADMIN'
@@ -63,7 +67,8 @@ public class ProductApiTest extends IntegrationTest {
 
   @BeforeEach
   void persistReferenceData() {
-    supplierRepo.save(new Supplier().setCode("S").setActive(true));
+//    supplierRepo.save(new Supplier().setCode("S").setActive(true));
+//    log.info(supplierRepo.findAll());
     productDto = new ProductDto("Tree", "upc-safe", "S", HOME);
   }
 
