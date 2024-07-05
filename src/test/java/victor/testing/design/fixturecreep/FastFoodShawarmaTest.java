@@ -18,7 +18,7 @@ class FastFoodShawarmaTest {
    @Mock
    FeatureFlags featureFlags;
    @InjectMocks
-   FastFood fastFood;
+   ShawarmaLaBaiatu sut;
 
    @BeforeEach
    final void before() {
@@ -29,16 +29,16 @@ class FastFoodShawarmaTest {
    @Test
    void shawarmaTest() { // + 7 more tests
       // ... complex
-      fastFood.makeShawarma();
+      sut.makeShawarma();
    }
    @Test
    void shawarmaTest1() { // + 7 more tests
       // ... complex
-      fastFood.makeShawarma();
+      sut.makeShawarma();
    }
    @Test
    void shawarmaTest2() { // + 7 more tests
       // ... complex
-      fastFood.makeShawarma();
+      sut.makeShawarma();
    }
 }
