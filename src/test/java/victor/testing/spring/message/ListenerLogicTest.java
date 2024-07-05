@@ -31,6 +31,7 @@ public class ListenerLogicTest extends IntegrationTest {
     assertThat(supplierRepo.findByName("supplier"))
         .describedAs("Supplier was inserted")
         .isNotNull();
+    // eroarea apare in failure error. ca e in th JUnit nu undeva pe alt thread.
   }
 
 }

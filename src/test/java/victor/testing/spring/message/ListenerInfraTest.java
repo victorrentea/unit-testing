@@ -11,13 +11,10 @@ import victor.testing.spring.IntegrationTest;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
-@ActiveProfiles("embedded-kafka")
-@EmbeddedKafka(topics = "supplier-created-event")
+
 public class ListenerInfraTest extends IntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
-  @SpyBean
-  MessageListener messageListener;
 
   @Test
   void listenerIsCalled_whenMessageIsSentViaKafka() {

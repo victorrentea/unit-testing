@@ -24,6 +24,8 @@ public class MessageListener {
   @KafkaListener(topics = "supplier-created-event")
   public void onMessage(String supplierName) {
     log.info("Received message: " + supplierName);
+//    logica de biz
+    if (true) throw new RuntimeException("Intentional");
     supplierRepo.save(new Supplier().setName(supplierName));
     log.info("Created supplier with name: " + supplierName);
   }

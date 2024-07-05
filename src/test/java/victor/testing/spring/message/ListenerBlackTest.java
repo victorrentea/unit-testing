@@ -11,7 +11,6 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 import victor.testing.spring.IntegrationTest;
-import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
 import java.time.Duration;
@@ -36,6 +35,7 @@ public class ListenerBlackTest extends IntegrationTest {
   }
 
   @Test
+  @Disabled("flaky")
   void supplierIsCreated_sleep_flaky() throws InterruptedException {
     log.info("Sending message");
     kafkaTemplate.send("supplier-created-event", SUPPLIER);
@@ -46,7 +46,6 @@ public class ListenerBlackTest extends IntegrationTest {
         .returns(SUPPLIER, victor.testing.spring.domain.Supplier::getName);
   }
 
-  @Disabled("flaky")
   @Test
   void supplierIsCreated_polling() {
     kafkaTemplate.send("supplier-created-event", SUPPLIER);
@@ -55,9 +54,10 @@ public class ListenerBlackTest extends IntegrationTest {
         .pollInterval(Duration.ofMillis(10))
         .timeout(Duration.ofSeconds(1))
         .untilAsserted(() ->
-            assertThat(supplierRepo.findByName(SUPPLIER))
+            assertThat(supplierRepo.findByName(SUPPLIER).get())
                 .describedAs("Supplier was inserted")
-                .isNotEmpty());
+                .returns(SUPPLIER, victor.testing.spring.domain.Supplier::getName));
+    // eroarea la acest test este in log DUPA AssertionFailure ( ca e multitjread)
   }
 
 }
