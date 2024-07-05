@@ -20,7 +20,7 @@ import victor.testing.tools.TestcontainersUtils;
 
 @SpringBootTest
 @ActiveProfiles({"test","embedded-kafka"})
-@EmbeddedKafka(topics = "supplier-created-event")
+@EmbeddedKafka(topics = {"supplier-created-event", "pt-bi-cu-dragoste"})
 public abstract class IntegrationTest {
   @Autowired
   protected SupplierRepo supplierRepo;
