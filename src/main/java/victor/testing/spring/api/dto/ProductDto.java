@@ -18,7 +18,10 @@ public class ProductDto {
 	@NotNull
 	public String upc;
 	public String supplierCode;
-	public ProductCategory category;
+//	@NotNull // PTK FTW
+//	public ProductCategory category = ProductCategory.UNCATEGORIZED;
+
+	public ProductCategory category = ProductCategory.UNCATEGORIZED;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	public LocalDate createdDate;
 
