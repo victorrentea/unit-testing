@@ -44,4 +44,12 @@ public class CustomerValidatorTest {
     Assert.assertThrows(IllegalArgumentException.class, () -> validator.validate(customer));
   }
 
+  @Test
+  void shouldTrimCity() {
+    Customer customer = TestData.aValidCustomer();
+    customer.getAddress().setCity("  abc  ");
+    validator.validate(customer);
+    Assert.assertEquals("abc", customer.getAddress().getCity());
+  }
+
 }
