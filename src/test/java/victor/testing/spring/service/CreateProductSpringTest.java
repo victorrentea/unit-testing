@@ -54,8 +54,7 @@ public class CreateProductSpringTest extends IntegrationTest {
     verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
  @Test
-// @DisplayName()
-  void t2() {
+ void defaultsToUncategorized() {
     when(safetyApiClient.isSafe("upc-safe")).thenReturn(true);
     ProductDto productDto = new ProductDto(
         "name", "upc-safe", "S", null);
@@ -63,13 +62,7 @@ public class CreateProductSpringTest extends IntegrationTest {
     Long id = sut.createProduct(productDto);
 
     Product product = productRepo.findById(id).orElseThrow();
-    assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getUpc()).isEqualTo("upc-safe");
-    assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
-    //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
-    //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
-    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
 }
