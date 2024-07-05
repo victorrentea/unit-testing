@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWARMA;
 
@@ -23,9 +25,16 @@ class FastFoodShawarmaTest {
    @BeforeEach
    final void before() {
       when(dependency.isOnionAllowed()).thenReturn(true);
-      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
+      lenient().when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
    }
 
+   @Test
+   void shawarmaDeBirou() { // + 7 more tests
+      // ... complex
+      when(dependency.isOnionAllowed()).thenReturn(false);
+
+      assertThrows(IllegalArgumentException.class, () -> sut.makeShawarma());
+   }
    @Test
    void shawarmaTest() { // + 7 more tests
       // ... complex
