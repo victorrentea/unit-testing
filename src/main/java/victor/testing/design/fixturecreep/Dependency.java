@@ -2,5 +2,5 @@ package victor.testing.design.fixturecreep;
 
 interface Dependency {
    boolean isOnionAllowed();
-   boolean isCucumberAllowed();
+   boolean isYogurt();
 }

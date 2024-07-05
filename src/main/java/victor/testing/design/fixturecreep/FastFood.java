@@ -21,7 +21,7 @@ public class FastFood {
    }
 
    public void makeTzatziki() {
-      if (!dependency.isCucumberAllowed()) {
+      if (!dependency.isYogurt()) {
          throw new IllegalArgumentException();
       }
       // complex logic: 5 ifs

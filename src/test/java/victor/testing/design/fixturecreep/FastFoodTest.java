@@ -6,11 +6,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
 
 import static org.mockito.Mockito.*;
+import static org.mockito.quality.Strictness.LENIENT;
 import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWARMA;
 
-
+//@MockitoSettings(strictness = LENIENT) RAU!!!=PR reject
 @ExtendWith(MockitoExtension.class)
 class FastFoodTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
@@ -24,6 +26,7 @@ class FastFoodTest {
    final void before() {
       when(dependency.isOnionAllowed()).thenReturn(true);
       when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
+      when(dependency.isYogurt()).thenReturn(true);
    }
 
    @Test
@@ -41,10 +44,8 @@ class FastFoodTest {
       // ... complex
       fastFood.makeShawarma();
    }
-
-//   @Test
+   @Test
    void tzatzikiTest() { // + 5 more tests
-      when(dependency.isCucumberAllowed()).thenReturn(true);
       // ... complex
       fastFood.makeTzatziki();
    }
