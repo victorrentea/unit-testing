@@ -15,7 +15,7 @@ public class FastFood {
          throw new IllegalArgumentException();
       }
       if (featureFlags.isActive(PORK_SHAWARMA)) {
-         // stuff
+         // 🐽
       }
       // complex logic: 7 ifs
    }
