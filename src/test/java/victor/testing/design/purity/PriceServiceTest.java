@@ -7,17 +7,21 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.design.purity.PriceService.CouponDisscountResult;
 import victor.testing.mutation.Coupon;
 import victor.testing.mutation.Customer;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 
@@ -57,4 +61,56 @@ class PriceServiceTest {
           .containsEntry(2L, 5d);
    }
 
+
+     @Test
+    void applyCouponsWithNoCouponsAvailable() {
+        List<Product> products = List.of(new Product().setId(1L));
+        Map<Long, Double> resolvedPrices = Map.of(1L, 100.0);
+        Customer customer = new Customer().setCoupons(new ArrayList<>());
+
+        CouponDisscountResult result = priceService.applyCoupons(products, resolvedPrices, customer);
+
+        assertTrue(result.usedCoupons().isEmpty());
+        assertEquals(Map.of(1L, 100.0), result.finalPrices());
+    }
+//
+//    @Test
+//    void applyCouponsWithApplicableCoupon() {
+//        List<Product> products = List.of(new Product().setId(1L).setCategory(HOME));
+//        Map<Long, Double> resolvedPrices = Map.of(1L, 100.0);
+//        Coupon coupon = new Coupon(HOME, 10, Set.of(1L)).autoApply(true);
+//        Customer customer = new Customer().setCoupons(List.of(coupon));
+//
+//        CouponDisscountResult result = priceService.applyCoupons(products, resolvedPrices, customer);
+//
+//        assertEquals(List.of(coupon), result.usedCoupons());
+//        assertEquals(Map.of(1L, 90.0), result.finalPrices());
+//    }
+//
+//    @Test
+//    void applyCouponsWithNonApplicableCoupon() {
+//        List<Product> products = List.of(new Product().setId(1L).setCategory(ELECTRONICS));
+//        Map<Long, Double> resolvedPrices = Map.of(1L, 100.0);
+//        Coupon coupon = new Coupon(HOME, 10, Set.of(1L)).autoApply(true);
+//        Customer customer = new Customer().setCoupons(List.of(coupon));
+//
+//        CouponDisscountResult result = priceService.applyCoupons(products, resolvedPrices, customer);
+//
+//        assertTrue(result.usedCoupons().isEmpty());
+//        assertEquals(Map.of(1L, 100.0), result.finalPrices());
+//    }
+//
+//    @Test
+//    void applyCouponsWithMultipleCouponsOneApplicable() {
+//        List<Product> products = List.of(new Product().setId(1L).setCategory(HOME));
+//        Map<Long, Double> resolvedPrices = Map.of(1L, 100.0);
+//        Coupon applicableCoupon = new Coupon(HOME, 10, Set.of(1L)).setAutoApply(true));
+//        Coupon nonApplicableCoupon = new Coupon(ELECTRONICS, 5, Set.of(1L)).setAutoApply(true);
+//        Customer customer = new Customer().setCoupons(List.of(applicableCoupon, nonApplicableCoupon));
+//
+//        CouponDisscountResult result = priceService.applyCoupons(products, resolvedPrices, customer);
+//
+//        assertEquals(List.of(applicableCoupon), result.usedCoupons());
+//        assertEquals(Map.of(1L, 90.0), result.finalPrices());
+//    }
 }

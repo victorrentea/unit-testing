@@ -63,14 +63,9 @@ public class ProductApiTest extends IntegrationTest {
 
   // Dtos with 'default' values (ObjectMother style)
   ProductSearchCriteria criteria = new ProductSearchCriteria();
-  ProductDto productDto;
-
-  @BeforeEach
-  void persistReferenceData() {
-//    supplierRepo.save(new Supplier().setCode("S").setActive(true));
+  //    supplierRepo.save(new Supplier().setCode("S").setActive(true));
 //    log.info(supplierRepo.findAll());
-    productDto = new ProductDto("Tree", "upc-safe", "S", HOME);
-  }
+  ProductDto productDto = new ProductDto("Tree", "upc-safe", "S", HOME);
 
   @Test
   void grayBox() throws Exception {
@@ -127,6 +122,14 @@ public class ProductApiTest extends IntegrationTest {
   private MockHttpServletRequestBuilder createProductRequest(ProductDto request) throws JsonProcessingException {
     return post("/product/create")
         .content(jackson.writeValueAsString(request))
+//        .content("""
+//            {
+//              "name": "%s",
+//              "upc": "%s",
+//              "supplierCode": "%",
+//              "category": "%s"
+//            }
+//            """.formatted(request.getName(), request.getUpc(), request.getSupplierCode(), request.getCategory()))
         .contentType(APPLICATION_JSON);
   }
 

@@ -17,6 +17,7 @@ public class ProductDto {
 	public String name;
 	@NotNull
 	public String upc;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	public String supplierCode;
 //	@NotNull // PTK FTW
 //	public ProductCategory category = ProductCategory.UNCATEGORIZED;
