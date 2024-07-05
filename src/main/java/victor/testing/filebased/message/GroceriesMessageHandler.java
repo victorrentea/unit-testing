@@ -18,11 +18,11 @@ public class GroceriesMessageHandler {
         for (GroceryRequest groceryRequest : requestMessage.getGroceries()) {
             Optional<Grocery> grocery = groceryRepo.findByName(groceryRequest.getGrocery());
             if (grocery.isEmpty()) {
-                kafkaSender.send("grocery-not-found", new GroceryNotFoundEvent(requestMessage.getId(), groceryRequest.getGrocery()));
+//                kafkaSender.send("grocery-not-found", new GroceryNotFoundEvent(requestMessage.getId(), groceryRequest.getGrocery()));
             } else {
                 total += grocery.get().getPrice() * groceryRequest.getCount();
             }
         }
-        kafkaSender.send("grocery-response", new GroceriesResponseMessage(requestMessage.getId(), total));
+//        kafkaSender.send("grocery-response", new GroceriesResponseMessage(requestMessage.getId(), total));
     }
 }

@@ -1,13 +1,9 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
@@ -23,22 +19,13 @@ import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 
 //@Tag("flaky") // ca sa nu rupi increderea echipei in CI
 //@Tag("slow") // ca sa termine testele in 15m
-//@ActiveProfiles("sipasta") // PRAF
-//@TestPropertySource  // PRAF
-
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD) // PRAF
-public class CreateProductSpringTest extends IntegrationTest {
+public class CreateProductSpring2Test extends IntegrationTest {
   @MockBean
   SafetyApiClient safetyApiClient;
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   ProductService sut;
-
-//   TODO @KafkaListener
-
-//  @MockBean
-//  ProductMapper productMapper; // PRAF 👑👑👑👑👑👑
 
   @Test
   void createThrowsForUnsafeProduct() {

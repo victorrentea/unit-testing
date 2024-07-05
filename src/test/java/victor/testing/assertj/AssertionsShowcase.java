@@ -23,7 +23,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Disabled ("on demand - failures are fun")
+//@Disabled ("on demand - failures are fun")
 public class AssertionsShowcase {
 
    @Nested
@@ -42,6 +42,7 @@ public class AssertionsShowcase {
       @Test
       public void size_JUnit() {
          assertEquals(1, list.size());
+
       }
       @Test
       public void size() {
@@ -60,6 +61,9 @@ public class AssertionsShowcase {
          assertThat(list)
              .containsExactlyInAnyOrder(100, 200, 300)
              .doesNotContain(500);
+         assertThat(list)
+//             .containsA(100, 200)
+             .doesNotContain(500);
       }
 
       @Test
@@ -74,13 +78,15 @@ public class AssertionsShowcase {
       }
       @Test
       public void subsetAttributesOfElements_JUnit() {
-         assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Frodo") && c.getRace().getName().equals("Hobbit")));
+         assertTrue(fellowship.stream().anyMatch(
+             c -> c.getName().equals("Frodo") && c.getRace().getName().equals("Hobbit")));
          assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Aragorn") && c.getRace().getName().equals("Man")));
          assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Legolas") && c.getRace().getName().equals("Elf")));
       }
       @Test
       public void subsetAttributesOfElements() {
-         assertThat(fellowship).extracting("name", "age", "race.name")
+         assertThat(fellowship)
+             .extracting("name", "age", "race.name")
              .contains(
                  tuple("Frodo", 20, "Hobbit"),
                  tuple("Aragorn", 39, "Man"),
