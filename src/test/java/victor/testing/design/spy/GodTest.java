@@ -14,19 +14,28 @@ import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
 class GodTest {
 
-   God god = new God();
+   God god = spy(new God());
+
+   // solutia 1: pleci de la un order standard luat din TestData
+   @Test
+   public void high() {
+      doNothing().when(god).low(any());
+      Order order = new Order().setPaymentMethod(CARD);
+      String result = god.high(order);
+      assertThat(result).isEqualTo("bonus");
+   }
 
    // TODO test high method
 
    @Test
    void lowThrowsIfOrderTooRecent() { // + 5 more tests like this
       Order order = new Order().setCreationDate(now());
-//      assertThatThrownBy(() -> god.low(order)).hasMessageContaining("recent");
+      assertThatThrownBy(() -> god.low(order)).hasMessageContaining("recent");
    }
 
    @Test
-   void low() {
+   void low() { // x 5
       Order oldOrder = new Order().setCreationDate(now().minusMonths(2));
-//      god.low(oldOrder);
+      god.low(oldOrder);
    }// + 5 more tests on low
 }

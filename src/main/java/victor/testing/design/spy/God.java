@@ -10,7 +10,7 @@ import static java.time.LocalDate.now;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
 public class God {
-   public String high(Order order) {
+   public String high(Order order) { // freza: 500 lei la baiatu
       low(order);
       // complexity requiring 5+ tests
       if (order.getPaymentMethod() == CARD) {
@@ -19,7 +19,7 @@ public class God {
       return "regular";
    }
 
-   private  void low(Order order) { // Package Protected
+   void low(Order order) { // TESTATA! ciorapii
       // complexity requiring 5+ tests
       if (order.getCreationDate().isAfter(now().minusMonths(1))) {
          throw new IllegalArgumentException("Order too recent");
