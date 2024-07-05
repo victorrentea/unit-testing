@@ -3,7 +3,6 @@ package victor.testing.mutation;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 
 
 public class CustomerValidatorTest {
@@ -11,21 +10,14 @@ public class CustomerValidatorTest {
 
   @Test
   void shouldPassValidation() {
-    Customer customer = new Customer();
-    customer.setName("::name::");
-    customer.setEmail("::email::");
-    customer.setAddress(new Address());
-    customer.getAddress().setCity("::city::");
+    Customer customer = TestData.aValidCustomer();
 
     validator.validate(customer);
   }
 
   @Test
   void shouldFailForNullName() {
-    Customer customer = new Customer();
-    customer.setEmail("::email::");
-    customer.setAddress(new Address());
-    customer.getAddress().setCity("::city::");
+    Customer customer = TestData.aValidCustomer().setName(null);
 
     Assert.assertThrows(IllegalArgumentException.class,
         () -> validator.validate(customer));
@@ -33,13 +25,23 @@ public class CustomerValidatorTest {
 
   @Test
   void shouldFailForNullEmail() {
-    Customer customer = new Customer();
-    customer.setName("::name::");
-    customer.setAddress(new Address());
-    customer.getAddress().setCity("::city::");
+    Customer customer = TestData.aValidCustomer().setEmail(null);
 
     Assert.assertThrows(IllegalArgumentException.class,
         () -> validator.validate(customer));
+  }
+  @Test
+  void shouldFailForNullCity() {
+    Customer customer = TestData.aValidCustomer();
+    customer.getAddress().setCity(null);
+    Assert.assertThrows(IllegalArgumentException.class, () -> validator.validate(customer));
+  }
+
+  @Test
+  void shouldFailForShortCity() {
+    Customer customer = TestData.aValidCustomer();
+    customer.getAddress().setCity("a");
+    Assert.assertThrows(IllegalArgumentException.class, () -> validator.validate(customer));
   }
 
 }
