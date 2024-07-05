@@ -17,6 +17,7 @@ public class ShawarmaLaBaiatu {
       if (featureFlags.isActive(PORK_SHAWARMA)) {
          // 🐽
       }
+      dependency.reportFraud(); // din greseala/complex apare asta
       // complex logic: 7 ifs
    }
 }

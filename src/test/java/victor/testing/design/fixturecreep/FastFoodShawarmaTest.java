@@ -8,8 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWARMA;
 
 //@MockitoSettings(strictness = LENIENT) RAU!!!=PR reject
@@ -44,6 +43,9 @@ class FastFoodShawarmaTest {
    void shawarmaTest1() { // + 7 more tests
       // ... complex
       sut.makeShawarma();
+
+      verify(dependency, never()).reportFraud(); // nici o alta metoda nu a fost chemata
+//      verifyNoMoreInteractions(dependency); // nici o alta metoda nu a fost chemata
    }
    @Test
    void shawarmaTest2() { // + 7 more tests
