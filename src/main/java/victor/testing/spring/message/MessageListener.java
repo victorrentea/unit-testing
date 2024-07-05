@@ -28,8 +28,9 @@ public class MessageListener {
   public void onMessage(String supplierName) {
     log.info("Received message: " + supplierName);
 //    if (true) throw new RuntimeException("Intentional");
-    supplierRepo.save(new Supplier().setName(supplierName));
+//    supplierRepo.save(new Supplier().setName(supplierName));
     log.info("Created supplier with name: " + supplierName);
 //    kafkaTemplate.send("pt-bi-cu-dragoste", "k", "dragoste💖 " + supplierName);
+    log.info("Message sent");
   }
 }

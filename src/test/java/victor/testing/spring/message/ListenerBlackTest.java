@@ -1,6 +1,7 @@
 package victor.testing.spring.message;
 
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -11,6 +12,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
 import java.time.Duration;
@@ -19,8 +21,6 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-@ActiveProfiles("embedded-kafka")
-@EmbeddedKafka(topics = "supplier-created-event")
 public class ListenerBlackTest extends IntegrationTest {
   public static final String SUPPLIER = "supplier" + UUID.randomUUID();
   @Autowired
@@ -43,7 +43,7 @@ public class ListenerBlackTest extends IntegrationTest {
     Thread.sleep(10); // works on my machine™️, but my colleague requires 200ms
     assertThat(supplierRepo.findByName(SUPPLIER).get())
         .describedAs("Supplier was inserted")
-        .returns(SUPPLIER, victor.testing.spring.domain.Supplier::getName);
+        .returns(SUPPLIER, Supplier::getName);
   }
 
   @Test
@@ -53,10 +53,17 @@ public class ListenerBlackTest extends IntegrationTest {
     Awaitility.await()
         .pollInterval(Duration.ofMillis(10))
         .timeout(Duration.ofSeconds(1))
-        .untilAsserted(() ->
-            assertThat(supplierRepo.findByName(SUPPLIER).get())
+        .untilAsserted(() -> {
+          try (var softly = new AutoCloseableSoftAssertions()) {
+            softly.assertThat(supplierRepo.findByName(SUPPLIER))
+                .map(Supplier::getName)
                 .describedAs("Supplier was inserted")
-                .returns(SUPPLIER, victor.testing.spring.domain.Supplier::getName));
+                .hasValue(SUPPLIER);
+            softly.assertThat(receivedMessages.poll())
+                .describedAs("Message was sent to BI")
+                .isEqualTo("dragoste💖 " + SUPPLIER);
+          }
+        });
     // eroarea la acest test este in log DUPA AssertionFailure ( ca e multitjread)
   }
 

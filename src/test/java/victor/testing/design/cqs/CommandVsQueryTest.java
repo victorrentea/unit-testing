@@ -18,7 +18,7 @@ class CommandVsQueryTest {
    Target target;
 
    @Test
-   @CaptureSystemOutput
+   @CaptureSystemOutput // ex: dupa o eroare in procesarea unui Kafka/@Async/CF ramane ceva in LOG!?!?!?!?!?!?!?!
    void test(OutputCapture outputCapture) {
       Obj obj = new Obj();
       when(dependency.stuff(obj, 5)).thenReturn(7);

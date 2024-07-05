@@ -37,7 +37,6 @@ public class ListenerLogicTest extends IntegrationTest {
   }
 
   @Test
-//  @RepeatedTest(100)
   void listenerLogic() throws InterruptedException {
     // apel de metoda clasic
     String supplier = "supplier" + UUID.randomUUID();
@@ -46,27 +45,9 @@ public class ListenerLogicTest extends IntegrationTest {
     assertThat(supplierRepo.findByName(supplier))
         .describedAs("Supplier was inserted")
         .isNotNull();
-    // eroarea apare in failure error. ca e in th JUnit nu undeva pe alt thread.
-    String receivedMessage = receivedMessages.take();
-    assertThat(receivedMessage).isEqualTo("dragoste💖 "+supplier);
-    System.out.println(" NUTECRED");
+
   }
 
-  static ArrayBlockingQueue<String> receivedMessages = new ArrayBlockingQueue<>(100);
-  @TestConfiguration
-  public static class ChestiiSpringInPlusPtTeste {
-    @Bean
-    public TestListener testListener() {
-      return new TestListener();
-    }
-    public static class TestListener {
-      @SneakyThrows
-      @KafkaListener(topics = "pt-bi-cu-dragoste")
-      public void onMessage(String message) {
-        log.info("Received BI message: " + message);
-        receivedMessages.add(message);
-      }
-    }
-  }
+
 
 }
