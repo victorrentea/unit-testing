@@ -46,8 +46,8 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
 @EmbeddedKafka(topics = "${input.topic}") // start up an in-mem Kafka
-//@Transactional // ROLLBACK after each @Test
-@Sql(value = "classpath:/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
+@Transactional // ROLLBACK after each @Test
+//@Sql(value = "classpath:/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
 @ActiveProfiles({"db-migration", "wiremock","embedded-kafka"})
 
 @WithMockUser(roles = "ADMIN") // grant the current thread the 'ROLE_ADMIN'
