@@ -31,7 +31,7 @@ public class GetProductSocialTest {
     Product product = new Product()
             .setId(1L)
             .setName("name")
-            .setUpc("UPC")
+            .setBarcode("BARCODE")
             .setCategory(HOME)
             .setCreatedDate(date)
             .setSupplier(new Supplier().setCode("S"));
@@ -41,7 +41,7 @@ public class GetProductSocialTest {
 
     assertThat(dto.getId()).isEqualTo(1L);
     assertThat(dto.getName()).isEqualTo("name");
-    assertThat(dto.getUpc()).isEqualTo("UPC");
+    assertThat(dto.getBarcode()).isEqualTo("BARCODE");
     assertThat(dto.getCategory()).isEqualTo(HOME);
     assertThat(dto.getCreatedDate()).isEqualTo(date);
     assertThat(dto.getSupplierCode()).isEqualTo("S");

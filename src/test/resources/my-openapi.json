@@ -198,7 +198,7 @@
       "ProductDto": {
         "required": [
           "name",
-          "upc"
+          "barcode"
         ],
         "type": "object",
         "properties": {
@@ -209,7 +209,7 @@
           "name": {
             "type": "string"
           },
-          "upc": {
+          "barcode": {
             "type": "string"
           },
           "supplierCode": {

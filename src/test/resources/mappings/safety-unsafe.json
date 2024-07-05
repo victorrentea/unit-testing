@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/product/upc-unsafe/safety"
+    "url": "/product/barcode-unsafe/safety"
   },
   "response": {
     "status": 200,

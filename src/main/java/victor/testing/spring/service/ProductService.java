@@ -27,8 +27,8 @@ public class ProductService {
   private final KafkaTemplate<String, String> kafkaTemplate;
 
   public void createProduct(ProductDto productDto) {
-    log.info("Creating product " + productDto.getUpc());
-    boolean safe = safetyApiClient.isSafe(productDto.getUpc()); // ⚠️ REST call inside
+    log.info("Creating product " + productDto.getBarcode());
+    boolean safe = safetyApiClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }
@@ -37,7 +37,7 @@ public class ProductService {
     }
     Product product = new Product();
     product.setName(productDto.getName());
-    product.setUpc(productDto.getUpc());
+    product.setBarcode(productDto.getBarcode());
     product.setCategory(productDto.getCategory());
     product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
     productRepo.save(product);

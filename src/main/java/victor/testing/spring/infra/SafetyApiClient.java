@@ -21,10 +21,10 @@ public class SafetyApiClient {
   public record SafetyResponse(String category, String detailsUrl) {
   }
 
-  public boolean isSafe(String upc) {
+  public boolean isSafe(String barcode) {
     SafetyResponse response = restTemplate.getForEntity(
-            baseUrl + "/product/{upc}/safety",
-            SafetyResponse.class, upc)
+            baseUrl + "/product/{barcode}/safety",
+            SafetyResponse.class, barcode)
         .getBody();
     return "SAFE".equals(response.category());
   }

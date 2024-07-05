@@ -50,7 +50,7 @@ public class TomcatTest {
     Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
     Product productInDB = new Product()
         .setName("Tree")
-        .setUpc("safe")
+        .setBarcode("safe")
         .setSupplier(new Supplier().setId(supplierId))
         .setCategory(ProductCategory.ME);
     productRepo.save(productInDB);

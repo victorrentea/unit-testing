@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name="safety", url = "${safety.service.url.base}")
 interface SafetyFeignClient {
-  @GetMapping("/product/{upc}/safety")
-  SafetyApiClient.SafetyResponse getSafety(@PathVariable String upc);
+  @GetMapping("/product/{barcode}/safety")
+  SafetyApiClient.SafetyResponse getSafety(@PathVariable String barcode);
 
 }

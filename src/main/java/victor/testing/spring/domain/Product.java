@@ -22,7 +22,7 @@ public class Product {
 
     private ProductCategory category;
 
-    private String upc;
+    private String barcode;
 
     @ManyToOne
     private Supplier supplier;
@@ -33,9 +33,9 @@ public class Product {
     @CreatedBy // Spring assigns this at creation time from SecurityContext
     private String createdBy;
 
-    public Product(String name, String upc, ProductCategory category) {
+    public Product(String name, String barcode, ProductCategory category) {
         this.name = name;
-        this.upc = upc;
+        this.barcode = barcode;
         this.category = category;
     }
 

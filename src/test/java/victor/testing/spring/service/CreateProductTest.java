@@ -38,8 +38,8 @@ public class CreateProductTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyApiClient.isSafe("upc-unsafe")).thenReturn(false);
-    ProductDto productDto = new ProductDto("name", "upc-unsafe", "S", HOME);
+    when(safetyApiClient.isSafe("barcode-unsafe")).thenReturn(false);
+    ProductDto productDto = new ProductDto("name", "barcode-unsafe", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -49,8 +49,8 @@ public class CreateProductTest {
   @Test
   void createOk() {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
-    when(safetyApiClient.isSafe("upc-safe")).thenReturn(true);
-    ProductDto productDto = new ProductDto("name", "upc-safe", "S", HOME);
+    when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
+    ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
     // WHEN
     productService.createProduct(productDto);
@@ -59,7 +59,7 @@ public class CreateProductTest {
     verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
     Product product = productCaptor.getValue();
     assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getUpc()).isEqualTo("upc-safe");
+    assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
@@ -70,7 +70,7 @@ public class CreateProductTest {
 }
 
 /*
-wireMockServer.stubFor(get("/product/upc-unsafe/safety")
+wireMockServer.stubFor(get("/product/barcode-unsafe/safety")
   .willReturn(okJson("""
       {
        "category": "NOT SAFE",

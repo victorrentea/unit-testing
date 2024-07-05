@@ -16,7 +16,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.api.dto.ProductSearchCriteria;
 import victor.testing.spring.api.dto.ProductSearchResult;
@@ -48,7 +47,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @WithMockUser(roles = "ADMIN") // grant the current thread the 'ROLE_ADMIN'
 @AutoConfigureMockMvc // process HTTP requests in current thread, without a Tomcat
-public class ProductApiTest extends IntegrationTest {
+public class ProductApiTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
   MockMvc mockMvc;
@@ -57,14 +56,29 @@ public class ProductApiTest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
 
+//  mockbean kafka
+
   // Dtos with 'default' values (ObjectMother style)
   ProductSearchCriteria criteria = new ProductSearchCriteria();
   ProductDto productDto;
 
+//
+//  intai un test cu un """ JSON
+//"""
+//
+//  apoi cu serializare jackson
+//
+//
+//      apoi @Validated
+//
+//      apoi authorization
+//
+//  apoi gray  si black si journey
+
   @BeforeEach
   void persistReferenceData() {
     supplierRepo.save(new Supplier().setCode("S").setActive(true));
-    productDto = new ProductDto("Tree", "upc-safe", "S", HOME);
+    productDto = new ProductDto("Tree", "barcode-safe", "S", HOME);
   }
 
   @Test
@@ -79,7 +93,7 @@ public class ProductApiTest extends IntegrationTest {
     assertThat(returnedProduct.getName()).isEqualTo("Tree");
     assertThat(returnedProduct.getCreatedDate()).isToday();
     assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
-    assertThat(returnedProduct.getUpc()).isEqualTo(productDto.upc);
+    assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
   }
 
   @Test
@@ -107,7 +121,7 @@ public class ProductApiTest extends IntegrationTest {
     // API call #3
     ProductDto dto = getProductApi(productId);
     assertThat(dto.getCategory()).isEqualTo(productDto.category);
-    assertThat(dto.getUpc()).isEqualTo(productDto.getUpc());
+    assertThat(dto.getBarcode()).isEqualTo(productDto.getBarcode());
     assertThat(dto.getCreatedDate()).isToday();
   }
 
@@ -151,9 +165,23 @@ public class ProductApiTest extends IntegrationTest {
     createProduct_failsValidation(productDto.setName(null), "name");
   }
 
+
+
+
+//  + 1 test cu formatari de date / parsari jackson "", null, lipsa
+//
+//  ?? nu merge !
+
   @Test
-  void createProduct_failsForMissingUPC() throws Exception {
-    createProduct_failsValidation(productDto.setUpc(null), "upc");
+  void ff() throws Exception {
+    productApi.create(productDto.setName(null));
+  }
+  @Autowired
+  private ProductApi productApi;
+
+  @Test
+  void createProduct_failsForMissingBarcode() throws Exception {
+    createProduct_failsValidation(productDto.setBarcode(null), "barcode");
   }
 
   private void createProduct_failsValidation(ProductDto request, String fieldName) throws Exception {
