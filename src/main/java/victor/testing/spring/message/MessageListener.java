@@ -30,6 +30,6 @@ public class MessageListener {
 //    if (true) throw new RuntimeException("Intentional");
     supplierRepo.save(new Supplier().setName(supplierName));
     log.info("Created supplier with name: " + supplierName);
-    kafkaTemplate.send("pt-bi-cu-dragoste", "k", "dragoste💖 " + supplierName);
+//    kafkaTemplate.send("pt-bi-cu-dragoste", "k", "dragoste💖 " + supplierName);
   }
 }
