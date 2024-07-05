@@ -45,7 +45,7 @@ class FastFoodShawarmaTest {
       sut.makeShawarma();
 
       verify(dependency, never()).reportFraud(); // nici o alta metoda nu a fost chemata
-//      verifyNoMoreInteractions(dependency); // nici o alta metoda nu a fost chemata
+//        verifyNoMoreInteractions(dependency); // nici o alta metoda nu a fost chemata
    }
    @Test
    void shawarmaTest2() { // + 7 more tests
