@@ -1,7 +1,5 @@
 package victor.testing.mutation;
 
-import java.util.function.Predicate;
-
 public class CustomerValidator {
 	public void validate(Customer customer) {
 		if (customer.getName() == null) {

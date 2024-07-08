@@ -13,6 +13,7 @@ Feature: Search for product`````
     And The search criteria supplier is "X"
     Then That product is returned by search
 
+
   Scenario: Product is not found if name does not match
     Given One product exists
     And That product has name "name"
