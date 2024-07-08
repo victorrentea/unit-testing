@@ -1,7 +1,19 @@
 package victor.testing.mutation;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 public class CustomerValidator {
+	// example of client code
+//	@PostMapping("/customer")
+//	public void createCustomer(@RequestBody Customer customer) {
+//		new CustomerValidator().validate(customer);
+//	}
+
 	public void validate(Customer customer) {
+		if (customer == null) {
+			throw new IllegalArgumentException("Missing customer");
+		}
 		if (customer.getName() == null) {
 			throw new IllegalArgumentException("Missing customer name");
 		}

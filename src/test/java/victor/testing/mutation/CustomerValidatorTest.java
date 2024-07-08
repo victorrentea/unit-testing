@@ -95,4 +95,14 @@ public class CustomerValidatorTest {
     // then
     assertEquals("Timisoara", customer.getAddress().getCity());
   }
+
+  @Test
+  void failsForNullCustomer() {
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validator.validate(null));
+    assertEquals("Missing customer", e.getMessage());
+    // a) isn't this impossible in the context where the validator is used?
+    // b) what SHOULD the validator do for null?
+    // ==> exception more expressive than a NPException
+    // let's assume you want to throw an ex with a nice message
+  }
 }
