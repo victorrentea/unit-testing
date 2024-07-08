@@ -13,6 +13,13 @@ public class TennisScore {
     if (player1Points >= 4 && player1Points - player2Points >= 2) {
       return "Game won Player1";
     }
+    if (player1Points == player2Points) {
+      if (player1Points >= 3) {
+        return "Deuce";
+      } else {
+        return LABELS[player1Points] + " - All";
+      }
+    }
     return LABELS[player1Points] + " - " + LABELS[player2Points];
   }
 
