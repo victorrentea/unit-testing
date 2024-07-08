@@ -317,6 +317,8 @@
             </plugin>
 
             <plugin>
+                <!-- randomly changes the prod code introducing tentative bugs
+                 and running tests to see if those artifical bugs cause a test to fail -->
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.7.2</version>

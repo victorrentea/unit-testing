@@ -62,7 +62,7 @@ public class CustomerValidatorTest {
     assertTrue(e.getMessage().contains("email"));
     // if the exception message is exposed to User/Client then assert it exactly in the @Test
     // MyValidationException e =assertThrows(IllegalArgumentException.class, () -> validator.validate(customer));
-    // assertEquals(ErrorCodes.MISSING_EMAIL, e.getCode()); // love!
+    // assertEquals(ErrorCode.MISSING_EMAIL, e.getErrorCode()); // love!
 
     // or
     // assertThrows(CustomerMissingNameException.class, () -> validator.validate(customer)); // hate
@@ -82,5 +82,17 @@ public class CustomerValidatorTest {
 
     assertThrows(IllegalArgumentException.class,
         () -> validator.validate(customer));
+  }
+
+  @Test
+  void trimCity() {
+    // given
+    customer.getAddress().setCity("  Timisoara  ");
+
+    // when
+    validator.validate(customer);
+
+    // then
+    assertEquals("Timisoara", customer.getAddress().getCity());
   }
 }
