@@ -11,11 +11,11 @@ public class CustomerValidatorTest {
    @Test
 //   void passesValidation() {
    void ok() {
-      Customer customer = new Customer();
-      customer.setName("::name::");
-      customer.setEmail("::email::");
-      customer.setAddress(new Address());
-      customer.getAddress().setCity("::city::");
+     Customer customer = new Customer()
+         .setName("::name::")
+         .setEmail("::email::")
+         .setAddress(new Address()
+             .setCity("::city::"));
 
       validator.validate(customer);
    }

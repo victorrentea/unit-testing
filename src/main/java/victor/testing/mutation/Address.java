@@ -8,5 +8,4 @@ public class Address {
 	private Integer streetNumber;
 	private String city;
 	private Country country;
-
 }
