@@ -29,11 +29,11 @@ public class CustomerValidatorTest {
   // given = context: when.thenReturn, setup date, insert, ...
   // when = prod call (signal): method call, event, message, etc
   // then = assert (response): return value, state change, verify
-  @Test
 //   void customerNameIsNull() {
 //   void whenCustomerNameIsNull_thenValidationFails() {  // Magical number 7±2
 //   void failsForNullCustomerName() {
 //   void testCustomerNameNull()
+  @Test
   void failsForNullName() { // we begin with the "then" part, and then we go to the "when" part
     customer.setName(null);
 
