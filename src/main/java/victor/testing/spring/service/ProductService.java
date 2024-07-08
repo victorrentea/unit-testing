@@ -27,7 +27,7 @@ public class ProductService {
   private final KafkaTemplate<String, String> kafkaTemplate;
 
   public void createProduct(ProductDto productDto) {
-    log.info("Creating product " + productDto.getBarcode());
+    log.info("Creating product {}", productDto.getBarcode());
     boolean safe = safetyApiClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
