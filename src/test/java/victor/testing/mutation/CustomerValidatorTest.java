@@ -10,6 +10,7 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //@TestInstance(Lifecycle.PER_CLASS) // avoid
 // test class
@@ -47,13 +48,24 @@ public class CustomerValidatorTest {
         () -> validator.validate(customer));
   }
 
+//  @Rule // Junit 4
+//  public ExpectedException thrown = ExpectedException.none(); // fields in thrown Exception
+
   @Test
+  //@ExpectedException(IllegalArgumentException.class) // Junit 4 - just the type
   void failsForNullEmail() {
     customer.setEmail(null)/*.setName(null)*/;
 
-    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+    IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, // Junit 4 also
         () -> validator.validate(customer));
-    assertEquals("Missing customer email", e.getMessage());
+//    assertEquals("Missing customer email", e.getMessage());
+    assertTrue(e.getMessage().contains("email"));
+    // if the exception message is exposed to User/Client then assert it exactly in the @Test
+    // MyValidationException e =assertThrows(IllegalArgumentException.class, () -> validator.validate(customer));
+    // assertEquals(ErrorCodes.MISSING_EMAIL, e.getCode()); // love!
+
+    // or
+    // assertThrows(CustomerMissingNameException.class, () -> validator.validate(customer)); // hate
   }
 
   @Test
