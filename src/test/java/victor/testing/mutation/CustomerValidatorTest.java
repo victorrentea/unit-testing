@@ -4,9 +4,12 @@ package victor.testing.mutation;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static org.junit.Assert.assertThrows;
 
+//@TestInstance(Lifecycle.PER_CLASS) // avoid
 // test class
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
