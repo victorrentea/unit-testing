@@ -40,7 +40,7 @@ public class TennisScoreParameterizedTest {
 //        new TestCase(4, 4, "Deuce"),
 //        new TestCase(5, 4, "Advantage Player1"),
 //        new TestCase(4, 5, "Advantage Player2"),
-        new TestCase(6, 4, "Game won Player1"),
+        new TestCase(6, 4, "Game won Player1")
 //        new TestCase(4, 6, "Game won Player2"),
     );
   }
@@ -50,7 +50,8 @@ public class TennisScoreParameterizedTest {
       int player2Points,
       String expectedScore) {}
 
-  // #2)
+  // #2) Avoid params of type boolean or having 2 values. Prefer numbers. prefer params that enter in combination with many others.
+  // also to avoid having if() in tests
 
   @ParameterizedTest(name = "Player1: {0}, Player2: {1} => {2}")
   @MethodSource("testData")
@@ -59,6 +60,7 @@ public class TennisScoreParameterizedTest {
 
     String actual = tennisScore.getScore();
 
+//    if (testCase.flag42()) assertEquals(); // avoid
     assertEquals(testCase.expectedScore(), actual);
   }
 }
