@@ -12,7 +12,7 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//@TestInstance(Lifecycle.PER_CLASS) // avoid
+//@TestInstance(Lifecycle.PER_CLASS) // JUnit 4 equivalent
 // test class
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
