@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +20,8 @@ public class Customer {
 	@NotNull
 	private String email;
 	private List<String> labels = new ArrayList<>();
+	@Valid
+	@NotNull
 	private Address address = new Address();
 	private Date createDate;
 	private List<Coupon> coupons = new ArrayList<>();

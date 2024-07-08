@@ -1,7 +1,12 @@
 package victor.testing.mutation;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.Set;
 
 public class CustomerValidator {
 	// example of client code
@@ -9,6 +14,23 @@ public class CustomerValidator {
 //	public void createCustomer(@RequestBody Customer customer) {
 //		new CustomerValidator().validate(customer);
 //	}
+
+	public static void main(String[] args) {
+		CustomerValidator validator = new CustomerValidator();
+		validator.validatedWithAnnotations(new Customer());
+
+	}
+//	@Validated // AOP
+	public void validatedWithAnnotations(Customer customer) {
+		// normally injected by the framework or created:
+		Validator validator = javax.validation.Validation.buildDefaultValidatorFactory().getValidator();
+
+		Set<ConstraintViolation<Customer>> errors = validator.validate(customer);
+		// or, better via some AOP (AspectJ, Spring AOP, etc) using anotations on
+		System.out.println("Validation errors: ");
+		errors.forEach(System.out::println);
+	}
+
 
 	public void validate(Customer customer) {
 		if (customer == null) {
