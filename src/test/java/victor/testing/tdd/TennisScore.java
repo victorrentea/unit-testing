@@ -11,7 +11,7 @@ public class TennisScore {
 
   public String getScore() {
     String player1Score = LABELS[player1Points];
-    return player1Score+"-Love";
+    return player1Score+" - Love";
   }
 
   public void addPointToPlayer1() {
