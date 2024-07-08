@@ -35,4 +35,15 @@ public class TennisScoreTest {
 
     assertEquals("Thirty - Love", actual);
   }
+  @Test
+  void scoreIsFortyLove_whenPlayer1Scored3Point() {
+    TennisScore tennisScore = new TennisScore();
+    tennisScore.addPointToPlayer1();
+    tennisScore.addPointToPlayer1();
+    tennisScore.addPointToPlayer1();
+
+    String actual = tennisScore.getScore();
+
+    assertEquals("Forty - Love", actual);
+  }
 }

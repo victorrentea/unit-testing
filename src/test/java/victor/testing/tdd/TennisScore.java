@@ -5,7 +5,8 @@ import java.util.Map;
 public class TennisScore {
   private int player1Points = 0;
 
-  private static final String[] LABELS = {"Love", "Fifteen", "Thirty"};
+  private static final String[] LABELS =
+      {"Love", "Fifteen", "Thirty", "Forty"};
 
   public String getScore() {
     String player1Score = LABELS[player1Points];
