@@ -6,16 +6,12 @@ public class TennisScore {
 
   private String string = "Love - Love";
   private int player1Points = 0;
-//  private static final Map<Integer, String> scores = Map.of(
-//      0, "Love",
-//      1, "Fifteen"
-//  );
+
   private static final String[] LABELS = {"Love", "Fifteen", "Thirty"};
-//  enum Label{Love, Fifteen, Thirty}
+
   public String getScore() {
-//    Label.values()[0].name()
-    String decoded = LABELS[player1Points];
-    return string;
+    String player1Score = LABELS[player1Points];
+    return player1Score+"-Love";
   }
 
   public void addPointToPlayer1() {
