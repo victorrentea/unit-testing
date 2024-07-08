@@ -9,9 +9,16 @@ public class TennisScoreTest {
 
   private TennisScore tennisScore = new TennisScore();
 
-  // The running score of each game is described in a manner peculiar to tennis:
-  // scores from zero to three points are described as
-  // “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
+  // test-helper method
+  private void setPoints(int player1Points, int player2Points) {
+    for (int i = 0; i < player1Points; i++) {
+      tennisScore.addPointToPlayer1();
+    }
+    for (int i = 0; i < player2Points; i++) {
+      tennisScore.addPointToPlayer2();
+    }
+  }
+
   @Test
   void newGame() {
     String actual = tennisScore.getScore();
@@ -71,17 +78,20 @@ public class TennisScoreTest {
     // example from the spec
     assertEquals("Thirty - Forty", actual);
   }
-
   // A game is won by the first player to have won at least four points in total and
   //   at least two points more than the opponent.
+
   @Test
   void player1WonGame_whenScoreIs4_2() {
-    tennisScore.addPointToPlayer1();
-    tennisScore.addPointToPlayer1();
-    tennisScore.addPointToPlayer1();
-    tennisScore.addPointToPlayer2();
-    tennisScore.addPointToPlayer2();
-    tennisScore.addPointToPlayer1();
+//    tennisScore.addPointToPlayer1();
+//    tennisScore.addPointToPlayer1();
+//    tennisScore.addPointToPlayer1();
+//    tennisScore.addPointToPlayer2();
+//    tennisScore.addPointToPlayer2();
+//    tennisScore.addPointToPlayer1();
+    // gameSequence(1, 1, 1, 2, 2, 1);
+//    tennisScore.setScore(4, 2); // NOT a valid business flow. just for testing
+    setPoints(4, 2);
     // biz says it is NOT my code's responsibility to validate its inputs.
 
     String actual = tennisScore.getScore();
