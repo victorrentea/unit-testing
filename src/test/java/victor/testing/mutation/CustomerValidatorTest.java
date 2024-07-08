@@ -49,7 +49,7 @@ public class CustomerValidatorTest {
 
   @Test
   void failsForNullEmail() {
-    customer.setEmail(null).setName(null);
+    customer.setEmail(null)/*.setName(null)*/;
 
     IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
         () -> validator.validate(customer));
