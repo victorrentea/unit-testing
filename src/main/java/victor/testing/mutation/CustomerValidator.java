@@ -2,9 +2,6 @@ package victor.testing.mutation;
 
 public class CustomerValidator {
 	public void validate(Customer customer) {
-//		if (customer.getPhone() == null) {
-//			throw new IllegalArgumentException("Missing customer name");
-//		}
 		if (customer.getName() == null) {
 			throw new IllegalArgumentException("Missing customer name");
 		}
