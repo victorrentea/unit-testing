@@ -10,6 +10,9 @@ public class TennisScore {
       {"Love", "Fifteen", "Thirty", "Forty"};
 
   public String getScore() {
+    if (player1Points >= 4 && player1Points - player2Points >= 2) {
+      return "Game won Player1";
+    }
     return LABELS[player1Points] + " - " + LABELS[player2Points];
   }
 
