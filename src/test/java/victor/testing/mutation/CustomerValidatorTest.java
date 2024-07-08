@@ -10,16 +10,15 @@ import static org.junit.Assert.assertThrows;
 // test class
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
-  private Customer customer;
-
-  // @Before in JUnit 4
-  @BeforeEach
-  final void setup() {
-    customer = new Customer()
+  Customer customer = new Customer()
         .setName("::name::")
         .setEmail("::email::")
         .setAddress(new Address()
             .setCity("::city::"));
+
+  CustomerValidatorTest() {
+    System.out.println("a new instance of CustomerValidatorTest is created for each test method");
+    // any data you leave on the fields of the test class is recreated for the next one
   }
 
   @Test
