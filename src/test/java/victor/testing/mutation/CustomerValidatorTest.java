@@ -9,7 +9,8 @@ public class CustomerValidatorTest {
    CustomerValidator validator = new CustomerValidator();
 
    @Test
-   void success() {
+//   void passesValidation() {
+   void ok() {
       Customer customer = new Customer();
       customer.setName("::name::");
       customer.setEmail("::email::");
@@ -19,8 +20,14 @@ public class CustomerValidatorTest {
       validator.validate(customer);
    }
 
+   // given = context: when.thenReturn, setup date, insert, ...
+   // when = prod call (signal): method call, event, message, etc
+   // then = assert (response): return value, state change, verify
    @Test
-   void customerNameIsNull() {
+//   void customerNameIsNull() {
+//   void whenCustomerNameIsNull_thenValidationFails() {  // Magical number 7±2
+//   void failsForNullCustomerName() {
+   void failsForNullName() { // we begin with the "then" part, and then we go to the "when" part
       Customer customer = new Customer();
       customer.setEmail("::email::");
       customer.setAddress(new Address());
@@ -31,7 +38,7 @@ public class CustomerValidatorTest {
    }
 
    @Test
-   void customerEmailIsNull() {
+   void failsForNullEmail() {
       Customer customer = new Customer();
       customer.setName("::name::");
       customer.setAddress(new Address());
@@ -41,7 +48,7 @@ public class CustomerValidatorTest {
           ()->validator.validate(customer));
    }
    @Test
-   void customerCityIsNull() {
+   void failsForNullCity() {
       Customer customer = new Customer();
       customer.setName("::name::");
       customer.setEmail("::email::");
@@ -52,7 +59,7 @@ public class CustomerValidatorTest {
    }
 
     @Test
-    void cityTooShort() {
+    void failsForShortCity() {
         Customer customer = new Customer();
         customer.setName("::name::");
         customer.setEmail("::email::");
