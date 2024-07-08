@@ -48,12 +48,16 @@ public class TennisScoreParameterizedTest {
   record TestCase(
       int player1Points,
       int player2Points,
-      String expectedScore) {}
+      String expectedScore) {
+    public String toString() {
+      return player1Points + " - " + player2Points + " => " + expectedScore;
+    }
+  }
 
   // #2) Avoid params of type boolean or having 2 values. Prefer numbers. prefer params that enter in combination with many others.
   // also to avoid having if() in tests
 
-  @ParameterizedTest(name = "Player1: {0}, Player2: {1} => {2}")
+  @ParameterizedTest(name = "{0}")
   @MethodSource("testData")
   void parameterizedTest(TestCase testCase) {
     setPoints(testCase.player1Points(), testCase.player2Points());
