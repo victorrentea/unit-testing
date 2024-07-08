@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertThrows;
+
 // test class
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
@@ -37,7 +39,7 @@ public class CustomerValidatorTest {
   void failsForNullName() { // we begin with the "then" part, and then we go to the "when" part
     customer.setName(null);
 
-    Assert.assertThrows(IllegalArgumentException.class,
+    assertThrows(IllegalArgumentException.class,
         () -> validator.validate(customer));
   }
 
@@ -45,7 +47,7 @@ public class CustomerValidatorTest {
   void failsForNullEmail() {
     customer.setEmail(null);
 
-    Assert.assertThrows(IllegalArgumentException.class,
+    assertThrows(IllegalArgumentException.class,
         () -> validator.validate(customer));
   }
 
@@ -53,7 +55,7 @@ public class CustomerValidatorTest {
   void failsForNullCity() {
     customer.getAddress().setCity(null);
 
-    Assert.assertThrows(IllegalArgumentException.class,
+    assertThrows(IllegalArgumentException.class,
         () -> validator.validate(customer));
   }
 
@@ -61,7 +63,7 @@ public class CustomerValidatorTest {
   void failsForShortCity() {
     customer.getAddress().setCity("12");
 
-    Assert.assertThrows(IllegalArgumentException.class,
+    assertThrows(IllegalArgumentException.class,
         () -> validator.validate(customer));
   }
 }
