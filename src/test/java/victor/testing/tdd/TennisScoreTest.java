@@ -21,6 +21,8 @@ public class TennisScoreTest {
 
   @Test
   void newGame() {
+    setPoints(0, 0);
+
     String actual = tennisScore.getScore();
 
     assertEquals("Love - Love", actual);
@@ -28,7 +30,7 @@ public class TennisScoreTest {
 
   @Test
   void scoreIsFifteenLove_whenPlayer1Scored1Point() {
-    tennisScore.addPointToPlayer1();
+    setPoints(1, 0);
 
     String actual = tennisScore.getScore();
 
@@ -37,8 +39,7 @@ public class TennisScoreTest {
 
   @Test
   void scoreIsThirtyLove_whenPlayer1Scored2Point() {
-    tennisScore.addPointToPlayer1();
-    tennisScore.addPointToPlayer1();
+    setPoints(2, 0);
 
     String actual = tennisScore.getScore();
 
@@ -47,9 +48,7 @@ public class TennisScoreTest {
 
   @Test
   void scoreIsFortyLove_whenPlayer1Scored3Point() {
-    tennisScore.addPointToPlayer1();
-    tennisScore.addPointToPlayer1();
-    tennisScore.addPointToPlayer1();
+    setPoints(3, 0);
 
     String actual = tennisScore.getScore();
 
@@ -58,7 +57,8 @@ public class TennisScoreTest {
 
   @Test
   void scoreIsLoveFifteen_whenPlayer2Scored1Point() {
-    tennisScore.addPointToPlayer2();
+//    tennisScore.addPointToPlayer2();
+    setPoints(0, 1);
 
     String actual = tennisScore.getScore();
 
@@ -67,11 +67,7 @@ public class TennisScoreTest {
 
   @Test
   void scoreIsThirtyForty_whenPlayer1Scored2PointsAndPlayer2Scored3Points() {
-    tennisScore.addPointToPlayer1();
-    tennisScore.addPointToPlayer1();
-    tennisScore.addPointToPlayer2();
-    tennisScore.addPointToPlayer2();
-    tennisScore.addPointToPlayer2();
+    setPoints(2, 3);
 
     String actual = tennisScore.getScore();
 
@@ -92,7 +88,6 @@ public class TennisScoreTest {
     // gameSequence(1, 1, 1, 2, 2, 1);
 //    tennisScore.setScore(4, 2); // NOT a valid business flow. just for testing
     setPoints(4, 2);
-    // biz says it is NOT my code's responsibility to validate its inputs.
 
     String actual = tennisScore.getScore();
 
