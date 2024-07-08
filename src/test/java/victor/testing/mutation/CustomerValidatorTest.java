@@ -28,10 +28,11 @@ public class CustomerValidatorTest {
 //   void whenCustomerNameIsNull_thenValidationFails() {  // Magical number 7±2
 //   void failsForNullCustomerName() {
    void failsForNullName() { // we begin with the "then" part, and then we go to the "when" part
+//   void testCustomerNameNull()
       Customer customer = new Customer();
       customer.setEmail("::email::");
       customer.setAddress(new Address());
-      customer.getAddress().setCity("::city::");
+      customer.getAddress().setCity("::city::"); // repeats 3 times.
 
       Assert.assertThrows(IllegalArgumentException.class,
           ()->validator.validate(customer));
