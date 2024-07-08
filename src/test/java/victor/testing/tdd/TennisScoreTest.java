@@ -10,16 +10,17 @@ public class TennisScoreTest {
   // and “Forty” respectively.
   @Test
   void newGame() {
-    String actual = TennisScore.getScore();
+    String actual = new TennisScore().getScore();
 
     assertEquals("Love - Love", actual);
   }
 
   @Test
   void scoreIsFifteenLove_whenPlayer1Scored1Point() {
-    TennisScore.addPointToPlayer1();
+    TennisScore tennisScore = new TennisScore();
+    tennisScore.addPointToPlayer1();
 
-    String actual = TennisScore.getScore();
+    String actual = tennisScore.getScore();
 
     assertEquals("Fifteen - Love", actual);
   }
