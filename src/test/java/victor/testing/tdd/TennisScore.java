@@ -9,6 +9,10 @@ public class TennisScore {
   }
 
   public void addPointToPlayer1() {
-    string = "Fifteen - Love";
+    if (string.equals("Love - Love")) {
+      string = "Fifteen - Love";
+    } else if (string.equals("Fifteen - Love")) {
+      string = "Thirty - Love";
+    }
   }
 }
