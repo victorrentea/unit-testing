@@ -13,7 +13,6 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 
 import static java.util.Optional.of;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
@@ -26,7 +25,7 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
   @Mock
   //any stubbing when().then.. you do on mocks created with @Mock
   // HAVE TO BE USED by tested code. If they aren't, the test fails by default
-      // since mockito 2.0
+  // since mockito 2.0
   ProductRepo productRepoMock;
   @Mock
   SafetyApiClient safetyApiClientMock;
@@ -44,7 +43,7 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
   // call the constructor, or inject  in provate fields all the above @Mocks
 
 
-//  @BeforeEach
+  //  @BeforeEach
 //  final void setup() { // now works as it runs later
 //    // the recommended way to inject both mocks and a real object
 //    // = social unit test covering 2+ real classes surrounded by mocks.
@@ -57,21 +56,20 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
 //        kafkaTemplateMock);
 //  }
   @Test
+  void failsForUnsafeProduct() {
+    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(false);
+
+    assertThatThrownBy(() -> service.createProduct(dto))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("Product is not safe!");
+  }
+
+  @Test
   void ok() {
     when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
     when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
 
     // when
     service.createProduct(dto);
-  }
-
-   @Test
-  void failsForUnsafeProduct() {
-    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(false);
-
-     // when
-    assertThatThrownBy(()->service.createProduct(dto))
-        .isInstanceOf(IllegalStateException.class)
-        .hasMessage("Product is not safe!");
   }
 }
