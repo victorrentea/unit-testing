@@ -27,7 +27,11 @@ public class PersonExporter {
     for (Person person : personRepo.findAll()) {
       writer.write(person.getFirstName() + " " + person.getLastName().toUpperCase());
       writer.write(";");
-      writer.write(person.getPhoneList().get(0));
+      if (person.getPhoneList().isEmpty()) {
+        writer.write("-");
+      } else {
+        writer.write(person.getPhoneList().get(0));
+      }
       // TODO BUGFIX: exception when no phones
       // TODO CR: output all phones comma-separated
 
