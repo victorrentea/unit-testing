@@ -2,6 +2,7 @@ package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -17,17 +18,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class ProductServiceTest {
+  SupplierRepo supplierRepoMock = mock(SupplierRepo.class);
+  ProductRepo productRepoMock = mock(ProductRepo.class);
+  SafetyApiClient safetyApiClientMock = mock(SafetyApiClient.class);
+  KafkaTemplate<String, String> kafkaTemplateMock = mock(KafkaTemplate.class);
+  ProductService service = new ProductService(supplierRepoMock, productRepoMock, safetyApiClientMock,
+      null, kafkaTemplateMock);
 
   @Test
   void createProduct() {
     // given
-    SupplierRepo supplierRepoMock = mock(SupplierRepo.class);
-    ProductRepo productRepoMock = mock(ProductRepo.class);
-    SafetyApiClient safetyApiClientMock = mock(SafetyApiClient.class);
-    KafkaTemplate<String, String> kafkaTemplateMock = mock(KafkaTemplate.class);
-    ProductService service = new ProductService(supplierRepoMock, productRepoMock, safetyApiClientMock,
-        null, kafkaTemplateMock);
-    // stubbing:
     Mockito.when(safetyApiClientMock.isSafe(ArgumentMatchers.any())).thenReturn(true);
     //unstubbed method return default 'absent' values when called: false, 0, null, Optional.empty(), List.of()
     Mockito.when(supplierRepoMock.findByCode(ArgumentMatchers.any())).thenReturn(Optional.of(new Supplier()));
