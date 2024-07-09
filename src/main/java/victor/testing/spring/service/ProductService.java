@@ -13,19 +13,20 @@ import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 // lombok generates a consturctor with all final fields
 public class ProductService {
   public static final String PRODUCT_CREATED_TOPIC = "product-created";
-  private final SupplierRepo supplierRepo;
-  private final ProductRepo productRepo;
-  private final SafetyApiClient safetyApiClient;
-  private final ProductMapper productMapper;
-  private final KafkaTemplate<String, String> kafkaTemplate;
+  @Inject  private  SupplierRepo supplierRepo;
+  @Inject  private  ProductRepo productRepo;
+  @Inject  private  SafetyApiClient safetyApiClient;
+  @Inject  private  ProductMapper productMapper;
+  @Inject  private  KafkaTemplate<String, String> kafkaTemplate;
 
 
   public void createProduct(ProductDto productDto) {
