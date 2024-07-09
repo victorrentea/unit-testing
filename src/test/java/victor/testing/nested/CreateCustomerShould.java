@@ -30,6 +30,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @DisplayNameGeneration(HumanReadableTestNames.class)
 class CreateCustomerShould {
+  public static final long NEW_CUSTOMER_ID = 13L;
   @Mock
   CustomerRepo customerRepo;
   @Mock
@@ -37,6 +38,7 @@ class CreateCustomerShould {
 
   CustomerFacade customerFacade;
 
+  // remember each @Test gets its own instance of this + customer
   Customer aValidCustomer = new Customer() // each @Test has its own class instance
       .setName("::name::")
       .setEmail("::email::")
@@ -46,12 +48,16 @@ class CreateCustomerShould {
       );
 
   @BeforeEach
-  public final void before() {
+  public final void globalBefore() {
     // social unit tests: testing ( Facade + Validator ) surrounded by mocks
-    customerFacade = new CustomerFacade(new CustomerValidator(), customerRepo, emailClient);
+    System.out.println("globalBefore");
+    customerFacade = new CustomerFacade(
+        new CustomerValidator(),
+        customerRepo,
+        emailClient);
   }
 
-  @Nested
+  @Nested // inner class
   class FailForInvalidCustomer {
     @Test
     void missingName() {
@@ -91,6 +97,7 @@ class CreateCustomerShould {
 
     @Test
     void failIfAnotherCustomerWithTheSameEmailExists() {
+      // even if beforeEach ran, the next line will override the mock behavior
       when(customerRepo.countByEmail("::email::")).thenReturn(1);
 
       assertThatThrownBy(() -> customerFacade.createCustomer(aValidCustomer))
@@ -98,13 +105,19 @@ class CreateCustomerShould {
     }
 
     @Test
-    void sendAWelcomeEmailAndBeSaveTheCustomer() {
-      when(customerRepo.save(aValidCustomer)).thenReturn(13L);
+    void sendAWelcomeEmail() {
+      customerFacade.createCustomer(aValidCustomer);
+
+      verify(emailClient).sendWelcomeEmail(aValidCustomer);
+    }
+
+    @Test
+    void saveTheCustomer() {
+      when(customerRepo.save(aValidCustomer)).thenReturn(NEW_CUSTOMER_ID);
 
       Long id = customerFacade.createCustomer(aValidCustomer);
 
-      assertThat(id).isEqualTo(13L);
-      verify(emailClient).sendWelcomeEmail(aValidCustomer);
+      assertThat(id).isEqualTo(NEW_CUSTOMER_ID);
     }
 
     @Nested
