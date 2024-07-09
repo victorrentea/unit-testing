@@ -14,16 +14,17 @@ import victor.testing.spring.repo.SupplierRepo;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class ProductServiceTest {
 
   @Test
   void createProduct() {
     // given
-    SupplierRepo supplierRepoMock = Mockito.mock(SupplierRepo.class);
-    ProductRepo productRepoMock = Mockito.mock(ProductRepo.class);
-    SafetyApiClient safetyApiClientMock = Mockito.mock(SafetyApiClient.class);
-    KafkaTemplate<String, String> kafkaTemplateMock = Mockito.mock(KafkaTemplate.class);
+    SupplierRepo supplierRepoMock = mock(SupplierRepo.class);
+    ProductRepo productRepoMock = mock(ProductRepo.class);
+    SafetyApiClient safetyApiClientMock = mock(SafetyApiClient.class);
+    KafkaTemplate<String, String> kafkaTemplateMock = mock(KafkaTemplate.class);
     ProductService service = new ProductService(supplierRepoMock, productRepoMock, safetyApiClientMock,
         null, kafkaTemplateMock);
     // stubbing:
