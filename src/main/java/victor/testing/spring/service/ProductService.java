@@ -2,6 +2,7 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mockito.InjectMocks;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
@@ -13,6 +14,7 @@ import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.api.dto.ProductSearchCriteria;
 import victor.testing.spring.api.dto.ProductSearchResult;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Slf4j
@@ -20,11 +22,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
   public static final String PRODUCT_CREATED_TOPIC = "product-created";
-  private final SupplierRepo supplierRepo;
-  private final ProductRepo productRepo;
-  private final SafetyApiClient safetyApiClient;
-  private final ProductMapper productMapper;
-  private final KafkaTemplate<String, String> kafkaTemplate;
+  @Inject private  SupplierRepo supplierRepo;
+  @Inject private  ProductRepo productRepo;
+  @Inject private  SafetyApiClient safetyApiClient;
+  @Inject private  ProductMapper productMapper;
+  @Inject private  KafkaTemplate<String, String> kafkaTemplate;
 
   public void createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getBarcode());

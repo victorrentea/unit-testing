@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -28,18 +29,23 @@ class ProductServiceTest {
   SafetyApiClient safetyApiClientMock;
   @Mock
   KafkaTemplate<String, String> kafkaTemplateMock;
-
+  @InjectMocks // if you only inject mocks (no real object)
   ProductService service;
+  // call the constructor, or inject  in provate fields all the above @Mocks
 
-  @BeforeEach
-  final void setup() { // now works as it runs later
-    service = new ProductService(
-        supplierRepoMock,
-        productRepoMock,
-        safetyApiClientMock,
-        null,
-        kafkaTemplateMock);
-  }
+
+//  @BeforeEach
+//  final void setup() { // now works as it runs later
+//    // the recommended way to inject both mocks and a real object
+//    // = social unit test covering 2+ real classes surrounded by mocks.
+//    // as opposed to Solitary Unit Test (1 single alone sad class surrounded by mocks)
+//    service = new ProductService(
+//        supplierRepoMock,
+//        productRepoMock,
+//        safetyApiClientMock,
+//        new ProductMapper(), // real instance
+//        kafkaTemplateMock);
+//  }
 
   @Test
   void createProduct() {
