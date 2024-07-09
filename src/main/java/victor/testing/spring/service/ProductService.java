@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 // lombok generates a consturctor with all final fields
 public class ProductService {
   public static final String PRODUCT_CREATED_TOPIC = "product-created";
@@ -25,19 +27,6 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
 
-  // constructor-based injection @Inject
-  public ProductService(
-      SupplierRepo supplierRepo,
-      ProductRepo productRepo,
-      SafetyApiClient safetyApiClient,
-      ProductMapper productMapper,
-      KafkaTemplate<String, String> kafkaTemplate) {
-    this.supplierRepo = supplierRepo;
-    this.productRepo = productRepo;
-    this.safetyApiClient = safetyApiClient;
-    this.productMapper = productMapper;
-    this.kafkaTemplate = kafkaTemplate;
-  }
 
   public void createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getBarcode());
