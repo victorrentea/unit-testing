@@ -1,45 +1,33 @@
-Feature: Tennis Game
+# Gherkin language
+Feature: Tennis Score
 
-  Scenario: Love-Love
-    Given A new tennis game
-    Then Score is "Love-Love"
+  Background: #~ beforeEach
+#    Given A new game between "John" and "Jane" #paramterize the relevant data.
+    Given A new game
 
-  Scenario: Fifteen-Love
-    Given A new tennis game
-    When Player1 scores
-    Then Score is "Fifteen-Love"
+  @txn
+  Scenario: New Game
+    Then The score is "Love - All"
 
-  Scenario: Fifteen-Fifteen
-    Given A new tennis game
-    When Player1 scores
-    And Player2 scores
-    Then Score is "Fifteen-Fifteen"
+  Scenario: Player 1 wins a point
+    When Player 1 scores a point
+    Then The score is "Fifteen - Love"
 
-  Scenario: Deuce
-    Given A new tennis game
-    When Player1 scores 3 points
-    And Player2 scores 3 points
-    Then Score is "Deuce"
+  Scenario: 2-3
+    When Player 1 scores 2 points
+    And Player 2 scores 3 points
+    Then The score is "Thirty - Forty"
 
-  Scenario Outline: All Data Table
-    Given A new tennis game
-    When Player1 scores <player1Points> points
-    And Player2 scores <player2Points> points
-    Then Score is "<expectedScore>"
+  #like a @Paramtereized test:
+  Scenario Outline: All tests
+    When Player 1 scores <p1> points
+    And Player 2 scores <p2> points
+    Then The score is "<score>"
 
     Examples:
-      | player1Points | player2Points | expectedScore     |
-      | 0             | 0             | Love-Love         |
-      | 1             | 0             | Fifteen-Love      |
-      | 0             | 1             | Love-Fifteen      |
-      | 1             | 1             | Fifteen-Fifteen   |
-      | 2             | 0             | Thirty-Love       |
-      | 3             | 0             | Forty-Love        |
-      | 3             | 3             | Deuce             |
-      | 4             | 4             | Deuce             |
-      | 8             | 8             | Deuce             |
-      | 4             | 3             | Advantage Player1 |
-      | 5             | 6             | Advantage Player2 |
-      | 8             | 6             | Game won Player1  |
-      | 0             | 4             | Game won Player2  |
-      | 1             | 4             | Game won Player2  |
+      | p1 | p2 | score            |
+      | 0  | 0  | Love - All       |
+      | 1  | 0  | Fifteen - Love   |
+      | 2  | 3  | Thirty - Forty   |
+      | 3  | 3  | Deuce            |
+#      | 4  | 0  | Game won by John |
