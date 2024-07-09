@@ -30,7 +30,7 @@ public class ProductService {
 
   public void createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getBarcode());
-    boolean safe = safetyApiClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
+    boolean safe = safetyApiClient.isSafe(productDto.getBarcode());
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }

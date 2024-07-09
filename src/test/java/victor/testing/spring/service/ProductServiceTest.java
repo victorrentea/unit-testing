@@ -17,11 +17,18 @@ import victor.testing.spring.repo.SupplierRepo;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
+
 // they conmfigure the instance of the test class
 //@RunWith(MockitoJUnitRunner.class)// Junit 4
 @ExtendWith(MockitoExtension.class) // JUnit 5
 class ProductServiceTest {
+  public static final String BARCODE = "barcode";
   @Mock
+  //any stubbing when().then.. you do on mocks created with @Mock
+  // HAVE TO BE USED by tested code. If they aren't, the test fails by default
+      // since mockito 2.0
   ProductRepo productRepoMock;
   @Mock
   SafetyApiClient safetyApiClientMock;
@@ -46,21 +53,19 @@ class ProductServiceTest {
 //        new ProductMapper(), // real instance
 //        kafkaTemplateMock);
 //  }
-
   @Test
   void createProduct() {
-    // given
-    Mockito.when(safetyApiClientMock.isSafe(ArgumentMatchers.any())).thenReturn(true);
-    //unstubbed method return default 'absent' values when called: false, 0, null, Optional.empty(), List.of()
-    Mockito.when(supplierRepoMock.findByCode(ArgumentMatchers.any())).thenReturn(Optional.of(new Supplier()));
+    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
+    when(supplierRepoMock.findByCode(any())).thenReturn(Optional.of(new Supplier()));
 
-    // when
     ProductDto dto = new ProductDto();
+    dto.setBarcode(BARCODE);
     dto.setName("name");// WE NEVER STUB GETTERS. METHODS OF DATA OBJECTS.
     // we only Mockito.mock() classes with behavior, not carrying state.
 
+    // when
     service.createProduct(dto);
 
-    // then
+
   }
 }
