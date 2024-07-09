@@ -39,4 +39,14 @@ public class Coupon {
     }
     return price - discountAmount;
   }
+
+  @Override
+  public String toString() {
+    return "Coupon{" +
+           "category=" + category +
+           ", discountAmount=" + discountAmount +
+           ", applicableSuppliers=" + applicableSuppliers +
+           ", autoApply=" + autoApply +
+           '}';
+  }
 }

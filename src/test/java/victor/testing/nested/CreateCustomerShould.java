@@ -15,12 +15,15 @@ import victor.testing.mutation.*;
 import victor.testing.spring.domain.ProductCategory;
 import victor.testing.tools.HumanReadableTestNames;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static victor.testing.spring.domain.ProductCategory.ELECTRONICS;
+import static victor.testing.spring.domain.ProductCategory.HOME;
 
 /**
  * Disclaimer: Please do NOT take this example ad literam and replicate this level of granularity
@@ -126,13 +129,26 @@ class CreateCustomerShould {
       @ValueSource(strings = {"HOME", "ELECTRONICS"})
       void receivesCoupon(ProductCategory category) {
         customerFacade.createCustomer(aValidCustomer);
-        Assertions.assertThat(aValidCustomer.getCoupons())
+
+        assertThat(aValidCustomer.getCoupons())
             .contains(new Coupon(category, 10, Set.of()));
+      }
+
+      @Test
+      void receivesCoupons() {
+        customerFacade.createCustomer(aValidCustomer);
+
+        List<Coupon> coupons = aValidCustomer.getCoupons();
+        Coupon c1 = new Coupon(ELECTRONICS, 10, Set.of());
+        Coupon c2 = new Coupon(HOME, 10, Set.of());
+        org.junit.jupiter.api.Assertions.assertEquals(List.of(c1,c2), coupons);
+        // the list have the same number of elements and each element is .equal to the other on the same posiitin
       }
 
       @Test
       void isSentAnEmailAboutTheCoupons() {
         customerFacade.createCustomer(aValidCustomer);
+
         verify(emailClient).sendNewCouponEmail(aValidCustomer);
       }
     }

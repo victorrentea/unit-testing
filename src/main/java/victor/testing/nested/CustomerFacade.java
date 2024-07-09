@@ -11,6 +11,9 @@ import victor.testing.spring.domain.ProductCategory;
 import java.util.List;
 import java.util.Set;
 
+import static victor.testing.spring.domain.ProductCategory.*;
+import static victor.testing.spring.domain.ProductCategory.ELECTRONICS;
+
 @RequiredArgsConstructor
 public class CustomerFacade {
    private final CustomerValidator validator;
@@ -29,8 +32,8 @@ public class CustomerFacade {
       emailClient.sendWelcomeEmail(customer);
 
       if (DISCOUNTED_COUNTRIES.contains(customer.getAddress().getCountry())) {
-         customer.getCoupons().add(new Coupon(ProductCategory.ELECTRONICS, 10, Set.of()));
-         customer.getCoupons().add(new Coupon(ProductCategory.HOME, 10, Set.of()));
+         customer.getCoupons().add(new Coupon(ELECTRONICS, 10, Set.of()));
+         customer.getCoupons().add(new Coupon(HOME, 11, Set.of()));
          emailClient.sendNewCouponEmail(customer);
       }
 
