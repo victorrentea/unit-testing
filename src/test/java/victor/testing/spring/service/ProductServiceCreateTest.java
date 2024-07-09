@@ -2,19 +2,23 @@ package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.api.dto.ProductDto;
+import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 
 import static java.util.Optional.of;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
@@ -75,6 +79,13 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
     // when
     service.createProduct(dto);
 
+    // I can ask any mock for the arguments that it was given
+    // during the prod call above, this way:
+    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+    verify(productRepoMock).save(productCaptor.capture()); // - "Please fill up in this captor the arg"
+    Product product = productCaptor.getValue();
+    // CHALLENGE: i don't have any reference to the Product that is created in the tested code
+    assertThat(product.getName()).isEqualTo("name");
     verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 }
