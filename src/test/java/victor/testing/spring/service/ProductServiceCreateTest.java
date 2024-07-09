@@ -1,12 +1,9 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.api.dto.ProductDto;
@@ -15,16 +12,17 @@ import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 
-import java.util.Optional;
-
-import static org.mockito.ArgumentMatchers.*;
+import static java.util.Optional.of;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 // they conmfigure the instance of the test class
 //@RunWith(MockitoJUnitRunner.class)// Junit 4
 @ExtendWith(MockitoExtension.class) // JUnit 5
-class ProductServiceTest {
+class ProductServiceCreateTest { // name of the tested method in the test class name
   public static final String BARCODE = "barcode";
+  public static final String SUPPLIER_CODE = "S";
   @Mock
   //any stubbing when().then.. you do on mocks created with @Mock
   // HAVE TO BE USED by tested code. If they aren't, the test fails by default
@@ -38,6 +36,11 @@ class ProductServiceTest {
   KafkaTemplate<String, String> kafkaTemplateMock;
   @InjectMocks // if you only inject mocks (no real object)
   ProductService service;
+
+  ProductDto dto = new ProductDto()
+      .setBarcode(BARCODE)
+      .setSupplierCode(SUPPLIER_CODE)
+      .setName("name");
   // call the constructor, or inject  in provate fields all the above @Mocks
 
 
@@ -54,18 +57,21 @@ class ProductServiceTest {
 //        kafkaTemplateMock);
 //  }
   @Test
-  void createProduct() {
+  void ok() {
     when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
-    when(supplierRepoMock.findByCode(any())).thenReturn(Optional.of(new Supplier()));
-
-    ProductDto dto = new ProductDto();
-    dto.setBarcode(BARCODE);
-    dto.setName("name");// WE NEVER STUB GETTERS. METHODS OF DATA OBJECTS.
-    // we only Mockito.mock() classes with behavior, not carrying state.
+    when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
 
     // when
     service.createProduct(dto);
+  }
 
+   @Test
+  void failsForUnsafeProduct() {
+    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(false);
 
+     // when
+    assertThatThrownBy(()->service.createProduct(dto))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("Product is not safe!");
   }
 }
