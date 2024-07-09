@@ -6,7 +6,7 @@ import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftlyExtension;
-import org.junit.jupiter.api.Disabled;
+import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,10 +24,9 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
-@Disabled("on demand - failures are fun")
-public class AssertJ {
+//@Disabled("on demand - failures are fun")
+public class AssertJ { // <dependency>org.assertj:assertj-core</dependency>
 
   @Nested
   @TestMethodOrder(MethodName.class)
@@ -38,17 +36,21 @@ public class AssertJ {
     @Test
     public void size_JUnit() {
       assertEquals(1, list.size());
+      // the most famous mistake in JUnit design: the expected and actual are swapped
     }
 
     @Test
     public void size_AssertJ() {
-      assertThat(list).hasSize(1);
+      assertThat(list).hasSize(1); //prints a nice message with the list.toString on failure
     }
 
     @Test
     public void onceInAnyOrder_JUnit() {
-      assertEquals(Set.of(100, 200, 300), new HashSet<>(list));
-      assertEquals(3, list.size());
+      // the list contains exactly 100, 200
+      // examples: [100, 200], [200, 100]
+      assertTrue(list.containsAll(List.of(100, 600)));
+      assertEquals(2, list.size());
+
     }
 
     @Test
@@ -82,6 +84,18 @@ public class AssertJ {
         new Character("Aragorn", 39, new Race("Man")),
         new Character("Gimli", 40, new Race("Dwarf"))
     );
+
+    @Test
+    void reflectiveEquals() {
+      Character frodo = fellowship.get(0);
+
+      RecursiveComparisonConfiguration configuration = new RecursiveComparisonConfiguration();
+      configuration.registerEqualsForType(String::equalsIgnoreCase, String.class);
+
+      assertThat(frodo)
+          .usingRecursiveComparison(configuration)
+          .isEqualTo(new Character("Frodo", 20, new Race("hobbit")));
+    }
 
     @Test
     public void attribute_oneOf_JUnit() {
@@ -170,45 +184,46 @@ public class AssertJ {
 
     @Test
     void assertAll() {
-      try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
+      try (var softly = new AutoCloseableSoftAssertions()) {
         softly.assertThat(1).isEqualTo(2);
         softly.assertThat(3).isEqualTo(4);
       }
     }
+
     @Nested
     @ExtendWith(SoftlyExtension.class)
     class WithExtension {
-        @InjectSoftAssertions
-        SoftAssertions softly;
+      @InjectSoftAssertions
+      SoftAssertions softly;
 
-        @Test
-        void assertAll() {
-          softly.assertThat(1).isEqualTo(2);
-          softly.assertThat(3).isEqualTo(4);
-        }
-
-        @Test
-        void real() {
-          record Mansion(int guests, String kitchen, String library) {
-          }
-          interface EventSender {
-            void send(String event);
-          }
-          EventSender eventSender = Mockito.mock(EventSender.class);
-
-          // testedCode...
-          Mansion mansion = new Mansion(6, "dirty", "clean");
-
-          try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
-            softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
-            softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
-            softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
-            softly.assertThatCode(() -> Mockito.verify(eventSender).send("mansion-cleaned"))
-                .as("event published").doesNotThrowAnyException();
-          }
-        }
-
+      @Test
+      void assertAll() {
+        softly.assertThat(1).isEqualTo(2);
+        softly.assertThat(3).isEqualTo(4);
       }
+
+      @Test
+      void real() {
+        record Mansion(int guests, String kitchen, String library) {
+        }
+        interface EventSender {
+          void send(String event);
+        }
+        EventSender eventSender = Mockito.mock(EventSender.class);
+
+        // testedCode...
+        Mansion mansion = new Mansion(6, "dirty", "clean");
+
+        try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
+          softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
+          softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
+          softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
+          softly.assertThatCode(() -> Mockito.verify(eventSender).send("mansion-cleaned"))
+              .as("event published").doesNotThrowAnyException();
+        }
+      }
+
+    }
   }
 
 }
