@@ -1,5 +1,6 @@
 package victor.testing.tdd;
 
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -47,5 +48,10 @@ public class TennisScoreGlueCode {
         tennisScore.addPointToPlayer2();
       }
     }
+  }
+
+  @After("@afterclean")
+  public void cleanup() {
+    System.out.println("Cleanup");
   }
 }

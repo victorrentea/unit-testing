@@ -59,10 +59,7 @@ public class TennisScoreParameterizedTest {
   // #2) Avoid params of type boolean or having 2 values. Prefer numbers. prefer params that enter in combination with many others.
   // also to avoid having if() in tests
 
-  @After("@afterclean")
-  public void cleanup() {
-    System.out.println("Cleanup");
-  }
+
 
   @ParameterizedTest(name = "{0}")
   @MethodSource("testData")
