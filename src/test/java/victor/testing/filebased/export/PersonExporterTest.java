@@ -38,14 +38,15 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
       log.info("Running {}", test);
       didacticLog(test);
       Person inputPerson = jackson.readValue(test.getInputFile(), Person.class);
-      when(personRepo.findAll()).thenReturn(asList(inputPerson));
-      StringWriter sw = new StringWriter();
+      when(personRepo.findAll()).thenReturn(asList(inputPerson)); // input
+      StringWriter stringWriter = new StringWriter();
 
       // when
-      exporter.export(sw);
+      exporter.export(stringWriter);
 
+      String actualContents = stringWriter.toString(); // actual output
       String expectedContents = readFileToString(test.getExpectedOutputFile());
-      assertThat(sw.toString()).isEqualToNormalizingNewlines(expectedContents);
+      assertThat(actualContents).isEqualToNormalizingNewlines(expectedContents);
    }
 
    private void didacticLog(FileTestCase testCase) throws IOException {

@@ -15,10 +15,11 @@ public class PersonExporter {
   // Your plan to refactor it... 😱
   // How can you make sure you don't break the current behavior?
 
-  // You write CHARACTERIZATION TESTS:
-  // 1. You capture the relevant output of the code
+  // You write CHARACTERIZATION TESTS for the entire existing behavior:
+  // 1. Identify and capture the relevant input/output of the existing code: eg: INSERT, return value, mq.send(message)
   // 2. Find proper inputs to go "everywhere" (use line coverage)
-  // 3. Save current output as tests along with the inputs
+  // 3. Save current output as tests along with the inputs=>saveInFile(input,recordedOutput) x 100
+
   // These tests should stay green when refactoring the code.
 
   public void export(Writer writer) throws IOException {
