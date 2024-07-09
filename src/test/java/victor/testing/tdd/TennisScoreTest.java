@@ -1,10 +1,15 @@
 package victor.testing.tdd;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import victor.testing.tools.HumanReadableTestNames;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@DisplayNameGeneration(HumanReadableTestNames.class)
 public class TennisScoreTest {
 
   private TennisScore tennisScore = new TennisScore();
@@ -25,7 +30,7 @@ public class TennisScoreTest {
 
     String actual = tennisScore.getScore();
 
-    assertEquals("Love - Love", actual);
+    assertEquals("Love - All", actual);
   }
 
   @Test
@@ -38,6 +43,8 @@ public class TennisScoreTest {
   }
 
   @Test
+    // risk=can get out of sync just like  // comments in code can
+  @DisplayName("Score is Thirty - Love when Player1 scored 2 points")
   void scoreIsThirtyLove_whenPlayer1Scored2Point() {
     setPoints(2, 0);
 
