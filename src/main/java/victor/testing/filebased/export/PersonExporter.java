@@ -2,6 +2,9 @@ package victor.testing.filebased.export;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.joining;
 
 public class PersonExporter {
   private final PersonRepo personRepo;
@@ -30,7 +33,7 @@ public class PersonExporter {
       if (person.getPhoneList().isEmpty()) {
         writer.write("-");
       } else {
-        writer.write(person.getPhoneList().get(0));
+        writer.write(String.join(",", person.getPhoneList()));
       }
       // TODO BUGFIX: exception when no phones
       // TODO CR: output all phones comma-separated
