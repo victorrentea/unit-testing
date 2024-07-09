@@ -15,7 +15,9 @@ import victor.testing.spring.repo.SupplierRepo;
 
 import static java.util.Optional.of;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 // they conmfigure the instance of the test class
 //@RunWith(MockitoJUnitRunner.class)// Junit 4
@@ -73,8 +75,6 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
     // when
     service.createProduct(dto);
 
-    Mockito.verify(kafkaTemplateMock)
-        .send(ProductService.PRODUCT_CREATED_TOPIC,
-            "k", dto.getName().toUpperCase());
+    verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 }
