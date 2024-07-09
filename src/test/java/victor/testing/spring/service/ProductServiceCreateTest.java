@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.api.dto.ProductDto;
@@ -71,5 +72,9 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
 
     // when
     service.createProduct(dto);
+
+    Mockito.verify(kafkaTemplateMock)
+        .send(ProductService.PRODUCT_CREATED_TOPIC,
+            "k", dto.getName().toUpperCase());
   }
 }
