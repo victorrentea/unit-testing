@@ -26,15 +26,9 @@ public class PersonExporter {
   // These tests should stay green when refactoring the code.
 
   public void export(Writer writer) throws IOException {
-    writer.write("full_name;phones;birth_date\n");
+    writer.write("full_name;birth_date;phones\n");
     for (Person person : personRepo.findAll()) {
       writer.write(person.getFirstName() + " " + person.getLastName().toUpperCase());
-      writer.write(";");
-      if (person.getPhoneList().isEmpty()) {
-        writer.write("-");
-      } else {
-        writer.write(String.join(",", person.getPhoneList()));
-      }
       // TODO BUGFIX: exception when no phones
       // TODO CR: output all phones comma-separated
 
@@ -43,6 +37,13 @@ public class PersonExporter {
         writer.write(person.getBirthDate().toString()); // TODO CR: change format to "12 Nov 2021"
       } else {
         writer.write("N/A");
+      }
+
+      writer.write(";");
+      if (person.getPhoneList().isEmpty()) {
+        writer.write("-");
+      } else {
+        writer.write(String.join(",", person.getPhoneList()));
       }
       writer.write("\n");
     }

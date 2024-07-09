@@ -1,2 +1,2 @@
-full_name;phones;birth_date
-John DOE;111;N/A
+full_name;birth_date;phones
+John DOE;N/A;111

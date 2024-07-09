@@ -54,25 +54,27 @@ class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
       // all failures in the soft assertions bellow will be reported
 
       softly.assertThatCode(() -> verify(kafkaSender)
-                      .send(eq("grocery-response"), responseMessageCaptor.capture()))
-              .doesNotThrowAnyException();
+              .send(eq("grocery-response"), responseMessageCaptor.capture()))
+          .doesNotThrowAnyException();
       softly.assertThat(responseMessageCaptor.getValue())
-              .usingRecursiveComparison().isEqualTo(expectedOutput.response);
+          .usingRecursiveComparison().isEqualTo(expectedOutput.response);
 
       softly.assertThatCode(() -> verify(kafkaSender, atLeast(0))
-                      .send(eq("grocery-not-found"), notFoundMessageCaptor.capture()))
-              .doesNotThrowAnyException();
+              .send(eq("grocery-not-found"), notFoundMessageCaptor.capture()))
+          .doesNotThrowAnyException();
       softly.assertThat(notFoundMessageCaptor.getAllValues())
-              .usingRecursiveFieldByFieldElementComparator()
-              .containsExactlyInAnyOrderElementsOf(expectedOutput.notFoundEvents);
+          .usingRecursiveFieldByFieldElementComparator()
+          .containsExactlyInAnyOrderElementsOf(expectedOutput.notFoundEvents);
     }
   }
 
-  public record Input(GroceriesRequestMessage request,
-                      List<Grocery> groceriesInDb) {
+  public record Input(
+      GroceriesRequestMessage request,
+      List<Grocery> groceriesInDb) {
   }
 
-  public record Output(GroceriesResponseMessage response,
-                       List<GroceryNotFoundEvent> notFoundEvents) {
+  public record Output(
+      GroceriesResponseMessage response,
+      List<GroceryNotFoundEvent> notFoundEvents) {
   }
 }
