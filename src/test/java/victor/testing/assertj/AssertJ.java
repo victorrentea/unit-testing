@@ -29,6 +29,8 @@ import static org.mockito.Mockito.mock;
 
 @Disabled("on demand - failures are fun")
 public class AssertJ {
+  // via dependency: org.assertj:assertj-core
+  // or transitive via spring-boot-test
 
   @Nested
   @TestMethodOrder(MethodName.class)
@@ -47,7 +49,7 @@ public class AssertJ {
 
     @Test
     public void onceInAnyOrder_JUnit() {
-      assertEquals(Set.of(100, 200, 300), new HashSet<>(list));
+      assertTrue(list.containsAll(List.of(100, 200, 700)));
       assertEquals(3, list.size());
     }
 
@@ -85,7 +87,11 @@ public class AssertJ {
 
     @Test
     public void attribute_oneOf_JUnit() {
-      Set<String> races = fellowship.stream().map(character -> character.getRace().getName()).collect(toSet());
+      // preprocess the collection before the assertion:
+      Set<String> races = fellowship.stream()
+          .map(Character::getRace)
+          .map(Race::getName)
+          .collect(toSet());
       assertEquals(Set.of("Man", "Dwarf", "Elf", "Hobbit"), races);
     }
 
@@ -107,7 +113,7 @@ public class AssertJ {
     @Test
     public void elementsWithProperties_AssertJ() {
       assertThat(fellowship)
-//             .extracting("name", "age", "race.name")
+          // .extracting("name", "age", "race.name") // alternative
           .extracting(Character::getName, Character::getAge, c -> c.getRace().getName())
           .contains(
               tuple("Frodo", 20, "Hobbit"),
@@ -121,26 +127,26 @@ public class AssertJ {
   @Nested
   @TestMethodOrder(MethodName.class)
   public class Strings {
-    private final String actual = "abcdef";
+    private final String string = "abcdef";
 
     @Test
     public void startsWith_JUnit() {
-      assertTrue(actual.startsWith("bcd")); // see the failure message
+      assertTrue(string.startsWith("bcd")); // see the failure message
     }
 
     @Test
     public void startsWith_AssertJ() {
-      assertThat(actual).startsWith("bcd"); // see the failure message
+      assertThat(string).startsWith("bcd"); // see the failure message
     }
 
     @Test
     public void ignoreCase_JUnit() {
-      assertEquals("ABCDEF", actual.toUpperCase()); // looses the original case
+      assertEquals("ABCDEF", string.toUpperCase()); // looses the original case
     }
 
     @Test
     public void ignoreCase_AssertJ() {
-      assertThat(actual).isEqualToIgnoringCase("AbCdEF");
+      assertThat(string).isEqualToIgnoringCase("AbCdEF");
     }
   }
 
@@ -170,7 +176,7 @@ public class AssertJ {
 
     @Test
     void assertAll() {
-      try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
+      try (var softly = new AutoCloseableSoftAssertions()) {
         softly.assertThat(1).isEqualTo(2);
         softly.assertThat(3).isEqualTo(4);
       }
@@ -199,7 +205,7 @@ public class AssertJ {
           // testedCode...
           Mansion mansion = new Mansion(6, "dirty", "clean");
 
-          try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
+          try (var softly = new AutoCloseableSoftAssertions()) {
             softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
             softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
             softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
