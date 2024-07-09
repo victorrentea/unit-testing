@@ -1,9 +1,13 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.api.dto.ProductDto;
@@ -17,13 +21,26 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+// they conmfigure the instance of the test class
+//@RunWith(MockitoJUnitRunner.class)// Junit 4
+@ExtendWith(MockitoExtension.class) // JUnit 5
 class ProductServiceTest {
-  SupplierRepo supplierRepoMock = mock(SupplierRepo.class);
-  ProductRepo productRepoMock = mock(ProductRepo.class);
-  SafetyApiClient safetyApiClientMock = mock(SafetyApiClient.class);
-  KafkaTemplate<String, String> kafkaTemplateMock = mock(KafkaTemplate.class);
-  ProductService service = new ProductService(supplierRepoMock, productRepoMock, safetyApiClientMock,
-      null, kafkaTemplateMock);
+  @Mock // works thanks to MockitoExtension/Runner, created after instantiation
+  SupplierRepo supplierRepoMock;// = mock(SupplierRepo.class);
+  @Mock
+  ProductRepo productRepoMock;
+  @Mock
+  SafetyApiClient safetyApiClientMock;
+  @Mock
+  KafkaTemplate<String, String> kafkaTemplateMock;
+
+  // field = new runs at constructor time (too early, before @Mock fields got created)
+  ProductService service = new ProductService(
+      supplierRepoMock,
+      productRepoMock,
+      safetyApiClientMock,
+      null,
+      kafkaTemplateMock);
 
   @Test
   void createProduct() {
