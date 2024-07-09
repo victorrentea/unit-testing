@@ -1,5 +1,7 @@
 package victor.testing.tdd;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -56,6 +58,11 @@ public class TennisScoreParameterizedTest {
 
   // #2) Avoid params of type boolean or having 2 values. Prefer numbers. prefer params that enter in combination with many others.
   // also to avoid having if() in tests
+
+  @After("@afterclean")
+  public void cleanup() {
+    System.out.println("Cleanup");
+  }
 
   @ParameterizedTest(name = "{0}")
   @MethodSource("testData")

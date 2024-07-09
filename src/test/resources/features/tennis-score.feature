@@ -1,11 +1,11 @@
 # Gherkin language
+@afterclean
 Feature: Tennis Score
 
   Background: #~ beforeEach
 #    Given A new game between "John" and "Jane" #paramterize the relevant data.
     Given A new game
 
-  @txn
   Scenario: New Game
     Then The score is "Love - All"
 
