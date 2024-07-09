@@ -21,12 +21,12 @@ import java.util.Optional;
 //@RunWith(MockitoJUnitRunner.class)// Junit 4
 @ExtendWith(MockitoExtension.class) // JUnit 5
 class ProductServiceTest {
-  @Mock // works thanks to MockitoExtension/Runner, created after instantiation
-  SupplierRepo supplierRepoMock;// = mock(SupplierRepo.class);
   @Mock
   ProductRepo productRepoMock;
   @Mock
   SafetyApiClient safetyApiClientMock;
+  @Mock // works thanks to MockitoExtension/Runner, created after instantiation
+  SupplierRepo supplierRepoMock;// = mock(SupplierRepo.class);
   @Mock
   KafkaTemplate<String, String> kafkaTemplateMock;
   @InjectMocks // if you only inject mocks (no real object)
