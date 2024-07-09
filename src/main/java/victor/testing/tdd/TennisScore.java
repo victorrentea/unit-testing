@@ -1,7 +1,5 @@
 package victor.testing.tdd;
 
-import java.util.Map;
-
 public class TennisScore {
   private int player1Points = 0;
   private int player2Points = 0;
