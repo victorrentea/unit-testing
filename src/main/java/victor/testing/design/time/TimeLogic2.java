@@ -15,6 +15,8 @@ public class TimeLogic2 {
      this.timeProvider = timeProvider;
    }
 
+   // use this injection when you have time-based logic in many places.
+
    public boolean isFrequentBuyer(int customerId) {
       LocalDate now = timeProvider.today();
       LocalDate sevenDaysAgo = now.minusDays(7);

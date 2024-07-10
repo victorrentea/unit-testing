@@ -8,15 +8,13 @@ import java.util.List;
 
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class TimeLogic4Test {
   OrderRepo orderRepoMock = mock(OrderRepo.class);
   TimeLogic4 target = new TimeLogic4(orderRepoMock);
 
   @Test
-  @Disabled("flaky, time-based")
   void isFrequentBuyer() {
     LocalDate today = parse("2023-01-08");
     LocalDate oneWeekAgo = parse("2023-01-01");
@@ -25,7 +23,11 @@ class TimeLogic4Test {
         13, oneWeekAgo, today))
         .thenReturn(List.of(order));
 
-    assertThat(target.isFrequentBuyer(13)).isTrue();
+    try(var staticMock = mockStatic(LocalDate.class)) {
+      staticMock.when(LocalDate::now).thenReturn(today);
+      boolean result = target.isFrequentBuyer(13);
+      assertThat(result).isTrue();
+    }
   }
 }
 // Ways to control time from tests:

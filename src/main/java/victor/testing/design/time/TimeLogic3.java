@@ -1,5 +1,6 @@
 package victor.testing.design.time;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,8 +14,14 @@ public class TimeLogic3 {
       this.orderRepo = orderRepo;
    }
 
+   // better than #1 because the class' public api DID NOT CHANGE
    public boolean isFrequentBuyer(int customerId) {
       LocalDate now = LocalDate.now();
+      return isFrequentBuyer(customerId, now);
+   }
+
+   @VisibleForTesting
+   boolean isFrequentBuyer(int customerId, LocalDate now) {
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
