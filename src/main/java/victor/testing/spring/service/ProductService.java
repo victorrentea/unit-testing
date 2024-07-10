@@ -35,7 +35,7 @@ public class ProductService {
       throw new IllegalStateException("Product is not safe!");
     }
     if (productDto.getCategory() == null) {
-//      productDto.setCategory(ProductCategory.UNCATEGORIZED);
+      productDto.setCategory(ProductCategory.UNCATEGORIZED);
     }
     Product product = new Product();
     product.setName(productDto.getName());
