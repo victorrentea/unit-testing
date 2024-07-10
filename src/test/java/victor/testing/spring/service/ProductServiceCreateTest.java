@@ -1,6 +1,6 @@
 package victor.testing.spring.service;
 
-import org.assertj.core.api.AssertionsForClassTypes;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -20,8 +20,7 @@ import victor.testing.spring.repo.SupplierRepo;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.ArgumentCaptor.*;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
@@ -91,7 +90,9 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
     verify(productRepoMock).save(productCaptor.capture()); // - "Please fill up in this captor the arg"
     Product product = productCaptor.getValue();
     // CHALLENGE: i don't have any reference to the Product that is created in the tested code
-    AssertionsForClassTypes.assertThat(product.getName()).isEqualTo("name");
+    assertThat(product.getName()).isEqualTo("name");
+    assertThat(product.getBarcode()).isEqualTo(BARCODE);
+    assertThat(product.getCategory()).isEqualTo(HOME);
     verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
