@@ -10,5 +10,8 @@ public class TestData {
         .billingAddress("123 Main St")
         .shippingAddress("anything") // useless details that make the test harder to understand
         .phoneNumber("WHY?!!!");
+
+    // variation if your object is XXX-large,
+    // you could parse it from a JSON on disk from src/test/resources/customer.json
   }
 }
