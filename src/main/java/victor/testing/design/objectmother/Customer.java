@@ -6,7 +6,7 @@ import lombok.Value;
 
 import static java.util.Objects.requireNonNull;
 
-@Value
+@Value // immutable object needing all fields in constructor
 @Builder
 class Customer {
    @NonNull
@@ -15,5 +15,7 @@ class Customer {
    String shippingAddress;
    @NonNull
    String billingAddress;
+   @NonNull
+   String phoneNumber;
    // 20 more fields...
 }

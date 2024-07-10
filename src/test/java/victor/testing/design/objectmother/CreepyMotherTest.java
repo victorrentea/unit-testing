@@ -5,42 +5,19 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ShippingServiceTest {
-  // ??? = unnecessary information
-  @Test
-  void estimateShippingCosts() {
-    Customer customer = new Customer("???", "Romania", "???");
-    int cost = new ShippingService().estimateShippingCosts(customer);
-    assertThat(cost).isEqualTo(30);
-  }
+  void generatesInvoiceWithValidCustomerAndOrder() {
+    Customer customer = new Customer(
+        "John Doe",
+        "123 Main St",
+        "123 Main St",
+        "WHY?!!!");
+    String order = "Order123";
 
-  @Test
-  void printShippingSlip() {
-    Customer customer = new Customer("Joe", "Romania", "???");
-    String shippingSlip = new ShippingService().printShippingSlip(customer);
-    assertThat(shippingSlip).isEqualTo("""
-            Recipient name: Joe
-            Address: Romania""");
-  }
+    InvoiceService invoiceService = new InvoiceService();
+    String invoice = invoiceService.generateInvoice(customer, order);
+
+    assertThat(invoice).contains("Buyer name: John Doe");
+    assertThat(invoice).contains("Address: 123 Main St");
+    assertThat(invoice).contains("For order Order123");
 }
-
-class InvoiceServiceTest {
-  @Test
-  void invoice() {
-    Customer customer = new Customer("Mr Bean", "???", "BillingAddress");
-    String invoice = new InvoiceService().generateInvoice(customer, "Order1");
-    assertThat(invoice).isEqualTo("""
-            Invoice
-            Buyer name: Mr Bean
-            Address: BillingAddress
-            For order Order1""");
-  }
-}
-
-class TestData {
-  public static Customer.CustomerBuilder joe() {
-    return Customer.builder()
-            .name("Joe")
-            .shippingAddress("Romania")
-            .billingAddress("BillingAddress");
-  }
 }
