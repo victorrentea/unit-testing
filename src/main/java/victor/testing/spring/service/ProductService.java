@@ -68,6 +68,8 @@ public class ProductService {
 
   public ProductDto getProduct(long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    return productMapper.toDto(product, "currentUser");
+    return productMapper.toDto(product/*, "user"*/);
+    // the longer the tests are, the more robust against refactoring they are.
+    // the closer they get to the functional requirement
   }
 }
