@@ -94,7 +94,8 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
   }
 
   @Test
-  void productWithCategory() {
+//  void productWithoutCategory() {
+  void categoryDefaultsToUncategorizedWhenMissing() {
     when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
     when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
     dto.setCategory(null);
