@@ -1,6 +1,5 @@
 package victor.testing.spring.service;
 
-import org.assertj.core.api.Assertions;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -11,11 +10,9 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
@@ -23,12 +20,9 @@ import victor.testing.spring.repo.SupplierRepo;
 
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.mockito.ArgumentCaptor.*;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
-import static org.mockito.quality.Strictness.LENIENT;
 import static victor.testing.spring.domain.ProductCategory.*;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
@@ -95,7 +89,7 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
     }
 
     @Test
-    void ok() {
+    void savesTheProduct() {
       // when
       service.createProduct(dto);
 
@@ -114,11 +108,19 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
 //        .returns("name", Product::getName)
 //        .returns(BARCODE, Product::getBarcode)
 //        .returns(HOME, Product::getCategory);
+    }
+
+    @Test
+    void sendsKafkaMessage() {
+      // when
+      service.createProduct(dto);
+
+      // then
       verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
     }
 
     @Test
-    void categoryDefaultsToUncategorizedWhenMissing() {
+    void defaultsCategoryToUncategorized() {
       dto.setCategory(null);
 
       // when
