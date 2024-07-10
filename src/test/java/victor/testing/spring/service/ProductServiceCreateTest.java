@@ -3,6 +3,7 @@ package victor.testing.spring.service;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -34,7 +35,7 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 // they conmfigure the instance of the test class
 //@RunWith(MockitoJUnitRunner.class)// Junit 4
 @ExtendWith(MockitoExtension.class) // JUnit 5
-@MockitoSettings(strictness = LENIENT) // default is STRICT_STUBS :: all the stubbing in this class becomes lenienet << DON'T ODO IT
+//@MockitoSettings(strictness = LENIENT) // default is STRICT_STUBS :: all the stubbing in this class becomes lenienet << DON'T ODO IT
 class ProductServiceCreateTest { // name of the tested method in the test class name
   public static final String BARCODE = "barcode";
   public static final String SUPPLIER_CODE = "S";
@@ -61,11 +62,6 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
       .setCategory(HOME);
   // call the constructor, or inject  in provate fields all the above @Mocks
 
-  @BeforeEach
-  final void setup() {
-    // BAD: if this stubbing is not used, don't fail the test = this stubbing is not important
-    /*lenient().*/when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
-  }
 
   //  @BeforeEach
 //  final void setup() { // now works as it runs later
@@ -88,40 +84,49 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
         .hasMessage("Product is not safe!");
   }
 
-  @Test
-  void ok() {
-    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
-
-    // when
-    service.createProduct(dto);
-
-    // I can ask any mock for the arguments that it was given
-    // during the prod call above, this way:
-    verify(productRepoMock).save(productCaptor.capture()); // - "Please fill up in this captor the arg"
-    Product product = productCaptor.getValue();
-    // CHALLENGE: i don't have any reference to the Product that is created in the tested code
-
-    try(var softly = new AutoCloseableSoftAssertions()) {
-      softly.assertThat(product.getName()).isEqualTo("name");
-      softly.assertThat(product.getBarcode()).isEqualTo(BARCODE);
-      softly.assertThat(product.getCategory()).isEqualTo(HOME);
+  @Nested
+  class HappyFlow {
+    @BeforeEach
+    final void setup() {
+      // BAD: if this stubbing is not used, don't fail the test = this stubbing is not important
+      /*lenient().*/
+      when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
     }
+
+    @Test
+    void ok() {
+      when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
+
+      // when
+      service.createProduct(dto);
+
+      // I can ask any mock for the arguments that it was given
+      // during the prod call above, this way:
+      verify(productRepoMock).save(productCaptor.capture()); // - "Please fill up in this captor the arg"
+      Product product = productCaptor.getValue();
+      // CHALLENGE: i don't have any reference to the Product that is created in the tested code
+
+      try (var softly = new AutoCloseableSoftAssertions()) {
+        softly.assertThat(product.getName()).isEqualTo("name");
+        softly.assertThat(product.getBarcode()).isEqualTo(BARCODE);
+        softly.assertThat(product.getCategory()).isEqualTo(HOME);
+      }
 //    assertThat(product) // fancier
 //        .returns("name", Product::getName)
 //        .returns(BARCODE, Product::getBarcode)
 //        .returns(HOME, Product::getCategory);
-    verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
-  }
+      verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
+    }
 
-  @Test
-  void categoryDefaultsToUncategorizedWhenMissing() {
-    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
-    dto.setCategory(null);
+    @Test
+    void categoryDefaultsToUncategorizedWhenMissing() {
+      when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
+      dto.setCategory(null);
 
-    // when
-    service.createProduct(dto);
+      // when
+      service.createProduct(dto);
 
-    // too implementation-oriented, not functional
+      // too implementation-oriented, not functional
 //    assertThat(dto.getCategory()).isEqualTo(ProductCategory.UNCATEGORIZED);
 
 //    ArgumentCaptor<Product> captor = forClass(Product.class);
@@ -129,8 +134,9 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
 //    Product product = captor.getValue();
 //    assertThat(product.getCategory()).isEqualTo(ProductCategory.UNCATEGORIZED);
 
-    // simpler form to check a single attribute, the failure message is worse
-    verify(productRepoMock).save(argThat(product ->
-        product.getCategory() == UNCATEGORIZED));
+      // simpler form to check a single attribute, the failure message is worse
+      verify(productRepoMock).save(argThat(product ->
+          product.getCategory() == UNCATEGORIZED));
+    }
   }
 }
