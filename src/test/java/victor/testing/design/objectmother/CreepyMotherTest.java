@@ -6,11 +6,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ShippingServiceTest {
   void generatesInvoiceWithValidCustomerAndOrder() {
-    Customer customer = new Customer(
-        "John Doe",
-        "123 Main St",
-        "123 Main St",
-        "WHY?!!!");
+    Customer customer = Customer.builder()
+        .name("John Doe")
+        .billingAddress("123 Main St")
+        .shippingAddress("123 Main St")
+        .phoneNumber("WHY?!!!")
+        .build();
     String order = "Order123";
 
     InvoiceService invoiceService = new InvoiceService();
