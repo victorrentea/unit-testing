@@ -32,7 +32,7 @@ class ShippingServiceTest {
   void printShippingSlipWithValidCustomer() {
     ShippingService shippingService = new ShippingService();
     Customer customer = TestData.aCustomer()
-//        .name("Jane Doe")
+        .name("Jane Doe") // we take a standard object and tweak it for our Test's needs
         .shippingAddress("765 Main St, Romania")
         .build();
 
