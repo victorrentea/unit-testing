@@ -8,12 +8,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SignaturesTest {
    @Test
-   @CaptureSystemOutput
+   @CaptureSystemOutput // DO NOT USE THIS!!!!!
    void sendSprintFinishedEmail(OutputCapture outputCapture) {
-      Project project = new Project();
-      project.setPoEmail("boss@my.corp");
 
-      Signatures.sendSprintFinishedEmail(project);
+      Signatures.sendSprintFinishedEmail("boss@my.corp");
 
       assertThat(outputCapture.toString()).isEqualToIgnoringNewLines("Sending email to boss@my.corp with subject 'Sprint Finished' and some body");
    }
