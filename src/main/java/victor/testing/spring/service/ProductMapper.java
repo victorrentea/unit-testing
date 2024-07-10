@@ -6,7 +6,7 @@ import victor.testing.spring.api.dto.ProductDto;
 
 @Component
 public class ProductMapper {
-  public ProductDto toDto(Product product) {
+  public ProductDto toDto(Product product, String currentUsername) {
     return new ProductDto()
             .setId(product.getId())
             .setSupplierCode(product.getSupplier().getCode())

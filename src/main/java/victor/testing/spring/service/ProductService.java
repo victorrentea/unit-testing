@@ -68,6 +68,6 @@ public class ProductService {
 
   public ProductDto getProduct(long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    return productMapper.toDto(product);
+    return productMapper.toDto(product, "currentUser");
   }
 }
