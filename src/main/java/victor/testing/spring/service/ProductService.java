@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,10 @@ public class ProductService {
   // we are CHEATING: breaking the encapsulation of the old class(2000), JUST FOR TESTING
   // I DON"T GIVE A SHIT ABOUT THE ENCAPSULATION OF SUCH A BEAST (2000 loc).
   // it is far more important to bring it under automated tests than preserving encapsulated garbage.
-  /*private*/ Product newProduct(ProductDto productDto) {
+
+  /*private*/
+  @VisibleForTesting
+  Product newProduct(ProductDto productDto) {
     Product product = new Product();
     log.error("THIS SHOULD NOT EXECUTE ");
     product.setName(productDto.getName());
