@@ -31,10 +31,7 @@ class ShippingServiceTest {
   @Test
   void printShippingSlipWithValidCustomer() {
     ShippingService shippingService = new ShippingService();
-    Customer customer = TestData.aCustomer()
-        .name("Jane Doe") // we take a standard object and tweak it for our Test's needs
-        .shippingAddress("765 Main St, Romania")
-        .build();
+    Customer customer = aCustomerForCosts();
 
     String result = shippingService.printShippingSlip(customer);
 
@@ -42,4 +39,12 @@ class ShippingServiceTest {
         .contains("Recipient name: Jane Doe")
         .contains("Address: 765 Main St, Romania");
   }
+
+  private Customer aCustomerForCosts() {
+    return TestData.aCustomer()
+        .name("Jane Doe") // we take a standard object and tweak it for our Test's needs
+        .shippingAddress("765 Main St, Romania")
+        .build();
+  }
+
 }
