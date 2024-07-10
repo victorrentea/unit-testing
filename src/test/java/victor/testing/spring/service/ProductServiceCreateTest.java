@@ -10,6 +10,7 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
@@ -26,12 +27,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.ArgumentCaptor.*;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
+import static org.mockito.quality.Strictness.LENIENT;
 import static victor.testing.spring.domain.ProductCategory.*;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 // they conmfigure the instance of the test class
 //@RunWith(MockitoJUnitRunner.class)// Junit 4
 @ExtendWith(MockitoExtension.class) // JUnit 5
+@MockitoSettings(strictness = LENIENT) // default is STRICT_STUBS :: all the stubbing in this class becomes lenienet << DON'T ODO IT
 class ProductServiceCreateTest { // name of the tested method in the test class name
   public static final String BARCODE = "barcode";
   public static final String SUPPLIER_CODE = "S";
@@ -60,8 +63,8 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
 
   @BeforeEach
   final void setup() {
-    // if this stubbing is not used, don't fail the test = this stubbing is not important
-    lenient().when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
+    // BAD: if this stubbing is not used, don't fail the test = this stubbing is not important
+    /*lenient().*/when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
   }
 
   //  @BeforeEach
