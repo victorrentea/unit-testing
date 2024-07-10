@@ -22,8 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.*;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static victor.testing.spring.domain.ProductCategory.*;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 // they conmfigure the instance of the test class
@@ -50,7 +52,7 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
       .setBarcode(BARCODE)
       .setSupplierCode(SUPPLIER_CODE)
       .setName("name")
-      .setCategory(ProductCategory.HOME);
+      .setCategory(HOME);
   // call the constructor, or inject  in provate fields all the above @Mocks
 
 
@@ -106,9 +108,13 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
     // too implementation-oriented, not functional
 //    assertThat(dto.getCategory()).isEqualTo(ProductCategory.UNCATEGORIZED);
 
-    ArgumentCaptor<Product> captor = forClass(Product.class);
-    verify(productRepoMock).save(captor.capture());
-    Product product = captor.getValue();
-    assertThat(product.getCategory()).isEqualTo(ProductCategory.UNCATEGORIZED);
+//    ArgumentCaptor<Product> captor = forClass(Product.class);
+//    verify(productRepoMock).save(captor.capture());
+//    Product product = captor.getValue();
+//    assertThat(product.getCategory()).isEqualTo(ProductCategory.UNCATEGORIZED);
+
+    // simpler form to check a single attribute, the failure message is worse
+    verify(productRepoMock).save(argThat(product ->
+        product.getCategory() == UNCATEGORIZED));
   }
 }
