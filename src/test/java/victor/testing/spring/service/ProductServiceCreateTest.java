@@ -4,6 +4,7 @@ import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -87,7 +88,6 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
 
     // I can ask any mock for the arguments that it was given
     // during the prod call above, this way:
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
     verify(productRepoMock).save(productCaptor.capture()); // - "Please fill up in this captor the arg"
     Product product = productCaptor.getValue();
     // CHALLENGE: i don't have any reference to the Product that is created in the tested code
@@ -95,10 +95,13 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
     verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
+  @Captor
+  ArgumentCaptor<Product> productCaptor;
+
   @Test
 //  void productWithoutCategory() {
   void categoryDefaultsToUncategorizedWhenMissing() {
-    when(safetyApiClientMock.isSafe(argThat(e->e.equals(BARCODE)))).thenReturn(true);
+    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
     when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
     dto.setCategory(null);
 
