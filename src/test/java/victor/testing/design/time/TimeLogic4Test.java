@@ -23,6 +23,7 @@ class TimeLogic4Test {
         13, oneWeekAgo, today))
         .thenReturn(List.of(order));
 
+    // last resort
     try(var staticMock = mockStatic(LocalDate.class)) {
       staticMock.when(LocalDate::now).thenReturn(today);
       boolean result = target.isFrequentBuyer(13);
