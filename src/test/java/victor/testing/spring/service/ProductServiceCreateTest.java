@@ -25,8 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.ArgumentCaptor.*;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
@@ -61,7 +60,8 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
 
   @BeforeEach
   final void setup() {
-    when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
+    // if this stubbing is not used, don't fail the test = this stubbing is not important
+    lenient().when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
   }
 
   //  @BeforeEach
