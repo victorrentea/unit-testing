@@ -39,8 +39,8 @@ public class ProductService {
     }
     Product product = new Product();
     product.setName(productDto.getName());
-//    product.setBarcode(productDto.getBarcode());
-//    product.setCategory(productDto.getCategory());
+    product.setBarcode(productDto.getBarcode());
+    product.setCategory(productDto.getCategory());
     product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());

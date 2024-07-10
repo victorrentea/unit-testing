@@ -2,6 +2,7 @@ package victor.testing.spring.service;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -48,6 +49,8 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
   KafkaTemplate<String, String> kafkaTemplateMock;
   @InjectMocks // if you only inject mocks (no real object)
   ProductService service;
+  @Captor
+  ArgumentCaptor<Product> productCaptor;
 
   ProductDto dto = new ProductDto()
       .setBarcode(BARCODE)
@@ -56,6 +59,10 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
       .setCategory(HOME);
   // call the constructor, or inject  in provate fields all the above @Mocks
 
+  @BeforeEach
+  final void setup() {
+    when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
+  }
 
   //  @BeforeEach
 //  final void setup() { // now works as it runs later
@@ -81,7 +88,6 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
   @Test
   void ok() {
     when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
-    when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
 
     // when
     service.createProduct(dto);
@@ -97,7 +103,6 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
       softly.assertThat(product.getBarcode()).isEqualTo(BARCODE);
       softly.assertThat(product.getCategory()).isEqualTo(HOME);
     }
-
 //    assertThat(product) // fancier
 //        .returns("name", Product::getName)
 //        .returns(BARCODE, Product::getBarcode)
@@ -105,14 +110,9 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
     verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
-  @Captor
-  ArgumentCaptor<Product> productCaptor;
-
   @Test
-//  void productWithoutCategory() {
   void categoryDefaultsToUncategorizedWhenMissing() {
     when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
-    when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
     dto.setCategory(null);
 
     // when
