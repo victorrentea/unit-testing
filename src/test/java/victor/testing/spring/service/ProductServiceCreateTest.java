@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -90,9 +91,17 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
     verify(productRepoMock).save(productCaptor.capture()); // - "Please fill up in this captor the arg"
     Product product = productCaptor.getValue();
     // CHALLENGE: i don't have any reference to the Product that is created in the tested code
-    assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getBarcode()).isEqualTo(BARCODE);
-    assertThat(product.getCategory()).isEqualTo(HOME);
+
+    try(var softly = new AutoCloseableSoftAssertions()) {
+      softly.assertThat(product.getName()).isEqualTo("name");
+      softly.assertThat(product.getBarcode()).isEqualTo(BARCODE);
+      softly.assertThat(product.getCategory()).isEqualTo(HOME);
+    }
+
+//    assertThat(product) // fancier
+//        .returns("name", Product::getName)
+//        .returns(BARCODE, Product::getBarcode)
+//        .returns(HOME, Product::getCategory);
     verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
