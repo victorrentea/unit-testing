@@ -91,12 +91,11 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
       // BAD: if this stubbing is not used, don't fail the test = this stubbing is not important
       /*lenient().*/
       when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
+      when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
     }
 
     @Test
     void ok() {
-      when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
-
       // when
       service.createProduct(dto);
 
@@ -120,7 +119,6 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
 
     @Test
     void categoryDefaultsToUncategorizedWhenMissing() {
-      when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
       dto.setCategory(null);
 
       // when
