@@ -1,6 +1,5 @@
 package victor.testing.spring.service;
 
-import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,13 +17,17 @@ import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.*;
-import static victor.testing.spring.domain.ProductCategory.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 // they conmfigure the instance of the test class
@@ -151,4 +154,37 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
           product.getCategory() == UNCATEGORIZED));
     }
   }
+
+//  @BeforeEach
+//  final void setup() {
+//    when(productRepoMock.findById(1L)).thenReturn(Optional.of(product));
+//  }
+//
+//  @Test
+//  void service_plus_mapper() {
+//    LocalDate date = LocalDate.now();
+//    Product product = new Product()
+//        .setId(1L)
+//        .setName("name")
+//        .setBarcode("BARCODE")
+//        .setCategory(HOME)
+//        .setCreatedDate(date)
+//        .setSupplier(new Supplier().setCode("S"));
+//
+//    ProductDto dto = service.getProduct(1L);
+//
+//    assertThat(dto.getId()).isEqualTo(1L);
+//    assertThat(dto.getName()).isEqualTo("name");
+//    assertThat(dto.getBarcode()).isEqualTo("BARCODE");
+//    assertThat(dto.getCategory()).isEqualTo(HOME);
+//    assertThat(dto.getCreatedDate()).isEqualTo(date);
+//    assertThat(dto.getSupplierCode()).isEqualTo("S");
+//  }
+//  @Test
+//  void getProduct2() {
+//  }
+//  @Test
+//  void getProduct3() {
+//  }
+
 }

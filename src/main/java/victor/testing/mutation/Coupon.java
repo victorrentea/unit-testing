@@ -23,10 +23,6 @@ public class Coupon {
     return autoApply;
   }
 
-  public void setAutoApply(boolean autoApply) {
-    this.autoApply = autoApply;
-  }
-
   public boolean isApplicableFor(Product product, Double price) {
     return product.getCategory() == category
            && price > 2.5 * discountAmount
