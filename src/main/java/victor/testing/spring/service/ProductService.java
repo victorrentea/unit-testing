@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -37,13 +38,24 @@ public class ProductService {
     if (productDto.getCategory() == null) {
       productDto.setCategory(ProductCategory.UNCATEGORIZED);
     }
-    Product product = new Product();
-    product.setName(productDto.getName());
-    product.setBarcode(productDto.getBarcode());
-    product.setCategory(productDto.getCategory());
+    Product product = newProduct(productDto);
     product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
+  }
+
+  // we are CHEATING: breaking the encapsulation of the old class(2000), JUST FOR TESTING
+  // I DON"T GIVE A SHIT ABOUT THE ENCAPSULATION OF SUCH A BEAST (2000 loc).
+  // it is far more important to bring it under automated tests than preserving encapsulated garbage.
+  /*private*/ Product newProduct(ProductDto productDto) {
+    Product product = new Product();
+    log.error("THIS SHOULD NOT EXECUTE ");
+    product.setName(productDto.getName());
+    product.setBarcode(productDto.getBarcode());
+    product.setCategory(productDto.getCategory());
+    // Imagine dragons. calls to 10 other methods, calls to repos,
+    // old unknown heavy logic
+    return product;
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {

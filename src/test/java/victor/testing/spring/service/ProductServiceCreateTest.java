@@ -21,6 +21,7 @@ import victor.testing.spring.repo.SupplierRepo;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.domain.ProductCategory.*;
@@ -99,11 +100,22 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
       Product product = productCaptor.getValue();
       // CHALLENGE: i don't have any reference to the Product that is created in the tested code
 
-      try (var softly = new AutoCloseableSoftAssertions()) {
-        softly.assertThat(product.getName()).isEqualTo("name");
-        softly.assertThat(product.getBarcode()).isEqualTo(BARCODE);
-        softly.assertThat(product.getCategory()).isEqualTo(HOME);
-      }
+//      assertEquals("name", product.getName()); // throws an AssertionError
+      assertThat(product.getName()).isEqualTo("name"); // throws an AssertionError
+      assertThat(product.getBarcode()).isEqualTo(BARCODE);
+      assertThat(product.getCategory()).isEqualTo(HOME);
+
+      // job.status == "COMPLETED"
+      // job.errors == empty
+      // job.warnings == empty
+
+      // see all failures
+//      try (var softly = new AutoCloseableSoftAssertions()) {
+//        softly.assertThat(product.getName()).isEqualTo("name");
+//        softly.assertThat(product.getBarcode()).isEqualTo(BARCODE);
+//        softly.assertThat(product.getCategory()).isEqualTo(HOME);
+//      }
+
 //    assertThat(product) // fancier
 //        .returns("name", Product::getName)
 //        .returns(BARCODE, Product::getBarcode)
