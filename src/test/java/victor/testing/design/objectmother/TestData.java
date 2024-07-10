@@ -6,7 +6,9 @@ import victor.testing.design.objectmother.Customer.CustomerBuilder;
 public class TestData {
   public static CustomerBuilder aCustomer() { // canned object
     return Customer.builder()
-        .name("John Doe")
+//        .name("John Doe")
+        .name("Jane Doe") // changing the object mother contenst can break other test classes that depend on this method
+        // RULE: never change but only add stuff to this class=> such classes can exceed 2000 LOC
         .billingAddress("123 Main St")
         .shippingAddress("anything") // useless details that make the test harder to understand
         .phoneNumber("WHY?!!!");
