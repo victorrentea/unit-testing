@@ -8,13 +8,15 @@ import java.util.List;
 @Service
 public class TimeLogic2 {
    private final OrderRepo orderRepo;
+   private final TimeProvider timeProvider;
 
-   public TimeLogic2(OrderRepo orderRepo) {
+   public TimeLogic2(OrderRepo orderRepo, TimeProvider timeProvider) {
       this.orderRepo = orderRepo;
+     this.timeProvider = timeProvider;
    }
 
    public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = LocalDate.now();
+      LocalDate now = timeProvider.today();
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
@@ -24,5 +26,11 @@ public class TimeLogic2 {
       boolean anyGenius = recentOrders.stream().anyMatch(Order::isGenius);
 
       return totalAmount > 100 || anyGenius;
+   }
+}
+
+class TimeProvider {
+   public LocalDate today() {
+      return LocalDate.now();
    }
 }

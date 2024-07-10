@@ -13,17 +13,18 @@ import static org.mockito.Mockito.when;
 
 class TimeLogic2Test {
   OrderRepo orderRepoMock = mock(OrderRepo.class);
-  TimeLogic2 target = new TimeLogic2(orderRepoMock);
+  TimeProvider timeProviderMock = mock(TimeProvider.class);
+  TimeLogic2 target = new TimeLogic2(orderRepoMock,timeProviderMock);
 
   @Test
-  @Disabled("flaky, time-based")
   void isFrequentBuyer() {
-    LocalDate today = parse("2023-01-08");
+    LocalDate testDay = parse("2023-01-08");
     LocalDate oneWeekAgo = parse("2023-01-01");
     Order order = new Order().setTotalAmount(130d);
     when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
-        13, oneWeekAgo, today))
+        13, oneWeekAgo, testDay))
         .thenReturn(List.of(order));
+    when(timeProviderMock.today()).thenReturn(testDay);
 
     assertThat(target.isFrequentBuyer(13)).isTrue();
   }
