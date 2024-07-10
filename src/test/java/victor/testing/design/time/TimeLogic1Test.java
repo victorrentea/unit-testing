@@ -1,11 +1,11 @@
 package victor.testing.design.time;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import static java.time.LocalDate.now;
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -17,14 +17,16 @@ class TimeLogic1Test {
 
   @Test
   void isFrequentBuyer() {
-    LocalDate today = parse("2024-07-10");
-    LocalDate oneWeekAgo = parse("2024-07-03");
+    LocalDate today = parse("2023-01-08");
+    LocalDate oneWeekAgo = parse("2023-01-01");
     Order order = new Order().setTotalAmount(130d);
     when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
         13, oneWeekAgo, today))
         .thenReturn(List.of(order));
 
-    assertThat(target.isFrequentBuyer(13)).isTrue();
+    boolean result = target.isFrequentBuyer(13, today);
+
+    assertThat(result).isTrue();
   }
 }
 // Ways to control time from tests:
