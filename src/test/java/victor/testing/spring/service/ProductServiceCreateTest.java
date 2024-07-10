@@ -1,24 +1,27 @@
 package victor.testing.spring.service;
 
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
+import victor.testing.spring.domain.ProductCategory;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 
 import static java.util.Optional.of;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentCaptor.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
@@ -29,12 +32,12 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 class ProductServiceCreateTest { // name of the tested method in the test class name
   public static final String BARCODE = "barcode";
   public static final String SUPPLIER_CODE = "S";
-  @Mock
+  @Mock // generates an implem of that interface
   //any stubbing when().then.. you do on mocks created with @Mock
   // HAVE TO BE USED by tested code. If they aren't, the test fails by default
   // since mockito 2.0
   ProductRepo productRepoMock;
-  @Mock
+  @Mock // generates a subclass of your class
   SafetyApiClient safetyApiClientMock;
   @Mock // works thanks to MockitoExtension/Runner, created after instantiation
   SupplierRepo supplierRepoMock;// = mock(SupplierRepo.class);
@@ -46,7 +49,8 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
   ProductDto dto = new ProductDto()
       .setBarcode(BARCODE)
       .setSupplierCode(SUPPLIER_CODE)
-      .setName("name");
+      .setName("name")
+      .setCategory(ProductCategory.HOME);
   // call the constructor, or inject  in provate fields all the above @Mocks
 
 
@@ -81,11 +85,29 @@ class ProductServiceCreateTest { // name of the tested method in the test class 
 
     // I can ask any mock for the arguments that it was given
     // during the prod call above, this way:
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
     verify(productRepoMock).save(productCaptor.capture()); // - "Please fill up in this captor the arg"
     Product product = productCaptor.getValue();
     // CHALLENGE: i don't have any reference to the Product that is created in the tested code
-    assertThat(product.getName()).isEqualTo("name");
+    AssertionsForClassTypes.assertThat(product.getName()).isEqualTo("name");
     verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
+  }
+
+  @Test
+  void productWithCategory() {
+    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
+    when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
+    dto.setCategory(null);
+
+    // when
+    service.createProduct(dto);
+
+    // too implementation-oriented, not functional
+//    assertThat(dto.getCategory()).isEqualTo(ProductCategory.UNCATEGORIZED);
+
+    ArgumentCaptor<Product> captor = forClass(Product.class);
+    verify(productRepoMock).save(captor.capture());
+    Product product = captor.getValue();
+    assertThat(product.getCategory()).isEqualTo(ProductCategory.UNCATEGORIZED);
   }
 }
