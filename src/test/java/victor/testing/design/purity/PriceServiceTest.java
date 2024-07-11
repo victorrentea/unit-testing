@@ -75,7 +75,7 @@ void applyCouponsWithNoCoupons() {
 void applyCouponsWithOneApplicableCoupon() {
     List<Product> products = List.of(new Product().setId(1L).setCategory(HOME));
     Map<Long, Double> resolvedPrices = Map.of(1L, 100.0);
-    Coupon coupon = new Coupon(HOME, 10, Set.of(1L)).autoApply(true);
+    Coupon coupon = new Coupon(HOME, 10, Set.of(1L)).setAutoApply(true);
     List<Coupon> coupons = List.of(coupon);
 
     CouponApplicationResult result = priceService.applyCoupons(products, resolvedPrices, coupons);
@@ -88,7 +88,7 @@ void applyCouponsWithOneApplicableCoupon() {
 void applyCouponsWithOneNonApplicableCoupon() {
     List<Product> products = List.of(new Product().setId(1L).setCategory(ELECTRONICS));
     Map<Long, Double> resolvedPrices = Map.of(1L, 100.0);
-    Coupon coupon = new Coupon(HOME, 10, Set.of(1L)).autoApply(true);
+    Coupon coupon = new Coupon(HOME, 10, Set.of(1L)).setAutoApply(true);
     List<Coupon> coupons = List.of(coupon);
 
     CouponApplicationResult result = priceService.applyCoupons(products, resolvedPrices, coupons);
@@ -115,8 +115,8 @@ void applyCouponsWithMultipleCouponsOneApplicable() {
 void applyCouponsWithMultipleApplicableCoupons() {
     List<Product> products = List.of(new Product().setId(1L).setCategory(HOME));
     Map<Long, Double> resolvedPrices = Map.of(1L, 100.0);
-    Coupon coupon1 = new Coupon(HOME, 10, Set.of(1L)).autoApply(true);
-    Coupon coupon2 = new Coupon(HOME, 5, Set.of(1L)).autoApply(true);
+    Coupon coupon1 = new Coupon(HOME, 10, Set.of(1L)).setAutoApply(true);
+    Coupon coupon2 = new Coupon(HOME, 5, Set.of(1L)).setAutoApply(true);
     List<Coupon> coupons = List.of(coupon1, coupon2);
 
     CouponApplicationResult result = priceService.applyCoupons(products, resolvedPrices, coupons);

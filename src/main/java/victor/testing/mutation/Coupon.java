@@ -19,6 +19,11 @@ public class Coupon {
     this.applicableSuppliers = applicableSuppliers;
   }
 
+  public Coupon setAutoApply(boolean autoApply) {
+    this.autoApply = autoApply;
+    return this;
+  }
+
   public boolean autoApply() {
     return autoApply;
   }
