@@ -130,7 +130,7 @@
         </dependency>
 
         <dependency>
-            <!-- JDBC driver proxy intercepting all SQL calls, see spy.properties too-->
+            <!-- 💖 JDBC driver proxy intercepting all SQL calls, see spy.properties too-->
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
             <version>3.0.0</version>
