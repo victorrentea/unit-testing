@@ -1,2 +1,2 @@
 
-alter table supplier add column code varchar(255);
+alter table supplierOUPS add column code varchar(255);
