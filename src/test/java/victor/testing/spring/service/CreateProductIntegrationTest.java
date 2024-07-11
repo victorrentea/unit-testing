@@ -24,7 +24,7 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @AutoConfigureWireMock(port = 8089)
 @TestPropertySource(properties = "safety.service.url.base=http://localhost:8089")
 class CreateProductIntegrationTest extends BaseIntegrationTest {
-  public static final String BARCODE = "barcode";
+  public static final String BARCODE = "barcode-safe";
   public static final String PRODUCT_NAME = "name";
   @MockBean
   KafkaTemplate<String, String> kafkaTemplate;
