@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 @ActiveProfiles("test")
 @TestMethodOrder(MethodName.class)
 @TestInstance(PER_CLASS) // don't recreate this test class instance for each @Test
-public class StatefulEpicTest {
+public class StatefulEpicTest { // or Flow, or Journey
   @Autowired
   SupplierRepo supplierRepo;
 
