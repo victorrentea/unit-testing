@@ -40,13 +40,13 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
   @Test
   void failsForUnsafeProduct() {
     // programmatic config of mock responses from
-    stubFor(get("/product/barcode-unsafe/safety")
-        .willReturn(okJson("""
-            {
-             "category": "NOT SAFE",
-             "detailsUrl": "http://details.url/a/b"
-            }
-            """)));
+//    stubFor(get("/product/barcode-unsafe/safety")
+//        .willReturn(okJson("""
+//            {
+//             "category": "NOT SAFE",
+//             "detailsUrl": "http://details.url/a/b"
+//            }
+//            """)));
     dto.setBarcode("barcode-unsafe");
 
     assertThatThrownBy(() -> service.createProduct(dto))
