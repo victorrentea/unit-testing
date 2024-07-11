@@ -20,7 +20,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 @Transactional
 // starts each @Test (along with all its @BeforeEach) in a transaction
 // and rolls back the transaction at the end of the test
-// use @Transactional to foucs on the logic.
+// #3 use @Transactional to foucs on the logic.
 // It can miss: NOT NULL
 
 @SpringBootTest
