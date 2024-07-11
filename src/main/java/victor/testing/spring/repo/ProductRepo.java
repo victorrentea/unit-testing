@@ -8,4 +8,11 @@ public interface ProductRepo extends ProductRepoSearch, JpaRepository<Product, L
    @Query("SELECT p FROM Product p where p.name = ?1")
    Product findByName(String name);
 
+   // i get to test native SQL queries
+   @Query(nativeQuery = true,
+       value = "SELExOUPSCT count(1) FROM PRODUCT p where p.name = ?1")
+   Integer countByName(String name);
+
+
+
 }

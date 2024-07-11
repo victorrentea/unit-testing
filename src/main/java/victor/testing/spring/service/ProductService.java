@@ -1,7 +1,6 @@
 package victor.testing.spring.service;
 
 import com.google.common.annotations.VisibleForTesting;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -11,11 +10,11 @@ import victor.testing.spring.api.dto.ProductSearchCriteria;
 import victor.testing.spring.api.dto.ProductSearchResult;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Slf4j
@@ -36,11 +35,15 @@ public class ProductService {
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }
+    if (productRepo.countByName(productDto.getName()) !=0) {
+      throw new IllegalArgumentException("Product already exists: " + productDto.getName());
+    }
     if (productDto.getCategory() == null) {
       productDto.setCategory(ProductCategory.UNCATEGORIZED);
     }
     Product product = newProduct(productDto);
-    product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
+    Supplier supplier = supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow();
+    product.setSupplier(supplier);
     productRepo.save(product);
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
   }

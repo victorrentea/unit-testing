@@ -1,12 +1,8 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,15 +30,15 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 class CreateProductIntegrationTest {
   public static final String BARCODE = "barcode";
   public static final String SUPPLIER_CODE = "S";
-  @MockBean // replaces the bean in the context with a mockito mock
-      // that also is injected in this field
-  ProductRepo productRepoMock;
+  public static final String PRODUCT_NAME = "name";
+  @Autowired
+  ProductRepo productRepo;
+  @Autowired
+  SupplierRepo supplierRepo;
   @MockBean
-  SafetyApiClient safetyApiClientMock;
+  SafetyApiClient safetyApiClient;
   @MockBean
-  SupplierRepo supplierRepoMock;
-  @MockBean
-  KafkaTemplate<String, String> kafkaTemplateMock;
+  KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   ProductService service;
   @Captor
@@ -51,12 +47,11 @@ class CreateProductIntegrationTest {
   ProductDto dto = new ProductDto()
       .setBarcode(BARCODE)
       .setSupplierCode(SUPPLIER_CODE)
-      .setName("name")
+      .setName(PRODUCT_NAME)
       .setCategory(HOME);
-
   @Test
   void failsForUnsafeProduct() {
-    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(false);
+    when(safetyApiClient.isSafe(BARCODE)).thenReturn(false);
 
     assertThatThrownBy(() -> service.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
@@ -65,38 +60,37 @@ class CreateProductIntegrationTest {
 
   @Test
   void savesTheProduct() {
-    when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
-    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
+    supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
+    when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
 
+    // prod call
     service.createProduct(dto);
 
-    verify(productRepoMock).save(productCaptor.capture());
-    Product product = productCaptor.getValue();
-
-    assertThat(product.getName()).isEqualTo("name");
+    Product product = productRepo.findByName(PRODUCT_NAME); // SELECT the data inserted by prod
+    assertThat(product.getName()).isEqualTo(PRODUCT_NAME);
     assertThat(product.getBarcode()).isEqualTo(BARCODE);
     assertThat(product.getCategory()).isEqualTo(HOME);
   }
 
   @Test
   void sendsKafkaMessage() {
-    when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
-    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
+    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
+    when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
 
     service.createProduct(dto);
 
-    verify(kafkaTemplateMock).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
+    verify(kafkaTemplate).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
   }
 
   @Test
   void defaultsCategoryToUncategorized() {
-    when(supplierRepoMock.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
-    when(safetyApiClientMock.isSafe(BARCODE)).thenReturn(true);
+    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
+    when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
     dto.setCategory(null);
 
     service.createProduct(dto);
 
-    verify(productRepoMock).save(argThat(product ->
+    verify(productRepo).save(argThat(product ->
         product.getCategory() == UNCATEGORIZED));
   }
 
