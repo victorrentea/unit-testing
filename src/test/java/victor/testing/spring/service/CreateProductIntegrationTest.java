@@ -7,7 +7,11 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -25,19 +29,21 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("test")
 class CreateProductIntegrationTest {
   public static final String BARCODE = "barcode";
   public static final String SUPPLIER_CODE = "S";
-  @Mock
+  @MockBean // replaces the bean in the context with a mockito mock
+      // that also is injected in this field
   ProductRepo productRepoMock;
-  @Mock
+  @MockBean
   SafetyApiClient safetyApiClientMock;
-  @Mock
+  @MockBean
   SupplierRepo supplierRepoMock;
-  @Mock
+  @MockBean
   KafkaTemplate<String, String> kafkaTemplateMock;
-  @InjectMocks
+  @Autowired
   ProductService service;
   @Captor
   ArgumentCaptor<Product> productCaptor;
