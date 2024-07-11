@@ -28,11 +28,12 @@ public class SafetyApiClient {
 //  @Retryable
   public boolean isSafe(String barcode) {
     // tokens to send
-    SafetyResponse response = restTemplate.getForEntity(
-//            baseUrl + "/product/{barcode}/safBUGety",
-            baseUrl + "/product/{barcode}/safety",
-            SafetyResponse.class, barcode)
-        .getBody();
+//    SafetyResponse response = restTemplate.getForEntity(
+////            baseUrl + "/product/{barcode}/safBUGety",
+//            baseUrl + "/product/{barcode}/safety",
+//            SafetyResponse.class, barcode)
+//        .getBody();
+    SafetyResponse response = safetyFeignClient.getSafety(barcode);
 //    return "sAFEBUG".equals(response.category());
     return "SAFE".equals(response.category());
   }
