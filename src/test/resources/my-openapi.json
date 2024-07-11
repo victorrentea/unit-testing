@@ -197,8 +197,8 @@
       },
       "ProductDto": {
         "required": [
-          "name",
-          "barcode"
+          "barcode",
+          "name"
         ],
         "type": "object",
         "properties": {
@@ -225,7 +225,7 @@
               "UNCATEGORIZED"
             ]
           },
-          "createdDate": {
+          "createdOn": {
             "type": "string",
             "format": "date"
           }

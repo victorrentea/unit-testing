@@ -43,7 +43,7 @@ public class GetProductSocialTest {
     assertThat(dto.getName()).isEqualTo("name");
     assertThat(dto.getBarcode()).isEqualTo("BARCODE");
     assertThat(dto.getCategory()).isEqualTo(HOME);
-    assertThat(dto.getCreatedDate()).isEqualTo(date);
+    assertThat(dto.getCreatedOn()).isEqualTo(date);
     assertThat(dto.getSupplierCode()).isEqualTo("S");
   }
 

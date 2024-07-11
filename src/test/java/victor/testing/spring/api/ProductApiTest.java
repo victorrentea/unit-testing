@@ -122,7 +122,7 @@ public class ProductApiTest {
     ProductDto dto = getProductApi(productId);
     assertThat(dto.getCategory()).isEqualTo(productDto.category);
     assertThat(dto.getBarcode()).isEqualTo(productDto.getBarcode());
-    assertThat(dto.getCreatedDate()).isToday();
+    assertThat(dto.getCreatedOn()).isToday();
   }
 
 

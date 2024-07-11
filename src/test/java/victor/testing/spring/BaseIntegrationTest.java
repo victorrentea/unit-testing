@@ -31,6 +31,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 @SpringBootTest
 @ActiveProfiles("test")
 
+//@DirtiesContext(classMode = )
 //@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD) // outrageous!!. AVOID BY ALL MEANS
 // you could find that restarting spring fixes the test coupling . if that's the case, the coupling is probably caused
 // by: stale cache, state in singleton fields, extra beans added to Spring

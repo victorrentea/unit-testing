@@ -14,6 +14,6 @@ public class ProductMapper {
             .setName(product.getName())
             .setBarcode(product.getBarcode())
             .setCategory(product.getCategory())
-            .setCreatedDate(product.getCreatedDate());
+            .setCreatedOn(product.getCreatedDate());
   }
 }
