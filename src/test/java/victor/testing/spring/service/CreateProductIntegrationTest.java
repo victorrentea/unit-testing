@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -50,6 +51,7 @@ class CreateProductIntegrationTest {
       .setCategory(HOME);
 
   @BeforeEach // #1 manual delete using the repo
+  @AfterEach // clean before AND after to prevent leaking data to test classes running after you
   final void setup() {
     productRepo.deleteAll();
     supplierRepo.deleteAll();// now correct

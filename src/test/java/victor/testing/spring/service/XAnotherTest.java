@@ -19,12 +19,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
-import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
-import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class AnotherTest {
+class XAnotherTest {
   public static final String BARCODE = "barcode";
   public static final String SUPPLIER_CODE = "S";
   public static final String PRODUCT_NAME = "name";
