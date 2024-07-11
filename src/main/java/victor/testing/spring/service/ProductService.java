@@ -35,9 +35,7 @@ public class ProductService {
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }
-    if (productRepo.countByName(productDto.getName()) !=0) {
-      throw new IllegalArgumentException("Product already exists: " + productDto.getName());
-    }
+
     if (productDto.getCategory() == null) {
       productDto.setCategory(ProductCategory.UNCATEGORIZED);
     }
