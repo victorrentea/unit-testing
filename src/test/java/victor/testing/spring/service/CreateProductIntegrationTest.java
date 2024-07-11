@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -47,6 +48,12 @@ class CreateProductIntegrationTest {
       .setSupplierCode(SUPPLIER_CODE)
       .setName(PRODUCT_NAME)
       .setCategory(HOME);
+
+  @BeforeEach // #1 manual delete using the repo
+  final void setup() {
+    supplierRepo.deleteAll();// oups: FK violation!
+    productRepo.deleteAll();
+  }
   @Test
   void failsForUnsafeProduct() {
     when(safetyApiClient.isSafe(BARCODE)).thenReturn(false);
