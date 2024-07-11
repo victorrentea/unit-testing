@@ -46,11 +46,11 @@ public abstract class BaseIntegrationTest {
   @Autowired
   protected SupplierRepo supplierRepo;
 
-  @MockBean// kills performance because spring context is differently configured than
-      // the one created for the other test class
-      // HERE: product Mapper is a mock
-      // THERE: product Mapper is a real object
-  ProductMapper productMapper;// bad idea
+//  @MockBean// kills performance because spring context is differently configured than
+//      // the one created for the other test class
+//      // HERE: product Mapper is a mock
+//      // THERE: product Mapper is a real object
+//  ProductMapper productMapper;// bad idea
 
   @BeforeEach// insert init data or using @Sql to prepopulate "reference tables"
   final void insertRefData() {

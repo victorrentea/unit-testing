@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.api.dto.ProductSearchCriteria;
 import victor.testing.spring.api.dto.ProductSearchResult;
@@ -38,16 +38,16 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 @DisplayNameGeneration(HumanReadableTestNames.class)
 
-@SpringBootTest
-
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
 @EmbeddedKafka(topics = "${input.topic}") // start up an in-mem Kafka
-@Transactional // ROLLBACK after each @Test
-@ActiveProfiles({"db-migration", "wiremock","embedded-kafka"})
 
 @WithMockUser(roles = "ADMIN") // grant the current thread the 'ROLE_ADMIN'
-@AutoConfigureMockMvc // process HTTP requests in current thread, without a Tomcat
-public class ProductApiTest {
+@AutoConfigureMockMvc // emulates HTTP requests in the current thread, without starting a Tomcat
+// I want to keep on 1 thread a test so @Transactional works
+
+//@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT) // alterntively, to boot up a Tomcat
+// you will call apis using restTemplate
+public class ProductApiTest extends BaseIntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
   MockMvc mockMvc;
@@ -60,7 +60,11 @@ public class ProductApiTest {
 
   // Dtos with 'default' values (ObjectMother style)
   ProductSearchCriteria criteria = new ProductSearchCriteria();
-  ProductDto productDto;
+  ProductDto productDto = new ProductDto(
+      "Tree",
+      "barcode-safe",
+      "S",
+      HOME);
 
 //
 //  intai un test cu un """ JSON
@@ -77,8 +81,7 @@ public class ProductApiTest {
 
   @BeforeEach
   void persistReferenceData() {
-    supplierRepo.save(new Supplier().setCode("S").setActive(true));
-    productDto = new ProductDto("Tree", "barcode-safe", "S", HOME);
+//    supplierRepo.save(new Supplier().setCode("S").setActive(true));
   }
 
   @Test
@@ -86,7 +89,8 @@ public class ProductApiTest {
     // repo.save(..); Given
 
     // API call (when)
-    createProductApi(productDto.setName("Tree"));
+    // TODO vrentea 11.07.2024:
+    /*long id = */createProductApi(productDto.setName("Tree"));
 
     // direct DB SELECT (then)
     Product returnedProduct = productRepo.findAll().get(0);
@@ -102,13 +106,14 @@ public class ProductApiTest {
     createProductApi(productDto.setName("Tree"));
 
     // API call #2
+    // TODO vrentea 11.07.2024: GET by ID
     List<ProductSearchResult> results = searchProductApi(criteria.setName("Tree"));
     assertThat(results).hasSize(1);
     assertThat(results.get(0).getName()).isEqualTo("Tree");
   }
 
-  @Test
-  void userJourney() throws Exception {
+  @Test // probably better to impement as separate @Test in a stateful test class
+  void flow() throws Exception {
     // API call #1
     createProductApi(productDto.setName("Tree"));
 
@@ -160,39 +165,54 @@ public class ProductApiTest {
 
   // ====== test @Validated
 
-  @Test
-  void createProduct_failsForMissingName() throws Exception {
-    createProduct_failsValidation(productDto.setName(null), "name");
-  }
-
-
-
-
-//  + 1 test cu formatari de date / parsari jackson "", null, lipsa
-//
-//  ?? nu merge !
-
-  @Test
-  void ff() throws Exception {
-    productApi.create(productDto.setName(null));
-  }
-  @Autowired
-  private ProductApi productApi;
+//  @Test
+//  void createProduct_failsForMissingName() throws Exception {
+//    var errorBody = failsValidationWithMessage(productDto.setName(null));
+//    assertThat(errorBody).contains("name");
+//  }
 
   @Test
   void createProduct_failsForMissingBarcode() throws Exception {
-    createProduct_failsValidation(productDto.setBarcode(null), "barcode");
-  }
+    productDto.setBarcode(null);
+    var errorBody = mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(productDto)) // serializing the DTO as a JSON String
 
-  private void createProduct_failsValidation(ProductDto request, String fieldName) throws Exception {
-    String errorBody = mockMvc.perform(createProductRequest(request))
-        .andExpect(status().is4xxClientError()) // thanks to @RestControllerAdvice
+        // explicit JSON:
+//            .content("""
+//                {
+//                  "name": "Tree",
+//                  "supplierCode": "S",
+//                  "category": "HOME"
+//                }
+//                """)
+            .contentType(APPLICATION_JSON))
+        .andExpect(status().is4xxClientError())
         .andReturn()
         .getResponse()
         .getContentAsString();
-    assertThat(errorBody).contains(fieldName); // reports the field name in error
+//    var errorBody = mockMvc.perform(createProductRequest(productDto)) // 💖
+//        .andExpect(status().is4xxClientError()) // 400 BAD REQUEST thanks to @RestControllerAdvice
+//        .andReturn()
+//        .getResponse()
+//        .getContentAsString();
+    assertThat(errorBody).contains("barcode");
   }
 
+
+  @Test
+  void checkJSONDateFormatting() throws Exception {
+    Supplier supplier = supplierRepo.findByCode("S").get();
+    Long newId = productRepo.save(new Product().setSupplier(supplier)).getId();
+
+    String json = mockMvc.perform(get("/product/" + newId))
+        .andExpect(status().is2xxSuccessful())
+        .andReturn()
+        .getResponse()
+        .getContentAsString();
+
+    assertThat(json).contains("createdOn");
+    assertThat(json).contains("11/07/2024");
+  }
   // ====== test authorization
 
   @Test

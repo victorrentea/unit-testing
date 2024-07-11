@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
@@ -14,12 +16,15 @@ import java.time.LocalDate;
 public class ProductDto {
 	public Long id;
 	@NotNull
+//	@Size(min = 5)
 	public String name;
 	@NotNull
 	public String barcode;
+//	@NotEmpty
 	public String supplierCode;
 	public ProductCategory category;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+//	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "MM/dd/yyyy")
 	public LocalDate createdOn;
 
 	public ProductDto(Product product) {

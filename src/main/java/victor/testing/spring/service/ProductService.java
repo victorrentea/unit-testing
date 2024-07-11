@@ -74,6 +74,7 @@ public class ProductService {
     if (product.getCategory()==ProductCategory.KIDS) {
 //      ..
     }
+    System.out.println("WOW");
     return productMapper.toDto(product/*, "user"*/);
     // the longer the tests are, the more robust against refactoring they are.
     // the closer they get to the functional requirement
