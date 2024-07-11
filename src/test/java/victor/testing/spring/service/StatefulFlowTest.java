@@ -21,14 +21,10 @@ public class StatefulFlowTest {
 
   Long supplierId; // survives between @Tests thanks to @TestInstance(PER_CLASS)
 
-  @BeforeAll
-  public void insertInitialData() {
-    supplierId = supplierRepo.save(new Supplier().setCode("S").setName("N")).getId();
-  }
-
-  @AfterAll
-  public void cleanup() {
-    supplierRepo.deleteById(supplierId);
+  @BeforeAll // before the first
+  void insertInitialData() {
+    Supplier s = new Supplier().setCode("S").setName("N");
+    supplierId = supplierRepo.save(s).getId();
   }
 
   @Test
@@ -49,4 +45,10 @@ public class StatefulFlowTest {
     Supplier s = supplierRepo.findByCode("S2").orElseThrow();
     assertThat(s.getId()).isEqualTo(supplierId);
   }
+
+  @AfterAll // after the last
+  void cleanup() {
+    supplierRepo.deleteById(supplierId);
+  }
+
 }
