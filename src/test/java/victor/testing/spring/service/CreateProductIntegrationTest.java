@@ -52,6 +52,7 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
     Long productId = service.createProduct(dto);
 
     Product product = productRepo.findById(productId).get();
+    // SHOCK: this does not trigger an SELECT but retrieves product from JPA 1st level cache
     assertThat(product.getName()).isEqualTo(PRODUCT_NAME);
     assertThat(product.getBarcode()).isEqualTo(BARCODE);
     assertThat(product.getCategory()).isEqualTo(HOME);
