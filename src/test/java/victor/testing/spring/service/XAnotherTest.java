@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.Supplier;
@@ -20,9 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
-@SpringBootTest
-@ActiveProfiles("test")
-class XAnotherTest {
+class XAnotherTest extends BaseIntegrationTest {
   public static final String BARCODE = "barcode";
   public static final String SUPPLIER_CODE = "S";
   public static final String PRODUCT_NAME = "name";
@@ -43,15 +42,14 @@ class XAnotherTest {
       .setName(PRODUCT_NAME)
       .setCategory(HOME);
 
-  @BeforeEach // #1 manual delete using the repo
-  final void setup() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();// now correct
-  }
+//  @BeforeEach // #1 manual delete using the repo
+//  final void setup() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();// now correct
+//  }
 
   @Test
   void savesTheProduct() {
-    supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
     when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
 
     // prod call
