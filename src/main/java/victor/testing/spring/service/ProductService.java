@@ -29,13 +29,12 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
 
-  public Product createProduct(ProductDto productDto) {
+  public Long createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getBarcode());
     boolean safe = safetyApiClient.isSafe(productDto.getBarcode());
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }
-
     if (productDto.getCategory() == null) {
       productDto.setCategory(ProductCategory.UNCATEGORIZED);
     }
@@ -43,9 +42,8 @@ public class ProductService {
     Supplier supplier = supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow();
     product.setSupplier(supplier);
     productRepo.save(product);
-    System.out.println(supplier.getId());
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
-    return product; // ! like
+    return product.getId(); // like
   }
 
   // we are CHEATING: breaking the encapsulation of the old class(2000), JUST FOR TESTING

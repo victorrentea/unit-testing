@@ -64,9 +64,9 @@ class CreateProductIntegrationTest {
     when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
 
     // prod call
-    service.createProduct(dto);
+    Long productId = service.createProduct(dto);
 
-    Product product = productRepo.findByName(PRODUCT_NAME); // SELECT the data inserted by prod
+    Product product = productRepo.findById(productId).get();
     assertThat(product.getName()).isEqualTo(PRODUCT_NAME);
     assertThat(product.getBarcode()).isEqualTo(BARCODE);
     assertThat(product.getCategory()).isEqualTo(HOME);
