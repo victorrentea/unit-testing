@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
@@ -55,9 +56,8 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
+  @WithMockUser(username = "jdoe")
   void savesTheProduct() {
-//    when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
-
     // prod call
     Long productId = service.createProduct(dto);
 
@@ -68,6 +68,7 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     assertThat(product.getSupplier().getCode()).isEqualTo(SUPPLIER_CODE);
     assertThat(product.getCreatedDate()).isToday();
+    assertThat(product.getCreatedBy()).isEqualTo("jdoe");
   }
 
   @Test
