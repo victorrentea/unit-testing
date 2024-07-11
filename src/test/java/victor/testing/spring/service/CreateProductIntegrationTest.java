@@ -51,8 +51,8 @@ class CreateProductIntegrationTest {
 
   @BeforeEach // #1 manual delete using the repo
   final void setup() {
-    supplierRepo.deleteAll();// oups: FK violation!
     productRepo.deleteAll();
+    supplierRepo.deleteAll();// now correct
   }
   @Test
   void failsForUnsafeProduct() {
