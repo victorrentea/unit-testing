@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
@@ -21,6 +22,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 
+//@Tag("slow")
+//@ActiveProfiles("extra") // BLOCKS spring cache
+//@TestPropertySource(properties = "a=b") // BLOCKS spring cache
 class XAnotherTest extends BaseIntegrationTest {
   public static final String BARCODE = "barcode";
   public static final String SUPPLIER_CODE = "S";

@@ -298,7 +298,7 @@
                         <exclude>**/spring/**</exclude>
                     </excludes>
                     <!-- or: -->
-                    <excludedGroups>integration</excludedGroups>
+                    <excludedGroups>slow</excludedGroups>
                     <argLine>-XX:+AllowRedefinitionToAddDeleteMethods</argLine>
                 </configuration>
             </plugin>
@@ -312,7 +312,7 @@
                         <include>**/*</include>
                     </includes>
                     <!-- or -->
-                    <groups>integration</groups>
+                    <groups>slow</groups>
                 </configuration>
             </plugin>
 
