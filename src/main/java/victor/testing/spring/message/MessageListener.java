@@ -21,4 +21,11 @@ public class MessageListener {
     supplierRepo.save(new Supplier().setName(supplierName));
     log.info("Created supplier with name: " + supplierName);
   }
+
+  // on the same idea are all the metods that executs asyncronous in a 'fire-and-forget' manner
+  // uploadFile() {
+  //   executorService.submit(() -> {
+  //     // do the work: 1h in background
+  //   });
+  // }
 }

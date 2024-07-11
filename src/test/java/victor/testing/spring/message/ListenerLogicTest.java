@@ -27,6 +27,8 @@ public class ListenerLogicTest extends BaseIntegrationTest {
   void listenerLogic() {
     messageListener.onMessage("supplier");
 
+    // this test uses 1 thread.
+    // if errors/delays happen in onMessage they bubble up here.
     assertThat(supplierRepo.findByName("supplier"))
         .describedAs("Supplier was inserted")
         .isNotNull();

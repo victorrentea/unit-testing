@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,7 +17,7 @@ import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("embedded-kafka")
+@AutoConfigureWireMock(port = 0)
 @EmbeddedKafka(topics = "supplier-created-event")
 public class ListenerBlackTest extends BaseIntegrationTest {
   @Autowired
@@ -35,19 +36,21 @@ public class ListenerBlackTest extends BaseIntegrationTest {
   void supplierIsCreated_sleep_flaky() throws InterruptedException {
     kafkaTemplate.send("supplier-created-event", "supplier");
 
-    Thread.sleep(150); // works on my machine™️, but my colleague requires 200ms
+    Thread.sleep(100); // works on my machine™️, but my colleague requires 200ms
+
     assertThat(supplierRepo.findByName("supplier"))
         .describedAs("Supplier was inserted")
         .isNotEmpty();
   }
 
+
   @Test
   void supplierIsCreated_polling() {
     kafkaTemplate.send("supplier-created-event", "supplier");
 
-    Awaitility.await()
-        .pollInterval(Duration.ofMillis(10))
-        .timeout(Duration.ofSeconds(1))
+    Awaitility.await() // state of the art in waiting for async effects
+        .pollInterval(Duration.ofMillis(2)) // every 10 millis
+        .timeout(Duration.ofSeconds(1)) // after that, fail the test
         .untilAsserted(() ->
             assertThat(supplierRepo.findByName("supplier"))
                 .describedAs("Supplier was inserted")
