@@ -17,14 +17,14 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 // Imagine now that your Flow does not insert just a single entity
 // but 25 (parent, children, audits...)
 // Dream: at the end of the test anything that my test inserted/updated gets undone
-//@Transactional
+@Transactional
 // starts each @Test (along with all its @BeforeEach) in a transaction
 // and rolls back the transaction at the end of the test
 
 @SpringBootTest
 @ActiveProfiles("test")
 // #2 for SQL-intensive projects, w/o JPA
-@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
+//@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 public abstract class BaseIntegrationTest {
   public static final String SUPPLIER_CODE = "S";
   @Autowired
@@ -32,8 +32,7 @@ public abstract class BaseIntegrationTest {
   @Autowired
   protected SupplierRepo supplierRepo;
 
-
-//  @BeforeEach// insert init data or using @Sql to prepopulate "reference tables"
+  @BeforeEach// insert init data or using @Sql to prepopulate "reference tables"
   final void insertRefData() {
     supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
   }
