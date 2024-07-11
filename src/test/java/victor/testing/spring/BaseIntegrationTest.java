@@ -20,6 +20,8 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 @Transactional
 // starts each @Test (along with all its @BeforeEach) in a transaction
 // and rolls back the transaction at the end of the test
+// use @Transactional to foucs on the logic.
+// It can miss: NOT NULL
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -35,6 +37,12 @@ public abstract class BaseIntegrationTest {
   @BeforeEach// insert init data or using @Sql to prepopulate "reference tables"
   final void insertRefData() {
     supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
+  }
+
+  @AfterEach
+  final void flushToCheckNotNulls() {
+    System.out.println("Flushing..");
+    supplierRepo.flush();
   }
 
 //  @BeforeEach// #1 if using JPA = perfeect
