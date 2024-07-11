@@ -41,8 +41,6 @@ class CreateProductIntegrationTest {
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   ProductService service;
-  @Captor
-  ArgumentCaptor<Product> productCaptor;
 
   ProductDto dto = new ProductDto()
       .setBarcode(BARCODE)
@@ -75,7 +73,7 @@ class CreateProductIntegrationTest {
 
   @Test
   void sendsKafkaMessage() {
-    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
+    supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
     when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
 
     service.createProduct(dto);
@@ -85,14 +83,14 @@ class CreateProductIntegrationTest {
 
   @Test
   void defaultsCategoryToUncategorized() {
-    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(of(new Supplier()));
+    supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
     when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
     dto.setCategory(null);
 
-    service.createProduct(dto);
+    long productId = service.createProduct(dto);
 
-    verify(productRepo).save(argThat(product ->
-        product.getCategory() == UNCATEGORIZED));
+    Product product = productRepo.findById(productId).get();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
