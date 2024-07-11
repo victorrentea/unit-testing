@@ -1,0 +1,165 @@
+Reasons to unit test
+- To test ourselves NOW: to prove the code we wrote really works.
+- Tomorrow, when we can refactor the code without breakin the behavior.
+- Complement the QA effort. QA should not rely on dev's automated tests. nor should we developers rely on QA to save our A**.
+- Fast Feedback that allows us to find issues without loosing our focus. the biggest challenge of in developer's profession is maintaining focus.
+- We can measure test coverage of our unit/integration tests.
+- Upgrade of the tech stack (due to Vulnerability, licensing, etc)
+- Live-documentation = Reading the functional tests to understand the behavior, if the tests are expressive = => Venkan Subramaniam reviews tests first in any PR.
+- What if you can't write the tests?
+a) You are not sure what should you test => the functional docs (spec) is unclear => you should clarify the spec first. call PO, BA, etc.
+b) Write some tests on old code = extremely hard => that code is doing to much (SRP violation), it has too much coupling (too many @Mock).
+
+====
+The pitfall of coverage-driven testing
+- reflectively found all classes in his project, and via reflection called EVERY PUBLIC METHOD blindly. = cobra effect
+
+You can have 100% coverage and still have many bugs:
+- varchar2(200) exceeded
+- issues in config
+- bugs/misuse in libraries
+- mock behavior-contract mismatch
+
+
+-----
+NEVER TRUST A TEST THAT YOU NEVER SAW FAILING.
+- if you just wrote a test on old code and it passed, you are not done.
+- if you plan to refactor some code COVERED by old tests, prove the quality of those tests by breaking them tentatively.
+
+
+1h lunch break.
+
+TDD = Test-Driven Development
+- Write a test that fails
+- Write the minimum code to make the test pass
+- Refactor the code to make it clean
+
+you will hear people talking about TDD like of a religion.
+TDD = a mindset of writing/thinking of how you're going to test it before writing the code.
+
+
+
+How much % of your coding time you spend in writinh/read/understanding JUnit tests?
+10%
+50%
+80%
+
+
+using .feature files
+- global namespace for all steps
+- how to share state between steps
+- MAIN PITFALL: don't write .feature files if only developers read/confirm them
+   Not all biz people have such a abstract/precise thinking to tolerate such a formal representation.
+- Use .feature files to capture tables of examples. Whenever you run into an excel/table with examplesin the spec, write a .feature file.
+- equivalent of @BeforeEach = Background:
+- to run code before±after each scenario use annotations @txn(=run in transaction)
+
+
+
+BROWN SCENARION
+You are faced with a legacy class. (eg >1000 lines) full of unknown code. You have to add 1 line to one of its methods calling 20 other private horror methods->calling others...
+RULE: Every new line of code should be unit tested.
+There are no existing unit tests on the legacy class.
+>> Option1-"spartan") Dear bo$$ my task (adding 1 line) will take 2 months because I have to unit test THE WHOLE FLOW, with 100 tests to get 85% of the LEGACY code covered. << TRY THIS FIRST! (think of it, it could take a reasonable time)
+>> Option2-"hacker") partial mocks (@Spy + package-protected), not PowerMock reflection
+>> Option3-"architect") - if the private local method that I want to block is SO COMPLICATED (50 lines+200 lines friends), I should refactor it to a separate class and test those separately. (SRP)
+.. then inject a dependency into the original class and mock it traditionally @Mock, not with @Spy.
+    Moving methods and creating a new file.
+Every time you contemplate partially mockign a method, first try to extract that method & its friends into a separate class.
+
+
+
+
+
+
+GREEN SCENARIO
+Coverage 85% of NEW code
+
+
+
+
+==Mock features
+- @Mock + @InjectMocks + @Captor + @Spy + @RunWith(MockitoJUnitRunner.class)/@ExtendWith(MockitoExtension.class)
+- when().thenReturn()
+- verify()
+- any(), argThat(->)
+- ArgumentCaptor
+- doReturn().when() + @Spy
+- @VisibileForTesting package-protected
+- lenient(), @MockitoSettings(strictness = LENIENT) avoid
+
+=== Test Code REview
+- never mock getters, instead instantiate data objects
+- AVOID mocking unless necessary: dont' mock static utils
+- Don't mock builders
+- check whether every line of your test is necessary
+- assert/verify effects of code. > mutation test your test
+
+
+Whenever we unit test old code we should always be ready to gently safely polish the code a bit. with safe IDE refactoring
+
+
+The longer (=the more prod code they cover) the tests are, the more robust against refactoring they are & The closer they get to the functional requirements.
+
+Despite all this, it IS the easiest to write SOLITARY UNIT TEST (testing class by class, method by method ±AI).
+
+The juniors test fine-grained,
+The more experienced, longer-scoped.
+
+
+
+There are 2 types of objects:
+- data objects = Dto, Entity, ValueObject holding the app state (usually sent over JSON/persisted in DB)
+    ==> instantiate and customer (call setters),eg TestData
+- logic objects = stateless classes that contains most app logic
+    ==> mock and verify
+
+When Mockito cries that UnnecessaryStubbingException, it could hint you to split the test class and have the @BeforeEach containing usefull stuff for ALL @Tests in the test class.
+After you br3eak the test class, you should think: shouldn't I also br3eak the production class ?
+commone setup/stubbing in the before means you have to many times through that logic. => it is complex => it could deserve a separate file.
+
+
+
+Can we insert data before the first test and remove after the last test ?
+- sequence of tests (user journey)
+    - create X
+    - read X
+    - update X
+    - delete X
+    - search X -> not found
+
+to test mTLS (client-cert) is configred at JVM level (keystore/cacerts) start your app in a docker with a proper keystore/cacerts and connect it to Artemis in another docker
+
+
+
+Black Box < > White Box ~ testing
+- White Box = sees in the implem, eg: @MockBean
+- Gray Box = hit 1 API and then check the DB
+- Black Box = sees only the API, only accesses the app through the API, mockMvc.get("/api/...")
+
+
+
+- integrations tests are more reliable and more robust than unit tests, but slower, involving libraries and longer setup.
+
+
+===== How to kickstart unit testing in a project? =====
+- get time for it: ask, make noise, explain the benefits of testing:
+    - faster feedback, better focus
+    - less bugs => more courage to refactor
+    - clarify the requirements
+    - live documentation
+    - design feedback about your prod code => better code quality
+- practice on simple code (like the one in our project)
+- work together on unit testing your code with a colleague. many subcountiously consider testing boring+useless, but it's not if you do it together.
+    Play a game: pair program in which one writes the test and the other writes the code. Use CodeWithMe (inellij) to write in parallel. Gamify it.
+- celebrate every test publicly and vehemently.
+- "we are aked to do it, but not given time to do it and learn how" - make time.
+    start by testing a flow. if your are not done, then repeat after me : I AM NOT DONE.
+- Solve simple Exercises:
+    - Diagnostic.java + Client.java from unit-testing git.
+    - https://github.com/victorrentea/unit-testing-katas
+    - https://kata-log.rocks/tdd (eg: String Calculator, Roman Numerals, Bowling Game, FizzBuzz,  etc)
+
+- Venkat Subramaniam - the first thing I review in a PR are the unit tests!
+    lacking -> reject by default
+    unclear -> ask for clarification
