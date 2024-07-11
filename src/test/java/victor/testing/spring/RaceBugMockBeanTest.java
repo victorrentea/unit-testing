@@ -19,7 +19,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 
 // without the followin annotation, running tests in parallel causes flaky tests
 //@Execution(ExecutionMode.SAME_THREAD) // force all @Test in this class to run single thread when using parallel tests
-public class RaceBugMockBeanTest extends IntegrationTest{
+public class RaceBugMockBeanTest extends BaseIntegrationTest {
   @MockBean
   SafetyApiClient safetyApiClient;
   @MockBean

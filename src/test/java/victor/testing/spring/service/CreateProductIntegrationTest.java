@@ -1,42 +1,26 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.test.context.ActiveProfiles;
+import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
-import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.repo.SupplierRepo;
 
-import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
-@SpringBootTest
-@ActiveProfiles("test")
-class CreateProductIntegrationTest {
+
+class CreateProductIntegrationTest extends BaseIntegrationTest {
   public static final String BARCODE = "barcode";
-  public static final String SUPPLIER_CODE = "S";
   public static final String PRODUCT_NAME = "name";
-  @Autowired
-  ProductRepo productRepo;
-  @Autowired
-  SupplierRepo supplierRepo;
   @MockBean
   SafetyApiClient safetyApiClient;
   @MockBean
@@ -50,12 +34,7 @@ class CreateProductIntegrationTest {
       .setName(PRODUCT_NAME)
       .setCategory(HOME);
 
-  @BeforeEach // #1 manual delete using the repo
-  @AfterEach // clean before AND after to prevent leaking data to test classes running after you
-  final void setup() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();// now correct
-  }
+
   @Test
   void failsForUnsafeProduct() {
     when(safetyApiClient.isSafe(BARCODE)).thenReturn(false);
@@ -67,7 +46,6 @@ class CreateProductIntegrationTest {
 
   @Test
   void savesTheProduct() {
-    supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
     when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
 
     // prod call
@@ -82,7 +60,6 @@ class CreateProductIntegrationTest {
 
   @Test
   void sendsKafkaMessage() {
-    supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
     when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
 
     service.createProduct(dto);
@@ -92,7 +69,6 @@ class CreateProductIntegrationTest {
 
   @Test
   void defaultsCategoryToUncategorized() {
-    supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
     when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
     dto.setCategory(null);
 

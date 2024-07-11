@@ -4,15 +4,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.repo.SupplierRepo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource(properties = "kafka.enabled=true")
-public class ListenerLogicTest extends IntegrationTest {
+public class ListenerLogicTest extends BaseIntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired

@@ -9,7 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
-import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.repo.SupplierRepo;
 
 import java.time.Duration;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("embedded-kafka")
 @EmbeddedKafka(topics = "supplier-created-event")
-public class ListenerBlackTest extends IntegrationTest {
+public class ListenerBlackTest extends BaseIntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired

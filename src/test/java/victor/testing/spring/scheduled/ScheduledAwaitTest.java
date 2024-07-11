@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.BaseIntegrationTest;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.time.Duration.ofSeconds;
@@ -17,7 +17,7 @@ import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 @ActiveProfiles("wiremock")
 @TestPropertySource(properties = "email.sender.cron=*/1 * * * * *") // = every second
 @AutoConfigureWireMock(port = 0) // random port
-public class ScheduledAwaitTest extends IntegrationTest {
+public class ScheduledAwaitTest extends BaseIntegrationTest {
   public static final EmailToSend EMAIL = new EmailToSend()
       .setRecipientEmail("to@example.com")
       .setSubject("Sub")

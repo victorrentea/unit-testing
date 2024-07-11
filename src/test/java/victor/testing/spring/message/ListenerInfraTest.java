@@ -6,14 +6,14 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
-import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.BaseIntegrationTest;
 
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
 @ActiveProfiles("embedded-kafka")
 @EmbeddedKafka(topics = "supplier-created-event")
-public class ListenerInfraTest extends IntegrationTest {
+public class ListenerInfraTest extends BaseIntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @SpyBean
