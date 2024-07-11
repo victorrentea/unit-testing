@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@TestMethodOrder(MethodName.class)
-@TestInstance(PER_CLASS) // don't recreate this test class instance for each @Test
-public class StatefulEpicTest { // or Flow, or Journey
+@TestMethodOrder(MethodName.class) // step1_.., step2_.., step3_..
+@TestInstance(PER_CLASS) // have 1 instance of this class for all tests
+public class StatefulFlowTest {
   @Autowired
   SupplierRepo supplierRepo;
 
-  private Long supplierId; // survives between test methods
+  Long supplierId; // survives between @Tests thanks to @TestInstance(PER_CLASS)
 
   @BeforeAll
   public void insertInitialData() {
@@ -49,5 +49,4 @@ public class StatefulEpicTest { // or Flow, or Journey
     Supplier s = supplierRepo.findByCode("S2").orElseThrow();
     assertThat(s.getId()).isEqualTo(supplierId);
   }
-
 }
