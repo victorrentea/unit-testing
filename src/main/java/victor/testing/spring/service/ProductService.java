@@ -4,6 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.api.dto.ProductSearchCriteria;
@@ -29,6 +30,7 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, String> kafkaTemplate;
 
+  @Secured("ROLE_ADMIN")
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product " + productDto.getBarcode());
     boolean safe = safetyApiClient.isSafe(productDto.getBarcode());

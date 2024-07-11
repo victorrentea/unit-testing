@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.BaseIntegrationTest;
@@ -22,6 +23,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
+@WithMockUser(roles = "ADMIN", username = "jdoe")
 @AutoConfigureWireMock(port = 8089)
 @TestPropertySource(properties = "safety.service.url.base=http://localhost:8089")
 class CreateProductIntegrationTest extends BaseIntegrationTest {
@@ -56,7 +58,13 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
-  @WithMockUser(username = "jdoe")
+  @WithMockUser( roles = "USER")
+  void regularUserIsDeniedAccess() {
+    assertThatThrownBy(()->service.createProduct(dto))
+        .isInstanceOf(AccessDeniedException.class);
+  }
+
+  @Test
   void savesTheProduct() {
     // prod call
     Long productId = service.createProduct(dto);
@@ -73,8 +81,6 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
 
   @Test
   void sendsKafkaMessage() {
-//    when(safetyApiClient.isSafe(BARCODE)).thenReturn(true);
-
     service.createProduct(dto);
 
     verify(kafkaTemplate).send(PRODUCT_CREATED_TOPIC, "k", "NAME");
