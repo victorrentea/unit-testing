@@ -35,7 +35,7 @@ public class PriceService {
       }
       // apply coupons
       for (Coupon coupon : customer.getCoupons()) {
-        if (coupon.autoApply()
+        if (coupon.isAutoApply()
             && coupon.isApplicableFor(product, price)
             && !usedCoupons.contains(coupon)) {
           price = coupon.apply(product, price);

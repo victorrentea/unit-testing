@@ -13,16 +13,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("db-mem")
-public class AsyncAsSyncTest {
+public class DisablingAsyncTest {
   @Autowired
   AsyncService asyncService;
   @Autowired
   SupplierRepo supplierRepo;
 
-  @TestConfiguration
-  @EnableAsync(annotation = DisableAsync.NotUsed.class)
+  @TestConfiguration // this hack disables the @Async behavior
+  @EnableAsync(annotation = Test.class) // @Test never appears in production code
   public static class DisableAsync {
-    @interface NotUsed {}
   }
 
   @Test

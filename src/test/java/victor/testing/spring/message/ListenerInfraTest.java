@@ -2,6 +2,7 @@ package victor.testing.spring.message;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
@@ -11,12 +12,13 @@ import victor.testing.spring.IntegrationTest;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
-@ActiveProfiles("embedded-kafka")
-@EmbeddedKafka(topics = "supplier-created-event")
-public class ListenerInfraTest extends IntegrationTest {
+@SpringBootTest
+@ActiveProfiles({"db-mem", "embedded-kafka"})
+@EmbeddedKafka(topics = {"supplier-created-event", "supplier-created-error"})
+public class ListenerInfraTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
-  @SpyBean
+  @SpyBean // the real bean is decorated by a mock proxy that can record invocations
   MessageListener messageListener;
 
   @Test
@@ -26,5 +28,4 @@ public class ListenerInfraTest extends IntegrationTest {
     verify(messageListener, timeout(1000))
         .onMessage("supplier");
   }
-
 }

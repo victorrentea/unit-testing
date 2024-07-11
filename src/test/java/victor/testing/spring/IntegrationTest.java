@@ -41,7 +41,7 @@ public abstract class IntegrationTest {
 // ==================================================================
 // #3 frameworks over Testcontainers (like a platform team will ofer)
 //@SpringBootTest
-//@ActiveProfiles("db-testcontainers-playtika")
+//@ActiveProfiles("testcontainers-playtika")
 //public abstract class IntegrationTest {
 //
 //}

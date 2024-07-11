@@ -1,5 +1,6 @@
 package victor.testing.mutation;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
@@ -7,6 +8,7 @@ import victor.testing.spring.domain.ProductCategory;
 import java.util.Set;
 
 @EqualsAndHashCode
+@Data
 public class Coupon {
   private final ProductCategory category;
   private final int discountAmount;
@@ -17,14 +19,6 @@ public class Coupon {
     this.category = category;
     this.discountAmount = discountAmount;
     this.applicableSuppliers = applicableSuppliers;
-  }
-
-  public boolean autoApply() {
-    return autoApply;
-  }
-
-  public void setAutoApply(boolean autoApply) {
-    this.autoApply = autoApply;
   }
 
   public boolean isApplicableFor(Product product, Double price) {
