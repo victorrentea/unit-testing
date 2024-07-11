@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +25,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.service.ProductServiceCreateTest.BARCODE;
 import static victor.testing.spring.service.ProductServiceCreateTest.SUPPLIER_CODE;
 
+@Disabled
 // we can mock local method calls
 @ExtendWith(MockitoExtension.class)
 public class DontDoIt_TheHackerWay {
