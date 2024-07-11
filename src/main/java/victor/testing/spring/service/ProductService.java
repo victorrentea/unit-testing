@@ -6,6 +6,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.domain.Product;
 import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
@@ -51,6 +52,9 @@ public class ProductService {
 
   public ProductDto getProduct(long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
+    if (productRepo.countByName(product.getName()) > 1) {
+      throw new IllegalStateException("Multiple products with the same name: " + product.getName());
+    }
     return productMapper.toDto(product);
   }
 }

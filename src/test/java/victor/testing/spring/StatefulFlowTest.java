@@ -1,4 +1,4 @@
-package victor.testing.spring.service;
+package victor.testing.spring;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
