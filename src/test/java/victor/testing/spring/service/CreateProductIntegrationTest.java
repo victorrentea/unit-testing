@@ -36,7 +36,6 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @TestPropertySource(properties = "safety.service.url.base=http://localhost:8089")
 
 // #4 - avoid! = nukes Spring context after each test method, cau
-@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 class CreateProductIntegrationTest extends BaseIntegrationTest {
   public static final String BARCODE = "barcode-safe";
   public static final String PRODUCT_NAME = "name";
