@@ -57,6 +57,7 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
     assertThat(product.getBarcode()).isEqualTo(BARCODE);
     assertThat(product.getCategory()).isEqualTo(HOME);
     assertThat(product.getSupplier().getCode()).isEqualTo(SUPPLIER_CODE);
+    assertThat(product.getCreatedDate()).isToday();
   }
 
   @Test

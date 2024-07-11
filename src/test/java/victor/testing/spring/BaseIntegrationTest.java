@@ -11,6 +11,7 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 
@@ -36,6 +37,8 @@ public abstract class BaseIntegrationTest {
 
   @BeforeEach// insert init data or using @Sql to prepopulate "reference tables"
   final void insertRefData() {
+    assertThat(supplierRepo.findAll()).isEmpty();
+    assertThat(productRepo.findAll()).isEmpty();
     supplierRepo.save(new Supplier().setCode(SUPPLIER_CODE)); // INSERT of data which is SELECTED by the testeed code
   }
 
