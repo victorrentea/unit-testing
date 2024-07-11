@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
@@ -40,6 +46,18 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
       .setName(PRODUCT_NAME)
       .setCategory(HOME);
 
+  @BeforeEach
+  final void setup() {
+    // SAML/Oauth integration => (custom library) SecurityUtils.getUsername(), getRole()
+    // ideally that lib should also have a test support function
+//    SecurityContextHolder.setContext(
+//        SecurityTestUtils.createContextJustLikeInProdButForProduction("jdoe", "ADMIN", "phonenumber"));
+
+    Object whatTypeIsThis = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    // can i instantiate this class myself?
+//    eg:OAuthUser// << how can i instantiate this class myself?
+//    SecurityContextHolder.setContext(new SecurityContextImpl(new PreAuthenticatedAuthenticationToken(oAuthUser)));
+  }
   @Test
   void failsForUnsafeProduct() {
     // programmatic config of mock responses from
