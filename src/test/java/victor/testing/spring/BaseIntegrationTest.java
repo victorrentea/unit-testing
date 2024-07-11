@@ -4,12 +4,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.ProductMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
@@ -34,6 +36,12 @@ public abstract class BaseIntegrationTest {
   protected ProductRepo productRepo;
   @Autowired
   protected SupplierRepo supplierRepo;
+
+  @MockBean// kills performance because spring context is differently configured than
+      // the one created for the other test class
+      // HERE: product Mapper is a mock
+      // THERE: product Mapper is a real object
+  ProductMapper productMapper;// bad idea
 
   @BeforeEach// insert init data or using @Sql to prepopulate "reference tables"
   final void insertRefData() {

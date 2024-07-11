@@ -29,11 +29,7 @@ class YAnotherTest extends BaseIntegrationTest {
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   ProductService service;
-  @MockBean// kills performance because spring context is differently configured than
-      // the one created for the other test class
-      // HERE: product Mapper is a mock
-      // THERE: product Mapper is a real object
-  ProductMapper productMapper;// bad idea
+
 
   ProductDto dto = new ProductDto()
       .setBarcode(BARCODE)
