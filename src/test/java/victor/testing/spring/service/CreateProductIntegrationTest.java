@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.BaseIntegrationTest;
 import victor.testing.spring.api.dto.ProductDto;
@@ -25,6 +26,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
 import static victor.testing.spring.domain.ProductCategory.HOME;
 import static victor.testing.spring.domain.ProductCategory.UNCATEGORIZED;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
@@ -32,6 +34,9 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @WithMockUser(roles = "ADMIN", username = "jdoe")
 @AutoConfigureWireMock(port = 8089)
 @TestPropertySource(properties = "safety.service.url.base=http://localhost:8089")
+
+// #4 - avoid! = nukes Spring context after each test method, cau
+@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 class CreateProductIntegrationTest extends BaseIntegrationTest {
   public static final String BARCODE = "barcode-safe";
   public static final String PRODUCT_NAME = "name";

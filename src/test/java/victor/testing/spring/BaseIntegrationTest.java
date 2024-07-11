@@ -20,7 +20,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 // Imagine now that your Flow does not insert just a single entity
 // but 25 (parent, children, audits...)
 // Dream: at the end of the test anything that my test inserted/updated gets undone
-@Transactional
+//@Transactional
 // starts each @Test (along with all its @BeforeEach) in a transaction
 // and rolls back the transaction at the end of the test
 // #3 use @Transactional to foucs on the logic.
