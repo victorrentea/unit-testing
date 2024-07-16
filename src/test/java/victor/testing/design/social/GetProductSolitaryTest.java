@@ -1,19 +1,20 @@
 package victor.testing.design.social;
 
 import org.junit.jupiter.api.Test;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.Supplier;
+import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
+import victor.testing.spring.rest.dto.ProductDto;
 import victor.testing.spring.service.ProductMapper;
 import victor.testing.spring.service.ProductService;
-import victor.testing.spring.api.dto.ProductDto;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-import static victor.testing.spring.domain.ProductCategory.HOME;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static victor.testing.spring.entity.ProductCategory.HOME;
 
 public class GetProductSolitaryTest {
   @Test

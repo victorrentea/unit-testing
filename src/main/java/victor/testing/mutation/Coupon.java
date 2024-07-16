@@ -2,8 +2,8 @@ package victor.testing.mutation;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.ProductCategory;
 
 import java.util.Set;
 
