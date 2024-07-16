@@ -109,12 +109,14 @@
             <version>31.1-jre</version>
         </dependency>
 
+<!--
         <dependency>
-            <!-- JDBC driver proxy intercepting all SQL calls, see spy.properties too-->
+            &lt;!&ndash; JDBC driver proxy intercepting all SQL calls, see spy.properties too&ndash;&gt;
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
             <version>3.0.0</version>
         </dependency>
+-->
         <dependency>
             <!-- @AutoConfigureWireMock -->
             <groupId>org.springframework.cloud</groupId>
@@ -223,7 +225,11 @@
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.gavlyukovskiy</groupId>
+            <artifactId>p6spy-spring-boot-starter</artifactId>
+            <version>1.7.1</version>
+        </dependency>
         <dependency>
             <!-- mock static method, final classes/methods and constructors = replacement of PowerMock -->
             <groupId>org.mockito</groupId>

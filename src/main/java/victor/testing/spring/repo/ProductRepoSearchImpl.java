@@ -22,7 +22,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
     @Override
     public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
         List<String> jpqlParts = new ArrayList<>();
-        jpqlParts.add("SELECT new victor.testing.spring.api.dto.ProductSearchResult(p.id, p.name)" +
+        jpqlParts.add("SELECT new victor.testing.spring.rest.dto.ProductSearchResult(p.id, p.name)" +
                 " FROM Product p " +
                 " WHERE 1=1");
 
