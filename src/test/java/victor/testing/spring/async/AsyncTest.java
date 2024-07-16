@@ -14,7 +14,7 @@ import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("test")
 public class AsyncTest {
   @Autowired
   AsyncService asyncService;

@@ -2,48 +2,57 @@ package victor.testing.spring.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.rest.dto.ProductDto;
-import victor.testing.spring.rest.dto.ProductSearchCriteria;
-import victor.testing.spring.rest.dto.ProductSearchResult;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.tools.HumanReadableTestNames;
+import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.spring.rest.dto.ProductSearchCriteria;
+import victor.testing.spring.rest.dto.ProductSearchResult;
+import victor.testing.spring.service.ProductCreatedEvent;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
+import static java.time.Duration.ofSeconds;
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.byLessThan;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
-
-@DisplayNameGeneration(HumanReadableTestNames.class)
 
 @SpringBootTest
-
+@ActiveProfiles("test") // pick up properties from application-test.properties
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
-@EmbeddedKafka(topics = "${input.topic}") // start up an in-mem Kafka
 @Transactional // ROLLBACK after each @Test
-@ActiveProfiles({"wiremock", "embedded-kafka", "db-mem"})
-
-@WithMockUser(roles = "ADMIN") // grant the current thread the ROLE_ADMIN
-@AutoConfigureMockMvc // runs the HTTP requests in current thread, without a Tomcat
+@EmbeddedKafka(topics = PRODUCT_CREATED_TOPIC)
+@WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
+@AutoConfigureMockMvc // emulates a HTTP call to my system
 public class CreateProductApiTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
@@ -52,6 +61,8 @@ public class CreateProductApiTest {
   ProductRepo productRepo;
   @Autowired
   SupplierRepo supplierRepo;
+  @Autowired
+  KafkaTestConsumer testConsumer;
 
 
   ProductSearchCriteria criteria = new ProductSearchCriteria();
@@ -63,8 +74,9 @@ public class CreateProductApiTest {
       HOME);
 
   @BeforeEach
-  void persistReferenceData() {
+  void setup() {
     supplierRepo.save(new Supplier().setCode("S").setActive(true));
+    testConsumer.reset();
   }
 
   @Test
@@ -86,7 +98,8 @@ public class CreateProductApiTest {
         .andExpect(header().exists("Location")); // response header
   }
 
-  @Test // @Validated
+  @Test
+    // @Validated
   void failsForMissingBarcode() throws Exception {
     productDto.setBarcode(null);
     mockMvc.perform(post("/product/create")
@@ -100,7 +113,8 @@ public class CreateProductApiTest {
   ProductApiTestDSL dsl;
 
   @Test // @Secured
-  @WithMockUser(roles = "USER") // resets credentials set at class level
+  @WithMockUser(roles = "USER")
+    // resets credentials set at class level
   void createProductRegularUser_NotAuthorized() throws Exception {
     mockMvc.perform(dsl.createProductRequest(productDto))
         .andExpect(status().isForbidden());
@@ -120,6 +134,10 @@ public class CreateProductApiTest {
     assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
     assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
     assertThat(returnedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode);
+    // ⚠️FLAKY: can fail for timeout exceeded
+    ConsumerRecord<String, ProductCreatedEvent> message = testConsumer.blockingReceive(ofSeconds(5)); // blocking
+    assertThat(message.value().productId()).isEqualTo(returnedProduct.getId());
+    assertThat(message.value().observedAt()).isCloseTo(now(), byLessThan(5, SECONDS));
   }
 
   @Test
@@ -133,7 +151,8 @@ public class CreateProductApiTest {
     assertThat(results.get(0).getName()).isEqualTo("Tree");
   }
 
-  @Test // perhaps better as sequenced @Test like StatefulFlowTest.java
+  @Test
+    // perhaps better as sequenced @Test like StatefulFlowTest.java
   void flow() throws Exception {
     // API call #1
     dsl.createProductApi(productDto.setName("Tree"));
@@ -151,4 +170,30 @@ public class CreateProductApiTest {
         .returns(productDto.getCategory(), ProductDto::getCategory);
   }
 
+  @TestConfiguration
+  public static class KafkaTestConfig {
+    @Bean
+    KafkaTestConsumer testConsumer() {
+      return new KafkaTestConsumer();
+    }
+  }
+
+  @Slf4j
+  private static class KafkaTestConsumer {
+    private CompletableFuture<ConsumerRecord<String, ProductCreatedEvent>> receivedRecord = new CompletableFuture<>();
+
+    @KafkaListener(topics = PRODUCT_CREATED_TOPIC)
+    void receive(ConsumerRecord<String, ProductCreatedEvent> consumerRecord) {
+      log.info("received payload='{}'", consumerRecord.toString());
+      receivedRecord.complete(consumerRecord);
+    }
+
+    public ConsumerRecord<String, ProductCreatedEvent> blockingReceive(Duration timeout) throws ExecutionException, InterruptedException {
+      return receivedRecord.orTimeout(timeout.toMillis(), TimeUnit.MILLISECONDS).get();
+    }
+
+    public void reset() {
+      receivedRecord = new CompletableFuture<>();
+    }
+  }
 }

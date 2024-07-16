@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
 public class ContractFreezeTest {
   @Autowired

@@ -14,9 +14,9 @@ import victor.testing.spring.rest.dto.ProductSearchCriteria;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("test")
 @Transactional
-public class ProductRepoH2Test {
+public class ProductSearch1Test {
   @Autowired
   ProductRepo repo;
   @Autowired
@@ -61,29 +61,29 @@ public class ProductRepoH2Test {
     assertThat(repo.search(criteria)).hasSize(1);
   }
 
-  @Test
-  public void bySupplier_noMatch() {
-    criteria.supplierId = -1L;
-    assertThat(repo.search(criteria)).hasSize(0);
-  }
-
-  @Test
-  public void bySupplier_match() {
-    criteria.supplierId = supplierId;
-    assertThat(repo.search(criteria)).hasSize(1);
-  }
-
-  @Test
-  public void byCategory_noMatch() {
-    criteria.category = ProductCategory.ELECTRONICS;
-    assertThat(repo.search(criteria)).hasSize(0);
-  }
-
-  @Test
-  public void byCategory_match() {
-    criteria.category = ProductCategory.HOME;
-    assertThat(repo.search(criteria)).hasSize(1);
-  }
-  // ... so one: min 2 cases / search criteria
+  // covered by Parameterized and .feature files
+//  @Test
+//  public void bySupplier_noMatch() {
+//    criteria.supplierId = -1L;
+//    assertThat(repo.search(criteria)).hasSize(0);
+//  }
+//
+//  @Test
+//  public void bySupplier_match() {
+//    criteria.supplierId = supplierId;
+//    assertThat(repo.search(criteria)).hasSize(1);
+//  }
+//
+//  @Test
+//  public void byCategory_noMatch() {
+//    criteria.category = ProductCategory.ELECTRONICS;
+//    assertThat(repo.search(criteria)).hasSize(0);
+//  }
+//
+//  @Test
+//  public void byCategory_match() {
+//    criteria.category = ProductCategory.HOME;
+//    assertThat(repo.search(criteria)).hasSize(1);
+//  }
 }
 

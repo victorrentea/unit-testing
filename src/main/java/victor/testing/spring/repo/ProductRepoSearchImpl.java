@@ -22,14 +22,13 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
     @Override
     public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
         List<String> jpqlParts = new ArrayList<>();
-        jpqlParts.add("SELECT new victor.testing.spring.api.dto.ProductSearchResult(p.id, p.name)" +
+        jpqlParts.add("SELECT new victor.testing.spring.rest.dto.ProductSearchResult(p.id, p.name)" +
                 " FROM Product p " +
                 " WHERE 1=1");
 
         Map<String, Object> paramMap = new HashMap<>();
 
         if (StringUtils.isNotEmpty(criteria.name)) {
-//            jpqlParts.add("AND p.name = :name");
             jpqlParts.add("AND UPPER(p.name) LIKE UPPER('%' || :name || '%')"); // = contains, ignoring case
             paramMap.put("name", criteria.name);
         }

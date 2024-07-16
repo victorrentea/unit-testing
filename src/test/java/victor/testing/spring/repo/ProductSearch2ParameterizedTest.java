@@ -1,6 +1,5 @@
 package victor.testing.spring.repo;
 
-import lombok.Value;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,9 +18,9 @@ import static victor.testing.spring.entity.ProductCategory.ELECTRONICS;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @SpringBootTest
-@ActiveProfiles("db-mem")
+@ActiveProfiles("test")
 @Transactional
-public class ProductRepoParameterizedTest {
+public class ProductSearch2ParameterizedTest {
   @Autowired
   ProductRepo repo;
   @Autowired
@@ -39,27 +38,25 @@ public class ProductRepoParameterizedTest {
     );
   }
 
+  private static ProductSearchCriteria criteria() {
+    return new ProductSearchCriteria();
+  }
+
   public static List<TestCase> testData() {
     return List.of(
             new TestCase(criteria(), true),
-            new TestCase(criteria().setName("AbCd"), true),
-            new TestCase(criteria().setName("Bc"), true),
-            new TestCase(criteria().setName("Xyz"), false),
-            new TestCase(criteria().setCategory(HOME), true),
-            new TestCase(criteria().setCategory(ELECTRONICS), false),
-            new TestCase(criteria().setSupplierId(-1L), false)
-//            new TestCase(criteria().setSupplierId(supplierId), true) // oups: limitation
+//            new TestCase(criteria().setName("AbCd"), true),
+//            new TestCase(criteria().setName("Bc"), true),
+//            new TestCase(criteria().setName("Xyz"), false)
+            new TestCase(criteria().setCategory(HOME), true), // covered by the .feature file
+            new TestCase(criteria().setCategory(ELECTRONICS), false)
+        // supplier covered by Feature test
     );
   }
+  private record TestCase(
+      ProductSearchCriteria criteria,
+      boolean matches) {
 
-  @Value
-  private static class TestCase {
-    ProductSearchCriteria criteria;
-    boolean matches;
-  }
-
-  private static ProductSearchCriteria criteria() {
-    return new ProductSearchCriteria();
   }
 
   @ParameterizedTest(name = "{0}")

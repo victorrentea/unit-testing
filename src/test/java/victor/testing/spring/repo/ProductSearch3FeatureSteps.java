@@ -5,6 +5,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 //import io.cucumber.spring.CucumberContextConfiguration;
+import io.cucumber.junit.platform.engine.Cucumber;
+import io.cucumber.spring.CucumberContextConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
@@ -24,15 +26,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Slf4j
+@Cucumber
 // Uncomment next line to enable Cucumber-Spring integration
-//@CucumberContextConfiguration //  from io.cucumber:cucumber-spring:7.0.0
-@ActiveProfiles("db-mem")
+@CucumberContextConfiguration //  from io.cucumber:cucumber-spring:7.0.0
+@ActiveProfiles("test")
 @ContextConfiguration(
     classes = TestedApplication.class,
     loader = SpringBootContextLoader.class
 //    ,initializers = ProductSearchSteps.PostgresDBInitializer.class // uncomment for Testcontainers integration
 )
-public class ProductSearchSteps {
+public class ProductSearch3FeatureSteps {
 
 //   public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:11")
 //           .withDatabaseName("prop")

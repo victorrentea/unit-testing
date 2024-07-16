@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
 @Entity
+@Data
 @Setter(AccessLevel.NONE) // works even without setters, in case you want to enforce better entity encapsulation
 public class Person {
    @Id

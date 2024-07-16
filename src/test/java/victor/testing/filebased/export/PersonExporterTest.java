@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.filebased.FileBasedApprovalTestBase;
+import victor.testing.tools.FileBasedApprovalTestBase;
 
 import java.io.IOException;
 import java.io.StringWriter;

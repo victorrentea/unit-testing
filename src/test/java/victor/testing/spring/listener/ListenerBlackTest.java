@@ -29,9 +29,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_ERROR;
 
 @SpringBootTest
-@ActiveProfiles({"db-mem", "embedded-kafka"})
+@ActiveProfiles("test")
 @EmbeddedKafka(topics = {"supplier-created-event", "supplier-created-error"})
-public class ListenerFullTest {
+public class ListenerBlackTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
@@ -51,7 +51,7 @@ public class ListenerFullTest {
     // trigger message
     kafkaTemplate.send("supplier-created-event", "supplier");
 
-    Thread.sleep(70); // It works on my machine™️, said its author
+    Thread.sleep(200); // It works on my machine™️, said its author
 
     assertThat(supplierRepo.findByName("supplier"))
         .describedAs("Supplier was inserted")
