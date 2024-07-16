@@ -1,4 +1,4 @@
-package victor.testing.spring.message;
+package victor.testing.spring.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -15,7 +15,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
-import victor.testing.spring.domain.Supplier;
+import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
 import java.time.Duration;
@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
-import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_ERROR;
+import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_ERROR;
 
 @SpringBootTest
 @ActiveProfiles({"db-mem", "embedded-kafka"})

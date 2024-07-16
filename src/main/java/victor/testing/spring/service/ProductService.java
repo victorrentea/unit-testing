@@ -4,15 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyApiClient;
+import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.ProductCategory;
+import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.spring.api.dto.ProductDto;
-import victor.testing.spring.api.dto.ProductSearchCriteria;
-import victor.testing.spring.api.dto.ProductSearchResult;
+import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.spring.rest.dto.ProductSearchCriteria;
+import victor.testing.spring.rest.dto.ProductSearchResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,13 +23,13 @@ public class ProductService {
   public static final String PRODUCT_CREATED_TOPIC = "product-created";
   private final SupplierRepo supplierRepo;
   private final ProductRepo productRepo;
-  private final SafetyApiClient safetyApiClient;
+  private final SafetyApiAdapter safetyApiAdapter;
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto.getBarcode());
-    boolean safe = safetyApiClient.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
+    boolean safe = safetyApiAdapter.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }

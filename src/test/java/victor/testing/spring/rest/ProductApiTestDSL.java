@@ -1,18 +1,15 @@
-package victor.testing.spring.api;
+package victor.testing.spring.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import victor.testing.spring.api.dto.ProductDto;
-import victor.testing.spring.api.dto.ProductSearchCriteria;
-import victor.testing.spring.api.dto.ProductSearchResult;
+import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.spring.rest.dto.ProductSearchCriteria;
+import victor.testing.spring.rest.dto.ProductSearchResult;
 
 import java.util.List;
 

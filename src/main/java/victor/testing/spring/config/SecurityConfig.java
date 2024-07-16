@@ -1,4 +1,4 @@
-package victor.testing.spring;
+package victor.testing.spring.config;
 
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

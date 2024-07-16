@@ -1,4 +1,4 @@
-package victor.testing.spring.api;
+package victor.testing.spring.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -14,11 +14,11 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.api.dto.ProductDto;
-import victor.testing.spring.api.dto.ProductSearchCriteria;
-import victor.testing.spring.api.dto.ProductSearchResult;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.Supplier;
+import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.spring.rest.dto.ProductSearchCriteria;
+import victor.testing.spring.rest.dto.ProductSearchResult;
+import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.tools.HumanReadableTestNames;
@@ -30,7 +30,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.HOME;
 
 
 @DisplayNameGeneration(HumanReadableTestNames.class)

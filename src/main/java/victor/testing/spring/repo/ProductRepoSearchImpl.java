@@ -3,8 +3,8 @@ package victor.testing.spring.repo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
-import victor.testing.spring.api.dto.ProductSearchResult;
-import victor.testing.spring.api.dto.ProductSearchCriteria;
+import victor.testing.spring.rest.dto.ProductSearchResult;
+import victor.testing.spring.rest.dto.ProductSearchCriteria;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

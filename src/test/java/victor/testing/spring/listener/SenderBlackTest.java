@@ -1,4 +1,4 @@
-package victor.testing.spring.message;
+package victor.testing.spring.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -10,38 +10,28 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.ConsumerFactory;
-import org.springframework.kafka.listener.ContainerProperties;
-import org.springframework.kafka.listener.KafkaMessageListenerContainer;
-import org.springframework.kafka.listener.MessageListener;
-import org.springframework.kafka.listener.MessageListenerContainer;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
-import victor.testing.spring.api.dto.ProductDto;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyApiClient;
+import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.spring.entity.Supplier;
+import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductCreatedEvent;
 import victor.testing.spring.service.ProductService;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import static java.time.Duration.ofSeconds;
 import static java.time.LocalDateTime.now;
-import static java.time.temporal.ChronoUnit.MILLIS;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;
-import static victor.testing.spring.domain.ProductCategory.HOME;
-import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_ERROR;
+import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 @SpringBootTest
@@ -49,7 +39,7 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @EmbeddedKafka(topics = PRODUCT_CREATED_TOPIC)
 public class SenderBlackTest {
   @MockBean
-  SafetyApiClient mockSafetyApiClient;
+  SafetyApiAdapter mockSafetyApiAdapter;
   @Autowired
   ProductRepo productRepo;
   @Autowired
@@ -69,7 +59,7 @@ public class SenderBlackTest {
   @Test
   void createSendsMessage() throws InterruptedException, ExecutionException {
     supplierRepo.save(new Supplier().setCode("S"));
-    when(mockSafetyApiClient.isSafe("safe")).thenReturn(true);
+    when(mockSafetyApiAdapter.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safe", "S", HOME);
 
     // WHEN

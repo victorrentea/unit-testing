@@ -1,4 +1,4 @@
-package victor.testing.spring.message;
+package victor.testing.spring.listener;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,6 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
-import victor.testing.spring.IntegrationTest;
 
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;

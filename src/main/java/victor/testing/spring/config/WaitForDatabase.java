@@ -1,4 +1,4 @@
-package victor.testing.spring;
+package victor.testing.spring.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.awaitility.Awaitility;

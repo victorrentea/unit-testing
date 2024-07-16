@@ -1,4 +1,4 @@
-package victor.testing.spring.api;
+package victor.testing.spring.rest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,14 +12,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyApiClient;
+import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.ProductCategory;
+import victor.testing.spring.entity.Supplier;
+import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.spring.api.dto.ProductSearchCriteria;
-import victor.testing.spring.api.dto.ProductSearchResult;
+import victor.testing.spring.rest.dto.ProductSearchCriteria;
+import victor.testing.spring.rest.dto.ProductSearchResult;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ import static org.springframework.http.HttpStatus.OK;
 @EmbeddedKafka(topics = "${input.topic}")
 public class TomcatTest {
   @MockBean
-  private SafetyApiClient safetyApiClient;
+  private SafetyApiAdapter safetyApiAdapter;
   @Autowired
   private SupplierRepo supplierRepo;
   @Autowired
@@ -58,7 +58,7 @@ public class TomcatTest {
 
   @Test
   public void testSearch() {
-    when(safetyApiClient.isSafe("safe")).thenReturn(true);
+    when(safetyApiAdapter.isSafe("safe")).thenReturn(true);
 
     ProductSearchCriteria searchCriteria = criteria.setName("Tree");
 

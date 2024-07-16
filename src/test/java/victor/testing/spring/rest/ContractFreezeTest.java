@@ -1,4 +1,4 @@
-package victor.testing.spring.api;
+package victor.testing.spring.rest;
 
 import org.junit.jupiter.api.Test;
 import org.openapitools.openapidiff.core.OpenApiCompare;

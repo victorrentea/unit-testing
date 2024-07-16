@@ -1,10 +1,10 @@
-package victor.testing.spring.api.dto;
+package victor.testing.spring.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
+import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.ProductCategory;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
