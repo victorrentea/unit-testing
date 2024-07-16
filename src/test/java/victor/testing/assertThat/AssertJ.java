@@ -1,4 +1,4 @@
-package victor.testing.assertj;
+package victor.testing.assertThat;
 
 
 import lombok.Value;
@@ -15,7 +15,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

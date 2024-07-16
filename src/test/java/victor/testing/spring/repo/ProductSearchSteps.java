@@ -26,7 +26,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Slf4j
-//@CucumberContextConfiguration // from io.cucumber:cucumber-spring:7.0.0 (commented out initially)
+// Uncomment next line to enable Cucumber-Spring integration
+//@CucumberContextConfiguration //  from io.cucumber:cucumber-spring:7.0.0
 @ActiveProfiles("db-mem")
 @ContextConfiguration(
     classes = TestedApplication.class,

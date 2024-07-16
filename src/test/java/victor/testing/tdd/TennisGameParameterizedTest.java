@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TennisGameParameterized5Test {
+public class TennisGameParameterizedTest {
 
    // The running score of each game is described in a manner peculiar to tennis:
    // scores from zero to three points are described as “Love”, “Fifteen”, “Thirty”, and “Forty” respectively.
