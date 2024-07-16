@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.filebased.FileBasedApprovalTestBase;
 
@@ -23,8 +24,8 @@ import static org.mockito.Mockito.verify;
 @SpringBootTest
 @ActiveProfiles("db-mem")
 @Transactional
+@TestPropertySource(properties = {"spring.flyway.enabled=false", "spring.jpa.hibernate.ddl-auto=create"})
 class GroceriesMessageHandlerTest extends FileBasedApprovalTestBase {
-
   @MockBean
   private KafkaMessageSender kafkaSender;
   @Autowired

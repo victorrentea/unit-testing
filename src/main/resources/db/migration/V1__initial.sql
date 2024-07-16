@@ -12,7 +12,7 @@ create table product (
 
 create table supplier (
     id int8 not null,
-    active boolean not null default 1,
+    active boolean not null default true,
     name varchar(255),
     primary key (id));
 
