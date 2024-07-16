@@ -46,7 +46,6 @@ public class ListenerBlackTest {
   }
 
   @Test
-  @Disabled("because it's flaky, fails randomly")
   void supplierIsCreated_sleep_flaky() throws InterruptedException {
     // trigger message
     kafkaTemplate.send("supplier-created-event", "supplier");
