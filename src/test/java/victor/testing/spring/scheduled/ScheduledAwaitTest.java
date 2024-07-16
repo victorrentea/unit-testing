@@ -15,7 +15,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
 @ActiveProfiles("wiremock")
-@TestPropertySource(properties = "email.sender.cron=*/1 * * * * *") // = every second
+@TestPropertySource(properties = {
+    "email.sender.cron=*/1 * * * * *", // = every second
+    "scheduling.enabled=true"
+})
 @AutoConfigureWireMock(port = 0) // random port
 public class ScheduledAwaitTest extends IntegrationTest {
   public static final EmailToSend EMAIL = new EmailToSend()

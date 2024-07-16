@@ -1,4 +1,4 @@
-package victor.testing.mocks;
+package victor.testing.design.spy;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
-public class SpyTest {
+public class SpyUntestedLegacyTest {
 
    @Spy
    private ComplexLegacyClass target;

@@ -27,7 +27,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Slf4j
-@EnableScheduling
 @EnableCaching
 @EnableAsync
 @SpringBootApplication

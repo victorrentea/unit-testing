@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -20,13 +22,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// test-helper class
+
 @Component
-@ConditionalOnBean(MockMvc.class)
 public class ProductApiTestDSL {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
 
-  @Autowired
+  @Autowired(required = false)
   MockMvc mockMvc;
 
   public void createProductApi(ProductDto request) throws Exception {

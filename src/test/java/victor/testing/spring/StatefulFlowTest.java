@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("db-mem")
 @TestMethodOrder(MethodName.class) // step1_.., step2_.., step3_..
 @TestInstance(PER_CLASS) // have 1 instance of this class for all tests
 public class StatefulFlowTest {

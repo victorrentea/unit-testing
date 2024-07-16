@@ -29,7 +29,7 @@ class TimeLogic2Test {
   }
 }
 // Ways to control time from tests:
-// - inject a Clock dependency, pass a fixed Clock from tests (see TimeUtils)
+// - inject a Clock dependency, pass a fixed Clock from tests (see ClockUtils)
 // - pass time as an argument to a package-protected method ("subcutaneous test")
 // - mock the static method LocalDate.now()
 // - inject an (Mock-able) object wrapping the static call: class TimeProvider { LocalDate today() {return LocalDate.now();} }

@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-public class TimeUtils {
+public class ClockUtils {
   public static Clock fixedClock(String dateStr) {
     return fixedClock(LocalDate.parse(dateStr));
   }

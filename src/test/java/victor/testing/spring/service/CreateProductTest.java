@@ -19,6 +19,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.domain.ProductCategory.HOME;
@@ -32,7 +33,7 @@ public class CreateProductTest {
   @Mock
   SafetyApiClient safetyApiClient;
   @Mock
-  KafkaTemplate<String, String> kafkaTemplate;
+  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @InjectMocks
   ProductService productService;
 
@@ -50,6 +51,7 @@ public class CreateProductTest {
   void createOk() {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
     when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
+    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
     ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
     // WHEN
@@ -64,7 +66,8 @@ public class CreateProductTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     //assertThat(product.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     //assertThat(product.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
-    verify(kafkaTemplate).send(ProductService.PRODUCT_CREATED_TOPIC, "k", "NAME");
+    verify(kafkaTemplate).send(eq(ProductService.PRODUCT_CREATED_TOPIC), eq("k"),
+        argThat(e -> e.productId().equals(123L)));
   }
 
 }

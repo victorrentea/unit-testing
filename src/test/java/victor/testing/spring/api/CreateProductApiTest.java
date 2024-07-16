@@ -43,7 +43,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @ActiveProfiles({"wiremock", "embedded-kafka", "db-mem"})
 
 @WithMockUser(roles = "ADMIN") // grant the current thread the ROLE_ADMIN
-@AutoConfigureMockMvc // process HTTP requests in current thread, without a Tomcat
+@AutoConfigureMockMvc // runs the HTTP requests in current thread, without a Tomcat
 public class CreateProductApiTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired

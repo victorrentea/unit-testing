@@ -1,4 +1,4 @@
-package victor.testing.mocks;
+package victor.testing.design.spy;
 
 import java.util.List;
 import java.util.Optional;

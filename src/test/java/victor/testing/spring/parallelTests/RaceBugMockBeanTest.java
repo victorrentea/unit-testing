@@ -1,5 +1,6 @@
 package victor.testing.spring.parallelTests;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,7 @@ import victor.testing.spring.domain.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.service.ProductCreatedEvent;
 import victor.testing.spring.service.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,11 +25,12 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 //@Execution(ExecutionMode.SAME_THREAD) // force all @Test in this class to run single thread when using parallel tests
 @SpringBootTest
 @ActiveProfiles("db-mem")
+@Disabled // demonstrated with parallel testing enabled
 public class RaceBugMockBeanTest {
   @MockBean
   SafetyApiClient safetyApiClient;
   @MockBean
-  KafkaTemplate<String, String> kafkaTemplate;
+  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductRepo productRepo;
   @Autowired
@@ -46,7 +49,7 @@ public class RaceBugMockBeanTest {
 
   @Test
   void ok() throws InterruptedException {
-    Long supplierId = supplierRepo.save(new Supplier().setCode("S")).getId();
+    supplierRepo.save(new Supplier().setCode("S")).getId();
     when(safetyApiClient.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safe", "S", HOME);
 

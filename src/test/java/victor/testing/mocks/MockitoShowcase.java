@@ -1,16 +1,11 @@
-package victor.testing.kata.demo;
+package victor.testing.mocks;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.InvocationInterceptor;
-import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.MockedStatic;
 
-import java.lang.reflect.Method;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +30,7 @@ import static org.mockito.Mockito.*;
  * Victor
  */
 
-public class MockitoShowcaseTest {
+public class MockitoShowcase {
 	public interface Dependency { // or concrete class
 		String someMethod(String string);
 		void sideEffecting(ObjectWithoutEquals object);

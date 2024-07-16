@@ -14,6 +14,7 @@ import victor.testing.spring.api.dto.ProductDto;
 import victor.testing.spring.api.dto.ProductSearchCriteria;
 import victor.testing.spring.api.dto.ProductSearchResult;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -25,7 +26,7 @@ public class ProductService {
   private final ProductRepo productRepo;
   private final SafetyApiClient safetyApiClient;
   private final ProductMapper productMapper;
-  private final KafkaTemplate<String, String> kafkaTemplate;
+  private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto.getBarcode());
@@ -41,9 +42,10 @@ public class ProductService {
     product.setBarcode(productDto.getBarcode());
     product.setCategory(productDto.getCategory());
     product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
-    productRepo.save(product);
-    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", product.getName().toUpperCase());
-    return product.getId();
+    Long productId = productRepo.save(product).getId();
+    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k",
+        new ProductCreatedEvent(productId, LocalDateTime.now()));
+    return productId;
   }
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
