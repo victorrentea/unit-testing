@@ -7,12 +7,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.core.KafkaTemplate;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyApiClient;
+import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.Supplier;
+import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
-import victor.testing.spring.api.dto.ProductDto;
+import victor.testing.spring.rest.dto.ProductDto;
 
 import java.util.Optional;
 
@@ -22,7 +22,7 @@ import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
@@ -31,7 +31,7 @@ public class CreateProductTest {
   @Mock
   ProductRepo productRepo;
   @Mock
-  SafetyApiClient safetyApiClient;
+  SafetyApiAdapter safetyApiAdapter;
   @Mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @InjectMocks
@@ -39,7 +39,7 @@ public class CreateProductTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyApiClient.isSafe("barcode-unsafe")).thenReturn(false);
+    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
     ProductDto productDto = new ProductDto("name", "barcode-unsafe", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
@@ -50,7 +50,7 @@ public class CreateProductTest {
   @Test
   void createOk() {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
-    when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     when(productRepo.save(any())).thenReturn(new Product().setId(123L));
     ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 

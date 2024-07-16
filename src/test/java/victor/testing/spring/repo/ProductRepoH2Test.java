@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.domain.Product;
-import victor.testing.spring.domain.ProductCategory;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.api.dto.ProductSearchCriteria;
-import victor.testing.spring.repo.ProductRepo;
-import victor.testing.spring.repo.SupplierRepo;
+import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.ProductCategory;
+import victor.testing.spring.entity.Supplier;
+import victor.testing.spring.rest.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

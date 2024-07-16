@@ -1,4 +1,4 @@
-package victor.testing.spring.api;
+package victor.testing.spring.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,9 +7,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import victor.testing.spring.service.ProductService;
-import victor.testing.spring.api.dto.ProductSearchCriteria;
-import victor.testing.spring.api.dto.ProductSearchResult;
-import victor.testing.spring.api.dto.ProductDto;
+import victor.testing.spring.rest.dto.ProductSearchCriteria;
+import victor.testing.spring.rest.dto.ProductSearchResult;
+import victor.testing.spring.rest.dto.ProductDto;
 
 import java.net.URI;
 import java.net.URISyntaxException;

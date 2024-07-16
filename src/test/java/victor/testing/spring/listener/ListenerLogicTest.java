@@ -1,4 +1,4 @@
-package victor.testing.spring.message;
+package victor.testing.spring.listener;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.repo.SupplierRepo;
 
 import static org.assertj.core.api.Assertions.assertThat;

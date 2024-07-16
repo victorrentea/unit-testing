@@ -7,9 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
-import victor.testing.spring.api.dto.ProductDto;
-import victor.testing.spring.domain.Supplier;
-import victor.testing.spring.infra.SafetyApiClient;
+import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.spring.entity.Supplier;
+import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductCreatedEvent;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static victor.testing.spring.domain.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.HOME;
 
 // without the followin annotation, running tests in parallel causes flaky tests
 //@Execution(ExecutionMode.SAME_THREAD) // force all @Test in this class to run single thread when using parallel tests
@@ -28,7 +28,7 @@ import static victor.testing.spring.domain.ProductCategory.HOME;
 @Disabled // demonstrated with parallel testing enabled
 public class RaceBugMockBeanTest {
   @MockBean
-  SafetyApiClient safetyApiClient;
+  SafetyApiAdapter safetyApiAdapter;
   @MockBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
@@ -40,7 +40,7 @@ public class RaceBugMockBeanTest {
 
   @Test
   void throwsExForUnsafe() throws InterruptedException {
-    when(safetyApiClient.isSafe("unsafe")).thenReturn(false);
+    when(safetyApiAdapter.isSafe("unsafe")).thenReturn(false);
     ProductDto dto = new ProductDto("name", "unsafe", "S", HOME);
 
     Thread.sleep(50); // imagine some delay in tested code
@@ -50,7 +50,7 @@ public class RaceBugMockBeanTest {
   @Test
   void ok() throws InterruptedException {
     supplierRepo.save(new Supplier().setCode("S")).getId();
-    when(safetyApiClient.isSafe("safe")).thenReturn(true);
+    when(safetyApiAdapter.isSafe("safe")).thenReturn(true);
     ProductDto dto = new ProductDto("name", "safe", "S", HOME);
 
     Thread.sleep(50); // imagine some delay in tested code

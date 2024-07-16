@@ -10,8 +10,8 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import victor.testing.spring.api.dto.ProductSearchCriteria;
-import victor.testing.spring.domain.Product;
+import victor.testing.spring.rest.dto.ProductSearchCriteria;
+import victor.testing.spring.entity.Product;
 import victor.testing.tools.TestcontainersUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
