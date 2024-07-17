@@ -1,6 +1,7 @@
-package victor.testing.spring.scheduled;
+package victor.testing.spring.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import victor.testing.spring.entity.EmailToSend;
 
 import java.util.List;
 

@@ -11,16 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import victor.testing.spring.IntegrationTest;
 
 import java.nio.file.Files;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@AutoConfigureMockMvc
-public class ContractFreezeTest {
+public class ContractFreezeTest extends IntegrationTest {
   @Autowired
   MockMvc mockMvc;
 

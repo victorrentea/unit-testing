@@ -33,32 +33,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(
     classes = TestedApplication.class,
     loader = SpringBootContextLoader.class
-//    ,initializers = ProductSearchSteps.PostgresDBInitializer.class // uncomment for Testcontainers integration
 )
 public class ProductSearch3FeatureSteps {
-
-//   public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:11")
-//           .withDatabaseName("prop")
-//           .withUsername("postgres")
-//           .withPassword("password");
-//   // Cannot use @DynamicPropertySource as this is not a @SpringBootTest
-//   public static class PostgresDBInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-//      @Override
-//      public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
-//         System.out.println("Starting testcontainer");
-//         container.start();
-//         System.out.println("Testcontainer started");
-//
-//         TestPropertyValues.of(
-//                 "spring.datasource.url=" + container.getJdbcUrl(),
-//             "spring.datasource.username=postgres",
-//             "spring.datasource.password=password",
-//             "spring.datasource.driver-class-name=org.postgresql.Driver"
-//         ).applyTo(configurableApplicationContext.getEnvironment());
-//      }
-//   }
-
-
    @Autowired
    private ProductRepo productRepo;
    @Autowired

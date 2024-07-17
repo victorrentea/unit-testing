@@ -1,21 +1,17 @@
-package victor.testing.spring;
+package victor.testing.spring.repo;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
-import victor.testing.spring.repo.SupplierRepo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
-@SpringBootTest
-@ActiveProfiles("test")
 @TestMethodOrder(MethodName.class) // step1_.., step2_.., step3_..
 @TestInstance(PER_CLASS) // have 1 instance of this class for all tests
-public class StatefulFlowTest {
+public class StatefulFlowTest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
 

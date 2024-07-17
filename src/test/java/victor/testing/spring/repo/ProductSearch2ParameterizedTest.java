@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
@@ -17,10 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.entity.ProductCategory.ELECTRONICS;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@SpringBootTest
-@ActiveProfiles("test")
 @Transactional
-public class ProductSearch2ParameterizedTest {
+public class ProductSearch2ParameterizedTest extends IntegrationTest {
   @Autowired
   ProductRepo repo;
   @Autowired

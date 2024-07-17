@@ -18,6 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
@@ -45,15 +46,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
-
-@SpringBootTest
-@ActiveProfiles("test") // pick up properties from application-test.properties
-@AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
-@Transactional // ROLLBACK after each @Test
-@EmbeddedKafka(topics = PRODUCT_CREATED_TOPIC)
+@Transactional
 @WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
-@AutoConfigureMockMvc // emulates a HTTP call to my system
-public class CreateProductApiTest {
+public class CreateProductApiTest extends IntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
   MockMvc mockMvc;
@@ -61,9 +56,6 @@ public class CreateProductApiTest {
   ProductRepo productRepo;
   @Autowired
   SupplierRepo supplierRepo;
-  @Autowired
-  KafkaTestConsumer testConsumer;
-
 
   ProductSearchCriteria criteria = new ProductSearchCriteria();
 
@@ -76,7 +68,6 @@ public class CreateProductApiTest {
   @BeforeEach
   void setup() {
     supplierRepo.save(new Supplier().setCode("S").setActive(true));
-    testConsumer.reset();
   }
 
   @Test
@@ -135,7 +126,7 @@ public class CreateProductApiTest {
     assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
     assertThat(returnedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode);
     // ⚠️FLAKY: can fail for timeout exceeded
-    ConsumerRecord<String, ProductCreatedEvent> message = testConsumer.blockingReceive(ofSeconds(5)); // blocking
+    ConsumerRecord<String, ProductCreatedEvent> message = productCreatedEventTestListener.blockingReceive(ofSeconds(5)); // blocking
     assertThat(message.value().productId()).isEqualTo(returnedProduct.getId());
     assertThat(message.value().observedAt()).isCloseTo(now(), byLessThan(5, SECONDS));
   }
@@ -170,30 +161,4 @@ public class CreateProductApiTest {
         .returns(productDto.getCategory(), ProductDto::getCategory);
   }
 
-  @TestConfiguration
-  public static class KafkaTestConfig {
-    @Bean
-    KafkaTestConsumer testConsumer() {
-      return new KafkaTestConsumer();
-    }
-  }
-
-  @Slf4j
-  private static class KafkaTestConsumer {
-    private CompletableFuture<ConsumerRecord<String, ProductCreatedEvent>> receivedRecord = new CompletableFuture<>();
-
-    @KafkaListener(topics = PRODUCT_CREATED_TOPIC)
-    void receive(ConsumerRecord<String, ProductCreatedEvent> consumerRecord) {
-      log.info("received payload='{}'", consumerRecord.toString());
-      receivedRecord.complete(consumerRecord);
-    }
-
-    public ConsumerRecord<String, ProductCreatedEvent> blockingReceive(Duration timeout) throws ExecutionException, InterruptedException {
-      return receivedRecord.orTimeout(timeout.toMillis(), TimeUnit.MILLISECONDS).get();
-    }
-
-    public void reset() {
-      receivedRecord = new CompletableFuture<>();
-    }
-  }
 }

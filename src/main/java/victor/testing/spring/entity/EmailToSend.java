@@ -1,4 +1,4 @@
-package victor.testing.spring.scheduled;
+package victor.testing.spring.entity;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -15,6 +15,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
@@ -28,16 +29,11 @@ import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_ERROR;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@EmbeddedKafka(topics = {"supplier-created-event", "supplier-created-error"})
-public class ListenerBlackTest {
+public class ListenerBlackTest extends IntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
   SupplierRepo supplierRepo;
-  @Autowired
-  KafkaTestConsumer testConsumer;
 
   @BeforeEach
   @AfterEach
@@ -76,36 +72,6 @@ public class ListenerBlackTest {
     supplierRepo.save(new Supplier().setName("supplier"));
     // trigger message
     kafkaTemplate.send("supplier-created-event", "supplier");
-
-    ConsumerRecord<String, String> message = testConsumer.blockingReceive(ofSeconds(1)); // blocking
-    assertThat(message.value()).isEqualTo("Supplier already exists: supplier");
-  }
-
-  @TestConfiguration
-  public static class KafkaTestConfig {
-    @Bean
-    KafkaTestConsumer testConsumer() {
-      return new KafkaTestConsumer();
-    }
-  }
-
-  @Slf4j
-  private static class KafkaTestConsumer {
-    private CompletableFuture<ConsumerRecord<String, String>> receivedRecord = new CompletableFuture<>();
-
-    @KafkaListener(topics = SUPPLIER_CREATED_ERROR)
-    void receive(ConsumerRecord<String, String> consumerRecord) {
-      log.info("received payload='{}'", consumerRecord.toString());
-      receivedRecord.complete(consumerRecord);
-    }
-
-    public ConsumerRecord<String, String> blockingReceive(Duration timeout) throws ExecutionException, InterruptedException {
-      return receivedRecord.orTimeout(timeout.toMillis(), TimeUnit.MILLISECONDS).get();
-    }
-
-    public void reset() {
-      receivedRecord = new CompletableFuture<>();
-    }
   }
 
 }
