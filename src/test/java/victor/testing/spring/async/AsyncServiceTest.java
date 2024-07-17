@@ -2,8 +2,6 @@ package victor.testing.spring.async;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
@@ -14,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AsyncTest extends IntegrationTest {
+public class AsyncServiceTest extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
   @Autowired
