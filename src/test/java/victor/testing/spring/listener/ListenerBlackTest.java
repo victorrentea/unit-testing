@@ -27,7 +27,6 @@ import java.util.concurrent.TimeUnit;
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
-import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_ERROR;
 
 public class ListenerBlackTest extends IntegrationTest {
   @Autowired
@@ -66,12 +65,6 @@ public class ListenerBlackTest extends IntegrationTest {
                 .describedAs("Supplier was inserted")
                 .isNotEmpty());
 
-  }
-  @Test
-  void supplierIsCreatedError_blockingReceive() throws ExecutionException, InterruptedException {
-    supplierRepo.save(new Supplier().setName("supplier"));
-    // trigger message
-    kafkaTemplate.send("supplier-created-event", "supplier");
   }
 
 }

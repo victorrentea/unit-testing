@@ -2,20 +2,11 @@ package victor.testing.spring.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
-import org.springframework.context.annotation.Bean;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
@@ -28,11 +19,7 @@ import victor.testing.spring.rest.dto.ProductSearchCriteria;
 import victor.testing.spring.rest.dto.ProductSearchResult;
 import victor.testing.spring.service.ProductCreatedEvent;
 
-import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 import static java.time.Duration.ofSeconds;
 import static java.time.LocalDateTime.now;
@@ -44,7 +31,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
-import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 @Transactional
 @WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
@@ -101,7 +87,7 @@ public class CreateProductApiTest extends IntegrationTest {
   }
 
   @Autowired
-  ProductApiTestDSL dsl;
+  ApiTestDSL dsl;
 
   @Test // @Secured
   @WithMockUser(roles = "USER")
@@ -124,9 +110,10 @@ public class CreateProductApiTest extends IntegrationTest {
     assertThat(returnedProduct.getCreatedDate()).isToday();
     assertThat(returnedProduct.getCategory()).isEqualTo(productDto.category);
     assertThat(returnedProduct.getBarcode()).isEqualTo(productDto.barcode);
+    assertThat(returnedProduct.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
+    assertThat(returnedProduct.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     assertThat(returnedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode);
-    // ⚠️FLAKY: can fail for timeout exceeded
-    ConsumerRecord<String, ProductCreatedEvent> message = productCreatedEventTestListener.blockingReceive(ofSeconds(5)); // blocking
+    var message = productCreatedEventTestListener.blockingReceive(ofSeconds(5)); // potentially flaky
     assertThat(message.value().productId()).isEqualTo(returnedProduct.getId());
     assertThat(message.value().observedAt()).isCloseTo(now(), byLessThan(5, SECONDS));
   }

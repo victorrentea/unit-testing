@@ -20,10 +20,10 @@ public class AsyncService {
     Thread.sleep(100);
     return completedFuture("stuff retrieved in parallel");
   }
+
   @Async
   public void asyncFireAndForget(String supplierName) throws InterruptedException {
     Thread.sleep(100);
     supplierRepo.save(new Supplier().setName(supplierName));
   }
-
 }

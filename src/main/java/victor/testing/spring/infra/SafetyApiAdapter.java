@@ -12,7 +12,7 @@ import java.net.URL;
 @Component
 @RequiredArgsConstructor
 public class SafetyApiAdapter {
-  private final SafetyFeignClient safetyFeignClient; // TODO use
+  private final SafetyApiFeignClient safetyApiFeignClient; // TODO use
 
   private final RestTemplate restTemplate;
   @Value("${safety.service.url.base}")
