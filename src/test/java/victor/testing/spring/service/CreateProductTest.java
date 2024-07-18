@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,8 +30,18 @@ class ProductServiceTest {
   SafetyApiAdapter safetyApiAdapter;// = mock(SafetyApiAdapter.class);
   @Mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
+//  @InjectMocks
   ProductService productService;
+
+  @BeforeEach
+  final void thisIsASocialUnitTest() { // test 2 classes together
+    productService = new ProductService(
+        supplierRepo,
+        productRepo,
+        safetyApiAdapter,
+        new ProductMapper(),
+        kafkaTemplate);
+  }
 
   @Test
   void failsForUnsafeProduct() {
