@@ -25,11 +25,12 @@ public class ProductService {
   private final ProductRepo productRepo;
   private final SafetyApiAdapter safetyApiAdapter;
   private final ProductMapper productMapper;
+  private final TimeFactory timeFactory;
   private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto.getBarcode());
-    boolean safe = false; // ⚠️ REST call inside
+    boolean safe = safetyApiAdapter.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }
@@ -43,7 +44,7 @@ public class ProductService {
     product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
     Long productId = productRepo.save(product).getId();
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k",
-        new ProductCreatedEvent(productId, LocalDateTime.now()));
+        new ProductCreatedEvent(productId, timeFactory.now()));
     return productId;
   }
 
