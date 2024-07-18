@@ -80,15 +80,17 @@ class ProductServiceTest {
 
     Long id = productService.createProduct(dto);
 
-    verify(kafkaTemplate).send(
-        eq(PRODUCT_CREATED_TOPIC),
-        eq("k"),
-        argThat(event -> event.productId() == NEW_PRODUCT_ID &&
-            event.observedAt().equals(CHRISTMAS)
+    ProductCreatedEvent expectedEvent = new ProductCreatedEvent(id, CHRISTMAS);
+    verify(kafkaTemplate).send(PRODUCT_CREATED_TOPIC, "k", expectedEvent);
+//    verify(kafkaTemplate).send(
+//        eq(PRODUCT_CREATED_TOPIC),
+//        eq("k"),
+//        argThat(event -> event.productId() == NEW_PRODUCT_ID &&
+//            event.observedAt().equals(CHRISTMAS)
              // the ovservedAt is close by max 40 ms to now
 //             event.observedAt().isAfter(LocalDateTime.now().minus(40, ChronoUnit.MILLIS)) &&
 //             event.observedAt().isBefore(LocalDateTime.now().plus(40, ChronoUnit.MILLIS))
-             )); // time is different
+//             )); // time is different
 
 //            event.observedAt().isBefore(LocalDateTime.now().plusSeconds(1)))); // time is different
 //        eq(new ProductCreatedEvent(id, LocalDateTime.now()))); // time is different

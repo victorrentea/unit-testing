@@ -33,3 +33,4 @@ target
 
 prod/
 /output.xlsx
+/allure-results/
