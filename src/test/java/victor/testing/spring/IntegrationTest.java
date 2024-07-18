@@ -3,6 +3,7 @@ package victor.testing.spring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,6 +35,7 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 })
 @AutoConfigureMockMvc
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
+@Tag("spring")
 public class IntegrationTest {
   @Autowired
   protected ProductCreatedEventTestListener productCreatedEventTestListener;

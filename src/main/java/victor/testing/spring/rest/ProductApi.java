@@ -23,7 +23,9 @@ public class ProductApi {
 
    @PostMapping("product/create")
    @Secured("ROLE_ADMIN")
-   public ResponseEntity<Void> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException {
+   public ResponseEntity<Void> create(
+//       @RequestParam("name") String str, // ?str=
+       @RequestBody @Validated ProductDto productDto) throws URISyntaxException {
       Long id = service.createProduct(productDto);
       URI locationHeader = new URI("http://created-uri/" + id);
       return ResponseEntity.created(locationHeader).build();

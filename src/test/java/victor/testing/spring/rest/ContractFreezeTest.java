@@ -29,8 +29,9 @@ public class ContractFreezeTest extends IntegrationTest {
   void my_contract_did_not_change() throws Exception {
     String previousOpenAPIJson = Files.readString(myPreviousContractResource.getFile().toPath());
 
-    String currentOpenAPIJson = mockMvc.perform(get("/v3/api-docs"))
-                    .andReturn().getResponse().getContentAsString();
+    String currentOpenAPIJson = mockMvc.perform(
+        get("/v3/api-docs"))
+        .andReturn().getResponse().getContentAsString();
 
     ChangedOpenApi diff = OpenApiCompare.fromContents(previousOpenAPIJson, currentOpenAPIJson);
 

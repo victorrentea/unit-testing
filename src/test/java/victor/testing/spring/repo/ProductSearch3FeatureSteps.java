@@ -25,15 +25,15 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Slf4j
-@Cucumber
-// Uncomment next line to enable Cucumber-Spring integration
-@CucumberContextConfiguration //  from io.cucumber:cucumber-spring:7.0.0
-@ActiveProfiles("test")
-@ContextConfiguration(
-    classes = TestedApplication.class,
-    loader = SpringBootContextLoader.class
-)
+//@Slf4j
+//@Cucumber
+//// Uncomment next line to enable Cucumber-Spring integration
+//@CucumberContextConfiguration //  from io.cucumber:cucumber-spring:7.0.0
+//@ActiveProfiles("test")
+//@ContextConfiguration(
+//    classes = TestedApplication.class,
+//    loader = SpringBootContextLoader.class
+//)
 public class ProductSearch3FeatureSteps {
    @Autowired
    private ProductRepo productRepo;
@@ -47,7 +47,7 @@ public class ProductSearch3FeatureSteps {
    @Given("Supplier {string} exists")
    @Transactional
    public void supplierExists(String supplierName) {
-      log.debug("Persisting supplier {}", supplierName);
+//      log.debug("Persisting supplier {}", supplierName);
       supplierRepo.save(new Supplier().setName(supplierName));
    }
 

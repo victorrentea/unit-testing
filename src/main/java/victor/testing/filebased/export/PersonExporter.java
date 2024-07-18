@@ -24,12 +24,9 @@ public class PersonExporter {
   public void export(Writer writer) throws IOException {
     writer.write("full_name;phones;birth_date\n");
     for (Person person : personRepo.findAll()) {
-      writer.write(person.getFirstName() + " " + person.getLastName().toUpperCase());
+      writer.write(person.getLastName().toUpperCase() + " " + person.getFirstName());
       writer.write(";");
       writer.write(person.getPhoneList().get(0));
-      // TODO BUGFIX: exception when no phones
-      // TODO CR: output all phones comma-separated
-
       writer.write(";");
       if (person.getBirthDate() != null) {
         writer.write(person.getBirthDate().toString()); // TODO CR: change format to "12 Nov 2021"
