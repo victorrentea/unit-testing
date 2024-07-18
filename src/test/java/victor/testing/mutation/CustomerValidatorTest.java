@@ -3,15 +3,21 @@ package victor.testing.mutation;
 
 import lombok.Builder;
 import lombok.With;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 
-@Builder
-@With
-record Cust(String name, String email) {}
+@With // "wither"
+@Builder(toBuilder = true)
+record CustDto(String name, String email) {
+//  public CustDto withName(String name) {
+//    return this.name == name ? this : new CustDto(name, email);
+//  }
+}
 
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS) only for epic huge tests
 public class CustomerValidatorTest {
@@ -24,15 +30,16 @@ public class CustomerValidatorTest {
           .setCity("::city::"));
 
 
-  public static Cust.CustBuilder aCust() {
-    return Cust.builder()
+  public static CustDto.CustDtoBuilder aCust() {
+    return CustDto.builder()
         .name("::name::")
         .email("::email::");
   }
 
   public void actualTest() {
-    Cust tweaked = aCust().name("diff").build();
-    Cust cloned = tweaked.withName("cloned")
+//    CustDto tweaked = aCust().toBuilder().name("diff").build();
+    CustDto tweaked = aCust().name("diff").build(); // better
+    CustDto cloned = tweaked.withName("cloned") // less to write
         .withEmail("diff"); // + mem /cpu effort (malloc clone) x 2
   }
 //  private Customer.Builder ifCustomerWereImmutable() {
@@ -46,7 +53,28 @@ public class CustomerValidatorTest {
 //      System.out.println("Start class");
 //   }
   @Test
-  void happy() {validator.validate(customer); }
+  void happy() {
+    // given: context
+    customer.getAddress().setCity("  ACity   ");
+
+    // when: act to prod
+    validator.validate(customer);
+
+    // then: effects produced
+    // pragmatic: put several asserts in a @Test
+//    assertEquals("ACity", customer.getAddress().getCity());
+    assertThat(customer.getAddress().getCity())
+        .isEqualTo("ACity");
+  }
+//  @Test
+//  void trimsCity() {
+//    customer.getAddress().setCity("  ACity   ");
+//
+//    // when
+//    validator.validate(customer);
+//
+//    assertEquals("ACity", customer.getAddress().getCity());
+//  }
 
   @Test
   void failsForMissingName() {
