@@ -1,11 +1,17 @@
 package victor.testing.mutation;
 
 
+import lombok.Builder;
+import lombok.With;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
+
+@Builder
+@With
+record Cust(String name, String email) {}
 
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS) only for epic huge tests
 public class CustomerValidatorTest {
@@ -16,6 +22,20 @@ public class CustomerValidatorTest {
       .setEmail("::email::")
       .setAddress(new Address()
           .setCity("::city::"));
+
+
+  public static Cust.CustBuilder aCust() {
+    return Cust.builder()
+        .name("::name::")
+        .email("::email::");
+  }
+
+  public void actualTest() {
+    Cust tweaked = aCust().name("diff").build();
+    Cust cloned = tweaked.withName("cloned")
+        .withEmail("diff"); // + mem /cpu effort (malloc clone) x 2
+  }
+//  private Customer.Builder ifCustomerWereImmutable() {
 
   CustomerValidatorTest() {
     System.out.println("Hola Barcelona! " +
