@@ -56,12 +56,13 @@ class ProductServiceTest {
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   //  @InjectMocks
   ProductService productService;
-  private ProductDto dto = new ProductDto()
+
+  ProductDto dto = new ProductDto()
       .setName(PRODUCT_NAME)
       .setBarcode(BARCODE)
       .setCategory(HOME)
       .setSupplierCode(SUPPLIER_CODE);
-  private Supplier supplier  = new Supplier();
+  Supplier supplier  = new Supplier();
 
   @BeforeEach
   final void thisIsASocialUnitTest() { // test 2 classes together
@@ -86,6 +87,7 @@ class ProductServiceTest {
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
   }
+
   @Nested
   class Happy {
     @BeforeEach

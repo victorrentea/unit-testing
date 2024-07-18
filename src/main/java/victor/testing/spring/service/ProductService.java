@@ -37,7 +37,6 @@ public class ProductService {
     }
     if (productDto.getCategory() == null) {
       productDto.setCategory(ProductCategory.UNCATEGORIZED); // untested line 😱
-
     }
     Product product = new Product();
     product.setName(productDto.getName());
