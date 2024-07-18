@@ -1,6 +1,7 @@
 package victor.testing.assertThat;
 
 
+import lombok.NonNull;
 import lombok.Value;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.assertj.core.api.SoftAssertions;
@@ -20,60 +21,60 @@ import java.util.Set;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
-import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 @Disabled("on demand - failures are fun")
 public class AssertJ {
-  // via dependency: org.assertj:assertj-core
-  // or transitive via spring-boot-test
+  // automatically via dependency spring-boot-test or manually via org.assertj:assertj-core
 
   @Nested
   @TestMethodOrder(MethodName.class)
   public class CollectionsSimple {
-    private final List<Integer> list = asList(100, 200, 300, 300);
-
     @Test
-    public void size_JUnit() {
-      assertEquals(1, list.size());
+    public void size1_JUnit() {
+      assertEquals(1, testedMethod().size());
     }
 
     @Test
-    public void size_AssertJ() {
-      assertThat(list).hasSize(1);
+    public void size1_AssertJ() {
+      assertThat(testedMethod()).hasSize(1);
     }
 
     @Test
     public void onceInAnyOrder_JUnit() {
-      assertTrue(list.containsAll(List.of(100, 200, 700)));
-      assertEquals(3, list.size());
+      assertTrue(testedMethod().containsAll(List.of(100, 200, 700)));
+      assertEquals(3, testedMethod().size());
     }
 
     @Test
     public void onceInAnyOrder_AssertJ() {
-      assertThat(list).containsExactlyInAnyOrder(100, 200, 300);
+      assertThat(testedMethod()).containsExactlyInAnyOrder(100, 200, 300);
     }
 
     @Test
     public void contains_JUnit() {
-      assertTrue(list.containsAll(List.of(100, 200)));
-      assertFalse(list.contains(500));
+      assertTrue(testedMethod().containsAll(List.of(100, 200)));
+      assertFalse(testedMethod().contains(500));
     }
 
     @Test
     public void contains_AssertJ() {
-      assertThat(list)
+      assertThat(testedMethod())
           .contains(100, 200)
           .doesNotContain(500);
+    }
+
+    private List<Integer> testedMethod() {
+      return List.of(100, 200, 300, 300);
     }
   }
 
   @Nested
   @TestMethodOrder(MethodName.class)
   public class CollectionsElements {
+
     private final List<Character> fellowship = List.of(
         new Character("Frodo", 20, new Race("Hobbit")),
         new Character("Sam", 18, new Race("Hobbit")),
@@ -88,8 +89,8 @@ public class AssertJ {
     public void attribute_oneOf_JUnit() {
       // preprocess the collection before the assertion:
       Set<String> races = fellowship.stream()
-          .map(Character::getRace)
-          .map(Race::getName)
+          .map(Character::race)
+          .map(Race::name)
           .collect(toSet());
       assertEquals(Set.of("Man", "Dwarf", "Elf", "Hobbit"), races);
     }
@@ -97,23 +98,23 @@ public class AssertJ {
     @Test
     public void attribute_oneOf_AssertJ() {
       assertThat(fellowship)
-          .map(Character::getRace)
-          .map(Race::getName)
+          .map(Character::race)
+          .map(Race::name)
           .containsOnly("Man", "Dwarf", "Elf", "Hobbit");
     }
 
     @Test
     public void elementsWithProperties_JUnit() {
-      assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Frodo") && c.getRace().getName().equals("Hobbit")));
-      assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Aragorn") && c.getRace().getName().equals("Man")));
-      assertTrue(fellowship.stream().anyMatch(c -> c.getName().equals("Legolas") && c.getRace().getName().equals("Elf")));
+      assertTrue(fellowship.stream().anyMatch(c -> c.name().equals("Frodo") && c.race().name().equals("Hobbit")));
+      assertTrue(fellowship.stream().anyMatch(c -> c.name().equals("Aragorn") && c.race().name().equals("Man")));
+      assertTrue(fellowship.stream().anyMatch(c -> c.name().equals("Legolas") && c.race().name().equals("Elf")));
     }
 
     @Test
     public void elementsWithProperties_AssertJ() {
       assertThat(fellowship)
           // .extracting("name", "age", "race.name") // alternative
-          .extracting(Character::getName, Character::getAge, c -> c.getRace().getName())
+          .extracting(Character::name, Character::age, c -> c.race().name())
           .contains(
               tuple("Frodo", 20, "Hobbit"),
               tuple("Aragorn", 39, "Man"),
@@ -167,65 +168,65 @@ public class AssertJ {
 
   @Nested
   class SoftAssert {
+    record Mansion(int guests, String kitchen, String library) {
+    }
+
+    interface EventSender {
+      void send(String event);
+    }
+
+    EventSender eventSender = Mockito.mock(EventSender.class);
+
     @Test
     void failsOnFirst() {
-      assertThat(1).isEqualTo(2);
-      assertThat(3).isEqualTo(4);
+      Mansion mansion = testedCode();
+      assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
+      assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
+      assertThat(mansion.library()).as("Library").isEqualTo("clean");
+      Mockito.verify(eventSender).send("mansion-cleaned");
     }
 
     @Test
-    void assertAll() {
+    void trySoftly() {
+      Mansion mansion = testedCode();
+
       try (var softly = new AutoCloseableSoftAssertions()) {
-        softly.assertThat(1).isEqualTo(2);
-        softly.assertThat(3).isEqualTo(4);
+        softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
+        softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
+        softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
+        softly.assertThatCode(() -> Mockito.verify(eventSender).send("mansion-cleaned"))
+            .as("event published").doesNotThrowAnyException();
       }
     }
+
     @Nested
     @ExtendWith(SoftlyExtension.class)
     class WithExtension {
-        @InjectSoftAssertions
-        SoftAssertions softly;
+      @InjectSoftAssertions
+      SoftAssertions softly;
 
-        @Test
-        void assertAll() {
-          softly.assertThat(1).isEqualTo(2);
-          softly.assertThat(3).isEqualTo(4);
-        }
+      @Test
+      void usingExtension() {
+        Mansion mansion = testedCode();
 
-        @Test
-        void real() {
-          record Mansion(int guests, String kitchen, String library) {
-          }
-          interface EventSender {
-            void send(String event);
-          }
-          EventSender eventSender = Mockito.mock(EventSender.class);
-
-          // testedCode...
-          Mansion mansion = new Mansion(6, "dirty", "clean");
-
-          try (var softly = new AutoCloseableSoftAssertions()) {
-            softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
-            softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
-            softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
-            softly.assertThatCode(() -> Mockito.verify(eventSender).send("mansion-cleaned"))
-                .as("event published").doesNotThrowAnyException();
-          }
-        }
-
+        softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
+        softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
+        softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
+        softly.assertThatCode(() -> Mockito.verify(eventSender).send("mansion-cleaned"))
+            .as("event published").doesNotThrowAnyException();
       }
+
+    }
+
+    private Mansion testedCode() {
+      return new Mansion(6, "dirty", "clean");
+    }
   }
 
+  record Character(String name, int age, Race race) {
+  }
+
+  record Race(String name) {
+  }
 }
 
-@Value
-class Character {
-  String name;
-  int age;
-  Race race;
-}
-
-@Value
-class Race {
-  String name;
-}

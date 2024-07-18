@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     String response = e.getAllErrors().stream()
             .map(ObjectError::toString)
             .collect(Collectors.joining(", \n"));
-    log.error("Validation failed. Returning: " + response, e);
+    log.error("Validation failed. Returning: {}", response, e);
     return response;
   }
 }

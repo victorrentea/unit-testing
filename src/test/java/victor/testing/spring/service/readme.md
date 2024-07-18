@@ -4,7 +4,7 @@
 - replace the @ExtendWith with @SpringBootTest
 - replace @Mock with @MockBean -> replaces the bean with a Mockito mock
 - replace @InjectMocks with @Autowired -> a @SpringBootTest class feels like a Spring bean
-- add @ActiveProfiles("db-mem") -> reads application-db-mem.properties that changes the DB url to an in-mem H2 instance
+- add @ActiveProfiles("test") -> reads application-test.properties that changes the DB url to an in-mem H2 instance
 
 ## 2. Insert to DB instead of Mocking Repos
 - instead of when(supplierRepo.findById), do a repo.save

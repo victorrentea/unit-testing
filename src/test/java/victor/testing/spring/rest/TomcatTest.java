@@ -4,18 +4,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.test.context.EmbeddedKafka;
-import org.springframework.test.context.ActiveProfiles;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
 import victor.testing.spring.entity.Supplier;
-import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
@@ -24,24 +21,18 @@ import victor.testing.spring.rest.dto.ProductSearchResult;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpStatus.OK;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT) // starts a full Tomcat in memory
-@ActiveProfiles({"db-mem", "embedded-kafka"})
-@EmbeddedKafka(topics = "${input.topic}")
-public class TomcatTest {
-  @MockBean
-  private SafetyApiAdapter safetyApiAdapter;
-  @Autowired
-  private SupplierRepo supplierRepo;
-  @Autowired
-  private ProductRepo productRepo;
-
-  @Autowired
+public class TomcatTest extends IntegrationTest {
+  @Autowired // points to the random port of Tomcaat
   private TestRestTemplate rest;
   private ProductSearchCriteria criteria = new ProductSearchCriteria();
+  @Autowired
+  private ProductRepo productRepo;
+  @Autowired
+  private SupplierRepo supplierRepo;
 
   @BeforeEach
   public void initialize() {
@@ -52,19 +43,17 @@ public class TomcatTest {
         .setName("Tree")
         .setBarcode("safe")
         .setSupplier(new Supplier().setId(supplierId))
-        .setCategory(ProductCategory.ME);
+        .setCategory(ProductCategory.HOME);
     productRepo.save(productInDB);
   }
 
   @Test
-  public void testSearch() {
-    when(safetyApiAdapter.isSafe("safe")).thenReturn(true);
-
+  public void search() {
     ProductSearchCriteria searchCriteria = criteria.setName("Tree");
 
     ResponseEntity<List<ProductSearchResult>> searchResponse = rest.exchange(
         "/product/search", HttpMethod.POST,
-        new HttpEntity<>(searchCriteria), new ParameterizedTypeReference<List<ProductSearchResult>>() {
+        new HttpEntity<>(searchCriteria), new ParameterizedTypeReference<>() {
         });
 
     assertThat(searchResponse.getStatusCode()).isEqualTo(OK);

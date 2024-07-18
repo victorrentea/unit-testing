@@ -17,7 +17,7 @@ public class CustomerFacade {
    private final CustomerRepo customerRepo;
    private final EmailClient emailClient;
 
-   private static final List<Country> DISCOUNTED_COUNTRIES = List.of(Country.ROU, Country.BGR, Country.SRB);
+   private static final List<Country> DISCOUNTED_COUNTRIES = List.of(Country.ROU, Country.BEL, Country.SRB);
 
    public Long createCustomer(Customer customer) {
       validator.validate(customer);

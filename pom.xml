@@ -149,7 +149,8 @@
         </dependency>
 
 
-        <!-- WARNING: requires in every glue code path to include a package containing a class with @CucumberContextConfiguration -->
+        <!-- WARNING: requires in every glue code path to include
+        a package containing a class with @CucumberContextConfiguration -->
         <!-- <dependency>
              <groupId>io.cucumber</groupId>
              <artifactId>cucumber-spring</artifactId>

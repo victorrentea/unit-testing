@@ -14,12 +14,10 @@ import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
-@ActiveProfiles("test")
 @TestPropertySource(properties = {
     "email.sender.cron=*/1 * * * * *", // = every second
     "scheduling.enabled=true"
 })
-@AutoConfigureWireMock(port = 0) // random port
 public class ScheduledAwaitTest extends IntegrationTest {
   public static final EmailToSend EMAIL = new EmailToSend()
       .setRecipientEmail("to@example.com")
