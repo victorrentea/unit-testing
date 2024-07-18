@@ -3,12 +3,14 @@ package victor.testing.spring.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.kafka.core.KafkaTemplate;
+import victor.testing.design.time.TimeExtension;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -16,6 +18,7 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -35,8 +38,10 @@ class ProductServiceTest {
   public static final LocalDateTime CHRISTMAS = LocalDateTime.parse("2020-12-25T00:00:00");
   @Mock
   SupplierRepo supplierRepo;
-  @Mock
-  TimeFactory timeFactory;
+  @RegisterExtension
+  TimeExtension timeExtension = new TimeExtension(CHRISTMAS);
+//  @Mock
+//  TimeFactory timeFactory;
   @Mock
   ProductRepo productRepo;
   @Mock// always use @
@@ -56,7 +61,7 @@ class ProductServiceTest {
         productRepo,
         safetyApiAdapter,
         new ProductMapper(),
-        timeFactory,
+        new TimeFactory(),
         kafkaTemplate);
   }
 
@@ -76,7 +81,7 @@ class ProductServiceTest {
         .thenReturn(Optional.of(new Supplier()));
     when(productRepo.save(any())) //TODO reflect later. should I do something else ?
         .thenReturn(new Product().setId(NEW_PRODUCT_ID));
-    when(timeFactory.now()).thenReturn(CHRISTMAS);
+//    when(timeFactory.now()).thenReturn(CHRISTMAS);
 
     Long id = productService.createProduct(dto);
 
