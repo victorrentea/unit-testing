@@ -3,8 +3,6 @@ package victor.testing.spring.repo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
@@ -15,7 +13,7 @@ import victor.testing.spring.rest.dto.ProductSearchCriteria;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional // ROLLBACK after each @Test
-public class ProductSearch1Test extends IntegrationTest {
+public class ProductSearch1ITest extends IntegrationTest {
   @Autowired
   ProductRepo repo;
   @Autowired

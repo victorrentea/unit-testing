@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AsyncServiceTest extends IntegrationTest {
+public class AsyncServiceITest extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
   @Autowired

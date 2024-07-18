@@ -13,60 +13,59 @@ import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.NestedTestConfiguration;
-import org.springframework.test.context.NestedTestConfiguration.EnclosingConfiguration;
 import victor.testing.spring.service.ProductCreatedEvent;
 
 import java.time.Duration;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
+import java.time.LocalDateTime;
+import java.util.concurrent.*;
+import java.util.function.Predicate;
 
+import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_EVENT;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 @SpringBootTest
 @Import(IntegrationTest.KafkaTestConfig.class)
 @ActiveProfiles("test")
-@EmbeddedKafka(topics = {
-    "supplier-created-event",
-    "supplier-created-error",
-    PRODUCT_CREATED_TOPIC
-})
+@EmbeddedKafka(topics = {SUPPLIER_CREATED_EVENT, PRODUCT_CREATED_TOPIC})
 @AutoConfigureMockMvc
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
 public class IntegrationTest {
   @Autowired
   protected ProductCreatedEventTestListener productCreatedEventTestListener;
 
-  @BeforeEach
-  void setup() {
-    productCreatedEventTestListener.reset();
-  }
-
   @TestConfiguration
   public static class KafkaTestConfig {
     @Bean
-    public ProductCreatedEventTestListener testConsumer() {
+    public ProductCreatedEventTestListener productCreatedEventTestListener() {
       return new ProductCreatedEventTestListener();
     }
   }
 
   @Slf4j
   public static class ProductCreatedEventTestListener {
-    private CompletableFuture<ConsumerRecord<String, ProductCreatedEvent>> receivedRecord = new CompletableFuture<>();
+    private LinkedBlockingQueue<ConsumerRecord<String, ProductCreatedEvent>> receivedRecords = new LinkedBlockingQueue<>();
 
     @KafkaListener(topics = PRODUCT_CREATED_TOPIC)
     void receive(ConsumerRecord<String, ProductCreatedEvent> consumerRecord) {
       log.info("received payload='{}'", consumerRecord.toString());
-      receivedRecord.complete(consumerRecord);
+      receivedRecords.add(consumerRecord);
     }
 
-    public ConsumerRecord<String, ProductCreatedEvent> blockingReceive(Duration timeout) throws ExecutionException, InterruptedException {
-      return receivedRecord.orTimeout(timeout.toMillis(), TimeUnit.MILLISECONDS).get();
-    }
-
-    public void reset() {
-      receivedRecord = new CompletableFuture<>();
+    // drop all until I find one that matches the selector or timeout occurs
+    // Challenge: uniquely identify the message expected (eg: use an UUID)
+    public ConsumerRecord<String, ProductCreatedEvent> blockingReceive(
+        Duration timeout,
+        Predicate<ConsumerRecord<String, ProductCreatedEvent>> selector) throws ExecutionException, InterruptedException {
+      LocalDateTime deadline = LocalDateTime.now().plus(timeout);
+      while (true) {
+        Duration timeLeft = Duration.between(LocalDateTime.now(), deadline);
+        var record = receivedRecords.poll(timeLeft.toMillis(), TimeUnit.MILLISECONDS);
+        if (record != null) {
+          if (selector.test(record)) {
+            return record;
+          }
+        }
+      }
     }
   }
 }

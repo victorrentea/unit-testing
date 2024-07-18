@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
@@ -19,7 +17,7 @@ import static victor.testing.spring.entity.ProductCategory.ELECTRONICS;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @Transactional
-public class ProductSearch2ParameterizedTest extends IntegrationTest {
+public class ProductSearch2ParameterizedITest extends IntegrationTest {
   @Autowired
   ProductRepo repo;
   @Autowired

@@ -1,12 +1,14 @@
 package victor.testing.spring.rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import victor.testing.spring.rest.dto.ProductDto;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
 import victor.testing.spring.rest.dto.ProductSearchResult;
@@ -27,19 +29,26 @@ public class ApiTestDSL {
   @Autowired(required = false)
   MockMvc mockMvc;
 
-  public void createProductApi(ProductDto request) throws Exception {
-    mockMvc.perform(createProductRequest(request))
+  @SneakyThrows
+  public long createProduct(ProductDto request) {
+    MockHttpServletResponse response = mockMvc.perform(createProductRequest(request))
         .andExpect(status().is2xxSuccessful())
-        .andExpect(header().exists("Location"));
+        .andExpect(header().exists("Location"))
+        .andReturn()
+        .getResponse();
+    String url = response.getHeader("Location");// e.g. /product/123
+    return Long.parseLong(url.substring(url.lastIndexOf('/') + 1));
   }
 
-  public MockHttpServletRequestBuilder createProductRequest(ProductDto request) throws JsonProcessingException {
+  @SneakyThrows
+  public MockHttpServletRequestBuilder createProductRequest(ProductDto request) {
     return post("/product/create")
         .content(jackson.writeValueAsString(request))
         .contentType(APPLICATION_JSON);
   }
 
-  public List<ProductSearchResult> searchProductApi(ProductSearchCriteria criteria) throws Exception {
+  @SneakyThrows
+  public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
     String responseJson = mockMvc.perform(post("/product/search")
             .content(jackson.writeValueAsString(criteria))
             .contentType(APPLICATION_JSON)
@@ -51,10 +60,17 @@ public class ApiTestDSL {
     return List.of(jackson.readValue(responseJson, ProductSearchResult[].class)); // trick to unmarshall a collection<obj>
   }
 
-  public ProductDto getProductApi(long productId) throws Exception {
+  @SneakyThrows
+  public ProductDto getProduct(long productId) {
     String responseJson = mockMvc.perform(get("/product/{id}", productId))
         .andExpect(status().is2xxSuccessful())
         .andReturn().getResponse().getContentAsString();
     return jackson.readValue(responseJson, ProductDto.class);
+  }
+
+  @SneakyThrows
+  public void deleteProduct(Long productId) {
+    mockMvc.perform(MockMvcRequestBuilders.delete("/product/{id}", productId))
+        .andExpect(status().is2xxSuccessful());
   }
 }

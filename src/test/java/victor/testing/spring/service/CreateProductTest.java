@@ -64,7 +64,9 @@ public class CreateProductTest {
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
-    verify(kafkaTemplate).send(eq(ProductService.PRODUCT_CREATED_TOPIC), eq("k"),
+    verify(kafkaTemplate).send(
+        eq(ProductService.PRODUCT_CREATED_TOPIC),
+        eq("k"),
         argThat(e -> e.productId().equals(123L)));
   }
 

@@ -39,4 +39,9 @@ public class ProductApi {
       return service.getProduct(id);
    }
 
+   @DeleteMapping("product/{id}")
+   public void delete(@PathVariable long id) {
+      service.deleteProduct(id);
+   }
+
 }

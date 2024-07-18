@@ -172,7 +172,6 @@
             "enum": [
               "ELECTRONICS",
               "KIDS",
-              "ME",
               "HOME",
               "UNCATEGORIZED"
             ]
@@ -197,8 +196,8 @@
       },
       "ProductDto": {
         "required": [
-          "name",
-          "barcode"
+          "barcode",
+          "name"
         ],
         "type": "object",
         "properties": {
@@ -220,7 +219,6 @@
             "enum": [
               "ELECTRONICS",
               "KIDS",
-              "ME",
               "HOME",
               "UNCATEGORIZED"
             ]

@@ -15,7 +15,7 @@ import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MessageListenerTest extends IntegrationTest {
+public class MessageListenerITest extends IntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
@@ -25,18 +25,6 @@ public class MessageListenerTest extends IntegrationTest {
   @AfterEach
   final void cleanDB() { // manual cleanup required as tested code COMMITs an INSERT
     supplierRepo.deleteAll();
-  }
-
-  @Test
-  void supplierIsCreated_sleep_flaky() throws InterruptedException {
-    // trigger message
-    kafkaTemplate.send("supplier-created-event", "supplier");
-
-    Thread.sleep(200); // It works on my machine™️, said its author
-
-    assertThat(supplierRepo.findByName("supplier"))
-        .describedAs("Supplier was inserted")
-        .isNotEmpty();
   }
 
   @Test

@@ -1,4 +1,4 @@
-package victor.testing.filebased.export;
+package victor.testing.spring.export;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,6 +7,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.spring.entity.Product;
+import victor.testing.spring.repo.ProductRepo;
 import victor.testing.tools.FileBasedApprovalTestBase;
 
 import java.io.IOException;
@@ -21,12 +23,12 @@ import static org.mockito.Mockito.*;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-public class PersonExporterTest extends FileBasedApprovalTestBase {
+public class ProductExporterTest extends FileBasedApprovalTestBase {
    @Mock
-   private PersonRepo personRepo;
+   private ProductRepo personRepo;
 
    @InjectMocks
-   private PersonExporter exporter;
+   private ProductExporter exporter;
 
    public static List<FileTestCase> testData() throws IOException {
       Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.csv");
@@ -34,24 +36,23 @@ public class PersonExporterTest extends FileBasedApprovalTestBase {
    }
    @ParameterizedTest(name = "{0}")
    @MethodSource("testData")
-   public void convert(FileTestCase test) throws IOException {
-      log.info("Running {}", test);
-      didacticLog(test);
-      Person inputPerson = jackson.readValue(test.getInputFile(), Person.class);
-      when(personRepo.findAll()).thenReturn(asList(inputPerson));
+   public void convert(FileTestCase testCase) throws IOException {
+      didacticLog(testCase);
+      Product[] inputProduct = jackson.readValue(testCase.getInputFile(), Product[].class);
+      when(personRepo.findAll()).thenReturn(asList(inputProduct));
       StringWriter sw = new StringWriter();
 
       // when
       exporter.export(sw);
 
-      String expectedContents = readFileToString(test.getExpectedOutputFile());
+      String expectedContents = readFileToString(testCase.getExpectedOutputFile());
       assertThat(sw.toString()).isEqualToNormalizingNewlines(expectedContents);
    }
 
    private void didacticLog(FileTestCase testCase) throws IOException {
       String inStr = readFileToString(testCase.getInputFile());
       String outStr = readFileToString(testCase.getExpectedOutputFile());
-
+      log.info("Running {}", testCase);
       System.out.println("Running with input:\n" + inStr);
       System.out.println("\nExpecting output:\n" + outStr);
    }
