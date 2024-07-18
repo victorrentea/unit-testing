@@ -14,7 +14,7 @@ import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
-@ActiveProfiles("wiremock")
+@ActiveProfiles("test")
 @TestPropertySource(properties = {
     "email.sender.cron=*/1 * * * * *", // = every second
     "scheduling.enabled=true"

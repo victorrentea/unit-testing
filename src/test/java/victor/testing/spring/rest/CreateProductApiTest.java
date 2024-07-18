@@ -40,7 +40,7 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
 @EmbeddedKafka(topics = "${input.topic}") // start up an in-mem Kafka
 @Transactional // ROLLBACK after each @Test
-@ActiveProfiles({"wiremock", "embedded-kafka", "db-mem"})
+@ActiveProfiles("test")
 
 @WithMockUser(roles = "ADMIN") // grant the current thread the ROLE_ADMIN
 @AutoConfigureMockMvc // runs the HTTP requests in current thread, without a Tomcat

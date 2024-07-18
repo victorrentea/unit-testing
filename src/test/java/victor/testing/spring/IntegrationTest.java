@@ -1,47 +1,71 @@
 package victor.testing.spring;
 
-import org.junit.jupiter.api.BeforeAll;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import victor.testing.tools.TestcontainersUtils;
+import victor.testing.spring.service.ProductCreatedEvent;
 
-// #1 in-mem H2 database (traditional)
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.concurrent.*;
+import java.util.function.Predicate;
+
+import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_EVENT;
+import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
+
 @SpringBootTest
-@ActiveProfiles("db-mem")
-public abstract class IntegrationTest {
+@Import(IntegrationTest.KafkaTestConfig.class)
+@ActiveProfiles("test")
+@EmbeddedKafka(topics = {SUPPLIER_CREATED_EVENT, PRODUCT_CREATED_TOPIC})
+@AutoConfigureMockMvc
+@AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
+public class IntegrationTest {
+  @Autowired
+  protected ProductCreatedEventTestListener productCreatedEventTestListener;
+
+  @TestConfiguration
+  public static class KafkaTestConfig {
+    @Bean
+    public ProductCreatedEventTestListener productCreatedEventTestListener() {
+      return new ProductCreatedEventTestListener();
+    }
+  }
+
+  @Slf4j
+  public static class ProductCreatedEventTestListener {
+    private LinkedBlockingQueue<ConsumerRecord<String, ProductCreatedEvent>> receivedRecords = new LinkedBlockingQueue<>();
+
+    @KafkaListener(topics = PRODUCT_CREATED_TOPIC)
+    void receive(ConsumerRecord<String, ProductCreatedEvent> consumerRecord) {
+      log.info("received payload='{}'", consumerRecord.toString());
+      receivedRecords.add(consumerRecord);
+    }
+
+    // drop all until I find one that matches the selector or timeout occurs
+    // Challenge: uniquely identify the message expected (eg: use an UUID)
+    public ConsumerRecord<String, ProductCreatedEvent> blockingReceive(
+        Duration timeout,
+        Predicate<ConsumerRecord<String, ProductCreatedEvent>> selector) throws ExecutionException, InterruptedException {
+      LocalDateTime deadline = LocalDateTime.now().plus(timeout);
+      while (true) {
+        Duration timeLeft = Duration.between(LocalDateTime.now(), deadline);
+        var record = receivedRecords.poll(timeLeft.toMillis(), TimeUnit.MILLISECONDS);
+        if (record != null) {
+          if (selector.test(record)) {
+            return record;
+          }
+        }
+      }
+    }
+  }
 }
-
-// ==================================================================
-// #2 naive Testcontainers (online examples)
-//@SpringBootTest
-//@Testcontainers
-//public abstract class IntegrationTest {
-//  // https://stackoverflow.com/questions/62425598/how-to-reuse-testcontainers-between-multiple-springboottests
-//  // === The containers is reused across all subclasses ===
-//  static public PostgreSQLContainer<?> postgres =
-//      new PostgreSQLContainer<>("postgres:11");
-//
-//  // TODO add in ~/.testcontainers.properties put testcontainers.reuse.enable=true
-//
-//  @BeforeAll
-//  public static void startTestcontainer() {
-//    postgres.start();
-//  }
-//
-//  @DynamicPropertySource
-//  public static void registerPgProperties(DynamicPropertyRegistry registry) {
-//    TestcontainersUtils.addDatasourceDetails(registry, postgres, true);
-//  }
-//}
-
-// ==================================================================
-// #3 frameworks over Testcontainers (like a platform team will ofer)
-//@SpringBootTest
-//@ActiveProfiles("testcontainers-playtika")
-//public abstract class IntegrationTest {
-//
-//}

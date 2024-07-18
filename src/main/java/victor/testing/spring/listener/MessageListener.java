@@ -14,19 +14,13 @@ import victor.testing.spring.repo.SupplierRepo;
 @Service
 @ConditionalOnProperty(value = "kafka.enabled", havingValue = "true", matchIfMissing = true)
 public class MessageListener {
-  public static final String SUPPLIER_CREATED_ERROR = "supplier-created-error";
+  public static final String SUPPLIER_CREATED_EVENT = "supplier-created-event";
   private final SupplierRepo supplierRepo;
-  private final KafkaTemplate<String, String> kafkaTemplate;
 
-  @KafkaListener(topics = "supplier-created-event")
+  @KafkaListener(topics = SUPPLIER_CREATED_EVENT)
   public void onMessage(String supplierName) {
     log.info("Received message: {}", supplierName);
-    if (supplierRepo.findByName(supplierName).isPresent()) {
-      kafkaTemplate.send(SUPPLIER_CREATED_ERROR, "k", "Supplier already exists: " + supplierName);
-      return;
-    }
     supplierRepo.save(new Supplier().setName(supplierName));
     log.info("Created supplier with name: {}", supplierName);
-    // TODO throw an exception
   }
 }

@@ -109,14 +109,6 @@
             <version>31.1-jre</version>
         </dependency>
 
-<!--
-        <dependency>
-            &lt;!&ndash; JDBC driver proxy intercepting all SQL calls, see spy.properties too&ndash;&gt;
-            <groupId>p6spy</groupId>
-            <artifactId>p6spy</artifactId>
-            <version>3.0.0</version>
-        </dependency>
--->
         <dependency>
             <!-- @AutoConfigureWireMock -->
             <groupId>org.springframework.cloud</groupId>

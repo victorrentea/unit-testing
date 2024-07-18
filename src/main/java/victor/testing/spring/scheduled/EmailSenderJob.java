@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class EmailSenderJob {
   private final EmailToSendRepo repo;
-  @Value("${email.sender.url}")
+  @Value("${email.sender.url.base}")
   private final String emailServerUrl;
 
   @Scheduled(cron = "${email.sender.cron}")
