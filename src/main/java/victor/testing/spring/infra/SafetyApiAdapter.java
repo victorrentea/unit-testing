@@ -11,7 +11,7 @@ import java.net.URL;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SafetyApiAdapter {
+public final class SafetyApiAdapter {
   private final SafetyFeignClient safetyFeignClient; // TODO use
 
   private final RestTemplate restTemplate;
