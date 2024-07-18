@@ -3,6 +3,9 @@ package victor.testing.mutation;
 import java.util.function.Predicate;
 
 public class CustomerValidator {
+	public void complement(Customer customer) {
+
+	}
 	public void validate(Customer customer) {
 		if (customer.getName() == null) {
 			throw new IllegalArgumentException("Missing customer name");

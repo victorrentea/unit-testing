@@ -31,7 +31,7 @@ import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_ER
 @SpringBootTest
 @ActiveProfiles({"db-mem", "embedded-kafka"})
 @EmbeddedKafka(topics = {"supplier-created-event", "supplier-created-error"})
-public class ListenerFullTest {
+public class ListenerBlackTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
