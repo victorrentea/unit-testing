@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.design.time.TimeExtension;
 import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.ProductCategory;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
@@ -23,8 +24,10 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.*;
+import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 //@MockitoSettings(strictness = Strictness.LENIENT) // DO NOT USE THIS!±!
@@ -54,7 +57,9 @@ class ProductServiceTest {
   private ProductDto dto = new ProductDto()
       .setName(PRODUCT_NAME)
       .setBarcode(BARCODE)
+      .setCategory(HOME)
       .setSupplierCode(SUPPLIER_CODE);
+  private Supplier supplier  = new Supplier();
 
   @BeforeEach
   final void thisIsASocialUnitTest() { // test 2 classes together
@@ -70,6 +75,8 @@ class ProductServiceTest {
   @BeforeEach
   final void setup() {
     when(safetyApiAdapter.isSafe(BARCODE)).thenReturn(true);
+    lenient().when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(Optional.of(supplier));
+    lenient().when(productRepo.save(any())).thenReturn(new Product().setId(NEW_PRODUCT_ID));
   }
 
   @Test
@@ -83,9 +90,6 @@ class ProductServiceTest {
 
   @Test
   void sendsKafkaEvent() {
-    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(Optional.of(new Supplier()));
-    when(productRepo.save(any())).thenReturn(new Product().setId(NEW_PRODUCT_ID));
-
     Long id = productService.createProduct(dto);
 
     ProductCreatedEvent expectedEvent = new ProductCreatedEvent(id, CHRISTMAS);
@@ -106,17 +110,35 @@ class ProductServiceTest {
 
   @Test
   void savesProduct() {
-    Supplier supplier = new Supplier();
-    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(Optional.of(supplier));
-    when(productRepo.save(any())).thenReturn(new Product().setId(NEW_PRODUCT_ID));
-
+    //when
     Long productId = productService.createProduct(dto);
 
     assertThat(productId).isEqualTo(NEW_PRODUCT_ID);
     verify(productRepo).save(productCaptor.capture());
     Product product = productCaptor.getValue();
+//    assertThat(product).usingRecursiveComparison().ignoringFieldsMatchingRegexes("id").isEqualTo(epectedProductInstance);
     assertThat(product.getName()).isEqualTo(PRODUCT_NAME);
     assertThat(product.getBarcode()).isEqualTo(BARCODE);
+    assertThat(product.getCategory()).isEqualTo(HOME);
     assertThat(product.getSupplier()).isEqualTo(supplier);
+  }
+
+    @Test
+  void defaultsCategoryToUncategorized() {
+    dto.setCategory(null);
+
+    productService.createProduct(dto);
+
+    verify(productRepo).save(argThat(
+        product -> product.getCategory() == UNCATEGORIZED));
+//    verify(productRepo).save(productCaptor.capture());
+//    Product product = productCaptor.getValue();
+//    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
+    // @VictorS-If i want to test it all again to protect against
+      // productDto.setName(null);
+      // I build a "canoni9cal output"
+      // and compare the The new output with the canonical output changed accordingly
+      // reflection recursive(excluding fields)
+      // toPrettyJson(@JsonIgnore on fields)
   }
 }
