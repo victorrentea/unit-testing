@@ -67,9 +67,14 @@ class ProductServiceTest {
         kafkaTemplate);
   }
 
+  @BeforeEach
+  final void setup() {
+    when(safetyApiAdapter.isSafe(BARCODE)).thenReturn(true);
+  }
+
   @Test
   void failsForUnsafeProduct() {
-    when(safetyApiAdapter.isSafe(BARCODE)).thenReturn(false);
+    when(safetyApiAdapter.isSafe(BARCODE)).thenReturn(false); // override the 'standard' beh in @BeforeEach
 
     assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
@@ -78,7 +83,6 @@ class ProductServiceTest {
 
   @Test
   void sendsKafkaEvent() {
-    when(safetyApiAdapter.isSafe(BARCODE)).thenReturn(true);
     when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(Optional.of(new Supplier()));
     when(productRepo.save(any())).thenReturn(new Product().setId(NEW_PRODUCT_ID));
 
@@ -102,13 +106,13 @@ class ProductServiceTest {
 
   @Test
   void savesProduct() {
-    when(safetyApiAdapter.isSafe(BARCODE)).thenReturn(true);
     Supplier supplier = new Supplier();
     when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(Optional.of(supplier));
     when(productRepo.save(any())).thenReturn(new Product().setId(NEW_PRODUCT_ID));
 
-    productService.createProduct(dto);
+    Long productId = productService.createProduct(dto);
 
+    assertThat(productId).isEqualTo(NEW_PRODUCT_ID);
     verify(productRepo).save(productCaptor.capture());
     Product product = productCaptor.getValue();
     assertThat(product.getName()).isEqualTo(PRODUCT_NAME);

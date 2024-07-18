@@ -45,6 +45,7 @@ public class ProductService {
     Supplier supplier = supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow();
     product.setSupplier(supplier);
     Long productId = productRepo.save(product).getId();
+
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k",
         new ProductCreatedEvent(productId, timeFactory.now()));
     return productId;
