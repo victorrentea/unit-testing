@@ -4,11 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import org.mockito.InjectMocks;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.design.time.TimeExtension;
 import victor.testing.spring.entity.Product;
@@ -18,15 +17,14 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 //@MockitoSettings(strictness = Strictness.LENIENT) // DO NOT USE THIS!±!
@@ -36,21 +34,25 @@ class ProductServiceTest {
   public static final String SUPPLIER_CODE = "SUPPLIER_CODE";
   public static final long NEW_PRODUCT_ID = 42L;
   public static final LocalDateTime CHRISTMAS = LocalDateTime.parse("2020-12-25T00:00:00");
+  public static final String PRODUCT_NAME = "NAME";
   @Mock
   SupplierRepo supplierRepo;
   @RegisterExtension
   TimeExtension timeExtension = new TimeExtension(CHRISTMAS);
-//  @Mock
+  //  @Mock
 //  TimeFactory timeFactory;
   @Mock
   ProductRepo productRepo;
   @Mock// always use @
   SafetyApiAdapter safetyApiAdapter;// = mock(SafetyApiAdapter.class);
+  @Captor
+  ArgumentCaptor<Product> productCaptor;
   @Mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-//  @InjectMocks
+  //  @InjectMocks
   ProductService productService;
   private ProductDto dto = new ProductDto()
+      .setName(PRODUCT_NAME)
       .setBarcode(BARCODE)
       .setSupplierCode(SUPPLIER_CODE);
 
@@ -69,7 +71,7 @@ class ProductServiceTest {
   void failsForUnsafeProduct() {
     when(safetyApiAdapter.isSafe(BARCODE)).thenReturn(false);
 
-    assertThatThrownBy(()->productService.createProduct(dto))
+    assertThatThrownBy(() -> productService.createProduct(dto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
   }
@@ -77,11 +79,8 @@ class ProductServiceTest {
   @Test
   void sendsKafkaEvent() {
     when(safetyApiAdapter.isSafe(BARCODE)).thenReturn(true);
-    when(supplierRepo.findByCode(SUPPLIER_CODE))
-        .thenReturn(Optional.of(new Supplier()));
-    when(productRepo.save(any())) //TODO reflect later. should I do something else ?
-        .thenReturn(new Product().setId(NEW_PRODUCT_ID));
-//    when(timeFactory.now()).thenReturn(CHRISTMAS);
+    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(Optional.of(new Supplier()));
+    when(productRepo.save(any())).thenReturn(new Product().setId(NEW_PRODUCT_ID));
 
     Long id = productService.createProduct(dto);
 
@@ -92,12 +91,28 @@ class ProductServiceTest {
 //        eq("k"),
 //        argThat(event -> event.productId() == NEW_PRODUCT_ID &&
 //            event.observedAt().equals(CHRISTMAS)
-             // the ovservedAt is close by max 40 ms to now
+    // the ovservedAt is close by max 40 ms to now
 //             event.observedAt().isAfter(LocalDateTime.now().minus(40, ChronoUnit.MILLIS)) &&
 //             event.observedAt().isBefore(LocalDateTime.now().plus(40, ChronoUnit.MILLIS))
 //             )); // time is different
 
 //            event.observedAt().isBefore(LocalDateTime.now().plusSeconds(1)))); // time is different
 //        eq(new ProductCreatedEvent(id, LocalDateTime.now()))); // time is different
+  }
+
+  @Test
+  void savesProduct() {
+    when(safetyApiAdapter.isSafe(BARCODE)).thenReturn(true);
+    Supplier supplier = new Supplier();
+    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(Optional.of(supplier));
+    when(productRepo.save(any())).thenReturn(new Product().setId(NEW_PRODUCT_ID));
+
+    productService.createProduct(dto);
+
+    verify(productRepo).save(productCaptor.capture());
+    Product product = productCaptor.getValue();
+    assertThat(product.getName()).isEqualTo(PRODUCT_NAME);
+    assertThat(product.getBarcode()).isEqualTo(BARCODE);
+    assertThat(product.getSupplier()).isEqualTo(supplier);
   }
 }

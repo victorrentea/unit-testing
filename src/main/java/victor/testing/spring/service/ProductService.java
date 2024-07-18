@@ -6,6 +6,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
+import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
@@ -41,7 +42,8 @@ public class ProductService {
     product.setName(productDto.getName());
     product.setBarcode(productDto.getBarcode());
     product.setCategory(productDto.getCategory());
-    product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
+    Supplier supplier = supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow();
+    product.setSupplier(supplier);
     Long productId = productRepo.save(product).getId();
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k",
         new ProductCreatedEvent(productId, timeFactory.now()));
