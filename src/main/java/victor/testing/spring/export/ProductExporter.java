@@ -1,23 +1,35 @@
 package victor.testing.spring.export;
 
+import com.google.common.annotations.VisibleForTesting;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
 import victor.testing.spring.repo.ProductRepo;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 import static java.time.format.DateTimeFormatter.ofPattern;
 
+@Service
+@RequiredArgsConstructor
 public class ProductExporter {
   private final ProductRepo personRepo;
 
-  public ProductExporter(ProductRepo personRepo) {
-    this.personRepo = personRepo;
+  public String export() throws IOException {
+    String fileName = "export-%s.csv".formatted(UUID.randomUUID());
+    try (FileWriter fileWriter = new FileWriter(fileName)) {
+      writeContent(fileWriter);
+    }
+    return fileName;
   }
 
-  public void export(Writer writer) throws IOException {
+  @VisibleForTesting
+  void writeContent(Writer writer) throws IOException {
     writer.write("name;barcode;category;created_by;created_at\n");
     for (Product product : personRepo.findAll()) {
       writer.write(product.getName().toUpperCase());

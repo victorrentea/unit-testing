@@ -34,6 +34,7 @@ public class ProductExporterTest extends FileBasedApprovalTestBase {
       Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.csv");
       return scanForFileTestCases("classpath:/test-cases/export/*.in.json", inToOutFileName);
    }
+
    @ParameterizedTest(name = "{0}")
    @MethodSource("testData")
    public void convert(FileTestCase testCase) throws IOException {
@@ -43,7 +44,7 @@ public class ProductExporterTest extends FileBasedApprovalTestBase {
       StringWriter sw = new StringWriter();
 
       // when
-      exporter.export(sw);
+      exporter.writeContent(sw);
 
       String expectedContents = readFileToString(testCase.getExpectedOutputFile());
       assertThat(sw.toString()).isEqualToNormalizingNewlines(expectedContents);
@@ -56,6 +57,4 @@ public class ProductExporterTest extends FileBasedApprovalTestBase {
       System.out.println("Running with input:\n" + inStr);
       System.out.println("\nExpecting output:\n" + outStr);
    }
-
-
 }

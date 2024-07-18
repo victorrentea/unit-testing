@@ -1,5 +1,7 @@
 package victor.testing.spring.async;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
@@ -18,10 +20,19 @@ public class AsyncServiceITest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
 
+  @BeforeEach
+  @AfterEach
+  final void cleanup() { // different thread => different transaction
+    supplierRepo.deleteAll();
+  }
+
   @Test
   void asyncFetch_block() throws InterruptedException, ExecutionException {
-    String result = asyncService.asyncFetch().get(); // block JUnit thread until completed
+    String result = asyncService.asyncReturning("sname").get(); // block JUnit thread until completed
 
+    assertThat(supplierRepo.findAll()).hasSize(1)
+        .first()
+        .returns("sname", Supplier::getName);
     assertThat(result).isEqualTo("stuff retrieved in parallel");
   }
 

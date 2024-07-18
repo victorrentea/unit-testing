@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class EmailToSend {
+public class EmailOutbox {
   @Id
   @GeneratedValue
   private Long id;
@@ -19,12 +19,12 @@ public class EmailToSend {
   private String recipientEmail;
 
   public enum Status {
-    TO_SEND,
+    PENDING,
     SUCCESS,
     ERROR
   }
   @Enumerated(EnumType.STRING)
-  private Status status = Status.TO_SEND;
+  private Status status = Status.PENDING;
   @Version
   private Long version;
 }

@@ -6,44 +6,50 @@ import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 public class Product {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+  @Id
+  @GeneratedValue
+  private Long id;
 
-    private String name;
+  private String name;
 
-    private ProductCategory category;
+  private ProductCategory category;
 
-    private String barcode;
+  private String barcode;
 
-    @ManyToOne
-    private Supplier supplier;
+  @ManyToOne
+  private Supplier supplier;
 
-    @CreatedDate // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
-    private LocalDate createdDate;
+  @CreatedDate
+  // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
+  private LocalDate createdDate;
 
-    @CreatedBy // Spring assigns this at creation time from SecurityContext
-    private String createdBy;
+  @CreatedBy // Spring assigns this at creation time from SecurityContext
+  private String createdBy;
 
-    public Product(String name, String barcode, ProductCategory category) {
-        this.name = name;
-        this.barcode = barcode;
-        this.category = category;
-    }
+  public Product(String name, String barcode, ProductCategory category) {
+    this.name = name;
+    this.barcode = barcode;
+    this.category = category;
+  }
 
-    public Product(String name) {
-        this.name = name;
-    }
+  public Product(String name) {
+    this.name = name;
+  }
 
-    public Product() {}
+  public Product() {
+  }
 
 
 }

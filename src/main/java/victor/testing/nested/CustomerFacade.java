@@ -29,9 +29,7 @@ public class CustomerFacade {
          emailClient.sendNewCouponEmail(customer);
       }
 
-      Long id = customerRepo.save(customer);
-
-      return id;
+     return customerRepo.save(customer);
    }
 
 }
