@@ -35,6 +35,7 @@ public class TennisScoreTest {
 
     assertThat(actualScore).isEqualTo("Love:Fifteen");
   }
+
   @Test
   void thirtyLove() {
     tennisScore.addPoint(1);
@@ -43,5 +44,30 @@ public class TennisScoreTest {
     String actualScore = tennisScore.getScore();
 
     assertThat(actualScore).isEqualTo("Thirty:Love");
+  }
+
+//  @Description("allure") // here to comfort the business:
+  // examples from requirements
+  @Test // overlaping but left because biz said so. documentation
+  void thirtyThirty() {
+    tennisScore.addPoint(1);
+    tennisScore.addPoint(1);
+    tennisScore.addPoint(2);
+    tennisScore.addPoint(2);
+
+    String actualScore = tennisScore.getScore();
+
+    assertThat(actualScore).isEqualTo("Thirty:Thirty");
+  }
+
+  @Test
+  void fortyLove() {
+    tennisScore.addPoint(1);
+    tennisScore.addPoint(1);
+    tennisScore.addPoint(1);
+
+    String actualScore = tennisScore.getScore();
+
+    assertThat(actualScore).isEqualTo("Forty:Love");
   }
 }

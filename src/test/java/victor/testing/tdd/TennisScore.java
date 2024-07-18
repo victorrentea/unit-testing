@@ -9,16 +9,13 @@ public class TennisScore {
   }
 
   private String translate(int points) {
-    if (points == 0) {
-      return "Love";
-    }
-    if (points == 1) {
-      return "Fifteen";
-    }
-    if (points == 2) {
-      return "Thirty";
-    }
-    throw new IllegalArgumentException();
+    return switch (points) {
+      case 0 -> "Love";
+      case 1 -> "Fifteen";
+      case 2 -> "Thirty";
+      case 3 -> "Forty";
+      default -> throw new IllegalArgumentException();
+    };
   }
 
   public void addPoint(int player) {
