@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,6 +46,7 @@ public class CreateProductTest extends IntegrationTest {
   private ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
   @BeforeEach
+  @AfterEach // so you don't sh*t on other naive tests after you
   final void setup() {
     productRepo.deleteAll();
     supplierRepo.deleteAll();
