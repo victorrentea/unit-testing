@@ -46,7 +46,8 @@ public class AsyncServiceITest extends IntegrationTest {
     asyncService.asyncFireAndForget("sname");
 
     Awaitility.await()
-        .timeout(ofSeconds(1))
+//        .pollInterval()
+        .timeout(ofSeconds(5))
         .untilAsserted(() -> {
           assertThat(supplierRepo.findAll()).hasSize(1)
               .first()

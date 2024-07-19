@@ -23,22 +23,24 @@ public class AsyncService {
     supplierRepo.save(new Supplier().setName(supplierName));
     return completedFuture("stuff retrieved in parallel");
   }
-
   //  @Test { var cf=asyncReturning(..); cf.get
 
 
-  // @Async // or via Spring Magic
+  @Async // or via Spring Magic
   public void asyncFireAndForget(String supplierName) throws InterruptedException {
-    CompletableFuture.runAsync(() -> {
-      takesAWhile();
-      supplierRepo.save(new Supplier().setName(supplierName));
-      // experiment: an error
-    });
+//    CompletableFuture.runAsync(() -> {
+    takesAWhile();
+    supplierRepo.save(new Supplier()
+        .setName("xxx"));
+    // experiment: an error
+//    });
   }
+  // @Test {asyncFireAndForget(..,);
+
 
   private void takesAWhile() {
     try {
-      if (true) throw new RuntimeException("Intentional");
+//      if (true) throw new RuntimeException("Intentional");
       Thread.sleep(100);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
