@@ -28,6 +28,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 public class CreateProductTest extends IntegrationTest {
   @Autowired
@@ -40,6 +41,7 @@ public class CreateProductTest extends IntegrationTest {
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
+  private ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -52,10 +54,9 @@ public class CreateProductTest extends IntegrationTest {
   }
 
   @Test
-  void createOk() {
+  void happy() {
     supplierRepo.save(new Supplier().setCode("S"));
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
-    ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
     // WHEN
     Long id = productService.createProduct(productDto);
@@ -69,6 +70,19 @@ public class CreateProductTest extends IntegrationTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         argThat(e -> e.productId().equals(id)));
+  }
+
+  @Test
+  void defaultToUncategorized() {
+    supplierRepo.save(new Supplier().setCode("S"));
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    productDto.setCategory(null);
+
+    // WHEN
+    Long id = productService.createProduct(productDto);
+
+    Product product = productRepo.findById(id).orElseThrow();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
