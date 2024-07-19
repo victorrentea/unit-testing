@@ -14,7 +14,6 @@ import java.util.Map;
 public class CustomProducerInterceptor implements ProducerInterceptor<String, String> {
   @Override
   public ProducerRecord<String, String> onSend(ProducerRecord<String, String> record) {
-    // Add headers to the outgoing message
     log.debug("Adding tenant-id header to the message");
     String tenantId = MDC.get("tenantId"); // picks data from a thread local source
     record.headers().add("tenant-id", tenantId.getBytes());

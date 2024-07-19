@@ -2,9 +2,8 @@ package victor.testing.spring;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.header.Header;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.StartupInfoLogger;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,24 +14,19 @@ import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.listener.adapter.ConsumerRecordMetadata;
 import org.springframework.kafka.test.context.EmbeddedKafka;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.cache.ContextCache;
-import org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate;
-import reactor.util.function.Tuple2;
-import reactor.util.function.Tuples;
 import victor.testing.spring.listener.MessageListener;
 import victor.testing.spring.service.ProductCreatedEvent;
 
-import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_EVENT;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
@@ -46,9 +40,9 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
 public class IntegrationTest {
   @Autowired
-  protected ProductCreatedEventTestListener productCreatedEventTestListener;
-@SpyBean // the real bean is decorated by a mock proxy that can record invocations
-protected MessageListener messageListener;
+  protected ProductCreatedEventTestListener testListener;
+  @SpyBean // the real bean is decorated by a mock proxy that can record invocations
+  protected MessageListener messageListener;
 
   @TestConfiguration
   public static class KafkaTestConfig {
@@ -60,30 +54,42 @@ protected MessageListener messageListener;
 
   @Slf4j
   public static class ProductCreatedEventTestListener {
-    private LinkedBlockingQueue<Tuple2<ConsumerRecord<String, ProductCreatedEvent>,String>> receivedRecords = new LinkedBlockingQueue<>();
+    private LinkedBlockingQueue<ConsumerRecord<String, ProductCreatedEvent>> receivedRecords = new LinkedBlockingQueue<>();
 
     @KafkaListener(topics = PRODUCT_CREATED_TOPIC)
-    void receive(ConsumerRecord<String, ProductCreatedEvent> consumerRecord/*,
-                 @Header("tenant-id") String tenantId*/) {
-      log.info("received payload='{}'", consumerRecord.toString());
-      receivedRecords.add(Tuples.of(consumerRecord, "tenantId"));
+    void receive(ConsumerRecord<String, ProductCreatedEvent> record) {
+      log.debug("Test listener received message: {}", record);
+      receivedRecords.add(record);
+    }
+
+    public ConsumerRecord<String, ProductCreatedEvent> blockingReceiveForHeader(
+        String headerKey, String headerValue, Duration timeout) throws ExecutionException, InterruptedException, TimeoutException {
+
+      return blockingReceive(record -> filterByHeader(headerKey, headerValue, record), timeout);
+    }
+
+    private boolean filterByHeader(String headerKey, String headerValue, ConsumerRecord<String, ProductCreatedEvent> record) {
+      Header header = record.headers().lastHeader(headerKey);
+      if (header == null) return false;
+      return headerValue.equals(new String(header.value()));
     }
 
     // drop all until I find one that matches the selector or timeout occurs
     // Challenge: uniquely identify the message expected (eg: use an UUID)
     public ConsumerRecord<String, ProductCreatedEvent> blockingReceive(
-        Duration timeout,
-        Predicate<Tuple2<ConsumerRecord<String, ProductCreatedEvent>, String>> selector) throws ExecutionException, InterruptedException {
+        Predicate<ConsumerRecord<String, ProductCreatedEvent>> messageSelector, Duration timeout) throws ExecutionException, InterruptedException, TimeoutException {
       LocalDateTime deadline = LocalDateTime.now().plus(timeout);
       while (true) {
         Duration timeLeft = Duration.between(LocalDateTime.now(), deadline);
-        var record = receivedRecords.poll(timeLeft.toMillis(), TimeUnit.MILLISECONDS);
+        var record = receivedRecords.poll(timeLeft.toMillis(), MILLISECONDS);
         if (record == null) {
-          throw new RuntimeException("Timeout while waiting for message");
+          throw new TimeoutException("Timeout while waiting for message");
         }
-        log.info("Got message : " + record);
-        if (selector.test(record)) {
-          return record.getT1();
+        if (messageSelector.test(record)) {
+          log.info("Received message matched test: {}", record);
+          return record;
+        } else {
+          log.info("Discarding message not matching test: {}", record);
         }
       }
     }

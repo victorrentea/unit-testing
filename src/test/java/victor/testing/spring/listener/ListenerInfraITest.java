@@ -1,5 +1,6 @@
 package victor.testing.spring.listener;
 
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ListenerInfraITest extends IntegrationTest {
   @Test
   void listenerIsCalled_whenMessageIsSentViaKafka() {
     kafkaTemplate.send(SUPPLIER_CREATED_EVENT, "supplier");
-
+//    ProducerConfig.INTERCEPTOR_CLASSES_CONFIG
     verify(messageListener, timeout(1000))
         .onMessage(argThat(message ->
             message.equals("supplier")));

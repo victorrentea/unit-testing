@@ -6,6 +6,7 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.spi.json.JacksonJsonNodeJsonProvider;
 import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.MDC;
@@ -20,6 +21,7 @@ import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.spring.service.ProductCreatedEvent;
 
 import java.util.UUID;
 
@@ -140,7 +142,7 @@ public class CreateProductApiITest extends IntegrationTest {
 
   @Test
   void create_grayBox() throws Exception {
-    String tenantId = "tenantId";//UUID.randomUUID().toString();
+    String tenantId = UUID.randomUUID().toString();
     MDC.put("tenantId", tenantId);
 
     // When: API call
@@ -156,13 +158,11 @@ public class CreateProductApiITest extends IntegrationTest {
     assertThat(savedProduct.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     assertThat(savedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode);
 
-    var record =
-        productCreatedEventTestListener.blockingReceive(
-            ofSeconds(5), // ⚠️ flaky: for how long depends on machine
-            r -> r.getT1().value().productId().equals(savedProduct.getId())
-                 && r.getT2().equals(tenantId)); // ⚠️tricky: uniquely identify the expected message
-    // ⚠️ wrong message sent not matching the criteria timesout the test
-
+    ConsumerRecord<String, ProductCreatedEvent> record = testListener.blockingReceiveForHeader(
+        "tenant-id", tenantId, // ⚠️tricky: uniquely identify the expected message
+        ofSeconds(5) // ⚠️ flaky: how long depends on machine
+    ); // ⚠️ wrong message sent not matching the criteria times-out the test
+    assertThat(record.value().productId()).isEqualTo(savedProduct.getId());
     assertThat(record.value().observedAt()).isCloseTo(now(), byLessThan(5, SECONDS));
   }
 
