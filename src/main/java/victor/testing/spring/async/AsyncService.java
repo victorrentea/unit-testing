@@ -28,12 +28,11 @@ public class AsyncService {
 
   @Async // or via Spring Magic
   public void asyncFireAndForget(String supplierName) throws InterruptedException {
-//    CompletableFuture.runAsync(() -> {
     takesAWhile();
+    if (true) throw
+        new RuntimeException("Intentional");
     supplierRepo.save(new Supplier()
         .setName("xxx"));
-    // experiment: an error
-//    });
   }
   // @Test {asyncFireAndForget(..,);
 
