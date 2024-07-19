@@ -1,13 +1,19 @@
 package victor.testing.spring.rest;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.spi.json.JacksonJsonNodeJsonProvider;
+import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.shaded.org.apache.commons.io.IOUtils;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
@@ -29,6 +35,10 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 @Transactional
 @WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
 public class CreateProductApiITest extends IntegrationTest {
+  public static final Configuration CONFIGURATION = Configuration.builder()
+      .jsonProvider(new JacksonJsonNodeJsonProvider())
+      .mappingProvider(new JacksonMappingProvider())
+      .build();
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
   MockMvc mockMvc;
@@ -71,9 +81,46 @@ public class CreateProductApiITest extends IntegrationTest {
   }
 
   @Test
+  void rawTweaked() throws Exception {
+    // QA Automators
+    String originalJson = IOUtils.toString(getClass()
+        .getResource("/data/ProductDto.json"));
+    String updatedJson = JsonPath.using(CONFIGURATION)
+        .parse(originalJson)
+        .set("$.name", "tweak")
+        .set("$.supplier[1].name", "subField")
+        .json().toString();
+    // prefer this, paired with a contract freeze test
+    productDto.setName("tweak"); // LOVE
+
+    System.out.println(updatedJson);
+    mockMvc.perform(post("/product/create")
+            // 1) raw JSON
+            .content(updatedJson)
+            .contentType(APPLICATION_JSON))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(header().exists("Location")); // response header
+  }
+
+  @Test
     // for @Validated, @NotNull..
   void failsForMissingBarcode() throws Exception {
     productDto.setBarcode(null);
+    validationFails();
+  }
+  @Test
+    // for @Validated, @NotNull..
+  void failsForMissingName() throws Exception {
+    productDto.setName(null);
+    // In case I detect that the name attribute is annotated with @NotNull
+    // I will then generate the test that tries to wipe that
+    // field up using Json path
+    // or json path: set("$.name", null) > @ParameterizedTest
+    // which is gonna be applied on a canonical Json that I keep on my git
+    validationFails();
+  }
+
+  private void validationFails() throws Exception {
     mockMvc.perform(post("/product/create")
             .content(jackson.writeValueAsString(productDto))
             .contentType(APPLICATION_JSON))

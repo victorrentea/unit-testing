@@ -7,6 +7,7 @@ import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
@@ -15,6 +16,7 @@ public class ProductDto {
 	public Long id;
 	@NotNull
 	public String name;
+//	@Size(min = 13, max = 13)
 	@NotNull
 	public String barcode;
 	public String supplierCode;
