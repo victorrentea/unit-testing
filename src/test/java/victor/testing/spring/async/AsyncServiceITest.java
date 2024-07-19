@@ -10,6 +10,8 @@ import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -45,14 +47,11 @@ public class AsyncServiceITest extends IntegrationTest {
   void fireAndForget_poll() throws InterruptedException, ExecutionException {
     asyncService.asyncFireAndForget("sname");
 
-    Awaitility.await()
-//        .pollInterval()
+    Supplier s = Awaitility.await()
         .timeout(ofSeconds(5))
-        .untilAsserted(() -> {
-          assertThat(supplierRepo.findAll()).hasSize(1)
-              .first()
-              .extracting(Supplier::getName)
-              .isEqualTo("sname");
-        });
+        .until(() -> supplierRepo.findAll().stream().findFirst().orElse(null),
+            Objects::nonNull);
+
+    assertThat(s.getName()).isEqualTo("sname");
   }
 }
