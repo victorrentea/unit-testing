@@ -2,8 +2,10 @@ package victor.testing.spring.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -14,6 +16,9 @@ import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.spring.service.ProductCreatedEvent;
+
+import java.util.UUID;
 
 import static java.time.Duration.ofSeconds;
 import static java.time.LocalDateTime.now;
@@ -91,6 +96,9 @@ public class CreateProductApiITest extends IntegrationTest {
 
   @Test
   void create_grayBox() throws Exception {
+    String tenantId = UUID.randomUUID().toString();
+    MDC.put("tenantId", tenantId);
+
     // When: API call
     api.createProduct(productDto.setName("Tree"));
 
@@ -103,9 +111,12 @@ public class CreateProductApiITest extends IntegrationTest {
     assertThat(savedProduct.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     assertThat(savedProduct.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     assertThat(savedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode);
-    var record = productCreatedEventTestListener.blockingReceive(
-        ofSeconds(5), // ⚠️ flaky: for how long depends on machine
-        r -> r.value().productId().equals(savedProduct.getId())); // ⚠️tricky: uniquely identify the expected message
+
+    ConsumerRecord<String, ProductCreatedEvent> record = testListener.blockingReceiveForHeader(
+        "tenant-id", tenantId, // ⚠️tricky: uniquely identify the expected message
+        ofSeconds(5) // ⚠️ flaky: how long depends on machine
+    ); // ⚠️ wrong message sent not matching the criteria times-out the test
+    assertThat(record.value().productId()).isEqualTo(savedProduct.getId());
     assertThat(record.value().observedAt()).isCloseTo(now(), byLessThan(5, SECONDS));
   }
 
