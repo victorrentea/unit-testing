@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -42,6 +43,12 @@ public class CreateProductTest extends IntegrationTest {
   @Autowired
   ProductService productService;
   private ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
+
+  @BeforeEach
+  final void setup() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
+  }
 
   @Test
   void createThrowsForUnsafeProduct() {
