@@ -76,7 +76,7 @@ public class CreateProductApiITest extends IntegrationTest {
                 }
                 """)
             // 2) serialized JSON (preferred), paired with ContractFreezeTest
-            // .content(jackson.writeValueAsString(productDto))
+//             .content(jackson.writeValueAsString(productDto))
             .contentType(APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())
         .andExpect(header().exists("Location")); // response header
@@ -132,8 +132,7 @@ public class CreateProductApiITest extends IntegrationTest {
   }
 
   @Test // @Secured
-  @WithMockUser(roles = "USER")
-    // downgrade credentials set at class level
+  @WithMockUser(roles = "USER") // downgrade credentials set at class level
   void createProductRegularUser_NotAuthorized() throws Exception {
     mockMvc.perform(api.createProductRequest(productDto))
         .andExpect(status().isForbidden());

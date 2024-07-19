@@ -42,7 +42,7 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 
 @Import(IntegrationTest.KafkaTestConfig.class)
 @EmbeddedKafka(topics = {SUPPLIER_CREATED_EVENT, PRODUCT_CREATED_TOPIC})
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc // avoids swapping threads in Tomcat's tread pool so @Transactional still works
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
 public class IntegrationTest {
   @Autowired
