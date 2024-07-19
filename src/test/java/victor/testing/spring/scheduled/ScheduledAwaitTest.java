@@ -2,6 +2,7 @@ package victor.testing.spring.scheduled;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.awaitility.Awaitility;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
@@ -14,6 +15,7 @@ import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static victor.testing.spring.scheduled.EmailToSend.Status.SUCCESS;
 
+@Disabled("prints weird training errors in test output.enable on demand")
 @TestPropertySource(properties = {
     "email.sender.cron=*/1 * * * * *", // = every second
     "scheduling.enabled=true"

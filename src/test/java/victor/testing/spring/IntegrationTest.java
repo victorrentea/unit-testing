@@ -2,8 +2,11 @@ package victor.testing.spring;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.StartupInfoLogger;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -13,13 +16,17 @@ import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.cache.ContextCache;
+import org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate;
 import victor.testing.spring.service.ProductCreatedEvent;
 
+import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.*;
 import java.util.function.Predicate;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_EVENT;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
@@ -68,4 +75,13 @@ public class IntegrationTest {
       }
     }
   }
+
+//  @AfterAll
+  public static void checkHowManyTimesSpringStarted() {
+    int EXPECTED_NUMBER_OF_TIMES_SPRING_STARTS = 2;
+    assertThat(StartupInfoLogger.startupTimeLogs)
+        .describedAs("Number of times spring started (performance)")
+        .hasSizeLessThanOrEqualTo(EXPECTED_NUMBER_OF_TIMES_SPRING_STARTS);
+  }
+
 }
