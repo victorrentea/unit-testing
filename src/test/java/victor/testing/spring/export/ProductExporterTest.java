@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.repo.ProductRepo;
-import victor.testing.tools.FileBasedApprovalTestBase;
+import victor.testing.tools.FileApprovalTestBase;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-public class ProductExporterTest extends FileBasedApprovalTestBase {
+public class ProductExporterTest extends FileApprovalTestBase {
   public static final ObjectMapper jackson = new ObjectMapper()
       .registerModule(new JavaTimeModule())
       .registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES)) // allows to even remove default private constructor!

@@ -1,14 +1,13 @@
 package victor.testing.tools;
 
-import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 
 import java.lang.reflect.Method;
 
 
-// use via @DisplayNameGeneration(HumanReadableTestNames.class) on a testclass
-public class HumanReadableTestNames extends DisplayNameGenerator.Standard {
-    public HumanReadableTestNames() {
+// use via @DisplayNameGeneration on a test class
+public class PrettyTestNames extends DisplayNameGenerator.Standard {
+    public PrettyTestNames() {
     }
 
     public String generateDisplayNameForClass(Class<?> testClass) {

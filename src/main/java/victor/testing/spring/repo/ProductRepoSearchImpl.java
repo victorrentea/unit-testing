@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import victor.testing.spring.rest.dto.ProductSearchResult;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

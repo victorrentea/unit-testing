@@ -10,7 +10,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
 
-public class CucumberSpringTransactionHooks implements BeanFactoryAware {
+public class CucumberTxn implements BeanFactoryAware {
 
     private BeanFactory beanFactory;
     private TransactionStatus transactionStatus;

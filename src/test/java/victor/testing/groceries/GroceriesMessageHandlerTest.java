@@ -19,7 +19,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.groceries.GroceriesMessageHandler.GroceriesReplyMessage;
 import victor.testing.groceries.GroceriesMessageHandler.GroceriesRequestMessage;
 import victor.testing.groceries.GroceriesMessageHandler.GroceryNotFoundEvent;
-import victor.testing.tools.FileBasedApprovalTestBase.FileTestCase;
+import victor.testing.tools.FileApprovalTestBase.FileTestCase;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +28,7 @@ import java.util.function.Function;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static victor.testing.tools.FileBasedApprovalTestBase.scanForFileTestCases;
+import static victor.testing.tools.FileApprovalTestBase.scanForFileTestCases;
 
 @ExtendWith({MockitoExtension.class, SoftlyExtension.class})
 class GroceriesMessageHandlerTest {

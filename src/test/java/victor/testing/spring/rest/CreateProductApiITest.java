@@ -17,6 +17,7 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 import victor.testing.spring.service.ProductCreatedEvent;
+import victor.testing.tools.Canonical;
 
 import java.util.UUID;
 
@@ -56,10 +57,10 @@ public class CreateProductApiITest extends IntegrationTest {
   }
 
   @Test
-    // for @JsonFormat or external formal API
+
   void raw() throws Exception {
     mockMvc.perform(post("/product/create")
-            // 1) raw JSON
+            // 1) raw JSON - for @JsonFormat or external formal API
             .content("""
                 {
                   "name": "Tree",
@@ -68,8 +69,16 @@ public class CreateProductApiITest extends IntegrationTest {
                   "category": "HOME"
                 }
                 """)
-            // 2) serialized JSON (preferred), paired with ContractFreezeTest
-            // .content(jackson.writeValueAsString(productDto))
+
+            // 2) serialized JSON (💖💖preferred), paired with ContractFreezeTest
+            .content(jackson.writeValueAsString(productDto))
+
+            // 3) load a large JSON from a file💖 and tweak it
+            .content(Canonical.load("ProductDto")
+                .set("$.name", "Tree")
+                .json()
+                .toString())
+
             .contentType(APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())
         .andExpect(header().exists("Location")); // response header

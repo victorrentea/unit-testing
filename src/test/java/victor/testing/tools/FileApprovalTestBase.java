@@ -1,9 +1,5 @@
 package victor.testing.tools;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.Resource;
@@ -17,7 +13,7 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
-public class FileBasedApprovalTestBase {
+public abstract class FileApprovalTestBase {
   public static List<FileTestCase> scanForFileTestCases(String locationPattern, Function<String, String> outputFileNameProvider) throws IOException {
     Resource[] inResources = new PathMatchingResourcePatternResolver().getResources(locationPattern);
     return Stream.of(inResources)

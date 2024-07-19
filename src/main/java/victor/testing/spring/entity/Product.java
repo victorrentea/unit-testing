@@ -6,8 +6,10 @@ import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
+
+import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Getter @Setter
@@ -20,6 +22,7 @@ public class Product {
 
     private String name;
 
+    @Enumerated(STRING)
     private ProductCategory category;
 
     private String barcode;

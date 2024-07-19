@@ -3,10 +3,9 @@ package victor.testing.spring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.header.Header;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.AfterAll;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.StartupInfoLogger;
+import org.springframework.boot.MonitorSpringStartupPerformance;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -22,7 +21,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
 
@@ -90,6 +88,16 @@ public class IntegrationTest {
         }
       }
     }
+  }
+
+  @AfterAll
+  public static void checkHowManyTimesSpringStarted() {
+    // PERFORMANCE DANGER: DO NOT CHANGE THIS CONSTANT!
+    // CALL ME: 📞 0800ANARCHITECT (or you get fired :/)
+    int ALLOWED_NUMBER_OF_TIMES_SPRING_STARTS = 2;
+    assertThat(MonitorSpringStartupPerformance.startupTimeLogs)
+        .describedAs("Number of times spring started (performance)")
+        .hasSizeLessThanOrEqualTo(ALLOWED_NUMBER_OF_TIMES_SPRING_STARTS);
   }
 
 }

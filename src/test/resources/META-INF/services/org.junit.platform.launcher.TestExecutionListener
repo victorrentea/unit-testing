@@ -1,1 +1,1 @@
-victor.testing.tools.MonitorSpringTestStartupPerformance
+org.springframework.boot.MonitorSpringStartupPerformance

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data

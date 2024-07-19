@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.design.purity.CustomerRepo;
 import victor.testing.mutation.*;
 import victor.testing.spring.entity.ProductCategory;
-import victor.testing.tools.HumanReadableTestNames;
+import victor.testing.tools.PrettyTestNames;
 
 import java.util.Set;
 
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
  * Could be a replacement for a .feature file?
  */
 @ExtendWith(MockitoExtension.class)
-@DisplayNameGeneration(HumanReadableTestNames.class)
+@DisplayNameGeneration(PrettyTestNames.class)
 class CreateCustomerShould {
   @Mock
   CustomerRepo customerRepo;

@@ -9,11 +9,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.10</version>
+        <version>3.3.1</version>
     </parent>
     <properties>
         <java.version>17</java.version>
         <cucumber-java.version>7.3.3</cucumber-java.version>
+        <spring-cloud.version>2023.0.2</spring-cloud.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -36,13 +38,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.tngtech.archunit</groupId>
-            <artifactId>archunit-junit4</artifactId>
-            <version>1.1.0</version>
-            <scope>test</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
             <!-- @NotNull, @Validated -->
@@ -54,14 +54,9 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
@@ -69,27 +64,14 @@
         <dependency>
             <!-- swagger/openapi3 -->
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.6</version>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.5.0</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.1.212</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8-standalone</artifactId>
-            <version>2.26.3</version>
-            <scope>test</scope>
-        </dependency>-->
-        <dependency>
-            <!-- for withSettings().strictness(Strictness.STRICT_STUBS) -->
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>4.6.0</version>
-        </dependency>
-
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
@@ -102,6 +84,15 @@
             <version>${cucumber-java.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- WARNING: requires in every glue code path to include
+       a package containing a class with @CucumberContextConfiguration -->
+        <!-- <dependency>
+             <groupId>io.cucumber</groupId>
+             <artifactId>cucumber-spring</artifactId>
+             <version>${cucumber-java.version}</version>
+             <scope>test</scope>
+         </dependency>-->
+
 
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -114,6 +105,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
         </dependency>
+        <!-- <dependency>
+             <groupId>com.github.tomakehurst</groupId>
+             <artifactId>wiremock-jre8-standalone</artifactId>
+             <version>2.26.3</version>
+             <scope>test</scope>
+         </dependency>-->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
@@ -122,8 +119,6 @@
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka-test</artifactId>
         </dependency>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -149,22 +144,12 @@
         </dependency>
 
 
-        <!-- WARNING: requires in every glue code path to include
-        a package containing a class with @CucumberContextConfiguration -->
-        <!-- <dependency>
-             <groupId>io.cucumber</groupId>
-             <artifactId>cucumber-spring</artifactId>
-             <version>${cucumber-java.version}</version>
-             <scope>test</scope>
-         </dependency>-->
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- testcontainers: initial/standard style  -->
+        <!-- 1) testcontainers: initial/standard style  -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -175,7 +160,8 @@
             <artifactId>postgresql</artifactId>
             <version>1.15.2</version>
         </dependency>
-        <!-- testcontainers: Playtika OSS libraries https://github.com/PlaytikaOSS/testcontainers-spring-boot -->
+
+        <!-- 2) OR testcontainers: Playtika OSS libraries https://github.com/PlaytikaOSS/testcontainers-spring-boot -->
         <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
@@ -192,10 +178,9 @@
 
         <dependency>
             <groupId>org.openapitools.openapidiff</groupId>
-            <artifactId>openapi-diff-maven</artifactId>
+            <artifactId>openapi-diff-core</artifactId>
             <version>2.0.1</version>
         </dependency>
-
 
         <dependency>
             <!-- Only needed on MacBook M1 chips to connect to local Docker service -->
@@ -219,20 +204,10 @@
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
         <dependency>
+            <!-- incompatible with p6spy-starter -->
             <groupId>com.github.gavlyukovskiy</groupId>
             <artifactId>p6spy-spring-boot-starter</artifactId>
             <version>1.7.1</version>
-        </dependency>
-        <dependency>
-            <!-- mock static method, final classes/methods and constructors = replacement of PowerMock -->
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>mockwebserver</artifactId>
-            <version>5.0.0-alpha.7</version>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
@@ -246,7 +221,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2021.0.7</version>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

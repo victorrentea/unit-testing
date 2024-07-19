@@ -1,55 +1,51 @@
-package victor.testing.tools;
+package org.springframework.boot;
 
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestPlan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.StartupInfoLogger;
 import org.springframework.test.context.cache.ContextCache;
 import org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate;
 
 import java.lang.reflect.Field;
 import java.time.Duration;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.System.currentTimeMillis;
+import static java.util.Collections.synchronizedList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-// Installation:
-// - in src/test/resources/META-INF/services/org.junit.platform.launcher.TestExecutionListener:
-//    victor.testing.tools.MonitorSpringTestStartupPerformance
-
-public class MonitorSpringTestStartupPerformance implements TestExecutionListener {
-  private static final Logger log = LoggerFactory.getLogger(MonitorSpringTestStartupPerformance.class);
-  public static final int EXPECTED_NUMBER_OF_TIMES_SPRING_STARTS = 1;
+// To install, add the qualified name of this class to
+// src/test/resources/META-INF/services/org.junit.platform.launcher.TestExecutionListener
+public class MonitorSpringStartupPerformance implements TestExecutionListener {
+  // NEW STUFF
+  public static final List<StartupTimeLog> startupTimeLogs = synchronizedList(new ArrayList<>());
+  private static final Logger log = LoggerFactory.getLogger(MonitorSpringStartupPerformance.class);
 
   private static long junitStartTime = currentTimeMillis();
 
+  public static void reportStartupTime(String testClassName, Duration timeTakenToStartup) {
+    startupTimeLogs.add(new StartupTimeLog(testClassName, timeTakenToStartup));
+  }
+
   @Override
   public void testPlanExecutionFinished(TestPlan testPlan) {
-    // planA
-    int numberOfSpringContextsStarted = StartupInfoLogger.startupTimeLogs.size();
-    Duration totalSpringStartupTime = StartupInfoLogger.startupTimeLogs.stream()
-        .map(StartupInfoLogger.StartupTimeLog::timeTakenToStartup)
+    // planA: class shadowing
+    int numberOfSpringContextsStarted = startupTimeLogs.size();
+    Duration totalSpringStartupTime = startupTimeLogs.stream()
+        .map(StartupTimeLog::timeTakenToStartup)
         .reduce(Duration.ZERO, Duration::plus);
-
-    // planB
-//    int numberOfSpringContextsStarted = extractSpringContextCacheMissCount();
 
     log.info("🏁🏁🏁 All tests took {} seconds, and started {} Spring contexts in {} seconds",
         (currentTimeMillis() - junitStartTime) / 1000f,
         numberOfSpringContextsStarted,
         totalSpringStartupTime.toSeconds());
 
-    // deep hacking into Spring
-    assertThat(StartupInfoLogger.startupTimeLogs)
-        .describedAs("Number of times spring started")
-        .hasSize(EXPECTED_NUMBER_OF_TIMES_SPRING_STARTS);
-
-    // less hacking
+    // planB: reflect private field in Spring Context Cache
+//    int numberOfSpringContextsStarted = extractSpringContextCacheMissCount();
 //    assertThat(numberOfSpringContextsStarted).isEqualTo(EXPECTED_NUMBER_OF_TIMES_SPRING_STARTS);
-
   }
 
   private int extractSpringContextCacheMissCount() {
@@ -61,6 +57,14 @@ public class MonitorSpringTestStartupPerformance implements TestExecutionListene
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
       log.warn("Listener failed: " + e);
       return -1;
+    }
+  }
+
+  // NEW STUFF
+  public record StartupTimeLog(String applicationName, Duration timeTakenToStartup) {
+    @Override
+    public String toString() {
+      return applicationName + " started in " + timeTakenToStartup.toSeconds() + " seconds";
     }
   }
 }

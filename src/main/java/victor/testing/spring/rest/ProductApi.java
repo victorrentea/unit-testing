@@ -1,5 +1,6 @@
 package victor.testing.spring.rest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class ProductApi {
    @PostMapping("product/create")
    @Secured("ROLE_ADMIN")
    public ResponseEntity<Void> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException {
+      log.info("Got: {}", productDto);
       Long id = service.createProduct(productDto);
       URI locationHeader = new URI("http://created-uri/" + id);
       return ResponseEntity.created(locationHeader).build();
