@@ -77,8 +77,9 @@ public class IntegrationTest {
     }
   }
 
-//  @AfterAll
+  @AfterAll
   public static void checkHowManyTimesSpringStarted() {
+    // DO NOT CHANGE THIS CONSNTA> CALL ME 0720021524785 or you get fired
     int EXPECTED_NUMBER_OF_TIMES_SPRING_STARTS = 2;
     assertThat(StartupInfoLogger.startupTimeLogs)
         .describedAs("Number of times spring started (performance)")

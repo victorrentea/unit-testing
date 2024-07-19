@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,7 @@ import victor.testing.spring.rest.dto.ProductDto;
 
 import java.util.Optional;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -52,14 +54,13 @@ public class CreateProductTest extends IntegrationTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockBean
-  SafetyApiAdapter safetyApiAdapter;
+//  @MockBean
+//  SafetyApiAdapter safetyApiAdapter;
   @MockBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
   private ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
-
 //  @BeforeEach // #1 for small, decent db with JPA on top
 //  @AfterEach // so you don't sh*t on other naive tests after you
 //  final void setup() {
@@ -67,10 +68,18 @@ public class CreateProductTest extends IntegrationTest {
 //    supplierRepo.deleteAll();
 //  }
 
+  @Autowired
+  WireMockServer wireMock;
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
-    ProductDto productDto = new ProductDto("name", "barcode-unsafe", "S", HOME);
+    wireMock.stubFor(get(urlEqualTo("/product/XYZ/safety")).willReturn(okJson("""
+{
+      "category": "%s",
+      "detailsUrl": "http://details.url/a/b"
+    }
+""".formatted("DETERMINED"))));
+//    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+    ProductDto productDto = new ProductDto("name", "XYZ", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -80,7 +89,7 @@ public class CreateProductTest extends IntegrationTest {
   @Test
   void happy() {
     Long supplierId = supplierRepo.save(new Supplier().setCode("S")).getId();
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
     // WHEN
     Long id = productService.createProduct(productDto);
@@ -101,7 +110,7 @@ public class CreateProductTest extends IntegrationTest {
   @Test
   void defaultToUncategorized() {
     supplierRepo.save(new Supplier().setCode("S"));
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     productDto.setCategory(null);
 
     // WHEN
