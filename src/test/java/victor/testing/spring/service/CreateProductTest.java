@@ -1,40 +1,24 @@
 package victor.testing.spring.service;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
-import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
-import java.util.Optional;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
@@ -54,7 +38,7 @@ public class CreateProductTest extends IntegrationTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-//  @MockBean
+  //  @MockBean
 //  SafetyApiAdapter safetyApiAdapter;
   @MockBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
@@ -70,20 +54,28 @@ public class CreateProductTest extends IntegrationTest {
 
   @Autowired
   WireMockServer wireMock;
+
   @Test
   void createThrowsForUnsafeProduct() {
     wireMock.stubFor(get(urlEqualTo("/product/XYZ/safety")).willReturn(okJson("""
-{
-      "category": "%s",
-      "detailsUrl": "http://details.url/a/b"
-    }
-""".formatted("DETERMINED"))));
+        {
+          "category": "%s",
+          "detailsUrl": "http://details.url/a/b"
+        }
+        """.formatted("DETERMINED"))));
+    wireMock.stubFor(get(urlEqualTo("/product/ABC/safety")).willReturn(okJson("""
+        {
+          "category": "%s",
+          "detailsUrl": "http://details.url/a/b"
+        }
+        """.formatted("DETERMINED"))));
 //    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
     ProductDto productDto = new ProductDto("name", "XYZ", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
+    
   }
 
   @Test
