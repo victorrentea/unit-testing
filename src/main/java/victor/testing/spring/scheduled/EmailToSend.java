@@ -19,8 +19,8 @@ public class EmailToSend {
   private String subject;
   private String body;
   private String recipientEmail;
-  @NotNull
-  private LocalDateTime sendBy;
+//  @NotNull
+//  private LocalDateTime sendBy;
 
   public enum Status {
     TO_SEND,
