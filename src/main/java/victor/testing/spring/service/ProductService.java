@@ -11,11 +11,6 @@ import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
-import victor.testing.spring.rest.dto.ProductSearchCriteria;
-import victor.testing.spring.rest.dto.ProductSearchResult;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -51,15 +46,4 @@ public class ProductService {
     return productId;
   }
 
-  public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
-    return productRepo.search(criteria);
-  }
-
-  public ProductDto getProduct(long productId) {
-    Product product = productRepo.findById(productId).orElseThrow();
-    if (productRepo.countByName(product.getName()) > 1) {
-      throw new IllegalStateException("Multiple products with the same name: " + product.getName());
-    }
-    return productMapper.toDto(product);
-  }
 }
