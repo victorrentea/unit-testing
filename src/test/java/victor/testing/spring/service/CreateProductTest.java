@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
@@ -43,6 +44,9 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 // #2
 //@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+
+// NEVER* PUT ON GIT!=> spring is slwo
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD
 public class CreateProductTest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
