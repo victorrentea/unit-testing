@@ -26,13 +26,15 @@ public class AsyncService {
   //  @Test { var cf=asyncReturning(..); cf.get
 
 
-  @Async // or via Spring Magic
+  //  @Async // or via Spring Magic
   public void asyncFireAndForget(String supplierName) throws InterruptedException {
-    takesAWhile();
-    if (true) throw
-        new RuntimeException("Intentional");
-    supplierRepo.save(new Supplier()
-        .setName("xxx"));
+//    try {} catch (Exception paella) {}/* */ same problem
+    CompletableFuture.runAsync(() -> {
+      takesAWhile();
+      if (true) throw new RuntimeException("Intentional");
+      supplierRepo.save(new Supplier()
+          .setName("xxx"));
+    });
   }
   // @Test {asyncFireAndForget(..,);
 

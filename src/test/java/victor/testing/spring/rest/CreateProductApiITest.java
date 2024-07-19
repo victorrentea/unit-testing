@@ -1,6 +1,5 @@
 package victor.testing.spring.rest;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.jayway.jsonpath.Configuration;
@@ -9,6 +8,7 @@ import com.jayway.jsonpath.spi.json.JacksonJsonNodeJsonProvider;
 import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +20,8 @@ import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
+
+import java.util.UUID;
 
 import static java.time.Duration.ofSeconds;
 import static java.time.LocalDateTime.now;
@@ -108,6 +110,7 @@ public class CreateProductApiITest extends IntegrationTest {
     productDto.setBarcode(null);
     validationFails();
   }
+
   @Test
     // for @Validated, @NotNull..
   void failsForMissingName() throws Exception {
@@ -138,6 +141,9 @@ public class CreateProductApiITest extends IntegrationTest {
 
   @Test
   void create_grayBox() throws Exception {
+    String tenantId = "tenantId";//UUID.randomUUID().toString();
+    MDC.put("tenantId", tenantId);
+
     // When: API call
     api.createProduct(productDto.setName("Tree"));
 
@@ -150,9 +156,14 @@ public class CreateProductApiITest extends IntegrationTest {
     assertThat(savedProduct.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     assertThat(savedProduct.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     assertThat(savedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode);
-    var record = productCreatedEventTestListener.blockingReceive(
-        ofSeconds(5), // ⚠️ flaky: for how long depends on machine
-        r -> r.value().productId().equals(savedProduct.getId())); // ⚠️tricky: uniquely identify the expected message
+
+    var record =
+        productCreatedEventTestListener.blockingReceive(
+            ofSeconds(5), // ⚠️ flaky: for how long depends on machine
+            r -> r.getT1().value().productId().equals(savedProduct.getId())
+                 && r.getT2().equals(tenantId)); // ⚠️tricky: uniquely identify the expected message
+    // ⚠️ wrong message sent not matching the criteria timesout the test
+
     assertThat(record.value().observedAt()).isCloseTo(now(), byLessThan(5, SECONDS));
   }
 

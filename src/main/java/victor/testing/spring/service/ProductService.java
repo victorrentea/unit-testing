@@ -2,8 +2,10 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.harmony.pack200.CPInt;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import victor.testing.spring.config.CustomProducerInterceptor;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -27,6 +29,8 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
+
+
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
     boolean safe = safetyApiAdapter.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
@@ -43,9 +47,13 @@ public class ProductService {
     product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
     Long productId = productRepo.save(product).getId();
     ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
+//       kafkaTemplate.setProducerListener(cpInt);
+
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", event);
     return productId;
   }
+
+//  private final CustomProducerInterceptor cpInt;
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
     return productRepo.search(criteria);
