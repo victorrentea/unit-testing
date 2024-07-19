@@ -10,13 +10,14 @@ import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // to disable @Async:
-//@TestPropertySource(properties = "async.enabled=false")
+@TestPropertySource(properties = "async.enabled=true")
 public class AsyncServiceITest extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
@@ -31,7 +32,8 @@ public class AsyncServiceITest extends IntegrationTest {
 
   @Test
   void asyncFetch_block() throws InterruptedException, ExecutionException {
-    String result = asyncService.asyncReturning("sname").get(); // block JUnit thread until completed
+    CompletableFuture<String> cf = asyncService.asyncReturning("sname");
+    String result = cf.get(); // block JUnit thread until completed
 
     assertThat(supplierRepo.findAll()).hasSize(1)
         .first()
