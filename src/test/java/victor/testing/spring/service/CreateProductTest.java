@@ -13,6 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
@@ -32,6 +35,14 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
+// 💖
+@Transactional //on test classes is special: it tells spring not to commit at the ned
+// but rollback all inserts done by @Test, @BeforeEach [inerited]
+
+// magic with 1 conditnion: you don't change the thread or @Transactional(REQUIRES_NEW|NOT_SUPPORTED)
+
+// #2
+//@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public class CreateProductTest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -45,12 +56,12 @@ public class CreateProductTest extends IntegrationTest {
   ProductService productService;
   private ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
-  @BeforeEach
-  @AfterEach // so you don't sh*t on other naive tests after you
-  final void setup() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
+//  @BeforeEach // #1 for small, decent db with JPA on top
+//  @AfterEach // so you don't sh*t on other naive tests after you
+//  final void setup() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -64,7 +75,7 @@ public class CreateProductTest extends IntegrationTest {
 
   @Test
   void happy() {
-    supplierRepo.save(new Supplier().setCode("S"));
+    Long supplierId = supplierRepo.save(new Supplier().setCode("S")).getId();
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
     // WHEN
@@ -79,6 +90,8 @@ public class CreateProductTest extends IntegrationTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         argThat(e -> e.productId().equals(id)));
+//    productRepo.deleteById(id);
+//    supplierRepo.deleteById(supplierId);
   }
 
   @Test
