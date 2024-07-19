@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -17,6 +19,8 @@ public class EmailToSend {
   private String subject;
   private String body;
   private String recipientEmail;
+  @NotNull
+  private LocalDateTime sendBy;
 
   public enum Status {
     TO_SEND,

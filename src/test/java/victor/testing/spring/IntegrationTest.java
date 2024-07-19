@@ -31,8 +31,9 @@ import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_EV
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 @SpringBootTest
-@Import(IntegrationTest.KafkaTestConfig.class)
 @ActiveProfiles("test")
+
+@Import(IntegrationTest.KafkaTestConfig.class)
 @EmbeddedKafka(topics = {SUPPLIER_CREATED_EVENT, PRODUCT_CREATED_TOPIC})
 @AutoConfigureMockMvc
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
