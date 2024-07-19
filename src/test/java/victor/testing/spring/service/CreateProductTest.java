@@ -29,13 +29,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-//@ExtendWith(MockitoExtension.class)
-//@SpringBootTest
-//@ActiveProfiles("test")
 public class CreateProductTest extends IntegrationTest {
-  @MockBean
+  @Autowired
   SupplierRepo supplierRepo;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
   @MockBean
   SafetyApiAdapter safetyApiAdapter;
@@ -56,17 +53,14 @@ public class CreateProductTest extends IntegrationTest {
 
   @Test
   void createOk() {
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("S"));
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
     ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
     // WHEN
-    productService.createProduct(productDto);
+    Long id = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    Product product = productRepo.findById(id).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
@@ -74,7 +68,7 @@ public class CreateProductTest extends IntegrationTest {
     verify(kafkaTemplate).send(
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
-        argThat(e -> e.productId().equals(123L)));
+        argThat(e -> e.productId().equals(id)));
   }
 
 }
