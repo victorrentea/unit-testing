@@ -5,14 +5,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
+import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -23,6 +26,8 @@ class ProductServiceTest {
   SafetyApiAdapter apiAdapter;
   @Mock
   SupplierRepo supplierRepo;
+  @Mock
+  ProductRepo productRepo;
   @InjectMocks
   ProductService target;
 
@@ -42,11 +47,14 @@ class ProductServiceTest {
   void createProduct() {
 //    Supplier supplier = new Supplier(); // BINE
     Supplier supplier = mock(Supplier.class); // RAU
-    ProductDto dto = new ProductDto();
-    dto.setBarcode(BARCODE);
+    ProductDto dto = new ProductDto()
+        .setBarcode(BARCODE)
+        .setSupplierCode("#supplierCode#");
     when(apiAdapter.isSafe(BARCODE)).thenReturn(true);
     when(supplierRepo.findByCode("#supplierCode#"))
         .thenReturn(Optional.of(supplier));
+    when(productRepo.save(any()))
+        .thenReturn(new Product().setId(13L));
 
     target.createProduct(dto);
   }

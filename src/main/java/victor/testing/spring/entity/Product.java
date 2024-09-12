@@ -1,5 +1,6 @@
 package victor.testing.spring.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,11 +15,18 @@ import static jakarta.persistence.EnumType.STRING;
 @Entity
 @Getter @Setter
 @ToString
+//@Builder // nu ai voie builder daca ai si @Setter!! sau @Data
 public class Product {
 
     @Id
     @GeneratedValue
     private Long id;
+
+    //generat de lombok vezi lombok.config
+//    public Product setId(Long id) {
+//        this.id = id;
+//        return this;
+//    }
 
     private String name;
 
