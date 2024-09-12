@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import static java.time.LocalDateTime.now;
 import static java.time.LocalDateTime.parse;
 import static java.time.temporal.ChronoUnit.*;
+import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,6 +34,8 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @ExtendWith(MockitoExtension.class) // asta interpreteaza @ din clasa
 class ProductServiceTest {
   public static final String BARCODE = "#barcode#";
+  public static final String SUPPLIER_CODE = "#supplierCode#";
+  public static final long PRODUCT_ID = 13L;
   @Mock
   SafetyApiAdapter apiAdapter;
   @Mock
@@ -43,12 +47,18 @@ class ProductServiceTest {
   @InjectMocks
   ProductService target;
 
+  ProductDto dto;
+  Supplier supplier = new Supplier();
+
+  @BeforeEach
+  final void setup() {
+    dto = new ProductDto()
+        .setBarcode(BARCODE)
+        .setSupplierCode(SUPPLIER_CODE);
+
+  }
   @Test
-//  void whenProductIsNotSafe_createShouldThrowIllegalStateException() {
-//  void create_whenProductIsNotSafe_shouldThrowIllegalStateException() {
   void createThrows_forUnsafeProduct() {
-    ProductDto dto = new ProductDto();
-    dto.setBarcode(BARCODE);
     when(apiAdapter.isSafe(BARCODE)).thenReturn(false);
 
     assertThrows(IllegalStateException.class, () ->
@@ -57,43 +67,23 @@ class ProductServiceTest {
 
   @Test
   void createProduct() {
-    Supplier supplier = mock(Supplier.class); // RAU
-    ProductDto dto = new ProductDto()
-        .setBarcode(BARCODE)
-        .setSupplierCode("#supplierCode#");
     when(apiAdapter.isSafe(BARCODE)).thenReturn(true);
-    when(supplierRepo.findByCode("#supplierCode#"))
-        .thenReturn(Optional.of(supplier));
-    when(productRepo.save(any()))
-        .thenReturn(new Product().setId(13L));
+    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(of(supplier));
+    when(productRepo.save(any())).thenReturn(new Product().setId(PRODUCT_ID));
 
     target.createProduct(dto);
 
     ArgumentCaptor<ProductCreatedEvent> captor = forClass(ProductCreatedEvent.class);
-    verify(kafkaTemplate).send(
-        eq(PRODUCT_CREATED_TOPIC),
-        eq("k"),
-//        any()
-        captor.capture()
-    );
+    verify(kafkaTemplate).send(eq(PRODUCT_CREATED_TOPIC),eq("k"), captor.capture());
     ProductCreatedEvent event = captor.getValue();
-    assertEquals(13L, event.productId());
-//    assertEquals(now(), event.observedAt());
-
-    assertThat(event.observedAt())
-        .isCloseTo(now(), byLessThan(1, SECONDS));
+    assertEquals(PRODUCT_ID, event.productId());
+    assertThat(event.observedAt()).isCloseTo(now(), byLessThan(1, SECONDS));
   }
   @Test
   void createProduct_mockuindTimpul() {
-    Supplier supplier = mock(Supplier.class); // RAU
-    ProductDto dto = new ProductDto()
-        .setBarcode(BARCODE)
-        .setSupplierCode("#supplierCode#");
     when(apiAdapter.isSafe(BARCODE)).thenReturn(true);
-    when(supplierRepo.findByCode("#supplierCode#"))
-        .thenReturn(Optional.of(supplier));
-    when(productRepo.save(any()))
-        .thenReturn(new Product().setId(13L));
+    when(supplierRepo.findByCode(SUPPLIER_CODE)).thenReturn(of(supplier));
+    when(productRepo.save(any())).thenReturn(new Product().setId(PRODUCT_ID));
 
     LocalDateTime christmas = parse("2021-12-25T00:00:00");
 
