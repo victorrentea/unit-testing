@@ -1,8 +1,6 @@
 package victor.testing.assertThat;
 
 
-import lombok.NonNull;
-import lombok.Value;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
@@ -18,6 +16,7 @@ import org.mockito.Mockito;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -25,7 +24,7 @@ import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Disabled("on demand - failures are fun")
+//@Disabled("on demand - failures are fun")
 public class AssertJ {
   // automatically via dependency spring-boot-test or manually via org.assertj:assertj-core
 
@@ -34,39 +33,39 @@ public class AssertJ {
   public class CollectionsSimple {
     @Test
     public void size1_JUnit() {
-      assertEquals(1, testedMethod().size());
+      assertEquals(1, getAList().size());
     }
 
     @Test
     public void size1_AssertJ() {
-      assertThat(testedMethod()).hasSize(1);
+      assertThat(getAList()).hasSize(1);
     }
 
     @Test
     public void onceInAnyOrder_JUnit() {
-      assertTrue(testedMethod().containsAll(List.of(100, 200, 700)));
-      assertEquals(3, testedMethod().size());
+      assertTrue(getAList().containsAll(List.of(100, 200, 700)));
+      assertEquals(3, getAList().size());
     }
 
     @Test
     public void onceInAnyOrder_AssertJ() {
-      assertThat(testedMethod()).containsExactlyInAnyOrder(100, 200, 300);
+      assertThat(getAList()).containsExactlyInAnyOrder(100, 200, 300);
     }
 
     @Test
     public void contains_JUnit() {
-      assertTrue(testedMethod().containsAll(List.of(100, 200)));
-      assertFalse(testedMethod().contains(500));
+      assertTrue(getAList().containsAll(List.of(100, 200)));
+      assertFalse(getAList().contains(500));
     }
 
     @Test
     public void contains_AssertJ() {
-      assertThat(testedMethod())
+      assertThat(getAList())
           .contains(100, 200)
           .doesNotContain(500);
     }
 
-    private List<Integer> testedMethod() {
+    private List<Integer> getAList() {
       return List.of(100, 200, 300, 300);
     }
   }
@@ -88,7 +87,8 @@ public class AssertJ {
     @Test
     public void attribute_oneOf_JUnit() {
       // preprocess the collection before the assertion:
-      Set<String> races = fellowship.stream()
+      Stream<Character> dinProd = fellowship.stream();
+      Set<String> races = dinProd
           .map(Character::race)
           .map(Race::name)
           .collect(toSet());
@@ -180,8 +180,8 @@ public class AssertJ {
     @Test
     void failsOnFirst() {
       Mansion mansion = testedCode();
-      assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
-      assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
+      assertThat(mansion.guests()).as("Living Guests").isEqualTo(6);
+      assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("dirty");
       assertThat(mansion.library()).as("Library").isEqualTo("clean");
       Mockito.verify(eventSender).send("mansion-cleaned");
     }
