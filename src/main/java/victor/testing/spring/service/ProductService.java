@@ -29,7 +29,7 @@ public class ProductService {
 
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
-    boolean safe = safetyApiAdapter.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
+    boolean safe = safetyApiAdapter.isSafe(productDto.getBarcode().toUpperCase()); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }
