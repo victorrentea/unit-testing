@@ -29,11 +29,10 @@ public class PriceService {
       long customerId,
       List<Long> productIds,
       Map<Long, Double> internalPrices) {
+    // SLAb principle: Single Level of Abstraction; nu amesteci low level cu high-level orchestration
     Customer customer = customerRepo.findById(customerId);
     List<Product> products = productRepo.findAllById(productIds);
-
     Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);
-
     CouponsApplicationResult result = applyCoupons(products, resolvedPrices, customer.getCoupons());
     couponRepo.markUsedCoupons(customerId, result.getUsedCoupons());
     return result.getFinalPrices();
