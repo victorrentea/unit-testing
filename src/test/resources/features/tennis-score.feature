@@ -1,16 +1,16 @@
 Feature: Tennis Game
 
-  Scenario: Love-Love
+  Background:
     Given A new tennis game
+
+  Scenario: Love-Love
     Then Score is "Love-Love"
 
   Scenario: Fifteen-Love
-    Given A new tennis game
     When Player1 scores
     Then Score is "Fifteen-Love"
 
   Scenario: Fifteen-Fifteen
-    Given A new tennis game
     When Player1 scores
     And Player2 scores
     Then Score is "Fifteen-Fifteen"

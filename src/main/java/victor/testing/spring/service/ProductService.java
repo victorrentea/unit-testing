@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.ProductCategory;
 import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
@@ -32,9 +33,9 @@ public class ProductService {
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }
-//    if (productDto.getCategory() == null) {
-//      productDto.setCategory(ProductCategory.UNCATEGORIZED);
-//    }
+    if (productDto.getCategory() == null) {
+      productDto.setCategory(ProductCategory.UNCATEGORIZED);
+    }
     Product product = new Product();
     product.setName(productDto.getName());
     product.setBarcode(productDto.getBarcode());

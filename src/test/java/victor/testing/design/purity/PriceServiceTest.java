@@ -52,7 +52,6 @@ class PriceServiceTest {
 
       verify(couponRepo).markUsedCoupons(eq(13L), couponCaptor.capture());
       assertThat(couponCaptor.getValue()).containsExactly(coupon1);
-
       assertThat(result)
           .containsEntry(1L, 8d)
           .containsEntry(2L, 5d);
