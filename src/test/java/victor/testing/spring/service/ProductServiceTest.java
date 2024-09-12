@@ -15,21 +15,18 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class) // asta interpreteaza @ din clasa
 class ProductServiceTest {
   @Mock
-  SafetyApiAdapter apiAdapter;// = Mockito.mock(SafetyApiAdapter.class);
+  SafetyApiAdapter apiAdapter;
   @InjectMocks
-  ProductService target;/* = new ProductService(
-      null,
-      null,
-      apiAdapter,
-      null,
-      null);*/
+  ProductService target;
 
   @Test
   void createProduct() {
-    when(apiAdapter.isSafe("123"))
-        .thenReturn(false);
+    when(apiAdapter.isSafe("123")).thenReturn(false);
+
+    ProductDto dto = new ProductDto();
+    dto.setBarcode("123");
 
     assertThrows(IllegalStateException.class, () ->
-        target.createProduct(new ProductDto()));
+        target.createProduct(dto));
   }
 }
