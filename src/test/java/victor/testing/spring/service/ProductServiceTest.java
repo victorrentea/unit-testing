@@ -2,6 +2,7 @@ package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,7 +16,9 @@ import victor.testing.spring.rest.dto.ProductDto;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentCaptor.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
@@ -60,10 +63,14 @@ class ProductServiceTest {
 
     target.createProduct(dto);
 
+    ArgumentCaptor<ProductCreatedEvent> captor = forClass(ProductCreatedEvent.class);
     verify(kafkaTemplate).send(
         eq(PRODUCT_CREATED_TOPIC),
         eq("k"),
-        any()
+//        any()
+        captor.capture()
     );
+    ProductCreatedEvent event = captor.getValue();
+    assertEquals(13L, event.productId());
   }
 }
