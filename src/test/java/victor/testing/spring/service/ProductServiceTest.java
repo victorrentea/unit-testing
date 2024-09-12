@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -28,6 +29,8 @@ class ProductServiceTest {
   SupplierRepo supplierRepo;
   @Mock
   ProductRepo productRepo;
+  @Mock
+  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @InjectMocks
   ProductService target;
 
