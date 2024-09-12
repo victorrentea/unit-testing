@@ -1,5 +1,6 @@
 package victor.testing.design.purity;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -23,6 +24,7 @@ public class PriceService {
   // 3-4 @Test x 4 @Mock = :/
   // 12 @Test x 4 @Mock = HATE DE COLEGI🤯
 
+  // neplacut de testat, cere mockuri
   public Map<Long, Double> computePrices(
       long customerId,
       List<Long> productIds,
@@ -33,8 +35,8 @@ public class PriceService {
     Map<Long, Double> resolvedPrices = resolvePrices(internalPrices, products);
 
     CouponsApplicationResult result = applyCoupons(products, resolvedPrices, customer.getCoupons());
-    couponRepo.markUsedCoupons(customerId, result.usedCoupons());
-    return result.finalPrices();
+    couponRepo.markUsedCoupons(customerId, result.getUsedCoupons());
+    return result.getFinalPrices();
   }
 
   @Value
@@ -43,7 +45,10 @@ public class PriceService {
     Map<Long, Double> finalPrices;
   }
 
-  private static CouponsApplicationResult applyCoupons(
+  // am izolat logica principala intr-o metoda PURA #raise
+  @VisibleForTesting // crapa sonar daca o chemi din src/main/ :)))))))))))))
+  // doar testele pot intra pe aici. pe usa din dos.
+  static CouponsApplicationResult applyCoupons(
       List<Product> products,
       Map<Long, Double> resolvedPrices,
       List<Coupon> coupons) {
