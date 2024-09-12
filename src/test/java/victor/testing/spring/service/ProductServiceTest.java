@@ -61,8 +61,8 @@ class ProductServiceTest {
     target.createProduct(dto);
 
     verify(kafkaTemplate).send(
-        PRODUCT_CREATED_TOPIC,
-        "k",
+        eq(PRODUCT_CREATED_TOPIC),
+        eq("k"),
         any()
     );
   }
