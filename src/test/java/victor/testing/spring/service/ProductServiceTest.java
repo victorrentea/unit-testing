@@ -17,8 +17,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 @ExtendWith(MockitoExtension.class) // asta interpreteaza @ din clasa
 class ProductServiceTest {
@@ -48,7 +48,6 @@ class ProductServiceTest {
 
   @Test
   void createProduct() {
-//    Supplier supplier = new Supplier(); // BINE
     Supplier supplier = mock(Supplier.class); // RAU
     ProductDto dto = new ProductDto()
         .setBarcode(BARCODE)
@@ -60,5 +59,11 @@ class ProductServiceTest {
         .thenReturn(new Product().setId(13L));
 
     target.createProduct(dto);
+
+    verify(kafkaTemplate).send(
+        PRODUCT_CREATED_TOPIC,
+        "k",
+        any()
+    );
   }
 }
