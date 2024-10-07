@@ -22,9 +22,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Disclaimer: Please do NOT take this example ad literam and replicate this level of granularity
- * unless you plan to get formal approval on its reading.
- * Could be a replacement for a .feature file?
+ * Disclaimer: Useful if you plan to get a non-technical to approval its output.
+ * Could this be an alternative to .feature file? (without the fun of writing it together)
  */
 @ExtendWith(MockitoExtension.class)
 @DisplayNameGeneration(PrettyTestNames.class)
