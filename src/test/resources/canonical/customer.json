@@ -1,0 +1,10 @@
+{
+  "name": "::name::",
+  "email": "::email::",
+  "address": {
+    "city": "::shippingAddressCity::",
+    "country": "ROU",
+    "streetName": "::shippingAddressStreet::",
+    "streetNumber": 88
+  }
+}

@@ -9,12 +9,12 @@ public class CustomerValidatorTest {
 
   @Test
   void valid() {
-    Customer customer = new Customer();
-    customer.setName("::name::");
-    customer.setEmail("::email::");
-    customer.setAddress(new Address());
-    customer.getAddress().setCity("::city::");
-    validator.validate(customer);
+    Customer aCustomer = new Customer();
+    aCustomer.setName("::name::");
+    aCustomer.setEmail("::email::");
+    aCustomer.setAddress(new Address());
+    aCustomer.getAddress().setCity("::city::");
+    validator.validate(aCustomer);
   }
 
 }
