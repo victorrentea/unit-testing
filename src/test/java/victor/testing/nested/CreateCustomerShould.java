@@ -35,7 +35,8 @@ class CreateCustomerShould {
 
   CustomerFacade customerFacade;
 
-  Customer aCustomer = new Customer() // each @Test has its own class instance
+  // ⚠️ each @Test has its own class instance
+  Customer aCustomer = new Customer()
       .setName("::name::")
       .setEmail("::email::")
       .setAddress(new Address()
