@@ -10,15 +10,12 @@ public class TennisScoreTest {
 
   @Test
   void loveLove() {
-    setPlayerScore(1, 0);
-    setPlayerScore(2, 0);
     String score = tennisScore.score();
     assertEquals("Love-Love", score);
   }
 
   @Test
   void loveFifteen() {
-    setPlayerScore(1, 0);
     setPlayerScore(2, 1);
     String score = tennisScore.score();
     assertEquals("Love-Fifteen", score);
