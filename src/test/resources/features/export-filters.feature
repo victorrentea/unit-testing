@@ -18,7 +18,7 @@
 #Sample Feature Definition Template
 
 #intentional typo to skip running this feature file
-xFeature: Exporting records that match a given watchlist filter
+--Feature: Exporting records that match a given watchlist filter
 
   Scenario Outline: A Record matches the filter
     Given The following descriptions exist:
