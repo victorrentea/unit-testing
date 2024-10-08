@@ -11,7 +11,6 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
 
 public class CucumberTxnTag implements BeanFactoryAware {
-
     private BeanFactory beanFactory;
     private TransactionStatus transactionStatus;
 
