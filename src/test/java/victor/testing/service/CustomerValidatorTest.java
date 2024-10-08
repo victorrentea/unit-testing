@@ -1,11 +1,13 @@
 package victor.testing.service;
 
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import victor.testing.entity.Customer;
+import victor.testing.tools.PrettyTestNames;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+@DisplayNameGeneration(PrettyTestNames.class)
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
 

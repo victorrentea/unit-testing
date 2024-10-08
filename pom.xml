@@ -69,12 +69,12 @@
         </dependency>
         <!-- WARNING: requires the package of all the glue code (@Given, @When, @Then) classes
         to contain a class annotated with @CucumberContextConfiguration -->
-         <!--<dependency>
+         <dependency>
              <groupId>io.cucumber</groupId>
              <artifactId>cucumber-spring</artifactId>
              <version>${cucumber-java.version}</version>
              <scope>test</scope>
-         </dependency>-->
+         </dependency>
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>

@@ -1,4 +1,5 @@
 @txn
+@pack1
 Feature: Search for product
 
   Background:
@@ -31,4 +32,6 @@ Feature: Search for product
       | searchName | searchSupplier | found |
       | Tree       | X              | true  |
       | Tree       | Y              | false |
-      | re         |                | true  |
+      | re         |                | false  |
+      | Tr         |                | true  |
+      | tR         |                | true  |

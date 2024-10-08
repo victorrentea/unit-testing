@@ -4,6 +4,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.junit.platform.engine.Cucumber;
+import io.cucumber.spring.CucumberContextConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Slf4j
-//@Cucumber
+@Cucumber
 // Uncomment next line to enable Cucumber-Spring integration
-//@CucumberContextConfiguration //  from io.cucumber:cucumber-spring:7.0.0
+@CucumberContextConfiguration //  from io.cucumber:cucumber-spring:7.0.0
 @ActiveProfiles("test")
 @ContextConfiguration(
     classes = SpringApplication.class,

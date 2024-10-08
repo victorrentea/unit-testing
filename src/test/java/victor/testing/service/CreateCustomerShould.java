@@ -78,7 +78,7 @@ class CreateCustomerShould {
     }
 
     @Test
-    void cityTooShort() {
+    void cityWasTooShort() {
       aCustomer.getAddress().setCity("aa");
       assertThatThrownBy(() -> customerFacade.createCustomer(aCustomer))
           .isInstanceOf(IllegalArgumentException.class);

@@ -1,29 +1,29 @@
+@timed
+@pack2
 Feature: Tennis Game
 
+  #@BeforeEach scenario
+  Background:
+      Given A new tennis game
+
   Scenario: Love-Love
-    Given A new tennis game
     Then Score is "Love-Love"
 
-  @timed
   Scenario: Fifteen-Love
-    Given A new tennis game
     When Player1 scores
     Then Score is "Fifteen-Love"
 
   Scenario: Fifteen-Fifteen
-    Given A new tennis game
     When Player1 scores
     And Player2 scores
     Then Score is "Fifteen-Fifteen"
 
   Scenario: Deuce
-    Given A new tennis game
     When Player1 scores 3 points
     And Player2 scores 3 points
     Then Score is "Deuce"
 
   Scenario Outline: All Data Table
-    Given A new tennis game
     When Player1 scores <player1Points> points
     And Player2 scores <player2Points> points
     Then Score is "<expectedScore>"

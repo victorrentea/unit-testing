@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 
 public class TimeExtension implements InvocationInterceptor {
-	private final LocalDate fixed;
+	private LocalDate fixed;
 
   public TimeExtension(LocalDate fixed) {
     this.fixed = fixed;
@@ -26,11 +26,17 @@ public class TimeExtension implements InvocationInterceptor {
   @Override
 	public void interceptTestMethod(Invocation<Void> invocation, ReflectiveInvocationContext<Method> invocationContext, ExtensionContext extensionContext) throws Throwable {
     try(var staticMock = Mockito.mockStatic(LocalDate.class, Mockito.CALLS_REAL_METHODS)) {
-      staticMock.when(LocalDate::now).thenReturn(fixed);
+      staticMock.when(LocalDate::now)
+          .thenAnswer(call -> fixed);
 
       invocation.proceed(); // call the @Test method
     }
 	}
+
+  public void setDate(LocalDate date) {
+    fixed = date;
+  }
+
 }
 
 class TimeFactory { // ~ Clock
