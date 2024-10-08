@@ -1,5 +1,6 @@
 package victor.testing.tennis;
 
+// product of a TDD session on Tennis Kata🥋: https://kata-log.rocks/tennis-kata
 public class TennisScore {
   public static final String[] SCORES = {"Love", "Fifteen", "Thirty", "Forty"};
   private int player1Score;
