@@ -5,12 +5,13 @@ import io.cucumber.java.Before;
 
 public class CucumberTimedTag {
   private long t0;
-  @Before(value = "@timed", order = 100)
+
+  @Before(value = "@timed")
   public void startTimer() {
     t0 = System.currentTimeMillis();
   }
 
-  @After(value = "@timed", order = 100)
+  @After(value = "@timed")
   public void printTime() {
     System.out.println("Scenario took: " + (System.currentTimeMillis() - t0) + "ms");
   }

@@ -3,7 +3,7 @@ package victor.testing.tennis;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TennisCucumberContext {
+public class CucumberTennisContext {
 
   private TennisScore tennisScore;
 
