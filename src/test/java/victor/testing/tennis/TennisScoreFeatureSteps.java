@@ -1,7 +1,6 @@
 package victor.testing.tennis;
 
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -19,20 +18,21 @@ public class TennisScoreFeatureSteps {
   }
 
   // TODO delete & rewrite:
-  @Then("Score is {string}")
-  public void score_is(String expected) throws Throwable {
-    assertThat(tennisScore.score()).isEqualTo(expected);
-  }
 
   @When("Player{int} scores")
   public void playerScores(int playerNo) {
     tennisScore.addPoint(playerNo);
   }
 
-  @And("Player{int} scores {int} points")
+  @When("Player{int} scores {int} points")
   public void playerScoresPoints(int playerNo, int points) {
     for (int i = 0; i < points; i++) {
       tennisScore.addPoint(playerNo);
     }
+  }
+
+  @Then("Score is {string}")
+  public void score_is(String expected) throws Throwable {
+    assertThat(tennisScore.score()).isEqualTo(expected);
   }
 }

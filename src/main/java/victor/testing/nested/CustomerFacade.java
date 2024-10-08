@@ -13,14 +13,14 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 public class CustomerFacade {
-   private final CustomerValidator validator;
+   private final CustomerValidator customerValidator;
    private final CustomerRepo customerRepo;
    private final EmailClient emailClient;
 
    private static final List<Country> DISCOUNTED_COUNTRIES = List.of(Country.ROU, Country.BEL, Country.SRB);
 
    public Long createCustomer(Customer customer) {
-      validator.validate(customer);
+      customerValidator.validate(customer);
 
       if (customerRepo.countByEmail(customer.getEmail()) != 0) {
          throw new IllegalArgumentException("A customer with that email already exists");

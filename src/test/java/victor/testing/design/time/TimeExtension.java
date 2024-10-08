@@ -3,7 +3,6 @@ package victor.testing.design.time;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.InvocationInterceptor;
 import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.MockedStatic;
 
 import java.lang.reflect.Method;
