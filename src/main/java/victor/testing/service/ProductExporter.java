@@ -43,17 +43,18 @@ public class ProductExporter {
         writer.write("SYSTEM");
       }
       writer.write(";");
-      writer.write(product.getCreatedDate().format(ofPattern("dd MMM yyyy")));
+      writer.write(product.getCreatedDate().format(ofPattern("MM/dd/yyyy")));
       writer.write("\n");
     }
   }
 
-  private String toExportCode(ProductCategory string) {
-    return switch (string) {
+  private String toExportCode(ProductCategory e) {
+    return switch (e) {
       case ELECTRONICS -> "E";
       case KIDS -> "K";
       case HOME -> "H";
-      default -> "-";
+//      default -> "-";// PR reject illegal defaut if using the switch(enum) as expression
+      case UNCATEGORIZED -> "-";
     };
   }
 

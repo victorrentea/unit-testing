@@ -32,9 +32,13 @@ public class TennisScoreParamterizedTest {
     addPointsToPlayer(1, testCase.player1Score);
     addPointsToPlayer(2, testCase.player2Score);
 
-    String score = tennisScore.score();
-
-    Assertions.assertThat(score).isEqualTo(testCase.expectedScore);
+//    if (expectedToThrow) {
+//      Assertions.assertThatThrownBy(() -> tennisScore.score())
+//          .isInstanceOf(IllegalArgumentException.class);
+//    } else {
+      String score = tennisScore.score();
+      Assertions.assertThat(score).isEqualTo(testCase.expectedScore);
+//    }
   }
 
   private void addPointsToPlayer(int playerNumber, int playerScore) {
