@@ -1,8 +1,6 @@
 package victor.testing.mutation;
 
-
 import org.junit.jupiter.api.Test;
-
 
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();

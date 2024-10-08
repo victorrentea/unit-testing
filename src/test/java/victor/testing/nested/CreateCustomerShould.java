@@ -35,7 +35,7 @@ class CreateCustomerShould {
 
   CustomerFacade customerFacade;
 
-  // ⚠️ each @Test has its own class instance
+  // ⚠️ JUnit creates a new test class instance for each @Test
   Customer aCustomer = new Customer()
       .setName("::name::")
       .setEmail("::email::")

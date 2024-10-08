@@ -21,14 +21,14 @@ Feature: Search for product`````
 
   Scenario Outline: Multiple Search examples
     Given One product exists
-    And That product has name "<name>"
-    And That product has supplier "<supplier>"
+    And That product has name "Tree"
+    And That product has supplier "X"
     When The search criteria name is "<searchName>"
     And The search criteria supplier is "<searchSupplier>"
     Then That product is returned by search: "<found>"
 
     Examples:
-      | name       | supplier | searchName | searchSupplier | found |
-      | Tree       | X        | Tree       | X              | true  |
-      | Tree       | X        | Tree       | Y              | false |
-      | Zorro Mask |          | Mask       |                | true  |
+      | searchName | searchSupplier | found |
+      | Tree       | X              | true  |
+      | Tree       | Y              | false |
+      | re         |                | true  |

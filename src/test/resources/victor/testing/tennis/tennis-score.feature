@@ -4,6 +4,7 @@ Feature: Tennis Game
     Given A new tennis game
     Then Score is "Love-Love"
 
+  @timed
   Scenario: Fifteen-Love
     Given A new tennis game
     When Player1 scores

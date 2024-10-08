@@ -1,4 +1,4 @@
-package victor.testing.tdd;
+package victor.testing.tennis;
 
 
 import io.cucumber.java.en.And;
@@ -11,13 +11,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Cucumber
 public class TennisScoreFeatureSteps {
-  TennisScore tennisScore;
+  private TennisScore tennisScore;
 
   @Given("A new tennis game")
   public void a_new_tennis_game() throws Throwable {
-    tennisScore = new TennisScore();
+    this.tennisScore = new TennisScore();
   }
 
+  // TODO delete & rewrite:
   @Then("Score is {string}")
   public void score_is(String expected) throws Throwable {
     assertThat(tennisScore.score()).isEqualTo(expected);
