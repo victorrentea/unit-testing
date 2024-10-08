@@ -1,17 +1,17 @@
 package victor.testing;
 
 
-import org.assertj.core.api.AutoCloseableSoftAssertions;
-import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.*;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftlyExtension;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.Mockito;
+import victor.testing.tools.TimeExtension;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Disabled("AssertJ - enable on demand and compare failures of JUnit❌ and AssertJ💖")
+//@Disabled("AssertJ - enable on demand and compare failures of JUnit❌ and AssertJ💖")
 public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-starter-test
 
   @Nested
@@ -126,8 +126,8 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
     @Test
     public void multipleAttributes_AssertJ() {
       assertThat(fellowship)
-          // .extracting("name", "age", "race.name") // alternative
-          .extracting(Character::name, Character::age, c -> c.race().name())
+          .extracting("name", "age", "race.name") // alternative
+//          .extracting(Character::name, Character::age, c -> c.race().name())
           .contains(
               tuple("Frodo", 20, "Hobbit"),
               tuple("Legolas", 100, "Elf"), // ❌
@@ -161,6 +161,7 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
     public void ignoreCase_AssertJ() {
       assertThat(string).isEqualToIgnoringCase("AbCdE");
     }
+
     @Test
     public void regex_JUnit() {
       assertTrue(string.matches(".*bd.*"));
@@ -168,7 +169,8 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
 
     @Test
     public void regex_AssertJ() {
-      assertThat(string).matches(".*bd.*");
+      assertThat(string)
+          .matches(".*bd.*"); // means "contains 'bd'"
     }
   }
 
@@ -187,12 +189,28 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
       assertThat(oneMinAgo).isCloseTo(now(), byLessThan(1, SECONDS));
     }
 
-//    @RegisterExtension
-//    TimeExtension timeExtension = new TimeExtension("2024-10-07");
+
+    @RegisterExtension
+    TimeExtension timeExtension = new TimeExtension("2023-12-25");
+
     @Test
     public void fixedTime() {
-      LocalDate today = LocalDate.now();
-      assertThat(today).isEqualTo("2024-10-07");
+      // when
+      LocalDate today = testedCode();
+
+      assertThat(today).isEqualTo("2023-12-25");
+    }
+
+    @Test
+    public void fixedTime2() {
+      // when
+      LocalDate today = testedCode();
+
+      assertThat(today).isEqualTo("2023-12-25");
+    }
+
+    private static LocalDate testedCode() { // deep in a dark library
+      return LocalDate.now();
     }
   }
 
@@ -211,24 +229,33 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
       return new Villa(6, "dirty", "clean");
     }
 
+    // set this test on one thread
+//    @Parallelizable(1)
     @Test
     void failsOnFirst_BAD() {
       Villa villa = testedCode();
 
-      assertThat(villa) // TODO
+      assertThat(villa)
+//          .hasGuests(7) // java's desperate attempt to gain extension functions from Kt, Scala, etc. b
           .returns(7, Villa::guests)
           .returns("clean", Villa::kitchen)
           .returns("clean", Villa::library);
-      assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
-      assertThat(villa.kitchen()).as("Kitchen").isEqualTo("clean");
-      assertThat(villa.library()).as("Library").isEqualTo("clean");
       Mockito.verify(eventSender).send("mansion-cleaned");
     }
+
+//    public static CharacterAssert assertThat(Character actual) {
+//      return new Assertions(actual) {
+//        public static VillaAssert assertThat(AssertJ.SoftAssert.Villa actual) {
+//          return new VillaAssert(actual);
+//        }
+//      };
+//    }
 
     @Test
     void trySoftly() {
       Villa villa = testedCode();
 
+//      assertThat(villa).hasGuests()
       try (var soft = new AutoCloseableSoftAssertions()) {
         soft.assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
         soft.assertThat(villa.kitchen()).as("Kitchen").isEqualTo("clean");
@@ -237,6 +264,14 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
             .as("event published").doesNotThrowAnyException();
       }
     }
+//    class VillaAssert extends AbstractAssert<C, Villa> {
+//      protected VillaAssert(Villa actual, Class<?> selfType) {
+//        super(actual, selfType);
+//      }
+//      public void hasGuests() {
+//        assertThat(actual.guests()).as("Living Guests").isEqualTo(7);
+//      }
+//    }
 
     @Nested
     @ExtendWith(SoftlyExtension.class)

@@ -1,6 +1,7 @@
 {
   "name": "::name::",
   "email": "::email::",
+  "birthDate": "2000-01-01",
   "address": {
     "city": "::shippingAddressCity::",
     "country": "ROU",
