@@ -1,6 +1,7 @@
 package victor.testing.assertThat;
 
 
+import org.assertj.core.api.Assertions;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
@@ -177,20 +178,32 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
     private final LocalDateTime oneMinAgo = now().minusMinutes(1);
 
     @Test
-    public void maxAge_JUnit() {
+    public void deltaTime_JUnit() {
       assertTrue(oneMinAgo.isAfter(now().minusSeconds(1)));
     }
 
     @Test
-    public void maxAge_AssertJ() {
+    public void deltaTime_AssertJ() {
       assertThat(oneMinAgo).isCloseTo(now(), byLessThan(1, SECONDS));
+    }
+  }
+
+
+
+  record Villa(int guests, String kitchen, String library) {
+  }
+
+  @Nested
+  @TestMethodOrder(MethodName.class)
+  public class CustomAssertions {
+
+    class AssertThatVilla extends Assertions {
+
     }
   }
 
   @Nested
   class SoftAssert {
-    record Villa(int guests, String kitchen, String library) {
-    }
 
     interface EventSender {
       void send(String event);
