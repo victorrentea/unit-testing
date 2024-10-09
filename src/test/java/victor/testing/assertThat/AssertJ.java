@@ -1,6 +1,7 @@
 package victor.testing.assertThat;
 
 
+import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.assertj.core.api.SoftAssertions;
@@ -22,6 +23,7 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Disabled("enable on demand and compare failures of JUnit❌ and AssertJ💖")
@@ -161,6 +163,7 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
     public void ignoreCase_AssertJ() {
       assertThat(string).isEqualToIgnoringCase("AbCdE");
     }
+
     @Test
     public void regex_JUnit() {
       assertTrue(string.matches(".*bd.*"));
@@ -189,40 +192,65 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
   }
 
 
-
   record Villa(int guests, String kitchen, String library) {
+  }
+
+  static Villa testedCode() {
+    return new Villa(6, "dirty", "clean");
   }
 
   @Nested
   @TestMethodOrder(MethodName.class)
   public class CustomAssertions {
+    @Test
+    void extendingAssertJ() {
+      Villa villa = testedCode();
 
-    class AssertThatVilla extends Assertions {
-
+      assertThat(villa)
+          .hasGuests(7) // "extension methods" (java style👴🏻)
+          .hasKitchen("clean")
+          .hasLibrary("clean");
     }
-  }
 
+    public static VillaAssert assertThat(Villa actual) {
+      return new VillaAssert(actual);
+    }
+    static class VillaAssert extends AbstractAssert<VillaAssert, Villa> {
+      protected VillaAssert(Villa actual) {
+        super(actual, VillaAssert.class);
+      }
+      public VillaAssert hasGuests(int guests) {
+        Assertions.assertThat(actual.guests()).as("Living Guests")
+            .isEqualTo(guests);
+        return this;
+      }
+      public VillaAssert hasKitchen(String kitchen) {
+        Assertions.assertThat(actual.kitchen()).as("Kitchen")
+            .isEqualTo(kitchen);
+        return this;
+      }
+      public VillaAssert hasLibrary(String library) {
+        Assertions.assertThat(actual.library()).as("Library")
+            .isEqualTo(library);
+        return this;
+      }
+    }
+
+  }
   @Nested
   class SoftAssert {
 
     interface EventSender {
       void send(String event);
+
     }
 
     EventSender eventSender = Mockito.mock(EventSender.class);
-
-    Villa testedCode() {
-      return new Villa(6, "dirty", "clean");
-    }
 
     @Test
     void failsOnFirst_BAD() {
       Villa villa = testedCode();
 
-      assertThat(villa) // TODO
-          .returns(7, Villa::guests)
-          .returns("clean", Villa::kitchen)
-          .returns("clean", Villa::library);
       assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
       assertThat(villa.kitchen()).as("Kitchen").isEqualTo("clean");
       assertThat(villa.library()).as("Library").isEqualTo("clean");
