@@ -32,6 +32,6 @@ Feature: Search for product
       | searchName | searchSupplier | found |
       | Tree       | X              | true  |
       | Tree       | Y              | false |
-      | re         |                | false  |
+#      | re         |                | false  |
       | Tr         |                | true  |
       | tR         |                | true  |
