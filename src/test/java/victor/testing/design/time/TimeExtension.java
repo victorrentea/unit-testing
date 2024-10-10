@@ -8,24 +8,31 @@ import org.mockito.MockedStatic;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
 
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mockStatic;
 
 // TO use this, add to your test class:
 // @RegisterExtension TimeExtension timeExtension = new TimeExtension("2019-09-29");
 public class TimeExtension implements InvocationInterceptor {
-	private final LocalDate fixed;
+	private LocalDate fixedDate;
 
-  public TimeExtension(LocalDate fixed) {
-    this.fixed = fixed;
+  public TimeExtension(LocalDate fixedDate) {
+    this.fixedDate = fixedDate;
   }
-  public TimeExtension(String fixed) {
-    this.fixed = LocalDate.parse(fixed);
+  public TimeExtension(String fixedDateIsoStr) {
+    this.fixedDate = LocalDate.parse(fixedDateIsoStr);
+  }
+
+  public void setFixedDate(LocalDate fixedDate) {
+    this.fixedDate = fixedDate;
   }
 
   @Override
 	public void interceptTestMethod(Invocation<Void> invocation, ReflectiveInvocationContext<Method> invocationContext, ExtensionContext extensionContext) throws Throwable {
-		try (MockedStatic<LocalDate> mock = mockStatic(LocalDate.class)) {
-			mock.when(LocalDate::now).thenReturn(fixed);
+		try (MockedStatic<LocalDate> mock = mockStatic(LocalDate.class,
+          CALLS_REAL_METHODS)) { // all the un-mocked methods will be real
+			mock.when(LocalDate::now).thenAnswer(call -> fixedDate);
+
 			invocation.proceed();
 		}
 	}
