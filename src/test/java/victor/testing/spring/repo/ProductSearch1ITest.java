@@ -3,6 +3,13 @@ package victor.testing.spring.repo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.context.annotation.Import;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
@@ -12,8 +19,17 @@ import victor.testing.spring.rest.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Transactional // ROLLBACK after each @Test
-public class ProductSearch1ITest extends IntegrationTest {
+//@SpringBootTest
+//@Import(IntegrationTest.KafkaTestConfig.class)
+//@ActiveProfiles("test")
+//@EmbeddedKafka
+//@AutoConfigureMockMvc
+//@AutoConfigureWireMock(port = 0)
+//@Transactional // ROLLBACK after each @Test
+
+// slice-tests: 5s vs 9s @SpringBootTest
+@DataJpaTest //booteaza doar partea de Hibernate + DB
+public class ProductSearch1ITest {
   @Autowired
   ProductRepo repo;
   @Autowired
