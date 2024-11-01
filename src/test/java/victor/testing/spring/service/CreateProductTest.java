@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.entity.Product;
@@ -49,7 +50,7 @@ public class CreateProductTest {
   ProductService productService;
 
   @Test
-  @WithMockUser(roles = "USER")
+  @WithMockUser(roles = "USER") // cand vrei doar user
   void failsForNonAdmin() {
     assertThatThrownBy(() -> productService.createProduct(new ProductDto()))
         .isInstanceOf(AuthorizationDeniedException.class);

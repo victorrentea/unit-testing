@@ -64,4 +64,9 @@ public class ProductService {
   public void deleteProduct(long productId) {
     productRepo.deleteById(productId);
   }
+
+  @Secured("ROLE_ADMIN")
+  public void cevaLogica() {
+    System.out.println("logica");
+  }
 }

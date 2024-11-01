@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import victor.testing.spring.export.ProductExporter;
@@ -28,7 +29,11 @@ public class ProductApi {
 
    @PostMapping("product/create")
    @Secured("ROLE_ADMIN")
-   public ResponseEntity<Void> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException {
+   public ResponseEntity<Void> create(
+       @RequestBody @Validated ProductDto productDto
+//       ,@AuthenticationPrincipal OrangeClientUser user
+       ) throws URISyntaxException {
+//      user.getEmail()
       log.info("Got: {}", productDto);
       Long id = service.createProduct(productDto);
       URI locationHeader = new URI("http://created-uri/" + id);
