@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -32,6 +33,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest // porneste spring in procesul JVM al testelor, imposibil pt javaEE
 @ActiveProfiles("test")
@@ -48,6 +50,12 @@ public class CreateProductTest {
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
+
+  @BeforeEach
+  final void cleanDB() {
+    productRepo.deleteAll(); // in ordinea FK
+    supplierRepo.deleteAll();
+  }
 
   @Test
   @WithMockUser(roles = "USER") // cand vrei doar user
@@ -88,4 +96,16 @@ public class CreateProductTest {
         argThat(e -> e.productId().equals(newProductId)));
   }
 
+  @Test
+  void defaultsToUncategorized() {
+    supplierRepo.save(new Supplier().setCode("S"));
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    ProductDto productDto = new ProductDto("name", "barcode-safe", "S", null);
+
+    // WHEN
+    Long newProductId = productService.createProduct(productDto);
+
+    Product product = productRepo.findById(newProductId).orElseThrow();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
+  }
 }
