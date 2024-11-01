@@ -16,8 +16,11 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -33,6 +36,8 @@ import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
+import static org.springframework.test.annotation.DirtiesContext.MethodMode.BEFORE_METHOD;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
@@ -41,9 +46,13 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 @ActiveProfiles("test")
 @EmbeddedKafka
 @WithMockUser(username = "test-user", roles = "ADMIN")
-
 // #2
-@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
+//@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
+
+//#3
+@Transactional // pus in teste cauzeaza rollback la finalul fiecarui test
+
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #4☢️☢️☢️☢️☢️ DE EVITAT
 public class CreateProductTest {
   @Autowired
   SupplierRepo supplierRepo;
