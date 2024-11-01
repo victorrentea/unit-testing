@@ -47,7 +47,7 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 //@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
 
 // criminal pt timpul de rulare al testelor pe CI => le furi zile din viata colegilor, si tie.
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #4☢️☢️☢️☢️☢️ DE EVITAT
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #4☢️☢️☢️☢️☢️ DE EVITAT
 // singura scuza ar fi sa cauti daca ceea ce "curge" intre teste este state dintr-un singleton spring
 // eg: un cache
 // daca dupa ce pui @DirtyContext nu mai pica testele => stii ca e state din spring.
@@ -58,7 +58,7 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 @ActiveProfiles("test")
 @EmbeddedKafka
 @WithMockUser(username = "test-user", roles = "ADMIN")
-//@Transactional //#3 pus in teste cauzeaza rollback la finalul fiecarui test
+@Transactional //#3 pus in teste cauzeaza rollback la finalul fiecarui test
 // LIMITA: DB nu face niciodata COMMIT=>nu ruleaza (poate) niste @TransactionalEventListener(phase = AFTER_COMMIT) sau TRIGGER BEFORE COMMIT
 public class CreateProductTest {
   @Autowired
