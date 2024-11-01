@@ -6,7 +6,13 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -24,17 +30,21 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest // porneste spring in procesul JVM al testelor, imposibil pt javaEE
+@ActiveProfiles("test")
+@EmbeddedKafka
 public class CreateProductTest {
-  @Mock
+//  @Mock // il configura @ExtendWith(MockitoExtension.class)
+  @MockBean // spring inlocuieste beanul real cu un mock creat de Mockito
   SupplierRepo supplierRepo;
-  @Mock
+  @MockBean
   ProductRepo productRepo;
-  @Mock
+  @MockBean
   SafetyApiAdapter safetyApiAdapter;
-  @Mock
+  @MockBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
+//  @InjectMocks // il configura @ExtendWith(MockitoExtension.class)
+  @Autowired
   ProductService productService;
 
   @Test
