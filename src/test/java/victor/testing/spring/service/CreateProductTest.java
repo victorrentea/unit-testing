@@ -51,6 +51,7 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 //#3
 @Transactional // pus in teste cauzeaza rollback la finalul fiecarui test
+// LIMITA: DB nu face niciodata COMMIT=>nu ruleaza (poate) niste @TransactionalEventListener(phase = AFTER_COMMIT) sau TRIGGER BEFORE COMMIT
 
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #4☢️☢️☢️☢️☢️ DE EVITAT
 public class CreateProductTest {
@@ -64,13 +65,11 @@ public class CreateProductTest {
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
-
 //  @BeforeEach // #1
 //  final void cleanDB() {
 //    productRepo.deleteAll(); // in ordinea FK
 //    supplierRepo.deleteAll();
 //  }
-
   @Test
   @WithMockUser(roles = "USER") // cand vrei doar user
   void failsForNonAdmin() {
