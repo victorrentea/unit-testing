@@ -34,7 +34,6 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 @ActiveProfiles("test")
 @EmbeddedKafka
 public class CreateProductTest {
-//  @Mock // il configura @ExtendWith(MockitoExtension.class)
   @MockBean // spring inlocuieste beanul real cu un mock creat de Mockito
   SupplierRepo supplierRepo;
   @MockBean
@@ -43,7 +42,6 @@ public class CreateProductTest {
   SafetyApiAdapter safetyApiAdapter;
   @MockBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-//  @InjectMocks // il configura @ExtendWith(MockitoExtension.class)
   @Autowired
   ProductService productService;
 
