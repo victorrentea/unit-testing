@@ -51,11 +51,11 @@ public class CreateProductTest {
   @Autowired
   ProductService productService;
 
-  @BeforeEach
-  final void cleanDB() {
-    productRepo.deleteAll(); // in ordinea FK
-    supplierRepo.deleteAll();
-  }
+//  @BeforeEach
+//  final void cleanDB() {
+//    productRepo.deleteAll(); // in ordinea FK
+//    supplierRepo.deleteAll();
+//  }
 
   @Test
   @WithMockUser(roles = "USER") // cand vrei doar user
