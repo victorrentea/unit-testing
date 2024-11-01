@@ -3,6 +3,7 @@ package victor.testing.spring.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
@@ -27,6 +28,7 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
+  @Secured("ROLE_ADMIN")
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
     boolean safe = safetyApiAdapter.isSafe(productDto.getBarcode()); // ⚠️ REST call inside

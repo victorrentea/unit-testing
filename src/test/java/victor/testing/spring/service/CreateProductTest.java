@@ -12,6 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
@@ -33,6 +35,7 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 @SpringBootTest // porneste spring in procesul JVM al testelor, imposibil pt javaEE
 @ActiveProfiles("test")
 @EmbeddedKafka
+@WithMockUser(username = "test-user", roles = "ADMIN")
 public class CreateProductTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -44,6 +47,13 @@ public class CreateProductTest {
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
+
+  @Test
+  @WithMockUser(roles = "USER")
+  void failsForNonAdmin() {
+    assertThatThrownBy(() -> productService.createProduct(new ProductDto()))
+        .isInstanceOf(AuthorizationDeniedException.class);
+  }
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -68,7 +78,9 @@ public class CreateProductTest {
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
+    assertThat(product.getCreatedDate()).isToday();
     assertThat(product.getCategory()).isEqualTo(HOME);
+    assertThat(product.getCreatedBy()).isEqualTo("test-user");
     verify(kafkaTemplate).send(
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
