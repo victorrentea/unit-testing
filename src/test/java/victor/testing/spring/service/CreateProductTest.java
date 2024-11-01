@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
@@ -42,18 +43,23 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
+// #2
+//@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
+
+// criminal pt timpul de rulare al testelor pe CI => le furi zile din viata colegilor, si tie.
+@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #4☢️☢️☢️☢️☢️ DE EVITAT
+// singura scuza ar fi sa cauti daca ceea ce "curge" intre teste este state dintr-un singleton spring
+// eg: un cache
+// daca dupa ce pui @DirtyContext nu mai pica testele => stii ca e state din spring.
+// > curata acel state: eg @BeforeEach cleanCache() {cache.clear()}
+// adica nu lasi @DirtiesContext pe Git ci il folosesti doar ca sa identifici problema
+
 @SpringBootTest // porneste spring in procesul JVM al testelor, imposibil pt javaEE
 @ActiveProfiles("test")
 @EmbeddedKafka
 @WithMockUser(username = "test-user", roles = "ADMIN")
-// #2
-//@Sql(scripts = "classpath:/sql/cleanup.sql", executionPhase = BEFORE_TEST_METHOD)
-
-//#3
-@Transactional // pus in teste cauzeaza rollback la finalul fiecarui test
+//@Transactional //#3 pus in teste cauzeaza rollback la finalul fiecarui test
 // LIMITA: DB nu face niciodata COMMIT=>nu ruleaza (poate) niste @TransactionalEventListener(phase = AFTER_COMMIT) sau TRIGGER BEFORE COMMIT
-
-//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // #4☢️☢️☢️☢️☢️ DE EVITAT
 public class CreateProductTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -70,6 +76,7 @@ public class CreateProductTest {
 //    productRepo.deleteAll(); // in ordinea FK
 //    supplierRepo.deleteAll();
 //  }
+
   @Test
   @WithMockUser(roles = "USER") // cand vrei doar user
   void failsForNonAdmin() {
