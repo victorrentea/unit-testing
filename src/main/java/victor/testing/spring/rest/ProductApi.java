@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import victor.testing.spring.export.ProductExporter;
@@ -17,6 +19,7 @@ import victor.testing.spring.service.ProductService;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,6 +36,15 @@ public class ProductApi {
        @RequestBody @Validated ProductDto productDto
 //       ,@AuthenticationPrincipal OrangeClientUser user
        ) throws URISyntaxException {
+
+      Principal p;
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      String name = authentication.getName();// jdoe, invoice-service
+      Object principal = authentication.getPrincipal();
+      // depinde ce tip are de cum te-ai autentificat:
+      // user/parola, token JWT, certificat, etc
+
+
 //      user.getEmail()
       log.info("Got: {}", productDto);
       Long id = service.createProduct(productDto);
