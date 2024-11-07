@@ -14,10 +14,3 @@ public class TestClass {
     Thread.sleep(1000);
   }
 }
-
-class T2 {
-  @Test
-  void experiment() {
-    System.out.println("Experiment");
-  }
-}
