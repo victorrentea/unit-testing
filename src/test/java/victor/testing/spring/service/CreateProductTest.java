@@ -1,5 +1,7 @@
 package victor.testing.spring.service;
 
+import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,10 +51,13 @@ public class CreateProductTest {
   @Autowired
   ProductService productService;
 
-  @BeforeEach
+  @BeforeEach // #1 programatic inainte si dupa test
+  @AfterEach
   final void setup() {
     productRepo.deleteAll(); // cu grije in ordinea FKurilor
     supplierRepo.deleteAll();
+//    cacheManager.getCache()..clear()
+    //wireMOck.reset();
   }
 
   @Test
