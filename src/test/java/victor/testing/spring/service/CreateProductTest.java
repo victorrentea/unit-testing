@@ -17,6 +17,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -39,6 +41,9 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 @ActiveProfiles("test")// sa incarc application.test.properties
 @EmbeddedKafka // buteaza o kafka in memorie ~ H2
 @SpringBootTest // porneste springu in procesul JUNit
+
+// #2 pt schema legacy (multe tabele)
+@Sql(scripts = "/sql/cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public class CreateProductTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -51,14 +56,14 @@ public class CreateProductTest {
   @Autowired
   ProductService productService;
 
-  @BeforeEach // #1 programatic inainte si dupa test
-  @AfterEach
-  final void setup() {
-    productRepo.deleteAll(); // cu grije in ordinea FKurilor
-    supplierRepo.deleteAll();
-//    cacheManager.getCache()..clear()
-    //wireMOck.reset();
-  }
+//  @BeforeEach // #1 programatic inainte si dupa test
+//  @AfterEach
+//  final void setup() {
+//    productRepo.deleteAll(); // cu grije in ordinea FKurilor
+//    supplierRepo.deleteAll();
+////    cacheManager.getCache()..clear()
+//    //wireMOck.reset();
+//  }
 
   @Test
   void createThrowsForUnsafeProduct() {
