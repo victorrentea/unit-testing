@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 //@TestPropertySource(properties = "spring.datasource.url=jdbc:h2:mem:test")
-@ActiveProfiles("test")
+@ActiveProfiles("test")// sa incarc application.test.properties
 @EmbeddedKafka // buteaza o kafka in memorie ~ H2
 @SpringBootTest // porneste springu in procesul JUNit
 public class CreateProductTest {
