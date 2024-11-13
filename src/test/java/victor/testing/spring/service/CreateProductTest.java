@@ -36,13 +36,13 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 @EmbeddedKafka // buteaza o kafka in memorie ~ H2
 @SpringBootTest // porneste springu in procesul JUNit
 public class CreateProductTest {
-  @MockBean // inlocuieste in spring context instanta reala cu un mock mockito
+  @Autowired
   SupplierRepo supplierRepo;
-  @MockBean
+  @Autowired
   ProductRepo productRepo;
   @MockBean
   SafetyApiAdapter safetyApiAdapter;
-  @MockBean
+  @MockBean // inlocuieste in spring context instanta reala cu un mock mockito
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
@@ -59,17 +59,14 @@ public class CreateProductTest {
 
   @Test
   void createOk() {
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("S"));
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
     ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
     // WHEN
-    productService.createProduct(productDto);
+    var id = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    Product product = productRepo.findById(id).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
@@ -77,7 +74,7 @@ public class CreateProductTest {
     verify(kafkaTemplate).send(
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
-        argThat(e -> e.productId().equals(123L)));
+        argThat(e -> e.productId().equals(id)));
   }
 
 }
