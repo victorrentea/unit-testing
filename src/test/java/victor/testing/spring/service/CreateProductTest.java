@@ -30,6 +30,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 //@TestPropertySource(properties = "spring.datasource.url=jdbc:h2:mem:test")
 @ActiveProfiles("test")// sa incarc application.test.properties
@@ -76,5 +77,17 @@ public class CreateProductTest {
         eq("k"),
         argThat(e -> e.productId().equals(id)));
   }
+  @Test
+  void defaultsToUncategorizedForWithMissingCategory() {
+    supplierRepo.save(new Supplier().setCode("S"));
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    ProductDto productDto = new ProductDto(
+        "name", "barcode-safe", "S", null);
 
+    // WHEN
+    var id = productService.createProduct(productDto);
+
+    Product product = productRepo.findById(id).orElseThrow();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
+  }
 }
