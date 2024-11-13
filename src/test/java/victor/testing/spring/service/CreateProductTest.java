@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
@@ -51,7 +52,7 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 // #3 auto-rollback: pt app noi cu JPA
 @Transactional // ruleaza fiecare @Test intr-o tranzactie care este ROLLBACKED dupa fiecare test automat, ca sa lase baza curatar
-
+@AutoConfigureWireMock(port = 0)
 // doar pt library authors care scriu extenssi la spring (ninja teams)
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CreateProductTest extends BaseTest {
@@ -59,8 +60,8 @@ public class CreateProductTest extends BaseTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockBean
-  SafetyApiAdapter safetyApiAdapter;
+//  @MockBean
+//  SafetyApiAdapter safetyApiAdapter;
   @MockBean // inlocuieste in spring context instanta reala cu un mock mockito
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
@@ -77,7 +78,7 @@ public class CreateProductTest extends BaseTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+//    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
     ProductDto productDto = new ProductDto("name", "barcode-unsafe", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
@@ -88,7 +89,7 @@ public class CreateProductTest extends BaseTest {
   @Test
   void createOk() {
     supplierRepo.save(new Supplier().setCode("S"));
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
     // WHEN
@@ -107,7 +108,7 @@ public class CreateProductTest extends BaseTest {
   @Test
   void defaultsToUncategorizedForWithMissingCategory() {
     supplierRepo.save(new Supplier().setCode("S"));
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     ProductDto productDto = new ProductDto(
         "name", "barcode-safe", "S", null);
 
