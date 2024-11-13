@@ -52,8 +52,9 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 // #3 auto-rollback: pt app noi cu JPA
 @Transactional // ruleaza fiecare @Test intr-o tranzactie care este ROLLBACKED dupa fiecare test automat, ca sa lase baza curatar
 
+// doar pt library authors care scriu extenssi la spring (ninja teams)
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-public class CreateProductTest {
+public class CreateProductTest extends BaseTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
