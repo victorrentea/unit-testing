@@ -23,15 +23,16 @@ public class TimeExtension implements InvocationInterceptor {
     this.fixedDate = LocalDate.parse(fixedDateIsoStr);
   }
 
-  public void setFixedDate(LocalDate fixedDate) {
+  public void setCurrentDate(LocalDate fixedDate) {
     this.fixedDate = fixedDate;
   }
 
   @Override
 	public void interceptTestMethod(Invocation<Void> invocation, ReflectiveInvocationContext<Method> invocationContext, ExtensionContext extensionContext) throws Throwable {
 		try (MockedStatic<LocalDate> mock = mockStatic(LocalDate.class,
-          CALLS_REAL_METHODS)) { // all the un-mocked methods will be real
-			mock.when(LocalDate::now).thenAnswer(call -> fixedDate);
+          CALLS_REAL_METHODS)) { // all other methods will be real
+			mock.when(LocalDate::now)
+          .thenAnswer(call -> fixedDate); // = uses a -> to allow changes of date
 
 			invocation.proceed();
 		}

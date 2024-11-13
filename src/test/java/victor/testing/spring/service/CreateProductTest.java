@@ -55,7 +55,7 @@ public class CreateProductTest {
     ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
     // WHEN
-    productService.createProduct(productDto);
+    var newProductId = productService.createProduct(productDto);
 
     ArgumentCaptor<Product> productCaptor = forClass(Product.class);
     verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
@@ -67,7 +67,7 @@ public class CreateProductTest {
     verify(kafkaTemplate).send(
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
-        argThat(e -> e.productId().equals(123L)));
+        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
   }
 
 }

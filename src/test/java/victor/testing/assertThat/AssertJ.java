@@ -36,7 +36,7 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
 
     @Test
     public void size1_JUnit() {
-      assertEquals(1, aList.size());
+      org.junit.jupiter.api.Assertions.assertEquals(1, aList.size());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
 
     @Test
     public void onceInAnyOrder_JUnit() {
-      assertTrue(aList.containsAll(List.of(100, 200, 700)));
+      org.junit.jupiter.api.Assertions.assertTrue(aList.containsAll(List.of(100, 200, 700)));
       assertEquals(3, aList.size());
     }
 
@@ -261,11 +261,11 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
     void trySoftly() {
       Villa villa = testedCode();
 
-      try (var soft = new AutoCloseableSoftAssertions()) {
-        soft.assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
-        soft.assertThat(villa.kitchen()).as("Kitchen").isEqualTo("clean");
-        soft.assertThat(villa.library()).as("Library").isEqualTo("clean");
-        soft.assertThatCode(() -> Mockito.verify(eventSender).send("mansion-cleaned"))
+      try (var softly = new AutoCloseableSoftAssertions()) {
+        softly.assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
+        softly.assertThat(villa.kitchen()).as("Kitchen").isEqualTo("clean");
+        softly.assertThat(villa.library()).as("Library").isEqualTo("clean");
+        softly.assertThatCode(() -> Mockito.verify(eventSender).send("mansion-cleaned"))
             .as("event published").doesNotThrowAnyException();
       }
     }
