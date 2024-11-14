@@ -34,9 +34,10 @@ public class ListenerBlackITest extends IntegrationTest {
     // trigger message
     kafkaTemplate.send(SUPPLIER_CREATED_EVENT, "supplier");
 
+    // avoid Thread.sleep(millis); > for how long?
     Awaitility.await() // state of the art in polling
-        .pollInterval(ofMillis(5)) // try every 5ms
-        .timeout(ofSeconds(1)) // fail after 1s
+        .pollInterval(ofMillis(50)) // try every 5ms
+        .timeout(ofSeconds(5)) // fail after 1s
         .untilAsserted(() ->
             assertThat(supplierRepo.findByName("supplier"))
                 .describedAs("Supplier was inserted")

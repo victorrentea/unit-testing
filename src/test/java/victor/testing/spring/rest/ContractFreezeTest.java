@@ -14,7 +14,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.web.servlet.MockMvc;
 import victor.testing.spring.IntegrationTest;
 
-import java.nio.file.Files;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,14 +29,13 @@ public class ContractFreezeTest extends IntegrationTest {
 
   @Test
   void my_contract_did_not_change() throws Exception {
-    String actualOpenAPIJson = prettifyJsonString(
+    String actualOpenAPIJson = prettifyJson(
             mockMvc.perform(get("/v3/api-docs"))
                     .andReturn().getResponse().getContentAsString());
 
-    String expectedOpenAPIJson = prettifyJsonString(
+    String expectedOpenAPIJson = prettifyJson(
             IOUtils.toString(myExpectedOpenAPI.getInputStream())
                     .replace(":8080", "")); // hack the extracted port
-
 
     System.out.println("New contract: " + actualOpenAPIJson);
     ChangedOpenApi diff = OpenApiCompare.fromContents(expectedOpenAPIJson, actualOpenAPIJson);
@@ -52,7 +50,7 @@ public class ContractFreezeTest extends IntegrationTest {
     }
   }
 
-  private String prettifyJsonString(String rawJson) throws JsonProcessingException {
+  private String prettifyJson(String rawJson) throws JsonProcessingException {
       return StringUtils.isBlank(rawJson) ? rawJson :
               jackson.writerWithDefaultPrettyPrinter().writeValueAsString(
                       jackson.readValue(rawJson, Map.class));

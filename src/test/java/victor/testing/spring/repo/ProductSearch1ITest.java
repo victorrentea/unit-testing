@@ -3,6 +3,13 @@ package victor.testing.spring.repo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.context.annotation.Import;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
@@ -11,9 +18,11 @@ import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_EVENT;
+import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
-@Transactional // ROLLBACK after each @Test
-public class ProductSearch1ITest extends IntegrationTest {
+@DataJpaTest// a pornit doar o parte din Spring
+public class ProductSearch1ITest {
   @Autowired
   ProductRepo repo;
   @Autowired

@@ -20,6 +20,7 @@ public class MessageListener {
   @KafkaListener(topics = SUPPLIER_CREATED_EVENT)
   public void onMessage(String supplierName) {
     log.info("Received message: {}", supplierName);
+    if(true) throw new IllegalArgumentException("Business errro");
     supplierRepo.save(new Supplier().setName(supplierName));
     log.info("Created supplier with name: {}", supplierName);
   }

@@ -1,6 +1,7 @@
 package victor.testing.spring.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import victor.testing.spring.entity.Product;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 public class ProductDto {
 	public Long id;
 	@NotNull
+//	@JsonProperty("altNume")
 	public String name;
 	@NotNull
 	public String barcode;
