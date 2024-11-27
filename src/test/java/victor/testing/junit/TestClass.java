@@ -65,12 +65,13 @@ class T2 {
 @Target(value = {METHOD, TYPE})
 @ExtendWith(Extension.class)
 @interface TimeTracked {
+
   class Extension implements InvocationInterceptor, BeforeEachCallback{
 
     @Override
-    public void interceptTestMethod(Invocation<Void> invocation, ReflectiveInvocationContext<Method> invocationContext, ExtensionContext extensionContext) throws Throwable {
+    public void interceptTestMethod(Invocation<Void> testInvocation, ReflectiveInvocationContext<Method> invocationContext, ExtensionContext extensionContext) throws Throwable {
       long t0 = System.currentTimeMillis();
-      invocation.proceed();
+      testInvocation.proceed();
       long t1 = System.currentTimeMillis();
       System.out.println( invocationContext.getExecutable().getName() + " took " + (t1 - t0) + " ms");
     }

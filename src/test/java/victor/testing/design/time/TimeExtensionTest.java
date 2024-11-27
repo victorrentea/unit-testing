@@ -10,7 +10,6 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TimeExtensionTest {
-
   @RegisterExtension
   TimeExtension timeExtension = new TimeExtension("2023-12-25");
 
