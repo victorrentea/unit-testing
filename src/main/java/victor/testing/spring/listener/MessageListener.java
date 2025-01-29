@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
+import java.util.Optional;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -20,7 +22,7 @@ public class MessageListener {
   @KafkaListener(topics = SUPPLIER_CREATED_EVENT)
   public void onMessage(String supplierName) {
     log.info("Received message: {}", supplierName);
-    supplierRepo.save(new Supplier().setName(supplierName));
+    supplierRepo.save(new Supplier().setName(supplierName.toLowerCase()));
     log.info("Created supplier with name: {}", supplierName);
   }
 }

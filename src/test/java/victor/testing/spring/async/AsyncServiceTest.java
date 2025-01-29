@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.spring.repo.SupplierRepo;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +24,9 @@ public class AsyncServiceTest {
 
   @Test
   void asyncReturning_block() throws InterruptedException, ExecutionException {
-    String result = asyncService.asyncReturning("sname").get(); // block JUnit thread until completed
+    CompletableFuture<String> future = asyncService.asyncReturning("sname");
+    // block JUnit thread until completed
+    String result = future.get();
 
     assertThat(result).isEqualTo("stuff retrieved in parallel");
     verify(supplierRepo)

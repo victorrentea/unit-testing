@@ -2,6 +2,8 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.slf4j.MDC;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Product;
@@ -43,7 +45,10 @@ public class ProductService {
     product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
     Long productId = productRepo.save(product).getId(); // id atribuit de JPA din SEQUENCE
     ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
-    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k"/*MDC.get("customerId")*/, event);
+//    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k"/*MDC.get("customerId")*/, event);
+    ProducerRecord<String, ProductCreatedEvent> record = new ProducerRecord<>(PRODUCT_CREATED_TOPIC, "k", event);
+    record.headers().add("traceid", MDC.get("traceid").getBytes());
+    kafkaTemplate.send(record);
     return productId;
   }
 
