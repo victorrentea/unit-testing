@@ -6,7 +6,14 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.PostgreSQLContainer;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -24,17 +31,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
+@EmbeddedKafka
+@SpringBootTest // porneste app spring in memoria JUnit
 public class CreateProductTest {
-  @Mock
+  @MockBean
   SupplierRepo supplierRepo;
-  @Mock
+  @MockBean
   ProductRepo productRepo;
-  @Mock
+  @MockBean
   SafetyApiAdapter safetyApiAdapter;
-  @Mock
+  @MockBean // replaces the real bean instance witha mockito mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   @Test

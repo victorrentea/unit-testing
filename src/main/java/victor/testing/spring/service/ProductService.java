@@ -30,10 +30,10 @@ public class ProductService {
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
     boolean safe = safetyApiAdapter.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
-    if (!safe) {
+    if (!safe) { // check
       throw new IllegalStateException("Product is not safe!");
     }
-    if (productDto.getCategory() == null) {
+    if (productDto.getCategory() == null) { // sanitizare de date
       productDto.setCategory(ProductCategory.UNCATEGORIZED);
     }
     Product product = new Product();
@@ -41,7 +41,7 @@ public class ProductService {
     product.setBarcode(productDto.getBarcode());
     product.setCategory(productDto.getCategory());
     product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
-    Long productId = productRepo.save(product).getId();
+    Long productId = productRepo.save(product).getId(); // id atribuit de JPA din SEQUENCE
     ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", event);
     return productId;
