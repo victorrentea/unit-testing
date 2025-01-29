@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -32,6 +33,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @ActiveProfiles("test")
 @EmbeddedKafka
@@ -69,18 +71,28 @@ public class CreateProductTest /*extends IntegrationTest*/ {
     // WHEN
     var newProductId = productService.createProduct(productDto);
 
-//    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-//    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-//    Product product = productCaptor.getValue();
     Product product = productRepo.findById(newProductId).get();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
+    /// ✄ -------- taie aici testul
     verify(kafkaTemplate).send(
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+  }
+
+  @Test
+  void defaultsToUncategorizedForMissingCategory() {
+    supplierRepo.save(new Supplier().setCode("S"));
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    ProductDto productDto = new ProductDto("name", "barcode-safe", "S", null);
+
+    var newProductId = productService.createProduct(productDto);
+
+    Product product = productRepo.findById(newProductId).get();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
