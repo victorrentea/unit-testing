@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URL;
@@ -26,6 +27,7 @@ public class SafetyApiAdapter {
             baseUrl + "/product/{barcode}/safety",
             SafetyResponse.class, barcode)
         .getBody();
+//    return "SAFE" == response.category();
     return "SAFE".equals(response.category());
   }
 }

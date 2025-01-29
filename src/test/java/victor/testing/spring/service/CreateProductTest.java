@@ -1,11 +1,13 @@
 package victor.testing.spring.service;
 
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -33,6 +35,8 @@ import victor.testing.spring.rest.dto.ProductDto;
 
 import java.util.Optional;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -56,13 +60,17 @@ public class CreateProductTest /*extends IntegrationTest*/ {
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockBean
-  SafetyApiAdapter safetyApiAdapter;
+//  @MockBean
+//  SafetyApiAdapter safetyApiAdapter;
   @MockBean // replaces the real bean instance witha mockito mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
 
+  @RegisterExtension
+  static WireMockExtension wireMockServer = WireMockExtension.newInstance()
+      .options(options().port(9999)) // TODO sa fie dynamicPort sa nu te calci pe porturi cu alte procese
+      .build();
 //  @BeforeEach // solutie foarte buna #2
 //  @AfterEach
 //  final void cleanup() {
@@ -72,7 +80,15 @@ public class CreateProductTest /*extends IntegrationTest*/ {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+//    wireMockServer.stubFor(get(urlEqualTo("/product/barcode-safe/safety"))
+//        .willReturn(aResponse()
+//            .withHeader("Content-Type", "application/json")
+//            .withBody("""
+//                {
+//                  "category": "UNSAFE",
+//                  "detailsUrl": "http://details.url/a/b"
+//                }
+//                """)));
     ProductDto productDto = new ProductDto("name", "barcode-unsafe", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
@@ -83,7 +99,7 @@ public class CreateProductTest /*extends IntegrationTest*/ {
   @Test
   void createOk() {
     supplierRepo.save(new Supplier().setCode("S"));
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 //    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
     ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
@@ -105,7 +121,7 @@ public class CreateProductTest /*extends IntegrationTest*/ {
   @Test
   void defaultsToUncategorizedForMissingCategory() {
     supplierRepo.save(new Supplier().setCode("S"));
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     ProductDto productDto = new ProductDto("name", "barcode-safe", "S", null);
 
     var newProductId = productService.createProduct(productDto);
