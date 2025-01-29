@@ -39,7 +39,7 @@ public class IntegrationTest {
   @Autowired
   protected ProductCreatedEventTestListener testListener;
 
-  @TestConfiguration
+  @TestConfiguration // adaug la @Configuration pentru a nu fi incarcat in productie
   public static class KafkaTestConfig {
     @Bean
     public ProductCreatedEventTestListener productCreatedEventTestListener() {

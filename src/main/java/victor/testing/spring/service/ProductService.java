@@ -43,7 +43,7 @@ public class ProductService {
     product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
     Long productId = productRepo.save(product).getId(); // id atribuit de JPA din SEQUENCE
     ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
-    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", event);
+    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k"/*MDC.get("customerId")*/, event);
     return productId;
   }
 
