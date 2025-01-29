@@ -54,7 +54,6 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
