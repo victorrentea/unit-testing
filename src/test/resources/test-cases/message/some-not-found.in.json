@@ -12,6 +12,8 @@
       }
     ]
   },
+  "currentTime": "2025-03-01T20:20:20.123",
+  "generatedRandomOrderUUID": "fgsdhfgdshjfgsdjhfsdgfhjdsf",
   "groceriesInDb": [
     {
       "name": "apple",
