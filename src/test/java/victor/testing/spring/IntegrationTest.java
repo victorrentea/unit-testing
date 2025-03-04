@@ -26,7 +26,7 @@ import java.util.function.Predicate;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
-import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_EVENT;
+import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVENT;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 @SpringBootTest

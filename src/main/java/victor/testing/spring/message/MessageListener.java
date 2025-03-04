@@ -1,10 +1,9 @@
-package victor.testing.spring.listener;
+package victor.testing.spring.message;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;

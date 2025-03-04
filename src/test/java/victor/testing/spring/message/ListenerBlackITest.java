@@ -1,4 +1,4 @@
-package victor.testing.spring.listener;
+package victor.testing.spring.message;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
-import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_EVENT;
+import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVENT;
 
 // blackbox test of the listener (no mocking)
 public class ListenerBlackITest extends IntegrationTest {
@@ -41,7 +41,9 @@ public class ListenerBlackITest extends IntegrationTest {
             assertThat(supplierRepo.findByName("supplier"))
                 .describedAs("Supplier was inserted")
                 .isNotEmpty());
-
+    // TODO what if you had to check that the row WAS NOT inserted?
+    //   > you will have to sleep(x) for a static amount of time
+    //   (you can't poll anymore)
   }
 
 }

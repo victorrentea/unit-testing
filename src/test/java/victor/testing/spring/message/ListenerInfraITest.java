@@ -1,4 +1,4 @@
-package victor.testing.spring.listener;
+package victor.testing.spring.message;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import victor.testing.spring.IntegrationTest;
 
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
-import static victor.testing.spring.listener.MessageListener.SUPPLIER_CREATED_EVENT;
+import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVENT;
 
 @Disabled("slows down tests due to @SpyBean")
 public class ListenerInfraITest extends IntegrationTest {
