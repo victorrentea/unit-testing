@@ -37,8 +37,8 @@ public class CreateProductTest {
   SupplierRepo supplierRepo;
   @MockBean
   ProductRepo productRepo;
-  @MockBean
-  SafetyApiAdapter safetyApiAdapter;
+//  @MockBean
+//  SafetyApiAdapter safetyApiAdapter;
   @MockBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
@@ -46,7 +46,7 @@ public class CreateProductTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+//    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
     ProductDto productDto = new ProductDto("name", "barcode-unsafe", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
@@ -57,7 +57,7 @@ public class CreateProductTest {
   @Test
   void createOk() {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     when(productRepo.save(any())).thenReturn(new Product().setId(123L));
     ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
