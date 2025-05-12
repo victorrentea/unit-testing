@@ -1,17 +1,14 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
@@ -20,26 +17,42 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
+import java.lang.annotation.Retention;
 import java.util.Optional;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+///  NEVER EVER EVER push on GIT without a link to a internal wiki page justifying
+// in front of God Almighty why you decided do remove 30s of the life of all your colleagues at every build
+// valid examples: add/remove singleton to sprign context, programatic change of config in spring, @Autoconfiguration < NO ONE does this.
+@Retention(RUNTIME) // stops javac from removing it at compilation
+@interface Fixed1yearOfFlakyTests {
+
+}
+@Fixed1yearOfFlakyTests
+class BaseTest {}
 
 @EmbeddedKafka
 @ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureWireMock(port = 0)
-public class CreateProductTest {
+public class CreateProductBisTest extends BaseTest {
   @MockBean
   SupplierRepo supplierRepo;
   @MockBean
   ProductRepo productRepo;
+  @MockBean // not in the other test classes => +1 context4322
+  SafetyApiAdapter safetyApiAdapter;
   @MockBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
