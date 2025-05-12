@@ -13,6 +13,7 @@ import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -31,17 +32,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@EmbeddedKafka
-@ActiveProfiles("test")
-@SpringBootTest
-@AutoConfigureWireMock(port = 0)
-public class CreateProductTest {
-  @MockBean
-  SupplierRepo supplierRepo;
-  @MockBean
-  ProductRepo productRepo;
-  @MockBean
-  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+//@ActiveProfiles("another-profile") // => +1 context
+//@TestPropertySource(properties = "prop=surpise+1context") // => +1 context
+public class CreateProductTest extends BaseMockIntegrationTest {
   @Autowired
   ProductService productService;
 

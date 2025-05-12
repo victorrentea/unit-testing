@@ -42,19 +42,10 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 @Fixed1yearOfFlakyTests
 class BaseTest {}
 
-@EmbeddedKafka
-@ActiveProfiles("test")
-@SpringBootTest
-@AutoConfigureWireMock(port = 0)
-public class CreateProductBisTest extends BaseTest {
-  @MockBean
-  SupplierRepo supplierRepo;
-  @MockBean
-  ProductRepo productRepo;
-  @MockBean // not in the other test classes => +1 context4322
-  SafetyApiAdapter safetyApiAdapter;
-  @MockBean
-  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+
+public class CreateProductBisTest extends BaseMockIntegrationTest {
+//  @MockBean // not in the other test classes => +1 context4322
+//  SafetyApiAdapter safetyApiAdapter; // cause an ArchUnit to fail!
   @Autowired
   ProductService productService;
 
