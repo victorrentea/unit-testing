@@ -2,11 +2,13 @@ package victor.testing.spring.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +33,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 @Transactional
 @WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
@@ -57,8 +60,18 @@ public class CreateProductApiITest extends IntegrationTest {
   }
 
   @Test
-
   void raw() throws Exception {
+    stubFor(get(urlEqualTo("/product/barcode-safe/safety"))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "application/json")
+            .withBody("""
+            {
+              "category": "SAFE",
+              "detailsUrl": "http://details.url/a/b"
+            }
+        """)));
+
     mockMvc.perform(post("/product/create")
             // 1) raw JSON - for @JsonFormat or external formal API
             .content("""

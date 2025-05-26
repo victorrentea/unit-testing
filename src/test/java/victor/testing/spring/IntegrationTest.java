@@ -1,10 +1,13 @@
 package victor.testing.spring;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.header.Header;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.MonitorSpringStartupPerformance;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +34,7 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 
 @SpringBootTest
 @Import(IntegrationTest.KafkaTestConfig.class)
-@ActiveProfiles("test")
+@ActiveProfiles("testcontainers-playtika")
 @EmbeddedKafka(topics = {SUPPLIER_CREATED_EVENT, PRODUCT_CREATED_TOPIC})
 @AutoConfigureMockMvc
 @AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
@@ -45,6 +48,17 @@ public class IntegrationTest {
     public ProductCreatedEventTestListener productCreatedEventTestListener() {
       return new ProductCreatedEventTestListener();
     }
+  }
+
+  @Value("${embedded.wiremock.host}")
+  String wiremockHost;
+
+  @Value("${embedded.wiremock.port}")
+  int wiremockPort;
+
+  @BeforeEach
+  final void configureWireMockDSL() {
+    WireMock.configureFor(wiremockHost, wiremockPort);
   }
 
   @Slf4j

@@ -9,13 +9,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.1</version>
+        <version>3.4.6</version>
     </parent>
     <properties>
         <java.version>17</java.version>
         <cucumber-java.version>7.3.3</cucumber-java.version>
-        <spring-cloud.version>2023.0.2</spring-cloud.version>
-
+        <spring-cloud.version>2024.0.1</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
@@ -60,6 +59,10 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
         <dependency>
             <!-- swagger/openapi3 -->
@@ -150,7 +153,7 @@
         </dependency>
 
         <!-- 1) testcontainers: initial/standard style  -->
-        <dependency>
+       <!-- <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>1.17.2</version>
@@ -159,10 +162,10 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
             <version>1.15.2</version>
-        </dependency>
+        </dependency>-->
 
         <!-- 2) OR testcontainers: Playtika OSS libraries https://github.com/PlaytikaOSS/testcontainers-spring-boot -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
             <scope>test</scope>
@@ -170,10 +173,27 @@
         <dependency>
             <groupId>com.playtika.testcontainers</groupId>
             <artifactId>embedded-postgresql</artifactId>
-            <version>2.3.2</version>
+            <version>3.1.6</version>
             <scope>test</scope>
         </dependency>
-            -->
+        <dependency>
+            <groupId>com.playtika.testcontainers</groupId>
+            <artifactId>embedded-kafka</artifactId>
+            <version>3.1.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.playtika.testcontainers</groupId>
+            <artifactId>embedded-wiremock</artifactId>
+            <version>3.1.9</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>3.0.1</version>
+            <scope>test</scope>
+        </dependency>
         <!-- testcontainers: end -->
 
         <dependency>
