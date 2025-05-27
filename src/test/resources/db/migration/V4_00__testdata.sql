@@ -1,6 +1,4 @@
 
 insert into supplier (id, active, code, name) values (1, true, 'S', 'Supplier');
 
--- insert into LOAN_TYPE(id,label) values (1, 'Loan Type 1');
-
 alter sequence supplier_seq restart with 2; -- because of the above

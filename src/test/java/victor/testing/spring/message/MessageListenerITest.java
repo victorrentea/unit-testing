@@ -1,17 +1,24 @@
 package victor.testing.spring.message;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
+import org.testcontainers.lifecycle.Startables;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
 import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVENT;
 
+@Slf4j
 public class MessageListenerITest extends IntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
@@ -34,5 +41,21 @@ public class MessageListenerITest extends IntegrationTest {
     // TODO what if you had to check that the row WAS NOT inserted?
     //   > you can't poll anymore: you will have to sleep(x) for an amount of time (how long?)
   }
+  @Test
+  void supplierIsNOTCreated_polling() {
+    supplierRepo.save(new Supplier().setName(SUPPLIER_NAME));
+    kafkaTemplate.send(SUPPLIER_CREATED_EVENT, SUPPLIER_NAME);
+
+    // verifica ca s-a chemat aia
+    verify(logica, timeout(1000)).process(SUPPLIER_NAME);
+    // TODO what if you had to check that the row WAS NOT inserted?
+    //   > you can't poll anymore: you will have to sleep(x) for an amount of time (how long?)
+  }
+  @Test
+  void siAcumLogicaChemataInThreaduklMeu() {
+      logica.process("");
+  }
+
+
 
 }

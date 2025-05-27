@@ -11,14 +11,21 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBeans;
 import org.springframework.test.web.servlet.MockMvc;
+import victor.testing.spring.message.AltaClasaCuLogica;
 
 @SpringBootTest
 @Import(ProductCreatedEventTestListener.class)
-@ActiveProfiles("test")
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
+//@MockitoSpyBeans({})
 public class IntegrationTest {
   protected final static ObjectMapper json = new ObjectMapper().registerModule(new JavaTimeModule());
+
+  @MockitoSpyBean
+  protected AltaClasaCuLogica logica;
 
   @Autowired
   protected MockMvc mockMvc;

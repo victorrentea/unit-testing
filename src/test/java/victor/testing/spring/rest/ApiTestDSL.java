@@ -15,11 +15,11 @@ import victor.testing.spring.rest.dto.ProductSearchResult;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @Component
@@ -75,5 +75,11 @@ public class ApiTestDSL {
   public void deleteProduct(Long productId) {
     mockMvc.perform(MockMvcRequestBuilders.delete("/product/{id}", productId))
         .andExpect(status().is2xxSuccessful());
+  }
+
+  void expectValidationFails(ProductDto dto, String offendingField) throws Exception {
+    mockMvc.perform(createProductRequest(dto))
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().string(containsString(offendingField)));
   }
 }

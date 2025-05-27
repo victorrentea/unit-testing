@@ -1,6 +1,5 @@
 package victor.testing.spring.rest;
 
-import com.github.tomakehurst.wiremock.client.WireMock;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import victor.testing.spring.entity.Product;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 import victor.testing.spring.service.ProductCreatedEvent;
-import victor.testing.tools.Canonical;
 
 import java.util.UUID;
 
@@ -22,14 +20,11 @@ import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@Transactional
+@Transactional // periculos!
 @WithMockUser(roles = "ADMIN") // default role for all tests
 public class CreateProductITest extends IntegrationTest {
   @Autowired
@@ -51,41 +46,20 @@ public class CreateProductITest extends IntegrationTest {
 
   @Test
   void raw() throws Exception {
-    mockMvc.perform(post("/product/create")
-            .contentType(APPLICATION_JSON)
+    var id = api.createProduct(productDto.withName("Tree"));
 
-            // A) raw """ [%s-templetized]
-             .content("""
-                {
-                  "name": "Tree",
-                  "barcode": "barcode-safe",
-                  "supplierCode": "S",
-                  "category": "HOME"
-                }
-                """)
-
-            // B) load a large JSON from a file💖 and tweak it by JSON Path
-//            .content(Canonical.load("CreateProductRequest")
-//                .set("$.name", "Tree")
-//                .json()
-//                .toString())
-
-            // C) dto -> json
-//            .content(json.writeValueAsString(productDto))
-        )
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(header().exists("Location"));
+    // APEL IN BAZA = GrayBox TEST
+//    Product savedProduct = productRepo.findById(id).orElseThrow();
+//    assertThat(savedProduct.getName()).isEqualTo("Tree");
+    
+    // BLACK BOX
+    var dtoLaGet = api.getProduct(id);
+    assertThat(dtoLaGet.name()).isEqualTo("Tree");
   }
 
   @Test
   void validationFails_forMissingBarcode() throws Exception {
-    productDto = productDto.withBarcode(null);
-    mockMvc.perform(post("/product/create")
-            .contentType(APPLICATION_JSON)
-            .content(json.writeValueAsString(productDto))
-        )
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("barcode")));
+    api.expectValidationFails(productDto.withBarcode(null), "barcode");
   }
 
   @Test

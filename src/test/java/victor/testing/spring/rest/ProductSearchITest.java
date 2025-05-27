@@ -25,7 +25,6 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @Transactional
 public class ProductSearchITest extends IntegrationTest {
-  public static final String PRODUCT_NAME = "AbCd";
   @Autowired
   ProductRepo repo;
   @Autowired
@@ -42,7 +41,7 @@ public class ProductSearchITest extends IntegrationTest {
     repo.deleteAll();
     supplierId = supplierRepo.save(new Supplier()).getId();
     productId = repo.save(new Product()
-        .setName(PRODUCT_NAME)
+        .setName("AbCd")
         .setSupplier(supplierRepo.getReferenceById(supplierId))
         .setCategory(HOME)
     ).getId();
@@ -51,10 +50,12 @@ public class ProductSearchITest extends IntegrationTest {
   static List<TestCase> testData() {
     return List.of(
         new TestCase(ProductSearchCriteria.empty(), true),
-        new TestCase(ProductSearchCriteria.empty().withName(PRODUCT_NAME), true),
+        new TestCase(ProductSearchCriteria.empty().withName("AbCd"), true),
+        new TestCase(ProductSearchCriteria.empty().withName("bC"), true),
+        new TestCase(ProductSearchCriteria.empty().withName("ABcd"), true),
+        new TestCase(ProductSearchCriteria.empty().withName("xyz"), false),
         new TestCase(ProductSearchCriteria.empty().withCategory(HOME), true),
         new TestCase(ProductSearchCriteria.empty().withCategory(ELECTRONICS), false)
-// TODO
 //        new TestCase(ProductSearchCriteria.empty().withName("Xyz"), false),
 //        new TestCase(ProductSearchCriteria.empty().withName("Bc"), true),
     );
@@ -75,7 +76,7 @@ public class ProductSearchITest extends IntegrationTest {
     var searchResults = api.searchProduct(testCase.criteria);
     if (testCase.matches()) {
       assertThat(searchResults)
-          .containsExactly(new ProductSearchResult(productId, PRODUCT_NAME));
+          .containsExactly(new ProductSearchResult(productId, "AbCd"));
     } else {
       assertThat(searchResults).isEmpty();
     }
