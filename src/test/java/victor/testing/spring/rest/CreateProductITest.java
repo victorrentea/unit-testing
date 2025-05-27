@@ -54,7 +54,7 @@ public class CreateProductITest extends IntegrationTest {
     mockMvc.perform(post("/product/create")
             .contentType(APPLICATION_JSON)
 
-            // A) raw """ %s-templetized
+            // A) raw """ [%s-templetized]
              .content("""
                 {
                   "name": "Tree",

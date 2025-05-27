@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @WithMockUser(roles = "ADMIN")
-@TestMethodOrder(MethodName.class) // step1_.., step2_.., step3_..
+@TestMethodOrder(MethodName.class) // in order step1_.., step2_.., step3_..
 @TestInstance(PER_CLASS)
 @PrettyTestNames
 public class ProductEpicITest extends IntegrationTest {

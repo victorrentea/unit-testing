@@ -34,19 +34,11 @@ public class ToxicITest extends IntegrationTest {
   @Autowired
   ToxiproxyContainer.ContainerProxy postgresqlContainerProxy;
 
-  @BeforeEach
-  final void before() throws IOException {
+  @Test
+  void search() throws IOException {
     postgresqlContainerProxy.toxics()
         .latency("latency",ToxicDirection.DOWNSTREAM, 1000);
-  }
-  @AfterEach
-  final void cleanup() throws IOException {
-    for (Toxic toxic : postgresqlContainerProxy.toxics().getAll())
-      toxic.remove();
-  }
 
-  @Test
-  void search() {
     repo.deleteAll();
 
     long supplierId = supplierRepo.save(new Supplier()).getId();
@@ -59,7 +51,9 @@ public class ToxicITest extends IntegrationTest {
     long t0 = currentTimeMillis();
     var searchResults = api.searchProduct(ProductSearchCriteria.empty());
     long t1 = currentTimeMillis();
+    for (Toxic toxic : postgresqlContainerProxy.toxics().getAll()) toxic.remove();
     log.info("Search took {}ms", t1 - t0);
+
     assertThat(searchResults).containsExactly(new ProductSearchResult(productId, PRODUCT_NAME));
   }
 }

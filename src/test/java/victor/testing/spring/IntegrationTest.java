@@ -9,15 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @Import(ProductCreatedEventTestListener.class)
-@ActiveProfiles("testcontainers-playtika")
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
 public class IntegrationTest {
   protected final static ObjectMapper json = new ObjectMapper().registerModule(new JavaTimeModule());
@@ -28,15 +26,12 @@ public class IntegrationTest {
   /* ==== Connect local DSL with remote WireMock running in the Testcontainer ==== */
   @Value("${embedded.wiremock.host}")
   String wiremockHost;
-
   @Value("${embedded.wiremock.port}")
   int wiremockPort;
-
   @BeforeEach
   final void configureWireMockDSL() {
     WireMock.configureFor(wiremockHost, wiremockPort);
   }
-
   @AfterEach
   public void resetWireMock() {
     WireMock.resetAllRequests();

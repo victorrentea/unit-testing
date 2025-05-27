@@ -21,18 +21,22 @@ public class AsyncServiceITest extends IntegrationTest {
   AsyncService asyncService;
   @Autowired
   SupplierRepo supplierRepo;
+
+  // TODO discuss: UUID ~> Independent data slices (parallel tests)
+  // TODO discuss: (a) insert reference via global SQL vs (b) insert your own reference data
   String SUPPLIER_NAME = "sname" + UUID.randomUUID();
 
   @Test
   void block_for_result() throws InterruptedException, ExecutionException {
-    String result = asyncService.asyncReturning(SUPPLIER_NAME).get(); // block JUnit thread until completed
+    var supplierId = supplierRepo.save(new Supplier().setName(SUPPLIER_NAME)).getId();
+    Supplier result = asyncService.asyncReturning(SUPPLIER_NAME).get(); // block JUnit thread until completed
 
     assertThat(supplierRepo.findByName(SUPPLIER_NAME)).isPresent();
-    assertThat(result).isEqualTo("stuff retrieved in parallel");
+    assertThat(result.getId()).isEqualTo(supplierId);
   }
 
   @Test
-  void poll_for_effect() throws InterruptedException, ExecutionException {
+  void poll_for_effect() throws InterruptedException {
     asyncService.asyncFireAndForget(SUPPLIER_NAME);
 
     Example<Supplier> example = Example.of(new Supplier().setName(SUPPLIER_NAME));

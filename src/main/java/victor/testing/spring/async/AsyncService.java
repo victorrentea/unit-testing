@@ -15,11 +15,10 @@ public class AsyncService {
   }
 
   // @Async // or via Spring Magic
-  public CompletableFuture<String> asyncReturning(String supplierName) {
+  public CompletableFuture<Supplier> asyncReturning(String supplierName) {
     return CompletableFuture.supplyAsync(() -> {
       takesAWhile();
-      supplierRepo.save(new Supplier().setName(supplierName));
-      return "stuff retrieved in parallel";
+      return supplierRepo.findByName(supplierName).orElseThrow();
     });
   }
 
@@ -27,8 +26,8 @@ public class AsyncService {
   public void asyncFireAndForget(String supplierName) throws InterruptedException {
     CompletableFuture.runAsync(() -> {
       takesAWhile();
+      // if (true) throw new RuntimeException("experiment"); // TODO
       supplierRepo.save(new Supplier().setName(supplierName));
-      // experiment: an error
     });
   }
 
