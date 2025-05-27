@@ -28,20 +28,20 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
 
         Map<String, Object> paramMap = new HashMap<>();
 
-        if (StringUtils.isNotEmpty(criteria.name)) {
-//            jpqlParts.add("AND p.name = :name");
+        if (StringUtils.isNotEmpty(criteria.name())) {
+//            jpqlParts.add("AND p.name = :name"); // TODO victorrentea 2025-05-27: undo
             jpqlParts.add("AND UPPER(p.name) LIKE UPPER('%' || :name || '%')"); // = contains, ignoring case
-            paramMap.put("name", criteria.name);
+            paramMap.put("name", criteria.name());
         }
 
-        if (criteria.supplierId != null) {
+        if (criteria.supplierId() != null) {
             jpqlParts.add("AND p.supplier.id = :supplierId");
-            paramMap.put("supplierId", criteria.supplierId);
+            paramMap.put("supplierId", criteria.supplierId());
         }
 
-        if (criteria.category != null) {
+        if (criteria.category() != null) {
             jpqlParts.add(" AND p.category = :category");
-            paramMap.put("category", criteria.category);
+            paramMap.put("category", criteria.category());
         }
 
         String jqpl = String.join(" ", jpqlParts);

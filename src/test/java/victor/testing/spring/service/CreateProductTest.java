@@ -40,7 +40,12 @@ public class CreateProductTest {
   @Test
   void createThrowsForUnsafeProduct() {
     when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
-    ProductDto productDto = new ProductDto("name", "barcode-unsafe", "S", HOME);
+    ProductDto productDto = ProductDto.builder()
+        .name("name")
+        .barcode("barcode-unsafe")
+        .supplierCode("S")
+        .category(HOME)
+        .build();
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -52,7 +57,12 @@ public class CreateProductTest {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     when(productRepo.save(any())).thenReturn(new Product().setId(123L));
-    ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
+    ProductDto productDto = ProductDto.builder()
+        .name("name")
+        .barcode("barcode-safe")
+        .supplierCode("S")
+        .category(HOME)
+        .build();
 
     // WHEN
     var newProductId = productService.createProduct(productDto);

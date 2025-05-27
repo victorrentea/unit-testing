@@ -13,35 +13,20 @@
     </parent>
     <properties>
         <java.version>17</java.version>
-        <cucumber-java.version>7.3.3</cucumber-java.version>
         <spring-cloud.version>2024.0.1</spring-cloud.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <!-- @FeignClient -->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
             <!-- @NotNull, @Validated -->
@@ -53,8 +38,23 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+            <!-- intercept JDBC calls at driver level -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gavlyukovskiy</groupId>
+            <artifactId>p6spy-spring-boot-starter</artifactId>
+            <version>1.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -65,104 +65,40 @@
             <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
         <dependency>
-            <!-- swagger/openapi3 -->
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>2.1.212</version>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber-java.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit-platform-engine</artifactId>
-            <version>${cucumber-java.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- WARNING: requires the package of all the glue code (@Given, @When, @Then) classes
-        to contain a class annotated with @CucumberContextConfiguration -->
-         <!--<dependency>
-             <groupId>io.cucumber</groupId>
-             <artifactId>cucumber-spring</artifactId>
-             <version>${cucumber-java.version}</version>
-             <scope>test</scope>
-         </dependency>-->
-
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
-        </dependency>
-
-        <dependency>
-            <!-- @AutoConfigureWireMock -->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
-        </dependency>
-        <!-- <dependency>
-             <groupId>com.github.tomakehurst</groupId>
-             <artifactId>wiremock-jre8-standalone</artifactId>
-             <version>2.26.3</version>
-             <scope>test</scope>
-         </dependency>-->
-        <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka-test</artifactId>
+            <!-- /v3/api-docs -->
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.8</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-
-        <dependency>
-            <!-- PDF generation -->
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>5.2.2</version>
-        </dependency>
-        <dependency>
-            <!-- PDF generation -->
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>5.2.2</version>
-        </dependency>
-
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- 1) testcontainers: initial/standard style  -->
-       <!-- <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>1.17.2</version>
+        <!-- ************************ TEST *********************** -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>1.15.2</version>
-        </dependency>-->
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- 2) OR testcontainers: Playtika OSS libraries https://github.com/PlaytikaOSS/testcontainers-spring-boot -->
         <dependency>
@@ -173,25 +109,31 @@
         <dependency>
             <groupId>com.playtika.testcontainers</groupId>
             <artifactId>embedded-postgresql</artifactId>
-            <version>3.1.6</version>
+            <version>3.1.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.playtika.testcontainers</groupId>
+            <artifactId>embedded-toxiproxy</artifactId>
+            <version>3.1.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.playtika.testcontainers</groupId>
             <artifactId>embedded-kafka</artifactId>
-            <version>3.1.6</version>
+            <version>3.1.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.playtika.testcontainers</groupId>
             <artifactId>embedded-wiremock</artifactId>
-            <version>3.1.9</version>
+            <version>3.1.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.tomakehurst</groupId>
+            <groupId>org.wiremock</groupId>
             <artifactId>wiremock</artifactId>
-            <version>3.0.1</version>
+            <version>3.9.1</version>
             <scope>test</scope>
         </dependency>
         <!-- testcontainers: end -->
@@ -210,30 +152,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.3.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>
-        <dependency>
-            <!-- needed for victor.testing.spring.web.MonitorSpringTestStartupPerformance -->
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-        </dependency>
-        <dependency>
-            <!-- incompatible with p6spy-starter -->
-            <groupId>com.github.gavlyukovskiy</groupId>
-            <artifactId>p6spy-spring-boot-starter</artifactId>
-            <version>1.7.1</version>
-        </dependency>
-        <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
         </dependency>
-
     </dependencies>
 
     <dependencyManagement>
@@ -279,48 +200,7 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.7.2</version>
 
-                <!-- adds support for JUnit5 -->
-                <dependencies>
-                    <dependency>
-                        <groupId>org.pitest</groupId>
-                        <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>0.14</version>
-                    </dependency>
-                </dependencies>
-
-                <executions>
-                    <execution>
-                        <id>pit-report</id>
-                        <!-- optional -->
-                        <phase>test</phase>
-                        <goals>
-                            <goal>mutationCoverage</goal>
-                            <!-- only run mutation coverage on changed FILES -->
-                            <!-- https://twitter.com/_HamzaBlm/status/1449529008501272579?s=20 -->
-                            <!-- mvn org.pitest:pitest-maven:scmMutationCoverage -Dinclude=ADDED,UNKNOWN -DmutationThreshold=85 -DoriginalBranch & -DdestinationBranch-->
-                        </goals>
-                    </execution>
-                </executions>
-
-                <configuration>
-                    <targetClasses>
-                        <param>victor.testing.mutation.*</param>
-                        <param>victor.testing.spring.service.*</param>
-                    </targetClasses>
-                    <targetTests>
-                        <param>victor.testing.mutation.*</param>
-                        <param>victor.testing.spring.service.*</param>
-                    </targetTests>
-                    <mutators>
-                        <mutator>NON_VOID_METHOD_CALLS</mutator>
-                    </mutators>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>

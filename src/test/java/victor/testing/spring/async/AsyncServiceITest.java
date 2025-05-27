@@ -1,55 +1,43 @@
 package victor.testing.spring.async;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.data.domain.Example;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 
-// to disable @Async:
-//@TestPropertySource(properties = "async.enabled=false")
+
+//@TestPropertySource(properties = "async.enabled=false") // disable @Async:
 public class AsyncServiceITest extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
   @Autowired
   SupplierRepo supplierRepo;
-
-  @BeforeEach
-  @AfterEach
-  final void cleanup() { // different thread => different transaction
-    supplierRepo.deleteAll();
-  }
+  String SUPPLIER_NAME = "sname" + UUID.randomUUID();
 
   @Test
-  void asyncFetch_block() throws InterruptedException, ExecutionException {
-    String result = asyncService.asyncReturning("sname").get(); // block JUnit thread until completed
+  void block_for_result() throws InterruptedException, ExecutionException {
+    String result = asyncService.asyncReturning(SUPPLIER_NAME).get(); // block JUnit thread until completed
 
-    assertThat(supplierRepo.findAll()).hasSize(1)
-        .first()
-        .returns("sname", Supplier::getName);
+    assertThat(supplierRepo.findByName(SUPPLIER_NAME)).isPresent();
     assertThat(result).isEqualTo("stuff retrieved in parallel");
   }
 
   @Test
-  void fireAndForget_poll() throws InterruptedException, ExecutionException {
-    asyncService.asyncFireAndForget("sname");
+  void poll_for_effect() throws InterruptedException, ExecutionException {
+    asyncService.asyncFireAndForget(SUPPLIER_NAME);
 
+    Example<Supplier> example = Example.of(new Supplier().setName(SUPPLIER_NAME));
     Awaitility.await()
         .timeout(ofSeconds(1))
-        .untilAsserted(() -> {
-          assertThat(supplierRepo.findAll()).hasSize(1)
-              .first()
-              .extracting(Supplier::getName)
-              .isEqualTo("sname");
-        });
+        .untilAsserted(() -> assertThat(supplierRepo.findAll(example)).hasSize(1));
   }
 }

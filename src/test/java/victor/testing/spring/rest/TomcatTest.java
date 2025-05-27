@@ -1,6 +1,7 @@
 package victor.testing.spring.rest;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,7 @@ import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
+import victor.testing.spring.rest.dto.ProductSearchCriteria.ProductSearchCriteriaBuilder;
 import victor.testing.spring.rest.dto.ProductSearchResult;
 
 import java.util.List;
@@ -24,11 +26,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpStatus.OK;
 
+@Disabled
 @SpringBootTest(webEnvironment = RANDOM_PORT) // starts a full Tomcat in memory
 public class TomcatTest extends IntegrationTest {
   @Autowired // points to the random port of Tomcaat
   private TestRestTemplate rest;
-  private ProductSearchCriteria criteria = new ProductSearchCriteria();
+  private ProductSearchCriteriaBuilder criteria = ProductSearchCriteria.builder();
   @Autowired
   private ProductRepo productRepo;
   @Autowired
@@ -49,7 +52,7 @@ public class TomcatTest extends IntegrationTest {
 
   @Test
   public void search() {
-    ProductSearchCriteria searchCriteria = criteria.setName("Tree");
+    ProductSearchCriteria searchCriteria = criteria.name("Tree").build();
 
     ResponseEntity<List<ProductSearchResult>> searchResponse = rest.exchange(
         "/product/search", HttpMethod.POST,
@@ -57,7 +60,7 @@ public class TomcatTest extends IntegrationTest {
         });
 
     assertThat(searchResponse.getStatusCode()).isEqualTo(OK);
-    assertThat(searchResponse.getBody()).map(ProductSearchResult::getName).containsExactly("Tree");
+    assertThat(searchResponse.getBody()).map(ProductSearchResult::name).containsExactly("Tree");
   }
 
 

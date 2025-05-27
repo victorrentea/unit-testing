@@ -7,12 +7,13 @@ import victor.testing.spring.rest.dto.ProductDto;
 @Component
 public class ProductMapper {
   public ProductDto toDto(Product product) {
-    return new ProductDto()
-            .setId(product.getId())
-            .setSupplierCode(product.getSupplier().getCode())
-            .setName(product.getName())
-            .setBarcode(product.getBarcode())
-            .setCategory(product.getCategory())
-            .setCreatedDate(product.getCreatedDate());
+    return ProductDto.builder()
+            .id(product.getId())
+            .supplierCode(product.getSupplier().getCode())
+            .name(product.getName())
+            .barcode(product.getBarcode())
+            .category(product.getCategory())
+            .createdDate(product.getCreatedDate())
+            .build();
   }
 }

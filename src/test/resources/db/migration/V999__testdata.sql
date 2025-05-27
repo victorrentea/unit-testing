@@ -1,2 +1,4 @@
 
--- insert into supplier (id, active, code) values (1, true, 'S');
+insert into supplier (id, active, code, name) values (1, true, 'S', 'Supplier');
+
+alter sequence supplier_seq restart with 2;

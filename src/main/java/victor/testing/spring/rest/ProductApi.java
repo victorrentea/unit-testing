@@ -1,13 +1,12 @@
 package victor.testing.spring.rest;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import victor.testing.spring.export.ProductExporter;
+import victor.testing.spring.batch.BatchExporter;
 import victor.testing.spring.rest.dto.ProductDto;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
 import victor.testing.spring.rest.dto.ProductSearchResult;
@@ -17,14 +16,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 public class ProductApi {
    private final ProductService service;
-   private final ProductExporter productExporter;
+   private final BatchExporter batchExporter;
 
    @PostMapping("product/create")
    @Secured("ROLE_ADMIN")
@@ -52,7 +50,7 @@ public class ProductApi {
 
    @PostMapping("product/export")
    public String startExport() throws IOException {
-      String fileName = productExporter.export();
+      String fileName = batchExporter.export();
       return "Exported to: " + fileName;
    }
 }

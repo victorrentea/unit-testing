@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
     "title": "OpenAPI definition",
     "version": "v0"
@@ -227,10 +227,6 @@
         }
       },
       "ProductDto": {
-        "required": [
-          "barcode",
-          "name"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -259,7 +255,11 @@
             "type": "string",
             "format": "date"
           }
-        }
+        },
+        "required": [
+          "barcode",
+          "name"
+        ]
       }
     }
   }

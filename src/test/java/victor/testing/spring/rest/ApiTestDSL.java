@@ -24,11 +24,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Component
 public class ApiTestDSL {
-  private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
+  private final static ObjectMapper json = new ObjectMapper().registerModule(new JavaTimeModule());
 
   @Autowired(required = false)
   MockMvc mockMvc;
 
+  /**
+   * @return the new product ID
+   */
   @SneakyThrows
   public long createProduct(ProductDto request) {
     MockHttpServletResponse response = mockMvc.perform(createProductRequest(request))
@@ -43,21 +46,21 @@ public class ApiTestDSL {
   @SneakyThrows
   public MockHttpServletRequestBuilder createProductRequest(ProductDto request) {
     return post("/product/create")
-        .content(jackson.writeValueAsString(request))
+        .content(json.writeValueAsString(request))
         .contentType(APPLICATION_JSON);
   }
 
   @SneakyThrows
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
     String responseJson = mockMvc.perform(post("/product/search")
-            .content(jackson.writeValueAsString(criteria))
+            .content(json.writeValueAsString(criteria))
             .contentType(APPLICATION_JSON)
         )
         .andExpect(status().is2xxSuccessful())
         .andReturn()
         .getResponse()
         .getContentAsString();
-    return List.of(jackson.readValue(responseJson, ProductSearchResult[].class)); // trick to unmarshall a collection<obj>
+    return List.of(json.readValue(responseJson, ProductSearchResult[].class)); // trick to unmarshall a collection<obj>
   }
 
   @SneakyThrows
@@ -65,7 +68,7 @@ public class ApiTestDSL {
     String responseJson = mockMvc.perform(get("/product/{id}", productId))
         .andExpect(status().is2xxSuccessful())
         .andReturn().getResponse().getContentAsString();
-    return jackson.readValue(responseJson, ProductDto.class);
+    return json.readValue(responseJson, ProductDto.class);
   }
 
   @SneakyThrows
