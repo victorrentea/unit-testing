@@ -36,8 +36,6 @@ public class ToxicITest extends IntegrationTest {
 
   @Test
   void search() throws IOException {
-    postgresqlContainerProxy.toxics()
-        .latency("latency",ToxicDirection.DOWNSTREAM, 1000);
 
     repo.deleteAll();
 
@@ -48,10 +46,13 @@ public class ToxicITest extends IntegrationTest {
         .setCategory(HOME)
     ).getId();
 
+    postgresqlContainerProxy.toxics().latency("latency",ToxicDirection.DOWNSTREAM, 1000);
     long t0 = currentTimeMillis();
     var searchResults = api.searchProduct(ProductSearchCriteria.empty());
     long t1 = currentTimeMillis();
+
     for (Toxic toxic : postgresqlContainerProxy.toxics().getAll()) toxic.remove();
+
     log.info("Search took {}ms", t1 - t0);
 
     assertThat(searchResults).containsExactly(new ProductSearchResult(productId, PRODUCT_NAME));
