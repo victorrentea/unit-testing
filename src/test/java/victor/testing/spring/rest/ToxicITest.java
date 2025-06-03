@@ -35,6 +35,7 @@ public class ToxicITest extends IntegrationTest {
   ToxiproxyContainer.ContainerProxy postgresqlContainerProxy;
 
   @Test
+  @Timeout(500)
   void search() throws IOException {
 
     repo.deleteAll();
@@ -46,7 +47,8 @@ public class ToxicITest extends IntegrationTest {
         .setCategory(HOME)
     ).getId();
 
-    postgresqlContainerProxy.toxics().latency("latency",ToxicDirection.DOWNSTREAM, 1000);
+    postgresqlContainerProxy.toxics()
+        .latency("latency",ToxicDirection.DOWNSTREAM, 100);
     long t0 = currentTimeMillis();
     var searchResults = api.searchProduct(ProductSearchCriteria.empty());
     long t1 = currentTimeMillis();
