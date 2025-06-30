@@ -88,4 +88,11 @@ public class DiagnosticTest {
         .startsWith("1.0-")
         .hasSize(40); // "1.0-" + 36-char UUID
   }
+
+//  @Test
+//  void explore() {
+//
+//  }
+
+  
 }
