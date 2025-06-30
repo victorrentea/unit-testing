@@ -9,15 +9,13 @@ import org.testcontainers.shaded.org.awaitility.Awaitility;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.repo.SupplierRepo;
 
-import java.util.concurrent.ExecutionException;
-
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVENT;
 
 // blackbox test of the listener (no mocking)
-public class ListenerBlackITest extends IntegrationTest {
+public class MessageListenerBlackITest extends IntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
@@ -30,18 +28,17 @@ public class ListenerBlackITest extends IntegrationTest {
   }
 
   @Test
-  void supplierIsCreated_polling() throws ExecutionException, InterruptedException {
-    // trigger message
+  void supplierIsCreated_polling() throws Exception {
     kafkaTemplate.send(SUPPLIER_CREATED_EVENT, "supplier");
 
     Awaitility.await() // state of the art in polling
-        .pollInterval(ofMillis(5)) // try every 5ms
+        .pollInterval(ofMillis(50)) // try every 50ms
         .timeout(ofSeconds(1)) // fail after 1s
         .untilAsserted(() ->
             assertThat(supplierRepo.findByName("supplier"))
                 .describedAs("Supplier was inserted")
                 .isNotEmpty());
-    // TODO what if you had to check that the row WAS NOT inserted?
+    // TODO check that the row WAS NOT inserted?
     //   > you will have to sleep(x) for a static amount of time
     //   (you can't poll anymore)
   }

@@ -12,7 +12,7 @@ import static org.mockito.Mockito.verify;
 import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVENT;
 
 @Disabled("slows down tests due to @SpyBean")
-public class ListenerInfraITest extends IntegrationTest {
+public class MessageListenerInfraITest extends IntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @SpyBean // the real bean is decorated by a mock proxy that can record invocations
