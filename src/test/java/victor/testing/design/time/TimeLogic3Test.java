@@ -2,6 +2,8 @@ package victor.testing.design.time;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,12 +13,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//@Powermock
 class TimeLogic3Test {
   OrderRepo orderRepoMock = mock(OrderRepo.class);
   TimeLogic3 target = new TimeLogic3(orderRepoMock);
 
   @Test
-  @Disabled("flaky, time-based")
+//  @Disabled("flaky, time-based")
   void isFrequentBuyer() {
     LocalDate today = parse("2023-01-08");
     LocalDate oneWeekAgo = parse("2023-01-01");
@@ -25,7 +28,12 @@ class TimeLogic3Test {
         13, oneWeekAgo, today))
         .thenReturn(List.of(order));
 
-    assertThat(target.isFrequentBuyer(13)).isTrue();
+    try(var staticMock = Mockito.mockStatic(LocalDate.class)) {
+      staticMock.when(() -> LocalDate.now()).thenReturn(today);
+      var result = target.isFrequentBuyer(13);
+      assertThat(result).isTrue();
+    }
+
   }
 }
 // Ways to control time from tests:

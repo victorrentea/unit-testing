@@ -1,6 +1,5 @@
 package victor.testing.design.time;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -16,7 +15,6 @@ class TimeLogic2Test {
   TimeLogic2 target = new TimeLogic2(orderRepoMock);
 
   @Test
-  @Disabled("flaky, time-based")
   void isFrequentBuyer() {
     LocalDate today = parse("2023-01-08");
     LocalDate oneWeekAgo = parse("2023-01-01");
@@ -25,7 +23,7 @@ class TimeLogic2Test {
         13, oneWeekAgo, today))
         .thenReturn(List.of(order));
 
-    assertThat(target.isFrequentBuyer(13)).isTrue();
+    assertThat(target.isFrequentBuyer(13, today)).isTrue();
   }
 }
 // Ways to control time from tests:

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.List;
 
+import static java.time.LocalDate.now;
 import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -13,14 +14,16 @@ import static org.mockito.Mockito.when;
 
 class TimeLogic1Test {
   OrderRepo orderRepoMock = mock(OrderRepo.class);
-  TimeLogic1 target = new TimeLogic1(orderRepoMock);
+  DateProvider dateProviderMock = mock(DateProvider.class);
+  TimeLogic1 target = new TimeLogic1(orderRepoMock,dateProviderMock);
 
   @Test
 //  @Disabled("flaky, time-based")
   void isFrequentBuyer() {
-    LocalDate today = parse("2025-06-30");
-    LocalDate oneWeekAgo = parse("2025-06-23");
+    LocalDate today = parse("2025-05-30");
+    LocalDate oneWeekAgo = parse("2025-05-23");
     Order order = new Order().setTotalAmount(130d);
+    when(dateProviderMock.now()).thenReturn(today);
     when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
         13, oneWeekAgo, today))
         .thenReturn(List.of(order));

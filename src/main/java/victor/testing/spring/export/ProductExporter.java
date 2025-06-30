@@ -44,7 +44,12 @@ public class ProductExporter {
         writer.write("SYSTEM");
       }
       writer.write(";");
-      writer.write(product.getCreatedDate().format(ofPattern("dd MMM yyyy")));
+      // if no Created Date -> N/A
+      if (product.getCreatedDate()!=null) {
+        writer.write(product.getCreatedDate().format(ofPattern("dd MMM yyyy")));
+      } else {
+        writer.write("N/A");
+      }
       writer.write("\n");
     }
   }
