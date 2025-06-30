@@ -26,13 +26,13 @@ import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Disabled("enable on demand and compare failures of JUnit❌ and AssertJ💖")
+//@Disabled("enable on demand and compare failures of JUnit❌ and AssertJ💖")
 public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-starter-test
 
   @Nested
   @TestMethodOrder(MethodName.class)
   public class CollectionsPrimitives {
-    List<Integer> aList = List.of(100, 200, 300, 300);
+    List<Integer> aList = List.of(100, 300, 200, 300);
 
     @Test
     public void size1_JUnit() {

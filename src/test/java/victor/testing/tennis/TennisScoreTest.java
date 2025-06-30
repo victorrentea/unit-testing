@@ -74,7 +74,13 @@ public class TennisScoreTest {
           new TestCase(1,0,"Fifteen-Love"),
           new TestCase(0,1,"Love-Fifteen"),
           new TestCase(2,0,"Thirty-Love"),
-          new TestCase(3,0,"Forty-Love")
+          new TestCase(3,0,"Forty-Love"),
+          new TestCase(4,2,"Game Won by Player1"),
+          new TestCase(5,3,"Game Won by Player1"),
+//          new TestCase(25,0,null),// another test!
+//          new TestCase(6,3,"Game Won by Player1"),
+          new TestCase(4,3,"Advantage Player1"),
+          new TestCase(5,4,"Advantage Player1")
 
       );
     }

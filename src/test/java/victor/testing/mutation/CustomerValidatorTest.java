@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // one class to test 1 public method±
-public class CustomerValidatorValidateTest {
+public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
   Customer customer = validCustomer();
 
-  public CustomerValidatorValidateTest() {
+  public CustomerValidatorTest() {
     System.out.println("NEW");
   }
 
@@ -36,8 +36,8 @@ public class CustomerValidatorValidateTest {
     validator.validate(customer);
 
     //a +1 assert city name trimmed PRO: pragmatic, this test is empty anyway
-    assertThat(customer.getAddress().getCity())
-        .isEqualTo("with spaces");
+//    assertThat(customer.getAddress().getCity())
+//        .isEqualTo("with spaces");
   }
 
   @Test

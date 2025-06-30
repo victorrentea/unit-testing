@@ -16,10 +16,10 @@ class TimeLogic1Test {
   TimeLogic1 target = new TimeLogic1(orderRepoMock);
 
   @Test
-  @Disabled("flaky, time-based")
+//  @Disabled("flaky, time-based")
   void isFrequentBuyer() {
-    LocalDate today = parse("2023-01-08");
-    LocalDate oneWeekAgo = parse("2023-01-01");
+    LocalDate today = parse("2025-06-30");
+    LocalDate oneWeekAgo = parse("2025-06-23");
     Order order = new Order().setTotalAmount(130d);
     when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
         13, oneWeekAgo, today))

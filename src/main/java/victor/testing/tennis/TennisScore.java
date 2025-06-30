@@ -9,6 +9,12 @@ public class TennisScore {
   }
 
   public String getScoreDescription() {
+    if (player1Score>=4) {
+      if (player1Score - player2Score == 2) {
+        return "Game Won by Player1";
+      }
+      if (player1Score-player2Score==1) return "Advantage Player1";
+    }
     String player1ScoreName = getScoreDescription(player1Score);
     String player2ScoreName = getScoreDescription(player2Score);
     return player1ScoreName + "-" + player2ScoreName;
@@ -36,7 +42,7 @@ public class TennisScore {
       case 3:
         return "Forty";
       default:// UNTESTED! are we sure?
-        throw new IllegalArgumentException("Unexpected value: " + points);
+        throw new IllegalArgumentException("Impossible!! Not playing tennis over there!");
     }
   }
 

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftlyExtension;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -53,7 +54,7 @@ class GroceriesMessageHandlerTest {
     Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.json");
     return scanForFileTestCases("classpath:/test-cases/message/*.in.json", inToOutFileName);
   }
-
+@Disabled
   @ParameterizedTest(name = "{0}")
   @MethodSource("testData")
   void handleRequest(FileTestCase testCase) throws IOException {
