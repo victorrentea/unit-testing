@@ -1,15 +1,10 @@
 package victor.testing.spring.rest.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class ProductSearchResult {
-    private Long id;
-    private String name;
-
-
+@Builder
+@With
+public record ProductSearchResult(
+    Long id,
+    String name) {
 }

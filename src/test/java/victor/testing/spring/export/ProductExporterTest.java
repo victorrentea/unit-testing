@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -17,11 +18,12 @@ import victor.testing.tools.FileApprovalTestBase;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Function;
 
 import static java.util.Arrays.asList;
-import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -54,13 +56,13 @@ public class ProductExporterTest extends FileApprovalTestBase {
     // when
     exporter.writeContent(sw);
 
-    String expectedContents = readFileToString(testCase.expectedOutputFile());
+    String expectedContents = Files.readString(testCase.expectedOutputFile().toPath());
     assertThat(sw.toString()).isEqualToNormalizingNewlines(expectedContents);
   }
 
   private void didacticLog(FileTestCase testCase) throws IOException {
-    String inStr = readFileToString(testCase.inputFile());
-    String outStr = readFileToString(testCase.expectedOutputFile());
+    String inStr = Files.readString(testCase.inputFile().toPath());
+    String outStr = Files.readString(testCase.expectedOutputFile().toPath());
     log.info("Running {}", testCase);
     System.out.println("Running with input:\n" + inStr);
     System.out.println("\nExpecting output:\n" + outStr);

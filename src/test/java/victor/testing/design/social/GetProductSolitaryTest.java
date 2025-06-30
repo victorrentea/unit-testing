@@ -24,7 +24,7 @@ public class GetProductSolitaryTest {
     Product product = new Product().setSupplier(new Supplier());
     when(repoMock.findById(1L)).thenReturn(Optional.of(product));
     ProductMapper mapperMock = mock(ProductMapper.class);
-    ProductDto dto = new ProductDto();
+    ProductDto dto = ProductDto.builder().build();
     when(mapperMock.toDto(product)).thenReturn(dto);
     ProductService productService = new ProductService(null, repoMock, null, mapperMock, null);
 
@@ -46,11 +46,11 @@ public class GetProductSolitaryTest {
 
     ProductDto dto = new ProductMapper().toDto(product);
 
-    assertThat(dto.getId()).isEqualTo(1L);
-    assertThat(dto.getName()).isEqualTo("name");
-    assertThat(dto.getBarcode()).isEqualTo("BARCODE");
-    assertThat(dto.getCategory()).isEqualTo(HOME);
-    assertThat(dto.getCreatedDate()).isEqualTo(date);
-    assertThat(dto.getSupplierCode()).isEqualTo("S");
+    assertThat(dto.id()).isEqualTo(1L);
+    assertThat(dto.name()).isEqualTo("name");
+    assertThat(dto.barcode()).isEqualTo("BARCODE");
+    assertThat(dto.category()).isEqualTo(HOME);
+    assertThat(dto.createdDate()).isEqualTo(date);
+    assertThat(dto.supplierCode()).isEqualTo("S");
   }
 }

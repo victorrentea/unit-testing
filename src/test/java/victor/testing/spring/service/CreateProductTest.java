@@ -37,10 +37,16 @@ public class CreateProductTest {
   @InjectMocks
   ProductService productService;
 
+  ProductDto productDto = ProductDto.builder()
+      .name("name")
+      .supplierCode("S")
+      .category(HOME)
+      .build();
+
   @Test
   void createThrowsForUnsafeProduct() {
+    productDto = productDto.withBarcode("barcode-unsafe");
     when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
-    ProductDto productDto = new ProductDto("name", "barcode-unsafe", "S", HOME);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -50,9 +56,9 @@ public class CreateProductTest {
   @Test
   void createOk() {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     when(productRepo.save(any())).thenReturn(new Product().setId(123L));
-    ProductDto productDto = new ProductDto("name", "barcode-safe", "S", HOME);
 
     // WHEN
     var newProductId = productService.createProduct(productDto);

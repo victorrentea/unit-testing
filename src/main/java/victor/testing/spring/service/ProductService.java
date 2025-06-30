@@ -29,21 +29,21 @@ public class ProductService {
 
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
-    boolean safe = safetyApiAdapter.isSafe(productDto.getBarcode()); // ⚠️ REST call inside
+    boolean safe = safetyApiAdapter.isSafe(productDto.barcode()); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }
-    if (productDto.getCategory() == null) {
-      productDto.setCategory(ProductCategory.UNCATEGORIZED);
+    if (productDto.category() == null) {
+      productDto = productDto.withCategory(ProductCategory.UNCATEGORIZED);
     }
     Product product = new Product();
-    product.setName(productDto.getName());
-    product.setBarcode(productDto.getBarcode());
-    product.setCategory(productDto.getCategory());
-    product.setSupplier(supplierRepo.findByCode(productDto.getSupplierCode()).orElseThrow());
+    product.setName(productDto.name());
+    product.setBarcode(productDto.barcode());
+    product.setCategory(productDto.category());
+    product.setSupplier(supplierRepo.findByCode(productDto.supplierCode()).orElseThrow());
     Long productId = productRepo.save(product).getId();
     ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
-    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", event); // a 'tenant-id' message header is added by victor.testing.spring.infra.AddTenantIdToSentMessagesInterceptor
+    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", event); // a 'tenant-id' message header is added by victor.testing.spring.config.AddTenantIdToSentMessagesInterceptor
     return productId;
   }
 

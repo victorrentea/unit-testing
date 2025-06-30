@@ -31,7 +31,7 @@ public abstract class FileApprovalTestBase {
     if (!outResource.exists()) {
       throw new IllegalArgumentException("No matching file found for " + inResource.getFilename() + ". Expected out filename = " + outResource.getFile().getAbsolutePath());
     }
-    return new FileTestCase(testDisplayName, inResource.getFile(), outResource.getFile());
+    return new FileTestCase(testDisplayName.substring(0,testDisplayName.length()-1), inResource.getFile(), outResource.getFile());
   }
 
   public record FileTestCase(String displayName, File inputFile, File expectedOutputFile) {

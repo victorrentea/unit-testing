@@ -1,5 +1,6 @@
 package victor.testing.spring.rest;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,21 @@ import static org.springframework.http.HttpStatus.OK;
 public class TomcatTest extends IntegrationTest {
   @Autowired // points to the random port of Tomcaat
   private TestRestTemplate rest;
-  private ProductSearchCriteria criteria = new ProductSearchCriteria();
+  private ProductSearchCriteria criteria = ProductSearchCriteria.empty();
   @Autowired
   private ProductRepo productRepo;
   @Autowired
   private SupplierRepo supplierRepo;
 
   @BeforeEach
-  public void initialize() {
+  @AfterEach
+  final void clearDB() {
     productRepo.deleteAll();
     supplierRepo.deleteAll();
+  }
+
+  @BeforeEach
+  public void initialize() {
     Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
     Product productInDB = new Product()
         .setName("Tree")
@@ -49,7 +55,7 @@ public class TomcatTest extends IntegrationTest {
 
   @Test
   public void search() {
-    ProductSearchCriteria searchCriteria = criteria.setName("Tree");
+    ProductSearchCriteria searchCriteria = criteria.withName("Tree");
 
     ResponseEntity<List<ProductSearchResult>> searchResponse = rest.exchange(
         "/product/search", HttpMethod.POST,
@@ -57,7 +63,7 @@ public class TomcatTest extends IntegrationTest {
         });
 
     assertThat(searchResponse.getStatusCode()).isEqualTo(OK);
-    assertThat(searchResponse.getBody()).map(ProductSearchResult::getName).containsExactly("Tree");
+    assertThat(searchResponse.getBody()).map(ProductSearchResult::name).containsExactly("Tree");
   }
 
 

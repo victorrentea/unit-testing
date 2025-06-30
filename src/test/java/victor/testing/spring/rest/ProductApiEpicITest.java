@@ -22,12 +22,9 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @WithMockUser(roles = "ADMIN")
-@TestMethodOrder(MethodName.class) // step1_.., step2_.., step3_..
+@TestMethodOrder(MethodName.class) // in lexicografic order: step1_.., step2_.., step3_..
 @TestInstance(PER_CLASS)
 public class ProductApiEpicITest extends IntegrationTest {
-  private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
-  @Autowired
-  MockMvc mockMvc;
   @Autowired
   ProductRepo productRepo;
   @Autowired
@@ -35,12 +32,14 @@ public class ProductApiEpicITest extends IntegrationTest {
   @Autowired
   ApiTestDSL api;
 
-  ProductDto productDto = new ProductDto(
-      "Tree",
-      "barcode-safe",
-      "S",
-      HOME);
-  private Long productId;
+  ProductDto productDto = ProductDto.builder()
+      .name("Tree")
+      .barcode("barcode-safe")
+      .supplierCode("S")
+      .category(HOME)
+      .build();
+
+  Long productId;
 
   @BeforeAll // before the first test
   void insertInitialData() {
@@ -54,34 +53,34 @@ public class ProductApiEpicITest extends IntegrationTest {
   }
 
   @Test
-  void step1_create() {
-    api.createProduct(productDto.setName("Tree"));
+  void step10_create() {
+    api.createProduct(productDto.withName("Tree"));
   }
 
   @Test
-  void step2_search() {
-    List<ProductSearchResult> response = api.searchProduct(new ProductSearchCriteria().setName("Tree"));
-    assertThat(response).map(ProductSearchResult::getName).containsExactly("Tree");
-    productId = response.get(0).getId();
+  void step20_search() {
+    List<ProductSearchResult> response = api.searchProduct(ProductSearchCriteria.empty().withName("Tr"));
+    assertThat(response).map(ProductSearchResult::name).containsExactly(productDto.name());
+    productId = response.get(0).id();
   }
 
   @Test
-  void step3_getDetails() {
+  void step30_getDetails() {
     ProductDto response = api.getProduct(productId);
     assertThat(response)
-        .returns(productDto.getName(), ProductDto::getName)
-        .returns(productDto.getBarcode(), ProductDto::getBarcode)
-        .returns(productDto.getCategory(), ProductDto::getCategory);
+        .returns(productDto.name(), ProductDto::name)
+        .returns(productDto.barcode(), ProductDto::barcode)
+        .returns(productDto.category(), ProductDto::category);
   }
 
   @Test
-  void step4_update() {
+  void step40_update() {
     api.deleteProduct(productId);
   }
 
   @Test
-  void step5_search() {
-    List<ProductSearchResult> response = api.searchProduct(new ProductSearchCriteria().setName("Tree"));
+  void step50_search() {
+    List<ProductSearchResult> response = api.searchProduct(ProductSearchCriteria.empty().withName("Tree"));
     assertThat(response).isEmpty();
   }
 }

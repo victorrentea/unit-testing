@@ -37,7 +37,7 @@ public class ProductSearch3FeatureSteps {
    @Autowired
    private SupplierRepo supplierRepo;
 
-   private ProductSearchCriteria criteria = new ProductSearchCriteria();
+   private ProductSearchCriteria criteria = ProductSearchCriteria.empty();
 
    private Product product;
 
@@ -67,13 +67,13 @@ public class ProductSearch3FeatureSteps {
 
    @When("The search criteria name is {string}")
    public void theSearchCriteriaNameIs(String productName) {
-      criteria.name = productName;
+      criteria = criteria.withName(productName);
    }
 
    @And("The search criteria supplier is {string}")
    public void theSearchCriteriaSupplierIs(String supplierName) {
       if (StringUtils.isNotBlank(supplierName)) {
-         criteria.supplierId = supplierRepo.findByName(supplierName).orElseThrow().getId();
+         criteria = criteria.withSupplierId(supplierRepo.findByName(supplierName).orElseThrow().getId());
       }
    }
 
@@ -82,7 +82,7 @@ public class ProductSearch3FeatureSteps {
       productRepo.save(product);
       List<ProductSearchResult> results = productRepo.search(criteria);
       assertThat(results).hasSize(1);
-      assertThat(results.get(0).getId()).isEqualTo(product.getId());
+      assertThat(results.get(0).id()).isEqualTo(product.getId());
    }
 
    @Then("No products are returned by search")
