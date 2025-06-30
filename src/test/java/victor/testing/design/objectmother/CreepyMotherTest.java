@@ -8,7 +8,8 @@ class ShippingServiceTest {
   // ??? = unnecessary information
   @Test
   void estimateShippingCosts() {
-    Customer customer = new Customer("???", "Romania", "???");
+    Customer customer = new Customer("???", "Romania", "???")
+        /*.withName("newName")*/;
     int cost = new ShippingService().estimateShippingCosts(customer);
     assertThat(cost).isEqualTo(30);
   }
