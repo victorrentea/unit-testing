@@ -2,21 +2,17 @@ package victor.testing.mocks.telemetry;
 
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
 import static java.time.LocalDateTime.now;
-import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -24,17 +20,19 @@ import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 
 @ExtendWith(MockitoExtension.class)
+//@MockitoSettings(strictness = Strictness.LENIENT) // NEVER do this!
 public class DiagnosticTest {
   public static final String DIAGNOSTIC_MESSAGE = "Diagnostic Info";
 
   @Mock
   Client client;
-  @InjectMocks
+  @InjectMocks // via constructor, setter or private field
   Diagnostic diagnostic;
 
   @BeforeEach
   final void before() {
-    when(client.getOnlineStatus()).thenReturn(true);
+    lenient().when(client.getOnlineStatus()).thenReturn(true); // good
+    // even better: split the test class fi big ± the prod class if complex enough
   }
 
   @Test
@@ -45,6 +43,7 @@ public class DiagnosticTest {
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Unable to connect.");
   }
+
   @Test
   void storesReceivedDiagnosticInfo() {
     when(client.receive()).thenReturn(DIAGNOSTIC_MESSAGE);
@@ -53,18 +52,21 @@ public class DiagnosticTest {
 
     AssertionsForClassTypes.assertThat(diagnostic.getDiagnosticInfo()).isEqualTo(DIAGNOSTIC_MESSAGE);
   }
+
   @Test
   void sendsDiagnosticMessage() {
     diagnostic.checkTransmission(true);
 
     verify(client).send(Client.DIAGNOSTIC_MESSAGE);
   }
+
   @Test
   void disconnectsForce() {
     diagnostic.checkTransmission(true);
 
     verify(client).disconnect(true);
   }
+
   @Test
   void disconnects() {
     diagnostic.checkTransmission(false);
@@ -72,7 +74,7 @@ public class DiagnosticTest {
     verify(client).disconnect(false);
   }
 
-//  @Captor
+  //  @Captor
 //  ArgumentCaptor<ClientConfiguration> configCaptor;
   @Test
   void configuresClientWithCorrectSessionId() {
@@ -95,10 +97,18 @@ public class DiagnosticTest {
         .hasSize(40); // "1.0-" + 36-char UUID
   }
 
-//  @Test
-//  void explore() {
-//
-//  }
+  @Test
+  void createConfigTest2() {}
+  void createConfigTest3() {}
+  void createConfigTest4() {}
+  @Test
+  void createConfigUppercasesVersion() {
+    when(client.getVersion()).thenReturn("v1");
 
-  
+    var config = diagnostic.createConfig();
+
+    assertThat(config.getSessionId()).startsWith("V1");
+  }
+
+
 }

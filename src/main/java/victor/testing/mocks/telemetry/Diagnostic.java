@@ -37,7 +37,7 @@ public class Diagnostic {
 	@VisibleForTesting // OR if complex enough, extract this in a separate class
 	@NonNull ClientConfiguration createConfig() {
 		ClientConfiguration config = new ClientConfiguration();
-		config.setSessionId(client.getVersion()/*.toUpperCase()*/ + "-" + randomUUID());
+		config.setSessionId(client.getVersion().toUpperCase() + "-" + randomUUID());
 		// a lot of complexity
 		// a lot of complexity
 		// a lot of complexity
