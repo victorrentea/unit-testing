@@ -2,7 +2,6 @@ package victor.testing.mutation;
 
 import lombok.NonNull;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,10 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 // one class to test 1 public method±
 public class CustomerValidatorValidateTest {
   CustomerValidator validator = new CustomerValidator();
-  private Customer aCustomer;
+  Customer customer = validCustomer();
+
+  public CustomerValidatorValidateTest() {
+    System.out.println("NEW");
+  }
 
   // canonical object
-  private @NonNull Customer validCustomer() {
+  static @NonNull Customer validCustomer() {
     Customer aCustomer = new Customer();
     aCustomer.setName("::name::");
     aCustomer.setEmail("::email::");
@@ -23,13 +26,13 @@ public class CustomerValidatorValidateTest {
     return aCustomer;
   }
 
-  @BeforeEach
-  final void before() {
-    aCustomer = validCustomer();
-  }
+//  @BeforeEach
+//  final void before() {
+//    aCustomer = validCustomer();
+//  }
   @Test
   void valid() {
-    validator.validate(aCustomer);
+    validator.validate(customer);
   }
 
   @Test
@@ -41,11 +44,11 @@ public class CustomerValidatorValidateTest {
 //    aCustomer.setEmail("::email::");
 //    aCustomer.setAddress(new Address());
 //    aCustomer.getAddress().setCity("::city::");
-    aCustomer.setName(null); // data tweak
+    customer.setName(null); // data tweak
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> validator.validate(aCustomer));
+        () -> validator.validate(customer));
   }
 
 
@@ -55,21 +58,30 @@ public class CustomerValidatorValidateTest {
 //    aCustomer.setName("some name");
 //    aCustomer.setAddress(new Address());
 //    aCustomer.getAddress().setCity("::city::");
-    aCustomer.setEmail(null);
+    customer.setEmail(null);
 //    var e = assertThrows(
 //        IllegalArgumentException.class,
 //        () -> validator.validate(aCustomer));
 //    assertTrue(e.getMessage().contains("email"));
-    Assertions.assertThatThrownBy(() -> validator.validate(aCustomer))
+    Assertions.assertThatThrownBy(() -> validator.validate(customer))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("email");
   }
 
   @Test
   void throws_forNullCity() {
-    aCustomer.getAddress().setCity(null);
+    customer.getAddress().setCity(null);
 
-    Assertions.assertThatThrownBy(() -> validator.validate(aCustomer))
+    Assertions.assertThatThrownBy(() -> validator.validate(customer))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("city");
+  }
+
+  @Test
+  void throws_forShortCityName() {
+    customer.getAddress().setCity("Io");
+
+    Assertions.assertThatThrownBy(() -> validator.validate(customer))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("city");
   }
