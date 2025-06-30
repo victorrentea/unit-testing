@@ -3,7 +3,10 @@ package victor.testing.mutation;
 import lombok.NonNull;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import victor.testing.tools.CaptureSystemOutput;
+import victor.testing.tools.CaptureSystemOutput.OutputCapture;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -26,14 +29,26 @@ public class CustomerValidatorValidateTest {
     return aCustomer;
   }
 
-//  @BeforeEach
-//  final void before() {
-//    aCustomer = validCustomer();
-//  }
   @Test
-  void valid() {
+  void validatesAndTrimsCityName() {
+    customer.getAddress().setCity(" with spaces ");
+
     validator.validate(customer);
+
+    //a +1 assert city name trimmed PRO: pragmatic, this test is empty anyway
+    assertThat(customer.getAddress().getCity())
+        .isEqualTo("with spaces");
   }
+
+  @Test
+  @CaptureSystemOutput
+  // interim until you build enough tests. don't abuse.
+  void testingTheLogging(OutputCapture capturedOutput) {
+    validator.validate(customer);
+    assertThat(capturedOutput.toString()).containsSequence("[ALARM-1] NOT SUPPORTED VALUE");
+  }
+
+  //b +1 @Test to assert city name trimmed PRO:
 
   @Test
 //  public void testValid_nullName_throwsException() { // JUnit3.5 (RIP ~10y ago) required "test" prefix
