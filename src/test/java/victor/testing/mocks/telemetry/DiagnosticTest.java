@@ -4,8 +4,12 @@ import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 
 import java.time.LocalDateTime;
@@ -19,12 +23,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 import static victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode.NORMAL;
 
+@ExtendWith(MockitoExtension.class)
 public class DiagnosticTest {
-
   public static final String DIAGNOSTIC_MESSAGE = "Diagnostic Info";
 
-  Client client = mock(Client.class);
-  Diagnostic diagnostic = new Diagnostic(client);
+  @Mock
+  Client client;
+  @InjectMocks
+  Diagnostic diagnostic;
 
   @BeforeEach
   final void before() {
