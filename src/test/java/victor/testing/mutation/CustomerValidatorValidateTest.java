@@ -2,6 +2,7 @@ package victor.testing.mutation;
 
 import lombok.NonNull;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 // one class to test 1 public method±
 public class CustomerValidatorValidateTest {
   CustomerValidator validator = new CustomerValidator();
+  private Customer aCustomer;
 
   // canonical object
   private @NonNull Customer validCustomer() {
@@ -21,10 +23,12 @@ public class CustomerValidatorValidateTest {
     return aCustomer;
   }
 
+  @BeforeEach
+  final void before() {
+    aCustomer = validCustomer();
+  }
   @Test
   void valid() {
-    var aCustomer = validCustomer();
-
     validator.validate(aCustomer);
   }
 
@@ -37,7 +41,6 @@ public class CustomerValidatorValidateTest {
 //    aCustomer.setEmail("::email::");
 //    aCustomer.setAddress(new Address());
 //    aCustomer.getAddress().setCity("::city::");
-    Customer aCustomer = validCustomer();
     aCustomer.setName(null); // data tweak
 
     assertThrows(
@@ -52,7 +55,6 @@ public class CustomerValidatorValidateTest {
 //    aCustomer.setName("some name");
 //    aCustomer.setAddress(new Address());
 //    aCustomer.getAddress().setCity("::city::");
-    Customer aCustomer = validCustomer();
     aCustomer.setEmail(null);
 //    var e = assertThrows(
 //        IllegalArgumentException.class,
@@ -61,5 +63,14 @@ public class CustomerValidatorValidateTest {
     Assertions.assertThatThrownBy(() -> validator.validate(aCustomer))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("email");
+  }
+
+  @Test
+  void throws_forNullCity() {
+    aCustomer.getAddress().setCity(null);
+
+    Assertions.assertThatThrownBy(() -> validator.validate(aCustomer))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("city");
   }
 }
