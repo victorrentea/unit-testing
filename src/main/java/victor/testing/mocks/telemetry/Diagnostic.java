@@ -11,14 +11,14 @@ import static java.util.UUID.randomUUID;
 public class Diagnostic {
 	public static final String DIAGNOSTIC_CHANNEL_CONNECTION_STRING = "*111#";
 
-	private Client client;
+	private final Client client;
 	private String diagnosticInfo = "";
 
-	public void setTelemetryClient(Client client) {
-		this.client = client;
-	}
+  public Diagnostic(Client client) {
+    this.client = client;
+  }
 
-	public void checkTransmission(boolean force) {
+  public void checkTransmission(boolean force) {
 		client.disconnect(force);
 
 		if (! client.getOnlineStatus()) {
