@@ -1,15 +1,16 @@
 package victor.testing.spring.rest.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import victor.testing.spring.entity.ProductCategory;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class ProductSearchCriteria { // smells like JSON
-    public String name;
-    public ProductCategory category;
-    public Long supplierId;
+@Builder
+@With
+public record ProductSearchCriteria(
+    String name,
+    ProductCategory category,
+    Long supplierId
+) {
+    public static ProductSearchCriteria empty() {
+        return ProductSearchCriteria.builder().build();
+    }
 }

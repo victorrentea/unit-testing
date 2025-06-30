@@ -39,12 +39,11 @@ public class GetProductSocialTest {
 
     ProductDto dto = productService.getProduct(1L);
 
-    assertThat(dto.getId()).isEqualTo(1L);
-    assertThat(dto.getName()).isEqualTo("name");
-    assertThat(dto.getBarcode()).isEqualTo("BARCODE");
-    assertThat(dto.getCategory()).isEqualTo(HOME);
-    assertThat(dto.getCreatedDate()).isEqualTo(date);
-    assertThat(dto.getSupplierCode()).isEqualTo("S");
-  }
+    assertThat(dto.id()).isEqualTo(1L);
+    assertThat(dto.name()).isEqualTo("name");
+    assertThat(dto.barcode()).isEqualTo("BARCODE");
+    assertThat(dto.category()).isEqualTo(HOME);
+    assertThat(dto.createdDate()).isEqualTo(date);
+    assertThat(dto.supplierCode()).isEqualTo("S");  }
 
 }

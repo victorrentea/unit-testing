@@ -204,10 +204,9 @@
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
         <dependency>
-            <!-- incompatible with p6spy-starter -->
             <groupId>com.github.gavlyukovskiy</groupId>
             <artifactId>p6spy-spring-boot-starter</artifactId>
-            <version>1.7.1</version>
+            <version>1.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>

@@ -45,11 +45,12 @@ public class CreateProductApiITest extends IntegrationTest {
   @Autowired
   ApiTestDSL api;
 
-  ProductDto productDto = new ProductDto(
-      "Tree",
-      "barcode-safe",
-      "S",
-      HOME);
+  ProductDto productDto = ProductDto.builder()
+      .name("Tree")
+      .barcode("barcode-safe")
+      .supplierCode("S")
+      .category(HOME)
+      .build();
 
   @BeforeEach
   void setup() {
@@ -88,9 +89,9 @@ public class CreateProductApiITest extends IntegrationTest {
   @Test
     // for @Validated, @NotNull..
   void failsForMissingBarcode() throws Exception {
-    productDto.setBarcode(null);
+    var json = jackson.writeValueAsString(productDto.withBarcode(null));
     mockMvc.perform(post("/product/create")
-            .content(jackson.writeValueAsString(productDto))
+            .content(json)
             .contentType(APPLICATION_JSON))
         .andExpect(status().is4xxClientError())
         .andExpect(content().string(containsString("barcode")));
@@ -110,17 +111,17 @@ public class CreateProductApiITest extends IntegrationTest {
     MDC.put("tenantId", tenantId);
 
     // When: API call
-    api.createProduct(productDto.setName("Tree"));
+    api.createProduct(productDto.withName("Tree"));
 
     // Then: DB SELECT
     Product savedProduct = productRepo.findAll().get(0);
     assertThat(savedProduct.getName()).isEqualTo("Tree");
     assertThat(savedProduct.getCreatedDate()).isToday();
-    assertThat(savedProduct.getCategory()).isEqualTo(productDto.category);
-    assertThat(savedProduct.getBarcode()).isEqualTo(productDto.barcode);
+    assertThat(savedProduct.getCategory()).isEqualTo(productDto.category());
+    assertThat(savedProduct.getBarcode()).isEqualTo(productDto.barcode());
     assertThat(savedProduct.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     assertThat(savedProduct.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
-    assertThat(savedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode);
+    assertThat(savedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode());
 
     ConsumerRecord<String, ProductCreatedEvent> record = testListener.blockingReceiveForHeader(
         "tenant-id", tenantId, // ⚠️tricky: uniquely identify the expected message
@@ -132,10 +133,10 @@ public class CreateProductApiITest extends IntegrationTest {
 
   @Test
   void createGet_blackBox() throws Exception {
-    long id = api.createProduct(productDto.setName("Tree")); // API call #1
+    long id = api.createProduct(productDto.withName("Tree")); // API call #1
 
     ProductDto response = api.getProduct(id); // API call #2
-    assertThat(response.getName()).isEqualTo("Tree");
+    assertThat(response.name()).isEqualTo("Tree");
     // same assertions as previous test ...
   }
 }
