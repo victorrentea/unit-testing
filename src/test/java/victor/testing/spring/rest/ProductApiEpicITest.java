@@ -5,6 +5,7 @@ import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.SafetyApiWireMock;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
@@ -40,6 +41,7 @@ public class ProductApiEpicITest extends IntegrationTest {
 
   @BeforeAll // before the first test
   void insertInitialData() {
+    SafetyApiWireMock.stubResponse("barcode-safe", "SAFE");
     supplierRepo.save(new Supplier().setCode("S").setActive(true));
   }
 
