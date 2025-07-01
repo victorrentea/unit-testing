@@ -1,7 +1,5 @@
 package victor.testing.spring.async;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
@@ -20,31 +18,27 @@ public class AsyncServiceTest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
 
-  @BeforeEach
-  @AfterEach
-  final void cleanup() { // different thread => different transaction
-    supplierRepo.deleteAll();
+  @Test
+  void asyncReturning() throws Exception {
+    asyncService.asyncReturning("sname");
+
+    // TODO assert the supplier is inserted correctly
   }
 
   @Test
-  void asyncFetch_block() throws InterruptedException, ExecutionException {
-    var id = asyncService.asyncReturning("sname").get(); // block JUnit thread until completed
-
-    assertThat(supplierRepo.findById(id)).get()
-        .returns("sname", Supplier::getName);
-  }
-
-  @Test
-  void fireAndForget_poll() throws InterruptedException, ExecutionException {
+  void asyncFireAndForget() throws Exception {
     asyncService.asyncFireAndForget("sname");
 
-    Awaitility.await()
-        .timeout(ofSeconds(1))
-        .untilAsserted(() -> {
-          assertThat(supplierRepo.findAll()).hasSize(1)
-              .first()
-              .extracting(Supplier::getName)
-              .isEqualTo("sname");
-        });
+    // TODO assert the supplier is inserted correctly
+    //  Tip: use Awaitility
+    //  Challenge: pass a null name
+  }
+
+  @Test
+  void asyncFireAndForgetSpring() throws Exception {
+    asyncService.asyncFireAndForgetSpring("sname");
+
+    // TODO assert the supplier is inserted correctly
+    //  Tip: disable the @Async annotation: see AsyncConfig
   }
 }

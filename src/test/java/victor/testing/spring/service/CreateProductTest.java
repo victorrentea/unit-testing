@@ -25,6 +25,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
+// TODO COVERT to @SpringBootTest
+
 @ExtendWith(MockitoExtension.class)
 public class CreateProductTest {
   @Mock

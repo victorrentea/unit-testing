@@ -1,4 +1,4 @@
-package victor.testing.spring.config;
+package victor.testing.spring.async;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;

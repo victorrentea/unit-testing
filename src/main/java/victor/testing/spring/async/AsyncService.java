@@ -1,5 +1,6 @@
 package victor.testing.spring.async;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
@@ -32,6 +33,13 @@ public class AsyncService {
       var supplier = new Supplier().setName(requireNonNull(supplierName));
       supplierRepo.save(supplier);
     });
+  }
+
+  @Async
+  public void asyncFireAndForgetSpring(String supplierName) throws InterruptedException {
+    afterAWhile();
+    var supplier = new Supplier().setName(requireNonNull(supplierName));
+    supplierRepo.save(supplier);
   }
 
   private void afterAWhile() {

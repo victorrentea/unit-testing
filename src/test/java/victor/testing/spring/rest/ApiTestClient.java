@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import victor.testing.spring.rest.dto.ProductDto;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
@@ -23,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @Component
-public class ApiTestDSL {
+public class ApiTestClient {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
 
   @Autowired(required = false)
@@ -31,20 +30,15 @@ public class ApiTestDSL {
 
   @SneakyThrows
   public long createProduct(ProductDto request) {
-    MockHttpServletResponse response = mockMvc.perform(createProductRequest(request))
+    MockHttpServletResponse response = mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(request))
+            .contentType(APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())
         .andExpect(header().exists("Location"))
         .andReturn()
         .getResponse();
     String url = response.getHeader("Location");// e.g. /product/123
     return Long.parseLong(url.substring(url.lastIndexOf('/') + 1));
-  }
-
-  @SneakyThrows
-  public MockHttpServletRequestBuilder createProductRequest(ProductDto request) {
-    return post("/product/create")
-        .content(jackson.writeValueAsString(request))
-        .contentType(APPLICATION_JSON);
   }
 
   @SneakyThrows

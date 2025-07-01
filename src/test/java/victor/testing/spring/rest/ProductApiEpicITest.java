@@ -1,12 +1,9 @@
 package victor.testing.spring.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
@@ -30,7 +27,7 @@ public class ProductApiEpicITest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
-  ApiTestDSL api;
+  ApiTestClient apiTestClient;
 
   ProductDto productDto = ProductDto.builder()
       .name("Tree")
@@ -46,27 +43,21 @@ public class ProductApiEpicITest extends IntegrationTest {
     supplierRepo.save(new Supplier().setCode("S").setActive(true));
   }
 
-  @AfterAll // after the last
-  void cleanup() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
-
   @Test
   void step10_create() {
-    api.createProduct(productDto.withName("Tree"));
+    apiTestClient.createProduct(productDto.withName("Tree"));
   }
 
   @Test
   void step20_search() {
-    List<ProductSearchResult> response = api.searchProduct(ProductSearchCriteria.empty().withName("Tr"));
+    List<ProductSearchResult> response = apiTestClient.searchProduct(ProductSearchCriteria.empty().withName("Tr"));
     assertThat(response).map(ProductSearchResult::name).containsExactly(productDto.name());
     productId = response.get(0).id();
   }
 
   @Test
   void step30_getDetails() {
-    ProductDto response = api.getProduct(productId);
+    ProductDto response = apiTestClient.getProduct(productId);
     assertThat(response)
         .returns(productDto.name(), ProductDto::name)
         .returns(productDto.barcode(), ProductDto::barcode)
@@ -75,12 +66,18 @@ public class ProductApiEpicITest extends IntegrationTest {
 
   @Test
   void step40_update() {
-    api.deleteProduct(productId);
+    apiTestClient.deleteProduct(productId);
   }
 
   @Test
   void step50_search() {
-    List<ProductSearchResult> response = api.searchProduct(ProductSearchCriteria.empty().withName("Tree"));
+    List<ProductSearchResult> response = apiTestClient.searchProduct(ProductSearchCriteria.empty().withName("Tree"));
     assertThat(response).isEmpty();
+  }
+
+  @AfterAll // after the last
+  void cleanup() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
   }
 }
