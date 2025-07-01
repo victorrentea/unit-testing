@@ -22,22 +22,3 @@ public class MessageListener {
   private final SomeServiceWithAllTheLogic service;
 }
 
-@Slf4j
-@RequiredArgsConstructor
-@Service
-class SomeServiceWithAllTheLogic {
-  private final SupplierRepo supplierRepo;
-  private final SqsTemplate sqsTemplate;
-  public void logic(String supplierName) {
-    log.info("Received new supplier name: {}", supplierName);
-    if (supplierRepo.existsByName(supplierName)) {
-      log.info("Supplier already exists"); // idempotent consumer
-      return;
-    }
-    supplierRepo.save(new Supplier()
-        .setName(supplierName));
-    log.info("Created supplier");
-
-    sqsTemplate.send("out-queue", supplierName);
-  }
-}

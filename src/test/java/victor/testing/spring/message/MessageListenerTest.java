@@ -23,8 +23,6 @@ public class MessageListenerTest extends IntegrationTest {
   SupplierRepo supplierRepo;
   @Value("${supplier.created.event}")
   String queueName;
-  @MockitoSpyBean // @SpyBean
-  SomeServiceWithAllTheLogic service;
 
   @BeforeEach
   final void before() {

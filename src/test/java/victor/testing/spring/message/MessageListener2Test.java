@@ -23,8 +23,7 @@ public class MessageListener2Test extends IntegrationTest {
   SupplierRepo supplierRepo;
   @Value("${supplier.created.event}")
   String queueName;
-  @MockitoSpyBean // @SpyBean = "wrap" the real bun with a mockito spy so that I can intercept its method calls
-  SomeServiceWithAllTheLogic service;
+
 
   @BeforeEach
   final void before() {

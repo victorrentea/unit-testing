@@ -14,11 +14,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 import org.wiremock.integrations.testcontainers.WireMockContainer;
+import victor.testing.spring.message.SomeServiceWithAllTheLogic;
 
 import java.io.IOException;
 import java.util.Random;
@@ -37,6 +39,9 @@ public class IntegrationTest {
 
   @Autowired
   protected OutQueueTestListener outQueueTestListener;
+
+  @MockitoSpyBean // @SpyBean = "wrap" the real bun with a mockito spy so that I can intercept its method calls
+  protected SomeServiceWithAllTheLogic service;
 
   @Container
   static LocalStackContainer localStack = new LocalStackContainer(
