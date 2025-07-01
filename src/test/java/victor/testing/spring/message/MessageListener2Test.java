@@ -15,7 +15,7 @@ import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-public class MessageListenerTest extends IntegrationTest {
+public class MessageListener2Test extends IntegrationTest {
   public static final String SUPPLIER_NAME = "supplier";
   @Autowired
   SqsTemplate sqsTemplate;
