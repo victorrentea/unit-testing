@@ -3,5 +3,5 @@
   - options to clean DB state: @Before/AfterEach, @Transactional, @Sql
 2) AsyncServiceTest: test code working in another thread
 3) MessageListenerTest: send message to tested code
-4) ProductServiceTest: convert unit->integration test to cover longer flows: +repo, +api client,...
+4) CreateProductTest: convert unit->integration test to cover longer flows: +repo, +api client,...
 5) ProductApiTest: test at REST API level

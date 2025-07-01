@@ -15,23 +15,27 @@ public class ProductRepoSearchTest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
 
-  private record TestCase(
-      ProductSearchCriteria criteria,
-      boolean matches) {
-  }
-
   @Test
-  //TODO convert to @ParameterizedTest takin a TestCase param,
-  //  then fully cover all branches of ProductRepoSearchImpl
-  //
-  public void search() {
+  // TODO fully cover all branches of ProductRepoSearchImpl
+  void search() {
     var supplier = supplierRepo.save(new Supplier());
     productRepo.save(new Product().setSupplier(supplier));
     var searchCriteria = ProductSearchCriteria.empty();
 
     var results = productRepo.search(searchCriteria);
 
-    // TODO assert matches
+    // TODO 1 assert the list contains exactly one result with the productId
   }
+
+  // TODO 2 write a second test proving search does NOT return the product in DB
+
+  // TODO 3 write a third test proving search DOES return the product in DB (eg by supplierId)
+
+  // TODO 4 replace all tests with a single @ParameterizedTest taking a param of this type:
+  record TestCase(
+      ProductSearchCriteria criteria,
+      boolean matches) {
+  }
+
 }
 
