@@ -26,6 +26,9 @@ public class MessageListenerTest extends IntegrationTest {
     supplierRepo.deleteAll();
   }
 
+  // TODO 1 assert the supplier is inserted correctly
+  // TODO 2 assert the supplier is NOT inserted if it already exists
+
   @Test
   void supplierIsCreated() throws Exception {
 
@@ -37,9 +40,6 @@ public class MessageListenerTest extends IntegrationTest {
               assertThat(supplierRepo.existsByName(supplierName)).isTrue();
             });
 
-
-    // TODO 1 assert the supplier is inserted correctly
-    // TODO 2 assert the supplier is NOT inserted if it already exists
   }
   @Test
   void supplierIsNotCreatedIfAlreadyExists() {
