@@ -24,15 +24,16 @@ public class AsyncServiceTest extends IntegrationTest {
 
     // TODO assert the supplier is inserted correctly
   }
+  // TODO add another test to check a null name is rejected
 
   @Test
   void asyncFireAndForget() throws Exception {
     asyncService.asyncFireAndForget("sname");
 
     // TODO assert the supplier is inserted correctly
-    //  Tip: use Awaitility
-    //  Challenge: pass a null name
+    //  Tip: use Awaitility. change pollInterval
   }
+  // TODO add another test to check a null name is rejected
 
   @Test
   void asyncFireAndForgetSpring() throws Exception {

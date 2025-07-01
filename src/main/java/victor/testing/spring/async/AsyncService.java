@@ -40,13 +40,14 @@ public class AsyncService {
   @Async
   public void asyncFireAndForgetSpring(String supplierName) throws InterruptedException {
     afterAWhile();
-    var supplier = new Supplier().setName(requireNonNull(supplierName));
+    var supplier = new Supplier()
+        .setName(requireNonNull(supplierName));
     supplierRepo.save(supplier);
   }
 
   private void afterAWhile() {
     try {
-      Thread.sleep(10);
+      Thread.sleep(50);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
