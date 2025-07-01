@@ -16,6 +16,7 @@ public class Target {
 }
 
 class Dependency {
+
    public int stuff(Obj obj, int x) {
       // imagine complexity => tested separately
       obj.setTotal(obj.getTotal() + x); // side effect ==> command
