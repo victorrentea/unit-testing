@@ -33,7 +33,6 @@ public class AsyncServiceTest extends IntegrationTest {
     }
 
     @Nested
-    @DirtiesContext
     class JavaAsyncTest {
       @Test
       void asyncReturning() throws Exception {
@@ -70,8 +69,7 @@ public class AsyncServiceTest extends IntegrationTest {
   @Nested
   @TestPropertySource(
           locations = "classpath:application-test.properties",
-          properties = "async.enabled=true")
-  @DirtiesContext
+          properties = "async.enabled=false")
   public class SpringAsyncTest {
     @Test
     public void asyncFireAndForgetSpring() throws Exception {
