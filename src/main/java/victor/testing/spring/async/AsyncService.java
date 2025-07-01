@@ -4,7 +4,10 @@ import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+
+import static java.util.Objects.requireNonNull;
 
 @Service
 public class AsyncService {
@@ -14,27 +17,26 @@ public class AsyncService {
     this.supplierRepo = supplierRepo;
   }
 
-  // @Async // or via Spring Magic
-  public CompletableFuture<String> asyncReturning(String supplierName) {
+  public CompletableFuture<Long> asyncReturning(String supplierName) {
     return CompletableFuture.supplyAsync(() -> {
-      takesAWhile();
-      supplierRepo.save(new Supplier().setName(supplierName));
-      return "stuff retrieved in parallel";
+      afterAWhile();
+      var supplier = new Supplier().setName(requireNonNull(supplierName));
+      return supplierRepo.save(supplier).getId();
     });
   }
 
   // @Async // or via Spring Magic
   public void asyncFireAndForget(String supplierName) throws InterruptedException {
     CompletableFuture.runAsync(() -> {
-      takesAWhile();
-      supplierRepo.save(new Supplier().setName(supplierName));
-      // experiment: an error
+      afterAWhile();
+      var supplier = new Supplier().setName(requireNonNull(supplierName));
+      supplierRepo.save(supplier);
     });
   }
 
-  private void takesAWhile() {
+  private void afterAWhile() {
     try {
-      Thread.sleep(100);
+      Thread.sleep(10);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }

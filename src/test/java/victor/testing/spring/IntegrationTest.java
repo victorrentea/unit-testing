@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.MonitorSpringStartupPerformance;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestComponent;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -37,48 +38,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 //@Testcontainers DON'T! => // https://testcontainers.com/guides/testcontainers-container-lifecycle/
 @SpringBootTest
-@Import(IntegrationTest.SqsTestConfig.class)
+@Import(ProductCreatedEventTestListener.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 public class IntegrationTest {
   @Autowired
   protected ProductCreatedEventTestListener testListener;
-
-  @TestConfiguration
-  public static class SqsTestConfig {
-    @Bean
-    public ProductCreatedEventTestListener productCreatedEventTestListener() {
-      return new ProductCreatedEventTestListener();
-    }
-  }
-
-  @Slf4j
-  public static class ProductCreatedEventTestListener {
-    private LinkedBlockingQueue<ProductCreatedEvent> receivedRecords = new LinkedBlockingQueue<>();
-
-    @SqsListener("${product.created.topic}")
-    public void receive(ProductCreatedEvent record) {
-      log.debug("Test listener received message: {}", record);
-      receivedRecords.add(record);
-    }
-
-    public ProductCreatedEvent blockingReceive(Duration timeout) throws ExecutionException, InterruptedException, TimeoutException {
-      LocalDateTime deadline = LocalDateTime.now().plus(timeout);
-      while (true) {
-        Duration timeLeft = Duration.between(LocalDateTime.now(), deadline);
-        var record = receivedRecords.poll(timeLeft.toMillis(), MILLISECONDS);
-        if (record == null) {
-          throw new TimeoutException("Timeout while waiting for message");
-        }
-        return record;
-      }
-    }
-
-    public void drain() {
-      receivedRecords.clear();
-    }
-  }
-
 
   @Container
   static LocalStackContainer localStack = new LocalStackContainer(
@@ -105,6 +70,7 @@ public class IntegrationTest {
   static void injectPropertiesToSpring(DynamicPropertyRegistry registry) {
     registry.add("wiremock.host", () -> wiremockServer.getHost());
     registry.add("wiremock.port", () -> wiremockServer.getPort());
+
     registry.add("spring.cloud.aws.sqs.endpoint", () -> localStack.getEndpointOverride(LocalStackContainer.Service.SQS).toString());
     registry.add("spring.cloud.aws.credentials.access-key", () -> localStack.getAccessKey());
     registry.add("spring.cloud.aws.credentials.secret-key", () -> localStack.getSecretKey());
@@ -131,6 +97,8 @@ public class IntegrationTest {
   public void resetWireMock() {
     WireMock.resetAllRequests();
   }
+
+
 
 
   @AfterAll
