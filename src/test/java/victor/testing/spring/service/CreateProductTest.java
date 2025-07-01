@@ -1,12 +1,13 @@
 package victor.testing.spring.service;
 
+import io.awspring.cloud.sqs.operations.SqsTemplate;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -33,7 +34,7 @@ public class CreateProductTest {
   @Mock
   SafetyApiAdapter safetyApiAdapter;
   @Mock
-  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+  SqsTemplate sqsTemplate;
   @InjectMocks
   ProductService productService;
 
@@ -42,6 +43,10 @@ public class CreateProductTest {
       .supplierCode("S")
       .category(HOME)
       .build();
+  @BeforeEach
+  final void before() {
+      productService.productCreatedTopicName = "topic";
+  }
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -70,10 +75,9 @@ public class CreateProductTest {
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
-    verify(kafkaTemplate).send(
-        eq(ProductService.PRODUCT_CREATED_TOPIC),
-        eq("k"),
-        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+    verify(sqsTemplate).send(
+        eq(productService.productCreatedTopicName),
+        assertArg((ProductCreatedEvent e)-> assertThat(e.productId()).isEqualTo(newProductId)));
   }
 
 }

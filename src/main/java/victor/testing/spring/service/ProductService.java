@@ -1,8 +1,10 @@
 package victor.testing.spring.service;
 
+import io.awspring.cloud.sqs.operations.SqsTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
@@ -20,12 +22,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-  public static final String PRODUCT_CREATED_TOPIC = "product-created";
   private final SupplierRepo supplierRepo;
   private final ProductRepo productRepo;
   private final SafetyApiAdapter safetyApiAdapter;
   private final ProductMapper productMapper;
-  private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+  private final SqsTemplate sqsTemplate;
+  @Value("${product.created.topic}")
+  String productCreatedTopicName;
 
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
@@ -43,7 +46,7 @@ public class ProductService {
     product.setSupplier(supplierRepo.findByCode(productDto.supplierCode()).orElseThrow());
     Long productId = productRepo.save(product).getId();
     ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
-    kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", event); // a 'tenant-id' message header is added by victor.testing.spring.config.AddTenantIdToSentMessagesInterceptor
+    sqsTemplate.send(productCreatedTopicName, event);
     return productId;
   }
 

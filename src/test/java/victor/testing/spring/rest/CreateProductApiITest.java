@@ -2,7 +2,6 @@ package victor.testing.spring.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.MDC;
@@ -11,6 +10,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.SafetyApiWireMock;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
@@ -51,6 +51,12 @@ public class CreateProductApiITest extends IntegrationTest {
       .supplierCode("S")
       .category(HOME)
       .build();
+
+
+  @BeforeEach
+  final void setupWireMock() {
+    SafetyApiWireMock.stubResponse("barcode-safe", "SAFE");
+  }
 
   @BeforeEach
   void setup() {
@@ -107,6 +113,7 @@ public class CreateProductApiITest extends IntegrationTest {
 
   @Test
   void create_grayBox() throws Exception {
+    testListener.drain(); // DISCUSS TODO
     String tenantId = UUID.randomUUID().toString();
     MDC.put("tenantId", tenantId);
 
@@ -123,12 +130,10 @@ public class CreateProductApiITest extends IntegrationTest {
     assertThat(savedProduct.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     assertThat(savedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode());
 
-    ConsumerRecord<String, ProductCreatedEvent> record = testListener.blockingReceiveForHeader(
-        "tenant-id", tenantId, // ⚠️tricky: uniquely identify the expected message
-        ofSeconds(5) // ⚠️ flaky: how long depends on machine
+    var event = testListener.blockingReceive(ofSeconds(5) // ⚠️ flaky: how long depends on machine
     ); // ⚠️ wrong message sent not matching the criteria times-out the test
-    assertThat(record.value().productId()).isEqualTo(savedProduct.getId());
-    assertThat(record.value().observedAt()).isCloseTo(now(), byLessThan(5, SECONDS));
+    assertThat(event.productId()).isEqualTo(savedProduct.getId());
+    assertThat(event.observedAt()).isCloseTo(now(), byLessThan(5, SECONDS));
   }
 
   @Test

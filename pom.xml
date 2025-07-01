@@ -84,6 +84,11 @@
             <version>${cucumber-java.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <!-- needed for victor.testing.spring.web.MonitorSpringTestStartupPerformance -->
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+        </dependency>
         <!-- WARNING: requires the package of all the glue code (@Given, @When, @Then) classes
         to contain a class annotated with @CucumberContextConfiguration -->
          <!--<dependency>
@@ -94,53 +99,11 @@
          </dependency>-->
 
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
-        </dependency>
 
-        <dependency>
-            <!-- @AutoConfigureWireMock -->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
-        </dependency>
-        <!-- <dependency>
-             <groupId>com.github.tomakehurst</groupId>
-             <artifactId>wiremock-jre8-standalone</artifactId>
-             <version>2.26.3</version>
-             <scope>test</scope>
-         </dependency>-->
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka-test</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-
-        <dependency>
-            <!-- PDF generation -->
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>5.2.2</version>
-        </dependency>
-        <dependency>
-            <!-- PDF generation -->
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>5.2.2</version>
         </dependency>
 
 
@@ -151,6 +114,16 @@
 
         <!-- 1) testcontainers: initial/standard style  -->
         <dependency>
+            <groupId>io.awspring.cloud</groupId>
+            <artifactId>spring-cloud-aws-starter-sqs</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>1.17.2</version>
@@ -160,6 +133,31 @@
             <artifactId>postgresql</artifactId>
             <version>1.15.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>localstack</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.wiremock.integrations</groupId>-->
+<!--            <artifactId>wiremock-spring-boot</artifactId>-->
+<!--            <version>3.10.0</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>3.9.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wiremock.integrations.testcontainers</groupId>
+            <artifactId>wiremock-testcontainers-module</artifactId>
+            <version>1.0-alpha-13</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <!-- 2) OR testcontainers: Playtika OSS libraries https://github.com/PlaytikaOSS/testcontainers-spring-boot -->
         <!--<dependency>
@@ -177,11 +175,10 @@
         <!-- testcontainers: end -->
 
         <dependency>
-            <groupId>org.openapitools.openapidiff</groupId>
-            <artifactId>openapi-diff-core</artifactId>
-            <version>2.0.1</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
             <!-- Only needed on MacBook M1 chips to connect to local Docker service -->
             <groupId>net.java.dev.jna</groupId>
@@ -199,11 +196,6 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <dependency>
-            <!-- needed for victor.testing.spring.web.MonitorSpringTestStartupPerformance -->
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.github.gavlyukovskiy</groupId>
             <artifactId>p6spy-spring-boot-starter</artifactId>
             <version>1.10.0</version>
@@ -212,7 +204,6 @@
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
         </dependency>
-
     </dependencies>
 
     <dependencyManagement>
@@ -223,6 +214,21 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>aws-core</artifactId>
+                <version>2.25.28</version>
+            </dependency>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>sdk-core</artifactId>
+                <version>2.25.28</version>
+            </dependency>
+            <dependency>
+                <groupId>io.awspring.cloud</groupId>
+                <artifactId>spring-cloud-aws-core</artifactId>
+                <version>3.2.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

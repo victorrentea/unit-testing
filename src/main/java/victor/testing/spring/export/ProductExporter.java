@@ -1,9 +1,9 @@
 package victor.testing.spring.export;
 
-import com.google.common.annotations.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import org.testcontainers.shaded.com.google.common.annotations.VisibleForTesting;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
 import victor.testing.spring.repo.ProductRepo;

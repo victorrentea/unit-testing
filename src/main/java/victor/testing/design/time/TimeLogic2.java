@@ -1,9 +1,10 @@
 package victor.testing.design.time;
 
-import com.google.common.annotations.VisibleForTesting;
+//import com.google.common.annotations.VisibleForTesting;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.shaded.com.google.common.annotations.VisibleForTesting;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -29,7 +30,8 @@ public /*final*/ class TimeLogic2 {
    public boolean isFrequentBuyer(int customerId) {
       return isFrequentBuyer(customerId, LocalDate.now());
    }
-   @VisibleForTesting // subcutaneous test
+//   @VisibleForTesting
+      // subcutaneous test
    // javac only shows this method to classes in the same package
    // Sonar enforces that only tests are allowed to use this
    boolean isFrequentBuyer(int customerId, LocalDate now) {

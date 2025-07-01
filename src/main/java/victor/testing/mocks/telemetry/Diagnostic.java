@@ -1,7 +1,8 @@
 package victor.testing.mocks.telemetry;
 
-import com.google.common.annotations.VisibleForTesting;
+//import com.google.common.annotations.VisibleForTesting;
 import lombok.NonNull;
+import org.testcontainers.shaded.com.google.common.annotations.VisibleForTesting;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration;
 import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
 
@@ -34,7 +35,7 @@ public class Diagnostic {
 		diagnosticInfo = client.receive();
 	}
 
-	@VisibleForTesting // OR if complex enough, extract this in a separate class
+//	@VisibleForTesting // OR if complex enough, extract this in a separate class
 	@NonNull ClientConfiguration createConfig() {
 		ClientConfiguration config = new ClientConfiguration();
 		config.setSessionId(client.getVersion().toUpperCase() + "-" + randomUUID());

@@ -1,10 +1,13 @@
 package victor.testing.spring.message;
 
+import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.repo.SupplierRepo;
@@ -17,9 +20,11 @@ import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVE
 // blackbox test of the listener (no mocking)
 public class MessageListenerBlackITest extends IntegrationTest {
   @Autowired
-  KafkaTemplate<String, String> kafkaTemplate;
+  SqsTemplate sqsTemplate;
   @Autowired
   SupplierRepo supplierRepo;
+  @Value("${supplier.created.event}")
+  String queueName;
 
   @BeforeEach
   @AfterEach
@@ -29,7 +34,7 @@ public class MessageListenerBlackITest extends IntegrationTest {
 
   @Test
   void supplierIsCreated_polling() throws Exception {
-    kafkaTemplate.send(SUPPLIER_CREATED_EVENT, "supplier");
+    sqsTemplate.send(queueName, "supplier");
 
     Awaitility.await() // state of the art in polling
         .pollInterval(ofMillis(50)) // try every 50ms
