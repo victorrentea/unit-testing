@@ -1,6 +1,7 @@
 package victor.testing.spring.message;
 
 import io.awspring.cloud.sqs.annotation.SqsListener;
+import io.awspring.cloud.sqs.operations.SqsTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -13,16 +14,30 @@ import victor.testing.spring.repo.SupplierRepo;
 @Service
 public class MessageListener {
   public static final String SUPPLIER_CREATED_EVENT = "supplier-created-event";
-  private final SupplierRepo supplierRepo;
 
   @SqsListener("${supplier.created.event}")
   public void onMessage(String supplierName) {
+    service.logic(supplierName);
+  }
+  private final SomeServiceWithAllTheLogic service;
+}
+
+@Slf4j
+@RequiredArgsConstructor
+@Service
+class SomeServiceWithAllTheLogic {
+  private final SupplierRepo supplierRepo;
+  private final SqsTemplate sqsTemplate;
+  public void logic(String supplierName) {
     log.info("Received new supplier name: {}", supplierName);
     if (supplierRepo.existsByName(supplierName)) {
       log.info("Supplier already exists"); // idempotent consumer
       return;
     }
-    supplierRepo.save(new Supplier().setName(supplierName));
+    supplierRepo.save(new Supplier()
+        .setName(supplierName));
     log.info("Created supplier");
+
+    sqsTemplate.send("out-queue", supplierName);
   }
 }

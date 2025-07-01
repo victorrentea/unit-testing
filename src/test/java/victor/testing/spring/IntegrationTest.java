@@ -28,12 +28,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 //@Testcontainers DON'T! => // https://testcontainers.com/guides/testcontainers-container-lifecycle/
 @SpringBootTest
-@Import(ProductCreatedEventTestListener.class)
+@Import({ProductCreatedEventTestListener.class, OutQueueTestListener.class})
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 public class IntegrationTest {
   @Autowired
   protected ProductCreatedEventTestListener testListener;
+
+  @Autowired
+  protected OutQueueTestListener outQueueTestListener;
 
   @Container
   static LocalStackContainer localStack = new LocalStackContainer(

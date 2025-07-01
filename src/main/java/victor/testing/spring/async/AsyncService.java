@@ -32,7 +32,7 @@ public class AsyncService {
     CompletableFuture.runAsync(() -> {
       afterAWhile();
       var supplier = new Supplier()
-          .setName(requireNonNull(supplierName));
+          .setName(supplierName);
       supplierRepo.save(supplier);
     });
   }
@@ -47,7 +47,7 @@ public class AsyncService {
 
   private void afterAWhile() {
     try {
-      Thread.sleep(50);
+      Thread.sleep((long) (100 * Math.random()));
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }

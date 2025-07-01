@@ -48,6 +48,9 @@ public class ProductApiTest extends IntegrationTest {
     supplierRepo.save(new Supplier().setCode("S").setActive(true));
   }
 
+  // COPY-paste/inspire/train your ai (context)
+  // - ApiTestClient
+  // - ProductApiEpicITest
   @Test
   void sendMalformedJson_fails() throws Exception {
     // TODO bad JSON request payload fails
