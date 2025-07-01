@@ -2,6 +2,7 @@ package victor.testing.spring.repo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import victor.testing.spring.rest.dto.ProductSearchResult;
 import java.util.List;
 import java.util.stream.Stream;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProductRepoSearchTest extends IntegrationTest {
     final static String PRODUCT_NAME = "defaultName";
     final static ProductCategory PRODUCT_CATEGORY = ProductCategory.UNCATEGORIZED;
@@ -27,7 +29,7 @@ public class ProductRepoSearchTest extends IntegrationTest {
     Supplier supplier = new Supplier().setName(SUPPLIER_NAME).setActive(true);
     Product product = new Product().setSupplier(supplier).setName(PRODUCT_NAME).setCategory(PRODUCT_CATEGORY).setBarcode(PRODUCT_BARCODE);
 
-    static Stream<TestCase> testCases() {
+    Stream<TestCase> testCases() {
         return Stream.of(new TestCase(ProductSearchCriteria.empty(), true),
                          // Criteria Product Name testing
                          new TestCase(ProductSearchCriteria.builder().name(PRODUCT_NAME).build(), true),
