@@ -44,7 +44,7 @@ public class AsyncService {
 
   private void afterAWhile() {
     try {
-      Thread.sleep(10);
+      Thread.sleep(50);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
