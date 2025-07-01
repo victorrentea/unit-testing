@@ -3,8 +3,8 @@ package victor.testing.spring.message;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import victor.testing.spring.IntegrationTest;
 
 import static org.mockito.Mockito.timeout;
@@ -15,7 +15,7 @@ import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVE
 public class MessageListenerInfraITest extends IntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
-  @SpyBean // the real bean is decorated by a mock proxy that can record invocations
+  @MockitoSpyBean // the real bean is decorated by a mock proxy that can record invocations
   MessageListener messageListener;
 
   @Test

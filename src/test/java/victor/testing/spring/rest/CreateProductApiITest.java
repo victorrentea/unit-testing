@@ -43,7 +43,7 @@ public class CreateProductApiITest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
-  ApiTestDSL api;
+  ApiTestClient api;
 
   ProductDto productDto = ProductDto.builder()
       .name("Tree")

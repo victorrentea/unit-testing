@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @Component
-public class ApiTestDSL {
+public class ApiTestClient {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
 
   @Autowired(required = false)

@@ -9,12 +9,12 @@ import org.springframework.boot.MonitorSpringStartupPerformance;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.wiremock.spring.EnableWireMock;
 import victor.testing.spring.service.ProductCreatedEvent;
 
 import java.time.Duration;
@@ -34,7 +34,7 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @ActiveProfiles("test")
 @EmbeddedKafka(topics = {SUPPLIER_CREATED_EVENT, PRODUCT_CREATED_TOPIC})
 @AutoConfigureMockMvc
-@AutoConfigureWireMock(port = 0) // Start a HTTP server on a random port serving canned JSONs
+@EnableWireMock
 public class IntegrationTest {
   @Autowired
   protected ProductCreatedEventTestListener testListener;

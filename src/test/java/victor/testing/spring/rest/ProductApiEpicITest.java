@@ -1,12 +1,9 @@
 package victor.testing.spring.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
@@ -30,7 +27,7 @@ public class ProductApiEpicITest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
-  ApiTestDSL api;
+  ApiTestClient api;
 
   ProductDto productDto = ProductDto.builder()
       .name("Tree")

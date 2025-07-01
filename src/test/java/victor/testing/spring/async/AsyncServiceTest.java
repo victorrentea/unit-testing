@@ -1,40 +1,77 @@
 package victor.testing.spring.async;
 
+import org.awaitility.Awaitility;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.repo.SupplierRepo;
 
-import java.util.concurrent.ExecutionException;
+import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@ExtendWith(MockitoExtension.class)
-public class AsyncServiceTest {
-  @Mock
-  SupplierRepo supplierRepo;
-  @InjectMocks
+public class AsyncServiceTest extends IntegrationTest {
+  @Autowired
   AsyncService asyncService;
+  @Autowired
+  SupplierRepo supplierRepo;
 
-  @Test
-  void asyncReturning_block() throws InterruptedException, ExecutionException {
-    String result = asyncService.asyncReturning("sname").get(); // block JUnit thread until completed
-
-    assertThat(result).isEqualTo("stuff retrieved in parallel");
-    verify(supplierRepo)
-        .save(argThat(s -> s.getName().equals("sname")));
+  @BeforeEach
+  final void before() {
+    supplierRepo.deleteAll();
   }
 
   @Test
-  void fireAndForget_poll() throws InterruptedException, ExecutionException {
+  void asyncReturning() throws Exception {
+    var id = asyncService.asyncReturning("sname").get(); // block junit thread
+
+    var supplier = supplierRepo.findById(id).orElseThrow();
+    assertThat(supplier.getName()).isEqualTo("sname");
+  }
+
+  @Test
+  void asyncReturning_throwsForNullName() throws Exception {
+    assertThatThrownBy(() -> asyncService.asyncReturning(null).get());
+    assertThat(supplierRepo.findAll()).isEmpty();
+  }
+
+  @Test
+  void asyncFireAndForget() throws Exception {
     asyncService.asyncFireAndForget("sname");
 
-    verify(supplierRepo, timeout(1000))
-        .save(argThat(s -> s.getName().equals("sname")));
+    Awaitility.await().timeout(Duration.ofSeconds(2)).untilAsserted(() ->
+        assertThat(supplierRepo.findByName("sname")).isPresent());
+  }
+
+  @RepeatedTest(5) // flaky test
+  void asyncFireAndForgetSURPRISE() throws Exception {
+    asyncService.asyncFireAndForget("sname");
+
+    Awaitility.await().timeout(Duration.ofSeconds(2)).untilAsserted(() ->
+        supplierRepo.findByName("sname").get());
+  }
+
+  @Test
+  void asyncFireAndForget_failsForNullName() throws Exception {
+    asyncService.asyncFireAndForget(null);
+
+    Thread.sleep(2000);
+    // if the side-effect didn't happen yet, it will NEVER happen
+    assertThat(supplierRepo.findAll()).isEmpty();
+  }
+
+  @Test
+  void fireAndForgetSpring() throws Exception {
+    asyncService.fireAndForgetSpring("sname");// runs sync as @Async  was "disabled"
+    assertThat(supplierRepo.findByName("sname")).isPresent();
+  }
+
+  @Test
+  void fireAndForgetSpring_nullName() throws Exception {
+    assertThatThrownBy(() -> asyncService.fireAndForgetSpring(null));
+    assertThat(supplierRepo.findAll()).isEmpty();
   }
 }

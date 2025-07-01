@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.junit.platform.engine.Cucumber;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,7 +17,6 @@ import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
 import victor.testing.spring.rest.dto.ProductSearchResult;
-import wiremock.org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
