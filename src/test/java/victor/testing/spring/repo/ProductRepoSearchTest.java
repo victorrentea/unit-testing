@@ -6,6 +6,8 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
@@ -17,6 +19,8 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//@Sql(scripts = "/sql/cleanup.sql",executionPhase =)
+//@Transactional // SQL avoid COMMIT
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // keeps the same instance for all @Test
 public class ProductRepoSearchTest extends IntegrationTest {
   @Autowired
@@ -31,7 +35,6 @@ public class ProductRepoSearchTest extends IntegrationTest {
       ProductSearchCriteria criteria,
       boolean matches) {
   }
-
 
   @BeforeAll
   final void before() {
@@ -60,6 +63,7 @@ public class ProductRepoSearchTest extends IntegrationTest {
         new TestCase(ProductSearchCriteria.builder().supplierId(-1L).build(), false),
         new TestCase(ProductSearchCriteria.builder().supplierId(null).build(), true),
         new TestCase(ProductSearchCriteria.builder().category(ProductCategory.HOME).build(), true),
+        new TestCase(ProductSearchCriteria.builder().category(ProductCategory.ELECTRONICS).build(), false),
         new TestCase(ProductSearchCriteria.builder().category(null).build(), true)
     );
   }
@@ -68,7 +72,6 @@ public class ProductRepoSearchTest extends IntegrationTest {
   //TODO convert to @ParameterizedTest takin a TestCase param,
   //  then fully cover all branches of ProductRepoSearchImpl
   //
-  //parametr
   @MethodSource("testCase")
   @ParameterizedTest
   public void search(TestCase testCase) {
@@ -81,10 +84,10 @@ public class ProductRepoSearchTest extends IntegrationTest {
     }
   }
 
-  @AfterAll
-  final void after() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
-  }
+//  @AfterAll
+//  final void after() {
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
 }
 
