@@ -21,7 +21,8 @@ public class AsyncService {
   public CompletableFuture<Long> asyncReturning(String supplierName) {
     return CompletableFuture.supplyAsync(() -> {
       afterAWhile();
-      var supplier = new Supplier().setName(requireNonNull(supplierName));
+      var supplier = new Supplier()
+          .setName(requireNonNull(supplierName));
       return supplierRepo.save(supplier).getId();
     });
   }
@@ -30,7 +31,8 @@ public class AsyncService {
   public void asyncFireAndForget(String supplierName) throws InterruptedException {
     CompletableFuture.runAsync(() -> {
       afterAWhile();
-      var supplier = new Supplier().setName(requireNonNull(supplierName));
+      var supplier = new Supplier()
+          .setName(requireNonNull(supplierName));
       supplierRepo.save(supplier);
     });
   }

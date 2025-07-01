@@ -1,7 +1,6 @@
 package victor.testing.spring;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
-import io.awspring.cloud.sqs.annotation.SqsListener;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -11,28 +10,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.MonitorSpringStartupPerformance;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestComponent;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 import org.wiremock.integrations.testcontainers.WireMockContainer;
-import victor.testing.spring.service.ProductCreatedEvent;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeoutException;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
@@ -49,12 +39,19 @@ public class IntegrationTest {
   static LocalStackContainer localStack = new LocalStackContainer(
       DockerImageName.parse("localstack/localstack:3.4.0"))
       .withServices(LocalStackContainer.Service.SQS);
+
   @Container
   static WireMockContainer wiremockServer = new WireMockContainer("wiremock/wiremock:2.35.0");
+
+  static PostgreSQLContainer postgres = new PostgreSQLContainer(
+      DockerImageName.parse("postgres:16-alpine"))
+      .withDatabaseName("test")
+      ;
 
   static {
     localStack.start();
     wiremockServer.start();
+    postgres.start();
   }
 
   private static void createQueue(String queueName) {
@@ -75,6 +72,10 @@ public class IntegrationTest {
     registry.add("spring.cloud.aws.credentials.access-key", () -> localStack.getAccessKey());
     registry.add("spring.cloud.aws.credentials.secret-key", () -> localStack.getSecretKey());
     registry.add("spring.cloud.aws.region.static", () -> localStack.getRegion());
+
+    registry.add("spring.datasource.url", postgres::getJdbcUrl); // random port
+    registry.add("spring.datasource.username", postgres::getUsername);
+    registry.add("spring.datasource.password", postgres::getPassword);
 
     var supplierCreatedQueueName = "supplier-created-event-" + new Random().nextInt(99999);
     createQueue(supplierCreatedQueueName);
