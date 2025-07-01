@@ -31,7 +31,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
         if (StringUtils.isNotEmpty(criteria.name())) {
 //            jpqlParts.add("AND p.name = :name");
             jpqlParts.add("AND UPPER(p.name) LIKE UPPER('%' || :name || '%')"); // = contains, ignoring case
-            paramMap.put("name", criteria.name());
+            paramMap.put("name", criteria.name()/*replaceAll("%","%%")*/);
         }
 
         if (criteria.supplierId() != null) {
