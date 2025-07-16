@@ -38,7 +38,7 @@ public class ProductRepoSearch0Test extends IntegrationTest {
   //  Pro Tip: any line of code you change in tested code should fail a test
 
 
-  // TODO 4 replace all tests with a single @ParameterizedTest taking a param of this type:
+  // TODO 4 🥋 replace all tests with a single @ParameterizedTest taking a param of this type:
   record TestCase(
       ProductSearchCriteria criteria,
       boolean matches) {
