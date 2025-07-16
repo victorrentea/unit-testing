@@ -2,12 +2,20 @@ package victor.testing.spring.async;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
+import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
-import static java.time.Duration.ofSeconds;
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.concurrent.CompletableFuture;
 
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofMinutes;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.awaitility.Awaitility.await;
+
+@Transactional // nu ajuta pt ca INSERTul se face intr-o alta tx decat cea din test
 public class AsyncService0Test extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
@@ -16,26 +24,43 @@ public class AsyncService0Test extends IntegrationTest {
 
   @Test
   void asyncReturning() throws Exception {
-    asyncService.asyncReturning("sname");
+    CompletableFuture<Long> future = asyncService.asyncReturning("sname");
 
-    // TODO assert the supplier is inserted correctly
+    Long id = future.get();
+
+    Supplier supplier = supplierRepo.findById(id).orElseThrow();
+    assertThat(supplier.getName()).isEqualTo("sname");
   }
-  // TODO +1 @Test: null name is not saved
 
   @Test
-  void asyncFireAndForget() throws Exception {
-    asyncService.asyncFireAndForget("sname");
+  void asyncThrowsForNullName() throws Exception {
+    CompletableFuture<Long> future = asyncService.asyncReturning(null);
 
-    // TODO assert the supplier is inserted correctly
-    //  Tip: use Awaitility. change pollInterval
+    assertThatThrownBy(() -> future.get())
+        .isInstanceOf(NullPointerException.class);
   }
-  // TODO +1 @Test: null name is not saved
 
   @Test
-  void fireAndForgetSpring() throws Exception {
+  void fireAndForgetSpring_hate() throws Exception {
     asyncService.fireAndForgetSpring("sname");
 
-    // TODO assert the supplier is inserted correctly
-    //  Tip: you can disable the @Async annotation via a property: see AsyncConfig
+    Thread.sleep(/*3*60**/300); // flaky #Doamne fereste!
+
+    assertThat(supplierRepo.findByName("sname")).isPresent();
+
+  }
+
+  @Test
+  void fireAndForgetSpring_polling() throws Exception {
+    asyncService.fireAndForgetSpring("sname");
+    //💖
+    // mai usor de inteles
+    // mai aproape de realitate
+    await()
+        .timeout(ofMinutes(3))
+        .untilAsserted(() ->
+            assertThat(supplierRepo.findByName("sname"))
+                .isPresent());
+
   }
 }

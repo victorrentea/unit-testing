@@ -2,6 +2,8 @@ package victor.testing.spring.async;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
@@ -17,11 +19,12 @@ public class AsyncService {
     this.supplierRepo = supplierRepo;
   }
 
+//  @Transactional(propagation = Propagation.REQUIRES_NEW)
+//  @Async
   public CompletableFuture<Long> asyncReturning(String supplierName) {
     return CompletableFuture.supplyAsync(() -> {
       afterAWhile();
-      var supplier = new Supplier()
-          .setName(requireNonNull(supplierName));
+      var supplier = new Supplier().setName(requireNonNull(supplierName));
       return supplierRepo.save(supplier).getId();
     });
   }
@@ -45,7 +48,7 @@ public class AsyncService {
 
   private void afterAWhile() {
     try {
-      Thread.sleep((long) (30 * Math.random()));
+      Thread.sleep(100+(long) (300 * Math.random()));
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
