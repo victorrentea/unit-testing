@@ -81,7 +81,7 @@ public class ProductApi0Test extends IntegrationTest {
     // as vrea sa verific ca in jsonResponse pe calea $.createDate am stringu "2025-07-16"
     mockMvc.perform(MockMvcRequestBuilders.get(("/product/" + productId)))
         .andExpect(MockMvcResultMatchers.jsonPath("$.createdDate")
-            .value("2025-07-16"));
+            .value("2025-07-16")); // :)
   }
 
 //            .content(Canonical.load("CreateProductRequest").set("$.barcode", null).json().toString())
@@ -143,6 +143,23 @@ public class ProductApi0Test extends IntegrationTest {
         .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
     assertThat(productRepo.findByName("Tree2")).isNotNull();
   }
+  @Test
+  void create_fails_if_productIsNotSafe() throws Exception {
+    SafetyApiWireMock.stubResponse("barcode-safe", "unSAFE");
+
+    mockMvc.perform(MockMvcRequestBuilders.post("/product/create")
+            .content(jackson.writeValueAsString(dto))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isInternalServerError());
+    assertThat(productRepo.findByName("Tree2")).isNull();
+  }
+
+
+
+
+
+
+
 
   @Test
   void create_get_blackbox() throws Exception {
