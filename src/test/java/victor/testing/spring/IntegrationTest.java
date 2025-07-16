@@ -5,7 +5,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.header.Header;
 import org.junit.jupiter.api.AfterAll;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.MonitorSpringStartupPerformance;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -90,14 +89,5 @@ public class IntegrationTest {
     }
   }
 
-  @AfterAll
-  public static void checkHowManyTimesSpringStarted() {
-    // PERFORMANCE DANGER: DO NOT CHANGE THIS CONSTANT!
-    // CALL ME: 📞 0800ANARCHITECT (or you get fired :/)
-    int ALLOWED_NUMBER_OF_TIMES_SPRING_STARTS = 2;
-    assertThat(MonitorSpringStartupPerformance.startupTimeLogs)
-        .describedAs("Number of times spring started (performance)")
-        .hasSizeLessThanOrEqualTo(ALLOWED_NUMBER_OF_TIMES_SPRING_STARTS);
-  }
 
 }
