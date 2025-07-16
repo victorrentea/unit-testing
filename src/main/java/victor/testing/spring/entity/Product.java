@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
@@ -27,7 +28,7 @@ public class Product {
 
     private String barcode;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     private Supplier supplier;
 
     @CreatedDate // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
