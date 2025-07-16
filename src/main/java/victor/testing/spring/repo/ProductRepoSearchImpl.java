@@ -22,25 +22,25 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
     @Override
     public List<ProductSearchResult> search(ProductSearchCriteria criteria) {
         List<String> jpqlParts = new ArrayList<>();
-        jpqlParts.add("SELECT new victor.testing.spring.rest.dto.ProductSearchResult(p.id, p.name)" +
-                " FROM Product p " +
+        jpqlParts.add("SELECT new victor.testing.spring.rest.dto.ProductSearchResult(product.id, product.name)" +
+                " FROM Product product " +
                 " WHERE 1=1");
 
         Map<String, Object> paramMap = new HashMap<>();
 
         if (StringUtils.isNotEmpty(criteria.name())) {
-//            jpqlParts.add("AND p.name = :name");
-            jpqlParts.add("AND UPPER(p.name) LIKE UPPER('%' || :name || '%')"); // = contains, ignoring case
+//            jpqlParts.add("AND product.name = :name");
+            jpqlParts.add("AND UPPER(product.name) LIKE UPPER('%' || :name || '%')"); // = contains, ignoring case
             paramMap.put("name", criteria.name());
         }
 
         if (criteria.supplierId() != null) {
-            jpqlParts.add("AND p.supplier.id = :supplierId");
+            jpqlParts.add("AND product.supplier.id = :supplierId");
             paramMap.put("supplierId", criteria.supplierId());
         }
 
         if (criteria.category() != null) {
-            jpqlParts.add(" AND p.category = :category");
+            jpqlParts.add(" AND product.category = :category");
             paramMap.put("category", criteria.category());
         }
 
