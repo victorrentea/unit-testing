@@ -31,11 +31,11 @@ public class ProductRepoSearch0Test extends IntegrationTest {
     // TODO 1 assert the inserted product is returned
   }
 
-  // TODO 2 write a second test to prove search does NOT return the product in DB
-  //  when searching by criteria not matching the product
+  // TODO 2 write a second @Test to prove search does NOT return the product in DB
+  //  Example: when searching by a different name
 
-  // TODO Write more tests to fully cover ProductRepoSearchImpl (as shown by Coverage)
-  // Pro Tip: any line of code you change in tested code should fail a test
+  // TODO Write more @Test-s to fully cover ProductRepoSearchImpl (as shown by Coverage)
+  //  Pro Tip: any line of code you change in tested code should fail a test
 
 
   // TODO 4 replace all tests with a single @ParameterizedTest taking a param of this type:
