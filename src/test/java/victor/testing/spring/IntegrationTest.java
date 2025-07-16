@@ -13,7 +13,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.wiremock.spring.EnableWireMock;
+import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.service.ProductCreatedEvent;
 
 import java.time.Duration;
@@ -35,6 +37,9 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @EnableWireMock // starts an HTTP server on a random port to return JSON responses you pre-configure
 @AutoConfigureMockMvc // permite sa trimiti req http catre app ta emuland un Tomcat
 public class IntegrationTest {
+  //  @MockitoBean// pune un mock de mockito in locul beanului real in contextul spring de test
+  @MockitoSpyBean
+  protected SupplierRepo supplierRepo;
   @Autowired
   protected ProductCreatedEventTestListener testListener;
 

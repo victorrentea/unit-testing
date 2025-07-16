@@ -7,6 +7,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,13 +24,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
+@ActiveProfiles({"test","doi"})
 @Transactional // nu ajuta pt ca INSERTul se face intr-o alta tx decat cea din test
 public class AsyncServiceMockitTest extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
-//  @MockitoBean// pune un mock de mockito in locul beanului real in contextul spring de test
-  @MockitoSpyBean // wrappuieste obiectul real intr-un mock proxy
-  SupplierRepo supplierRepo;
+
   @Captor
   ArgumentCaptor<Supplier> supplierCaptor;
 

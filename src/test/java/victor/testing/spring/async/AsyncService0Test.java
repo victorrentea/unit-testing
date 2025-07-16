@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
@@ -18,13 +20,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 
+// #RAU strica spring test context cache = +20..30 la build time
+// cand apar in subclase ale lui IntegrationTest
+//@MockitoSpyBean
+//@MockitoBean
+//@ActiveProfile
+//@TestPropertySource(properties = "prop=alta")
+//@TestConfiguration
+// MOrala: le pui pe astea doar in superclasa comuna, aici : IntegrationTest
+// pt a micsora nr de conf distincte de spring de test => mai putine 'bannere' => mai rapide teste
+
 //@Transactional // nu ajuta pt ca INSERTul se face intr-o alta tx decat cea din test
 public class AsyncService0Test extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
-  @MockitoSpyBean
-  SupplierRepo supplierRepo;
-
   @BeforeEach
   @AfterEach
   void cleanupDB() {

@@ -5,16 +5,23 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.SafetyApiWireMock;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.tools.Canonical;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @Transactional
@@ -34,6 +41,8 @@ public class ProductApi0Test extends IntegrationTest {
       .supplierCode("S")
       .category(HOME)
       .build();
+  @Autowired
+  private RestTemplate restTemplate;
 
 
   @BeforeEach
@@ -71,6 +80,33 @@ public class ProductApi0Test extends IntegrationTest {
 
   @Test
   void create_select_graybox() throws Exception {
+//    restTemplate.postForEntity()// rau pt ca schimba threadul si nu mai merge @Transactional nici @WithMockUser
+    mockMvc.perform(MockMvcRequestBuilders.post("/product/create")
+        // #1 json brut ca string
+//        .content("""
+//                {
+//                  "name": "Tree",
+//                  "barcode": "barcode-safe",
+//                  "supplierCode": "S",
+//                  "category": "HOME"
+//                }
+//                """)
+        // #2 incarc un fisier un json mare DE CARE NU-MI PASA si editez bucati din el
+//        .content(Canonical.load("CreateProductRequest")
+//            .set("$.name", "Tree2")
+//            .json()
+//            .toString())
+        // #3 jsonific o instanta de DTO
+            .content(jackson.writeValueAsString(ProductDto.builder()
+                    .name("Tree2")
+                    .barcode("barcode-safe")
+                    .supplierCode("S")
+                    .category(HOME)
+                .build()))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+
+    assertThat(productRepo.findByName("Tree2")).isNotNull();
     // TODO create via API then select in DB the newly created entity
     //  Tip: KISS Principle: serialize an instance of the DTO to JSON String using 'jackson' field
   }
