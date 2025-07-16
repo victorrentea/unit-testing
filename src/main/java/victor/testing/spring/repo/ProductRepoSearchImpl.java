@@ -29,7 +29,6 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
         Map<String, Object> paramMap = new HashMap<>();
 
         if (StringUtils.isNotEmpty(criteria.name())) {
-//            jpqlParts.add("AND product.name = :name");
             jpqlParts.add("AND UPPER(product.name) LIKE UPPER('%' || :name || '%')"); // = contains, ignoring case
             paramMap.put("name", criteria.name());
         }

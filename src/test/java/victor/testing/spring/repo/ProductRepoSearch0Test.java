@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import victor.testing.spring.IntegrationTest;
@@ -10,6 +11,8 @@ import victor.testing.spring.rest.dto.ProductSearchCriteria;
 import victor.testing.spring.rest.dto.ProductSearchResult;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProductRepoSearch0Test extends IntegrationTest {
   @Autowired
@@ -28,7 +31,21 @@ public class ProductRepoSearch0Test extends IntegrationTest {
 
     List<ProductSearchResult> searchResults = productRepo.search(searchCriteria);
 
-    // TODO 1 assert the inserted product is returned
+    assertThat(searchResults).hasSize(1);
+  }
+  @Test
+  void searchNotMatchByName() {
+    var supplier = supplierRepo.save(new Supplier());
+    productRepo.save(new Product()
+        .setName("Name")
+        .setSupplier(supplier)
+        .setCategory(ProductCategory.HOME));
+    var searchCriteria = ProductSearchCriteria.empty()
+        .withName("Other");
+
+    List<ProductSearchResult> searchResults = productRepo.search(searchCriteria);
+
+    assertThat(searchResults).isEmpty();
   }
 
   // TODO 2 write a second @Test to prove search does NOT return the product in DB
