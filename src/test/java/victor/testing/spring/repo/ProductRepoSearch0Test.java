@@ -4,8 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
+import victor.testing.spring.entity.ProductCategory;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
+import victor.testing.spring.rest.dto.ProductSearchResult;
+
+import java.util.List;
 
 public class ProductRepoSearch0Test extends IntegrationTest {
   @Autowired
@@ -14,20 +18,25 @@ public class ProductRepoSearch0Test extends IntegrationTest {
   SupplierRepo supplierRepo;
 
   @Test
-  // TODO fully cover all branches of ProductRepoSearchImpl
   void search() {
     var supplier = supplierRepo.save(new Supplier());
-    productRepo.save(new Product().setSupplier(supplier));
+    productRepo.save(new Product()
+        .setName("Name")
+        .setSupplier(supplier)
+        .setCategory(ProductCategory.HOME));
     var searchCriteria = ProductSearchCriteria.empty();
 
-    var results = productRepo.search(searchCriteria);
+    List<ProductSearchResult> searchResults = productRepo.search(searchCriteria);
 
-    // TODO 1 assert the list contains exactly one result with the productId
+    // TODO 1 assert the inserted product is returned
   }
 
-  // TODO 2 write a second test proving search does NOT return the product in DB
+  // TODO 2 write a second test to prove search does NOT return the product in DB
+  //  when searching by criteria not matching the product
 
-  // TODO 3 write a third test proving search DOES return the product in DB (eg by supplierId)
+  // TODO Write more tests to fully cover ProductRepoSearchImpl (as shown by Coverage)
+  // Pro Tip: any line of code you change in tested code should fail a test
+
 
   // TODO 4 replace all tests with a single @ParameterizedTest taking a param of this type:
   record TestCase(
