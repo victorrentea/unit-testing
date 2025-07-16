@@ -5,7 +5,7 @@ import victor.testing.spring.entity.ProductCategory;
 
 @Builder
 @With
-public record ProductSearchCriteria(
+public record ProductSearchCriteria( // received as JSON from client
     String name,
     ProductCategory category,
     Long supplierId
