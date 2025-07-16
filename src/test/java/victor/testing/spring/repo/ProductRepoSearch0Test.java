@@ -31,10 +31,10 @@ public class ProductRepoSearch0Test extends IntegrationTest {
     // TODO 1 assert the inserted product is returned
   }
 
-  // TODO 2 write a second @Test to prove search does NOT return the product in DB
+  // TODO 2 add a second @Test to prove search does NOT return the product in DB
   //  Example: when searching by a different name
 
-  // TODO Write more @Test-s to fully cover ProductRepoSearchImpl (as shown by Coverage)
+  // TODO Add more @Test-s to fully cover ProductRepoSearchImpl (as shown by Coverage)
   //  Pro Tip: any line of code you change in tested code should fail a test
 
 
