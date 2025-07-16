@@ -29,12 +29,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVENT;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
-@SpringBootTest
+@SpringBootTest // starts your app in-memory
 @Import(IntegrationTest.KafkaTestConfig.class)
-@ActiveProfiles("test")
+@ActiveProfiles("test") // see application-test.properties
 @EmbeddedKafka(topics = {SUPPLIER_CREATED_EVENT, PRODUCT_CREATED_TOPIC})
-@AutoConfigureMockMvc
-@EnableWireMock
+@EnableWireMock // starts an HTTP server on a random port to return JSON responses you pre-configure
+@AutoConfigureMockMvc // permite sa trimiti req http catre app ta emuland un Tomcat
 public class IntegrationTest {
   @Autowired
   protected ProductCreatedEventTestListener testListener;

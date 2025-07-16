@@ -39,24 +39,24 @@ public class AsyncServiceTest extends IntegrationTest {
   }
 
   @Test
-  void asyncFireAndForget() throws Exception {
-    asyncService.asyncFireAndForget("sname");
+  void fireAndForget() throws Exception {
+    asyncService.fireAndForget("sname");
 
     Awaitility.await().timeout(Duration.ofSeconds(2)).untilAsserted(() ->
         assertThat(supplierRepo.findByName("sname")).isPresent());
   }
 
   @RepeatedTest(5) // flaky test
-  void asyncFireAndForgetSURPRISE() throws Exception {
-    asyncService.asyncFireAndForget("sname");
+  void fireAndForgetSURPRISE() throws Exception {
+    asyncService.fireAndForget("sname");
 
     Awaitility.await().timeout(Duration.ofSeconds(2)).untilAsserted(() ->
         supplierRepo.findByName("sname").get());
   }
 
   @Test
-  void asyncFireAndForget_failsForNullName() throws Exception {
-    asyncService.asyncFireAndForget(null);
+  void fireAndForget_failsForNullName() throws Exception {
+    asyncService.fireAndForget(null);
 
     Thread.sleep(2000);
     // if the side-effect didn't happen yet, it will NEVER happen

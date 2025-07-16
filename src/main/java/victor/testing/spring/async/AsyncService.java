@@ -26,7 +26,7 @@ public class AsyncService {
     });
   }
 
-  public void asyncFireAndForget(String supplierName) {
+  public void fireAndForget(String supplierName) {
     CompletableFuture.runAsync(() -> {
       afterAWhile();
       var supplier = new Supplier()
