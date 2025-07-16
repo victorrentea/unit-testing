@@ -204,9 +204,11 @@
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
         <dependency>
+            <!--wraps your JDBC connection with a p6spy driver to log all sql-->
             <groupId>com.github.gavlyukovskiy</groupId>
             <artifactId>p6spy-spring-boot-starter</artifactId>
             <version>1.10.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
