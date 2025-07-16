@@ -1,6 +1,7 @@
 package victor.testing.spring.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 public record ProductDto(
 		Long id,
-		@NotNull String name,
+		@NotBlank String name,
 		@NotNull String barcode,
 		String supplierCode,
 		ProductCategory category,

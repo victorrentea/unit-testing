@@ -5,7 +5,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.SafetyApiWireMock;
+import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
-import victor.testing.tools.Canonical;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.entity.ProductCategory.HOME;
@@ -35,21 +34,22 @@ public class ProductApi0Test extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
 
-  ProductDto productDto = ProductDto.builder()
-      .name("Tree")
+  @Autowired
+  private RestTemplate restTemplate;
+  private ProductDto dto = ProductDto.builder()
+      .name("Tree2")
       .barcode("barcode-safe")
       .supplierCode("S")
       .category(HOME)
       .build();
-  @Autowired
-  private RestTemplate restTemplate;
+  private Supplier supplier;
 
 
   @BeforeEach
   final void setupWireMock() {
     SafetyApiWireMock.stubResponse("barcode-safe", "SAFE");
 
-    supplierRepo.save(new Supplier().setCode("S").setActive(true));
+    supplier = supplierRepo.save(new Supplier().setCode("S").setActive(true));
   }
 
   // COPY-paste/inspire/train your ai (context)
@@ -57,25 +57,66 @@ public class ProductApi0Test extends IntegrationTest {
   // - ProductApiEpicITest
   @Test
   void sendMalformedJson_fails() throws Exception {
-    // TODO bad JSON request payload fails
+    mockMvc.perform(MockMvcRequestBuilders.post("/product/create")
+            .content("""
+                {
+                  "name": "Tree",
+                  "barcode": "barcode-safe",
+                  "supplierCode": "S",
+                  "category": "HOME"
+                
+                """)
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest());
   }
 
   @Test // test @JsonFormat
+  // TODO check format is yyyy-MM-dd (eg 2025-12-25)
   void get_createDateFormat() throws Exception {
-    // TODO check format is yyyy-MM-dd (eg 2025-12-25)
+    // black-box: create tot prin API call
+    // gray-box: repo.save
+    Long productId = productRepo.save(new Product().setSupplier(supplier)).getId();
+    // white-box: @MockBean ProductService/ @Mock
+
+    // as vrea sa verific ca in jsonResponse pe calea $.createDate am stringu "2025-07-16"
+    mockMvc.perform(MockMvcRequestBuilders.get(("/product/" + productId)))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.createdDate")
+            .value("2025-07-16"));
   }
 
-  @Test // Test @Validated + @NotNull,@Size...
+//            .content(Canonical.load("CreateProductRequest").set("$.barcode", null).json().toString())
+  @Test
   void create_failsValidationForMissingBarcode() throws Exception {
-    // TODO 1 create product with null barcode return 4xx Client Error containing "barcode" in body
-    // TODO 2 load src/test/resources/canonical/CreateProductRequest.json and tweak it using json path
-    //   Tip: Canonical.load("CreateProductRequest").set("$.name", "Tree").json().toString()
+    createFailsValidationFor(dto.withBarcode(null));
+  }
+  @Test
+  void create_failsValidationForMissingName() throws Exception {
+    createFailsValidationFor(dto.withName(null));
+  }
+  @Test
+  void create_failsValidationForEmptyName() throws Exception {
+    createFailsValidationFor(dto.withName(""));
+  }
+  @Test
+  void create_failsValidationForSpaceName() throws Exception {
+    createFailsValidationFor(dto.withName(" "));
+  }
+
+  private void createFailsValidationFor(ProductDto dto) throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.post("/product/create")
+            .content(jackson.writeValueAsString(dto))
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().is4xxClientError());
   }
 
   @Test // Test @Secured
-//  @WithMockUser(roles = ... // downgrade credentials set at class level
+  @WithMockUser(roles = "FRAER")
   void create_failsForNonAdmin() throws Exception {
-    // TODO mockMvc createProduct returns status 403 Forbidden
+    mockMvc.perform(MockMvcRequestBuilders.post("/product/create")
+            .content(jackson.writeValueAsString(dto))
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isForbidden());
+//    assertThat(productRepo.findByName("Tree2")).isNull();
   }
 
   @Test
@@ -97,18 +138,10 @@ public class ProductApi0Test extends IntegrationTest {
 //            .json()
 //            .toString())
         // #3 jsonific o instanta de DTO
-            .content(jackson.writeValueAsString(ProductDto.builder()
-                    .name("Tree2")
-                    .barcode("barcode-safe")
-                    .supplierCode("S")
-                    .category(HOME)
-                .build()))
+            .content(jackson.writeValueAsString(dto))
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
-
     assertThat(productRepo.findByName("Tree2")).isNotNull();
-    // TODO create via API then select in DB the newly created entity
-    //  Tip: KISS Principle: serialize an instance of the DTO to JSON String using 'jackson' field
   }
 
   @Test
