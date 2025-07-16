@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
@@ -26,7 +27,8 @@ import static org.mockito.Mockito.verify;
 public class AsyncServiceMockitTest extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
-  @MockitoBean// pune un mock de mockito in locul beanului real in contextul spring de test
+//  @MockitoBean// pune un mock de mockito in locul beanului real in contextul spring de test
+  @MockitoSpyBean // wrappuieste obiectul real intr-un mock proxy
   SupplierRepo supplierRepo;
   @Captor
   ArgumentCaptor<Supplier> supplierCaptor;

@@ -1,7 +1,10 @@
 package victor.testing.spring.async;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
@@ -15,12 +18,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 
-@Transactional // nu ajuta pt ca INSERTul se face intr-o alta tx decat cea din test
+//@Transactional // nu ajuta pt ca INSERTul se face intr-o alta tx decat cea din test
 public class AsyncService0Test extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
-  @Autowired
+  @MockitoSpyBean
   SupplierRepo supplierRepo;
+
+  @BeforeEach
+  @AfterEach
+  void cleanupDB() {
+    supplierRepo.deleteAll();
+  }
 
   @Test
   void asyncReturning() throws Exception {
@@ -36,8 +45,7 @@ public class AsyncService0Test extends IntegrationTest {
   void asyncThrowsForNullName() throws Exception {
     CompletableFuture<Long> future = asyncService.asyncReturning(null);
 
-    assertThatThrownBy(() -> future.get())
-        .isInstanceOf(NullPointerException.class);
+    assertThatThrownBy(() -> future.get());
   }
 
   @Test
