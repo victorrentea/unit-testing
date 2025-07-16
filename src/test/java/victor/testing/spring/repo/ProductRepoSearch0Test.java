@@ -1,6 +1,8 @@
 package victor.testing.spring.repo;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import victor.testing.spring.IntegrationTest;
@@ -20,6 +22,12 @@ public class ProductRepoSearch0Test extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
 
+  @BeforeEach
+  @AfterEach
+  void cleanup() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
+  }
   @Test
   void search() {
     var supplier = supplierRepo.save(new Supplier());
