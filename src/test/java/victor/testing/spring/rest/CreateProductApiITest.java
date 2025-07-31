@@ -32,9 +32,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
+// grant the @Test the ROLE_ADMIN (unless later overridden)
 @Transactional
-@WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
-public class CreateProductApiITest extends IntegrationTest {
+@WithMockUser(roles = "ADMIN")
+class CreateProductApiITest extends IntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
   @Autowired
   MockMvc mockMvc;

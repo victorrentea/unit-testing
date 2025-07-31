@@ -1,8 +1,9 @@
 package victor.testing.mutation;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import victor.testing.TestData;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
@@ -23,15 +24,13 @@ public class CustomerValidatorTest {
   void throwsForMissingName() { // ce efect, cand se intampla
     customer.setName(null);
 
-    Assert.assertThrows(IllegalArgumentException.class,
-        ()->validator.validate(customer));
+    assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(customer));
   }
 
   @Test
   void throwsForMissingEmail() {
     customer.setEmail(null);
 
-    Assert.assertThrows(IllegalArgumentException.class ,
-        ()->validator.validate(customer));
+    assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(customer));
   }
 }

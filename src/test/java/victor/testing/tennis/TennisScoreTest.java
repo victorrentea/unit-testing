@@ -7,10 +7,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-public class TennisScoreTest {
+class TennisScoreTest {
 
   static Stream<Arguments> scoreCases() {
     return Stream.of(
@@ -27,9 +27,9 @@ public class TennisScoreTest {
 
   @ParameterizedTest
   @MethodSource("scoreCases")
-  void testScore(int player1Score, int player2Score, String expectedScore) {
+  void score(int player1Score, int player2Score, String expectedScore) {
     TennisScore score = new TennisScore(player1Score, player2Score);
-    assertEquals(expectedScore, score.getScore());
+    assertThat(score.getScore()).isEqualTo(expectedScore);
   }
 
 

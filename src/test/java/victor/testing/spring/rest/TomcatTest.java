@@ -25,8 +25,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpStatus.OK;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT) // starts a full Tomcat in memory
-public class TomcatTest extends IntegrationTest {
+// starts a full Tomcat in memory
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+class TomcatTest extends IntegrationTest {
   @Autowired // points to the random port of Tomcaat
   private TestRestTemplate rest;
   private ProductSearchCriteria criteria = ProductSearchCriteria.empty();
@@ -43,7 +44,7 @@ public class TomcatTest extends IntegrationTest {
   }
 
   @BeforeEach
-  public void initialize() {
+  void initialize() {
     Long supplierId = supplierRepo.save(new Supplier().setActive(true)).getId();
     Product productInDB = new Product()
         .setName("Tree")
@@ -54,7 +55,7 @@ public class TomcatTest extends IntegrationTest {
   }
 
   @Test
-  public void search() {
+  void search() {
     ProductSearchCriteria searchCriteria = criteria.withName("Tree");
 
     ResponseEntity<List<ProductSearchResult>> searchResponse = rest.exchange(

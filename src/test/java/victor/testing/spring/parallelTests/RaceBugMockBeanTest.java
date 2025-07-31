@@ -13,11 +13,11 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+//@Execution(ExecutionMode.SAME_THREAD) // FIX: force all @Test in this class to run single thread when using parallel tests
 @SpringBootTest
 @ActiveProfiles("db-mem")
 @Disabled("Race happens when enabling parallel tests - see junit-platform.properties")
-//@Execution(ExecutionMode.SAME_THREAD) // FIX: force all @Test in this class to run single thread when using parallel tests
-public class RaceBugMockBeanTest {
+class RaceBugMockBeanTest {
   @Autowired
   SupplierRepo supplierRepo;
 

@@ -8,8 +8,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static victor.testing.design.spy.Order.PaymentMethod.CARD;
 
 @ExtendWith(MockitoExtension.class)

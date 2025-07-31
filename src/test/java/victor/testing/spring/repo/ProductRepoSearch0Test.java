@@ -11,7 +11,7 @@ import victor.testing.spring.rest.dto.ProductSearchResult;
 
 import java.util.List;
 
-public class ProductRepoSearch0Test extends IntegrationTest {
+class ProductRepoSearch0Test extends IntegrationTest {
   @Autowired
   ProductRepo productRepo;
   @Autowired

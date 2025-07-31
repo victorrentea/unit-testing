@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-public class GetProductSocialTest {
+class GetProductSocialTest {
   private ProductRepo productRepo = mock(ProductRepo.class);
   private ProductService productService = new ProductService(
       null,

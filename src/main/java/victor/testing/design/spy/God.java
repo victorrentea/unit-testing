@@ -2,7 +2,6 @@ package victor.testing.design.spy;
 
 import com.google.common.annotations.VisibleForTesting;
 import lombok.Data;
-import org.mockito.Spy;
 
 import java.time.LocalDate;
 

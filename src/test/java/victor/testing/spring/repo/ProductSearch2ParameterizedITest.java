@@ -57,7 +57,7 @@ public class ProductSearch2ParameterizedITest extends IntegrationTest {
 
   @ParameterizedTest(name = "{0}")
   @MethodSource("testData")
-  public void search(TestCase testCase) {
+  void search(TestCase testCase) {
     assertThat(repo.search(testCase.criteria)).hasSize(testCase.matches?1:0);
   }
 }

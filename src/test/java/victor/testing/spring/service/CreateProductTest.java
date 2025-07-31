@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateProductTest {
+class CreateProductTest {
   @Mock
   SupplierRepo supplierRepo;
   @Mock

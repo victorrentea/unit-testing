@@ -11,7 +11,7 @@ import victor.testing.spring.repo.SupplierRepo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MessageListenerLogicITest extends IntegrationTest {
+class MessageListenerLogicITest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired

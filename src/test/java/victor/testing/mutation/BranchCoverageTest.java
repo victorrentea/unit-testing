@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class BranchCoverageTest {
+class BranchCoverageTest {
   @Test
   void f1() {
     BranchCoverage.f(1,1);

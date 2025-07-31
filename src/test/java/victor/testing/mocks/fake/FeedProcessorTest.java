@@ -10,32 +10,32 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class FeedProcessorTest {
+class FeedProcessorTest {
 
    @InjectMocks
    FeedProcessor feedProcessor;
    @Mock
    FileRepo fileRepoMock;
 
-   @Test
-   public void oneFileWithOneLine() {
+  @Test
+  void oneFileWithOneLine() {
       when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("one.txt"));
       when(fileRepoMock.openFile("one.txt")).thenReturn(Stream.of("one"));
       assertThat(feedProcessor.countPendingLines()).isEqualTo(1);
    }
 
-   @Test
-   public void oneFileWith2Lines() {
+  @Test
+  void oneFileWith2Lines() {
       when(fileRepoMock.getFileNames()).thenReturn(Arrays.asList("two.txt"));
       when(fileRepoMock.openFile("two.txt")).thenReturn(Stream.of("one","two"));
       assertThat(feedProcessor.countPendingLines()).isEqualTo(2);
    }
 
-   @Test
-   public void twoFilesWith3Lines() {
+  @Test
+  void twoFilesWith3Lines() {
       // TODO
 
       // TODO How to DRY the tests?

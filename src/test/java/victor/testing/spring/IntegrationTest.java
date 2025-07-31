@@ -91,7 +91,7 @@ public class IntegrationTest {
   }
 
   @AfterAll
-  public static void checkHowManyTimesSpringStarted() {
+  static void checkHowManyTimesSpringStarted() {
     // PERFORMANCE DANGER: DO NOT CHANGE THIS CONSTANT!
     // CALL ME: 📞 0800ANARCHITECT (or you get fired :/)
     int ALLOWED_NUMBER_OF_TIMES_SPRING_STARTS = 2;

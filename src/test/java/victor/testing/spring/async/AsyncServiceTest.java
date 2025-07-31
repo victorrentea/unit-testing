@@ -13,7 +13,7 @@ import java.time.Duration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class AsyncServiceTest extends IntegrationTest {
+class AsyncServiceTest extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
   @Autowired

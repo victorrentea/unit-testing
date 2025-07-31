@@ -10,8 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -49,8 +48,8 @@ public class MockitoShowcase {
 
 	private final List<String> mockedList = mock(List.class);
 
-	@Test
-	public void verifySomeBehaviour() {
+  @Test
+  void verifySomeBehaviour() {
 
 		System.out.println("The mocked class is proxied using CGLIB. Check the class name: " + mockedList.getClass());
 		{
@@ -64,8 +63,8 @@ public class MockitoShowcase {
 		verify(mockedList).clear();
 	}
 
-	@Test
-	public void someStubbing() {
+  @Test
+  void someStubbing() {
 		// You can mock concrete classes, not only interfaces
 		LinkedList<String> mock = mock(LinkedList.class);
 
@@ -93,28 +92,26 @@ public class MockitoShowcase {
 	}
 
 
-	// expect an exception to be thrown by the test
-	@Test
-	public void someStubbingToThrowError() {
+  // expect an exception to be thrown by the test
+  @Test
+  void someStubbingToThrowError() {
 		// mock created as a test field by the JUnit Runner
 
 		// stubbing
 		when(mockedList.get(anyInt())).thenThrow(new RuntimeException());
 
-		assertThrows(RuntimeException.class,
-			() -> System.out.println(mockedList.get(2)));
+    assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> System.out.println(mockedList.get(2)));
 	}
 
-	@Test
-	public void voidMethodToThrowException() {
+  @Test
+  void voidMethodToThrowException() {
 		doThrow(new RuntimeException()).when(mockedList).clear();
 
-		assertThrows(RuntimeException.class,
-			() -> mockedList.clear());
+    assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> mockedList.clear());
 	}
 
-	@Test
-	public void argumentMatchers() {
+  @Test
+  void argumentMatchers() {
 		// stubbing using built-in anyInt() argument matcher
 		when(mockedList.get(anyInt())).thenReturn("element");
 
@@ -135,8 +132,8 @@ public class MockitoShowcase {
 		// above is incorrect - exception will be thrown because third argument is given without an argument matcher.
 	}
 
-	@Test
-	public void verifyNumberOfInvocations_exact() {
+  @Test
+  void verifyNumberOfInvocations_exact() {
 		mockedList.add("subscribeOnce");
 
 		//following two verifications work exactly the same - times(1) is used by default
@@ -147,8 +144,8 @@ public class MockitoShowcase {
 		verify(mockedList, never()).add("never happened");
 	}
 
-	@Test
-	public void verifyNumberOfInvocations_multiple() {
+  @Test
+  void verifyNumberOfInvocations_multiple() {
 		mockedList.add("three times");
 		mockedList.add("three times");
 		mockedList.add("three times");
@@ -159,52 +156,52 @@ public class MockitoShowcase {
 	}
 
 
-	@Test
-	public void stubbingConsecutiveCalls() {
+  @Test
+  void stubbingConsecutiveCalls() {
 		// Sometimes we need to stub with different return value/exception for
 		// the same method call. Typical use case could be mocking iterators.
 		when(mock.someMethod("some arg"))
 			.thenThrow(new RuntimeException())
 			.thenReturn("foo");
 
-		// First call: throws runtime exception:
-		assertThrows(RuntimeException.class, () -> mock.someMethod("some arg"));
+    // First call: throws runtime exception:
+    assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> mock.someMethod("some arg"));
 
-		// Second call: prints "foo"
-		assertEquals("foo", mock.someMethod("some arg"));
+    // Second call: prints "foo"
+    assertThat(mock.someMethod("some arg")).isEqualTo("foo");
 
-		// Any consecutive call: prints "foo" as well (last stubbing prevails).
-		assertEquals("foo", mock.someMethod("some arg"));
+    // Any consecutive call: prints "foo" as well (last stubbing prevails).
+    assertThat(mock.someMethod("some arg")).isEqualTo("foo");
 		System.out.println(mock.someMethod("some arg"));
 	}
 
-	@Test
-	public void stubbingConsecutiveCalls_shorter() {
+  @Test
+  void stubbingConsecutiveCalls_shorter() {
 		when(mock.someMethod("some arg"))
 			.thenReturn("one", "two", "three");
 
-		assertEquals("one", mock.someMethod("some arg")); // first call
-		assertEquals("two", mock.someMethod("some arg")); // second call
-		assertEquals("three", mock.someMethod("some arg")); // third call
+    assertThat(mock.someMethod("some arg")).isEqualTo("one"); // first call
+    assertThat(mock.someMethod("some arg")).isEqualTo("two"); // second call
+    assertThat(mock.someMethod("some arg")).isEqualTo("three"); // third call
 
-		// Last stubbing prevails
-		assertEquals("three", mock.someMethod("some arg"));
+    // Last stubbing prevails
+    assertThat(mock.someMethod("some arg")).isEqualTo("three");
 	}
 
-	@Test
-	public void stubbingWithCallbacks() {
+  @Test
+  void stubbingWithCallbacks() {
 		when(mock.someMethod(anyString())).thenAnswer(invocation -> {
 			Object[] args = invocation.getArguments();
 			return "called with arguments: " + args[0];// + Math.random();
 		});
 
 		String result = mock.someMethod("foo");
-		assertEquals("called with arguments: foo", result);
+    assertThat(result).isEqualTo("called with arguments: foo");
 		System.out.println(result);
 	}
 
-	@Test
-	public void capturingArgumentsForFurtherAssertions() {
+  @Test
+  void capturingArgumentsForFurtherAssertions() {
 		// Mockito verifies argument values in natural java style: by using equals() method.
 		// This is the recommended way of matching arguments because it makes tests clean & simple.
 
@@ -221,7 +218,7 @@ public class MockitoShowcase {
 		verify(mock).sideEffecting(argument.capture());
 		// if there is no other way to get the object instance out from tested code
 		ObjectWithoutEquals actualArgument = argument.getValue();
-		assertEquals(13, actualArgument.getX());
+    assertThat(actualArgument.getX()).isEqualTo(13);
 
 		// Hint: Sometimes the tested code can be refactored to return the object to assert directly
 
@@ -236,10 +233,10 @@ public class MockitoShowcase {
 		return obj -> obj.getX() == x;
 	}
 
-	@Test
-	public void mockLibraryMethod() {
-		// prove the original behavior
-		assertThrows(RuntimeException.class, () -> SomeLibrary.heavyMethod("x"));
+  @Test
+  void mockLibraryMethod() {
+    // prove the original behavior
+    assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> SomeLibrary.heavyMethod("x"));
 
 		try (MockedStatic<SomeLibrary> mock = mockStatic(SomeLibrary.class)) {
 			// All the calls to static methods of SomeLibrary for this thread are now mocked until the end of try }
@@ -248,8 +245,8 @@ public class MockitoShowcase {
 			// tested code
 			int actual = SomeLibrary.heavyMethod("x") + 5;
 
-			// back in tests
-			assertEquals(7, actual);
+      // back in tests
+      assertThat(actual).isEqualTo(7);
 		}
 	}
 
@@ -260,8 +257,8 @@ public class MockitoShowcase {
 	}
 
 
-	@Test
-	public void mockStaticTime() {
+  @Test
+  void mockStaticTime() {
 		LocalDate fixed = LocalDate.parse("2019-09-29");
 		// also see TimeExtensionTest
 		try (MockedStatic<LocalDate> mock = mockStatic(LocalDate.class)) {
