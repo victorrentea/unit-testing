@@ -1,5 +1,6 @@
 package victor.testing.mutation;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 public class CustomerValidatorTest {
@@ -7,12 +8,32 @@ public class CustomerValidatorTest {
 
   @Test
   void valid() {
-    Customer aCustomer = new Customer();
-    aCustomer.setName("::name::");
-    aCustomer.setEmail("::email::");
-    aCustomer.setAddress(new Address());
-    aCustomer.getAddress().setCity("::city::");
-    validator.validate(aCustomer);
+    Customer customer = validCustomer();
+
+    validator.validate(customer);
   }
 
+  private Customer validCustomer() {
+    return new Customer()
+        .setName("::name::")
+        .setEmail("::email::")
+        .setAddress(new Address()
+            .setCity("::city::"));
+  }
+
+  @Test
+  void throwsForMissingName() {
+    Customer customer = validCustomer().setName(null);
+
+    Assert.assertThrows(IllegalArgumentException.class ,
+        ()->validator.validate(customer));
+  }
+
+  @Test
+  void throwsForMissingEmail() {
+    Customer customer = validCustomer().setEmail(null);
+
+    Assert.assertThrows(IllegalArgumentException.class ,
+        ()->validator.validate(customer));
+  }
 }
