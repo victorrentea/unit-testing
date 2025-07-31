@@ -74,13 +74,13 @@ class ProductSearch1ITest extends IntegrationTest {
 //
 //  @Test
 //  public void byCategory_noMatch() {
-//    criteria.category = ProductCategory.ELECTRONICS;
+//    criteria.category2 = ProductCategory.ELECTRONICS;
 //    assertThat(repo.search(criteria)).hasSize(0);
 //  }
 //
 //  @Test
 //  public void byCategory_match() {
-//    criteria.category = ProductCategory.HOME;
+//    criteria.category2 = ProductCategory.HOME;
 //    assertThat(repo.search(criteria)).hasSize(1);
 //  }
 }

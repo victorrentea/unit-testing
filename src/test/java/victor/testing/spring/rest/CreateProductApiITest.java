@@ -50,7 +50,7 @@ class CreateProductApiITest extends IntegrationTest {
       .name("Tree")
       .barcode("barcode-safe")
       .supplierCode("S")
-      .category(HOME)
+      .category2(HOME)
       .build();
 
   @BeforeEach
@@ -118,7 +118,7 @@ class CreateProductApiITest extends IntegrationTest {
     Product savedProduct = productRepo.findAll().get(0);
     assertThat(savedProduct.getName()).isEqualTo("Tree");
     assertThat(savedProduct.getCreatedDate()).isToday();
-    assertThat(savedProduct.getCategory()).isEqualTo(productDto.category());
+    assertThat(savedProduct.getCategory()).isEqualTo(productDto.category2());
     assertThat(savedProduct.getBarcode()).isEqualTo(productDto.barcode());
     assertThat(savedProduct.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
     assertThat(savedProduct.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic

@@ -40,7 +40,7 @@ class CreateProductTest {
   ProductDto productDto = ProductDto.builder()
       .name("name")
       .supplierCode("S")
-      .category(HOME)
+      .category2(HOME)
       .build();
 
   @Test

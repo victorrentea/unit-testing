@@ -234,7 +234,8 @@
             "format": "int64"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "barcode": {
             "type": "string"
@@ -242,7 +243,7 @@
           "supplierCode": {
             "type": "string"
           },
-          "category": {
+          "category2": {
             "type": "string",
             "enum": [
               "ELECTRONICS",

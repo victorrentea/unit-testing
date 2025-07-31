@@ -120,7 +120,7 @@ class CreateCustomerShould {
         aCustomer.getAddress().setCountry(Country.ROU);
       }
 
-      @ParameterizedTest(name = "for {0} category")
+      @ParameterizedTest(name = "for {0} category2")
       @ValueSource(strings = {"HOME", "ELECTRONICS"})
       void receivesCoupon(ProductCategory category) {
         customerFacade.createCustomer(aCustomer);

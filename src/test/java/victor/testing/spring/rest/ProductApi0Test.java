@@ -48,7 +48,7 @@ class ProductApi0Test extends IntegrationTest {
                 .name("Tree")
                 .barcode("barcode-safe")
                 .supplierCode("S")
-                .category(HOME)
+                .category2(HOME)
                 .build()))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());

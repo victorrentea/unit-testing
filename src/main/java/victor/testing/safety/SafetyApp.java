@@ -25,6 +25,6 @@ public class SafetyApp {
    @GetMapping(path = "product/{id}/safety", produces = "application/json")
    public String safety(@PathVariable String id) {
       String category = "safe".equals(id)?"SAFE":"UNCERTAIN";
-      return "{\"entries\": [{\"category\": \"" + category + "\",\"detailsUrl\": \"http://wikipedia.com\"}]}";
+      return "{\"entries\": [{\"category2\": \"" + category + "\",\"detailsUrl\": \"http://wikipedia.com\"}]}";
    }
 }

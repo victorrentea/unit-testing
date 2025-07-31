@@ -49,7 +49,7 @@ class GetProductSolitaryTest {
     assertThat(dto.id()).isEqualTo(1L);
     assertThat(dto.name()).isEqualTo("name");
     assertThat(dto.barcode()).isEqualTo("BARCODE");
-    assertThat(dto.category()).isEqualTo(HOME);
+    assertThat(dto.category2()).isEqualTo(HOME);
     assertThat(dto.createdDate()).isEqualTo(date);
     assertThat(dto.supplierCode()).isEqualTo("S");
   }
