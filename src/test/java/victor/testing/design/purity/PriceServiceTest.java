@@ -32,6 +32,8 @@ class PriceServiceTest {
    CouponRepo couponRepo;
    @Mock
    ProductRepo productRepo;
+   @Mock
+   AltaClasaInProd altaClasaInProd;
    @InjectMocks
    PriceService priceService;
    @Captor
@@ -47,12 +49,17 @@ class PriceServiceTest {
       Product p2 = new Product().setId(2L).setCategory(KIDS).setSupplier(new Supplier().setId(13L));
       when(productRepo.findAllById(List.of(1L, 2L))).thenReturn(List.of(p1, p2));
       when(thirdPartyPricesApi.fetchPrice(2L)).thenReturn(5d);
+      
+      // Mock the applyCoupons method
+      Map<Long, Double> resolvedPrices = Map.of(1L, 10d, 2L, 5d);
+      AltaClasaInProd.ApplyCouponResult mockResult = 
+          new AltaClasaInProd.ApplyCouponResult(List.of(coupon1), Map.of(1L, 8d, 2L, 5d));
+      when(altaClasaInProd.applyCoupons(List.of(p1, p2), resolvedPrices, customer)).thenReturn(mockResult);
 
       Map<Long, Double> result = priceService.computePrices(13L, List.of(1L, 2L), Map.of(1L, 10d));
 
       verify(couponRepo).markUsedCoupons(eq(13L), couponCaptor.capture());
       assertThat(couponCaptor.getValue()).containsExactly(coupon1);
-
       assertThat(result)
           .containsEntry(1L, 8d)
           .containsEntry(2L, 5d);

@@ -17,25 +17,25 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 class GetProductSocialTest {
-  private ProductRepo productRepo = mock(ProductRepo.class);
-  private ProductService productService = new ProductService(
+  ProductRepo productRepoMock = mock(ProductRepo.class);
+  ProductService productService = new ProductService(
       null,
-      productRepo,
+      productRepoMock,
       null,
-      new ProductMapper(),
+      new ProductMapper(), // ala pi bune !!
       null);
 
   @Test
   void service_plus_mapper() {
     LocalDate date = LocalDate.now();
     Product product = new Product()
-            .setId(1L)
-            .setName("name")
-            .setBarcode("BARCODE")
-            .setCategory(HOME)
-            .setCreatedDate(date)
-            .setSupplier(new Supplier().setCode("S"));
-    when(productRepo.findById(1L)).thenReturn(Optional.of(product));
+        .setId(1L)
+        .setName("name")
+        .setBarcode("BARCODE")
+        .setCategory(HOME)
+        .setCreatedDate(date)
+        .setSupplier(new Supplier().setCode("S"));
+    when(productRepoMock.findById(1L)).thenReturn(Optional.of(product));
 
     ProductDto dto = productService.getProduct(1L);
 
@@ -44,6 +44,6 @@ class GetProductSocialTest {
     assertThat(dto.barcode()).isEqualTo("BARCODE");
     assertThat(dto.category2()).isEqualTo(HOME);
     assertThat(dto.createdDate()).isEqualTo(date);
-    assertThat(dto.supplierCode()).isEqualTo("S");  }
-
+    assertThat(dto.supplierCode()).isEqualTo("S");
+  }
 }
