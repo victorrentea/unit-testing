@@ -19,10 +19,9 @@ public class ProductRepoSearch0Test extends IntegrationTest {
 
   @Test
   void search() {
-    var supplier = supplierRepo.save(new Supplier());
     productRepo.save(new Product()
         .setName("Name")
-        .setSupplier(supplier)
+        .setSupplier(new Supplier())
         .setCategory(ProductCategory.HOME));
     var searchCriteria = ProductSearchCriteria.empty();
 
