@@ -30,7 +30,7 @@ public class ProductExporter {
 
   @VisibleForTesting
   void writeContent(Writer writer) throws IOException {
-    writer.write("name;barcode;category;created_by;created_at\n");
+    writer.write("name;barcode;category2;created_by;created_at\n");
     for (Product product : personRepo.findAll()) {
       writer.write(product.getName().toUpperCase());
       writer.write(";");

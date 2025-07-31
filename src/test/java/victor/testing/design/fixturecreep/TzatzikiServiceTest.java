@@ -8,34 +8,23 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.when;
-import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWARMA;
 
-
+//@MockitoSettings(strictness = Strictness.LENIENT)
 @ExtendWith(MockitoExtension.class)
-class FastFoodTest {
+class TzatzikiServiceTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
-   @Mock
-   FeatureFlags featureFlags;
    @InjectMocks
-   FastFood fastFood;
+   TzatzikiService tzatzikiService;
 
    @BeforeEach
    final void before() {
-   }
-
-   @Test
-   void shawarmaTest() { // + 7 more tests
-      when(dependency.isOnionAllowed()).thenReturn(true);
-      when(featureFlags.isActive(PORK_SHAWARMA)).thenReturn(true);
-      // ... complex
-      fastFood.makeShawarma();
+      when(dependency.isCucumberAllowed()).thenReturn(true);
    }
 
    @Test
    void tzatzikiTest() { // + 5 more tests
-      when(dependency.isCucumberAllowed()).thenReturn(true);
       // ... complex
-      fastFood.makeTzatziki();
+      tzatzikiService.makeTzatziki();
    }
 }
