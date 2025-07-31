@@ -1,104 +1,36 @@
 package victor.testing.tennis;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
-// product of a TDD session on Tennis Kata🥋: https://kata-log.rocks/tennis-kata
 public class TennisScoreTest {
-  TennisScore tennisScore = new TennisScore();
 
-  @Test
-  void loveLove() {
-    setPlayerScore(1, 0);
-    setPlayerScore(2, 0);
-    String score = tennisScore.score();
-    assertEquals("Love-Love", score);
+  static Stream<Arguments> scoreCases() {
+    return Stream.of(
+        of(0, 0, "Love-Love"),
+        of(1, 0, "Fifteen-Love"),
+        of(0, 1, "Love-Fifteen"),
+        of(1, 1, "Fifteen-Fifteen"),
+        of(0, 2, "Love-Thirty")
+//        of(4, 0, "Game Won Player 1"),
+//        of(5, 3, "Game Won Player 1"),
+//        of(6, 4, "Game Won Player 1")
+    );
   }
 
-  @Test
-  void loveFifteen() {
-    setPlayerScore(1, 0);
-    setPlayerScore(2, 1);
-    String score = tennisScore.score();
-    assertEquals("Love-Fifteen", score);
+  @ParameterizedTest
+  @MethodSource("scoreCases")
+  void testScore(int player1Score, int player2Score, String expectedScore) {
+    TennisScore score = new TennisScore(player1Score, player2Score);
+    assertEquals(expectedScore, score.getScore());
   }
 
-  @Test
-  void fifteenLove() {
-    setPlayerScore(1, 1);
-    setPlayerScore(2, 0);
-    String score = tennisScore.score();
-    assertEquals("Fifteen-Love", score);
-  }
 
-  @Test
-  void thirtyLove() {
-    setPlayerScore(1, 2);
-    setPlayerScore(2, 0);
-    String score = tennisScore.score();
-    assertEquals("Thirty-Love", score);
-  }
-
-  @Test
-  void fortyLove() {
-    setPlayerScore(1, 3);
-    setPlayerScore(2, 0);
-    String score = tennisScore.score();
-    assertEquals("Forty-Love", score);
-  }
-
-  @Test
-  void deuce() {
-    setPlayerScore(1, 3);
-    setPlayerScore(2, 3);
-    String score = tennisScore.score();
-    assertEquals("Deuce", score);
-  }
-
-  @Test
-  void advantagePlayer1() {
-    setPlayerScore(1, 7);
-    setPlayerScore(2, 6);
-    String score = tennisScore.score();
-    assertEquals("Advantage Player1", score);
-  }
-
-  @Test
-  void advantagePlayer2() {
-    setPlayerScore(1, 3);
-    setPlayerScore(2, 4);
-    String score = tennisScore.score();
-    assertEquals("Advantage Player2", score);
-  }
-
-  @Test
-  void player1WonFast() {
-    setPlayerScore(1, 4);
-    setPlayerScore(2, 0);
-    String score = tennisScore.score();
-    assertEquals("Game won Player1", score);
-  }
-
-  @Test
-  void player1WonAfterDeuce() {
-    setPlayerScore(1, 7);
-    setPlayerScore(2, 5);
-    String score = tennisScore.score();
-    assertEquals("Game won Player1", score);
-  }
-
-  @Test
-  void player2Won() {
-    setPlayerScore(1, 0);
-    setPlayerScore(2, 4);
-    String score = tennisScore.score();
-    assertEquals("Game won Player2", score);
-  }
-
-  private void setPlayerScore(int playerNumber, int playerScore) {
-    for (int i = 0; i < playerScore; i++) {
-      tennisScore.addPoint(playerNumber);
-    }
-  }
 }

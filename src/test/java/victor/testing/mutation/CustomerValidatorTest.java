@@ -2,6 +2,7 @@ package victor.testing.mutation;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import victor.testing.TestData;
 
 public class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
@@ -10,11 +11,7 @@ public class CustomerValidatorTest {
     System.out.println("👶");
   }
   //morala tot ce lasi date stricate pe campurile clasei de test se reseteaza pt urmatorul @Test
-  Customer customer = new Customer()
-      .setName("::name::")
-      .setEmail("::email::")
-      .setAddress(new Address()
-          .setCity("::city::"));
+  Customer customer = TestData.aCustomer();
 
   @Test
   void valid() {
@@ -22,7 +19,8 @@ public class CustomerValidatorTest {
   }
 
   @Test
-  void throwsForMissingName() {
+//  void givenCustomerHasNullName_whenValidated_throwsException() {
+  void throwsForMissingName() { // ce efect, cand se intampla
     customer.setName(null);
 
     Assert.assertThrows(IllegalArgumentException.class,

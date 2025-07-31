@@ -60,7 +60,6 @@ public class CreateProductTest {
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
-    // WHEN
     var newProductId = productService.createProduct(productDto);
 
     ArgumentCaptor<Product> productCaptor = forClass(Product.class);
