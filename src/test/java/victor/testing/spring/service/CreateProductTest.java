@@ -6,7 +6,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -24,17 +29,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test") // pt application-test.properties -> H2 in mem
+@SpringBootTest
+@EmbeddedKafka // kafka in mem JUnit
 class CreateProductTest {
-  @Mock
+  @Autowired
   SupplierRepo supplierRepo;
-  @Mock
+  @Autowired
   ProductRepo productRepo;
-  @Mock
+  @MockitoBean
   SafetyApiAdapter safetyApiAdapter;
-  @Mock
+  @MockitoBean // inlocuieste beanul real cu un mock Mockito
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   ProductDto productDto = ProductDto.builder()
@@ -55,16 +62,14 @@ class CreateProductTest {
 
   @Test
   void createOk() {
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
     var newProductId = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    //then (assert)
+    Product product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
