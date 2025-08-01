@@ -25,7 +25,7 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @EmbeddedKafka // start an in-memory broker
 
 @Import(IntegrationTest.TestKafkaListenersConfig.class) // test listeners
-@EnableWireMock // starts an HTTP server on a random port to return JSON responses you pre-configure
+@EnableWireMock // starts WireMock HTTP server on a random port ${wiremock.server.port} returning pre-configured JSON responses
 @AutoConfigureMockMvc // MockMvc can send emulated HTTP requests without starting Tomcat
 public class IntegrationTest {
   @Autowired

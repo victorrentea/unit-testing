@@ -75,7 +75,7 @@ public class CreateProductApiITest extends IntegrationTest {
             .content(jackson.writeValueAsString(productDto))
 
             // 3) load a large JSON from a file💖 and tweak it
-            .content(Canonical.load("CreateProductRequest")
+            .content(Canonical.load("CreateProductRequest.json")
                 .set("$.name", "Tree")
 //                .set("$.suplier[0].name", "Tree")
                 .json()

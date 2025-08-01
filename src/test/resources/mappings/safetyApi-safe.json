@@ -5,12 +5,12 @@
   },
   "response": {
     "status": 200,
-    "jsonBody": {
-      "category": "SAFE",
-      "detailsUrl": "http://details.url/a/b"
-    },
     "headers": {
       "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "detailsUrl": "http://details.url/a/b",
+      "category": "SAFE"
     }
   }
 }

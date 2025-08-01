@@ -18,7 +18,7 @@ public class Canonical {
 
   @SneakyThrows
   public static DocumentContext load(String name) {
-    String fileNameInClasspath = "/canonical/" + name + ".json";
+    String fileNameInClasspath = "/canonical/" + name;
     InputStream stream = Canonical.class.getResourceAsStream(fileNameInClasspath);
     if (stream == null) {
       throw new IllegalArgumentException("File not found: classpath:/" + fileNameInClasspath);

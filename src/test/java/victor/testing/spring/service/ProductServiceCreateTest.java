@@ -78,3 +78,15 @@ public class ProductServiceCreateTest {
   }
 
 }
+
+// region WireMock
+// 1. TODO add @EnableWireMock => tests ✅
+// 2. edit the dto.barcode => tests ❌ => TODO locate the *.json to fix to pass tests ✅
+// 3. change name of folder 'mappings' from /src/test/resources/ => TODO fix by usin Java DSL like:
+//   WireMock.stubFor(get(urlEqualTo("/url"))
+//       .willReturn(okJson("""
+//        {
+//         "p1": "v1"
+//        }
+//        """)));
+// endregion

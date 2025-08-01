@@ -13,12 +13,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.SafetyApiWireMock;
+import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @Transactional
@@ -41,16 +43,21 @@ public class ProductApi0Test extends IntegrationTest {
   // Hint: Inspire from ApiTestClient and ProductApiEpicITest
   @Test
   void create_select_graybox() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.post("/product/create")
-            .content(jackson.writeValueAsString(ProductDto.builder()
-                .name("Tree")
-                .barcode("barcode-safe")
-                .supplierCode("S")
-                .category(HOME)
-                .build()))
+    ProductDto dto = ProductDto.builder()
+        .name("Tree")
+        .barcode("barcode-safe")
+        .supplierCode("S")
+        .category(HOME)
+        .build();
+    mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(dto))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
-    assertThat(productRepo.findByName("Tree")).isNotNull();
+
+    Product product = productRepo.findByName("Tree");
+    assertThat(product).isNotNull();
+    // TODO check product.createdDate
+    // TODO check product.barcode
   }
 
   @Test
@@ -59,13 +66,13 @@ public class ProductApi0Test extends IntegrationTest {
     // TODO => 403 Forbidden
   }
 
-  @Test
-    // Test @Validated + @NotNull,@Size...
+  @Test // for @Validated of @NotNull, @NotBlank, @Size...
   void create_failsValidationForMissingBarcode() throws Exception {
     // TODO 1 create product with null barcode => 4xx Client Error containing "barcode" in body
-    // TODO 1 create product with null or empty name => 4xx Client Error
-    //   Bonus: use Canonical.load("CreateProductRequest").set("$.name", null).json().toString()
-    //   to load src/test/resources/canonical/CreateProductRequest.json and tweak it using json path
+    // TODO 2 create product with null or empty name => 4xx Client Error
+    // TODO 3 adjust a JSON loaded from /src/test/resource without working with a DTO instance:
+    //  Canonical.load("CreateProductRequest.json").set("$.name", null).json().toString()
+    //  loads src/test/resources/canonical/CreateProductRequest.json
   }
 
   @Test
@@ -81,13 +88,13 @@ public class ProductApi0Test extends IntegrationTest {
 
   @Test
   void create_get_blackbox() throws Exception {
-    // TODO create then get the product via API (no DB hit)
-    //  + assert 'Location' header is present in the response
+    // TODO create then get the product via API (without accessing the DB)
+    //  Tip: extract 'Location' using .andExpect(..).andReturn().getResponse().getHeader(..)
+    // TODO GET /product/{id} => assert fields in response DTO
   }
 
   @Test
   void create_sends_message() throws Exception {
-    // TODO assert message sent by the tested code
-    //  Tip: var event = testListener.blockingReceive(ofSeconds(5));
+    // TODO assert message is sent with testListener.blockingReceive(ofSeconds(5));
   }
 }
