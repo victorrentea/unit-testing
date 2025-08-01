@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.SupplierRepo;
 
@@ -13,12 +15,10 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
-@ActiveProfiles("db-mem")
-@Disabled("Race happens when enabling parallel tests - see junit-platform.properties")
-//@Execution(ExecutionMode.SAME_THREAD) // FIX: force all @Test in this class to run single thread when using parallel tests
-public class RaceBugMockBeanTest {
-  @Autowired
+// TODO To see the race, enable running @Tests on multiple threads via junit-platform.properties
+//@Execution(ExecutionMode.SAME_THREAD) // FIX
+public class WhenRunningTestsInParallel_MockBeanCanRaceTest extends IntegrationTest {
+  @MockitoBean
   SupplierRepo supplierRepo;
 
   @Test
