@@ -1,17 +1,13 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -19,20 +15,19 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
+@Transactional
 @ActiveProfiles("test") // pt application-test.properties -> H2 in mem
 @SpringBootTest
 @EmbeddedKafka // kafka in mem JUnit
-class CreateProductTest {
+class ProductServiceCreateTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
@@ -78,6 +73,17 @@ class CreateProductTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+  }
+  @Test
+  void defaultsToUncategorizedWhenMissingCategory() {
+    supplierRepo.save(new Supplier().setCode("S"));
+    productDto = productDto.withBarcode("barcode-safe").withCategory2(null);
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+
+    var newProductId = productService.createProduct(productDto);
+
+    Product product = productRepo.findById(newProductId).orElseThrow();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
