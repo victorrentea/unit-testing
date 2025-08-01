@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateProductTest {
+public class ProductServiceCreateTest {
   @Mock
   SupplierRepo supplierRepo;
   @Mock
@@ -74,6 +74,7 @@ public class CreateProductTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+//    assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
   }
 
 }
