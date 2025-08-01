@@ -3,6 +3,7 @@ package victor.testing.spring.repo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
@@ -15,8 +16,11 @@ import victor.testing.spring.rest.dto.ProductSearchResult;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql") // cleanup #3 pt DB masive
+
+@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // Fix#4 recreaza spring context = perf hit!
 
 //@Transactional // cleanup #2 in src/test face pe Spring sa dea ROLLBACK la finalul @Test automat
 public class ProductRepoSearch0Test extends IntegrationTest {
