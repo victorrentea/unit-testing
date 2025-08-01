@@ -28,7 +28,7 @@ public class Product {
 
     private String barcode;
 
-    @ManyToOne(cascade = PERSIST)
+    @ManyToOne
     private Supplier supplier;
 
     @CreatedDate // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
