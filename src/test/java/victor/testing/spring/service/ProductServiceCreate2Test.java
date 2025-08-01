@@ -8,7 +8,9 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -26,18 +28,20 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @Transactional
-@ActiveProfiles({"test"/*,"doi"*/}) // pt application-test.properties -> H2 in mem
+//@ActiveProfiles({"test"/*,"doi"*/}) // pt application-test.properties -> H2 in mem
 //@TestPropertySource(properties = "enable.scheduling=true")
-@SpringBootTest
-@EmbeddedKafka // kafka in mem JUnit
-class ProductServiceCreate2Test {
+//@SpringBootTest
+//@EmbeddedKafka // kafka in mem JUnit
+class ProductServiceCreate2Test extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
   @MockitoBean
   SafetyApiAdapter safetyApiAdapter;
-  @MockitoBean // inlocuieste beanul real cu un mock Mockito
+  // = mock bean inlocuieste beanul real cu un mock Mockito
+  // TODO study
+  @MockitoSpyBean // intermediaza apelurile catre beanul real printr-un "proxy" mockito care vede apelile efectuate (verify) si poate when..then pe metodel;e p[e are ;e veor
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;

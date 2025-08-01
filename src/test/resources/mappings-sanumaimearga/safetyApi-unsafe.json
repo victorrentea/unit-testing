@@ -1,16 +1,16 @@
 {
   "request": {
     "method": "GET",
-    "url": "/product/barcode-unsafe/safety"
+    "url": "/product/barcode-uxnsafe/safety"
   },
   "response": {
     "status": 200,
-    "jsonBody": {
-      "category": "DETERMINED",
-      "detailsUrl": "http://details.url/a/b"
-    },
     "headers": {
       "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "detailsUrl": "http://details.url/a/b",
+      "category": "UNSAFE"
     }
   }
 }
