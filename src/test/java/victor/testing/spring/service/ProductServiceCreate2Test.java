@@ -6,9 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
-import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -18,25 +18,27 @@ import victor.testing.spring.rest.dto.ProductDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.assertArg;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @Transactional
-@ActiveProfiles("test") // pt application-test.properties -> H2 in mem
+@ActiveProfiles({"test"/*,"doi"*/}) // pt application-test.properties -> H2 in mem
+//@TestPropertySource(properties = "enable.scheduling=true")
 @SpringBootTest
 @EmbeddedKafka // kafka in mem JUnit
-class ProductServiceCreateTest /*extends IntegrationTest*/ {
+class ProductServiceCreate2Test {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
   @MockitoBean
   SafetyApiAdapter safetyApiAdapter;
-//  @MockitoBean // inlocuieste beanul real cu un mock Mockito
-//  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+  @MockitoBean // inlocuieste beanul real cu un mock Mockito
+  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
 
@@ -70,10 +72,10 @@ class ProductServiceCreateTest /*extends IntegrationTest*/ {
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
-//    verify(kafkaTemplate).send(
-//        eq(ProductService.PRODUCT_CREATED_TOPIC),
-//        eq("k"),
-//        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+    verify(kafkaTemplate).send(
+        eq(ProductService.PRODUCT_CREATED_TOPIC),
+        eq("k"),
+        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
   }
   @Test
   void defaultsToUncategorizedWhenMissingCategory() {
