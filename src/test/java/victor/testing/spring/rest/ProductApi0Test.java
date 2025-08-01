@@ -97,4 +97,6 @@ public class ProductApi0Test extends IntegrationTest {
   void create_sends_message() throws Exception {
     // TODO assert message is sent with testListener.blockingReceive(ofSeconds(5));
   }
+
+  // TODO test that created product has createdDate today.
 }
