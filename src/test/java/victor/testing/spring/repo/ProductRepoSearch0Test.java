@@ -35,11 +35,12 @@ public class ProductRepoSearch0Test extends IntegrationTest {
     assertThat(searchResults)/*.TODO*/;
   }
 
-  // TODO 2 add a second @Test to prove search does NOT return the product in DB
-  //  Example: when searching by a different name
+  // TODO 2 + @Test search returns product if searched by its name
+  // TODO 3 + @Test search does NOT return the product if search by a DIFFERENT name
 
-  // TODO Add more @Test-s to fully cover ProductRepoSearchImpl (as shown by Coverage)
-  //  Pro Tip: any line of code you change in tested code should fail a test
+  // TODO Add more tests until ProductRepoSearchImpl gets Coverage = 100%
+  //  Pro (mutation testing): any line you change in tested code should cause a test to fail
+
 
 
   // TODO 4 🥋 replace all tests with a single @ParameterizedTest taking a param of this type:
@@ -47,6 +48,5 @@ public class ProductRepoSearch0Test extends IntegrationTest {
       ProductSearchCriteria criteria,
       boolean matches) {
   }
-
 }
 
