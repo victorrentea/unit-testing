@@ -27,7 +27,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // Fix#4 recreaza spring context = perf hit!
 
-@Testcontainers
 @Transactional // cleanup #2 in src/test face pe Spring sa dea ROLLBACK la finalul @Test automat
 public class ProductRepoSearch0Test extends IntegrationTest {
   @Autowired
@@ -35,20 +34,6 @@ public class ProductRepoSearch0Test extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
 
-  @Container
-  static PostgreSQLContainer<?> postgres =
-      new PostgreSQLContainer<>("postgres:16")
-      .withDatabaseName("testdb")
-      .withUsername("user")
-      .withPassword("pass");
-
-  @DynamicPropertySource
-  static void overrideProperties(DynamicPropertyRegistry registry) {
-    registry.add("spring.datasource.url", postgres::getJdbcUrl);
-    registry.add("spring.datasource.username", postgres::getUsername);
-    registry.add("spring.datasource.password", postgres::getPassword);
-    registry.add("spring.datasource.driver-class-name", ()->"org.postgresql.Driver");
-  }
 
 
 //  @BeforeEach // #1 cleanup: nosql/orice nu merge #2/#3

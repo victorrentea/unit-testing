@@ -14,6 +14,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import org.wiremock.spring.EnableWireMock;
 import victor.testing.spring.service.ProductCreatedEvent;
 
@@ -36,9 +41,27 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @EnableWireMock // starts an HTTP server on a random port to return JSON responses you pre-configure
 @Import(IntegrationTest.KafkaTestConfig.class) // registers a Kafka Listener to a topic published from production
 @AutoConfigureMockMvc // allows to send an 'emulated' HTTP request to the app
+//@Testcontainers
 public class IntegrationTest {
   @Autowired
   protected ProductCreatedEventTestListener testListener;
+
+
+//  @Container
+//  static PostgreSQLContainer<?> postgres =
+//      new PostgreSQLContainer<>("postgres:16")
+//          .withDatabaseName("testdb")
+//          .withUsername("user")
+//          .withPassword("pass")
+//          .withReuse(true); // !!!!
+//
+//  @DynamicPropertySource
+//  static void overrideProperties(DynamicPropertyRegistry registry) {
+//    registry.add("spring.datasource.url", postgres::getJdbcUrl);
+//    registry.add("spring.datasource.username", postgres::getUsername);
+//    registry.add("spring.datasource.password", postgres::getPassword);
+//    registry.add("spring.datasource.driver-class-name", ()->"org.postgresql.Driver");
+//  }
 
   @TestConfiguration
   public static class KafkaTestConfig {
