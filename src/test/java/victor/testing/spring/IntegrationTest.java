@@ -30,11 +30,12 @@ import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVE
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 @SpringBootTest // starts your app in-memory
-@Import(IntegrationTest.KafkaTestConfig.class)
 @ActiveProfiles("test") // see application-test.properties
 @EmbeddedKafka(topics = {SUPPLIER_CREATED_EVENT, PRODUCT_CREATED_TOPIC})
+
 @EnableWireMock // starts an HTTP server on a random port to return JSON responses you pre-configure
-@AutoConfigureMockMvc // permite sa trimiti req http catre app ta emuland un Tomcat
+@Import(IntegrationTest.KafkaTestConfig.class) // registers a Kafka Listener to a topic published from production
+@AutoConfigureMockMvc // allows to send an 'emulated' HTTP request to the app
 public class IntegrationTest {
   @Autowired
   protected ProductCreatedEventTestListener testListener;
