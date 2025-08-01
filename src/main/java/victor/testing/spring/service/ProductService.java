@@ -28,7 +28,6 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
-  @Transactional
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
     boolean safe = safetyApiAdapter.isSafe(productDto.barcode()); // ⚠️ REST call inside
