@@ -40,7 +40,7 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
         }
 
         if (criteria.category() != null) {
-            jpqlParts.add(" AND product.category2 = :category2");
+            jpqlParts.add(" AND product.category = :category");
             paramMap.put("category", criteria.category());
         }
 

@@ -15,7 +15,7 @@ public record ProductDto(
 		@NotBlank String name,
 		@NotNull String barcode,
 		String supplierCode,
-		ProductCategory category2,
+		ProductCategory category,
 		@JsonFormat(pattern = "yyyy-MM-dd")
 		LocalDate createdDate) {
 }

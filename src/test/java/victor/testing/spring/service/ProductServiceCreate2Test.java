@@ -45,7 +45,7 @@ class ProductServiceCreate2Test {
   ProductDto productDto = ProductDto.builder()
       .name("name")
       .supplierCode("S")
-      .category2(HOME)
+      .category(HOME)
       .build();
 
   @Test
@@ -80,7 +80,7 @@ class ProductServiceCreate2Test {
   @Test
   void defaultsToUncategorizedWhenMissingCategory() {
     supplierRepo.save(new Supplier().setCode("S"));
-    productDto = productDto.withBarcode("barcode-safe").withCategory2(null);
+    productDto = productDto.withBarcode("barcode-safe").withCategory(null);
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
     var newProductId = productService.createProduct(productDto);

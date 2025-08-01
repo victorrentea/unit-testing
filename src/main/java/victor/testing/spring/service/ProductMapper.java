@@ -12,7 +12,7 @@ public class ProductMapper {
         .supplierCode(product.getSupplier().getCode())
         .name(product.getName())
         .barcode(product.getBarcode())
-        .category2(product.getCategory())
+        .category(product.getCategory())
         .createdDate(product.getCreatedDate())
         .build();
   }

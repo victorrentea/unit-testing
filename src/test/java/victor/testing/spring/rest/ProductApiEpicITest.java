@@ -34,7 +34,7 @@ class ProductApiEpicITest extends IntegrationTest {
       .name("Tree")
       .barcode("barcode-safe")
       .supplierCode("S")
-      .category2(HOME)
+      .category(HOME)
       .build();
 
   Long productId;
@@ -68,7 +68,7 @@ class ProductApiEpicITest extends IntegrationTest {
     assertThat(response)
         .returns(productDto.name(), ProductDto::name)
         .returns(productDto.barcode(), ProductDto::barcode)
-        .returns(productDto.category2(), ProductDto::category2);
+        .returns(productDto.category(), ProductDto::category);
   }
 
   @Test

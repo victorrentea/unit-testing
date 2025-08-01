@@ -34,13 +34,13 @@ public class ProductService {
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }
-    if (productDto.category2() == null) {
-      productDto = productDto.withCategory2(ProductCategory.UNCATEGORIZED);
+    if (productDto.category() == null) {
+      productDto = productDto.withCategory(ProductCategory.UNCATEGORIZED);
     }
     Product product = new Product();
     product.setName(productDto.name());
     product.setBarcode(productDto.barcode());
-    product.setCategory(productDto.category2());
+    product.setCategory(productDto.category());
     product.setSupplier(supplierRepo.findByCode(productDto.supplierCode()).orElseThrow());
     Long productId = productRepo.save(product).getId();
     ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
