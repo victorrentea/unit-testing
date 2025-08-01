@@ -29,7 +29,7 @@ import static org.springframework.http.HttpStatus.OK;
 public class TomcatTest extends IntegrationTest {
   @Autowired // points to the random port of Tomcaat
   private TestRestTemplate rest;
-  private ProductSearchCriteria criteria = ProductSearchCriteria.empty();
+  private ProductSearchCriteria criteria = new ProductSearchCriteria();
   @Autowired
   private ProductRepo productRepo;
   @Autowired
@@ -55,11 +55,11 @@ public class TomcatTest extends IntegrationTest {
 
   @Test
   public void search() {
-    ProductSearchCriteria searchCriteria = criteria.withName("Tree");
+    criteria.setName("Tree");
 
     ResponseEntity<List<ProductSearchResult>> searchResponse = rest.exchange(
         "/product/search", HttpMethod.POST,
-        new HttpEntity<>(searchCriteria), new ParameterizedTypeReference<>() {
+        new HttpEntity<>(criteria), new ParameterizedTypeReference<>() {
         });
 
     assertThat(searchResponse.getStatusCode()).isEqualTo(OK);

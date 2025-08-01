@@ -37,7 +37,7 @@ public class ProductSearch3FeatureSteps {
    @Autowired
    private SupplierRepo supplierRepo;
 
-   private ProductSearchCriteria criteria = ProductSearchCriteria.empty();
+   private ProductSearchCriteria criteria = new ProductSearchCriteria();
 
    private Product product;
 
@@ -67,13 +67,13 @@ public class ProductSearch3FeatureSteps {
 
    @When("The search criteria name is {string}")
    public void theSearchCriteriaNameIs(String productName) {
-      criteria = criteria.withName(productName);
+      criteria.setName(productName);
    }
 
    @And("The search criteria supplier is {string}")
    public void theSearchCriteriaSupplierIs(String supplierName) {
       if (StringUtils.isNotBlank(supplierName)) {
-         criteria = criteria.withSupplierId(supplierRepo.findByName(supplierName).orElseThrow().getId());
+         criteria.setSupplierId(supplierRepo.findByName(supplierName).orElseThrow().getId());
       }
    }
 

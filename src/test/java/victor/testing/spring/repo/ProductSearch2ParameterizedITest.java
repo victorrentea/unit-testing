@@ -40,12 +40,12 @@ public class ProductSearch2ParameterizedITest extends IntegrationTest {
 
   public static List<TestCase> testData() {
     return List.of(
-            new TestCase(ProductSearchCriteria.empty(), true),
+            new TestCase(new ProductSearchCriteria(), true),
 //            new TestCase(criteria().setName("AbCd"), true),
 //            new TestCase(criteria().setName("Bc"), true),
 //            new TestCase(criteria().setName("Xyz"), false)
-            new TestCase(ProductSearchCriteria.empty().withCategory(HOME), true), // covered by the .feature file
-            new TestCase(ProductSearchCriteria.empty().withCategory(ELECTRONICS), false)
+            new TestCase(new ProductSearchCriteria().setCategory(HOME), true), // covered by the .feature file
+            new TestCase(new ProductSearchCriteria().setCategory(ELECTRONICS), false)
         // supplier covered by Feature test
     );
   }

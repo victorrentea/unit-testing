@@ -25,8 +25,7 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 @WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
 public class ProductApi0Test extends IntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
-  @Autowired
-  MockMvc mockMvc; // emulates HTTP requests to your endpoints
+
   @Autowired
   ProductRepo productRepo;
   @Autowired

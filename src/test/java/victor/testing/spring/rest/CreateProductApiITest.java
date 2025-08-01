@@ -123,7 +123,7 @@ public class CreateProductApiITest extends IntegrationTest {
     assertThat(savedProduct.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     assertThat(savedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode());
 
-    ConsumerRecord<String, ProductCreatedEvent> record = testListener.blockingReceiveForHeader(
+    ConsumerRecord<String, ProductCreatedEvent> record = productCreatedEventTestListener.blockingReceiveForHeader(
         "tenant-id", tenantId, // ⚠️tricky: uniquely identify the expected message
         ofSeconds(5) // ⚠️ flaky: how long depends on machine
     ); // ⚠️ wrong message sent not matching the criteria times-out the test

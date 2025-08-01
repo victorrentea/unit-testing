@@ -24,7 +24,7 @@ public class ProductRepoSearch0Test extends IntegrationTest {
         .setName("Name")
         .setSupplier(supplier)
         .setCategory(ProductCategory.HOME));
-    var searchCriteria = ProductSearchCriteria.empty();
+    var searchCriteria = new ProductSearchCriteria();
 
     List<ProductSearchResult> searchResults = productRepo.search(searchCriteria);
 

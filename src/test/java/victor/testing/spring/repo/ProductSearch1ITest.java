@@ -21,7 +21,7 @@ public class ProductSearch1ITest extends IntegrationTest {
 
   long supplierId;
 
-  ProductSearchCriteria criteria = ProductSearchCriteria.empty();
+  ProductSearchCriteria criteria = new ProductSearchCriteria();
 
   @BeforeEach
   final void before() {
@@ -42,19 +42,19 @@ public class ProductSearch1ITest extends IntegrationTest {
 
   @Test
   public void byName_noMatch() {
-    criteria = criteria.withName("xyz");
+    criteria.setName("xyz");
     assertThat(repo.search(criteria)).hasSize(0);
   }
 
   @Test
   public void byName_matchExactly() {
-    criteria = criteria.withName("AbCd");
+    criteria.setName("AbCd");
     assertThat(repo.search(criteria)).hasSize(1);
   }
 
   @Test
   public void byName_matchLike() {
-    criteria = criteria.withName("Bc");
+    criteria.setName("Bc");
     assertThat(repo.search(criteria)).hasSize(1);
   }
 

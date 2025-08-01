@@ -56,7 +56,7 @@ public class ProductApiEpicITest extends IntegrationTest {
 
   @Test
   void step20_search() {
-    List<ProductSearchResult> response = api.searchProduct(ProductSearchCriteria.empty().withName("Tr"));
+    List<ProductSearchResult> response = api.searchProduct(new ProductSearchCriteria().setName("Tr"));
     assertThat(response).map(ProductSearchResult::name).containsExactly(productDto.name());
     productId = response.get(0).id();
   }
@@ -77,7 +77,7 @@ public class ProductApiEpicITest extends IntegrationTest {
 
   @Test
   void step50_search() {
-    List<ProductSearchResult> response = api.searchProduct(ProductSearchCriteria.empty().withName("Tree"));
+    List<ProductSearchResult> response = api.searchProduct(new ProductSearchCriteria().setName("Tree"));
     assertThat(response).isEmpty();
   }
 }
