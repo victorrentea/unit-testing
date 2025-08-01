@@ -4,8 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
@@ -20,20 +25,39 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 //@Sql(scripts = "classpath:/sql/cleanup.sql") // cleanup #3 pt DB masive
 
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // Fix#4 recreaza spring context = perf hit!
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // Fix#4 recreaza spring context = perf hit!
 
-//@Transactional // cleanup #2 in src/test face pe Spring sa dea ROLLBACK la finalul @Test automat
+@Testcontainers
+@Transactional // cleanup #2 in src/test face pe Spring sa dea ROLLBACK la finalul @Test automat
 public class ProductRepoSearch0Test extends IntegrationTest {
   @Autowired
   ProductRepo productRepo;
   @Autowired
   SupplierRepo supplierRepo;
 
+  @Container
+  static PostgreSQLContainer<?> postgres =
+      new PostgreSQLContainer<>("postgres:16")
+      .withDatabaseName("testdb")
+      .withUsername("user")
+      .withPassword("pass");
+
+  @DynamicPropertySource
+  static void overrideProperties(DynamicPropertyRegistry registry) {
+    registry.add("spring.datasource.url", postgres::getJdbcUrl);
+    registry.add("spring.datasource.username", postgres::getUsername);
+    registry.add("spring.datasource.password", postgres::getPassword);
+    registry.add("spring.datasource.driver-class-name", ()->"org.postgresql.Driver");
+  }
+
+
 //  @BeforeEach // #1 cleanup: nosql/orice nu merge #2/#3
 //  final void before() {
 //      productRepo.deleteAll(); // in ordinea FK
 //      supplierRepo.deleteAll();
 //  }
+
+
 
   @Test
   void search() {
