@@ -38,12 +38,11 @@ public class ProductRepoSearch0Test extends IntegrationTest {
   // TODO 2 + @Test search returns product if searched by its name
   // TODO 3 + @Test search does NOT return the product if search by a DIFFERENT name
 
-  // TODO Add more tests until ProductRepoSearchImpl gets Coverage = 100%
-  //  Pro (mutation testing): any line you change in tested code should cause a test to fail
+  // TODO 4 ++ Add more tests until ProductRepoSearchImpl gets Coverage = 100%
+  // Pro (mutation testing): any line you change in tested code should cause a test to fail
 
-
-
-  // TODO 4 🥋 replace all tests with a single @ParameterizedTest taking a param of this type:
+  // TODO 5 🥋 duplicate this test class and replace all @Test with a single @ParameterizedTest taking this param:
+  // Tip: to make your @MethodSource non-static, add on test class @TestInstance(Lifecycle.PER_CLASS)
   record TestCase(
       ProductSearchCriteria criteria,
       boolean matches) {
