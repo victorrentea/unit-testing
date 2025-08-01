@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
 @SpringBootTest // start the app in-memory
-@ActiveProfiles("test") // use application-test.properties to override mai properties
+@ActiveProfiles("test") // use application-test.properties to override src/main properties
 @EmbeddedKafka // start an in-memory broker
 
 @Import(IntegrationTest.TestKafkaListenersConfig.class) // test listeners
@@ -29,7 +29,7 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @AutoConfigureMockMvc // MockMvc can send emulated HTTP requests without starting Tomcat
 public class IntegrationTest {
   @Autowired
-  protected MockMvc mockMvc; // emulates HTTP requests to your endpoints
+  protected MockMvc mockMvc;
   @Autowired
   protected AbstractTestListener<ProductCreatedEvent> productCreatedEventTestListener;
 
@@ -37,21 +37,18 @@ public class IntegrationTest {
   public static class TestKafkaListenersConfig {
     @Bean
     public AbstractTestListener<ProductCreatedEvent> productCreatedEventTestListener() {
-      return new ProductCreatedEventTestListener();
-    }
-  }
-
-  public static class ProductCreatedEventTestListener extends AbstractTestListener<ProductCreatedEvent> {
-    @KafkaListener(topics = PRODUCT_CREATED_TOPIC)
-    public void receive(ConsumerRecord<String, ProductCreatedEvent> record) {
-      super.receive(record);
+      return new AbstractTestListener<>() {
+        @KafkaListener(topics = PRODUCT_CREATED_TOPIC)
+        public void receive(ConsumerRecord<String, ProductCreatedEvent> record) {
+          super.receive(record);
+        }
+      };
     }
   }
 
   @AfterAll
   public static void checkHowManyTimesSpringStarted() {
-    // PERFORMANCE DANGER: DO NOT CHANGE THIS CONSTANT!
-    // CALL ME: 📞 0800ANARCHITECT (or you get fired :/)
+    // PERFORMANCE DANGER: DO NOT INCREASE THIS CONSTANT! -> CALL ME: 📞 0800ANARCHITECT
     int ALLOWED_NUMBER_OF_TIMES_SPRING_STARTS = 2;
     assertThat(MonitorSpringStartupPerformance.startupTimeLogs)
         .describedAs("Number of times spring started (performance)")
