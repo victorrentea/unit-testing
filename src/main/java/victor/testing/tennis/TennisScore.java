@@ -5,6 +5,9 @@ public class TennisScore {
     private int player2Score = 0;
 
     public String getScore() {
+        if (player1Score == player2Score && player1Score>=3) {
+            return "Deuce";
+        }
         return translate(player1Score) + "-" +
                translate(player2Score);
     }

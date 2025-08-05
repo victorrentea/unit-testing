@@ -8,13 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TennisScoreTest {
 
 
-  @ParameterizedTest
-  void oneTestToRuleThemAll(int player1Score, int player2Score, String expectedString) {
-    TennisScore tennisScore = new TennisScore();
-    String actual = tennisScore.getScore();
-
-    assertThat(actual).isEqualTo("Love-Love");
-  }
   @Test
   void initialScore() {
     TennisScore tennisScore = new TennisScore();
