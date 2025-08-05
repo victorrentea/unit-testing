@@ -34,8 +34,6 @@ public class ProductApi {
       return ResponseEntity.created(locationHeader).build();
    }
 
-   update
-
    @PostMapping("product/search")
    public List<ProductSearchResult> search(@RequestBody ProductSearchCriteria criteria) {
       return service.searchProduct(criteria);
