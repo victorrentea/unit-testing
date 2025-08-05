@@ -238,6 +238,7 @@
 
 
             <plugin>
+                <!-- mvn rewrite:run -->
                 <groupId>org.openrewrite.maven</groupId>
                 <artifactId>rewrite-maven-plugin</artifactId>
                 <version>6.15.0</version>
@@ -246,6 +247,13 @@
                         <recipe>victor.training.MigrateToAssertJ</recipe>
                     </activeRecipes>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.openrewrite.recipe</groupId>
+                        <artifactId>rewrite-testing-frameworks</artifactId>
+                        <version>3.14.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <!-- Typically: runs after every commit, takes 10-20 minutes, runs mockito-only, in-memory tests -->

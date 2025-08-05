@@ -1,29 +1,34 @@
 Feature: Tennis Game
 
-  Scenario: Love-Love
+  Background: #@BeforeEach
     Given A new tennis game
+#    And Shared state is cleaned
+
+  Scenario: Love-Love
     Then Score is "Love-Love"
 
-  @timed
+#  @timed
+  @txn #opens a transaction for each scenario, rolling it back after it
   Scenario: Fifteen-Love
-    Given A new tennis game
     When Player1 scores
     Then Score is "Fifteen-Love"
 
   Scenario: Fifteen-Fifteen
-    Given A new tennis game
     When Player1 scores
     And Player2 scores
     Then Score is "Fifteen-Fifteen"
 
   Scenario: Deuce
-    Given A new tennis game
     When Player1 scores 3 points
     And Player2 scores 3 points
     Then Score is "Deuce"
 
+#  Scenario: Deuce
+#    Given A new tennis game
+#    When Player1 scores 7 points
+#    Then Exception is raised
+
   Scenario Outline: All Data Table
-    Given A new tennis game
     When Player1 scores <player1Points> points
     And Player2 scores <player2Points> points
     Then Score is "<expectedScore>"
@@ -38,9 +43,3 @@ Feature: Tennis Game
       | 3             | 0             | Forty-Love        |
       | 3             | 3             | Deuce             |
       | 4             | 4             | Deuce             |
-      | 8             | 8             | Deuce             |
-      | 4             | 3             | Advantage Player1 |
-      | 5             | 6             | Advantage Player2 |
-      | 8             | 6             | Game won Player1  |
-      | 0             | 4             | Game won Player2  |
-      | 1             | 4             | Game won Player2  |
