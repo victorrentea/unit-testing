@@ -29,11 +29,12 @@ public class ProductApi {
    @PostMapping("product/create")
    @Secured("ROLE_ADMIN")
    public ResponseEntity<Void> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException {
-      log.info("Got: {}", productDto);
-      Long id = service.createProduct(productDto);
-      URI locationHeader = new URI("http://created-uri/" + id);
+      Long newProductId = service.createProduct(productDto);
+      URI locationHeader = new URI("http://created-uri/" + newProductId);
       return ResponseEntity.created(locationHeader).build();
    }
+
+   update
 
    @PostMapping("product/search")
    public List<ProductSearchResult> search(@RequestBody ProductSearchCriteria criteria) {
