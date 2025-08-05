@@ -267,14 +267,14 @@
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>1.20.0</version>
+                <version>1.7.2</version>
 
                 <!-- adds support for JUnit5 -->
                 <dependencies>
                     <dependency>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>1.2.1</version>
+                        <version>0.14</version>
                     </dependency>
                 </dependencies>
 
