@@ -1,4 +1,4 @@
-package victor.testing.tennis;
+package victor.testing.tools;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
