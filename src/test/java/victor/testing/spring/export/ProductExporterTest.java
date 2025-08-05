@@ -47,7 +47,7 @@ public class ProductExporterTest extends FileApprovalTestBase {
 
   @ParameterizedTest(name = "{0}")
   @MethodSource("testData")
-  public void convert(FileTestCase testCase) throws IOException {
+  void convert(FileTestCase testCase) throws IOException {
     didacticLog(testCase);
     Product[] inputProduct = jackson.readValue(testCase.inputFile(), Product[].class);
     when(personRepo.findAll()).thenReturn(asList(inputProduct));

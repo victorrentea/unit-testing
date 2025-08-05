@@ -12,19 +12,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
-public class SpyUntestedLegacyTest {
+class SpyUntestedLegacyTest {
 
    @Spy
    private ComplexLegacyClass target;
 
-   @Test
-   public void returnsEmptyForEmptyData() {
+  @Test
+  void returnsEmptyForEmptyData() {
       doReturn(Collections.emptyList()).when(target).privateComplex(13);
       assertThat(target.publicComplex(13)).isEmpty();
    }
 
-   @Test
-   public void returnsFirstDataElement() {
+  @Test
+  void returnsFirstDataElement() {
       doReturn(List.of("one","two")).when(target).privateComplex(13);
       assertThat(target.publicComplex(13)).hasValue("one");
    }

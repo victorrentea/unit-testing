@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 // TODO To see the race, enable running @Tests on multiple threads via junit-platform.properties
 //@Execution(ExecutionMode.SAME_THREAD) // FIX
-public class WhenRunningTestsInParallel_MockBeanCanRaceTest extends IntegrationTest {
+class WhenRunningTestsInParallel_MockBeanCanRaceTest extends IntegrationTest {
   @MockitoBean
   SupplierRepo supplierRepo;
 

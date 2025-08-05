@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-public class GetProductSolitaryTest {
+class GetProductSolitaryTest {
   @Test
   void whatAmITestingHere() {
     // DON'T DO THIS: mocking the mapper out

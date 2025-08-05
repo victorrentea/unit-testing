@@ -45,7 +45,7 @@ class CreateCustomerShould {
       );
 
   @BeforeEach
-  public final void before() {
+  final void before() {
     // social unit tests: testing ( Facade + Validator ) surrounded by mocks
     customerFacade = new CustomerFacade(new CustomerValidator(), customerRepo, emailClient);
   }
@@ -94,7 +94,7 @@ class CreateCustomerShould {
     public static final long NEW_CUSTOMER_ID = 13L;
 
     @BeforeEach
-    public final void before() {
+    final void before() {
       when(customerRepo.countByEmail("::email::")).thenReturn(0);
       when(customerRepo.save(aCustomer)).thenReturn(NEW_CUSTOMER_ID);
     }

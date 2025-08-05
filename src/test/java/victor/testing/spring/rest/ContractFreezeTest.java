@@ -20,7 +20,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-public class ContractFreezeTest extends IntegrationTest {
+class ContractFreezeTest extends IntegrationTest {
   @Autowired
   MockMvc mockMvc;
   ObjectMapper jackson = new ObjectMapper();

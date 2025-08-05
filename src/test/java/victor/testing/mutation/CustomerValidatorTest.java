@@ -2,16 +2,16 @@ package victor.testing.mutation;
 
 import lombok.Builder;
 import lombok.With;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import victor.testing.TestData;
 
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
-public class CustomerValidatorTest {
+class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
 
 
@@ -56,20 +56,17 @@ public class CustomerValidatorTest {
   @Test
   void throwForMissingName() {
     Customer aCustomer = TestData.aCustomer().setName(null);
-    Assertions.assertThrows(IllegalArgumentException.class,
-        () -> validator.validate(aCustomer));
+    assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
   @Test
   void throwForMissingEmail() {
     Customer aCustomer = TestData.aCustomer().setEmail(null);
-    Assertions.assertThrows(IllegalArgumentException.class,
-        () -> validator.validate(aCustomer));
+    assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
   @Test
   void throwForBlankEmail() {
     Customer aCustomer = TestData.aCustomer().setEmail("");
-    Assertions.assertThrows(IllegalArgumentException.class,
-        () -> validator.validate(aCustomer));
+    assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
   @Test
   void throwForMissingAddressCity() {
@@ -81,8 +78,7 @@ public class CustomerValidatorTest {
 
         .setAddress(TestData.anAddress().setCity(null));
 
-    Assertions.assertThrows(IllegalArgumentException.class,
-        () -> validator.validate(aCustomer));
+    assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
 
   @Test
@@ -90,8 +86,7 @@ public class CustomerValidatorTest {
     Customer aCustomer = TestData.aCustomer()
         .setAddress(TestData.anAddress().setCity("AB"));
 
-    Assertions.assertThrows(IllegalArgumentException.class,
-        () -> validator.validate(aCustomer));
+    assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
 
 
@@ -102,6 +97,6 @@ public class CustomerValidatorTest {
 
     validator.validate(aCustomer);
 
-    assertEquals("ABC", aCustomer.getAddress().getCity());
+    assertThat(aCustomer.getAddress().getCity()).isEqualTo("ABC");
   }
 }

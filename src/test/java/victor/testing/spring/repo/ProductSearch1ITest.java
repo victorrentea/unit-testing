@@ -12,8 +12,9 @@ import victor.testing.spring.rest.dto.ProductSearchCriteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Transactional // ROLLBACK after each @Test
-public class ProductSearch1ITest extends IntegrationTest {
+// ROLLBACK after each @Test
+@Transactional
+class ProductSearch1ITest extends IntegrationTest {
   @Autowired
   ProductRepo repo;
   @Autowired
@@ -36,24 +37,24 @@ public class ProductSearch1ITest extends IntegrationTest {
   }
 
   @Test
-  public void noCriteria() {
+  void noCriteria() {
     assertThat(repo.search(criteria)).hasSize(1);
   }
 
   @Test
-  public void byName_noMatch() {
+  void byName_noMatch() {
     criteria.setName("xyz");
-    assertThat(repo.search(criteria)).hasSize(0);
+    assertThat(repo.search(criteria)).isEmpty();
   }
 
   @Test
-  public void byName_matchExactly() {
+  void byName_matchExactly() {
     criteria.setName("AbCd");
     assertThat(repo.search(criteria)).hasSize(1);
   }
 
   @Test
-  public void byName_matchLike() {
+  void byName_matchLike() {
     criteria.setName("Bc");
     assertThat(repo.search(criteria)).hasSize(1);
   }

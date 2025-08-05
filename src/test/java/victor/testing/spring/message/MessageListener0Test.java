@@ -6,7 +6,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.repo.SupplierRepo;
 
-public class MessageListener0Test extends IntegrationTest {
+class MessageListener0Test extends IntegrationTest {
   @Autowired
   KafkaTemplate kafkaTemplate;
   @Autowired

@@ -7,13 +7,13 @@ import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftlyExtension;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.springframework.security.access.annotation.Secured;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,45 +24,84 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-@Disabled("enable on demand and compare failures of JUnit❌ and AssertJ💖")
+//@Disabled("enable on demand and compare failures of JUnit❌ and AssertJ💖")
 public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-starter-test
-
   @Nested
   @TestMethodOrder(MethodName.class)
-  public class CollectionsPrimitives {
-    List<Integer> aList = List.of(100, 200, 300, 300);
+  class Strings {
+    private final String string = "abcdef";
 
     @Test
-    public void size1_JUnit() {
-      org.junit.jupiter.api.Assertions.assertEquals(1, aList.size());
+    void startsWith_JUnit() {
+      assertThat(string).startsWith("bcd"); // see the failure message
     }
 
     @Test
-    public void size1_AssertJ() {
+    void startsWith_AssertJ() {
+      assertThat(string).startsWith("bcd"); // see the failure message
+    }
+
+    @Test
+    void ignoreCase_JUnit() {
+      assertThat(string.toUpperCase()).isEqualTo("ABCDE"); // looses the original case
+    }
+
+    @Test
+    void ignoreCase_AssertJ() {
+      assertThat(string).isEqualToIgnoringCase("AbCdE");
+    }
+
+    @Test
+    void regex_JUnit() {
+      assertThat(string).matches(".*bd.*");
+    }
+
+    @Test
+    void regex_AssertJ() {
+      assertThat(string)
+          .matches(".*bd.*")
+          .hasSize(5);
+    }
+  }
+
+
+  @Nested
+  @TestMethodOrder(MethodName.class)
+  class CollectionsPrimitives {
+    List<Integer> aList = List.of(100, 200, 300, 300);
+
+    @Test
+    void size1_JUnit() {
       assertThat(aList).hasSize(1);
     }
 
     @Test
-    public void onceInAnyOrder_JUnit() {
-      org.junit.jupiter.api.Assertions.assertTrue(aList.containsAll(List.of(100, 200, 700)));
-      assertEquals(3, aList.size());
+    void size1_AssertJ() {
+      assertThat(aList).hasSize(1);
     }
 
     @Test
-    public void onceInAnyOrder_AssertJ() {
+    void onceInAnyOrder_JUnit() {
+      assertThat(aList)
+              .containsAll(List.of(100, 200, 700))
+              .hasSize(3);
+    }
+
+    @Test
+    void onceInAnyOrder_AssertJ() {
       assertThat(aList).containsExactlyInAnyOrder(100, 200, 300);
     }
 
     @Test
-    public void contains_JUnit() {
-      assertTrue(aList.containsAll(List.of(100, 200, 400)));
-      assertFalse(aList.contains(500));
+    void contains_JUnit() {
+      assertThat(aList)
+              .containsAll(List.of(100, 200, 400))
+              .doesNotContain(500);
     }
 
     @Test
-    public void contains_AssertJ() {
+    void contains_AssertJ() {
       assertThat(aList)
           .contains(100, 200, 400)
           .doesNotContain(500);
@@ -72,7 +111,7 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
 
   @Nested
   @TestMethodOrder(MethodName.class)
-  public class CollectionsElements {
+  class CollectionsElements {
     record Character(String name, int age, Race race) {
     }
 
@@ -90,18 +129,18 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
     );
 
     @Test
-    public void oneAttribute_JUnit() {
+    void oneAttribute_JUnit() {
       // preprocess the collection before the assertion:
       Set<String> races = fellowship.stream()
           .map(Character::race)
           .map(Race::name)
           .collect(toSet());
 
-      assertEquals(Set.of("Man", "Dwarf", "Elf", "Hobbit", "Orc"), races);
+      assertThat(races).isEqualTo(Set.of("Man", "Dwarf", "Elf", "Hobbit", "Orc"));
     }
 
     @Test
-    public void oneAttribute_AssertJ() {
+    void oneAttribute_AssertJ() {
       assertThat(fellowship)
           .map(Character::race)
           .map(Race::name)
@@ -109,27 +148,27 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
     }
 
     @Test
-    public void multipleAttributes_JUnit() {
-      assertTrue(fellowship.stream().anyMatch(c ->
+    void multipleAttributes_JUnit() {
+      assertThat(fellowship.stream().anyMatch(c ->
           c.name().equals("Frodo") &&
-          c.age() == 20 &&
-          c.race().name().equals("Hobbit")));
-      assertTrue(fellowship.stream().anyMatch(c ->
+              c.age() == 20 &&
+              c.race().name().equals("Hobbit"))).isTrue();
+      assertThat(fellowship.stream().anyMatch(c ->
           c.name().equals("Aragorn") &&
-          c.age() == 39 &&
-          c.race().name().equals("Man")));
-      assertTrue(fellowship.stream().anyMatch(c ->
+              c.age() == 39 &&
+              c.race().name().equals("Man"))).isTrue();
+      assertThat(fellowship.stream().anyMatch(c ->
           c.name().equals("Legolas") &&
-          c.age() == 100 && // ❌
+              c.age() == 100 && // ❌
 //          c.age() == 1000 && // ✅
-          c.race().name().equals("Elf")));
+              c.race().name().equals("Elf"))).isTrue();
     }
 
     @Test
-    public void multipleAttributes_AssertJ() {
+    void multipleAttributes_AssertJ() {
       assertThat(fellowship)
-          // .extracting("name", "age", "race.name") // alternative
-          .extracting(Character::name, Character::age, c -> c.race().name())
+           .extracting("name", "age", "race.name") // alternative
+//          .extracting(Character::name, Character::age, c -> c.race().name())
           .contains(
               tuple("Frodo", 20, "Hobbit"),
               tuple("Legolas", 100, "Elf"), // ❌
@@ -139,54 +178,19 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
     }
   }
 
-  @Nested
-  @TestMethodOrder(MethodName.class)
-  public class Strings {
-    private final String string = "abcdef";
-
-    @Test
-    public void startsWith_JUnit() {
-      assertTrue(string.startsWith("bcd")); // see the failure message
-    }
-
-    @Test
-    public void startsWith_AssertJ() {
-      assertThat(string).startsWith("bcd"); // see the failure message
-    }
-
-    @Test
-    public void ignoreCase_JUnit() {
-      assertEquals("ABCDE", string.toUpperCase()); // looses the original case
-    }
-
-    @Test
-    public void ignoreCase_AssertJ() {
-      assertThat(string).isEqualToIgnoringCase("AbCdE");
-    }
-
-    @Test
-    public void regex_JUnit() {
-      assertTrue(string.matches(".*bd.*"));
-    }
-
-    @Test
-    public void regex_AssertJ() {
-      assertThat(string).matches(".*bd.*");
-    }
-  }
 
   @Nested
   @TestMethodOrder(MethodName.class)
-  public class Time {
+  class Time {
     private final LocalDateTime oneMinAgo = now().minusMinutes(1);
 
     @Test
-    public void deltaTime_JUnit() {
-      assertTrue(oneMinAgo.isAfter(now().minusSeconds(1)));
+    void deltaTime_JUnit() {
+      assertThat(oneMinAgo.isAfter(now().minusSeconds(1))).isTrue();
     }
 
     @Test
-    public void deltaTime_AssertJ() {
+    void deltaTime_AssertJ() {
       assertThat(oneMinAgo).isCloseTo(now(), byLessThan(1, SECONDS));
     }
   }
@@ -195,8 +199,12 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
   record Villa(int guests, String kitchen, String library) {
   }
 
-  static Villa testedCode() {
-    return new Villa(6, "dirty", "clean");
+   @Secured("ROLE_ADMIN") // = AOP = injects a proxy into callers to intercept method calls
+   Villa testedCode(SoftAssert.EventSender eventSender) {
+//    Villa badvilla = new Villa(6, "dirty", "clean");
+    Villa villa = new Villa(7, "clean", "clean");
+    eventSender.send("mansion-cleaned");
+    return villa;
   }
 
   @Nested
@@ -204,7 +212,7 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
   public class CustomAssertions {
     @Test
     void extendingAssertJ() {
-      Villa villa = testedCode();
+      Villa villa = testedCode(null);
 
       assertThat(villa)
           .hasGuests(7) // "extension methods" (java style👴🏻)
@@ -249,17 +257,21 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
 
     @Test
     void failsOnFirst_BAD() {
-      Villa villa = testedCode();
+      Villa villa = testedCode(eventSender);
 
-      assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
-      assertThat(villa.kitchen()).as("Kitchen").isEqualTo("clean");
-      assertThat(villa.library()).as("Library").isEqualTo("clean");
-      Mockito.verify(eventSender).send("mansion-cleaned");
+      try (var softly = new AutoCloseableSoftAssertions()) {
+        softly.assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
+        softly.assertThat(villa.kitchen()).as("Kitchen").isEqualTo("clean");
+        softly.assertThat(villa.library()).as("Library").isEqualTo("clean");
+        softly.assertThatCode(()->Mockito.verify(eventSender).send("mansion-cleaned")).doesNotThrowAnyException();
+      }
+      ;
     }
 
+    // for large integration tests
     @Test
     void trySoftly() {
-      Villa villa = testedCode();
+      Villa villa = testedCode(eventSender);
 
       try (var softly = new AutoCloseableSoftAssertions()) {
         softly.assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
@@ -269,21 +281,20 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
             .as("event published").doesNotThrowAnyException();
       }
     }
-
     @Nested
-    @ExtendWith(SoftlyExtension.class)
+    @ExtendWith(SoftlyExtension.class) // like an aspect that can run at test class init, and before/after each test
     class WithExtension {
       @InjectSoftAssertions
-      SoftAssertions soft;
+      SoftAssertions softly;
 
       @Test
       void usingExtension() {
-        Villa villa = testedCode();
+        Villa villa = testedCode(eventSender);
 
-        soft.assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
-        soft.assertThat(villa.kitchen()).as("Kitchen").isEqualTo("clean");
-        soft.assertThat(villa.library()).as("Library").isEqualTo("clean");
-        soft.assertThatCode(() -> Mockito.verify(eventSender).send("mansion-cleaned"))
+        softly.assertThat(villa.guests()).as("Living Guests").isEqualTo(7);
+        softly.assertThat(villa.kitchen()).as("Kitchen").isEqualTo("clean");
+        softly.assertThat(villa.library()).as("Library").isEqualTo("clean");
+        softly.assertThatCode(() -> Mockito.verify(eventSender).send("mansion-cleaned"))
             .as("event published").doesNotThrowAnyException();
       }
     }

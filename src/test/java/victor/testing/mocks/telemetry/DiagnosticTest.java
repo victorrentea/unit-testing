@@ -17,13 +17,12 @@ import java.time.temporal.ChronoUnit;
 import static java.time.LocalDateTime.*;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class DiagnosticTest {
+class DiagnosticTest {
    @Mock
    private Client client;
    @InjectMocks
@@ -34,27 +33,27 @@ public class DiagnosticTest {
       when(client.getOnlineStatus()).thenReturn(true);
    }
 
-   @Test
-   public void disconnects() {
+  @Test
+  void disconnects() {
       target.checkTransmission(true);
       verify(client).disconnect(true);
    }
 
-   @Test
-   public void throwsWhenNotOnline() {
+  @Test
+  void throwsWhenNotOnline() {
       when(client.getOnlineStatus()).thenReturn(false);
       assertThatThrownBy(() -> target.checkTransmission(true))
               .isInstanceOf(IllegalStateException.class);
    }
 
-   @Test
-   public void sendsDiagnosticInfo() {
+  @Test
+  void sendsDiagnosticInfo() {
       target.checkTransmission(true);
       verify(client).send(Client.DIAGNOSTIC_MESSAGE);
    }
 
-   @Test
-   public void receivesDiagnosticInfo() {
+  @Test
+  void receivesDiagnosticInfo() {
       final String diagnosticMessage = "DIAG";
       when(client.receive()).thenReturn(diagnosticMessage);
       target.checkTransmission(true);
@@ -65,8 +64,8 @@ public class DiagnosticTest {
    @Captor
    ArgumentCaptor<ClientConfiguration> configCaptor;
 
-   @Test
-   public void configuresClient() throws Exception {
+  @Test
+  void configuresClient() throws Exception {
       when(client.getVersion()).thenReturn("ver");
 
       target.checkTransmission(true);

@@ -1,0 +1,6 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: victor.training.MigrateToAssertJ
+description: Migrates JUnit asserts to AssertJ and applies best practices to assertions.
+recipeList:
+  - org.openrewrite.java.testing.assertj.Assertj

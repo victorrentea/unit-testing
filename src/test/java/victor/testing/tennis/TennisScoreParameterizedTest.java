@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TennisScoreParameterizedTest {
+class TennisScoreParameterizedTest {
   TennisScore tennisScore = new TennisScore();
 
   static Stream<Arguments> data() {

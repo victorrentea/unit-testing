@@ -47,7 +47,7 @@ public class IntegrationTest {
   }
 
   @AfterAll
-  public static void checkHowManyTimesSpringStarted() {
+  static void checkHowManyTimesSpringStarted() {
     // PERFORMANCE DANGER: DO NOT INCREASE THIS CONSTANT! -> CALL ME: 📞 0800ANARCHITECT
     int ALLOWED_NUMBER_OF_TIMES_SPRING_STARTS = 2;
     assertThat(MonitorSpringStartupPerformance.startupTimeLogs)

@@ -19,7 +19,7 @@ import java.util.List;
 import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ContractServiceRealTest {
+class ContractServiceRealTest {
   private static final double WARNING_AMOUNT_THRESHOLD = 10_000;
   private static final double AMOUNT_OVER_WARNING_THRESHOLD = 10_001d;
   ContractService sut = new ContractService();

@@ -23,9 +23,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
+// grant the @Test the ROLE_ADMIN (unless later overridden)
 @Transactional
-@WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
-public class ProductApi0Test extends IntegrationTest {
+@WithMockUser(roles = "ADMIN")
+class ProductApi0Test extends IntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
 
   @Autowired

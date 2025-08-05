@@ -2,10 +2,10 @@ package victor.testing.tennis;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // product of a TDD session on Tennis Kata🥋: https://kata-log.rocks/tennis-kata
-public class TennisScoreTest {
+class TennisScoreTest {
   TennisScore tennisScore = new TennisScore();
 
   @Test
@@ -13,7 +13,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 0);
     setPlayerScore(2, 0);
     String score = tennisScore.score();
-    assertEquals("Love-Love", score);
+    assertThat(score).isEqualTo("Love-Love");
   }
 
   @Test
@@ -21,7 +21,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 0);
     setPlayerScore(2, 1);
     String score = tennisScore.score();
-    assertEquals("Love-Fifteen", score);
+    assertThat(score).isEqualTo("Love-Fifteen");
   }
 
   @Test
@@ -29,7 +29,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 1);
     setPlayerScore(2, 0);
     String score = tennisScore.score();
-    assertEquals("Fifteen-Love", score);
+    assertThat(score).isEqualTo("Fifteen-Love");
   }
 
   @Test
@@ -37,7 +37,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 2);
     setPlayerScore(2, 0);
     String score = tennisScore.score();
-    assertEquals("Thirty-Love", score);
+    assertThat(score).isEqualTo("Thirty-Love");
   }
 
   @Test
@@ -45,7 +45,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 3);
     setPlayerScore(2, 0);
     String score = tennisScore.score();
-    assertEquals("Forty-Love", score);
+    assertThat(score).isEqualTo("Forty-Love");
   }
 
   @Test
@@ -53,7 +53,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 3);
     setPlayerScore(2, 3);
     String score = tennisScore.score();
-    assertEquals("Deuce", score);
+    assertThat(score).isEqualTo("Deuce");
   }
 
   @Test
@@ -61,7 +61,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 7);
     setPlayerScore(2, 6);
     String score = tennisScore.score();
-    assertEquals("Advantage Player1", score);
+    assertThat(score).isEqualTo("Advantage Player1");
   }
 
   @Test
@@ -69,7 +69,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 3);
     setPlayerScore(2, 4);
     String score = tennisScore.score();
-    assertEquals("Advantage Player2", score);
+    assertThat(score).isEqualTo("Advantage Player2");
   }
 
   @Test
@@ -77,7 +77,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 4);
     setPlayerScore(2, 0);
     String score = tennisScore.score();
-    assertEquals("Game won Player1", score);
+    assertThat(score).isEqualTo("Game won Player1");
   }
 
   @Test
@@ -85,7 +85,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 7);
     setPlayerScore(2, 5);
     String score = tennisScore.score();
-    assertEquals("Game won Player1", score);
+    assertThat(score).isEqualTo("Game won Player1");
   }
 
   @Test
@@ -93,7 +93,7 @@ public class TennisScoreTest {
     setPlayerScore(1, 0);
     setPlayerScore(2, 4);
     String score = tennisScore.score();
-    assertEquals("Game won Player2", score);
+    assertThat(score).isEqualTo("Game won Player2");
   }
 
   private void setPlayerScore(int playerNumber, int playerScore) {

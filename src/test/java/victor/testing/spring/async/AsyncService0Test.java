@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AsyncService0Test extends IntegrationTest {
+class AsyncService0Test extends IntegrationTest {
   @Autowired
   AsyncService asyncService;
   @Autowired

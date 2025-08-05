@@ -1,6 +1,5 @@
 package victor.testing.spring.repo;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import victor.testing.spring.IntegrationTest;
@@ -14,7 +13,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProductRepoSearch0Test extends IntegrationTest {
+class ProductRepoSearch0Test extends IntegrationTest {
   @Autowired
   ProductRepo productRepo;
   @Autowired

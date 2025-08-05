@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.message.MessageListener.SUPPLIER_CREATED_EVENT;
 
 // blackbox test of the listener (no mocking)
-public class MessageListenerBlackITest extends IntegrationTest {
+class MessageListenerBlackITest extends IntegrationTest {
   @Autowired
   KafkaTemplate<String, String> kafkaTemplate;
   @Autowired
