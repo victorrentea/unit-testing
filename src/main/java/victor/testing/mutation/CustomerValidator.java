@@ -5,7 +5,7 @@ public class CustomerValidator {
 		if (customer.getName() == null) {
 			throw new IllegalArgumentException("Missing customer name");
 		}
-		if (customer.getEmail() == null) {
+		if (customer.getEmail() == null || customer.getEmail().isBlank()) {
 			throw new IllegalArgumentException("Missing customer email");
 		}
 		validateAddress(customer.getAddress());
