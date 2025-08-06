@@ -14,7 +14,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOf
 class CustomerValidatorTest {
   CustomerValidator validator = new CustomerValidator();
 
-
   @Builder
   @With
   public record CustomerRec(
@@ -35,6 +34,10 @@ class CustomerValidatorTest {
 
   }
 
+  public CustomerValidatorTest() {
+    System.out.println("SURPRISE: <5% devs know that JUnit reinstantiates the test class for every @Test");
+  }
+  Customer aCustomer = TestData.aCustomer();
 
   @Test
   void valid() {
@@ -50,41 +53,36 @@ class CustomerValidatorTest {
     // rather than a compilation failure.
 
     // #1 chainable setters for mutable data
-    Customer aCustomer = TestData.aCustomer();
     validator.validate(aCustomer);
   }
   @Test
   void throwForMissingName() {
-    Customer aCustomer = TestData.aCustomer().setName(null);
+    aCustomer.setName(null);
+
     assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
   @Test
   void throwForMissingEmail() {
-    Customer aCustomer = TestData.aCustomer().setEmail(null);
+    aCustomer.setEmail(null);
+
     assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
   @Test
   void throwForBlankEmail() {
-    Customer aCustomer = TestData.aCustomer().setEmail("");
+    aCustomer.setEmail("");
+
     assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
   @Test
   void throwForMissingAddressCity() {
-    Customer aCustomer = TestData.aCustomer()
-//        .setAddress(new Address()) // heavy
-
-//        .setAddress(TestData.aValidCustomer().getAddress()
-//            .setCity(null)); // cumbersome for deeper nested
-
-        .setAddress(TestData.anAddress().setCity(null));
+    aCustomer.setAddress(TestData.anAddress().setCity(null));
 
     assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
 
   @Test
   void throwForAddressCityTooShort() {
-    Customer aCustomer = TestData.aCustomer()
-        .setAddress(TestData.anAddress().setCity("AB"));
+    aCustomer.setAddress(TestData.anAddress().setCity("AB"));
 
     assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validator.validate(aCustomer));
   }
@@ -92,8 +90,7 @@ class CustomerValidatorTest {
 
   @Test
   void trimCityBeforeValidation() {
-    Customer aCustomer = TestData.aCustomer()
-        .setAddress(TestData.anAddress().setCity("  ABC  ")); // 4+ chars with spaces
+    aCustomer.setAddress(TestData.anAddress().setCity("  ABC  ")); // 4+ chars with spaces
 
     validator.validate(aCustomer);
 
