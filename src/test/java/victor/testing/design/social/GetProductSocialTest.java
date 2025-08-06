@@ -23,6 +23,7 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 class GetProductSocialTest {
   public static final String NAME = "PROD_NAME";
   private static final LocalDate CREATED_DATE = LocalDate.now();
+  ProductRepo productRepoMock = mock(ProductRepo.class);
   ProductMapper mapperReal = new ProductMapper();
   GetProductService productService = new GetProductService(productRepoMock, mapperReal);
 
