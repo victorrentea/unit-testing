@@ -1,11 +1,13 @@
 package victor.testing.spring.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.rest.dto.ProductDto;
 
 @Component
 public class ProductMapper {
+
   public ProductDto toDto(Product product) {
     return ProductDto.builder()
         .id(product.getId())
