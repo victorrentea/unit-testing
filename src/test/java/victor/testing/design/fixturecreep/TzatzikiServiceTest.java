@@ -9,11 +9,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class FastFoodServiceTzatzikiTest {
+class TzatzikiServiceTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
    @InjectMocks
-   FastFoodService fastFood;
+   TzatzikiService fastFood;
    @Test
    void tzatzikiTest() { // + 5 more tests
       when(dependency.isCucumberAllowed()).thenReturn(true);

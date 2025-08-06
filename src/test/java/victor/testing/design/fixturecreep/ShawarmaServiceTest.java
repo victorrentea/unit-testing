@@ -15,13 +15,13 @@ import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWA
 //@MockitoSettings(strictness = Strictness.LENIENT) // DONT. Fix1
 // it makes understanding failed tests HARDER, because of that unnecessary stubbing
 @ExtendWith(MockitoExtension.class)
-class FastFoodServiceShawarmaTest {
+class ShawarmaServiceTest {
    @Mock // strict mock; see other ways to get strict mocks in the 'strictstubs' package
    Dependency dependency;
    @Mock
    FeatureFlags featureFlags;
    @InjectMocks
-   FastFoodService fastFood;
+   ShawarmaService fastFood;
 
    @BeforeEach
    final void before() {

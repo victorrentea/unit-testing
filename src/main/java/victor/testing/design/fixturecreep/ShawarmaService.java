@@ -12,7 +12,7 @@ import static victor.testing.design.fixturecreep.FeatureFlags.Feature.PORK_SHAWA
 // class ValidateCustomerService {
 
 @RequiredArgsConstructor
-public class FastFoodService {
+public class ShawarmaService {
    private final Dependency dependency;
    private final FeatureFlags featureFlags;
 
@@ -26,10 +26,4 @@ public class FastFoodService {
       // complex logic: 7 ifs
    }
 
-   public void makeTzatziki() {
-      if (!dependency.isCucumberAllowed()) {
-         throw new IllegalArgumentException();
-      }
-      // complex logic: 5 ifs
-   }
 }
