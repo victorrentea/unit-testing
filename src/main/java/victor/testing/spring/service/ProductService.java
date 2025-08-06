@@ -2,6 +2,7 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +24,10 @@ import java.util.List;
 public class ProductService {
   public static final String PRODUCT_CREATED_TOPIC = "product-created";
   private final SupplierRepo supplierRepo;
-  private final ProductRepo productRepo;
   private final SafetyApiAdapter safetyApiAdapter;
-  private final ProductMapper productMapper;
   private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+  private final ProductRepo productRepo;
+  private final ProductMapper productMapper;
 
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
@@ -52,15 +53,8 @@ public class ProductService {
     return productRepo.search(criteria);
   }
 
-  public ProductDto getProduct(long productId) {
-    Product product = productRepo.findById(productId).orElseThrow();
-    if (productRepo.countByName(product.getName()) > 1) {
-      throw new IllegalStateException("Multiple products with the same name: " + product.getName());
-    }
-    return productMapper.toDto(product);
-  }
-
   public void deleteProduct(long productId) {
     productRepo.deleteById(productId);
   }
 }
+

@@ -11,6 +11,7 @@ import victor.testing.spring.export.ProductExporter;
 import victor.testing.spring.rest.dto.ProductDto;
 import victor.testing.spring.rest.dto.ProductSearchCriteria;
 import victor.testing.spring.rest.dto.ProductSearchResult;
+import victor.testing.spring.service.GetProductService;
 import victor.testing.spring.service.ProductService;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.util.UUID;
 public class ProductApi {
    private final ProductService service;
    private final ProductExporter productExporter;
+   private final GetProductService getProductService;
 
    @PostMapping("product/create")
    @Secured("ROLE_ADMIN")
@@ -41,7 +43,7 @@ public class ProductApi {
 
    @GetMapping("product/{id}")
    public ProductDto get(@PathVariable long id) {
-      return service.getProduct(id);
+      return getProductService.getProduct(id);
    }
 
    @DeleteMapping("product/{id}")
