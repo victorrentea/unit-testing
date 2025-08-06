@@ -22,4 +22,11 @@ public class TestData {
         .setStreetName("Diagonal")
         .setStreetNumber(42);
   }
+  public static Address napoli() {
+    return new Address()
+        .setCity("::city::")
+        .setCountry(Country.FRA)
+        .setStreetName("Diagonal")
+        .setStreetNumber(42);
+  }
 }

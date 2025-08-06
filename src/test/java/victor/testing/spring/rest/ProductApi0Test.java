@@ -72,7 +72,7 @@ class ProductApi0Test extends IntegrationTest {
     // TODO 1 create product with null barcode => 4xx Client Error containing "barcode" in body
     // TODO 2 create product with null or empty name => 4xx Client Error
     // TODO 3 adjust a JSON loaded from /src/test/resource without working with a DTO instance:
-    //  Canonical.load("CreateProductRequest.json").set("$.name", null).json().toString()
+    //  String json = Canonical.load("CreateProductRequest.json").set("$.name", null).json().toString()
     //  loads src/test/resources/canonical/CreateProductRequest.json
   }
 
