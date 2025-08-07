@@ -1,7 +1,6 @@
 package victor.testing.spring.repo;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -18,22 +17,22 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 import static victor.testing.spring.entity.ProductCategory.ELECTRONICS;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@Transactional
+//@Transactional
+@TestInstance(PER_CLASS)// =only one class instance is used for ALL @Test [DANGER]
 class ProductRepoSearchPTest extends IntegrationTest {
   @Autowired
   ProductRepo productRepo;
   @Autowired
   SupplierRepo supplierRepo;
 
-  ProductSearchCriteria searchCriteria = new ProductSearchCriteria();
-
   Product product;
   Supplier supplier;
 
-  @BeforeEach
+  @BeforeAll
   final void setup() {
     supplier = supplierRepo.save(new Supplier());
     product = productRepo.save(new Product()
@@ -41,15 +40,20 @@ class ProductRepoSearchPTest extends IntegrationTest {
         .setSupplier(supplier)
         .setCategory(HOME));
   }
+  @AfterAll
+  public void cleanup() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
+  }
 
-  public static Stream<Arguments> data() {
+  public Stream<Arguments> data() {
     return Stream.of(
         Arguments.arguments(new ProductSearchCriteria(), true),
         Arguments.arguments(new ProductSearchCriteria().setName("aM"), true),
         Arguments.arguments(new ProductSearchCriteria().setName("Ankit"), false),
         Arguments.arguments(new ProductSearchCriteria().setCategory(HOME), true),
         Arguments.arguments(new ProductSearchCriteria().setCategory(ELECTRONICS), false),
-//        Arguments.arguments(new ProductSearchCriteria().setSupplierId(supplier.getId()), true),
+        Arguments.arguments(new ProductSearchCriteria().setSupplierId(supplier.getId()), true),
         Arguments.arguments(new ProductSearchCriteria().setSupplierId(-1L), false)
 
     );
