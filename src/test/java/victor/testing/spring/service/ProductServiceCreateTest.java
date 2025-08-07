@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import org.assertj.core.api.recursive.assertion.RecursiveAssertionConfiguration;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -33,6 +34,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -55,6 +57,12 @@ class ProductServiceCreateTest {
       .category(HOME)
       .build();
 
+  @BeforeEach
+  final void before() {
+    supplierRepo.save(new Supplier().setCode("S"));
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+  }
+
   @Test
   @CaptureSystemOutput
   void createThrowsForUnsafeProduct(CaptureSystemOutput.OutputCapture outputCapture) {
@@ -69,21 +77,28 @@ class ProductServiceCreateTest {
   }
 
   @Test
-  void createOk() {
-    supplierRepo.save(new Supplier().setCode("S"));
+  void savesProductToDB() {
     productDto = productDto.withBarcode("barcode-safe");
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
     // WHEN
     Long productId = productService.createProduct(productDto);
 
     Product product = productRepo.findById(productId).orElseThrow();
     assertThat(product)
-      .returns("name",Product::getName)
-      .returns("barcode-safe", Product::getBarcode)
-      .returns("S", p -> p.getSupplier().getCode())
-      .returns(HOME, Product::getCategory);
+        .returns("name", Product::getName)
+        .returns("barcode-safe", Product::getBarcode)
+        .returns("S", p -> p.getSupplier().getCode())
+        .returns(HOME, Product::getCategory);
     assertThat(product.getCreatedDate()).isToday(); // spring+jpa magic
+
+  }
+  @Test
+  void kafkaEventIsSent() {
+    productDto = productDto.withBarcode("barcode-safe");
+
+    // WHEN
+    Long productId = productService.createProduct(productDto);
+
     verify(kafkaTemplate).send(
         eq(ProductService.PRODUCT_CREATED_TOPIC), // Pro: syntax reference
         eq("k"),
@@ -93,8 +108,18 @@ class ProductServiceCreateTest {
     ProductCreatedEvent event = productCreatedEventCaptor.getValue();
     assertThat(event.productId()).isEqualTo(productId);
     assertThat(event.observedAt()).isCloseTo(now(), byLessThan(1, MINUTES));
+  }
 
+  @Test
+  void defaultsMissingCategoryToUncategorized() {
+    productDto = productDto.withBarcode("barcode-safe")
+        .withCategory(null);
 
+    // WHEN
+    Long productId = productService.createProduct(productDto);
+
+    Product product = productRepo.findById(productId).orElseThrow();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
   @Captor
   ArgumentCaptor<ProductCreatedEvent> productCreatedEventCaptor;
