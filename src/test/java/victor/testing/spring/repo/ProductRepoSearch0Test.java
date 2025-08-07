@@ -1,5 +1,6 @@
 package victor.testing.spring.repo;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import victor.testing.spring.IntegrationTest;
@@ -20,18 +21,13 @@ class ProductRepoSearch0Test extends IntegrationTest {
   SupplierRepo supplierRepo;
 
   @Test
-  void search() {
-    Supplier supplier = supplierRepo.save(new Supplier());
-    productRepo.save(new Product()
-        .setName("Name")
-        .setSupplier(supplier)
-        .setCategory(ProductCategory.HOME));
-    var searchCriteria = new ProductSearchCriteria();
-
+  void searchEmptyCriteria() {
     List<ProductSearchResult> searchResults = productRepo.search(searchCriteria);
 
-    // TODO 1 assert the inserted product is returned
-    assertThat(searchResults)/*.TODO*/;
+    assertThat(searchResults).hasSize(1)
+        .first()
+        .returns("NAme", ProductSearchResult::name)
+        .returns(product.getId(), ProductSearchResult::id);
   }
 
   // TODO 2 + @Test search returns product if searched by its name

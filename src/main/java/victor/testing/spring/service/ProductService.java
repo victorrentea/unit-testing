@@ -2,10 +2,9 @@ package victor.testing.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -17,6 +16,7 @@ import victor.testing.spring.rest.dto.ProductSearchResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
@@ -29,7 +29,13 @@ public class ProductService {
   private final ProductRepo productRepo;
   private final ProductMapper productMapper;
 
-  public Long createProduct(ProductDto productDto) {
+// XXX-Stops @Transaction from entering
+//  @Transactional(propagation = REQUIRES_NEW) XXX
+//  @Transactional(propagation = NOT_SUPPORTED)XXX
+//  @Async XXX
+  public Long createProduct(ProductDto a) {
+//    return CompletableFuture.supplyAsync(() -> {XXX
+    ProductDto productDto = a;
     boolean safe = safetyApiAdapter.isSafe(productDto.barcode()); // ⚠️ REST call inside
     if (!safe) {
       log.warn("[ALARM-CALL-LEGAL] Tried to create an illegal product {}", productDto);

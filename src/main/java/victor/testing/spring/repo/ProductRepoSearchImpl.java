@@ -25,11 +25,8 @@ public class ProductRepoSearchImpl implements ProductRepoSearch {
         jpqlParts.add("SELECT new victor.testing.spring.rest.dto.ProductSearchResult(product.id, product.name)" +
                 " FROM Product product " +
                 " WHERE 1=1");
-
         Map<String, Object> paramMap = new HashMap<>();
-
         if (StringUtils.isNotEmpty(criteria.getName())) {
-//            jpqlParts.add("AND product.name = :name");
             jpqlParts.add("AND UPPER(product.name) LIKE UPPER('%' || :name || '%')"); // = contains, ignoring case
             paramMap.put("name", criteria.getName());
         }

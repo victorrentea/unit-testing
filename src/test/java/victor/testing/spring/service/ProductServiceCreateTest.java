@@ -18,6 +18,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
@@ -49,7 +50,13 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
   // if db in testcontainer, it will survive SPring's death anyway
 
 // #2 for XXL sql database
-@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
+//@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
+
+//  #3
+@Transactional // start each @Test in a new tx on the current thread, then after the @Test ROLLBACK it
+  // the @Test propagates this "test roolback-only transaction" into the tested prod code
+// PITFALLS: XXX some prod habits might stop test @Transactions
+//
 class ProductServiceCreateTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -104,7 +111,15 @@ class ProductServiceCreateTest {
 
     // WHEN
     Long productId = productService.createProduct(productDto);
+    productRepo.flush(); // does NOT commit yet. still rollback at end
+    System.out.println("prod finished");
 
+    // there is no insert yet because there was no COMMIT to flush the write buffer of JPA
+    //  entity is in Hibernates' 1st level cache(PersistenceContext)
+    // productRepo.findById returns from the 1st level cache since "by PK
+    // supllierRepo.findByCode is translated to SQL and ran to DB, Hib has to pre-flush the CHANGES
+    // since there was no INSERT / commit in the game, the UQ/NOT NULL, FKs were not checked YET by DB
+    // Also, the @TransactionalEventListener(POST_COMMIT) never ran
     Product product = productRepo.findById(productId).orElseThrow();
     assertThat(product)
         .returns("name", Product::getName)
@@ -112,7 +127,6 @@ class ProductServiceCreateTest {
         .returns("S", p -> p.getSupplier().getCode())
         .returns(HOME, Product::getCategory);
     assertThat(product.getCreatedDate()).isToday(); // spring+jpa magic
-
   }
   @Test
   void kafkaEventIsSent() {
