@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import victor.testing.spring.entity.Product;
@@ -33,12 +34,14 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @EmbeddedKafka // a kind of H2
+@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // NEVER ON GIT!
 class ProductServiceCreateTest {
   @Autowired
   SupplierRepo supplierRepo;
