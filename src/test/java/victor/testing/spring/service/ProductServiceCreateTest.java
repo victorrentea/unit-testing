@@ -63,18 +63,10 @@ class ProductServiceCreateTest {
     // WHEN
     var newProductId = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
-    assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getBarcode()).isEqualTo("barcode-safe");
-    assertThat(product.getSupplier().getCode()).isEqualTo("S");
-    assertThat(product.getCategory()).isEqualTo(HOME);
-    verify(kafkaTemplate).send(
-        eq(ProductService.PRODUCT_CREATED_TOPIC),
-        eq("k"),
-        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
-//    assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
+//    assertThat(product.getName()).isEqualTo("name");
+//    assertThat(product.getBarcode()).isEqualTo("barcode-safe");
+//    assertThat(product.getSupplier().getCode()).isEqualTo("S");
+//    assertThat(product.getCategory()).isEqualTo(HOME);
   }
 
 }

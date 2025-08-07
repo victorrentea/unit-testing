@@ -27,15 +27,15 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 @ExtendWith(SpringExtension.class)
 // use spring ONLY as DI without booting web/hibernate/acutator/+1000 other defautl beans
 @ContextConfiguration(classes = {
-    GetProductService.class,
-    ProductMapper.class
+    GetProductService.class, //real
+    ProductMapper.class //real
 })
 @TestPropertySource(properties = "prop.from.file=1")
 class GetProductSocialSpringTest {
   public static final String NAME = "PROD_NAME";
   private static final LocalDate CREATED_DATE = LocalDate.now();
   @MockitoBean
-  ProductRepo productRepoMock;
+  ProductRepo productRepoMock; // mock
   @Autowired
   GetProductService productService;
 

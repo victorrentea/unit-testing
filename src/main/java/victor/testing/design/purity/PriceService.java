@@ -29,6 +29,7 @@ public class PriceService {
       long customerId,
       List<Long> productIds,
       Map<Long, Double> internalPrices) {
+
     Customer customer = customerRepo.findById(customerId);
     List<Product> products = productRepo.findAllById(productIds);
 
@@ -36,6 +37,7 @@ public class PriceService {
 
     CouponsApplicationResult result = applyCoupons(products, resolvedPrices, customer.getCoupons());
     couponRepo.markUsedCoupons(customerId, result.getUsedCoupons());
+
     return result.getFinalPrices();
   }
 
