@@ -8,7 +8,12 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -24,23 +29,24 @@ import java.util.Optional;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("test")
+@EmbeddedKafka // a kind of H2
 class ProductServiceCreateTest {
-  @Mock
+  @Autowired
   SupplierRepo supplierRepo;
-  @Mock
+  @Autowired
   ProductRepo productRepo;
-  @Mock
+  @MockitoBean // replaces the real bean with a mockito mock
   SafetyApiAdapter safetyApiAdapter;
-  @Mock
+  @MockitoBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   ProductDto productDto = ProductDto.builder()
@@ -64,31 +70,31 @@ class ProductServiceCreateTest {
 
   @Test
   void createOk() {
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
     // WHEN
     Long productId = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // dear mock give me the param you remember from when prod called you
-    Product product = productCaptor.getValue();
+    Product product = productRepo.findById(productId).orElseThrow();
     assertThat(product)
       .returns("name",Product::getName)
       .returns("barcode-safe", Product::getBarcode)
       .returns("S", p -> p.getSupplier().getCode())
       .returns(HOME, Product::getCategory);
-
+    assertThat(product.getCreatedDate()).isToday(); // spring+jpa magic
     verify(kafkaTemplate).send(
         eq(ProductService.PRODUCT_CREATED_TOPIC), // Pro: syntax reference
         eq("k"),
+//        argThat(event -> event.productId().equals(productId)) // if only one attr is interesting
         productCreatedEventCaptor.capture()
     );
     ProductCreatedEvent event = productCreatedEventCaptor.getValue();
     assertThat(event.productId()).isEqualTo(productId);
     assertThat(event.observedAt()).isCloseTo(now(), byLessThan(1, MINUTES));
+
+
   }
   @Captor
   ArgumentCaptor<ProductCreatedEvent> productCreatedEventCaptor;

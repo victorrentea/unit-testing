@@ -31,7 +31,7 @@ public class Product {
     @ManyToOne
     private Supplier supplier;
 
-    @CreatedDate // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
+    @CreatedDate // Spring+JPA assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
     private LocalDate createdDate;
 
     @CreatedBy // Spring assigns this at creation time from SecurityContext
