@@ -73,7 +73,5 @@ class ProductRepoSearchPTest extends IntegrationTest {
       assertThat(searchResults).isEmpty();
     }
   }
-
-
 }
 
