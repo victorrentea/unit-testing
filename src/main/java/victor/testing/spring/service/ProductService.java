@@ -30,9 +30,9 @@ public class ProductService {
   private final ProductMapper productMapper;
 
   public Long createProduct(ProductDto productDto) {
-    log.info("Creating product {}", productDto);
     boolean safe = safetyApiAdapter.isSafe(productDto.barcode()); // ⚠️ REST call inside
     if (!safe) {
+      log.warn("[ALARM-CALL-LEGAL] Tried to create an illegal product {}", productDto);
       throw new IllegalStateException("Product is not safe!");
     }
     if (productDto.category() == null) {
@@ -44,10 +44,17 @@ public class ProductService {
     product.setCategory(productDto.category());
     product.setSupplier(supplierRepo.findByCode(productDto.supplierCode()).orElseThrow());
     Long productId = productRepo.save(product).getId();
-    ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
+    ProductCreatedEvent event = new ProductCreatedEvent(
+        productId, LocalDateTime.now());
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", event); // a 'tenant-id' message header is added by victor.testing.spring.config.AddTenantIdToSentMessagesInterceptor
     return productId;
   }
+
+
+
+
+
+
 
   public List<ProductSearchResult> searchProduct(ProductSearchCriteria criteria) {
     return productRepo.search(criteria);

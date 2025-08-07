@@ -12,7 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TimeExtensionTest {
 
   @RegisterExtension
+      // during each @Test any call to LocalDate.now() returns Christmas
   TimeExtension timeExtension = new TimeExtension("2023-12-25");
+//  TimeExtension timeExtension = new TimeExtension("2023-12-25T10:10:10");
 
   private static LocalDate testedCode() {
     return LocalDate.now();

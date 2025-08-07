@@ -1,8 +1,10 @@
 package victor.testing.spring.service;
 
+import org.assertj.core.api.recursive.assertion.RecursiveAssertionConfiguration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -14,12 +16,15 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.ArgumentMatchers.*;
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.MINUTES;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
@@ -55,20 +60,50 @@ class ProductServiceCreateTest {
 
   @Test
   void createOk() {
+    LocalDateTime start = now();
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
     // WHEN
-    var newProductId = productService.createProduct(productDto);
+    Long productId = productService.createProduct(productDto);
 
+    ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+    verify(productRepo).save(productCaptor.capture()); // dear mock give me the param you remember from when prod called you
+    Product product = productCaptor.getValue();
 //    assertThat(product.getName()).isEqualTo("name");
 //    assertThat(product.getBarcode()).isEqualTo("barcode-safe");
 //    assertThat(product.getSupplier().getCode()).isEqualTo("S");
 //    assertThat(product.getCategory()).isEqualTo(HOME);
-  }
+//        .usingRecursiveAssertion(RecursiveAssertionConfiguration.builder().build()).isEqualTo(anotherProduct)
+    assertThat(product)
+      .returns("name",Product::getName)
+      .returns("barcode-safe", Product::getBarcode)
+      .returns("S", p -> p.getSupplier().getCode())
+      .returns(HOME, Product::getCategory);
 
+    verify(kafkaTemplate).send(
+//        "product-created", // Pro/Con: safeguard vs change of constant = approval test
+        // = protection against accidental changes of constant values
+        eq(ProductService.PRODUCT_CREATED_TOPIC), // Pro: syntax reference
+        eq("k"),
+        productCreatedEventCaptor.capture()
+    );
+    ProductCreatedEvent event = productCreatedEventCaptor.getValue();
+    assertThat(event.productId()).isEqualTo(productId);
+//    assertThat(event.observedAt()).isEqualTo(LocalDateTime.now()); // fails, dues to several millis
+//    assertThat(event.observedAt()).isCloseTo(now(), byLessThan(1, MINUTES));
+    assertThat(event.observedAt()).isBetween(start, now());
+
+    // if you do MATH with time, THEN control time with
+    // - injected Clock
+    // - injected your own type DataProvider {:LocalDateTime,
+    // - Mockito.mockStatic with mockito-inline NOT PowerMock RIP
+
+  }
+  @Captor
+  ArgumentCaptor<ProductCreatedEvent> productCreatedEventCaptor;
 }
 
 // region WireMock
