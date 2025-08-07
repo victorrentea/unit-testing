@@ -15,6 +15,7 @@ import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.tools.CaptureSystemOutput;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -49,13 +50,16 @@ class ProductServiceCreateTest {
       .build();
 
   @Test
-  void createThrowsForUnsafeProduct() {
+  @CaptureSystemOutput
+  void createThrowsForUnsafeProduct(CaptureSystemOutput.OutputCapture outputCapture) {
     productDto = productDto.withBarcode("barcode-unsafe");
     when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
+    assertThat(outputCapture.toString()).contains("[ALARM-CALL-LEGAL]");
+
   }
 
   @Test
