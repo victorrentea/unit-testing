@@ -17,6 +17,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
@@ -37,6 +38,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
@@ -45,6 +47,9 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 @EmbeddedKafka // a kind of H2
 //@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // NEVER ON GIT!
   // if db in testcontainer, it will survive SPring's death anyway
+
+// #2 for XXL sql database
+@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
 class ProductServiceCreateTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -65,20 +70,20 @@ class ProductServiceCreateTest {
 
   @BeforeEach
   final void before() {
-    productRepo.deleteAll();
-    supplierRepo.deleteAll();
+//    productRepo.deleteAll();// #1
+//    supplierRepo.deleteAll();
     supplierRepo.save(new Supplier().setCode("S"));
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
   }
 
-  @AfterEach // safest and most general purpose
-  final void cleanupAfter() {
-    productRepo.deleteAll(); // in order
-    supplierRepo.deleteAll();
-    // mongo detelall
-    // redis clear cache
-    // kafka drain pending messages
-  }
+//  @AfterEach // safest and most general purpose
+//  final void cleanupAfter() {
+//    productRepo.deleteAll(); // in order
+//    supplierRepo.deleteAll();
+//    // mongo detelall
+//    // redis clear cache
+//    // kafka drain pending messages
+//  }
 
   @Test
   @CaptureSystemOutput
