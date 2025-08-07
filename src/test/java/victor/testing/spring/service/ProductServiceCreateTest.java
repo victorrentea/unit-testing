@@ -1,6 +1,7 @@
 package victor.testing.spring.service;
 
 import org.assertj.core.api.recursive.assertion.RecursiveAssertionConfiguration;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -41,7 +43,8 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 @SpringBootTest
 @ActiveProfiles("test")
 @EmbeddedKafka // a kind of H2
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // NEVER ON GIT!
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // NEVER ON GIT!
+  // if db in testcontainer, it will survive SPring's death anyway
 class ProductServiceCreateTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -64,6 +67,16 @@ class ProductServiceCreateTest {
   final void before() {
     supplierRepo.save(new Supplier().setCode("S"));
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+  }
+
+  @BeforeEach // #1 clean
+  @AfterEach // safest and most general purpose
+  final void cleanup() {
+    productRepo.deleteAll(); // in order
+    supplierRepo.deleteAll();
+    // mongo detelall
+    // redis clear cache
+    // kafka drain pending messages
   }
 
   @Test
