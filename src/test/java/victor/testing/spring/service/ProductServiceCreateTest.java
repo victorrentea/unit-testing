@@ -65,13 +65,14 @@ class ProductServiceCreateTest {
 
   @BeforeEach
   final void before() {
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
     supplierRepo.save(new Supplier().setCode("S"));
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
   }
 
-  @BeforeEach // #1 clean
   @AfterEach // safest and most general purpose
-  final void cleanup() {
+  final void cleanupAfter() {
     productRepo.deleteAll(); // in order
     supplierRepo.deleteAll();
     // mongo detelall
