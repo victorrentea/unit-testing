@@ -53,4 +53,35 @@ public class AbstractTestListener<T> {
         }
       }
     }
+
+  public void drain() {
+    // Repeatedly call blockingReceive with a very small timeout for up to 3 seconds.
+    // If a message arrives immediately, loop again to catch trailing messages.
+    final LocalDateTime deadline = LocalDateTime.now().plusSeconds(1);
+    while (LocalDateTime.now().isBefore(deadline)) {
+      // Do not block past the deadline
+      Duration remaining = Duration.between(LocalDateTime.now(), deadline);
+      if (remaining.isNegative()) {
+        break;
+      }
+      Duration attemptTimeout = Duration.ofMillis(10);
+      if (attemptTimeout.compareTo(remaining) > 0) {
+        attemptTimeout = remaining;
+      }
+      try {
+        // Accept any message
+        blockingReceive(r -> true, attemptTimeout);
+        // If we got one, immediately try again in the same loop iteration
+        // to catch any trailing messages.
+      } catch (java.util.concurrent.TimeoutException e) {
+        // No message in this tiny window; keep looping until deadline.
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        return;
+      } catch (ExecutionException e) {
+        // Unexpected during drain; log and continue trying until deadline
+        log.warn("Unexpected exception while draining messages", e);
+      }
+    }
   }
+}

@@ -3,31 +3,29 @@ package victor.testing.spring.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.test.context.EmbeddedKafka;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
-import org.wiremock.spring.EnableWireMock;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
-import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.infra.SafetyApiAdapter.SafetyResponse;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 import victor.testing.tools.CaptureSystemOutput;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.time.LocalDateTime.now;
@@ -35,7 +33,6 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
@@ -48,7 +45,7 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
   //to run WireMock in a docker, use WireMock.configureFor("localhost",<dockerport>) instead if @EnableWireMock
 
 @Transactional
-class ProductServiceCreateWireMockTest extends IntegrationTest {
+class ProductServiceCreateMorInfraTest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
@@ -56,8 +53,8 @@ class ProductServiceCreateWireMockTest extends IntegrationTest {
 //  @MockitoSpyBean // wrap the real bean with a mockito mock.if not programmed with when..then, acts as usual
 //  SafetyApiAdapter safetyApiAdapter;
 
-  @MockitoBean
-  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+//  @MockitoBean
+//  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
 
@@ -132,19 +129,16 @@ class ProductServiceCreateWireMockTest extends IntegrationTest {
     assertThat(product.getCreatedDate()).isToday(); // spring+jpa magic
   }
   @Test
-  void kafkaEventIsSent() {
+  void kafkaEventIsSent() throws ExecutionException, InterruptedException, TimeoutException {
+    productCreatedEventTestListener.drain();
     productDto = productDto.withBarcode("barcode-safe");
 
     // WHEN
     Long productId = productService.createProduct(productDto);
 
-    verify(kafkaTemplate).send(
-        eq(ProductService.PRODUCT_CREATED_TOPIC), // Pro: syntax reference
-        eq("k"),
-//        argThat(event -> event.productId().equals(productId)) // if only one attr is interesting
-        productCreatedEventCaptor.capture()
-    );
-    ProductCreatedEvent event = productCreatedEventCaptor.getValue();
+    ConsumerRecord<String, ProductCreatedEvent> record = productCreatedEventTestListener.blockingReceive(
+        r -> true, Duration.ofSeconds(1));
+    ProductCreatedEvent event = record.value();
     assertThat(event.productId()).isEqualTo(productId);
     assertThat(event.observedAt()).isCloseTo(now(), byLessThan(1, MINUTES));
   }

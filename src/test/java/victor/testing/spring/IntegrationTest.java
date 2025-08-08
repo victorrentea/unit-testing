@@ -2,6 +2,7 @@ package victor.testing.spring;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.MonitorSpringStartupPerformance;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
