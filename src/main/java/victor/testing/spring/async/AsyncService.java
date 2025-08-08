@@ -19,8 +19,8 @@ public class AsyncService {
 
   public CompletableFuture<Long> asyncReturning(String supplierName) {
     return CompletableFuture.supplyAsync(() -> {
-      afterAWhile();
-      var supplier = new Supplier()
+      afterAWhile(); // because
+      Supplier supplier = new Supplier()
           .setName(requireNonNull(supplierName));
       return supplierRepo.save(supplier).getId();
     });
@@ -34,6 +34,18 @@ public class AsyncService {
       supplierRepo.save(supplier);
     });
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
   @Async
   public void fireAndForgetSpring(String supplierName) {

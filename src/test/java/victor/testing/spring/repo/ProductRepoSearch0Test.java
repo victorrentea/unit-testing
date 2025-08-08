@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest // start only the JPA related stuff. no actuator, kafka listeners, custom aspects
 @ActiveProfiles("test") // use application-test.properties to override src/main properties
 
+//@Tag("slow") // for later tonight. BUT: what if I want to CD/deploy earlier to prod
 @Transactional
 class ProductRepoSearch0Test/* extends IntegrationTest */{
   @Autowired

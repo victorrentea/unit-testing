@@ -17,6 +17,10 @@
         <spring-cloud.version>2025.0.0</spring-cloud.version>
 
     </properties>
+<!--    <profiles>-->
+<!--        <profile>ci</profile>-->
+<!--        <profile>release</profile>-->
+<!--    </profiles>-->
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
