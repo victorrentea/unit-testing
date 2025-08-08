@@ -33,9 +33,8 @@ public class ProductService {
 //  @Transactional(propagation = REQUIRES_NEW) XXX
 //  @Transactional(propagation = NOT_SUPPORTED)XXX
 //  @Async XXX
-  public Long createProduct(ProductDto a) {
 //    return CompletableFuture.supplyAsync(() -> {XXX
-    ProductDto productDto = a;
+  public Long createProduct(ProductDto productDto) {
     boolean safe = safetyApiAdapter.isSafe(productDto.barcode()); // ⚠️ REST call inside
     if (!safe) {
       log.warn("[ALARM-CALL-LEGAL] Tried to create an illegal product {}", productDto);

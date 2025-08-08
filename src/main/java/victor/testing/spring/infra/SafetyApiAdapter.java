@@ -16,7 +16,9 @@ public class SafetyApiAdapter {
   @Value("${safety.service.url.base}")
   private final URL baseUrl;
 
-  public record SafetyResponse(String category, String detailsUrl) {
+  public record SafetyResponse(
+      String category,
+      String detailsUrl) {
   }
 
   public boolean isSafe(String barcode) {
