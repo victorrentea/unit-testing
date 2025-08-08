@@ -57,7 +57,7 @@ public class AsyncService {
 
   private void afterAWhile() {
     try {
-      Thread.sleep((long) (30 * Math.random()));
+      Thread.sleep(35);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
