@@ -14,7 +14,11 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ProductRepoSearch0Test extends IntegrationTest {
+@DataJpaTest // start only the JPA related stuff. no actuator, kafka listeners, custom aspects
+@ActiveProfiles("test") // use application-test.properties to override src/main properties
+
+@Transactional
+class ProductRepoSearch0Test/* extends IntegrationTest */{
   @Autowired
   ProductRepo productRepo;
   @Autowired
