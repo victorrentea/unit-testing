@@ -13,9 +13,11 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.wiremock.spring.EnableWireMock;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -37,19 +39,23 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@EmbeddedKafka
-@Transactional
-@EnableWireMock // !! this avoids restarting wiremock between test classes
+//@SpringBootTest
+//@ActiveProfiles("test")
+//@EmbeddedKafka
+//@EnableWireMock // !! this avoids restarting wiremock between test classes
   // default port = 0 => random to avoid port collisions on CI
 
   //to run WireMock in a docker, use WireMock.configureFor("localhost",<dockerport>) instead if @EnableWireMock
-class ProductServiceCreateWireMockTest {
+
+@Transactional
+class ProductServiceCreateWireMockTest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
+//  @MockitoSpyBean // wrap the real bean with a mockito mock.if not programmed with when..then, acts as usual
+//  SafetyApiAdapter safetyApiAdapter;
+
   @MockitoBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired

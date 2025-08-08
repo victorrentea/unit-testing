@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.wiremock.spring.EnableWireMock;
+import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.service.ProductCreatedEvent;
 import victor.testing.tools.AbstractTestListener;
 
@@ -27,11 +29,15 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @Import(IntegrationTest.TestKafkaListenersConfig.class) // test listeners
 @EnableWireMock // starts WireMock HTTP server on a random port ${wiremock.server.port} returning pre-configured JSON responses
 @AutoConfigureMockMvc // MockMvc can send emulated HTTP requests without starting Tomcat
+   // if you want tomcat ON on a port, package your jar and deploy your app in a docker locally = the most blackbox possible
 public class IntegrationTest {
   @Autowired
   protected MockMvc mockMvc;
   @Autowired
   protected AbstractTestListener<ProductCreatedEvent> productCreatedEventTestListener;
+
+  @MockitoSpyBean // wrap the real bean with a mockito mock.if not programmed with when..then, acts as usual
+  protected SafetyApiAdapter safetyApiAdapter;
 
   @TestConfiguration
   public static class TestKafkaListenersConfig {
