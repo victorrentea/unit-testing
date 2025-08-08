@@ -1,8 +1,5 @@
 package victor.testing.spring.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -14,20 +11,14 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
-import org.wiremock.spring.EnableWireMock;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
-import victor.testing.spring.infra.SafetyApiAdapter.SafetyResponse;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 import victor.testing.tools.CaptureSystemOutput;
 
-import java.util.List;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.assertj.core.api.Assertions.*;
@@ -39,17 +30,25 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@EmbeddedKafka
-@Transactional
-@EnableWireMock // !! this avoids restarting wiremock between test classes
-  // default port = 0 => random to avoid port collisions on CI
+@EmbeddedKafka // a kind of H2
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD) // NEVER ON GIT!
+  // if db in testcontainer, it will survive SPring's death anyway
 
-  //to run WireMock in a docker, use WireMock.configureFor("localhost",<dockerport>) instead if @EnableWireMock
-class ProductServiceCreateWireMockTest {
+// #2 for XXL sql database
+//@Sql(scripts = "classpath:/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD)
+
+//  #3
+@Transactional // start each @Test in a new tx on the current thread, then after the @Test ROLLBACK it
+  // the @Test propagates this "test roolback-only transaction" into the tested prod code
+// PITFALLS: XXX some prod habits might stop test @Transactions
+//
+class ProductServiceCreateIDENTICALTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
+  @MockitoBean // replaces the real bean with a mockito mock
+  SafetyApiAdapter safetyApiAdapter;
   @MockitoBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
@@ -63,43 +62,32 @@ class ProductServiceCreateWireMockTest {
 
   @BeforeEach
   final void before() {
+//    productRepo.deleteAll();// #1
+//    supplierRepo.deleteAll();
     supplierRepo.save(new Supplier().setCode("S"));
-//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
   }
+
+//  @AfterEach // safest and most general purpose
+//  final void cleanupAfter() {
+//    productRepo.deleteAll(); // in order
+//    supplierRepo.deleteAll();
+//    // mongo detelall
+//    // redis clear cache
+//    // kafka drain pending messages
+//  }
 
   @Test
   @CaptureSystemOutput
-  void createThrowsForUnsafeProduct(CaptureSystemOutput.OutputCapture outputCapture) throws JsonProcessingException, com.fasterxml.jackson.core.JsonProcessingException {
+  void createThrowsForUnsafeProduct(CaptureSystemOutput.OutputCapture outputCapture) {
     productDto = productDto.withBarcode("barcode-unsafe");
-    ObjectMapper jackson = new ObjectMapper();
-
-    stubFor(get(urlEqualTo("/product/%s/safety".formatted(productDto.barcode())))
-        .willReturn(aResponse()
-            .withStatus(200)
-            .withHeader("Content-Type", "application/json")
-//            .withBody("""
-//            {
-//              "detailsUrl": "http://details.url/a/b",
-//              "category": "UNSAFE"
-//            }
-//        """)
-            // + Java-only, no json string
-            // - does NOT cover match between actual JSON and Their DTO in my code
-            //    eg: I modeled int in their DTO, but they send me "13"
-            .withBody(jackson.writeValueAsString(new SafetyResponse(
-                "UNSAFE", "http://details.url/a/b")))
-        ));
+    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
     assertThat(outputCapture.toString()).contains("[ALARM-CALL-LEGAL]");
 
-
-    // WireMock captor equivalent
-    List<LoggedRequest> requests = WireMock.findAll(anyRequestedFor(urlMatching("/product/.*")));
-    assertThat(requests).hasSize(1);
-    System.out.println(requests.get(0));
   }
 
   @Test
