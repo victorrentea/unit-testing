@@ -31,7 +31,7 @@ public class AsyncService {
       afterAWhile();
       var supplier = new Supplier()
           .setName(requireNonNull(supplierName));
-      supplierRepo.save(supplier);
+//      supplierRepo.save(supplier);
     });
   }
 

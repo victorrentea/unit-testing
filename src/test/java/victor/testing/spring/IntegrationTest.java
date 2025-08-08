@@ -16,6 +16,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.wiremock.spring.EnableWireMock;
 import victor.testing.spring.infra.SafetyApiAdapter;
+import victor.testing.spring.message.BizLogic;
 import victor.testing.spring.service.ProductCreatedEvent;
 import victor.testing.tools.AbstractTestListener;
 
@@ -35,7 +36,8 @@ public class IntegrationTest {
   protected MockMvc mockMvc;
   @Autowired
   protected AbstractTestListener<ProductCreatedEvent> productCreatedEventTestListener;
-
+  @MockitoSpyBean
+  protected BizLogic bizLogic;
   @MockitoSpyBean // wrap the real bean with a mockito mock.if not programmed with when..then, acts as usual
   protected SafetyApiAdapter safetyApiAdapter;
 

@@ -1,10 +1,14 @@
 package victor.testing.spring.message;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.repo.SupplierRepo;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static org.mockito.Mockito.timeout;
 
 class MessageListener0Test extends IntegrationTest {
   @Autowired
@@ -16,10 +20,8 @@ class MessageListener0Test extends IntegrationTest {
   void supplierIsCreated() throws Exception {
     kafkaTemplate.send(MessageListener.SUPPLIER_CREATED_EVENT, "supplier");
 
-    // TODO 1 assert the supplier is inserted correctly
+    Mockito.verify(bizLogic, timeout(100)).bizLogic("supplier");
   }
-  // TODO 2 +1 @Test to assert the supplier is NOT inserted if it already exists
-
 }
 
 // HARD-CORE POINTS:

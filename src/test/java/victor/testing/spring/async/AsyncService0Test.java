@@ -68,8 +68,9 @@ class AsyncService0Test extends IntegrationTest {
 //    Thread.sleep(500); // delay both OK and KO
 
     Awaitility.await() // reduce the time to wait for the happy case
-        .pollDelay(ofMillis(0))
-        .pollInterval(ofMillis(5))
+        .pollDelay(ofMillis(0)) // default: 100ms
+        .pollInterval(ofMillis(5)) // default: 100ms
+        .atMost(ofSeconds(1)) // default: 10s
         .untilAsserted(()->
           assertThat(supplierRepo.findByName("sname")).isPresent()
             );
