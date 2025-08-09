@@ -6,10 +6,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class TimeLogic4 {
+public class TimeLogic0 {
    private final OrderRepo orderRepo;
 
-   public TimeLogic4(OrderRepo orderRepo) {
+   public TimeLogic0(OrderRepo orderRepo) {
       this.orderRepo = orderRepo;
    }
 

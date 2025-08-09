@@ -11,9 +11,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class TimeLogic4Test {
+class TimeLogic0Test {
   OrderRepo orderRepoMock = mock(OrderRepo.class);
-  TimeLogic4 target = new TimeLogic4(orderRepoMock);
+  TimeLogic0 target = new TimeLogic0(orderRepoMock);
 
   @Test
   @Disabled("flaky, time-based")

@@ -1,7 +1,10 @@
 package victor.testing.design.time;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,14 +14,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class TimeLogic1Test {
-  OrderRepo orderRepoMock = mock(OrderRepo.class);
-  TimeLogic1 target = new TimeLogic1(orderRepoMock);
+@ExtendWith(MockitoExtension.class)
+class TimeLogic2_InjectTimeProviderTest {
+  @Mock
+  OrderRepo orderRepoMock;
+  @Mock
+  TimeProvider timeProvider;
+  @InjectMocks
+  TimeLogic2_InjectTimeProvider target;
 
   @Test
-  @Disabled("flaky, time-based")
   void isFrequentBuyer() {
     LocalDate today = parse("2023-01-08");
+    when(timeProvider.today()).thenReturn(today); // ⭐️
     LocalDate oneWeekAgo = parse("2023-01-01");
     Order order = new Order().setTotalAmount(130d);
     when(orderRepoMock.findByCustomerIdAndCreatedOnBetween(
@@ -28,10 +36,3 @@ class TimeLogic1Test {
     assertThat(target.isFrequentBuyer(13)).isTrue();
   }
 }
-// Ways to control time from tests:
-// - inject a Clock dependency, pass a fixed Clock from tests (see ClockUtils)
-// - pass time as an argument to a package-protected method ("subcutaneous test")
-// - mock the static method LocalDate.now()
-// - inject an (Mock-able) object wrapping the static call: class TimeProvider { LocalDate today() {return LocalDate.now();} }
-//   - variation: Supplier<LocalDate>
-//   - variation: UUIDGenerator

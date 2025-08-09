@@ -1,20 +1,33 @@
 package victor.testing.design.time;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
-public class TimeLogic1 {
-   private final OrderRepo orderRepo;
-
-   public TimeLogic1(OrderRepo orderRepo) {
-      this.orderRepo = orderRepo;
+@Component
+class TimeProvider {
+   public LocalDate today() {
+      return LocalDate.now();
    }
+   public LocalDateTime now() {
+      return LocalDateTime.now();
+   }
+   // ...
+}
+@Service
+@RequiredArgsConstructor
+public class TimeLogic2_InjectTimeProvider {
+   private final OrderRepo orderRepo;
+   private final TimeProvider timeProvider;
+
+   // + in config: @Bean TimeProvider timeProvider() { return new DefaultTimeProvider(); }
 
    public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = LocalDate.now();
+      LocalDate now = timeProvider.today();
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);

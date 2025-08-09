@@ -1,9 +1,14 @@
 package victor.testing.design.time;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import victor.testing.tools.ClockTestUtils;
 
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
@@ -11,12 +16,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class TimeLogic2Test {
+class TimeLogic1_InjectClockTest {
   OrderRepo orderRepoMock = mock(OrderRepo.class);
-  TimeLogic2 target = new TimeLogic2(orderRepoMock);
+  Clock clock = ClockTestUtils.fixedDateClock("2023-01-08"); // ⭐️
+  TimeLogic1_InjectClock target = new TimeLogic1_InjectClock(orderRepoMock, clock);
+
+  // to replace the real Clock bean in a @SpringBootTest, use a @TestConfiguration
+  // limitation: you cannot change the clock during @Test, for subsequent calls from prod
 
   @Test
-  @Disabled("flaky, time-based")
   void isFrequentBuyer() {
     LocalDate today = parse("2023-01-08");
     LocalDate oneWeekAgo = parse("2023-01-01");
@@ -28,10 +36,4 @@ class TimeLogic2Test {
     assertThat(target.isFrequentBuyer(13)).isTrue();
   }
 }
-// Ways to control time from tests:
-// - inject a Clock dependency, pass a fixed Clock from tests (see ClockUtils)
-// - pass time as an argument to a package-protected method ("subcutaneous test")
-// - mock the static method LocalDate.now()
-// - inject an (Mock-able) object wrapping the static call: class TimeProvider { LocalDate today() {return LocalDate.now();} }
-//   - variation: Supplier<LocalDate>
-//   - variation: UUIDGenerator
+

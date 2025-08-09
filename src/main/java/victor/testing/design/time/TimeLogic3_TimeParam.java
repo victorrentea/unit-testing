@@ -6,15 +6,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class TimeLogic3 {
+public class TimeLogic3_TimeParam {
    private final OrderRepo orderRepo;
 
-   public TimeLogic3(OrderRepo orderRepo) {
+   public TimeLogic3_TimeParam(OrderRepo orderRepo) {
       this.orderRepo = orderRepo;
    }
 
-   public boolean isFrequentBuyer(int customerId) {
-      LocalDate now = LocalDate.now();
+   public boolean isFrequentBuyer(int customerId, LocalDate today) {
+      LocalDate now = today;
       LocalDate sevenDaysAgo = now.minusDays(7);
 
       System.out.println("Run with now=" + now);
