@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
@@ -97,6 +98,7 @@ class ProductServiceCreateTest extends IntegrationTest {
   }
 
   @Test
+  @WithMockUser("pinkpanther")
   void savesProductToDB() {
     productDto = productDto.withBarcode("barcode-safe");
 
@@ -116,7 +118,8 @@ class ProductServiceCreateTest extends IntegrationTest {
         .returns("name", Product::getName)
         .returns("barcode-safe", Product::getBarcode)
         .returns("S", p -> p.getSupplier().getCode())
-        .returns(HOME, Product::getCategory);
+        .returns(HOME, Product::getCategory)
+        .returns("pinkpanther", Product::getCreatedBy);
     assertThat(product.getCreatedDate()).isToday(); // spring+jpa magic
   }
   @Test
