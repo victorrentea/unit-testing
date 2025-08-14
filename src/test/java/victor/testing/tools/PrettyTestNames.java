@@ -3,10 +3,11 @@ package victor.testing.tools;
 import org.junit.jupiter.api.DisplayNameGenerator;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 
 // use via @DisplayNameGeneration on a test class
-public class PrettyTestNames extends DisplayNameGenerator.Standard {
+public class PrettyTestNames extends DisplayNameGenerator.ReplaceUnderscores {
     public PrettyTestNames() {
     }
 
@@ -14,19 +15,20 @@ public class PrettyTestNames extends DisplayNameGenerator.Standard {
         return replaceCapitals(super.generateDisplayNameForClass(testClass));
     }
 
-    public String generateDisplayNameForNestedClass(Class<?> nestedClass) {
-        return replaceCapitals(super.generateDisplayNameForNestedClass(nestedClass));
+    @Override
+    public String generateDisplayNameForNestedClass(List<Class<?>> enclosingInstanceTypes, Class<?> nestedClass) {
+        return replaceCapitals(super.generateDisplayNameForNestedClass(enclosingInstanceTypes, nestedClass));
     }
 
-    public String generateDisplayNameForMethod(Class<?> testClass, Method testMethod) {
-        return replaceCapitals(testMethod.getName());
+    @Override
+    public String generateDisplayNameForMethod(List<Class<?>> enclosingInstanceTypes, Class<?> testClass, Method testMethod) {
+        return replaceCapitals(super.generateDisplayNameForMethod(enclosingInstanceTypes, testClass, testMethod));
     }
 
     private String replaceCapitals(String name) {
-        name = name.replaceAll("([A-Z])", " $1")
+        return name.replaceAll("([A-Z])", " $1")
                 .replaceAll("_"," > ")
                 .replaceAll("\\s+"," ")
                 .toLowerCase();
-        return name;
     }
 }
