@@ -29,6 +29,9 @@ import victor.testing.spring.rest.dto.ProductDto;
 
 import java.util.Optional;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -80,6 +83,7 @@ public class ProductServiceCreateTest extends IntegrationTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
+    // WireMock stub for UNSAFE barcode is configured in IntegrationTest @BeforeEach
     productDto = productDto.withBarcode("barcode-unsafe");
 //    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
 

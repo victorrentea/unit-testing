@@ -2,6 +2,7 @@ package victor.testing.spring;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.MonitorSpringStartupPerformance;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,6 +23,7 @@ import victor.testing.spring.service.ProductCreatedEvent;
 import victor.testing.spring.service.ProductMapper;
 import victor.testing.tools.AbstractTestListener;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC;
 
@@ -38,12 +40,34 @@ public class IntegrationTest {
   @Autowired
   protected AbstractTestListener<ProductCreatedEvent> productCreatedEventTestListener;
 
-
   @MockitoSpyBean
   protected ProductMapper mapper;
   @MockitoSpyBean
   protected SafetyApiAdapter safetyApiAdapter;
 
+  @BeforeEach
+  void configureWireMockStubs() {
+    // Configure via Java API the UNSAFE case to avoid relying on JSON mappings
+    stubFor(get(urlEqualTo("/product/barcode-unsafe/safety"))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "application/json")
+            .withBody("""
+                {\
+                "detailsUrl":"http://details.url/a/b",\
+                "category":"UNSAFE"\
+                }""")
+            .withFixedDelay(1000))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "application/json")
+            .withBody("""
+                {\
+                "detailsUrl":"http://altceva, alt raspuns",
+                "category":"UNSAFE"\
+                }"""))
+    );
+  }
 
   @TestConfiguration
   public static class TestKafkaListenersConfig {

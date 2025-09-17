@@ -7,6 +7,7 @@ Feature: Search for product
     Given One product exists
     And That product has name "name"
     And That product has supplier "X"
+    And Macaraua va raspunde cu 'response-vant.json'
     When The search criteria name is "name"
     And The search criteria supplier is "X"
     Then That product is returned by search
