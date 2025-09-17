@@ -3,22 +3,13 @@ package victor.testing.spring.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
@@ -27,39 +18,28 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.assertArg;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
-import static org.springframework.test.annotation.DirtiesContext.MethodMode.AFTER_METHOD;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
-@SpringBootTest // pornesc app in-mem
+@SpringBootTest//(properties = "unprop=altaval")❌
 @ActiveProfiles("test")
-@EmbeddedKafka // porneste un emulator de K in-mem
-//@Sql(scripts = "classpath:/sql/cleanup.sql") // #2 pt scheme mari
-//@Transactional // in /src/main face commit la finalul metodei
-// da' cand il pui in /src/test face la final @Testului ROLLBACK #3
-
-// Springu tre sa moara dupa fiecare @Test = furi viata de la colegi
-// cat= count(@Test)*10..50s
-//@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD) // #RAU
-// merge pt ca springu cand moare moare si H2 din memorie
-// Dar daca intri in randul lumii si testezi cu DB in DOcker🐳, atunci nu mai moare DB cand moare Spring
-public class ProductServiceCreateTest extends IntegrationTest {
+//@ActiveProfiles({"test","siala"})// cere alt config ❌
+@EmbeddedKafka
+public class ProductServiceCreate2Test extends IntegrationTest {
   @Autowired // = @Mock+@Bean; adica inlocuieste beanul normal cu un mock configurabil
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
   @Autowired //singuru loc in care nu face @RAC
   ProductService productService;
-
+  @MockitoSpyBean // ❌
+  ProductMapper mapper;
   ProductDto productDto = ProductDto.builder()
       .name("name")
       .supplierCode("S")
