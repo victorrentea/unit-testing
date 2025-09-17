@@ -6,7 +6,14 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -24,17 +31,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest // pornesc app in-mem
+@ActiveProfiles("test")
+@EmbeddedKafka // porneste un emulator de K in-mem
 public class ProductServiceCreateTest {
-  @Mock
+  @MockitoBean // = @Mock+@Bean; adica inlocuieste beanul normal cu un mock configurabil
   SupplierRepo supplierRepo;
-  @Mock
+  @MockitoBean
   ProductRepo productRepo;
-  @Mock
+  @MockitoBean
   SafetyApiAdapter safetyApiAdapter;
-  @Mock
+  @MockitoBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
+  @Autowired //singuru loc in care nu face @RAC
   ProductService productService;
 
   ProductDto productDto = ProductDto.builder()
