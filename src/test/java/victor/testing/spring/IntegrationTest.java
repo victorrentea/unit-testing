@@ -40,12 +40,9 @@ public class IntegrationTest {
 
 
   @MockitoSpyBean
-  ProductMapper mapper;
-
+  protected ProductMapper mapper;
   @MockitoSpyBean
-  SafetyApiAdapter safetyApiAdapter;
-  @MockitoSpyBean
-  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+  protected SafetyApiAdapter safetyApiAdapter;
 
 
   @TestConfiguration

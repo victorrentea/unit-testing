@@ -27,10 +27,6 @@ import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
-@SpringBootTest//(properties = "unprop=altaval")❌
-@ActiveProfiles("test")
-//@ActiveProfiles({"test","siala"})// cere alt config ❌
-@EmbeddedKafka
 public class ProductServiceCreate2Test extends IntegrationTest {
   @Autowired // = @Mock+@Bean; adica inlocuieste beanul normal cu un mock configurabil
   SupplierRepo supplierRepo;
@@ -38,8 +34,9 @@ public class ProductServiceCreate2Test extends IntegrationTest {
   ProductRepo productRepo;
   @Autowired //singuru loc in care nu face @RAC
   ProductService productService;
-  @MockitoSpyBean // ❌
-  ProductMapper mapper;
+  @MockitoBean
+  protected KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+
   ProductDto productDto = ProductDto.builder()
       .name("name")
       .supplierCode("S")

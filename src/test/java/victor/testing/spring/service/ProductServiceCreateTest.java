@@ -40,9 +40,9 @@ import static org.springframework.test.annotation.DirtiesContext.MethodMode.AFTE
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
-@SpringBootTest // pornesc app in-mem
-@ActiveProfiles("test")
-@EmbeddedKafka // porneste un emulator de K in-mem
+//@SpringBootTest // pornesc app in-mem
+//@ActiveProfiles("test")
+//@EmbeddedKafka // porneste un emulator de K in-mem
 //@Sql(scripts = "classpath:/sql/cleanup.sql") // #2 pt scheme mari
 //@Transactional // in /src/main face commit la finalul metodei
 // da' cand il pui in /src/test face la final @Testului ROLLBACK #3
@@ -59,6 +59,8 @@ public class ProductServiceCreateTest extends IntegrationTest {
   ProductRepo productRepo;
   @Autowired //singuru loc in care nu face @RAC
   ProductService productService;
+  @MockitoBean
+  protected KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
   ProductDto productDto = ProductDto.builder()
       .name("name")
@@ -79,7 +81,7 @@ public class ProductServiceCreateTest extends IntegrationTest {
   @Test
   void createThrowsForUnsafeProduct() {
     productDto = productDto.withBarcode("barcode-unsafe");
-    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+//    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -90,7 +92,7 @@ public class ProductServiceCreateTest extends IntegrationTest {
   void createOk() {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
@@ -112,7 +114,7 @@ public class ProductServiceCreateTest extends IntegrationTest {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe")
         .withCategory(null);
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
