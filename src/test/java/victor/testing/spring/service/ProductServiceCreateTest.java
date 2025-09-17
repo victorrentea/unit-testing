@@ -30,14 +30,15 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest // pornesc app in-mem
 @ActiveProfiles("test")
 @EmbeddedKafka // porneste un emulator de K in-mem
 public class ProductServiceCreateTest {
-  @MockitoBean // = @Mock+@Bean; adica inlocuieste beanul normal cu un mock configurabil
+  @Autowired // = @Mock+@Bean; adica inlocuieste beanul normal cu un mock configurabil
   SupplierRepo supplierRepo;
-  @MockitoBean
+  @Autowired
   ProductRepo productRepo;
   @MockitoBean
   SafetyApiAdapter safetyApiAdapter;
@@ -64,17 +65,14 @@ public class ProductServiceCreateTest {
 
   @Test
   void createOk() {
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    Product product = productRepo.findById(newProductId).get();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
@@ -83,7 +81,21 @@ public class ProductServiceCreateTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
-//    assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
+    assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
+  }
+
+  @Test
+  void createDefaultsMissingCategoryToUncategorized() {
+    supplierRepo.save(new Supplier().setCode("S"));
+    productDto = productDto.withBarcode("barcode-safe")
+        .withCategory(null);
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+
+    // WHEN
+    var newProductId = productService.createProduct(productDto);
+
+    Product product = productRepo.findById(newProductId).get();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
 }
