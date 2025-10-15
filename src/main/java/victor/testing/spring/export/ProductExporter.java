@@ -44,7 +44,7 @@ public class ProductExporter {
         writer.write("SYSTEM");
       }
       writer.write(";");
-      writer.write(product.getCreatedDate().format(ofPattern("dd MMM yyyy")));
+      writer.write(product.getCreatedDate().format(ofPattern("yyyy-MM-dd")));
       writer.write("\n");
     }
   }
