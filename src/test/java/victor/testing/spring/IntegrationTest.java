@@ -22,9 +22,10 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 
 @SpringBootTest // start the app in-memory
 @ActiveProfiles("test") // use application-test.properties to override src/main properties
-@EmbeddedKafka // start an in-memory broker
 
+@EmbeddedKafka // start an in-memory broker
 @Import(IntegrationTest.TestKafkaListenersConfig.class) // test listeners
+
 @EnableWireMock // starts WireMock HTTP server on a random port ${wiremock.server.port} returning pre-configured JSON responses
 @AutoConfigureMockMvc // MockMvc can send emulated HTTP requests without starting Tomcat
 public class IntegrationTest {
