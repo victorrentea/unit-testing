@@ -1,5 +1,6 @@
 package victor.testing.spring.async;
 
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -10,6 +11,7 @@ import victor.testing.spring.repo.SupplierRepo;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -38,12 +40,18 @@ public class AsyncService0Test extends IntegrationTest {
   void fireAndForget() throws Exception {
     asyncService.fireAndForget("sname");
 
-    Thread.sleep(80); // M1 MAX 64G
-    assertThat(supplierRepo.findByName("sname")).isPresent();
-    // TODO assert the supplier is inserted correctly
-    //  Tip: use Awaitility to poll every 10ms for max 5 seconds
+    Awaitility.await()
+        .pollDelay(ofMillis(10))
+        .atMost(ofSeconds(5))
+        .untilAsserted(()->assertThat(supplierRepo.findByName("sname")).isPresent());
   }
-  // TODO +1 @Test: no supplier is inserted if name is null
+  @Test
+  void fireAndForget_nuInseraDacaNameNull() throws Exception {
+    asyncService.fireAndForget(null);
+
+    Thread.sleep(3000); // greu de evitat
+    assertThat(supplierRepo.findAll()).isEmpty();
+  }
 
   @Test
   void fireAndForgetSpring() throws Exception {

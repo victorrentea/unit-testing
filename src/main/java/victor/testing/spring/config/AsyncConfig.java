@@ -6,6 +6,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
 @Configuration
-@ConditionalOnProperty(name = "async.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(
+    name = "async.enabled",
+    havingValue = "true",
+    matchIfMissing = true)
 public class AsyncConfig {
 }
