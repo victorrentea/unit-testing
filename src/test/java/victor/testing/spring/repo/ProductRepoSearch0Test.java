@@ -24,6 +24,7 @@ public class ProductRepoSearch0Test extends IntegrationTest {
   SupplierRepo supplierRepo;
 
   @BeforeEach
+  // sau cu @Sql(scripts = "/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
   final void initData() {
     productRepo.deleteAll();
     supplierRepo.deleteAll();

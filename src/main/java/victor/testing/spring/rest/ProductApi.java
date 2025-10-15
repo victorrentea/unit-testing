@@ -18,6 +18,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class ProductApi {
 
    @PostMapping("product/create")
    @Secured("ROLE_ADMIN")
-   public ResponseEntity<Void> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException {
+   public ResponseEntity<Void> create(@RequestBody @Validated ProductDto productDto) throws URISyntaxException, ExecutionException, InterruptedException {
       Long newProductId = service.createProduct(productDto);
       URI locationHeader = new URI("http://created-uri/" + newProductId);
       return ResponseEntity.created(locationHeader).build();

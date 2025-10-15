@@ -20,6 +20,7 @@ import org.springframework.core.metrics.StartupStep;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.config.WaitForDatabase;
@@ -35,6 +36,7 @@ import java.util.function.Supplier;
 @SpringBootApplication
 @EnableFeignClients
 @EnableJpaAuditing
+@EnableAsync
 public class SpringApplication {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
