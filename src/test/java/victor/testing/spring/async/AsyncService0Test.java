@@ -20,24 +20,24 @@ public class AsyncService0Test extends IntegrationTest {
   void asyncReturning() throws Exception {
     CompletableFuture<Long> futureId = asyncService.asyncReturning("sname");
 
-    // TODO assert the supplier is inserted correctly
+    // TODO 1. assert the supplier is inserted correctly
   }
-  // TODO +1 @Test: no supplier is inserted if name is null
+  // TODO 2. Add a @Test: no supplier is inserted if name is null
 
   @Test
   void fireAndForget() throws Exception {
     asyncService.fireAndForget("sname");
 
-    // TODO assert the supplier is inserted correctly
-    //  Tip: use Awaitility to poll every 10ms for max 5 seconds
+    // TODO 3. assert the supplier is inserted correctly
+    //  Hint: use Awaitility to poll every 10ms for max 5 seconds
   }
-  // TODO +1 @Test: no supplier is inserted if name is null
+  // TODO 4. @Test: assert no supplier is inserted if name is null
 
   @Test
   void fireAndForgetSpring() throws Exception {
     asyncService.fireAndForgetSpring("sname");
 
-    // TODO assert the supplier is inserted correctly
-    //  Tip: you can disable the @Async annotation via a property: see AsyncConfig
+    // TODO 5. assert the supplier is inserted correctly
+    //  Hint: you can disable the @Async annotation via a property -- see AsyncConfig
   }
 }

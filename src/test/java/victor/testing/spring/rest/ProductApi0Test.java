@@ -35,12 +35,18 @@ public class ProductApi0Test extends IntegrationTest {
 
   @BeforeEach
   final void init() {
+    // expected external API responses
     SafetyApiWireMock.stubResponse("barcode-safe", "SAFE");
 
+    // reference data
     supplierRepo.save(new Supplier().setCode("S").setActive(true));
   }
 
-  // Hint: Inspire from ApiTestClient and ProductApiEpicITest
+  // Testing can be:
+  // - Blackbox: only access API and sent/received Messages
+  // - Whitebox: mock inconvenient beans
+  // - Graybox: don't mock beans, but you can access DB
+
   @Test
   void create_select_graybox() throws Exception {
     ProductDto dto = ProductDto.builder()
@@ -56,47 +62,48 @@ public class ProductApi0Test extends IntegrationTest {
 
     Product product = productRepo.findByName("Tree");
     assertThat(product).isNotNull();
-    // TODO check product.createdDate
-    // TODO check product.barcode
+    // TODO 1. check product.createdDate and .barcode
   }
 
   @Test
-//  @WithMockUser(roles = ... // TODO downgrade credentials set at class level
+//  @WithMockUser(roles = ... // Hint: downgrade credentials set at class level
   void create_failsForNonAdmin() throws Exception {
-    // TODO => 403 Forbidden
+    // TODO 2. create => 403 Forbidden, and no product is saved in DB
   }
 
   @Test // for @Validated of @NotNull, @NotBlank, @Size...
   void create_failsValidationForMissingBarcode() throws Exception {
-    // TODO 1 create product with null barcode => 4xx Client Error containing "barcode" in body
-    // TODO 2 create product with null or empty name => 4xx Client Error
-    // TODO 3 adjust a JSON loaded from /src/test/resource without working with a DTO instance:
+    // TODO 3a. create product with null barcode => 4xx Client Error containing "barcode" in body
+    // TODO 3b. create product with null or empty name => 4xx
+
+    // TODO 3x. [PRO] adjust a JSON loaded from /src/test/resource without working with a DTO instance:
     //  Canonical.load("CreateProductRequest.json").set("$.name", null).json().toString()
     //  loads src/test/resources/canonical/CreateProductRequest.json
   }
 
   @Test
-  void create_sendBadJson_fails() throws Exception {
-    // TODO bad JSON request payload => 500 Internal Server Error
+  void create_sendMalformedJson_fails() throws Exception {
+    // TODO 4. bad JSON in request payload => 500 Internal Server Error
+    //  eg bad json: """ { "name: 2} """
   }
 
   @Test
-    // test @JsonFormat
   void get_createDateFormat() throws Exception {
-    // TODO check date format is yyyy-MM-dd (eg 2025-12-25)
+    // TODO 5. prove date format is yyyy-MM-dd (eg 2025-12-25)
+    //  Hint: you will need to extract that from response with a JSON Path -> ask AI
+    //  This test should fail if I change the pattern in @JsonFormat(pattern = "yyyy-MM-dd") in ProductDto
   }
 
   @Test
   void create_get_blackbox() throws Exception {
-    // TODO create then get the product via API (without accessing the DB)
-    //  Tip: extract 'Location' using .andExpect(..).andReturn().getResponse().getHeader(..)
+    // TODO 6. create via API then get via API (don't access the DB)
+    //  Hint: To get the created product ID, extract 'Location' response header
+    //   using .andExpect(..).andReturn().getResponse().getHeader(..)
     // TODO GET /product/{id} => assert fields in response DTO
   }
 
   @Test
   void create_sends_message() throws Exception {
-    // TODO assert message is sent with testListener.blockingReceive(ofSeconds(5));
+    // TODO 7. assert message is sent with testListener.blockingReceive
   }
-
-  // TODO test that created product has createdDate today.
 }
