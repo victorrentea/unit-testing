@@ -20,10 +20,13 @@ import org.springframework.core.metrics.StartupStep;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.config.WaitForDatabase;
+import victor.testing.spring.service.ProductCreatedEvent;
 
 import java.security.Principal;
 import java.time.format.DateTimeFormatter;
@@ -59,6 +62,11 @@ public class SpringApplication {
         log.info("Using database: {} <<<", dbUrl);
     }
 
+
+    @Bean
+    KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate(ProducerFactory producerFactory) {
+        return new KafkaTemplate(producerFactory);
+    }
     @Bean
     public RestTemplate rest() {
         return new RestTemplate();

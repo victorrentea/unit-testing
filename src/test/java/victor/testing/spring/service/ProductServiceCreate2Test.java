@@ -2,12 +2,14 @@ package victor.testing.spring.service;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.Test;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
@@ -35,8 +37,6 @@ public class ProductServiceCreate2Test extends IntegrationTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockitoBean //RAU daca scoti
-  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
 
@@ -86,10 +86,10 @@ public class ProductServiceCreate2Test extends IntegrationTest {
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
-//    verify(kafkaTemplate).send(
-//        eq(ProductService.PRODUCT_CREATED_TOPIC),
-//        eq("k"),
-//        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+    verify(kafkaTemplate).send( // mocking kafkaTemplate
+        eq(ProductService.PRODUCT_CREATED_TOPIC),
+        eq("k"),
+        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
     assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
     assertThat(product.getCreatedBy()).isEqualTo("pink");
   }

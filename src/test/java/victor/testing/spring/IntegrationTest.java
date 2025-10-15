@@ -10,9 +10,11 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.wiremock.spring.EnableWireMock;
 import victor.testing.spring.service.ProductCreatedEvent;
@@ -36,6 +38,11 @@ public class IntegrationTest {
   protected MockMvc mockMvc;
   @Autowired
   protected AbstractTestListener<ProductCreatedEvent> productCreatedEventTestListener;
+
+  // ca sa reduci nr de context de spring boot-ate in test,
+  // in loc de @MockBean in clasa ta, ridica-l ca @SpyBean in superclasa de test.
+  @MockitoSpyBean
+  protected KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
   @TestConfiguration
   public static class TestKafkaListenersConfig {
