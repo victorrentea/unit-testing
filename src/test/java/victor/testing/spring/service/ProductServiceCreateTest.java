@@ -1,6 +1,8 @@
 package victor.testing.spring.service;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -15,7 +17,9 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
+import java.time.Duration;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,17 +45,27 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 // ai furat din viata tuturor colegilor care se uita acum la CI cum ruleaza testele 40 min
 // curata starea din DB din memorie pt ca moare spring cu tot cu H2
 // daca DBul tau e intrun Docker testcontainered => NU VA MERGE!
+@Slf4j
 public class ProductServiceCreateTest extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-//  @MockitoBean // inlocuieste beanul real cu un Mock- ratam obiectivul sa ne apropiem de realitate -@simona
-//  SafetyApiAdapter safetyApiAdapter;
-  @MockitoBean
-  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+  //  @MockitoBean
+//  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
+
+  @BeforeEach
+  final void before() throws ExecutionException, InterruptedException, TimeoutException {
+    try {
+      productCreatedEventTestListener // schita:
+          .blockingReceive(r -> true,
+              Duration.ofSeconds(1)); // FIXME evita
+    } catch (Exception e) {
+      log.trace("Ignor un timeout care inseamna ca nu a fost nimic pe teaza de curatat, in topicul de drenat.", e);
+    }
+  }
 
   ProductDto productDto = ProductDto.builder()
       .name("name")
@@ -65,17 +79,17 @@ public class ProductServiceCreateTest extends IntegrationTest {
 //    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
     WireMock.stubFor(
         get(
-                urlEqualTo("/product/barcode-uxynsafe/safety"))
+            urlEqualTo("/product/barcode-uxynsafe/safety"))
             .willReturn(
                 aResponse()
                     .withStatus(200)
                     .withHeader("Content-Type", "application/json")
                     .withBody("""
-                    {
-                      "detailsUrl": "http://details.url/a/b",
-                      "category": "UNSAFE"
-                    }
-                """))
+                            {
+                              "detailsUrl": "http://details.url/a/b",
+                              "category": "UNSAFE"
+                            }
+                        """))
     );
 
 
@@ -86,7 +100,7 @@ public class ProductServiceCreateTest extends IntegrationTest {
 
   @Test
   @WithMockUser(username = "pink")
-  void createOk() throws ExecutionException, InterruptedException {
+  void createOk() throws ExecutionException, InterruptedException, TimeoutException {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
 //    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
@@ -99,13 +113,15 @@ public class ProductServiceCreateTest extends IntegrationTest {
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
-    verify(kafkaTemplate).send(
-        eq(ProductService.PRODUCT_CREATED_TOPIC),
-        eq("k"),
-        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+    var rec = productCreatedEventTestListener.
+        blockingReceive(r -> true,
+            Duration.ofSeconds(3));
+    ProductCreatedEvent event = rec.value();
+    assertThat(event.productId()).isEqualTo(newProductId);
     assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
     assertThat(product.getCreatedBy()).isEqualTo("pink");
   }
+
   @Test
   void createProductWithoutCategory() {
     supplierRepo.save(new Supplier().setCode("S"));

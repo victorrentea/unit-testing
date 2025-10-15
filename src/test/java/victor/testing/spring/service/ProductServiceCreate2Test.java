@@ -35,8 +35,6 @@ public class ProductServiceCreate2Test extends IntegrationTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-//  @MockitoBean // inlocuieste beanul real cu un Mock- ratam obiectivul sa ne apropiem de realitate -@simona
-//  SafetyApiAdapter safetyApiAdapter;
   @MockitoBean //RAU daca scoti
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
