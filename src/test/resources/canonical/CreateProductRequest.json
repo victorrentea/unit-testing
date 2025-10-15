@@ -1,14 +1,7 @@
 {
   "name": "Tree",
   "barcode": "barcode-safe",
+  "tag": ["a","b"],
   "supplierCode": "S",
-  "supplier": [{
-    "name": "Supplier",
-    "code": "S"
-  },
-  {
-    "name": "Supplier2",
-    "code": "S2"
-  }],
   "category": "HOME"
 }

@@ -64,10 +64,6 @@ public class SpringApplication {
 
 
     @Bean
-    KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate(ProducerFactory producerFactory) {
-        return new KafkaTemplate(producerFactory);
-    }
-    @Bean
     public RestTemplate rest() {
         return new RestTemplate();
     }
