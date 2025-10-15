@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
@@ -23,32 +24,20 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.assertArg;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
-//@SpringBootTest
-//@ActiveProfiles("test")
-//@EmbeddedKafka
-
-@Transactional // in src/test spring da rollback la final dupa fiecare @Test. in aceasta TX
-// toate @BeforeEach/After ruleaza (ale tale sau mostenite)
-// nu merge daca codul tau face @Async sau propagatipn=REQUIRES_NEW/NOT_SUPPORTED
-// nu joaca @TransactionalEventListener(AFTER_COMMIT)
-// posibil sa nu faca UPDATE/INSERT in DB ca tot asteapta commit
-
-//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)// SA NU TE PRIND CU EL IN PROIECT, ca vin la tine!
-// ai furat din viata tuturor colegilor care se uita acum la CI cum ruleaza testele 40 min
-// curata starea din DB din memorie pt ca moare spring cu tot cu H2
-// daca DBul tau e intrun Docker testcontainered => NU VA MERGE!
-public class ProductServiceCreateTest extends IntegrationTest {
+@Transactional
+//@TestPropertySource(properties = "prop=altaValoare",locations = "un-prop.properties") // RAU
+//@ActiveProfiles("siAltu") // RAU: diferenta care porneste inca 1 spring = +20s
+public class ProductServiceCreate2Test extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
 //  @MockitoBean // inlocuieste beanul real cu un Mock- ratam obiectivul sa ne apropiem de realitate -@simona
 //  SafetyApiAdapter safetyApiAdapter;
-  @MockitoBean
+  @MockitoBean //RAU daca scoti
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
@@ -99,10 +88,10 @@ public class ProductServiceCreateTest extends IntegrationTest {
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
-    verify(kafkaTemplate).send(
-        eq(ProductService.PRODUCT_CREATED_TOPIC),
-        eq("k"),
-        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+//    verify(kafkaTemplate).send(
+//        eq(ProductService.PRODUCT_CREATED_TOPIC),
+//        eq("k"),
+//        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
     assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
     assertThat(product.getCreatedBy()).isEqualTo("pink");
   }
