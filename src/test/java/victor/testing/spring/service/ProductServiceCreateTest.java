@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoBeans;
@@ -34,22 +35,22 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-//@SpringBootTest// + in-mem DB (or test-containered)
+@SpringBootTest// + DB : a) in-mem or b) test-containered
+@EmbeddedKafka//a) or b) test-containered
+
 @EnableWireMock
 @ActiveProfiles("test")
-@SpringBootTest(classes = {
-    ProductService.class,
-    SafetyApiAdapter.class,
-    RestTemplate.class
-})// + don't boot the DB interaction at
+//@SpringBootTest(classes = {
+//    ProductService.class,
+//    SafetyApiAdapter.class,
+//    RestTemplate.class
+//})// + don't boot the DB interaction at
 @MockitoBeans(@MockitoBean(types = {ProductMapper.class}))
 public class ProductServiceCreateTest {
-  @MockitoBean // replaces the normal bean (injectable) class in Spring with a mock you can configure.
+  @Autowired // replaces the normal bean (injectable) class in Spring with a mock you can configure.
   SupplierRepo supplierRepo;
-  @MockitoBean
+  @Autowired
   ProductRepo productRepo;
-//  @MockitoBean
-//  SafetyApiAdapter safetyApiAdapter;
   @MockitoBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
@@ -92,17 +93,13 @@ public class ProductServiceCreateTest {
               "category": "SAFE"
             }
         """)));
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
-//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    Product product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
