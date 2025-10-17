@@ -20,22 +20,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
 public class ProductServiceCreateTest {
-  @Mock
-  SupplierRepo supplierRepo;
-  @Mock
-  ProductRepo productRepo;
-  @Mock
-  SafetyApiAdapter safetyApiAdapter;
-  @Mock
-  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
-  ProductService productService;
+  SupplierRepo supplierRepo = mock(SupplierRepo.class);
+  ProductRepo productRepo = mock(ProductRepo.class);
+  SafetyApiAdapter safetyApiAdapter=mock(SafetyApiAdapter.class);
+  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate
+      = mock(KafkaTemplate.class);
+  ProductService productService= new ProductService(
+      supplierRepo,
+      productRepo,
+      safetyApiAdapter,
+      null,
+      kafkaTemplate
+  );
 
   ProductDto productDto = ProductDto.builder()
       .name("name")
