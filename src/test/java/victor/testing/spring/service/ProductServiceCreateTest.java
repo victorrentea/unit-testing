@@ -6,7 +6,17 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBeans;
+import org.springframework.web.client.RestTemplate;
+import org.wiremock.spring.ConfigureWireMock;
+import org.wiremock.spring.EnableWireMock;
+import victor.testing.spring.SpringApplication;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -16,6 +26,7 @@ import victor.testing.spring.rest.dto.ProductDto;
 
 import java.util.Optional;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -23,19 +34,26 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
+//@SpringBootTest// + in-mem DB (or test-containered)
+@EnableWireMock
+@ActiveProfiles("test")
+@SpringBootTest(classes = {
+    ProductService.class,
+    SafetyApiAdapter.class,
+    RestTemplate.class
+})// + don't boot the DB interaction at
+@MockitoBeans(@MockitoBean(types = {ProductMapper.class}))
 public class ProductServiceCreateTest {
-  SupplierRepo supplierRepo = mock(SupplierRepo.class);
-  ProductRepo productRepo = mock(ProductRepo.class);
-  SafetyApiAdapter safetyApiAdapter=mock(SafetyApiAdapter.class);
-  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate
-      = mock(KafkaTemplate.class);
-  ProductService productService= new ProductService(
-      supplierRepo,
-      productRepo,
-      safetyApiAdapter,
-      null,
-      kafkaTemplate
-  );
+  @MockitoBean // replaces the normal bean (injectable) class in Spring with a mock you can configure.
+  SupplierRepo supplierRepo;
+  @MockitoBean
+  ProductRepo productRepo;
+//  @MockitoBean
+//  SafetyApiAdapter safetyApiAdapter;
+  @MockitoBean
+  KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
+  @Autowired
+  ProductService productService;
 
   ProductDto productDto = ProductDto.builder()
       .name("name")
@@ -45,8 +63,17 @@ public class ProductServiceCreateTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
+    stubFor(get(urlEqualTo("/product/barcode-unsafe/safety"))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "application/json")
+            .withBody("""
+            {
+              "detailsUrl": "http://details.url/a/b",
+              "category": "UNSAFE"
+            }
+        """)));
     productDto = productDto.withBarcode("barcode-unsafe");
-    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -55,9 +82,19 @@ public class ProductServiceCreateTest {
 
   @Test
   void createOk() {
+    stubFor(get(urlEqualTo("/product/barcode-safe/safety"))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "application/json")
+            .withBody("""
+            {
+              "detailsUrl": "http://details.url/a/b",
+              "category": "SAFE"
+            }
+        """)));
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
     productDto = productDto.withBarcode("barcode-safe");
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
     when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
     // WHEN
