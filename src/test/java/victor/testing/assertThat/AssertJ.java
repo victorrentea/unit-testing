@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Disabled("enable on demand and compare failures of JUnit❌ and AssertJ💖")
+//@Disabled("enable on demand and compare failures of JUnit❌ and AssertJ💖")
 public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-starter-test
 
   @Nested
@@ -38,6 +38,13 @@ public class AssertJ { // from org.assertj:assertj-core, or via spring-boot-star
     public void size1_JUnit() {
       org.junit.jupiter.api.Assertions.assertEquals(1, aList.size());
     }
+
+
+
+
+
+
+
 
     @Test
     public void size1_AssertJ() {

@@ -1,80 +1,30 @@
 package victor.testing.mocks.telemetry;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import victor.testing.mocks.telemetry.Client.ClientConfiguration;
-import victor.testing.mocks.telemetry.Client.ClientConfiguration.AckMode;
+import org.mockito.Mockito;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
-import static java.time.LocalDateTime.*;
-import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+class DiagnosticTest {
 
-@ExtendWith(MockitoExtension.class)
-public class DiagnosticTest {
-   @Mock
-   private Client client;
-   @InjectMocks
-   private Diagnostic target;
+  @Test
+  void checkTransmission() {
+    Diagnostic diagnostic = new Diagnostic();
+    // nu vrei sa incluzi in testul tau o clasa
+    // complexa sau care cere o DB/API extern
+    Client clientMock = Mockito.mock(Client.class); // o instanta surogat din clasa Client
+    // - pe care o pot invata ce sa returneze: when..then
+    // - intreba ce metode i s-au chemat: verify..
+    diagnostic.setTelemetryClient(clientMock);
+//    client.setOnlineStatus(true);// corect daca era @Entity sau DTO = ob cu date
+    when(clientMock.getOnlineStatus()).thenReturn(true);
+    when(clientMock.getVersion()).thenReturn("ver");
 
-   @BeforeEach
-   final void before() {
-      when(client.getOnlineStatus()).thenReturn(true);
-   }
+    diagnostic.checkTransmission(true);
 
-   @Test
-   public void disconnects() {
-      target.checkTransmission(true);
-      verify(client).disconnect(true);
-   }
-
-   @Test
-   public void throwsWhenNotOnline() {
-      when(client.getOnlineStatus()).thenReturn(false);
-      assertThatThrownBy(() -> target.checkTransmission(true))
-              .isInstanceOf(IllegalStateException.class);
-   }
-
-   @Test
-   public void sendsDiagnosticInfo() {
-      target.checkTransmission(true);
-      verify(client).send(Client.DIAGNOSTIC_MESSAGE);
-   }
-
-   @Test
-   public void receivesDiagnosticInfo() {
-      final String diagnosticMessage = "DIAG";
-      when(client.receive()).thenReturn(diagnosticMessage);
-      target.checkTransmission(true);
-      verify(client).receive();
-      assertThat(target.getDiagnosticInfo()).isEqualTo(diagnosticMessage);
-   }
-
-   @Captor
-   ArgumentCaptor<ClientConfiguration> configCaptor;
-
-   @Test
-   public void configuresClient() throws Exception {
-      when(client.getVersion()).thenReturn("ver");
-
-      target.checkTransmission(true);
-
-      verify(client).configure(configCaptor.capture());
-      ClientConfiguration config = configCaptor.getValue();
-      assertThat(config.getAckMode()).isEqualTo(AckMode.NORMAL);
-      assertThat(config.getSessionStart()).isCloseTo(now(), byLessThan(1, SECONDS));
-      assertThat(config.getSessionId()).startsWith("ver-").hasSize("ver-".length() + 36);
-   }
+    //assert+verify
+    verify(clientMock).disconnect(true);
+  }
 }
