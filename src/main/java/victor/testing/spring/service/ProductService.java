@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ProductService {
+public class ProductService { // bean spring => spring ii face NEW, il injecteaza
   public static final String PRODUCT_CREATED_TOPIC = "product-created";
   private final SupplierRepo supplierRepo;
   private final ProductRepo productRepo;

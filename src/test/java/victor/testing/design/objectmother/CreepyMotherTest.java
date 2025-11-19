@@ -1,5 +1,6 @@
 package victor.testing.design.objectmother;
 
+import lombok.NonNull;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,9 +9,15 @@ class ShippingServiceTest {
   // ??? = unnecessary information
   @Test
   void estimateShippingCosts() {
-    Customer customer = new Customer("???", "Romania", "???");
+    Customer customer = aCustomer();
     int cost = new ShippingService().estimateShippingCosts(customer);
     assertThat(cost).isEqualTo(30);
+  }
+
+  private Customer aCustomer() {
+    return new Customer(
+        "???",
+        "Romania", "???");
   }
 
   @Test
