@@ -1,5 +1,7 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,6 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
@@ -27,7 +30,12 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 @SpringBootTest
 @ActiveProfiles("test")// H2 = sql in-mem
 @EmbeddedKafka // Kafka broker in-mem
-@Transactional
+//@Transactional //  initiaza o tx inca de la inceputul
+// @Test pe care o propaga in codul testat; dupa @Test i se rollback.
+// Nu merge daca codul testat...
+// a) @Transactional(propagation=REQUIRES_NEW)
+// b) porneste threaduri noi / @Async / CompletableFuture @victor
+//@Sql(...)
 public class ProductServiceCreateTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -46,6 +54,12 @@ public class ProductServiceCreateTest {
   // b) repo.deleteAll() in afterEach+beforeEach
   // c) @Sql(..."cleanup.sql") - cand ai >100 tabele ± pl/sql,native query
   // d) @DirtiesContext -> NICIODATA!!😡🤬🤛
+  @BeforeEach
+  @AfterEach
+  final void before() {
+      productRepo.deleteAll();
+      supplierRepo.deleteAll();
+  }
 
   // 2) sunt lente
 
