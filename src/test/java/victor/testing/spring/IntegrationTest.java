@@ -12,9 +12,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.wiremock.spring.EnableWireMock;
+import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.service.ProductCreatedEvent;
+import victor.testing.spring.service.ProductMapper;
 import victor.testing.tools.AbstractTestListener;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,6 +32,14 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @EnableWireMock // starts WireMock HTTP server on a random port ${wiremock.server.port} returning pre-configured JSON responses
 @AutoConfigureMockMvc // MockMvc can send emulated HTTP requests without starting Tomcat
 public class IntegrationTest {
+
+  @MockitoSpyBean // un "Spy" = partial mock= este un
+  // invelis in jurul obiectului real pe care il poti mockui
+  // daca nu-i faci doReturn..., se comporta ca beanul real ce da req HTTP
+  protected SafetyApiAdapter safetyApiAdapter;
+  @MockitoBean
+  protected ProductMapper mapper;
+
   @Autowired
   protected MockMvc mockMvc;
   @Autowired

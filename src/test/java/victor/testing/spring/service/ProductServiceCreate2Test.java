@@ -4,21 +4,25 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
+import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.assertArg;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
@@ -31,13 +35,14 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 // a) @Transactional(propagation=REQUIRES_NEW)
 // b) porneste threaduri noi / @Async / CompletableFuture @victor
 //@Sql(...)
-public class ProductServiceCreateTest extends IntegrationTest {
+
+//@TPS
+public class ProductServiceCreate2Test extends IntegrationTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-//  @MockitoBean //chiar vreau sa trimit request HTTP
-//  SafetyApiAdapter safetyApiAdapter;
+
   @MockitoBean // inlocuieste beanul real cu un mock Mockito (pe care poti sa when/verify)
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
@@ -66,15 +71,9 @@ public class ProductServiceCreateTest extends IntegrationTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-//    stubFor(get(urlEqualTo("/safety/barcode-unsafxxe"))
-//        .willReturn(okJson("""
-//            {
-//               "detailsUrl": "http://details.url/a/b",
-//               "category": "SAFE"
-//            }
-//            """)));
-    productDto = productDto.withBarcode("barcode-unsafe");
-//    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+    productDto = productDto.withBarcode("barcode-unsafeX");
+//    when(safetyApiAdapter.isSafe("barcode-unsafeX")).thenReturn(false);
+    doReturn(false).when(safetyApiAdapter).isSafe("barcode-unsafeX");
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -84,15 +83,16 @@ public class ProductServiceCreateTest extends IntegrationTest {
   @Test
   void createOk() {
     supplierRepo.save(new Supplier().setCode("S"));
-    productDto = productDto.withBarcode("barcode-safe");
-//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    productDto = productDto.withBarcode("barcode-safeX");
+//    when(safetyApiAdapter.isSafe("barcode-safeX")).thenReturn(true);
+    doReturn(true).when(safetyApiAdapter).isSafe("barcode-safeX");
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
 
     Product product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
-    assertThat(product.getBarcode()).isEqualTo("barcode-safe");
+    assertThat(product.getBarcode()).isEqualTo("barcode-safeX");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
     verify(kafkaTemplate).send(
@@ -105,8 +105,9 @@ public class ProductServiceCreateTest extends IntegrationTest {
   @Test
   void createOk_withCategoryNull() {
     supplierRepo.save(new Supplier().setCode("S"));
-    productDto = productDto.withBarcode("barcode-safe").withCategory(null);
-//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    productDto = productDto.withBarcode("barcode-safeX").withCategory(null);
+//    when(safetyApiAdapter.isSafe("barcode-safeX")).thenReturn(true);
+    doReturn(true).when(safetyApiAdapter).isSafe("barcode-safeX");
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
