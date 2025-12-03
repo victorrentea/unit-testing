@@ -25,12 +25,12 @@ public class ContractFreezeTest extends IntegrationTest {
   MockMvc mockMvc;
   ObjectMapper jackson = new ObjectMapper();
 
-  @Value("classpath:/my-openapi.json") // extracted from deploy
+  @Value("classpath:/my-openapi.json") // /src/test/resources < extracted from deploy
   Resource myExpectedOpenAPI;
 
   @Test
   void my_contract_did_not_change() throws Exception {
-    String actualOpenAPIJson = prettifyJsonString(
+    String actualOpenAPIJsonFromCode = prettifyJsonString(
             mockMvc.perform(get("/v3/api-docs"))
                     .andReturn().getResponse().getContentAsString());
 
@@ -39,14 +39,14 @@ public class ContractFreezeTest extends IntegrationTest {
                     .replace(":8080", "")); // hack the extracted port
 
 
-    System.out.println("New contract: " + actualOpenAPIJson);
-    ChangedOpenApi diff = OpenApiCompare.fromContents(expectedOpenAPIJson, actualOpenAPIJson);
+    System.out.println("New contract: " + actualOpenAPIJsonFromCode);
+    ChangedOpenApi diff = OpenApiCompare.fromContents(expectedOpenAPIJson, actualOpenAPIJsonFromCode);
 
     if (!diff.isCompatible()) {
       String render = new MarkdownRender().render(diff);
       System.err.println(render);
 
-      assertThat(actualOpenAPIJson)
+      assertThat(actualOpenAPIJsonFromCode)
           .describedAs("Exposed OpenAPI should not have changed")
           .isEqualTo(expectedOpenAPIJson);
     }
