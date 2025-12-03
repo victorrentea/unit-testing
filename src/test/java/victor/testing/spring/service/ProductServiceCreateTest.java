@@ -37,7 +37,7 @@ public class ProductServiceCreateTest extends IntegrationTest {
   @Autowired
   ProductRepo productRepo;
 //  @MockitoBean //chiar vreau sa trimit request HTTP
-//  SafetyApiAdapter safetyApiAdapter;
+//  SafetyApiAdapter safetyApiAdapter; //real bean in play= spy ne-atins
   @MockitoBean // inlocuieste beanul real cu un mock Mockito (pe care poti sa when/verify)
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
@@ -66,7 +66,7 @@ public class ProductServiceCreateTest extends IntegrationTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-//    stubFor(get(urlEqualTo("/safety/barcode-unsafxxe"))
+//    stubFor(get(urlEqualTo("/safety/barcode-unsafxxe")) // wiremock programatic!!
 //        .willReturn(okJson("""
 //            {
 //               "detailsUrl": "http://details.url/a/b",

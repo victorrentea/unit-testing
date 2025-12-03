@@ -3,6 +3,7 @@ package victor.testing.spring.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -86,10 +87,13 @@ public class ProductServiceCreate2Test extends IntegrationTest {
     productDto = productDto.withBarcode("barcode-safeX");
 //    when(safetyApiAdapter.isSafe("barcode-safeX")).thenReturn(true);
     doReturn(true).when(safetyApiAdapter).isSafe("barcode-safeX");
+//    doReturn(true).when(safetyApiAdapter).isSafe("barcode-XXXXXXXX");
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
 
+    verify(safetyApiAdapter).isSafe(anyString());// ca exact 1 data!
+    // Mockito by default tipa daca faci un when-return fara sa fie folosit in codul testat " UnnecessaryStubbing
     Product product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safeX");

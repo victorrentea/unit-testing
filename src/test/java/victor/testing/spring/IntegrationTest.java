@@ -32,13 +32,12 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @EnableWireMock // starts WireMock HTTP server on a random port ${wiremock.server.port} returning pre-configured JSON responses
 @AutoConfigureMockMvc // MockMvc can send emulated HTTP requests without starting Tomcat
 public class IntegrationTest {
-
-  @MockitoSpyBean // un "Spy" = partial mock= este un
   // invelis in jurul obiectului real pe care il poti mockui
   // daca nu-i faci doReturn..., se comporta ca beanul real ce da req HTTP
-  protected SafetyApiAdapter safetyApiAdapter;
-  @MockitoBean
+  @MockitoBean // daca toate testele vor sa-l scoata din joc
   protected ProductMapper mapper;
+  @MockitoSpyBean // un "Spy" = partial mock= este un
+  protected SafetyApiAdapter safetyApiAdapter;
 
   @Autowired
   protected MockMvc mockMvc;
