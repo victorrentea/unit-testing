@@ -1,22 +1,13 @@
 package victor.testing.spring.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
@@ -25,37 +16,21 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.assertArg;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
-@EmbeddedKafka // in-mem
+@EmbeddedKafka
 @ActiveProfiles("test")
-@Transactional //  curatare #2 ❤️❤️❤️ (src/test -> rollback dupa fiecare @Test)
-// 🙁 nu merge daca codul testat face @Transactional(propagation=REQUIRES_NEW, sau multithread
-// 😱 nu acopera commit, @TransactionalEventListener(AFTER_COMMIT)
+@Transactional
 
-//@Sql(value = "/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD) // curatare #3 (inainte de fiecare @Test)
-// recomandat cand testezi SQLuri multe / proceduri stocate
-
-//❤️ Note: 999_insert_test_data.sql se executa automat pt profile 'test' la pornirea contextului= date de referinta
-
-//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)// ❌❌❌#4 NICIODATA, dar AI/SO o mai sugereaza
-// distruge Springu si H2 din el pt fiecare test, platesti 10-30s/@Test
-// PRINCIPALA GAFA in @SpringBootTest
-// => "aaaa, da-le-ncolo de teste cu spring, ca-s lente. Nu mai bine dam ClickDr>Copilot>generate teste
-// stiu ca-s microscopice si fragile, si scoase din ctx de biz, da-mi da covrigi mult
-public class ProductServiceCreateTest {
+public class ProductServiceCreate2Test {
   @Autowired // imi ❤️ baza, o vreau reala
   SupplierRepo supplierRepo;
   @Autowired
