@@ -18,6 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.wiremock.spring.EnableWireMock;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -29,6 +30,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
@@ -55,13 +58,18 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 // PRINCIPALA GAFA in @SpringBootTest
 // => "aaaa, da-le-ncolo de teste cu spring, ca-s lente. Nu mai bine dam ClickDr>Copilot>generate teste
 // stiu ca-s microscopice si fragile, si scoase din ctx de biz, da-mi da covrigi mult
+
+@EnableWireMock// simuleaza un servicu extern porning un server HTTP in-mem
+// -MockServer
+// -simulatoare stateful pe care noi le scriem (+🐞)
+//    doar pt testele noastre, reimplementand ce fac aia (dac-am inteles)
 public class ProductServiceCreateTest {
   @Autowired // imi ❤️ baza, o vreau reala
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockitoBean
-  SafetyApiAdapter safetyApiAdapter;
+//  @MockitoBean
+//  SafetyApiAdapter safetyApiAdapter;
   @MockitoBean // inlocuieste un bean din context cu un mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
@@ -82,8 +90,18 @@ public class ProductServiceCreateTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    productDto = productDto.withBarcode("barcode-unsafe");
-    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+    stubFor(get(urlEqualTo("/product/barcode-unsafeY/safety"))
+            .willReturn(aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/json")
+                    //language=json
+                    .withBody("""
+                            {
+                              "detailsUrl":"http://details.url/a/b",
+                              "category":"UNSAFE"
+                            }
+                            """)));
+    productDto = productDto.withBarcode("barcode-unsafeY");
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
             .isInstanceOf(IllegalStateException.class)
@@ -95,7 +113,7 @@ public class ProductServiceCreateTest {
   void createOk() {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
     var newProductId = productService.createProduct(productDto);
 
@@ -119,7 +137,7 @@ public class ProductServiceCreateTest {
   void shouldDefaultToUncategorized_forMissingCategory() {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe").withCategory(null);
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
     var newProductId = productService.createProduct(productDto);
 

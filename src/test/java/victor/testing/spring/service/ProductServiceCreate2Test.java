@@ -29,7 +29,7 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 // ❌ cauzeaza +1 spring sa booteze = +10-30s in plus la test
 @SpringBootTest(properties = "bashina=rosie")
 @EmbeddedKafka
-@ActiveProfiles({"test" /*❌,"siala"*/ })
+@ActiveProfiles({"test" /*❌,"siala"*/})
 @Transactional
 
 // nr de bannere din CI test x 10-30s =
@@ -37,6 +37,9 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 // b) renunta sa mai run teste
 
 //❌@DirtiesContext
+// ⚠️ Pe durata testelor pot exista in paralel 32 de contexte spring diferite pornite simultan
+// 😱 @Scheduled cron=- conectate la aceeasi DB in 🐳
+// 😱 daca toate 10 subscriu la acelasi topic Kafka/pub-sub se pot lua la intrecere
 public class ProductServiceCreate2Test {
   @Autowired // imi ❤️ baza, o vreau reala
   SupplierRepo supplierRepo;
