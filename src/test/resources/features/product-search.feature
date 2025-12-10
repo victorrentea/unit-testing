@@ -6,6 +6,7 @@ Feature: Search for product`````
     And Supplier "Y" exists
 
   Scenario: Search product by exact name and supplier
+#    Atunci Exista un produs
     Given One product exists
     And That product has name "name"
     And That product has supplier "X"

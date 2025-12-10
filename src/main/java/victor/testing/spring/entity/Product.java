@@ -1,5 +1,6 @@
 package victor.testing.spring.entity;
 
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,6 +22,7 @@ public class Product {
     @GeneratedValue
     private Long id;
 
+    @Size(min = 4) // nu era testat
     private String name;
 
     @Enumerated(STRING)

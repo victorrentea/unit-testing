@@ -6,7 +6,13 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -20,21 +26,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@EmbeddedKafka // in-mem
+@ActiveProfiles("test")
 public class ProductServiceCreateTest {
-  @Mock
+  @Autowired // imi ❤️ baza, o vreau reala
   SupplierRepo supplierRepo;
-  @Mock
+  @Autowired
   ProductRepo productRepo;
-  @Mock
+  @MockitoBean
   SafetyApiAdapter safetyApiAdapter;
-  @Mock
+  @MockitoBean // inlocuieste un bean din context cu un mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   ProductDto productDto = ProductDto.builder()
@@ -55,17 +62,13 @@ public class ProductServiceCreateTest {
 
   @Test
   void createOk() {
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
-    // WHEN
     var newProductId = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    Product product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
@@ -74,7 +77,7 @@ public class ProductServiceCreateTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
-//    assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
+    assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
   }
 
 }
