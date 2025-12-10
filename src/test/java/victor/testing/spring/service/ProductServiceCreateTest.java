@@ -30,6 +30,7 @@ import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @EmbeddedKafka // in-mem
@@ -86,6 +87,19 @@ public class ProductServiceCreateTest {
 //    assertThat(product.getCreatedDate()).isCloseTo(
 //        LocalDateTime.now(),byLessThan(500, ChronoUnit.MILLIS)); // TODO can only integration-test as it requires Hibernate magic
   }
+
+  @Test
+  void shouldDefaultToUncategorized_forMissingCategory() {
+    supplierRepo.save(new Supplier().setCode("S"));
+    productDto = productDto.withBarcode("barcode-safe").withCategory(null);
+    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+
+    var newProductId = productService.createProduct(productDto);
+
+    Product product = productRepo.findById(newProductId).orElseThrow();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
+  }
+
 
 }
 
