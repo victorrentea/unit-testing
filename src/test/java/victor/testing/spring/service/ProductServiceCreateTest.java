@@ -19,6 +19,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.wiremock.spring.EnableWireMock;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -41,12 +42,9 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
-@SpringBootTest
-@EmbeddedKafka // in-mem
-@ActiveProfiles("test")
-@Transactional //  curatare #2 ❤️❤️❤️ (src/test -> rollback dupa fiecare @Test)
-// 🙁 nu merge daca codul testat face @Transactional(propagation=REQUIRES_NEW, sau multithread
-// 😱 nu acopera commit, @TransactionalEventListener(AFTER_COMMIT)
+//@SpringBootTest
+//@EmbeddedKafka // in-mem
+//@ActiveProfiles("test")
 
 //@Sql(value = "/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD) // curatare #3 (inainte de fiecare @Test)
 // recomandat cand testezi SQLuri multe / proceduri stocate
@@ -59,16 +57,19 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 // => "aaaa, da-le-ncolo de teste cu spring, ca-s lente. Nu mai bine dam ClickDr>Copilot>generate teste
 // stiu ca-s microscopice si fragile, si scoase din ctx de biz, da-mi da covrigi mult
 
-@EnableWireMock// simuleaza un servicu extern porning un server HTTP in-mem
+//@EnableWireMock// simuleaza un servicu extern porning un server HTTP in-mem
 // -MockServer
 // -simulatoare stateful pe care noi le scriem (+🐞)
 //    doar pt testele noastre, reimplementand ce fac aia (dac-am inteles)
-public class ProductServiceCreateTest {
+// 🙁 nu merge daca codul testat face @Transactional(propagation=REQUIRES_NEW, sau multithread
+// 😱 nu acopera commit, @TransactionalEventListener(AFTER_COMMIT)r
+@Transactional //  curatare #2 ❤️❤️❤️ (src/test -> rollback dupa fiecare @Test)
+public class ProductServiceCreateTest extends IntegrationTest {
   @Autowired // imi ❤️ baza, o vreau reala
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-//  @MockitoBean
+//  @MockitoBean // no mock, real bean
 //  SafetyApiAdapter safetyApiAdapter;
   @MockitoBean // inlocuieste un bean din context cu un mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;

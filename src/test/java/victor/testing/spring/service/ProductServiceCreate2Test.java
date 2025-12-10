@@ -10,6 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -27,10 +28,9 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 // ❌ cauzeaza +1 spring sa booteze = +10-30s in plus la test
-@SpringBootTest(properties = "bashina=rosie")
-@EmbeddedKafka
-@ActiveProfiles({"test" /*❌,"siala"*/})
-@Transactional
+//@SpringBootTest(properties = "bashina=rosie")
+//@EmbeddedKafka
+//@ActiveProfiles({"test" /*❌,"siala"*/})
 
 // nr de bannere din CI test x 10-30s =
 // a)cata viata furi colegilor pe localu
@@ -40,12 +40,15 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 // ⚠️ Pe durata testelor pot exista in paralel 32 de contexte spring diferite pornite simultan
 // 😱 @Scheduled cron=- conectate la aceeasi DB in 🐳
 // 😱 daca toate 10 subscriu la acelasi topic Kafka/pub-sub se pot lua la intrecere
-public class ProductServiceCreate2Test {
+//@VictorTest❌❌
+
+@Transactional
+public class ProductServiceCreate2Test extends IntegrationTest {
   @Autowired // imi ❤️ baza, o vreau reala
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockitoBean
+  @MockitoBean // mocked bean = context diferit
   SafetyApiAdapter safetyApiAdapter;
   @MockitoBean // inlocuieste un bean din context cu un mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
