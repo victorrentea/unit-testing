@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import victor.testing.spring.entity.Product;
@@ -20,10 +21,11 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -61,6 +63,7 @@ public class ProductServiceCreateTest {
   }
 
   @Test
+  @WithMockUser(username = "schusterl")
   void createOk() {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
@@ -77,7 +80,11 @@ public class ProductServiceCreateTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+    assertThat(product.getCreatedBy()).isEqualTo("schusterl");
     assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
+//    assertEquals// interzis prin lege!❌❌❌
+//    assertThat(product.getCreatedDate()).isCloseTo(
+//        LocalDateTime.now(),byLessThan(500, ChronoUnit.MILLIS)); // TODO can only integration-test as it requires Hibernate magic
   }
 
 }
