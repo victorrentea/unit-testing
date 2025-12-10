@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +36,7 @@ import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 // b) renunta sa mai run teste
 
 //❌@DirtiesContext
-public class ProductServiceCreate2Test {
+public class ProductServiceCreate0Test {
   @Autowired // imi ❤️ baza, o vreau reala
   SupplierRepo supplierRepo;
   @Autowired
