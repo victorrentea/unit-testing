@@ -87,7 +87,7 @@ public class ProductServiceCreateTest {
   @Test
   @WithMockUser(username = "schusterl")
   void createOk() {
-//    supplierRepo.save(new Supplier().setCode("S"));
+    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
@@ -111,7 +111,7 @@ public class ProductServiceCreateTest {
 
   @Test
   void shouldDefaultToUncategorized_forMissingCategory() {
-//    supplierRepo.save(new Supplier().setCode("S"));
+    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe").withCategory(null);
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
