@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -12,8 +13,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiAdapter;
@@ -29,12 +33,23 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
 @SpringBootTest
 @EmbeddedKafka // in-mem
 @ActiveProfiles("test")
+//@Transactional //  curatare #2 ❤️❤️❤️ (src/test -> rollback dupa fiecare @Test)
+// 🙁 nu merge daca codul testat face @Transactional(propagation=REQUIRES_NEW, sau multithread
+// 😱 nu acopera commit, @TransactionalEventListener(AFTER_COMMIT)
+
+//@Sql(value = "/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD) // curatare #3 (inainte de fiecare @Test)
+
+//@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)// ❌❌❌#4 NICIODATA, dar AI/SO o mai sugereaza
+// distruge Springu si H2 din el pt fiecare test, platesti 10-30s/@Test
+// PRINCIPALA GAFA in @SpringBootTest
 public class ProductServiceCreateTest {
   @Autowired // imi ❤️ baza, o vreau reala
   SupplierRepo supplierRepo;
@@ -46,12 +61,18 @@ public class ProductServiceCreateTest {
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
+//  @BeforeEach // curatare #1
+//  final void before() { // merge mereu pe orice ai de curatat
+//    //  Mongo, Redis, golit cozi prin pub-sub, curatat cacheuri, fisiere
+//    productRepo.deleteAll();
+//    supplierRepo.deleteAll();
+//  }
 
   ProductDto productDto = ProductDto.builder()
-      .name("name")
-      .supplierCode("S")
-      .category(HOME)
-      .build();
+          .name("name")
+          .supplierCode("S")
+          .category(HOME)
+          .build();
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -59,14 +80,14 @@ public class ProductServiceCreateTest {
     when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
-        .isInstanceOf(IllegalStateException.class)
-        .hasMessage("Product is not safe!");
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("Product is not safe!");
   }
 
   @Test
   @WithMockUser(username = "schusterl")
   void createOk() {
-    supplierRepo.save(new Supplier().setCode("S"));
+//    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
@@ -78,9 +99,9 @@ public class ProductServiceCreateTest {
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
     assertThat(product.getCategory()).isEqualTo(HOME);
     verify(kafkaTemplate).send(
-        eq(ProductService.PRODUCT_CREATED_TOPIC),
-        eq("k"),
-        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+            eq(ProductService.PRODUCT_CREATED_TOPIC),
+            eq("k"),
+            assertArg(e -> assertThat(e.productId()).isEqualTo(newProductId)));
     assertThat(product.getCreatedBy()).isEqualTo("schusterl");
     assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
 //    assertEquals// interzis prin lege!❌❌❌
@@ -90,7 +111,7 @@ public class ProductServiceCreateTest {
 
   @Test
   void shouldDefaultToUncategorized_forMissingCategory() {
-    supplierRepo.save(new Supplier().setCode("S"));
+//    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe").withCategory(null);
     when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
 
