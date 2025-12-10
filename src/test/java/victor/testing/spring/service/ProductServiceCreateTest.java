@@ -16,6 +16,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.wiremock.spring.EnableWireMock;
@@ -69,8 +70,6 @@ public class ProductServiceCreateTest extends IntegrationTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-//  @MockitoBean // no mock, real bean
-//  SafetyApiAdapter safetyApiAdapter;
   @MockitoBean // inlocuieste un bean din context cu un mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired

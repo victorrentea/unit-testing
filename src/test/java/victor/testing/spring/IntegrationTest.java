@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.wiremock.spring.EnableWireMock;
+import victor.testing.spring.infra.SafetyApiAdapter;
 import victor.testing.spring.service.ProductCreatedEvent;
 import victor.testing.tools.AbstractTestListener;
 
@@ -30,6 +32,9 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 public class IntegrationTest {
   @Autowired
   protected MockMvc mockMvc;
+  @MockitoSpyBean
+  protected SafetyApiAdapter safetyApiAdapter;
+
   @Autowired
   protected AbstractTestListener<ProductCreatedEvent> productCreatedEventTestListener;
 

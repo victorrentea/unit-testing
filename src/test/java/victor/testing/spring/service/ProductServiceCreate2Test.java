@@ -9,6 +9,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Product;
@@ -22,8 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.assertArg;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
@@ -48,8 +48,6 @@ public class ProductServiceCreate2Test extends IntegrationTest {
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockitoBean // mocked bean = context diferit
-  SafetyApiAdapter safetyApiAdapter;
   @MockitoBean // inlocuieste un bean din context cu un mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
@@ -71,7 +69,8 @@ public class ProductServiceCreate2Test extends IntegrationTest {
   @Test
   void createThrowsForUnsafeProduct() {
     productDto = productDto.withBarcode("barcode-unsafe");
-    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+//    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+    doReturn(false).when(safetyApiAdapter).isSafe("barcode-unsafe");
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
             .isInstanceOf(IllegalStateException.class)
@@ -83,7 +82,8 @@ public class ProductServiceCreate2Test extends IntegrationTest {
   void createOk() {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    doReturn(true).when(safetyApiAdapter).isSafe("barcode-safe");
 
     var newProductId = productService.createProduct(productDto);
 
@@ -107,7 +107,8 @@ public class ProductServiceCreate2Test extends IntegrationTest {
   void shouldDefaultToUncategorized_forMissingCategory() {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe").withCategory(null);
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    doReturn(true).when(safetyApiAdapter).isSafe("barcode-safe");
 
     var newProductId = productService.createProduct(productDto);
 
