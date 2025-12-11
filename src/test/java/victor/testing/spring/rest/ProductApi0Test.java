@@ -18,15 +18,20 @@ import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.tools.Canonical;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 @Transactional
 @WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
 public class ProductApi0Test extends IntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
+  public static final String BARCODE = "barcode-safe";
 
   @Autowired
   ProductRepo productRepo;
@@ -35,75 +40,125 @@ public class ProductApi0Test extends IntegrationTest {
 
   @BeforeEach
   final void init() {
-    // expected external API responses
-    SafetyApiWireMock.stubResponse("barcode-safe", "SAFE");
-
-    // reference data
-    supplierRepo.save(new Supplier().setCode("S").setActive(true));
+    SafetyApiWireMock.stubResponse(BARCODE, "SAFE");
+    // 999_insert_data.sql is not used here
+    supplierRepo.save(new Supplier().setCode("S").setActive(true));// date de referinta
   }
 
-  // Testing can be:
-  // - Blackbox: only access API and sent/received Messages
-  // - Whitebox: mock inconvenient beans
-  // - Graybox: don't mock beans, but you can access DB
-
+  ProductDto dto = ProductDto.builder()
+      .name("Tree")
+      .barcode(BARCODE)
+      .supplierCode("S")
+      .category(HOME)
+      .build();
+  // Hint: Inspire from ApiTestClient and ProductApiEpicITest
   @Test
   void create_select_graybox() throws Exception {
-    ProductDto dto = ProductDto.builder()
-        .name("Tree")
-        .barcode("barcode-safe")
-        .supplierCode("S")
-        .category(HOME)
-        .build();
+    // REST API call catre app mea
+    mockMvc.perform(post("/product/create")
+//            .content(jackson.writeValueAsString(dto)) // ❤️❤️❤️
+              .content("""
+                      {
+                        "name": "Tree",
+                        "barcode": "barcode-safe",
+                        "supplierCode": "S",
+                        "category": "HOME"
+                      }
+                            """)
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is2xxSuccessful());
+
+    Product product = productRepo.findByName("Tree"); // direct DB acces face acest test "GRAYBOX"
+    assertThat(product.getCreatedDate()).isToday();
+    assertThat(product.getBarcode()).isEqualTo(BARCODE);
+  }
+
+  @Test
+  @WithMockUser(roles = "USER")
+  void create_failsForNonAdmin() throws Exception {
     mockMvc.perform(post("/product/create")
             .content(jackson.writeValueAsString(dto))
             .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
-
-    Product product = productRepo.findByName("Tree");
-    assertThat(product).isNotNull();
-    // TODO 1. check product.createdDate and .barcode
-  }
-
-  @Test
-//  @WithMockUser(roles = ... // Hint: downgrade credentials set at class level
-  void create_failsForNonAdmin() throws Exception {
-    // TODO 2. create => 403 Forbidden, and no product is saved in DB
+        .andExpect(status().isForbidden());
   }
 
   @Test // for @Validated of @NotNull, @NotBlank, @Size...
   void create_failsValidationForMissingBarcode() throws Exception {
-    // TODO 3a. create product with null barcode => 4xx Client Error containing "barcode" in body
-    // TODO 3b. create product with null or empty name => 4xx
-
-    // TODO 3x. [PRO] adjust a JSON loaded from /src/test/resource without working with a DTO instance:
+    String responseBody = mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(dto.withBarcode(null).withName("")))
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andReturn()
+        .getResponse()
+        .getContentAsString();
+    assertThat(responseBody)
+        .containsIgnoringCase("barcode")
+        .containsIgnoringCase("name");
+    // TODO 3(STAR) adjust a JSON loaded from /src/test/resource without working with a DTO instance:
     //  Canonical.load("CreateProductRequest.json").set("$.name", null).json().toString()
     //  loads src/test/resources/canonical/CreateProductRequest.json
   }
 
   @Test
-  void create_sendMalformedJson_fails() throws Exception {
-    // TODO 4. bad JSON in request payload => 500 Internal Server Error
-    //  eg bad json: """ { "name: 2} """
+  void create_candTrecPrinMineMarfareDeDateDeCareNuMiPasa() throws Exception {
+    String json = Canonical.load("CreateProductRequest.json").set("$.name", null).json().toString();
+    mockMvc.perform(post("/product/create")
+            .content(json)
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void create_sendBadJson_fails() throws Exception {
+    mockMvc.perform(post("/product/create")
+            .content("{")
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isInternalServerError());
   }
 
   @Test
   void get_createDateFormat() throws Exception {
-    // TODO 5. prove date format is yyyy-MM-dd (eg 2025-12-25)
-    //  Hint: you will need to extract that from response with a JSON Path -> ask AI
+    // TODO check date format is yyyy-MM-dd (eg 2025-12-25) using JSON Path --> ask AI
     //  This test should fail if I change the pattern in @JsonFormat(pattern = "yyyy-MM-dd") in ProductDto
+    // ia din /
+
+    mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(dto))
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is2xxSuccessful()); // TODO sa fac si io ca sf. Uncle Bob sa ascund apelurilea astea in niste Testing Support Code
+
+    mockMvc.perform(get("/product/1"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.createdDate").value("2025-10-15")); // TODO reparati voi maine :(
   }
 
   @Test
   void create_get_blackbox() throws Exception {
-    // TODO 6. create via API then get via API (don't access the DB)
-    //  Hint: To get the created product ID, extract 'Location' response header
-    //   using .andExpect(..).andReturn().getResponse().getHeader(..)
+    // TODO create then get the product via API (without accessing the DB)
+    //  Tip: extract 'Location' using .andExpect(..).andReturn().getResponse().getHeader(..)
     // TODO GET /product/{id} => assert fields in response DTO
+
+    var mvcResult = mockMvc.perform(post("/product/create")
+            .content(jackson.writeValueAsString(dto))
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is2xxSuccessful())
+        .andReturn();
+    String location = mvcResult.getResponse().getHeader("Location");
+    assertThat(location).isNotBlank();
+    String[] parts = location.split("/");
+    String id = parts[parts.length - 1];
+    mockMvc.perform(get("/product/" + id))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.name").value("Tree"))
+        .andExpect(jsonPath("$.barcode").value(BARCODE))
+        .andExpect(jsonPath("$.supplierCode").value("S"))
+        .andExpect(jsonPath("$.category").value("HOME"));
   }
 
   @Test
   void create_sends_message() throws Exception {
-    // TODO 7. assert message is sent with testListener.blockingReceive
+    // TODO assert message is sent with testListener.blockingReceive(ofSeconds(5));
   }
+
+  // TODO test that created product has createdDate today.
 }
