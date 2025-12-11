@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.core.KafkaTemplate;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
-import victor.testing.spring.infra.SafetyApiAdapter;
+import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
@@ -31,7 +31,7 @@ public class ProductServiceCreateTest {
   @Mock
   ProductRepo productRepo;
   @Mock
-  SafetyApiAdapter safetyApiAdapter;
+  SafetyApiClient safetyApiClient;
   @Mock
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @InjectMocks
@@ -46,7 +46,7 @@ public class ProductServiceCreateTest {
   @Test
   void createThrowsForUnsafeProduct() {
     productDto = productDto.withBarcode("barcode-unsafe");
-    when(safetyApiAdapter.isSafe("barcode-unsafe")).thenReturn(false);
+    when(safetyApiClient.isSafe("barcode-unsafe")).thenReturn(false);
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -57,7 +57,7 @@ public class ProductServiceCreateTest {
   void createOk() {
     when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
     productDto = productDto.withBarcode("barcode-safe");
-    when(safetyApiAdapter.isSafe("barcode-safe")).thenReturn(true);
+    when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
     when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
     // WHEN

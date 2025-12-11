@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.ProductCategory;
-import victor.testing.spring.infra.SafetyApiAdapter;
+import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
@@ -24,13 +23,13 @@ public class ProductService {
   public static final String PRODUCT_CREATED_TOPIC = "product-created";
   private final SupplierRepo supplierRepo;
   private final ProductRepo productRepo;
-  private final SafetyApiAdapter safetyApiAdapter;
+  private final SafetyApiClient safetyApiClient;
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
-    boolean safe = safetyApiAdapter.isSafe(productDto.barcode()); // ⚠️ REST call inside
+    boolean safe = safetyApiClient.isSafe(productDto.barcode()); // ⚠️ REST call inside
     if (!safe) {
       throw new IllegalStateException("Product is not safe!");
     }

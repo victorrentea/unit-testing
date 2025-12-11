@@ -3,7 +3,6 @@ package victor.testing.spring;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import kafka.server.ClientQuotaManager.DefaultTags$;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,20 +14,17 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.metrics.ApplicationStartup;
-import org.springframework.core.metrics.StartupStep;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.config.WaitForDatabase;
 
 import java.security.Principal;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 @Slf4j
 @EnableCaching
@@ -58,8 +54,13 @@ public class SpringApplication {
     }
 
     @Bean
-    public RestTemplate rest() {
+    public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public RestClient restClient(RestTemplate restTemplate) {
+      return RestClient.create(restTemplate);
     }
 
     @Bean // used by @CreatedBy and @LastModifiedBy
