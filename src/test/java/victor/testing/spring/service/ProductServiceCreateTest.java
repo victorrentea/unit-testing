@@ -38,7 +38,7 @@ public class ProductServiceCreateTest {
   ProductService productService;
 
   ProductDto productDto = ProductDto.builder()
-      .name("name")
+      .name("nam")
       .supplierCode("S")
       .category(HOME)
       .build();

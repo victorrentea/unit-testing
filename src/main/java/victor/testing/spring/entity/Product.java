@@ -22,7 +22,7 @@ public class Product {
     @GeneratedValue
     private Long id;
 
-    @Size(min = 5)
+    @Size(min = 4)
     private String name;
 
     @Enumerated(STRING)
