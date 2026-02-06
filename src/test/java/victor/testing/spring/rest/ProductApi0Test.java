@@ -2,6 +2,8 @@ package victor.testing.spring.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@Transactional
 @WithMockUser(roles = "ADMIN") // grant the @Test the ROLE_ADMIN (unless later overridden)
 public class ProductApi0Test extends IntegrationTest {
   private final static ObjectMapper jackson = new ObjectMapper().registerModule(new JavaTimeModule());
@@ -32,9 +33,17 @@ public class ProductApi0Test extends IntegrationTest {
   ProductRepo productRepo;
   @Autowired
   SupplierRepo supplierRepo;
+  @Autowired
+  private EntityManagerFactory entityManagerFactory;
+
 
   @BeforeEach
-  final void init() {
+  public void init() {
+    entityManagerFactory // https://vladmihalcea.com/clean-up-test-data-spring/
+        .unwrap(SessionFactoryImplementor.class)
+        .getSchemaManager()
+        .truncateMappedObjects();
+
     // expected external API responses
     SafetyApiWireMock.stubResponse("barcode-safe", "SAFE");
 
