@@ -6,7 +6,15 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
@@ -23,18 +31,31 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+@ActiveProfiles("test") // starts a H2 in-memory SQL DB
+//  ❤️❤️❤️❤️❤️ much better🔽
+//@SpringPostgresTestContainer // start a postgres in a docker for the duration of your tests
+//@SpringMongoDBTestContainer
 
-@ExtendWith(MockitoExtension.class)
+@EmbeddedKafka // boots up a Kafka broker emulator in my JUnit process ~ H2
+//@SpringKafkaTestContainer
+// or disable the rabbit/kafka consumers so you don't have to start a broker at all
+
+
+//@ContextConfiguration 🤔 // boots selective class
+//@WebMvcTest // boots only @RestControllers
+//@WebFluxTest
+@SpringBootTest // boots the entire app // ± on a base class
 public class ProductServiceCreateTest {
-  @Mock
+  @Autowired
   SupplierRepo supplierRepo;
-  @Mock
+  @Autowired
   ProductRepo productRepo;
-  @Mock
+  @MockitoBean // replace the real bean in Spring context with a Mockito mock that you can when... and verify...
+  // alternative: start a mockserver / wiremock emulating a reponse to your app's request
   SafetyApiClient safetyApiClient;
-  @Mock
+  @MockitoBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
+  @Autowired
   ProductService productService;
 
   ProductDto productDto = ProductDto.builder()
@@ -55,17 +76,21 @@ public class ProductServiceCreateTest {
 
   @Test
   void createOk() {
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
+//    when(productRepo.save(any())).thenReturn(new Product().setId(123L)); // emulate the behavior of Spring
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    // ask the mock the actual param value received in tested code 🤢🤮
+//    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
+//    verify(productRepo).save(productCaptor.capture());
+//    Product product = productCaptor.getValue();
+
+    // ❤️
+    var product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
