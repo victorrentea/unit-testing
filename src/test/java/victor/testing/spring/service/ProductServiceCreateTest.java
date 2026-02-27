@@ -72,9 +72,10 @@ public class ProductServiceCreateTest {
     assertThat(product.getCategory()).isEqualTo(HOME);
     verify(kafkaTemplate).send(
         eq(ProductService.PRODUCT_CREATED_TOPIC),
-        eq("k"),
-        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
-//    assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
+        eq("key"),
+        assertArg(event -> assertThat(event.productId()).isEqualTo(newProductId)));
+    assertThat(product.getCreatedDate()).isToday(); // TODO more precise ways? can I control time?
+//    assertThat(product.getCreatedBy()).isToday("john"); // TODO test framework magic
   }
 
 }
