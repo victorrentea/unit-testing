@@ -1,27 +1,17 @@
 package victor.testing.spring.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.test.context.EmbeddedKafka;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
-import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
@@ -31,18 +21,18 @@ import victor.testing.tools.TruncateTables;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
-import static java.time.Duration.ofSeconds;
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.ArgumentMatchers.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.assertArg;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 import static victor.testing.tools.ClockTestUtils.fixedDateClock;
+
 @ActiveProfiles("test") // starts a H2 in-memory SQL DB
 //  ❤️❤️❤️❤️❤️ much better🔽
 //@SpringPostgresTestContainer // start a postgres in a docker for the duration of your tests
@@ -60,7 +50,7 @@ import static victor.testing.tools.ClockTestUtils.fixedDateClock;
 //@ClearTables ❤️picnic solution
 @SpringBootTest // boots the entire app // ± on a base class
 @TruncateTables({"product", "supplier"})
-public class ProductServiceCreateTest {
+public class ProductServiceCreate2Test {
   public static final UUID UUID = java.util.UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
   @Autowired
   SupplierRepo supplierRepo;
