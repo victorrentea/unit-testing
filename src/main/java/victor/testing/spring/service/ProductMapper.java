@@ -13,7 +13,7 @@ public class ProductMapper {
         .name(product.getName())
         .barcode(product.getBarcode())
         .category(product.getCategory())
-        .createdDate(product.getCreatedDate())
+        .createdDate(product.getCreatedDate() != null ? product.getCreatedDate().toLocalDate() : null)
         .build();
   }
 }

@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.EnumType.STRING;
@@ -33,8 +34,7 @@ public class Product {
     @ManyToOne
     private Supplier supplier;
 
-    @CreatedDate // Spring assigns this at creation time: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#auditing
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @CreatedBy // Spring assigns this at creation time from SecurityContext
     private String createdBy;

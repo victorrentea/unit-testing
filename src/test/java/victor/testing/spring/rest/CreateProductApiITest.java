@@ -116,10 +116,10 @@ public class CreateProductApiITest extends IntegrationTest {
     // Then: DB SELECT
     Product savedProduct = productRepo.findAll().get(0);
     assertThat(savedProduct.getName()).isEqualTo("Tree");
-    assertThat(savedProduct.getCreatedDate()).isToday();
+    assertThat(savedProduct.getCreatedDate().toLocalDate()).isToday();
     assertThat(savedProduct.getCategory()).isEqualTo(productDto.category());
     assertThat(savedProduct.getBarcode()).isEqualTo(productDto.barcode());
-    assertThat(savedProduct.getCreatedDate()).isToday(); // field set via Spring Magic @CreatedDate
+    assertThat(savedProduct.getCreatedDate().toLocalDate()).isToday(); // field set via Spring Magic @CreatedDate
     assertThat(savedProduct.getCreatedBy()).isEqualTo("user"); // field set via Spring Magic
     assertThat(savedProduct.getSupplier().getCode()).isEqualTo(productDto.supplierCode());
 

@@ -34,6 +34,7 @@ public class ProductService {
       throw new IllegalStateException("Product is not safe!");
     }
     if (productDto.category() == null) {
+      // TODO test this branch too!
       productDto = productDto.withCategory(ProductCategory.UNCATEGORIZED);
     }
     Product product = new Product();

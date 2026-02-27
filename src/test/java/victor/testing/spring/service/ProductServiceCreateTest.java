@@ -83,7 +83,6 @@ public class ProductServiceCreateTest {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
-//    when(productRepo.save(any())).thenReturn(new Product().setId(123L)); // emulate the behavior of Spring
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
