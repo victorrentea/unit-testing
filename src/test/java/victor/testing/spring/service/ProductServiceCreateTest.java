@@ -39,6 +39,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 import static victor.testing.tools.ClockTestUtils.fixedDateClock;
 @ActiveProfiles("test") // starts a H2 in-memory SQL DB
 //  ❤️❤️❤️❤️❤️ much better🔽
@@ -120,6 +121,23 @@ public class ProductServiceCreateTest {
     //✅ #2 inject in prod a mock Clock
     assertThat(product.getCreatedDate()).isEqualTo(LocalDateTime.of(2025, 12, 25, 0, 0));
     //✅ #3 define a new CLock bean fixed on a moment in time, and  have it replace the clock bean in the actual real production
+  }
+
+
+
+  @Test
+//  void createOkUncategorized() {
+//  void withCategoryNull() {
+//  void withMissingCategory() {
+  void defaultsToUncategorizedWhenMissingCategory() {
+    supplierRepo.save(new Supplier().setCode("S"));
+    productDto = productDto.withBarcode("barcode-safe").withCategory(null);
+    when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
+
+    var newProductId = productService.createProduct(productDto);
+
+    var product = productRepo.findById(newProductId).orElseThrow();
+    assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED);
   }
 
   @TestConfiguration
