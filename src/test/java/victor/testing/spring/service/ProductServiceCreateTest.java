@@ -69,9 +69,6 @@ public class ProductServiceCreateTest {
   @Autowired
   ProductService productService;
 
-  @Autowired
-  Clock clock;
-
   ProductDto productDto = ProductDto.builder()
       .name("name")
       .supplierCode("S")
@@ -94,6 +91,7 @@ public class ProductServiceCreateTest {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
+
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
