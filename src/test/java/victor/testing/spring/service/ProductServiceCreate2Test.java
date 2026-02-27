@@ -12,6 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
+import victor.testing.spring.IntegrationTest;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
@@ -33,11 +34,11 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 import static victor.testing.tools.ClockTestUtils.fixedDateClock;
 
-@ActiveProfiles({"test"/*,"second"❌*/}) // starts a H2 in-memory SQL DB
+//@ActiveProfiles({"test"/*,"second"❌*/}) // starts a H2 in-memory SQL DB
 //  ❤️❤️❤️❤️❤️ much better🔽
 //@SpringPostgresTestContainer // start a postgres in a docker for the duration of your tests
 //@SpringMongoDBTestContainer
-@EmbeddedKafka//❌ // boots up a Kafka broker emulator in my JUnit process ~ H2
+//@EmbeddedKafka//❌ // boots up a Kafka broker emulator in my JUnit process ~ H2
 //@SpringKafkaTestContainer
 // or disable the rabbit/kafka consumers so you don't have to start a broker at all
 
@@ -47,15 +48,14 @@ import static victor.testing.tools.ClockTestUtils.fixedDateClock;
 //@WebFluxTest
 
 //@ClearTables ❤️picnic solution
-@SpringBootTest//❌(properties = "some.prop=different value") // boots the entire app // ± on a base class
+//@SpringBootTest//❌(properties = "some.prop=different value") // boots the entire app // ± on a base class
 @TruncateTables({"product", "supplier"})
-public class ProductServiceCreate2Test {
+public class ProductServiceCreate2Test extends IntegrationTest  {
   public static final UUID UUID = java.util.UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
   @Autowired
   SupplierRepo supplierRepo;
-//  @Autowired
-  @Autowired // WRAPS⭐️ the real productRepo bean with a Mockito mock that you can when... and verify...
-  ProductRepo productRepo;
+//  @Autowired // WRAPS⭐️ the real productRepo bean with a Mockito mock that you can when... and verify...
+//  ProductRepo productRepo;
   @MockitoBean // replaces the real bean in Spring context with a Mockito mock that you can when... and verify...
   // alternative: start a mockserver / wiremock emulating a reponse to your app's request
   SafetyApiClient safetyApiClient;

@@ -12,8 +12,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBeans;
 import org.springframework.test.web.servlet.MockMvc;
 import org.wiremock.spring.EnableWireMock;
+import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.service.ProductCreatedEvent;
 import victor.testing.tools.AbstractTestListener;
 
@@ -23,13 +26,17 @@ import static victor.testing.spring.service.ProductService.PRODUCT_CREATED_TOPIC
 @SpringBootTest // start the app in-memory
 @ActiveProfiles("test") // use application-test.properties to override src/main properties
 @EmbeddedKafka // start an in-memory broker
-
+@MockitoSpyBean(types = ProductRepo.class)
 @Import(IntegrationTest.TestKafkaListenersConfig.class) // test listeners
 @EnableWireMock // starts WireMock HTTP server on a random port ${wiremock.server.port} returning pre-configured JSON responses
 @AutoConfigureMockMvc // MockMvc can send emulated HTTP requests without starting Tomcat
 public class IntegrationTest {
   @Autowired
   protected MockMvc mockMvc;
+
+  // any @MockBean or @SpyBean in any superclass is "escalated" as a spy bean in the parent superclass of all Spring integtaitons tests => 1 context started
+  @Autowired // WRAPS⭐️ the real productRepo bean with a Mockito mock that you can when... and verify...
+  protected ProductRepo productRepo;
   @Autowired
   protected AbstractTestListener<ProductCreatedEvent> productCreatedEventTestListener;
 
