@@ -15,6 +15,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
@@ -48,9 +49,10 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 public class ProductServiceCreateTest {
   @Autowired
   SupplierRepo supplierRepo;
-  @Autowired
+//  @Autowired
+  @MockitoSpyBean // WRAPS⭐️ the real productRepo bean with a Mockito mock that you can when... and verify...
   ProductRepo productRepo;
-  @MockitoBean // replace the real bean in Spring context with a Mockito mock that you can when... and verify...
+  @MockitoBean // replaces the real bean in Spring context with a Mockito mock that you can when... and verify...
   // alternative: start a mockserver / wiremock emulating a reponse to your app's request
   SafetyApiClient safetyApiClient;
   @MockitoBean
@@ -84,13 +86,13 @@ public class ProductServiceCreateTest {
     // WHEN
     var newProductId = productService.createProduct(productDto);
 
-    // ask the mock the actual param value received in tested code 🤢🤮
-//    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-//    verify(productRepo).save(productCaptor.capture());
-//    Product product = productCaptor.getValue();
+    // #2: ask the Mockito spy wrapping the real repo 🤢🤮
+    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
+    verify(productRepo).save(productCaptor.capture());
+    Product product = productCaptor.getValue();
 
-    // ❤️
-    var product = productRepo.findById(newProductId).orElseThrow();
+    // #1 ❤️ less mocking and closer to reality: SELECT from a DB
+//    var product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
