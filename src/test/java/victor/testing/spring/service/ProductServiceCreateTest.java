@@ -7,12 +7,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -64,7 +68,7 @@ public class ProductServiceCreateTest {
   @Autowired
   ProductService productService;
 
-  @MockitoBean
+  @Autowired
   Clock clock;
 
   ProductDto productDto = ProductDto.builder()
@@ -77,9 +81,6 @@ public class ProductServiceCreateTest {
   void createThrowsForUnsafeProduct() {
     productDto = productDto.withBarcode("barcode-unsafe");
     when(safetyApiClient.isSafe("barcode-unsafe")).thenReturn(false);
-    Clock fixedClock = fixedDateClock("2025-12-25");
-    when(clock.instant()).thenReturn(fixedClock.instant());
-    when(clock.getZone()).thenReturn(fixedClock.getZone());
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -92,10 +93,6 @@ public class ProductServiceCreateTest {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
-    // set the clock to christmas midnight 2025
-    Clock fixedClock = fixedDateClock("2025-12-25");
-    when(clock.instant()).thenReturn(fixedClock.instant());
-    when(clock.getZone()).thenReturn(fixedClock.getZone());
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
@@ -120,9 +117,18 @@ public class ProductServiceCreateTest {
 //    assertThat(product.getCreatedDate()).isEqualTo(LocalDateTime.now()); //❌ fails due to few ms skew
     //✅ #1 works despite the few ms skew
 //    assertThat(product.getCreatedDate()).isCloseTo(LocalDateTime.now(), byLessThan(ofSeconds(1)));
-    //✅ #2 inject in prod a Clock that you can then mock/fix
+    //✅ #2 inject in prod a mock Clock
     assertThat(product.getCreatedDate()).isEqualTo(LocalDateTime.of(2025, 12, 25, 0, 0));
+    //✅ #3 define a new CLock bean fixed on a moment in time, and  have it replace the clock bean in the actual real production
+  }
 
+  @TestConfiguration
+  static class TestClockConfiguration {
+    @Bean
+    @Primary // takes priority over the production Clock bean
+    public Clock tclock() { // replaces the bean in /src/main SPRING CONTEXT
+      return fixedDateClock("2025-12-25");
+    }
   }
 
 }
