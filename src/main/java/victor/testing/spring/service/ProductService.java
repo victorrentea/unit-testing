@@ -16,6 +16,8 @@ import victor.testing.spring.rest.dto.ProductSearchResult;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 @Slf4j
 @Service
@@ -28,6 +30,7 @@ public class ProductService {
   private final ProductMapper productMapper;
   private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   private final Clock clock;
+  private final Supplier<UUID> uuidSupplier;
 
   public Long createProduct(ProductDto productDto) {
     log.info("Creating product {}", productDto);
@@ -45,9 +48,10 @@ public class ProductService {
     product.setCategory(productDto.category());
     product.setSupplier(supplierRepo.findByCode(productDto.supplierCode()).orElseThrow());
     product.setCreatedDate(LocalDateTime.now(clock));
-    // similar : UUID.randomUUID();
+//    product.setSomeUuid(UUID.randomUUID());
+    product.setSomeUuid(uuidSupplier.get());
     Long productId = productRepo.save(product).getId();
-    ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
+    ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now(), product.getSomeUuid());
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", event); // a 'tenant-id' message header is added by victor.testing.spring.config.AddTenantIdToSentMessagesInterceptor
     return productId;
   }

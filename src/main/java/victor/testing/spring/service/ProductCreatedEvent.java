@@ -4,6 +4,6 @@ import java.time.LocalDateTime;
 
 public record ProductCreatedEvent(
     Long productId,
-    LocalDateTime observedAt
-) {
+    LocalDateTime observedAt,
+    java.util.UUID someUuid) {
 }

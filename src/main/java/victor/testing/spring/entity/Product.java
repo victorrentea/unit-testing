@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.EnumType.STRING;
@@ -35,6 +36,8 @@ public class Product {
     private Supplier supplier;
 
     private LocalDateTime createdDate;
+
+    private UUID someUuid;
 
     @CreatedBy // Spring assigns this at creation time from SecurityContext
     private String createdBy;

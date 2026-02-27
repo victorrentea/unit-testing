@@ -32,6 +32,7 @@ import victor.testing.tools.TruncateTables;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.*;
@@ -60,6 +61,7 @@ import static victor.testing.tools.ClockTestUtils.fixedDateClock;
 @SpringBootTest // boots the entire app // ± on a base class
 @TruncateTables({"product", "supplier"})
 public class ProductServiceCreateTest {
+  public static final UUID UUID = java.util.UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
   @Autowired
   SupplierRepo supplierRepo;
 //  @Autowired
@@ -72,6 +74,8 @@ public class ProductServiceCreateTest {
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Autowired
   ProductService productService;
+  @MockitoBean
+  java.util.function.Supplier<UUID> uuidSupplier;
 
   ProductDto productDto = ProductDto.builder()
       .name("name")
@@ -96,7 +100,7 @@ public class ProductServiceCreateTest {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
-
+    when(uuidSupplier.get()).thenReturn(UUID);
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
@@ -115,7 +119,10 @@ public class ProductServiceCreateTest {
     verify(kafkaTemplate).send(
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
-        assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+        assertArg(e-> {
+          assertThat(e.someUuid()).isEqualTo(UUID);
+          assertThat(e.productId()).isEqualTo(newProductId);
+        }));
     assertThat(product.getCreatedBy()).isEqualTo("userx");// testing framework magic
     // TODO assert that product.createdDate is now
 //    assertThat(product.getCreatedDate()).isEqualTo(LocalDateTime.now()); //❌ fails due to few ms skew
@@ -124,6 +131,9 @@ public class ProductServiceCreateTest {
     //✅ #2 inject in prod a mock Clock
     assertThat(product.getCreatedDate()).isEqualTo(LocalDateTime.of(2025, 12, 25, 0, 0));
     //✅ #3 define a new CLock bean fixed on a moment in time, and  have it replace the clock bean in the actual real production
+
+//    assertThat(product.getSomeUuid()).isNotNull(); // may be good enough
+    assertThat(product.getSomeUuid()).isEqualTo(UUID);
   }
 
   @Test

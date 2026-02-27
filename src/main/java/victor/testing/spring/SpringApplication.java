@@ -27,6 +27,8 @@ import java.security.Principal;
 import java.time.Clock;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 @Slf4j
 @EnableCaching
@@ -54,6 +56,11 @@ public class SpringApplication {
 //    @Profile("!test")
     public Clock clock() {
         return Clock.systemDefaultZone(); // real clock for prod
+    }
+
+    @Bean
+    public Supplier<UUID> uuidSupplier() {
+        return UUID::randomUUID;
     }
 
     @Autowired

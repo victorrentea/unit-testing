@@ -12,15 +12,36 @@ import java.sql.Statement;
 /**
  * JUnit extension that truncates specified database tables before and after each test.
  * <p>
+ * This extension retrieves the DataSource from the Spring ApplicationContext and executes
+ * TRUNCATE TABLE (or DELETE FROM as fallback) for each specified table. It also attempts
+ * to reset auto-increment sequences to ensure consistent test data.
+ * <p>
+ * The extension automatically handles:
+ * <ul>
+ *   <li>Disabling/re-enabling foreign key constraints (H2, PostgreSQL)</li>
+ *   <li>Falling back to DELETE FROM if TRUNCATE is not supported</li>
+ *   <li>Resetting auto-increment/sequence values (H2)</li>
+ * </ul>
+ * <p>
+ * Supported databases: H2, PostgreSQL, MySQL (with varying feature support)
+ * <p>
  * Usage:
  * <pre>
  * {@code
+ * @SpringBootTest
  * @TruncateTables({"product", "supplier"})
- * class MyTest {
- *   // tests...
+ * class MyIntegrationTest {
+ *   @Test
+ *   void testSomething() {
+ *     // Tables are clean before this test
+ *     // and will be cleaned after this test
+ *   }
  * }
  * }
  * </pre>
+ *
+ * @see BeforeEachCallback
+ * @see AfterEachCallback
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
