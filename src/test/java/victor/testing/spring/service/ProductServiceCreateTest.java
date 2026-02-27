@@ -24,10 +24,11 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static java.time.Duration.ofSeconds;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
@@ -102,10 +103,14 @@ public class ProductServiceCreateTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
-    // testing framework magic
-    assertThat(product.getCreatedBy()).isEqualTo("userx");
 
-//    assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
+    assertThat(product.getCreatedBy()).isEqualTo("userx");// testing framework magic
+    // TODO assert that product.createdDate is now
+//    assertThat(product.getCreatedDate()).isEqualTo(LocalDateTime.now()); //❌ fails due to few ms skew
+
+    //✅ #1 works despite the few ms skew
+    assertThat(product.getCreatedDate()).isCloseTo(LocalDateTime.now(), byLessThan(ofSeconds(1)));
+
   }
 
 }

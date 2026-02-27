@@ -42,6 +42,7 @@ public class ProductService {
     product.setBarcode(productDto.barcode());
     product.setCategory(productDto.category());
     product.setSupplier(supplierRepo.findByCode(productDto.supplierCode()).orElseThrow());
+    product.setCreatedDate(LocalDateTime.now());
     Long productId = productRepo.save(product).getId();
     ProductCreatedEvent event = new ProductCreatedEvent(productId, LocalDateTime.now());
     kafkaTemplate.send(PRODUCT_CREATED_TOPIC, "k", event); // a 'tenant-id' message header is added by victor.testing.spring.config.AddTenantIdToSentMessagesInterceptor
