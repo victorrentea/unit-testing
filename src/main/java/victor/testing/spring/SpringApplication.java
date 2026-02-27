@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import victor.testing.spring.config.WaitForDatabase;
 
 import java.security.Principal;
+import java.time.Clock;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -46,6 +47,11 @@ public class SpringApplication {
             .profiles("insertDummyData")
             .initializers(new WaitForDatabase())
             .sources(SpringApplication.class).run(args);
+    }
+
+    @Bean
+    public Clock clock() {
+        return Clock.systemDefaultZone(); // real clock for prod
     }
 
     @Autowired

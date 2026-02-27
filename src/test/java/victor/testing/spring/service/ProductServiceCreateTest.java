@@ -24,6 +24,7 @@ import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
+import static victor.testing.tools.ClockTestUtils.fixedDateClock;
 @ActiveProfiles("test") // starts a H2 in-memory SQL DB
 //  ❤️❤️❤️❤️❤️ much better🔽
 //@SpringPostgresTestContainer // start a postgres in a docker for the duration of your tests
@@ -62,6 +64,9 @@ public class ProductServiceCreateTest {
   @Autowired
   ProductService productService;
 
+  @MockitoBean
+  Clock clock;
+
   ProductDto productDto = ProductDto.builder()
       .name("name")
       .supplierCode("S")
@@ -72,6 +77,9 @@ public class ProductServiceCreateTest {
   void createThrowsForUnsafeProduct() {
     productDto = productDto.withBarcode("barcode-unsafe");
     when(safetyApiClient.isSafe("barcode-unsafe")).thenReturn(false);
+    Clock fixedClock = fixedDateClock("2025-12-25");
+    when(clock.instant()).thenReturn(fixedClock.instant());
+    when(clock.getZone()).thenReturn(fixedClock.getZone());
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
@@ -84,6 +92,10 @@ public class ProductServiceCreateTest {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
+    // set the clock to christmas midnight 2025
+    Clock fixedClock = fixedDateClock("2025-12-25");
+    when(clock.instant()).thenReturn(fixedClock.instant());
+    when(clock.getZone()).thenReturn(fixedClock.getZone());
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
@@ -103,13 +115,13 @@ public class ProductServiceCreateTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
-
     assertThat(product.getCreatedBy()).isEqualTo("userx");// testing framework magic
     // TODO assert that product.createdDate is now
 //    assertThat(product.getCreatedDate()).isEqualTo(LocalDateTime.now()); //❌ fails due to few ms skew
-
     //✅ #1 works despite the few ms skew
-    assertThat(product.getCreatedDate()).isCloseTo(LocalDateTime.now(), byLessThan(ofSeconds(1)));
+//    assertThat(product.getCreatedDate()).isCloseTo(LocalDateTime.now(), byLessThan(ofSeconds(1)));
+    //✅ #2 inject in prod a Clock that you can then mock/fix
+    assertThat(product.getCreatedDate()).isEqualTo(LocalDateTime.of(2025, 12, 25, 0, 0));
 
   }
 
