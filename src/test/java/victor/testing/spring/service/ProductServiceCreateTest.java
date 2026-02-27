@@ -27,6 +27,7 @@ import victor.testing.spring.infra.SafetyApiClient;
 import victor.testing.spring.repo.ProductRepo;
 import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
+import victor.testing.tools.TruncateTables;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -54,7 +55,10 @@ import static victor.testing.tools.ClockTestUtils.fixedDateClock;
 //@ContextConfiguration 🤔 // boots selective class
 //@WebMvcTest // boots only @RestControllers
 //@WebFluxTest
+
+//@ClearTables ❤️picnic solution
 @SpringBootTest // boots the entire app // ± on a base class
+@TruncateTables({"product", "supplier"})
 public class ProductServiceCreateTest {
   @Autowired
   SupplierRepo supplierRepo;
@@ -74,6 +78,7 @@ public class ProductServiceCreateTest {
       .supplierCode("S")
       .category(HOME)
       .build();
+
 
   @Test
   void createThrowsForUnsafeProduct() {
@@ -120,8 +125,6 @@ public class ProductServiceCreateTest {
     assertThat(product.getCreatedDate()).isEqualTo(LocalDateTime.of(2025, 12, 25, 0, 0));
     //✅ #3 define a new CLock bean fixed on a moment in time, and  have it replace the clock bean in the actual real production
   }
-
-
 
   @Test
 //  void createOkUncategorized() {
