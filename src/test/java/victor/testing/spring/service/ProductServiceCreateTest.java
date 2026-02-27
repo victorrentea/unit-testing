@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -77,6 +78,7 @@ public class ProductServiceCreateTest {
   }
 
   @Test
+  @WithMockUser(username = "userx") // set up a SecurityContext
   void createOk() {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
@@ -87,12 +89,12 @@ public class ProductServiceCreateTest {
     var newProductId = productService.createProduct(productDto);
 
     // #2: ask the Mockito spy wrapping the real repo 🤢🤮
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture());
-    Product product = productCaptor.getValue();
+//    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
+//    verify(productRepo).save(productCaptor.capture());
+//    Product product = productCaptor.getValue();
 
     // #1 ❤️ less mocking and closer to reality: SELECT from a DB
-//    var product = productRepo.findById(newProductId).orElseThrow();
+    var product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
@@ -101,6 +103,9 @@ public class ProductServiceCreateTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("k"),
         assertArg(e-> assertThat(e.productId()).isEqualTo(newProductId)));
+    // testing framework magic
+    assertThat(product.getCreatedBy()).isEqualTo("userx");
+
 //    assertThat(product.getCreatedDate()).isToday(); // TODO can only integration-test as it requires Hibernate magic
   }
 
