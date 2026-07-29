@@ -1,5 +1,6 @@
 package victor.testing.spring.service;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import jakarta.inject.Inject;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.wiremock.spring.EnableWireMock;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
@@ -27,6 +29,7 @@ import victor.testing.spring.rest.dto.ProductDto;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
@@ -37,16 +40,17 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 //        .setX(1)
 //        .setY(2);//❤️❤️❤️ vezi lombok.config
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("test") // application-test.properties in care suprascriu prop
 @EmbeddedKafka // in mem
+@EnableWireMock // citeste automat din /src/test/resources/mappings/*.json
 // DB in teste poate fi H2(in-mem), ORA in testcontainer, pe o baza dedicata de test pt ca schema ta are 667 de tabele cu 2.4g date goala.
 public class ProductServiceCreateTest {
   @Autowired
   SupplierRepo supplierRepo;
   @Autowired
   ProductRepo productRepo;
-  @MockitoBean // inlocuieste in app spring pornita beanul real cu un Mockito.mock pe care-l injecteaza si aici sa poti sa-l inveti ce vrei sa faca
-  SafetyApiClient safetyApiClient;
+//  @MockitoBean // inlocuieste in app spring pornita beanul real cu un Mockito.mock pe care-l injecteaza si aici sa poti sa-l inveti ce vrei sa faca
+//  SafetyApiClient safetyApiClient;
   @MockitoBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
   @Inject
@@ -60,12 +64,24 @@ public class ProductServiceCreateTest {
 
   @Test
   void createThrowsForUnsafeProduct() {
-    productDto = productDto.withBarcode("barcode-unsafe");
-    when(safetyApiClient.isSafe("barcode-unsafe")).thenReturn(false);
+    stubFor(get(urlEqualTo("/product/barcode-unsafe-dsl/safety"))
+        .willReturn(okJson("""
+            {
+              "detailsUrl": "http://details.url/a/b",
+              "category": "%s"
+            }
+            """.formatted("UNSAFE"))));
+
+    // barcode diferit de cel din .json, ca sa fiu sigur ca se foloseste stubul meu
+    productDto = productDto.withBarcode("barcode-unsafe-dsl");
 
     assertThatThrownBy(() -> productService.createProduct(productDto))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Product is not safe!");
+
+    // Verific ca apelul HTTP asteptat chiar a plecat spre Safety API.
+    // Prefix-ul 'WireMock.' e obligatoriu: 'verify' e importat static si din Mockito, si din WireMock.
+    WireMock.verify(getRequestedFor(urlEqualTo("/product/barcode-unsafe-dsl/safety")));
   }
 
   @Test
@@ -73,7 +89,8 @@ public class ProductServiceCreateTest {
   void createOk() {
     supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
-    when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
+//    when(safetyApiClient.isSafe("barcode-safe"))
+//        .thenReturn(true);
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
