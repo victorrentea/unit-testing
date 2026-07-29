@@ -1,12 +1,20 @@
 package victor.testing.spring.service;
 
+import jakarta.inject.Inject;
+import lombok.Data;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import victor.testing.spring.entity.Product;
 import victor.testing.spring.entity.Supplier;
 import victor.testing.spring.infra.SafetyApiClient;
@@ -24,17 +32,23 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
-@ExtendWith(MockitoExtension.class)
+//    var dto = new DtoBun()
+//        .setX(1)
+//        .setY(2);//❤️❤️❤️ vezi lombok.config
+@SpringBootTest
+@ActiveProfiles("test")
+@EmbeddedKafka // in mem
+// DB in teste poate fi H2(in-mem), ORA in testcontainer, pe o baza dedicata de test pt ca schema ta are 667 de tabele cu 2.4g date goala.
 public class ProductServiceCreateTest {
-  @Mock
+  @MockitoBean
   SupplierRepo supplierRepo;
-  @Mock
+  @MockitoBean
   ProductRepo productRepo;
-  @Mock
+  @MockitoBean // inlocuieste in app spring pornita beanul real cu un Mockito.mock pe care-l injecteaza si aici sa poti sa-l inveti ce vrei sa faca
   SafetyApiClient safetyApiClient;
-  @Mock
+  @MockitoBean
   KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
-  @InjectMocks
+  @Inject
   ProductService productService;
 
   ProductDto productDto = ProductDto.builder()

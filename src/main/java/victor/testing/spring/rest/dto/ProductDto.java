@@ -10,7 +10,7 @@ import victor.testing.spring.entity.ProductCategory;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@With
+@With // with-eri, set-teri,get-teri
 @Builder
 public record ProductDto(
 		Long id,
