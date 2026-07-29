@@ -8,11 +8,13 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import victor.testing.spring.entity.Product;
@@ -23,13 +25,12 @@ import victor.testing.spring.repo.SupplierRepo;
 import victor.testing.spring.rest.dto.ProductDto;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 
 //    var dto = new DtoBun()
@@ -40,9 +41,9 @@ import static victor.testing.spring.entity.ProductCategory.HOME;
 @EmbeddedKafka // in mem
 // DB in teste poate fi H2(in-mem), ORA in testcontainer, pe o baza dedicata de test pt ca schema ta are 667 de tabele cu 2.4g date goala.
 public class ProductServiceCreateTest {
-  @MockitoBean
+  @Autowired
   SupplierRepo supplierRepo;
-  @MockitoBean
+  @Autowired
   ProductRepo productRepo;
   @MockitoBean // inlocuieste in app spring pornita beanul real cu un Mockito.mock pe care-l injecteaza si aici sa poti sa-l inveti ce vrei sa faca
   SafetyApiClient safetyApiClient;
@@ -68,18 +69,16 @@ public class ProductServiceCreateTest {
   }
 
   @Test
+  @WithMockUser(username = "john")
   void createOk() {
-    when(supplierRepo.findByCode("S")).thenReturn(Optional.of(new Supplier().setCode("S")));
+    supplierRepo.save(new Supplier().setCode("S"));
     productDto = productDto.withBarcode("barcode-safe");
     when(safetyApiClient.isSafe("barcode-safe")).thenReturn(true);
-    when(productRepo.save(any())).thenReturn(new Product().setId(123L));
 
     // WHEN
     var newProductId = productService.createProduct(productDto);
 
-    ArgumentCaptor<Product> productCaptor = forClass(Product.class);
-    verify(productRepo).save(productCaptor.capture()); // as the mock the actual param value
-    Product product = productCaptor.getValue();
+    Product product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getName()).isEqualTo("name");
     assertThat(product.getBarcode()).isEqualTo("barcode-safe");
     assertThat(product.getSupplier().getCode()).isEqualTo("S");
@@ -88,8 +87,11 @@ public class ProductServiceCreateTest {
         eq(ProductService.PRODUCT_CREATED_TOPIC),
         eq("key"),
         assertArg(event -> assertThat(event.productId()).isEqualTo(newProductId)));
-//    assertThat(product.getCreatedDate()).isToday(); // TODO more precise ways? can I control time?
-//    assertThat(product.getCreatedBy()).isToday("john"); // TODO test framework magic
+    assertThat(product.getCreatedBy()).isEqualTo("john"); // TODO test framework magic
+    // Product.createdDate e LocalDate (fara ora), deci nu am ce compara la nivel de secunde:
+    // within(4, SECONDS) arunca UnsupportedTemporalTypeException. Ca sa pot verifica
+    // "creat acum max 4 secunde" ar trebui ca entitatea sa tina LocalDateTime/Instant.
+    assertThat(product.getCreatedDate()).isToday();
   }
 
 }
