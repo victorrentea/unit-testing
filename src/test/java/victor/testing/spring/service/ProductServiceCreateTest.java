@@ -4,6 +4,8 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import jakarta.inject.Inject;
 import lombok.Data;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -17,9 +19,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.wiremock.spring.EnableWireMock;
 import victor.testing.spring.IntegrationTest;
@@ -40,10 +44,21 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static victor.testing.spring.entity.ProductCategory.HOME;
 import static victor.testing.spring.entity.ProductCategory.UNCATEGORIZED;
 
-@Transactional // face ROLLBACK automat pe @Test
+// NICIODATA PE GIT SA NU APARA:
+//@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
+// restarteaza Springu(10-15s) dupa fiecare @Test // fura luni din viata colegilor / agentilor; lungeste buildu
+// distruge H2 in mem
+
+@Transactional // #1 face ROLLBACK automat pe @Test❤️❤️❤️
+  // 🙁 @Transactional(REQ_NEW/NOT_SUPP), @Asymc
+  // 🙁 pt ca nu se face COMMIT, unele checkuri ai putea sa nu le atingi
+
+//@Sql(value = "classpath:/sql/cleanup.sql",executionPhase = BEFORE_TEST_METHOD) // #3
 public class ProductServiceCreateTest
       extends IntegrationTest {
   @Autowired
@@ -52,6 +67,16 @@ public class ProductServiceCreateTest
   ProductRepo productRepo;
   @Inject
   ProductService productService;
+
+//  @AfterEach // #
+//  @BeforeEach
+  public void cleanup() { // curatare responsabila
+    productRepo.deleteAll();
+    supplierRepo.deleteAll();
+    // cache.clear
+    // kafka.drain
+    // mongo.delete
+  }
 
   ProductDto productDto = ProductDto.builder()
       .name("name")
@@ -94,10 +119,10 @@ public class ProductServiceCreateTest
     assertThat(product.getCategory()).isEqualTo(HOME);
     assertThat(product.getCreatedBy()).isEqualTo("john"); // TODO test framework magic
     assertThat(product.getCreatedDate()).isToday();
-    var record =
+    var recordReceivedFromKafka =
         productCreatedEventTestListener.blockingReceive(Duration.ofSeconds(1));
-    assertThat(record.value().productId()).isEqualTo(newProductId);
-    assertThat(record.key()).isEqualTo("key");
+    assertThat(recordReceivedFromKafka.value().productId()).isEqualTo(newProductId);
+    assertThat(recordReceivedFromKafka.key()).isEqualTo("key");
   }
 
   @Test
@@ -111,6 +136,8 @@ public class ProductServiceCreateTest
 
     Product product = productRepo.findById(newProductId).orElseThrow();
     assertThat(product.getCategory()).isEqualTo(UNCATEGORIZED); // 👍
+    productCreatedEventTestListener.blockingReceive(Duration.ofSeconds(2));
+    // sa drenez coada. sa nu las mesaje neconsumate
   }
 
 }
