@@ -38,6 +38,7 @@ Feature: Records Search
       | b          |             | false             | false           |           4 |
       | b          |             | false             | true            |           4 |
       | b          |           3 | false             | false           |           3 |
+      | b          |           3 | false             | false           |           3 |
       | b          |           3 | false             | true            |           3 |
       | b          |           3 | true              | false           |           3 |
       | b          |           3 | true              | true            |           3 |

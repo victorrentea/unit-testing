@@ -1,5 +1,6 @@
 [
   {
+    "//": "Missing createdBy field",
     "name": "Chair",
     "barcode": "123",
     "category": "HOME",

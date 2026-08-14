@@ -51,7 +51,7 @@ class CreateCustomerShould {
   }
 
   @Nested
-  class FailIf {
+  class FailsIf {
     @Test
     void missingName() {
       aCustomer.setName(null);
@@ -114,7 +114,7 @@ class CreateCustomerShould {
     }
 
     @Nested
-    class WithDiscountedCountry {
+    class IfItHasDiscountedCountries {
       @BeforeEach
       final void setup() {
         aCustomer.getAddress().setCountry(Country.ROU);
@@ -122,7 +122,7 @@ class CreateCustomerShould {
 
       @ParameterizedTest(name = "for {0} category")
       @ValueSource(strings = {"HOME", "ELECTRONICS"})
-      void receivesCoupon(ProductCategory category) {
+      void isGrantedTheCoupon(ProductCategory category) {
         customerFacade.createCustomer(aCustomer);
 
         assertThat(aCustomer.getCoupons())

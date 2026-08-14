@@ -55,6 +55,12 @@ public class ProductApiEpicITest extends IntegrationTest {
     SafetyApiWireMock.stubResponse("barcode-safe", "SAFE");
     api.createProduct(productDto.withName("Tree"));
   }
+//  @Test
+//  void step10_name_isrequired() {
+//    SafetyApiWireMock.stubResponse("barcode-safe", "SAFE");
+//    attb ( () -> api.createProduct(productDto.withName(null)))
+//            .expectException
+//  }
 
   @Test
   void step20_search() {
