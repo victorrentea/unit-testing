@@ -1,7 +1,9 @@
 package victor.testing.spring.export;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +32,15 @@ import static org.mockito.Mockito.when;
 @Slf4j
 @ExtendWith(MockitoExtension.class)
 public class ProductExporterTest extends FileApprovalTestBase {
-  public static final ObjectMapper jackson = new ObjectMapper()
-      .registerModule(new JavaTimeModule())
-      .registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES)) // allows to even remove default private constructor!
-      ;
+  // JSON5 dialect: comments, trailing commas, unquoted/single-quoted keys => readable test fixtures
+  public static final ObjectMapper jackson = JsonMapper.builder()
+      .enable(JsonReadFeature.ALLOW_JAVA_COMMENTS)
+      .enable(JsonReadFeature.ALLOW_TRAILING_COMMA)
+      .enable(JsonReadFeature.ALLOW_UNQUOTED_FIELD_NAMES)
+      .enable(JsonReadFeature.ALLOW_SINGLE_QUOTES)
+      .addModule(new JavaTimeModule())
+      .addModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES)) // allows to even remove default private constructor!
+      .build();
   @Mock
   private ProductRepo personRepo;
 
@@ -41,8 +48,8 @@ public class ProductExporterTest extends FileApprovalTestBase {
   private ProductExporter exporter;
 
   public static List<FileTestCase> testData() throws IOException {
-    Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json", ".out.csv");
-    return scanForFileTestCases("classpath:/test-cases/export/*.in.json", inToOutFileName);
+    Function<String, String> inToOutFileName = inputFileName -> inputFileName.replace(".in.json5", ".out.csv");
+    return scanForFileTestCases("classpath:/test-cases/export/*.in.json5", inToOutFileName);
   }
 
   @ParameterizedTest(name = "{0}")
